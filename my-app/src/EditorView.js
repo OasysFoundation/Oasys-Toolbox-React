@@ -13,6 +13,7 @@ class EditorView extends Component {
 
   handleChange(value) {
     this.setState({ text: value })
+    this.props.funEditSlide(value);
   }
 
   render() {

@@ -20,7 +20,8 @@ class App extends Component {
     super(props);
 
     this.state = {
-      slides: [createSlide("Slide 1", "1",{"ops":[{"insert":"This is the editor. Write your content here. \n"}]},"quill")],
+      //slides: [createSlide("Slide 1", "1",{ops:[{insert:"This is the editor. Write your content here. \n"}]},"quill")],
+      slides: [createSlide("Slide 1", "1","This is the editor. Write your content here.","quill")],
       selectedSlideIndex: 0
     }
 
@@ -31,7 +32,7 @@ class App extends Component {
 
   onAddNewSlide() {
     const slides = this.state.slides;
-    const newSlideContent = {"ops":[{"insert":"This is the beginning of the exiting journey of slide no " + this.state.slides.length + "\n"}]};
+    const newSlideContent = {ops:[{insert:"This is the beginning of the exiting journey of slide no " + this.state.slides.length + "\n"}]};
     slides.push(createSlide("New Slide", Math.random().toString(36), newSlideContent, "quill"));
     this.setState({
       slides: slides,
@@ -55,6 +56,14 @@ class App extends Component {
     });
   }
 
+  onEditSlide(content) {
+    let slides = this.state.slides;
+    slides[this.selectedSlideIndex] = content;
+    this.setState({
+      slides: slides,
+    });
+  }
+
   render() {
     return (
       <div>
@@ -66,7 +75,8 @@ class App extends Component {
           <SlidesThumbnailView slides={this.state.slides} onAddNewSlide={this.onAddNewSlide} onAddNewQuiz={this.onAddNewQuiz} selectedSlideIndex={this.state.selectedSlideIndex} onChangedSlide={this.onChangedSlide}/>
         </Grid>
         <Grid item xs={9}>
-            <EditorView slide={this.state.slides[this.state.selectedSlideIndex]}/>
+            <EditorView slide = {this.state.slides[this.state.selectedSlideIndex]}
+                        funEditSlide = {this.onEditSlide.bind(this)} />
         </Grid>
         </Grid>
       </div>
