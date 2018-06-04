@@ -11,6 +11,7 @@ class EditorView extends Component {
     this.handleChange = this.handleChange.bind(this)
   }
 
+  // this is where the state of the editor is updated, but only one letter is shown?
   handleChange(value) {
     this.setState({ text: value })
   }

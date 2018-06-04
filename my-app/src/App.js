@@ -50,6 +50,7 @@ class App extends Component {
   }
 
   onChangedSlide(newSlideIndex) {
+    // this is where the slide state is changed, but it is not passed on to the quill component somehow.
     this.setState({
       selectedSlideIndex: newSlideIndex
     });
@@ -66,6 +67,8 @@ class App extends Component {
           <SlidesThumbnailView slides={this.state.slides} onAddNewSlide={this.onAddNewSlide} onAddNewQuiz={this.onAddNewQuiz} selectedSlideIndex={this.state.selectedSlideIndex} onChangedSlide={this.onChangedSlide}/>
         </Grid>
         <Grid item xs={9}>
+            // the selected slide index state is used here to I hope it would get updated on change, but the editor does not reflect that
+            // also here we need to integrate the <Quiz> component and hide/unhide Editor/Quiz depending on this.state.slides[this.state.selectedSlideIndex].type
             <EditorView slide={this.state.slides[this.state.selectedSlideIndex]}/>
         </Grid>
         </Grid>
