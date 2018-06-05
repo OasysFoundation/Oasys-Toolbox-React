@@ -37,7 +37,7 @@ class Editor extends Component {
   onAddNewSlide() {
     let slides = this.state.slides;
     //const newSlideContent = {ops:[{insert:"This is the beginning of the exiting journey of slide no " + this.state.slides.length + "\n"}]};
-    const newSlideContent = "This is the beginning of the exiting journey of slide no " + this.state.slides.length;
+    const newSlideContent = "This is the beginning of the exiting journey of slide no " + (this.state.slides.length+1);
     slides.push(createSlide("Slide " + (slides.length+1), Math.random().toString(36), newSlideContent, "quill"));
     const newSlideIndex = slides.length -1;
     this.setState({
@@ -48,15 +48,22 @@ class Editor extends Component {
   }
 
   onAddNewQuiz() {
-    const slides = this.state.slides;
-    const newSlideContent = {};
-    slides.push(createSlide("Slide " + (slides.length+1), Math.random().toString(36), newSlideContent, "quiz"));
+    let slides = this.state.slides;
+    const defaultQuizContent = {
+      "question": "",
+      "answers": [{"option": "", "correct": false}]
+    };
+    const newSlide = createSlide("Slide " + (slides.length+1), Math.random().toString(36), defaultQuizContent, "quiz");
+    slides.push(newSlide);
     const newSlideIndex = slides.length -1;
     this.setState({
       slides: slides,
       selectedSlideIndex: newSlideIndex,
       isQuizSlide: this.isQuizSlide(newSlideIndex),
     });
+    console.log(this.state);
+    console.log(slides);
+    console.log(newSlide);
   }
 
   isQuizSlide(newSlideIndex){
@@ -82,6 +89,14 @@ class Editor extends Component {
     });
   }
 
+  onQuizChange(content){
+    let slides = this.state.slides;
+    slides[this.state.selectedSlideIndex].content = content;
+    this.setState({
+      slides: slides,
+    });
+  }
+
   render() {
     return (
       <div>
@@ -99,7 +114,8 @@ class Editor extends Component {
         <Grid item xs={9}>
             <SlideEditor slide = {this.state.slides[this.state.selectedSlideIndex]}
                          funEditSlide = {this.onEditSlide.bind(this)}
-                         isQuizSlide = {this.state.isQuizSlide} />
+                         isQuizSlide = {this.state.isQuizSlide}
+                         onQuizChange = {this.onQuizChange.bind(this)} />
         </Grid>
         </Grid>
       </div>

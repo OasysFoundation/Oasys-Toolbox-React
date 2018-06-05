@@ -9,6 +9,7 @@ class SlideEditor extends Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
+    this.onQuizChange = this.props.onQuizChange.bind(this);
   }
 
   handleChange(value) {
@@ -19,7 +20,8 @@ class SlideEditor extends Component {
     return (
       <div>
         {this.props.isQuizSlide ? ( // ternary beginning
-          <Quiz />
+          <Quiz value={this.props.slide.content}
+                onQuizChange={this.onQuizChange} />
         ) : ( // ternary middle
           <ReactQuill value={this.props.slide.content}
                       onChange={this.handleChange} /> 
