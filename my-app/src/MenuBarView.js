@@ -13,6 +13,7 @@ class MenuBarView extends Component {
 
   render() {
     return (
+    	// these buttons should trigger the load / save functions (probably no VIEW components, but only functions)
     	<div>
     	<Button variant="raised">
 	        <SaveIcon />

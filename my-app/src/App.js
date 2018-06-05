@@ -55,6 +55,7 @@ class App extends Component {
   }
 
   onChangedSlide(newSlideIndex) {
+    // this is where the slide state is changed, but it is not passed on to the quill component somehow.
     this.setState({
       selectedSlideIndex: newSlideIndex
     });
