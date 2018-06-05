@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-import Editor from './Editor';
+import Quiz from './Quiz';
 import './App.css';
 
 class App extends Component {
   render() {
     return (
-      <Editor/>
+    	<Quiz/>
     );
   }
 }
 
 
-export default App
+
+export default App;

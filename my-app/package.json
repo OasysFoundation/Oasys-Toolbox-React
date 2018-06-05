@@ -10,6 +10,7 @@
     "react-dom": "^16.4.0",
     "react-quill": "^1.2.7",
     "react-scripts": "1.1.4",
+    "react-sortable-hoc": "^0.8.3",
     "slate": "^0.33.6",
     "slate-react": "^0.12.6"
   },
