@@ -70,10 +70,10 @@ class SlidesThumbnailView extends Component {
             <AddIcon />
             <ListItemText primary="New Quiz" />
           </ListItem>
-          <ListItem button>
+          {/* ListItem button>
             <CallSplitIcon />
             <ListItemText primary="New Split" />
-          </ListItem>
+          </ListItem> */}
           </List>
        </section>
       </div>
