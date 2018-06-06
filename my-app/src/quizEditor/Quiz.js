@@ -54,12 +54,15 @@ let domStyles = {
     },
     wrapper: {},
     questionPreview: {
-      fontWeight: 'strong',
+      fontWeight: 'bold',
+      fontsize: '150%',
     },
     answerListPreview: {
       listStyleType: 'none',
     },
-    answerPreview: {},
+    answerPreview: {
+      marginTop: '10px',
+    },
 }
 
 // Question component --------------------------------------------------------------
@@ -218,9 +221,9 @@ class Quiz extends Component {
           {this.state.preview ? ( // ternary beginning
             <div>
               <p style={domStyles.questionPreview}>{this.props.value.question}</p>
-              <ul style={domStyles.answerListPreview}>
-                {this.props.value.answers.map((a) => <li style={domStyles.answerPreview}> {a.option} </li>)}
-              </ul>
+              { this.props.value.answers.map((a) => 
+                <div><input type="radio" style={domStyles.answerListPreview} /> {a.option} <br /></div>
+              )}
             </div>
           ) : ( // ternary middle
             <div>
@@ -250,10 +253,8 @@ class Quiz extends Component {
             </div> // ternary end
           ) } 
       </div>
-
-        
-      )
-  }
-}
+      ) // end return
+  } // end render
+} // end Quiz component
 
 export default Quiz

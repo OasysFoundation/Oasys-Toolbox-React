@@ -111,7 +111,7 @@ class Editor extends Component {
                                selectedSlideIndex={this.state.selectedSlideIndex} 
                                onChangedSlide={this.onChangedSlide}/>
         </Grid>
-        <Grid item xs={9}>
+        <Grid item xs={7}>
             <SlideEditor slide = {this.state.slides[this.state.selectedSlideIndex]}
                          funEditSlide = {this.onEditSlide.bind(this)}
                          isQuizSlide = {this.state.isQuizSlide}

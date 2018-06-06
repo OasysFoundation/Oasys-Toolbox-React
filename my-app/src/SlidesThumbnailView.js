@@ -15,7 +15,16 @@ const styles = theme => ({
     maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
   },
+  selected: {
+    backgroundColor: 'red',
+  }
 });
+
+let domStyles = {
+    selected: {
+      backgroundColor: '#ddeedd',
+    }
+}
 
 function iconForSlideType(type) {
     if (type == "quiz") {
@@ -46,16 +55,17 @@ class SlidesThumbnailView extends Component {
   didSelectAddNewQuiz() {
     this.props.onAddNewQuiz();
   }
-
+  // 
   render() {
-    
     return (
       <div onClick={this.props.onClick}> 
         <section> 
           <List component="nav">
 
           {this.props.slides.map((element, index) => 
-            <ListItem button onClick={this.didSelectMenuItem.bind(this, index)}>
+            <ListItem button onClick={this.didSelectMenuItem.bind(this, index)}
+                             style={(index===this.props.selectedSlideIndex) ? domStyles.selected : null}>
+
               {iconForSlideType(element.type)}
               <ListItemText primary={element.name} />
             </ListItem>
