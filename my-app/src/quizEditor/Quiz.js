@@ -247,8 +247,7 @@ class Quiz extends Component {
                 <SortableAnswerList items={this.props.value.answers} 
                               onSortEnd={this.onSortEnd} 
                               useDragHandle={true} 
-                              handlers={answerHandlers}
-                />
+                              handlers={answerHandlers} />
               </div>
             </div> // ternary end
           ) } 

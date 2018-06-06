@@ -32,6 +32,7 @@ class Editor extends Component {
     this.onAddNewSlide = this.onAddNewSlide.bind(this);
     this.onAddNewQuiz = this.onAddNewQuiz.bind(this);
     this.onChangedSlide = this.onChangedSlide.bind(this);
+    this.onSlideOrderChange = this.onSlideOrderChange.bind(this);
     this.save = this.save.bind(this);
   }
 
@@ -62,9 +63,6 @@ class Editor extends Component {
       selectedSlideIndex: newSlideIndex,
       isQuizSlide: this.isQuizSlide(newSlideIndex),
     });
-    console.log(this.state);
-    console.log(slides);
-    console.log(newSlide);
   }
 
   isQuizSlide(newSlideIndex){
@@ -98,6 +96,15 @@ class Editor extends Component {
     });
   }
 
+  onSlideOrderChange(slides){
+    this.setState({
+      slides: slides,
+    });
+    if (this.state.selectedSlideIndex >= this.state.slides.length) {
+      this.onChangedSlide(this.state.slides.length-1);
+    }
+  }
+
   save() {
     var json = JSON.stringify(this.state.slides);
     console.log(json);
@@ -115,7 +122,8 @@ class Editor extends Component {
                                onAddNewSlide={this.onAddNewSlide} 
                                onAddNewQuiz={this.onAddNewQuiz} 
                                selectedSlideIndex={this.state.selectedSlideIndex} 
-                               onChangedSlide={this.onChangedSlide} />
+                               onChangedSlide={this.onChangedSlide} 
+                               onSlideOrderChange = {this.onSlideOrderChange} />
         </Grid>
         <Grid item xs={7}>
             <SlideEditor slide = {this.state.slides[this.state.selectedSlideIndex]}
