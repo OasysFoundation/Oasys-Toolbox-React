@@ -12,6 +12,7 @@ import {
   arrayMove,
 } from 'react-sortable-hoc';
 
+// internationalization ------------------------------------------------------------
 const STR_QUIZ_QUESTIONFIELD_EN = 'Formulate a question';
 const STR_QUIZ_ANSWERFIELD_EN = 'Formulate an answer';
 const STR_QUIZ_HEADER_EN = 'Quiz editor';
@@ -21,15 +22,13 @@ const STR_QUIZ_ANSWERWRONG_EN = 'wrong';
 const STR_EDIT_EN = 'edit';
 const STR_PREVIEW_EN = 'preview';
 
+// styles --------------------------------------------------------------------------
 const paperElevation = 4;
 
 const compStyles = theme => ({
-  button: {
-  },
-  buttonPreview: {
-  },
-  dragHandle: {
-  },
+  button: {},
+  buttonPreview: {},
+  dragHandle: {},
 });
 
 let domStyles = {
@@ -55,46 +54,47 @@ let domStyles = {
       flexDirection: 'row', 
       alignItems: 'center',
     },
-    wrapper: {
-    },
+    wrapper: {},
     questionPreview: {
       fontWeight: 'strong',
     },
     answerListPreview: {
       listStyleType: 'none',
     },
-    answerPreview: {
-    },
+    answerPreview: {},
 }
 
+// Question component --------------------------------------------------------------
 class Question extends Component {
   constructor(props) {
     super(props);
-    this.handleChange = this.handleChange.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
   render() {
     return (
       <textarea style={domStyles.questionField} 
                 value={this.props.value} 
-                onChange={this.handleChange} />
+                onChange={this.onChange} />
     )
   }
 
-  handleChange(event) {
-    this.props.funHandleChangeQuestion(event.target.value);
-  }
+  // report change to Quiz component
+  onChange(event) { this.props.onChangeQuestion(event.target.value); }
 }
 
+
+// Answer component --------------------------------------------------------------
+// DragHandle is the component used to drag answers to new places
 const DragHandle = SortableHandle(() => <DragHandleIcon className={compStyles.dragHandle} />);
 
 class Answer extends Component {
 
   constructor(props) {
     super(props);
-    this.handleSelfDestruct = this.handleSelfDestruct.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleChangeCorrect = this.handleChangeCorrect.bind(this);
+    this.onSelfDestruct = this.onSelfDestruct.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.onChangeCorrect = this.onChangeCorrect.bind(this);
   }
 
   render() {
@@ -104,144 +104,116 @@ class Answer extends Component {
           <div style={domStyles.answerWrap}>
             <DragHandle />
             <textarea style={domStyles.answerField} 
-                      onChange={this.handleChange} 
+                      onChange={this.onChange} 
                       value={this.props.value.option} />
-            <select onChange={this.handleChangeCorrect} value={this.props.value.correct ? "1" : "0"}>
+            <select onChange={this.onChangeCorrect} value={this.props.value.correct ? "1" : "0"}>
               <option value="1">{STR_QUIZ_ANSWERCORRECT_EN}</option>
               <option value="0">{STR_QUIZ_ANSWERWRONG_EN}</option>
             </select>
-            <DeleteIcon onClick={this.handleSelfDestruct}  />
+            <DeleteIcon onClick={this.onSelfDestruct}  />
           </div>
         </Paper>
       </div>
       )
   }
 
-  handleSelfDestruct(){
-    // call Quiz.handleRemoveAnswer
-    this.props.funHandleDestroyAnswer(this.props.index);
-  }
-
-  handleChange(event) {
-    // call Quiz.handleChangeAnswer
-    this.props.funHandleChangeAnswer(this.props.index, event.target.value);
-  }
-
-  handleChangeCorrect(event) {
-    // call Quiz.handleChangeAnswerCorrect
-    this.props.funHandleChangeAnswerCorrect(this.props.index, event.target.value);
-  }
+  // report changes to Quiz component
+  onSelfDestruct(){ this.props.handlers.onRemoveAnswer(this.props.index); }
+  onChange(event) { this.props.handlers.onChangeAnswer(this.props.index, event.target.value); }
+  onChangeCorrect(event) { this.props.handlers.onChangeAnswerCorrect(this.props.index, event.target.value); }
 
 }
 
-// this wraps Answer with SortableElement. As a result, 
-// SortableAnswer is a sortable Answer component.
-// the prop index gets silently consumed by sortableelement; easiest workaround
-// is probably to define another prop called indexCopy
+
+// this wraps Answer with SortableElement.
+// the prop index gets silently consumed by SortableElement, but we need it in Answer to report changes
+// to the Quiz component. A workaround is to pass index value twice (as index and as indexCopy).
 const SortableAnswer = SortableElement(
-  (props => <Answer index={props.indexCopy} 
-                   value={props.value} 
-                   funHandleDestroyAnswer={props.funHandleDestroyAnswer} 
-                   funHandleChangeAnswer={props.funHandleChangeAnswer}
-                   funHandleChangeAnswerCorrect={props.funHandleChangeAnswerCorrect} />)
+  (props => <Answer index={props.indexCopy} value={props.value}  handlers={props.handlers} />)
 );
 
 const SortableAnswerList = SortableContainer(props =>
-  <div>
-    {props.items.map((value, index) => 
-      <SortableAnswer key={`item-${index}`} 
-                      index={index} 
-                      indexCopy={index} 
-                      value={value} 
-                      funHandleDestroyAnswer={props.funHandleDestroyAnswer}
-                      funHandleChangeAnswer={props.funHandleChangeAnswer}
-                      funHandleChangeAnswerCorrect={props.funHandleChangeAnswerCorrect} />
-    )}
-  </div>  
+  <div> {props.items.map((value, index) => 
+      <SortableAnswer key={`item-${index}`} value={value} handlers={props.handlers}
+                      index={index} indexCopy={index} />
+  )} </div>  
 );
 
+
+// Quiz component --------------------------------------------------------------
 class Quiz extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      preview: false,
-    }
-    this.handleRemoveAnswer = this.handleRemoveAnswer.bind(this);
-    this.handleChangeAnswer = this.handleChangeAnswer.bind(this);
-    this.handleChangeAnswerCorrect = this.handleChangeAnswerCorrect.bind(this);
-    this.handleChangeQuestion = this.handleChangeQuestion.bind(this);
+    this.state = { preview: false };
+    const handlers = ['onRemoveAnswer', 'onChangeAnswer', 'onChangeAnswerCorrect', 'onChangeQuestion'];
+    for (let i in handlers) { this[handlers[i]] = this[handlers[i]].bind(this) };
+
   }
 
-  handleChangeQuestion(option) {
+  onChangeQuestion(option) {
     this.props.value.question = option;
     this.submitQuizChange();
   }
 
-  handleAddAnswer() {
-    let a = this.props.value.answers.slice();
-    a = a.concat({'option': STR_QUIZ_ANSWERFIELD_EN, 'correct': true})
-    this.props.value.answers = a;
+  onAddAnswer() {
+    this.props.value.answers = this.props.value.answers.concat({'option': STR_QUIZ_ANSWERFIELD_EN, 'correct': true})
     this.submitQuizChange();
   }
 
-  handleChangeAnswer(index, option) {
-    let a = this.props.value.answers.slice();
-    a[index].option = option;
-    this.props.value.answers = a;
+  onChangeAnswer(index, option) {
+    this.props.value.answers[index].option = option;
     this.submitQuizChange();
   }
 
-  handleChangeAnswerCorrect(index, correct) {
-    let a = this.props.value.answers.slice();
+  onChangeAnswerCorrect(index, correct) {
     if (correct === "1") {
-      a[index].correct = true;
+      this.props.value.answers[index].correct = true;
     } else {
-      a[index].correct = false;
+      this.props.value.answers[index].correct = false;
     }
-    this.props.value.answers = a;
     this.submitQuizChange();
   }
 
-  handleRemoveAnswer(index) {
-    let a = this.props.value.answers.slice();
-    a.splice(index, 1);
-    this.props.value.answers = a;
+  onRemoveAnswer(index) {
+    this.props.value.answers.splice(index, 1);
     this.submitQuizChange();
   }
 
-  handlePreview() {
+  onPreview() {
     this.setState({
       preview: !this.state.preview,
     });
   }
 
+  // report change to SlideEditor component
   submitQuizChange() {
-    const answers = this.props.value.answers.map(x => {
-        let y = {};
-        y["option"] = x.option;
-        y["correct"] = x.correct;
-        return y;
-    });
-    const json = {
+    const answers = this.props.value.answers.map(x => ({"option": x.option, "correct": x.correct}));
+    const obj = {
       "question": this.props.value.question,
       "answers":  answers
     };
-    this.props.onQuizChange(json);
+    this.props.onQuizChange(obj);
   }
 
+  // rearrange answers
   onSortEnd = (props) => {
     this.props.value.answers = arrayMove(this.props.value.answers, props.oldIndex, props.newIndex);
     this.submitQuizChange();
   };
 
   render() {
+    const answerHandlers = {
+      onRemoveAnswer: this.onRemoveAnswer,
+      onChangeAnswer: this.onChangeAnswer,
+      onChangeAnswerCorrect: this.onChangeAnswerCorrect
+    };
       return (
         <div style={domStyles.wrapper}>
           <div style={{textAlign: 'right'}}>
             <Button variant="raised" color="secondary" 
                   className={compStyles.buttonPreview} 
-                  onClick={this.handlePreview.bind(this)}>
+                  onClick={this.onPreview.bind(this)}>
                {this.state.preview ? STR_EDIT_EN : STR_PREVIEW_EN}
             </Button>
           </div>
@@ -262,21 +234,19 @@ class Quiz extends Component {
               </Typography>
 
               <Question value={this.props.value.question} 
-                        funHandleChangeQuestion={this.handleChangeQuestion}/>
+                        onChangeQuestion={this.onChangeQuestion}/>
 
               <div style={domStyles.answerList}>
                 <Button variant="raised" color="primary" aria-label="add" 
                       className={compStyles.button} 
-                      onClick={this.handleAddAnswer.bind(this)}>
+                      onClick={this.onAddAnswer.bind(this)}>
                    Add answer
                   <AddIcon />
                 </Button>
                 <SortableAnswerList items={this.props.value.answers} 
                               onSortEnd={this.onSortEnd} 
                               useDragHandle={true} 
-                              funHandleDestroyAnswer={this.handleRemoveAnswer}
-                              funHandleChangeAnswer={this.handleChangeAnswer}
-                              funHandleChangeAnswerCorrect={this.handleChangeAnswerCorrect}
+                              handlers={answerHandlers}
                 />
               </div>
             </div> // ternary end

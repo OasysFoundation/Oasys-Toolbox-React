@@ -24,7 +24,7 @@ class SlideEditor extends Component {
                 onQuizChange={this.onQuizChange} />
         ) : ( // ternary middle
           <ReactQuill value={this.props.slide.content}
-                      onChange={this.handleChange} /> 
+                      onChange={this.handleChange}  /> 
         ) } 
       </div>
     )
