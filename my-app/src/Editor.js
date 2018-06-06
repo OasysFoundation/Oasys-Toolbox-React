@@ -32,6 +32,7 @@ class Editor extends Component {
     this.onAddNewSlide = this.onAddNewSlide.bind(this);
     this.onAddNewQuiz = this.onAddNewQuiz.bind(this);
     this.onChangedSlide = this.onChangedSlide.bind(this);
+    this.save = this.save.bind(this);
   }
 
   onAddNewSlide() {
@@ -97,19 +98,24 @@ class Editor extends Component {
     });
   }
 
+  save() {
+    var json = JSON.stringify(this.state.slides);
+    console.log(json);
+  }
+
   render() {
     return (
       <div>
         <Grid container spacing={24}>
         <Grid item xs={12}>
-          <MenuBarView />
+          <MenuBarView onSave={this.save} />
         </Grid>
         <Grid item xs={3}>
           <SlidesThumbnailView slides={this.state.slides} 
                                onAddNewSlide={this.onAddNewSlide} 
                                onAddNewQuiz={this.onAddNewQuiz} 
                                selectedSlideIndex={this.state.selectedSlideIndex} 
-                               onChangedSlide={this.onChangedSlide}/>
+                               onChangedSlide={this.onChangedSlide} />
         </Grid>
         <Grid item xs={7}>
             <SlideEditor slide = {this.state.slides[this.state.selectedSlideIndex]}

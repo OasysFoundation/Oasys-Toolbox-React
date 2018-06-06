@@ -15,7 +15,7 @@ class MenuBarView extends Component {
     return (
     	// these buttons should trigger the load / save functions (probably no VIEW components, but only functions)
     	<div>
-    	<Button variant="raised">
+    	<Button variant="raised" onClick={this.props.onSave}>
 	        <SaveIcon />
 	        Save
 	      </Button>
