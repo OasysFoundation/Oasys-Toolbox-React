@@ -13,8 +13,6 @@ import {
 } from 'react-sortable-hoc';
 
 // internationalization ------------------------------------------------------------
-const STR_QUIZ_QUESTIONFIELD_EN = 'Formulate a question';
-const STR_QUIZ_ANSWERFIELD_EN = 'Formulate an answer';
 const STR_QUIZ_HEADER_EN = 'Quiz editor';
 const STR_QUIZ_INTRO_EN = 'This is a short description of the quiz editor';
 const STR_QUIZ_ANSWERCORRECT_EN = 'correct';
@@ -157,7 +155,7 @@ class Quiz extends Component {
   }
 
   onAddAnswer() {
-    this.props.value.answers = this.props.value.answers.concat({'option': STR_QUIZ_ANSWERFIELD_EN, 'correct': true})
+    this.props.value.answers = this.props.value.answers.concat({'option': '', 'correct': true})
     this.submitQuizChange();
   }
 
