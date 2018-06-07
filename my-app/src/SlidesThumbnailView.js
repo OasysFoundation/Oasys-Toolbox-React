@@ -110,8 +110,10 @@ class SlidesThumbnailView extends Component {
 
   onRemoveSlide(index) {
     let slides = this.props.slides;
-    slides.splice(index, 1);
-    this.props.onSlideOrderChange(slides);
+    if ( slides.length > 1) {
+      slides.splice(index, 1);
+      this.props.onSlideOrderChange(slides);
+    }
   }
 
   // rearrange slides
@@ -145,17 +147,6 @@ class SlidesThumbnailView extends Component {
                               didSelectMenuItem={this.didSelectMenuItem} 
                               selectedSlideIndex={this.props.selectedSlideIndex}
                               onRemoveSlide={this.onRemoveSlide}/>
-            {/*           
-            {this.props.slides.map((element, index) => 
-              <ListItem button onClick={this.didSelectMenuItem.bind(this, index)}
-                               style={(index===this.props.selectedSlideIndex) ? domStyles.selected : null}>
-
-                {iconForSlideType(element.type)}
-                <ListItemText primary={element.name} />
-              </ListItem>
-              )
-            }
-            */}
           </List>
        </section>
       </div>
