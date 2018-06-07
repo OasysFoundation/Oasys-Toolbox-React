@@ -97,7 +97,6 @@ class SlidesThumbnailView extends Component {
   }
 
   didSelectMenuItem(index) {
-    console.log("selecting slide");
     this.props.onChangedSlide(index);
   }
 
@@ -110,7 +109,6 @@ class SlidesThumbnailView extends Component {
   }
 
   onRemoveSlide(index) {
-    console.log("removing slide");
     let slides = this.props.slides;
     slides.splice(index, 1);
     this.props.onSlideOrderChange(slides);

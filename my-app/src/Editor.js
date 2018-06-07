@@ -4,6 +4,9 @@ import MenuBarView from "./MenuBarView"
 import SlideEditor from "./SlideEditor"
 import Grid from '@material-ui/core/Grid';
 
+const saveEndpoint = 'http://174.138.2.82/saveEditor';
+const defaultId = 666;
+
 const EditorContext = React.createContext('');
 
 function createSlide(name, identifier, content, type) {
@@ -108,6 +111,19 @@ class Editor extends Component {
   save() {
     var json = JSON.stringify(this.state.slides);
     console.log(json);
+    console.log("Now saving to " + saveEndpoint);
+
+    fetch(saveEndpoint, {
+      method: 'POST', 
+      body: json,
+      headers: new Headers({
+       'Content-Type': 'application/json',
+        'id': defaultId
+     })
+    }).then(res => res.json())
+    .catch(error => console.error('Error:', error))
+    .then(response => console.log('Success:', response));
+
   }
 
   render() {

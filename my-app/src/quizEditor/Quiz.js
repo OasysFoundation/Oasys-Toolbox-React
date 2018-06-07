@@ -125,7 +125,6 @@ class Answer extends Component {
 
 }
 
-
 // this wraps Answer with SortableElement.
 // the prop index gets silently consumed by SortableElement, but we need it in Answer to report changes
 // to the Quiz component. A workaround is to pass index value twice (as index and as indexCopy).
