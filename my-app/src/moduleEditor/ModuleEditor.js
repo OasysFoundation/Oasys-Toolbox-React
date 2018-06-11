@@ -7,15 +7,27 @@ const IF_BODY  = 2; // inside if body (also, prior to next if command)
 const BOOL_DISABLED = 0; 
 const BOOL_ENABLED = 1;
 
+
+let domStyles = {
+  pseudoCode: {
+    paddingTop: '20px',
+  }
+}
+
 class Linebreak extends Component {
   render(){
     return (<br/>)
   }
 }
 
-class Span extends Component {
+class Atom extends Component {
   render(){
-    return (<span style={{marginLeft:this.props.indent*30}}> {this.props.value} </span>)
+    return (<Button disabled={true}
+                    style={{marginLeft:this.props.indent*50}}
+                    variant={'outlined'}
+                    size={'small'}> 
+                {this.props.value} 
+            </Button>)
   }
 }
 
@@ -57,17 +69,18 @@ class ModuleEditor extends Component {
     for (let i=0; i<this.state.code.length; i++) {
       if (ifstate < 2 && this.state.code[i] === "message") { // this means that we entered the if body
         ifstate = IF_BODY;
-        output.push(<Span indent={0} value={" ) "} />);
+        output.push(<Atom indent={0} value={" ) "} />);
         output.push(<Linebreak />);
       }
       if (this.state.code[i] === "if") { // open new if
         ifstate = IF_START;
-        output.push(<Span indent={0} value={this.state.code[i]+ " ( "} />);
+        output.push(<Atom indent={0} value={this.state.code[i]} />);
+        output.push(<Atom indent={0} value={" ( "} />);
       } else if (ifstate === 2) { // deal with stuff in if body
-        output.push(<Span indent={1} value={this.state.code[i]} />);
+        output.push(<Atom indent={1} value={this.state.code[i]} />);
         output.push(<Linebreak />);
       } else {
-        output.push(<Span indent={0} value={this.state.code[i]} />);
+        output.push(<Atom indent={0} value={this.state.code[i]} />);
         if (this.state.code.length>0 && this.state.code[-1]==="if") {
           ifstate = IF_COND;
         }
@@ -103,7 +116,7 @@ class ModuleEditor extends Component {
                   disabled={this.state.ifstate<IF_COND || this.state.boolstate!==BOOL_ENABLED} 
                   onClick={() => this.onSelect("message")}>
             message </Button>
-          <div className="pseudoCode">
+          <div style={domStyles.pseudoCode}>
             {this.renderPseudocode()}
           </div>
         </div>
