@@ -31,6 +31,14 @@ class Atom extends Component {
   }
 }
 
+function createOasysEvent(name, content) {
+  return {name: 'event', duration: null}
+}
+
+function createOasysHandler(type, content)  {
+  return {type: 'handler', handlerType: type, content: content, duration: null}
+}
+
 class ModuleEditor extends Component {
 
   constructor(props) {
@@ -47,7 +55,14 @@ class ModuleEditor extends Component {
     let code = this.state.code.slice();
     let ifstate = this.state.ifstate;
     let boolstate = this.state.boolstate;
-    code.push(value);
+    if (value==='event') { // need to change this later
+      code.push(createOasysEvent('my event', null))
+    } else if (value==='message') { // need to change this later
+      code.push(createOasysHandler('message', 'content of message', null))
+    } else {
+      code.push(value);
+    }
+
     if (value==="if") {
       ifstate = IF_START;
     } else if (value==="event") {
@@ -67,7 +82,9 @@ class ModuleEditor extends Component {
     let ifstate = IF_START; // 0: just started if, 1: inside condition, 2: inside body
     let output = [];
     for (let i=0; i<this.state.code.length; i++) {
-      if (ifstate < 2 && this.state.code[i] === "message") { // this means that we entered the if body
+      if (ifstate < 2 && typeof(this.state.code[i])!=="string"
+                      && this.state.code[i].type === "handler") { 
+        // we just entered the if body
         ifstate = IF_BODY;
         output.push(<Atom indent={0} value={" ) "} />);
         output.push(<Linebreak />);
@@ -76,11 +93,16 @@ class ModuleEditor extends Component {
         ifstate = IF_START;
         output.push(<Atom indent={0} value={this.state.code[i]} />);
         output.push(<Atom indent={0} value={" ( "} />);
-      } else if (ifstate === 2) { // deal with stuff in if body
-        output.push(<Atom indent={1} value={this.state.code[i]} />);
+      } else if (ifstate === IF_BODY) { // deal with stuff in if body
+        // the next atom must be a handler
+        output.push(<Atom indent={1} value={this.state.code[i].handlerType} />);
         output.push(<Linebreak />);
       } else {
-        output.push(<Atom indent={0} value={this.state.code[i]} />);
+        if (typeof(this.state.code[i])==="string") { // boolean operator
+          output.push(<Atom indent={0} value={this.state.code[i]} />);
+        } else { // event
+          output.push(<Atom indent={0} value={this.state.code[i].name} />);
+        }
         if (this.state.code.length>0 && this.state.code[-1]==="if") {
           ifstate = IF_COND;
         }
