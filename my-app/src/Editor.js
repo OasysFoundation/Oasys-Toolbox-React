@@ -87,20 +87,13 @@ class Editor extends Component {
     });
   }
 
-  onEditSlide(content) {
+  onEditorChange(content) {
     let slides = this.state.slides;
     slides[this.state.selectedSlideIndex].content = content;
     this.setState({
       slides: slides,
     });
-  }
-
-  onQuizChange(content){
-    let slides = this.state.slides;
-    slides[this.state.selectedSlideIndex].content = content;
-    this.setState({
-      slides: slides,
-    });
+    console.log(content)
   }
 
   onSlideOrderChange(slides){
@@ -146,9 +139,8 @@ class Editor extends Component {
         </Grid>
         <Grid item xs={7}>
             <SlideEditor slide = {this.state.slides[this.state.selectedSlideIndex]}
-                         funEditSlide = {this.onEditSlide.bind(this)}
                          slideType = {this.state.currSlideType}
-                         onQuizChange = {this.onQuizChange.bind(this)} />
+                         onChange = {this.onEditorChange.bind(this)} />
         </Grid>
         </Grid>
       </div>

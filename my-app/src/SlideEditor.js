@@ -9,23 +9,18 @@ class SlideEditor extends Component {
   
   constructor(props) {
     super(props);
-    this.handleChange = this.handleChange.bind(this);
-    this.onQuizChange = this.props.onQuizChange.bind(this);
-  }
-
-  handleChange(value) {
-    this.props.funEditSlide(value);
+    this.onChange = this.props.onChange.bind(this);
   }
 
   conditionalRender(){
      if (this.props.slideType === glb.QUIZ) {
         return <Quiz value={this.props.slide.content}
-              onQuizChange={this.onQuizChange} />
+              onChange={this.onChange} />
       } else if (this.props.slideType === glb.QUILL) {
        return <ReactQuill value={this.props.slide.content}
-                    onChange={this.handleChange}  /> 
+                    onChange={this.onChange}  /> 
       } else if (this.props.slideType === glb.GAME) {
-        return <ModuleEditor />
+        return <ModuleEditor onChange={this.onChange} />
       }
   }
 

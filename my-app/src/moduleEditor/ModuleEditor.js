@@ -1,11 +1,17 @@
 import React, {Component} from 'react';
 import Button from '@material-ui/core/Button';
+import ReactMaterialSelect from 'react-material-select'
+import 'react-material-select/lib/css/reactMaterialSelect.css'
 
 const IF_START = 0; // immediately after if command
 const IF_COND  = 1; // inside if condition (but not immediately after if command)
 const IF_BODY  = 2; // inside if body (also, prior to next if command)
 const BOOL_DISABLED = 0; 
 const BOOL_ENABLED = 1;
+
+const contentList = [
+  { value: 1, primaryText: 'Sing-A-Song' },
+]
 
 
 let domStyles = {
@@ -47,8 +53,24 @@ class ModuleEditor extends Component {
       code: [],
       ifstate: IF_BODY,
       boolstate: BOOL_DISABLED,
+      contentId: 0
     }
     this.onSelect.bind(this);
+    this.onChooseContent.bind(this);
+    this.onChange = this.props.onChange.bind(this);
+  }
+
+  onChooseContent(value){
+    this.setState({contentId: value.value});
+  }
+
+  // report change to SlideEditor component
+  submitChange() {
+    const obj = {
+      "code": this.state.code.slice(),
+      "contentId": this.state.contentId,
+    };
+    this.onChange(obj);
   }
 
   onSelect(value){
@@ -76,6 +98,7 @@ class ModuleEditor extends Component {
       // do nothing
     }
     this.setState({code: code, ifstate: ifstate, boolstate: boolstate});
+    this.submitChange();
   }
 
   renderPseudocode() {
@@ -112,8 +135,10 @@ class ModuleEditor extends Component {
   }
 
   render() {
-      return (
-        <div>
+      let gameEditor
+      if (this.state.contentId>0) {
+        gameEditor = (
+          <div>
           <Button variant="raised" 
                   disabled={this.state.ifstate===IF_START || this.state.ifstate===IF_COND} 
                   onClick={() => this.onSelect("if")}>
@@ -131,16 +156,29 @@ class ModuleEditor extends Component {
                   onClick={() => this.onSelect("or")}>
             or </Button>
           <Button variant="raised" 
-                  disabled={this.state.ifstate===IF_BODY || (this.state.ifstate===IF_COND && this.state.boolstate===BOOL_ENABLED)} 
-                  onClick={() => this.onSelect("event")}>
-            event </Button>
-          <Button variant="raised" 
                   disabled={this.state.ifstate<IF_COND || this.state.boolstate!==BOOL_ENABLED} 
                   onClick={() => this.onSelect("message")}>
             message </Button>
+          <Button variant="raised" 
+                  disabled={this.state.ifstate===IF_BODY || (this.state.ifstate===IF_COND && this.state.boolstate===BOOL_ENABLED)} 
+                  onClick={() => this.onSelect("event")}>
+            event </Button>
           <div style={domStyles.pseudoCode}>
             {this.renderPseudocode()}
           </div>
+          </div>
+        )
+      } else {
+        gameEditor = <div></div>
+      }
+      return (
+        <div>
+          <ReactMaterialSelect label="Choose a content" onChange={this.onChooseContent.bind(this)}>
+              {contentList.map(item =>
+                <option dataValue={item.value}> {item.primaryText} </option>
+              )}
+          </ReactMaterialSelect>
+          {gameEditor}
         </div>
       ) 
   }

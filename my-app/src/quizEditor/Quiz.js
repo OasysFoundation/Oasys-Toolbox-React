@@ -193,7 +193,7 @@ class Quiz extends Component {
       "question": this.props.value.question,
       "answers":  answers
     };
-    this.props.onQuizChange(obj);
+    this.props.onChange(obj);
   }
 
   // rearrange answers
