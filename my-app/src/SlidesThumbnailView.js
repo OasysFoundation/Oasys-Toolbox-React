@@ -8,6 +8,7 @@ import AddIcon from '@material-ui/icons/Add';
 import WallpaperIcon from '@material-ui/icons/Wallpaper';
 import CallSplitIcon from '@material-ui/icons/CallSplit';
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
+import GamesIcon from '@material-ui/icons/Games';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
 import DeleteIcon from '@material-ui/icons/Delete';
 import {
@@ -16,6 +17,7 @@ import {
   SortableHandle,
   arrayMove,
 } from 'react-sortable-hoc';
+import glb from "./globals";
 
 const styles = theme => ({
   root: {
@@ -35,9 +37,11 @@ let domStyles = {
 }
 
 function iconForSlideType(type) {
-    if (type == "quiz") {
+    if (type === glb.QUIZ) {
       return <QuestionAnswerIcon />
-    } else {
+    } else if (type === glb.GAME) {
+      return <GamesIcon />
+    } else if (type === glb.QUILL) {
       return <WallpaperIcon />
     }
 }
@@ -93,6 +97,7 @@ class SlidesThumbnailView extends Component {
     this.didSelectMenuItem = this.didSelectMenuItem.bind(this);
     this.didSelectAddNewSlide = this.didSelectAddNewSlide.bind(this);
     this.didSelectAddNewQuiz = this.didSelectAddNewQuiz.bind(this);
+    this.didSelectAddNewGame = this.didSelectAddNewGame.bind(this);
     this.onRemoveSlide = this.onRemoveSlide.bind(this);
   }
 
@@ -106,6 +111,10 @@ class SlidesThumbnailView extends Component {
 
   didSelectAddNewQuiz() {
     this.props.onAddNewQuiz();
+  }
+
+  didSelectAddNewGame() {
+    this.props.onAddNewGame();
   }
 
   onRemoveSlide(index) {
@@ -135,6 +144,10 @@ class SlidesThumbnailView extends Component {
             <ListItem button onClick={this.didSelectAddNewQuiz.bind(this)}>
               <AddIcon />
               <ListItemText primary="New Quiz" />
+            </ListItem>
+            <ListItem button onClick={this.didSelectAddNewGame.bind(this)}>
+              <AddIcon />
+              <ListItemText primary="New Game" />
             </ListItem>
             {/* ListItem button>
               <CallSplitIcon />

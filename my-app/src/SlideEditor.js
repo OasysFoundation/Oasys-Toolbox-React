@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import ReactQuill from 'react-quill';
 import Quiz from './quizEditor/Quiz';
+import ModuleEditor from './moduleEditor/ModuleEditor';
+import glb from "./globals";
 import 'react-quill/dist/quill.snow.css';
-
 
 class SlideEditor extends Component {
   
@@ -16,18 +17,20 @@ class SlideEditor extends Component {
     this.props.funEditSlide(value);
   }
 
+  conditionalRender(){
+     if (this.props.slideType === glb.QUIZ) {
+        return <Quiz value={this.props.slide.content}
+              onQuizChange={this.onQuizChange} />
+      } else if (this.props.slideType === glb.QUILL) {
+       return <ReactQuill value={this.props.slide.content}
+                    onChange={this.handleChange}  /> 
+      } else if (this.props.slideType === glb.GAME) {
+        return <ModuleEditor />
+      }
+  }
+
   render() {
-    return (
-      <div>
-        {this.props.isQuizSlide ? ( // ternary beginning
-          <Quiz value={this.props.slide.content}
-                onQuizChange={this.onQuizChange} />
-        ) : ( // ternary middle
-          <ReactQuill value={this.props.slide.content}
-                      onChange={this.handleChange}  /> 
-        ) } 
-      </div>
-    )
+    return (this.conditionalRender())
   }
 }
 
