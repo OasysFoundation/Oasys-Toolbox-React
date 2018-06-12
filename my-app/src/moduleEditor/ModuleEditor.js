@@ -98,18 +98,26 @@ class ModuleEditor extends Component {
     this.submitChange();
   }
 
+  // checks if an element is part of the programs logic (if,and,or,not)
+  checkIsLogic(elem){
+    return (typeof(elem)==="string");
+  }
+  checkIsHandler(elem){
+    return (!this.checkIsLogic && elem.type === "handler");
+  }
+
   renderPseudocode() {
     let ifstate = glb.IF_START; // 0: just started if, 1: inside condition, 2: inside body
     let output = [];
     for (let i=0; i<this.props.value.code.length; i++) {
-      if (ifstate < 2 && typeof(this.props.value.code[i])!=="string"
-                      && this.props.value.code[i].type === "handler") { 
-        // we just entered the if body
+      // did we just enter the if body?
+      if (ifstate < glb.IF_BODY && this.checkIsHandler(this.props.value.code[i])) { 
         ifstate = glb.IF_BODY;
         output.push(<Atom indent={0} value={" ) "} />);
         output.push(<Linebreak />);
       }
-      if (this.props.value.code[i] === "if") { // open new if
+      // did a new if clause start?
+      if (this.props.value.code[i] === "if") { 
         ifstate = glb.IF_START;
         output.push(<Atom indent={0} value={this.props.value.code[i]} />);
         output.push(<Atom indent={0} value={" ( "} />);
@@ -118,7 +126,7 @@ class ModuleEditor extends Component {
         output.push(<Atom indent={1} value={this.props.value.code[i].handlerType} />);
         output.push(<Linebreak />);
       } else {
-        if (typeof(this.props.value.code[i])==="string") { // boolean operator
+        if (this.checkIsLogic(this.props.value.code[i])) { 
           output.push(<Atom indent={0} value={this.props.value.code[i]} />);
         } else { // event
           output.push(<Atom indent={0} value={this.props.value.code[i].name} />);
@@ -135,33 +143,19 @@ class ModuleEditor extends Component {
       let gameEditor
       const is = this.props.value.ifstate;
       const bs = this.props.value.boolstate;
+      const disabled_if = (is===glb.IF_START || is===glb.IF_COND);
+      const disabled_event = (is===glb.IF_BODY || (is===glb.IF_COND && bs===glb.BOOL_ENABLED));
+      const diabled_bool = (is!==glb.IF_COND || bs!==glb.BOOL_ENABLED);
+      const disabled_react = (is<glb.IF_COND || bs!==glb.BOOL_ENABLED);
       if (this.props.value.moduleId>0) {
         gameEditor = (
           <div>
-          <Button variant="raised" 
-                  disabled={is===glb.IF_START || is===glb.IF_COND} 
-                  onClick={() => this.onSelect("if")}>
-            if </Button>
-          <Button variant="raised" 
-                  disabled={is===glb.IF_BODY || (is===glb.IF_COND && bs===glb.BOOL_ENABLED)} 
-                  onClick={() => this.onSelect("not")}>
-            not </Button>
-          <Button variant="raised" 
-                  disabled={is!==glb.IF_COND || bs!==glb.BOOL_ENABLED} 
-                  onClick={() => this.onSelect("and")}>
-            and </Button>
-          <Button variant="raised" 
-                  disabled={is!==glb.IF_COND || bs!==glb.BOOL_ENABLED} 
-                  onClick={() => this.onSelect("or")}>
-            or </Button>
-          <Button variant="raised" 
-                  disabled={is<glb.IF_COND || bs!==glb.BOOL_ENABLED} 
-                  onClick={() => this.onSelect("message")}>
-            message </Button>
-          <Button variant="raised" 
-                  disabled={is===glb.IF_BODY || (is===glb.IF_COND && bs===glb.BOOL_ENABLED)} 
-                  onClick={() => this.onSelect("event")}>
-            event </Button>
+          <Button variant="raised" disabled={disabled_if} onClick={() => this.onSelect("if")}> if </Button>
+          <Button variant="raised" disabled={disabled_event} onClick={() => this.onSelect("not")}> not </Button>
+          <Button variant="raised" disabled={diabled_bool} onClick={() => this.onSelect("and")}> and </Button>
+          <Button variant="raised" disabled={diabled_bool} onClick={() => this.onSelect("or")}> or </Button>
+          <Button variant="raised" disabled={disabled_react} onClick={() => this.onSelect("message")}> message </Button>
+          <Button variant="raised" disabled={disabled_event} onClick={() => this.onSelect("event")}> event </Button>
           <div style={domStyles.pseudoCode}>
             {this.renderPseudocode()}
           </div>
