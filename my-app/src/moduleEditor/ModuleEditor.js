@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button';
 import ReactMaterialSelect from 'react-material-select'
 import 'react-material-select/lib/css/reactMaterialSelect.css'
 import glb from "../globals";
+import EventPicker from "../EventPicker";
 
 const defaultModuleList = [
   { value: 1, primaryText: 'Sing-A-Song' },
@@ -15,6 +16,9 @@ const defaultEventList = [
 let domStyles = {
   pseudoCode: {
     paddingTop: '20px',
+  },
+  eventPicker: {
+    widht: '200px',
   }
 }
 
@@ -156,6 +160,9 @@ class ModuleEditor extends Component {
           <Button variant="raised" disabled={diabled_bool} onClick={() => this.onSelect("or")}> or </Button>
           <Button variant="raised" disabled={disabled_react} onClick={() => this.onSelect("message")}> message </Button>
           <Button variant="raised" disabled={disabled_event} onClick={() => this.onSelect("event")}> event </Button>
+          <div style={domStyles.eventPicker}>
+            <EventPicker/>
+          </div>
           <div style={domStyles.pseudoCode}>
             {this.renderPseudocode()}
           </div>
