@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import glb from "./globals";
 
 const saveEndpoint = 'http://174.138.2.82/saveEditor';
+const loadEndpoint = 'http://174.138.2.82/loadEditor';
 const defaultId = 666;
 
 function createSlide(name, identifier, content, type) {
@@ -28,6 +29,7 @@ class Editor extends Component {
       slides: [defaultSlide],
       selectedSlideIndex: 0,
       currSlideType: glb.QUILL,
+      contentId: defaultId
     }
 
     this.onAddNewSlide = this.onAddNewSlide.bind(this);
@@ -36,6 +38,7 @@ class Editor extends Component {
     this.onChangedSlide = this.onChangedSlide.bind(this);
     this.onSlideOrderChange = this.onSlideOrderChange.bind(this);
     this.save = this.save.bind(this);
+    this.load = this.load.bind(this);
   }
 
   onAddNewSlide() { // Quill slides only
@@ -73,7 +76,7 @@ class Editor extends Component {
       code: [],
       ifstate: glb.IF_BODY,
       boolstate: glb.BOOL_DISABLED,
-      contentId: 0
+      moduleId: Math.random().toString(36)
     }
     slides.push(createSlide("Game ", Math.random().toString(36), content, glb.GAME));
     const newSlideIndex = slides.length -1;
@@ -108,7 +111,15 @@ class Editor extends Component {
     }
   }
 
-  save() {
+  // TODO: When endpoint accepts publish flag, we need to update here
+  save(id, publish) {
+    if (id!==null) {
+      this.setState({contentId: id});
+    }
+    if (publish===null) {
+      publish = false;
+    }
+    console.log(id)
     var json = JSON.stringify({slides: this.state.slides});
 
     fetch(saveEndpoint, {
@@ -116,11 +127,26 @@ class Editor extends Component {
       body: json,
       headers: new Headers({
        'Content-Type': 'application/json',
-        'id': defaultId
+        'id': id
      })
     }).then(res => res.json())
     .catch(error => console.error('Error:', error))
     .then(response => console.log('Success:', response));
+  }
+
+  load(id) {
+    fetch(loadEndpoint, {
+      method: 'GET', 
+      headers: new Headers({
+        'id': id,
+      })
+    }).then(function(response) {
+        return response.json();
+      })
+      .then(function(myJson) {
+        this.setState({contentId: id});
+        console.log(myJson);
+      });
 
   }
 
@@ -129,7 +155,7 @@ class Editor extends Component {
       <div>
         <Grid container spacing={24}>
         <Grid item xs={12}>
-          <MenuBarView onSave={this.save} />
+          <MenuBarView onSave={this.save} onLoad={this.load}/>
         </Grid>
         <Grid item xs={3}>
           <SlidesThumbnailView slides={this.state.slides} 

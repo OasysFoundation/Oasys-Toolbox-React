@@ -4,7 +4,7 @@ import ReactMaterialSelect from 'react-material-select'
 import 'react-material-select/lib/css/reactMaterialSelect.css'
 import glb from "../globals";
 
-const defaultContentList = [
+const defaultModuleList = [
   { value: 1, primaryText: 'Sing-A-Song' },
 ]
 
@@ -39,8 +39,8 @@ function createOasysEvent(name, desc) {
   return {name: 'event', desc: desc, duration: null}
 }
 
-function createOasysHandler(type, content)  {
-  return {type: 'handler', handlerType: type, content: content, duration: null}
+function createOasysHandler(type, module)  {
+  return {type: 'handler', handlerType: type, module: module, duration: null}
 }
 
 class ModuleEditor extends Component {
@@ -48,12 +48,12 @@ class ModuleEditor extends Component {
   constructor(props) {
     super(props);
     this.onSelect.bind(this);
-    this.onChooseContent.bind(this);
+    this.onChooseModule.bind(this);
     //this.onChange = this.props.onChange.bind(this);
   }
 
-  onChooseContent(value){
-    this.props.value.contentId = value.value;
+  onChooseModule(value){
+    this.props.value.moduleId = value.value;
     this.submitChange();
   }
 
@@ -61,7 +61,7 @@ class ModuleEditor extends Component {
   submitChange() {
     const obj = {
       "code": this.props.value.code.slice(),
-      "contentId": this.props.value.contentId,
+      "moduleId": this.props.value.moduleId,
       "boolstate": this.props.value.boolstate,
       "ifstate": this.props.value.ifstate
     };
@@ -135,7 +135,7 @@ class ModuleEditor extends Component {
       let gameEditor
       const is = this.props.value.ifstate;
       const bs = this.props.value.boolstate;
-      if (this.props.value.contentId>0) {
+      if (this.props.value.moduleId>0) {
         gameEditor = (
           <div>
           <Button variant="raised" 
@@ -172,8 +172,8 @@ class ModuleEditor extends Component {
       }
       return (
         <div>
-          <ReactMaterialSelect label="Choose a content" onChange={this.onChooseContent.bind(this)}>
-              {defaultContentList.map(item =>
+          <ReactMaterialSelect label="Choose a module" onChange={this.onChooseModule.bind(this)}>
+              {defaultModuleList.map(item =>
                 <option dataValue={item.value}> {item.primaryText} </option>
               )}
           </ReactMaterialSelect>

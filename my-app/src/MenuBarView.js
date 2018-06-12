@@ -6,21 +6,48 @@ import TextField from '@material-ui/core/TextField';
 //import Grid from '@material-ui/core/Grid';
 
 class MenuBarView extends Component {
+  constructor(props) {
+    super(props);
+    this.onChange = this.onChange.bind(this);
+    this.onSave = this.onSave.bind(this);
+    this.onLoad = this.onLoad.bind(this);
+    this.contentId = 0;
+  }
+
+  onSave(){
+    this.props.onSave(this.contentId, false);
+  }
+
+  onPublish(){
+    this.props.onSave(this.contentId, true);
+  }
+
+  onLoad(){
+    this.props.onLoad(this.contentId);
+  }
+
+  onChange(event) { 
+    this.contentId = event.target.value;
+  }
+
   render() {
     return (
-    	// these buttons should trigger the load / save functions (probably no VIEW components, but only functions)
     	<div>
-    	<Button variant="raised" onClick={this.props.onSave}>
+      <Button variant="raised" onClick={this.onPublish}>
+          <SaveIcon />
+          Publish
+        </Button>
+    	<Button variant="raised" onClick={this.onSave}>
 	        <SaveIcon />
 	        Save
 	      </Button>
     	
-            <TextField
-          id="name"
-          label="Content Identifier"
-          value=""
-          margin="normal" />
-	      <Button variant="raised">
+          <TextField
+            id="name"
+            label="Content Identifier"
+            margin="normal"
+            onChange={this.onChange} />
+	      <Button variant="raised" onClick={this.onLoad}>
 	        <FolderIcon />
 	        Load
 	      </Button>
