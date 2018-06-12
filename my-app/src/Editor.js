@@ -8,8 +8,6 @@ import glb from "./globals";
 const saveEndpoint = 'http://174.138.2.82/saveEditor';
 const defaultId = 666;
 
-const EditorContext = React.createContext('');
-
 function createSlide(name, identifier, content, type) {
   return {
     name: name,
@@ -71,7 +69,13 @@ class Editor extends Component {
 
   onAddNewGame() {
     let slides = this.state.slides;
-    slides.push(createSlide("Game ", Math.random().toString(36), [], glb.GAME));
+    let content = {
+      code: [],
+      ifstate: glb.IF_BODY,
+      boolstate: glb.BOOL_DISABLED,
+      contentId: 0
+    }
+    slides.push(createSlide("Game ", Math.random().toString(36), content, glb.GAME));
     const newSlideIndex = slides.length -1;
     this.setState({
       slides: slides,
@@ -93,7 +97,6 @@ class Editor extends Component {
     this.setState({
       slides: slides,
     });
-    console.log(content)
   }
 
   onSlideOrderChange(slides){

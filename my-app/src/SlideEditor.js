@@ -20,7 +20,8 @@ class SlideEditor extends Component {
        return <ReactQuill value={this.props.slide.content}
                     onChange={this.onChange}  /> 
       } else if (this.props.slideType === glb.GAME) {
-        return <ModuleEditor onChange={this.onChange} />
+        return <ModuleEditor value={this.props.slide.content}
+                             onChange={this.onChange} />
       }
   }
 

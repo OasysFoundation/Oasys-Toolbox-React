@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
+//import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import AddIcon from '@material-ui/icons/Add';
 import WallpaperIcon from '@material-ui/icons/Wallpaper';
-import CallSplitIcon from '@material-ui/icons/CallSplit';
+//import CallSplitIcon from '@material-ui/icons/CallSplit';
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
 import GamesIcon from '@material-ui/icons/Games';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
@@ -19,7 +19,7 @@ import {
 } from 'react-sortable-hoc';
 import glb from "./globals";
 
-const styles = theme => ({
+/*const styles = theme => ({
   root: {
     width: '100%',
     maxWidth: 360,
@@ -28,7 +28,7 @@ const styles = theme => ({
   selected: {
     backgroundColor: 'red',
   }
-});
+});*/
 
 let domStyles = {
     selected: {
