@@ -103,7 +103,7 @@ class ModuleEditor extends Component {
     return (typeof(elem)==="string");
   }
   checkIsHandler(elem){
-    return (!this.checkIsLogic && elem.type === "handler");
+    return (!this.checkIsLogic(elem) && elem.type === "handler");
   }
 
   renderPseudocode() {
@@ -116,7 +116,7 @@ class ModuleEditor extends Component {
         output.push(<Atom indent={0} value={" ) "} />);
         output.push(<Linebreak />);
       }
-      // did a new if clause start?
+      // did we just open another if clause?
       if (this.props.value.code[i] === "if") { 
         ifstate = glb.IF_START;
         output.push(<Atom indent={0} value={this.props.value.code[i]} />);
@@ -126,7 +126,7 @@ class ModuleEditor extends Component {
         output.push(<Atom indent={1} value={this.props.value.code[i].handlerType} />);
         output.push(<Linebreak />);
       } else {
-        if (this.checkIsLogic(this.props.value.code[i])) { 
+        if (this.checkIsLogic(this.props.value.code[i])) { // boolean operator
           output.push(<Atom indent={0} value={this.props.value.code[i]} />);
         } else { // event
           output.push(<Atom indent={0} value={this.props.value.code[i].name} />);
