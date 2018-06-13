@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import Button from '@material-ui/core/Button';
 import ReactMaterialSelect from 'react-material-select'
 import 'react-material-select/lib/css/reactMaterialSelect.css'
-import glb from "../globals";
-import EventPicker from "../EventPicker";
+import glb from "./globals";
+import EventPicker from "./EventPicker";
 
 const defaultModuleList = [
   { value: 1, primaryText: 'Sing-A-Song' },
@@ -153,19 +153,19 @@ class ModuleEditor extends Component {
       const disabled_react = (is<glb.IF_COND || bs!==glb.BOOL_ENABLED);
       if (this.props.value.moduleId>0) {
         gameEditor = (
-          <div>
-          <Button variant="raised" disabled={disabled_if} onClick={() => this.onSelect("if")}> if </Button>
-          <Button variant="raised" disabled={disabled_event} onClick={() => this.onSelect("not")}> not </Button>
-          <Button variant="raised" disabled={diabled_bool} onClick={() => this.onSelect("and")}> and </Button>
-          <Button variant="raised" disabled={diabled_bool} onClick={() => this.onSelect("or")}> or </Button>
-          <Button variant="raised" disabled={disabled_react} onClick={() => this.onSelect("message")}> message </Button>
-          <Button variant="raised" disabled={disabled_event} onClick={() => this.onSelect("event")}> event </Button>
-          <div style={domStyles.eventPicker}>
-            <EventPicker/>
-          </div>
-          <div style={domStyles.pseudoCode}>
-            {this.renderPseudocode()}
-          </div>
+          <div style={{display:"flex", flexDirection:"row"}}>
+            <Button variant="raised" disabled={disabled_if} onClick={() => this.onSelect("if")}> if </Button>
+            <Button variant="raised" disabled={disabled_event} onClick={() => this.onSelect("not")}> not </Button>
+            <Button variant="raised" disabled={diabled_bool} onClick={() => this.onSelect("and")}> and </Button>
+            <Button variant="raised" disabled={diabled_bool} onClick={() => this.onSelect("or")}> or </Button>
+            <Button variant="raised" disabled={disabled_react} onClick={() => this.onSelect("message")}> message </Button>
+            <Button variant="raised" disabled={disabled_event} onClick={() => this.onSelect("event")}> event </Button>
+            <div style={domStyles.eventPicker}>
+              <EventPicker/>
+            </div>
+            <div style={domStyles.pseudoCode}>
+              {this.renderPseudocode()}
+            </div>
           </div>
         )
       } else {

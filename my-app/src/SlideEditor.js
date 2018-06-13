@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactQuill from 'react-quill';
-import Quiz from './quizEditor/Quiz';
-import ModuleEditor from './moduleEditor/ModuleEditor';
+import Quiz from './Quiz';
+import ModuleEditor from './ModuleEditor';
 import glb from "./globals";
 import 'react-quill/dist/quill.snow.css';
 
