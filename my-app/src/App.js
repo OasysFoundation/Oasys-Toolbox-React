@@ -1,14 +1,11 @@
-import React, { Component } from 'react';
-import Editor from './Editor';
+import React, {Component} from 'react';
 import './App.css';
 
-class App extends Component {
-  render() {
-    return (
-      <Editor/>
-    );
-  }
-}
+const App = () =>
+    (
+        <h1>
+            THIS IS THE APP.js component
+        </h1>
+    )
 
-
-export default App
+export default App;
