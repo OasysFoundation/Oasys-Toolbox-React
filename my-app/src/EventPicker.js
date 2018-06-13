@@ -47,12 +47,10 @@ class Option extends Component {
         const node = EVENT_TREE.findNodeInChildren(this.props.name);
 
         node.active = true;
-        console.log(node);
 
         node.setParentsProperty("active", true);
 
         const eventChoice = EVENT_TREE.findNodesWithProp("active", true, [])
-        console.log(eventChoice);
         this.props.reset(eventChoice);
     }
 
@@ -80,13 +78,14 @@ class Option extends Component {
 //Player is the only subject
 class EventPicker extends Component {
     constructor(props) {
-        super();
+        super(props);
         this.state = {
             tree: EVENT_TREE,
             eventChoice: []
         }
         this.reset = this.reset.bind(this);
         this.giveEvent = this.giveEvent.bind(this);
+        //this.onSelect = this.props.onSelect.bind(this);
     }
     reset(eventChoice){
         this.setState({
@@ -95,21 +94,29 @@ class EventPicker extends Component {
         })
     }
     giveEvent() {
-        //TODO DANIEL
-        // this.props.danielsFunction();
+        this.props.onSelect(this.state.eventChoice.join(" ")); 
     }
     render() {
         return (
-            <Row>
-                <Column>
-                    <Option name={this.state.tree.name} children={this.state.tree.children} active={this.state.tree.active} reset={this.reset} />
-                </Column>
-                <Button variant="contained"
-                        size="small" color="primary"
-                        onClick={this.giveEvent}>
-                    OK
-                </Button>
-            </Row>
+            <div>
+            {this.props.disabled ? 
+                <p><strong>Waiting to add event...</strong></p>
+            : 
+              <div>
+                <p><strong>Choose an event:</strong></p>
+                <Row>
+                    <Column>
+                        <Option name={this.state.tree.name} children={this.state.tree.children} active={this.state.tree.active} reset={this.reset} />
+                    </Column>
+                    <Button variant="contained"
+                            size="small" color="primary"
+                            onClick={this.giveEvent}>
+                        OK
+                    </Button>
+                </Row>
+              </div>
+            }
+            </div>
 
         )
     }

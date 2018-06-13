@@ -49,6 +49,7 @@ const Tree = class {
         }
         else {return null}
     }
+
     findNodesWithProp(prop, value, arr = []) {
         let that = this;
         const memory = [that.name];

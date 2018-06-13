@@ -86,15 +86,15 @@ class ModuleEditor extends Component {
 
     if (value==="if") {
       ifstate = glb.IF_START;
-    } else if (value==="event") {
-      boolstate = glb.BOOL_ENABLED;
-      ifstate = glb.IF_COND;
     } else if (value==="message") {
       ifstate = glb.IF_BODY;
     } else if (["and","or"].indexOf(value) > -1) {
       boolstate = glb.BOOL_DISABLED;
     } else if (value==="not") {
       // do nothing
+    } else { // some event!
+      boolstate = glb.BOOL_ENABLED;
+      ifstate = glb.IF_COND;
     }
     this.props.value.code = code;
     this.props.value.ifstate = ifstate;
@@ -153,16 +153,17 @@ class ModuleEditor extends Component {
       const disabled_react = (is<glb.IF_COND || bs!==glb.BOOL_ENABLED);
       if (this.props.value.moduleId>0) {
         gameEditor = (
+          <div>
           <div style={{display:"flex", flexDirection:"row"}}>
             <Button variant="raised" disabled={disabled_if} onClick={() => this.onSelect("if")}> if </Button>
             <Button variant="raised" disabled={disabled_event} onClick={() => this.onSelect("not")}> not </Button>
             <Button variant="raised" disabled={diabled_bool} onClick={() => this.onSelect("and")}> and </Button>
             <Button variant="raised" disabled={diabled_bool} onClick={() => this.onSelect("or")}> or </Button>
             <Button variant="raised" disabled={disabled_react} onClick={() => this.onSelect("message")}> message </Button>
-            <Button variant="raised" disabled={disabled_event} onClick={() => this.onSelect("event")}> event </Button>
             <div style={domStyles.eventPicker}>
-              <EventPicker/>
+              <EventPicker disabled={disabled_event} onSelect={this.onSelect.bind(this)}/>
             </div>
+          </div>
             <div style={domStyles.pseudoCode}>
               {this.renderPseudocode()}
             </div>

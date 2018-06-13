@@ -95,6 +95,7 @@ class Editor extends Component {
   }
 
   onEditorChange(content) {
+    console.log(content)
     let slides = this.state.slides;
     slides[this.state.selectedSlideIndex].content = content;
     this.setState({
