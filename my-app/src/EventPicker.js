@@ -89,11 +89,13 @@ class EventPicker extends Component {
         this.giveEvent = this.giveEvent.bind(this);
     }
     reset(eventChoice){
-        this.setState({tree:EVENT_TREE,
-        eventChoice: eventChoice})
+        this.setState({
+            tree:EVENT_TREE,
+            eventChoice: eventChoice
+        })
     }
     giveEvent() {
-        // TODO DANIEL
+        //TODO DANIEL
         // this.props.danielsFunction();
     }
     render() {
@@ -108,6 +110,7 @@ class EventPicker extends Component {
                     OK
                 </Button>
             </Row>
+
         )
     }
 }

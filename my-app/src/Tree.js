@@ -52,13 +52,19 @@ const Tree = class {
     findNodesWithProp(prop, value, arr = []) {
         let that = this;
         const memory = [that.name];
-        while (that.children) {
-            that.children.forEach(c => {
+        let breaker = 0;
+        let active = true;
+        while (that.children!==undefined && that.children!==null && that.children.length>0 && active) {
+            active = false;
+            let temp = this;
+            that.children.forEach(c=> {
                 if (c[prop] === value) {
                     memory.push(c.name);
-                    that = c;
+                    temp = c;
+                    active = true;
                 }
             })
+            that = temp;
         }
         return memory;
     }
