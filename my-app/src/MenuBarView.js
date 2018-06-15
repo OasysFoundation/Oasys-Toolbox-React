@@ -49,7 +49,7 @@ class MenuBarView extends Component {
             onChange={this.onChange} />
 	      <Button variant="raised" onClick={this.onLoad}>
 	        <FolderIcon />
-	        Load
+	        Open
 	      </Button>
 	    </div>
 	)
