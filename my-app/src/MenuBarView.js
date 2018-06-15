@@ -3,7 +3,10 @@ import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
 import FolderIcon from '@material-ui/icons/Folder';
 import TextField from '@material-ui/core/TextField';
+import Toolbar from '@material-ui/core/Toolbar';
 //import Grid from '@material-ui/core/Grid';
+
+const BG = "CadetBlue";
 
 class MenuBarView extends Component {
   constructor(props) {
@@ -33,24 +36,20 @@ class MenuBarView extends Component {
   render() {
     return (
     	<div>
-      <Button variant="raised" onClick={this.onPublish}>
-          <SaveIcon />
-          Publish
+      <Toolbar style={{backgroundColor: BG}}>
+      <Button color="inherit" onClick={this.onLoad}>
+          <FolderIcon />
+          Open
+      </Button>
+    	<Button color="inherit" onClick={this.onSave}>
+        <SaveIcon />
+	        Save Draft
+	      </Button>
+      <Button  color="inherit" onClick={this.onPublish}>
+        <SaveIcon />
+          Publish on Oasys
         </Button>
-    	<Button variant="raised" onClick={this.onSave}>
-	        <SaveIcon />
-	        Save
-	      </Button>
-    	
-          <TextField
-            id="name"
-            label="Content Identifier"
-            margin="normal"
-            onChange={this.onChange} />
-	      <Button variant="raised" onClick={this.onLoad}>
-	        <FolderIcon />
-	        Open
-	      </Button>
+        </Toolbar>
 	    </div>
 	)
   }
