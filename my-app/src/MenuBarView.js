@@ -81,7 +81,7 @@ class MenuBarView extends Component {
     return (
     	<div>
       <Toolbar style={{backgroundColor: BG}}>
-      <Button color="inherit" onClick={this.onOpen} color="white">
+      <Button onClick={this.onOpen} color="white">
         <FolderIcon />
           Open
       </Button>
@@ -118,11 +118,11 @@ class MenuBarView extends Component {
         />
 
       </Popover>
-    	<Button color="inherit" onClick={this.onSave} color="white">
+    	<Button onClick={this.onSave} color="white">
         <SaveIcon />
 	        Save Draft
 	    </Button>
-      <Button  color="inherit" onClick={this.onPublish} color="white">
+      <Button  onClick={this.onPublish} color="red">
         <PublishIcon />
           Publish on Oasys
         </Button>
