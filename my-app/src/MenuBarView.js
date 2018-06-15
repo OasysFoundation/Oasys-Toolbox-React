@@ -12,7 +12,7 @@ import IconArrowForward from '@material-ui/icons/ArrowForward';
 import Popover from '@material-ui/core/Popover';
 //import Grid from '@material-ui/core/Grid';
 
-const BG = "CadetBlue";
+const BG = "#5C8B8E";
 
 
 
