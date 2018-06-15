@@ -1,57 +1,48 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import styled from "styled-components"
-
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 
 
 const BG = "CadetBlue";
-const minHeight = "3vh"
-const Nav = styled.section`
-display:flex;
-  position:relative;
-  z-index: 10;
-  flex-direction: row-reverse;
-  -webkit-box-shadow:0 2px 4px rgba(0, 0, 0, 0.3);
-  box-shadow:0 3px 4px rgba(0, 0, 0, 0.3);
-  min-width: 100%;
-  text-align: center;
-  align-items: center;
-  flex-wrap: wrap;
-  background: ${BG};
-  min-height: ${minHeight};
-  ${Nav} > * {
-    border-right: solid white 4px;
-    padding:0.6em;
-    align-self: center;
-    text-decoration: none;
-    font-weight: bold;
-    color:white;
-    }
-  }
-`;
+
+const styles = {
+  root: {
+    flexGrow: 1,
+  },
+  flex: {
+    flex: 1,
+  },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20,
+  },
+};
 
 
-
-const Link = styled.a`
-  text-decoration: none;
-  min-height: ${minHeight};
-  background-color: ${BG};
-  font-weight: bold;
-  ${Link}:hover {
-    background-color: red;
-    color: white;
-  }
-`
-
-function NavBar() {
+function NavBar(props) {
+  const { classes } = props;
     return (
-        <Nav>
-                {/*<a href="/">HOME</a>*/}
-                <Link href='/create' >CREATE</Link>
-                <Link href='/learn' >EXPLORE</Link>
-                <Link href='https://joinoasys.org' >ABOUT</Link>
-        </Nav>
+        <AppBar position="static">
+        <Toolbar style={{backgroundColor: BG}}>
+          <Typography variant="title" color="inherit" className={classes.flex}>
+            Oasys Education
+          </Typography>
+            <Button href='https://joinoasys.org' color="inherit">About</Button>
+            <Button href='/learn' color="inherit">Explore</Button>
+            <Button href='/create' color="inherit">Create</Button>
+        </Toolbar>
+      </AppBar>
     )
 }
 
-export default NavBar;
+NavBar.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(NavBar);

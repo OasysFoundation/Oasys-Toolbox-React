@@ -1,5 +1,8 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
+# macOS
+*.DS_Store
+
 # dependencies
 /node_modules
 

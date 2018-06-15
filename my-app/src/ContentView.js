@@ -25,7 +25,6 @@ const mockContent = [{"name": "Slide 1", "identifier": "1", "content": "<p>Conte
 class ContentView extends Component {
     constructor() {
         super();
-        console.log("App ran....")
         this.state = {
             slideIdx: 0,
         }
