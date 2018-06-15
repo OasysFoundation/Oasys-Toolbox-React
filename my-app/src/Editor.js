@@ -35,8 +35,8 @@ class Editor extends Component {
     this.onAddNewSlide = this.onAddNewSlide.bind(this);
     this.onAddNewQuiz = this.onAddNewQuiz.bind(this);
     this.onAddNewGame = this.onAddNewGame.bind(this);
-    this.onChangedSlide = this.onChangedSlide.bind(this);
     this.onSlideOrderChange = this.onSlideOrderChange.bind(this);
+    this.onChangedSlide = this.onChangedSlide.bind(this);
     this.save = this.save.bind(this);
     this.load = this.load.bind(this);
   }
@@ -103,9 +103,14 @@ class Editor extends Component {
     });
   }
 
-  onSlideOrderChange(slides){
+  onSlideOrderChange(slides, idxold, idxnew){
+    let index = this.state.selectedSlideIndex;
+    if (index === idxold) { index = idxnew; } 
+    else if (index < idxold && index >= idxnew) { index++; }
+    else if (index > idxold && index <= idxnew) { index--; }
     this.setState({
       slides: slides,
+      selectedSlideIndex: index
     });
     if (this.state.selectedSlideIndex >= this.state.slides.length) {
       this.onChangedSlide(this.state.slides.length-1);
@@ -164,8 +169,8 @@ class Editor extends Component {
                                onAddNewQuiz={this.onAddNewQuiz} 
                                onAddNewGame={this.onAddNewGame} 
                                selectedSlideIndex={this.state.selectedSlideIndex} 
-                               onChangedSlide={this.onChangedSlide} 
-                               onSlideOrderChange = {this.onSlideOrderChange}  />
+                               onSlideOrderChange = {this.onSlideOrderChange}
+                               onChangedSlide = {this.onChangedSlide}   />
         </Grid>
         <Grid item xs={7}>
             <SlideEditor slide = {this.state.slides[this.state.selectedSlideIndex]}

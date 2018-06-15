@@ -129,7 +129,7 @@ class SlidesThumbnailView extends Component {
   onSortEnd = (props) => {
     const slides = arrayMove(this.props.slides, props.oldIndex, props.newIndex);
     // report change to Editor component
-    this.props.onSlideOrderChange(slides);
+    this.props.onSlideOrderChange(slides, props.oldIndex, props.newIndex);
   };
 
   render() {
