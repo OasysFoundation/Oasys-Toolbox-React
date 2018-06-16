@@ -10,6 +10,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Typography from '@material-ui/core/Typography';
 import IconArrowForward from '@material-ui/icons/ArrowForward';
 import Popover from '@material-ui/core/Popover';
+import Notifications, {notify} from 'react-notify-toast';
 //import Grid from '@material-ui/core/Grid';
 
 const BG = "#5C8B8E";
@@ -45,10 +46,12 @@ class MenuBarView extends Component {
   }
 
   onSave() {
+    notify.show('Saved Draft');
     this.props.onSave(this.contentId, false);
   }
 
   onPublish() {
+    notify.show('Publishing…');
     this.props.onSave(this.contentId, true);
   }
 
@@ -80,6 +83,7 @@ class MenuBarView extends Component {
   render() {
     return (
     	<div>
+      <Notifications />
       <Toolbar style={{backgroundColor: BG}}>
       <Button onClick={this.onOpen} color="white">
         <FolderIcon />
