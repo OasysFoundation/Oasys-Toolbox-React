@@ -11,6 +11,9 @@ import {
   SortableHandle,
   arrayMove,
 } from 'react-sortable-hoc';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+
 
 // internationalization ------------------------------------------------------------
 const STR_QUIZ_HEADER_EN = 'Quiz editor';
@@ -145,7 +148,9 @@ class Quiz extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { preview: false };
+    this.state = { 
+      preview: false
+     };
     const handlers = ['onRemoveAnswer', 'onChangeAnswer', 'onChangeAnswerCorrect', 'onChangeQuestion'];
     for (let i in handlers) { this[handlers[i]] = this[handlers[i]].bind(this) };
 
@@ -196,6 +201,12 @@ class Quiz extends Component {
     this.props.onChange(obj);
   }
 
+  changeTab = (event, value) => {
+    this.setState({ 
+      preview: Boolean(value)
+    });
+  };
+
   // rearrange answers
   onSortEnd = (props) => {
     this.props.value.answers = arrayMove(this.props.value.answers, props.oldIndex, props.newIndex);
@@ -210,13 +221,13 @@ class Quiz extends Component {
     };
       return (
         <div style={domStyles.wrapper}>
-          <div style={{textAlign: 'right'}}>
-            <Button variant="raised" color="secondary" 
-                  className={compStyles.buttonPreview} 
-                  onClick={this.onPreview.bind(this)}>
-               {this.state.preview ? STR_EDIT_EN : STR_PREVIEW_EN}
-            </Button>
-          </div>
+          <Paper>
+            <Tabs value={+ this.state.preview} onChange={this.changeTab}>
+              <Tab label="Quiz Editor" />
+              <Tab label="Preview" />
+            </Tabs>
+          </Paper>
+          <br />
           {this.state.preview ? ( // ternary beginning
             <div>
               <p style={domStyles.questionPreview}>{this.props.value.question}</p>
@@ -226,9 +237,7 @@ class Quiz extends Component {
             </div>
           ) : ( // ternary middle
             <div>
-              <Typography variant="headline" component="h3">
-                  {STR_QUIZ_HEADER_EN}
-              </Typography>
+              
               <Typography component="p">
                   {STR_QUIZ_INTRO_EN}
               </Typography>

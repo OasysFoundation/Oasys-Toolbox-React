@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import IconArrowForward from '@material-ui/icons/ArrowForward';
 import Popover from '@material-ui/core/Popover';
 import Notifications, {notify} from 'react-notify-toast';
+import OpenProjectDialog from './OpenProjectDialog'
 //import Grid from '@material-ui/core/Grid';
 
 const BG = "#5C8B8E";
@@ -42,6 +43,7 @@ class MenuBarView extends Component {
     this.handleClose = this.handleClose.bind(this);
     this.state = {
             anchorEl: null,
+            shouldOpenOpenDialog: false
         }
   }
 
@@ -58,6 +60,7 @@ class MenuBarView extends Component {
   onOpen(event) {
     this.setState({
       anchorEl: event.currentTarget,
+      shouldOpenOpenDialog: true
     });
   }
 
@@ -68,6 +71,7 @@ class MenuBarView extends Component {
   };
 
   onLoad() {
+    notify.show('Opening…');
     this.props.onLoad(this.contentId);
     this.handleClose()
   }
@@ -84,6 +88,7 @@ class MenuBarView extends Component {
     return (
     	<div>
       <Notifications />
+      <OpenProjectDialog open={this.state.shouldOpenOpenDialog} />
       <Toolbar style={{backgroundColor: BG}}>
       <Button onClick={this.onOpen} color="white">
         <FolderIcon />
