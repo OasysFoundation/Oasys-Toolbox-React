@@ -96,7 +96,7 @@ class Question extends Component {
 
 // Answer component --------------------------------------------------------------
 // DragHandle is the component used to drag answers to new places
-const DragHandle = SortableHandle(() => <DragHandleIcon className={compStyles.dragHandle} />);
+const DragHandle = SortableHandle(() => <DragHandleIcon className={compStyles.dragHandle} style={{cursor:'pointer'}} />);
 
 class Answer extends Component {
 
@@ -116,11 +116,11 @@ class Answer extends Component {
             <textarea style={domStyles.answerField} 
                       onChange={this.onChange} 
                       value={this.props.value.option} />
-            <select onChange={this.onChangeCorrect} value={this.props.value.correct ? "1" : "0"}>
+            <select onChange={this.onChangeCorrect} value={this.props.value.correct ? "1" : "0"} style={{cursor:'pointer'}} >
               <option value="1">{STR_QUIZ_ANSWERCORRECT_EN}</option>
               <option value="0">{STR_QUIZ_ANSWERWRONG_EN}</option>
             </select>
-            <DeleteIcon onClick={this.onSelfDestruct}  />
+            <DeleteIcon onClick={this.onSelfDestruct} style={{cursor:'pointer'}} />
           </div>
         </Paper>
       </div>
