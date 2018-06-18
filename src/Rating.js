@@ -13,7 +13,10 @@ class Rating extends Component {
 
 	render(){
 		return (
-			<Rate onChange={this.handleChange} value={this.state.value} disabled={this.state.diabled} />
+			<div>
+				<h1>Completed! Thank you for playing</h1>
+				<Rate onChange={this.handleChange} value={this.state.value} disabled={this.state.diabled} />
+			</div>
 		)
 	}
 }

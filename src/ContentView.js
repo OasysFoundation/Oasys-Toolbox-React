@@ -5,6 +5,7 @@ import NavBar from "./NavBar"
 import Preview from "./Preview"
 import QuizPreview from "./QuizPreview";
 import ContentList from "./ContentList"
+import Rating from "./Rating"
 
 
 const mockContent = [{"name": "Slide 1", "identifier": "1", "content": "<p>Content Slide 1</p>", "type": "quill"},
@@ -41,7 +42,7 @@ class ContentView extends Component {
 
     render() {
         if (this.state.slideIdx >= mockContent.length) {
-            return (<h1>Completed! Thank you for playing</h1>)
+            return (<Rating />)
         }
 
         const obj = mockContent[this.state.slideIdx];
