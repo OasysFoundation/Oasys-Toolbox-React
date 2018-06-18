@@ -5,6 +5,12 @@ import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
+import FormLabel from '@material-ui/core/FormLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import Checkbox from '@material-ui/core/Checkbox';
 import {
   SortableContainer,
   SortableElement,
@@ -230,10 +236,19 @@ class Quiz extends Component {
           <br />
           {this.state.preview ? ( // ternary beginning
             <div>
-              <p style={domStyles.questionPreview}>{this.props.value.question}</p>
+            <FormControl component="fieldset">
+              <FormLabel component="legend">{this.props.value.question}</FormLabel>
+              <FormGroup>
               { this.props.value.answers.map((a) => 
-                <div><input type="checkbox" style={domStyles.answerListPreview} /> {a.option} <br /></div>
+                  <FormControlLabel
+                    control={
+                      <Checkbox />
+                    }
+                    label={a.option}
+                  />
               )}
+              </FormGroup>
+            </FormControl>
             </div>
           ) : ( // ternary middle
             <div>
