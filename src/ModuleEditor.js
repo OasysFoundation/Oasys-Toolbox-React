@@ -4,6 +4,7 @@ import ReactMaterialSelect from 'react-material-select'
 import 'react-material-select/lib/css/reactMaterialSelect.css'
 import glb from "./globals";
 import EventPicker from "./EventPicker";
+import polyphonic from "./polyphonic-pitch-detector/index.html"
 
 const defaultModuleList = [
   { value: 1, primaryText: 'Sing-A-Song' },
@@ -48,7 +49,6 @@ function createOasysHandler(type, module)  {
 }
 
 class ModuleEditor extends Component {
-
   constructor(props) {
     super(props);
     this.onSelect.bind(this);
@@ -154,7 +154,11 @@ class ModuleEditor extends Component {
       if (this.props.value.moduleId>0) {
         gameEditor = (
           <div>
-          <div style={{display:"flex", flexDirection:"row"}}>
+              <iframe sandbox="allow-same-origin allow-scripts" seamless src={polyphonic}
+                      frameBorder="0" allowFullScreen>
+
+              </iframe>
+              <div style={{display:"flex", flexDirection:"row"}}>
             <Button variant="raised" disabled={disabled_if} onClick={() => this.onSelect("if")}> if </Button>
             <Button variant="raised" disabled={disabled_event} onClick={() => this.onSelect("not")}> not </Button>
             <Button variant="raised" disabled={diabled_bool} onClick={() => this.onSelect("and")}> and </Button>
