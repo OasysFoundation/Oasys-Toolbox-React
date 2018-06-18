@@ -43,7 +43,6 @@ class MenuBarView extends Component {
     this.handleClose = this.handleClose.bind(this);
     this.state = {
             anchorEl: null,
-            shouldOpenOpenDialog: false
         }
   }
 
@@ -60,7 +59,6 @@ class MenuBarView extends Component {
   onOpen(event) {
     this.setState({
       anchorEl: event.currentTarget,
-      shouldOpenOpenDialog: true
     });
   }
 
@@ -88,7 +86,6 @@ class MenuBarView extends Component {
     return (
     	<div>
       <Notifications />
-      <OpenProjectDialog open={this.state.shouldOpenOpenDialog} />
       <Toolbar style={{backgroundColor: BG}}>
       <Button onClick={this.onOpen} color="white">
         <FolderIcon />
@@ -118,7 +115,7 @@ class MenuBarView extends Component {
                 <IconButton
                   aria-label="Open Content"
                   onClick={this.onLoad}
-                  onClose={this.handleClose}
+                  onClose={this.onClosePopup}
                 >
                 <IconArrowForward />
                 </IconButton>

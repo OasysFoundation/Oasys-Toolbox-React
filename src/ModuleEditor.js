@@ -4,6 +4,12 @@ import ReactMaterialSelect from 'react-material-select'
 import 'react-material-select/lib/css/reactMaterialSelect.css'
 import glb from "./globals";
 import EventPicker from "./EventPicker";
+import Typography from '@material-ui/core/Typography';
+import IconArrowForward from '@material-ui/icons/ArrowForward';
+import Popover from '@material-ui/core/Popover';
+import Input from '@material-ui/core/Input';
+import IconButton from '@material-ui/core/IconButton';
+import InputAdornment from '@material-ui/core/InputAdornment';
 
 const defaultModuleList = [
   { value: 1, primaryText: 'Sing-A-Song' },
@@ -53,6 +59,11 @@ class ModuleEditor extends Component {
     super(props);
     this.onSelect.bind(this);
     this.onChooseModule.bind(this);
+    this.state = {
+        anchorElement: null,
+    }
+    this.onShowMessageField = this.onShowMessageField.bind(this);
+    this.onAddMessage = this.onAddMessage.bind(this);
     //this.onChange = this.props.onChange.bind(this);
   }
 
@@ -100,6 +111,19 @@ class ModuleEditor extends Component {
     this.props.value.ifstate = ifstate;
     this.props.value.boolstate = boolstate;
     this.submitChange();
+  }
+
+  onShowMessageField(event) {
+    this.setState({
+      anchorElement: event.currentTarget
+    });
+  }
+
+  onAddMessage() {
+    this.onSelect("message");
+    this.setState({
+      anchorElement: null
+    });
   }
 
   // checks if an element is part of the programs logic (if,and,or,not)
@@ -159,7 +183,42 @@ class ModuleEditor extends Component {
             <Button variant="raised" disabled={disabled_event} onClick={() => this.onSelect("not")}> not </Button>
             <Button variant="raised" disabled={diabled_bool} onClick={() => this.onSelect("and")}> and </Button>
             <Button variant="raised" disabled={diabled_bool} onClick={() => this.onSelect("or")}> or </Button>
-            <Button variant="raised" disabled={disabled_react} onClick={() => this.onSelect("message")}> message </Button>
+            <Button variant="raised" disabled={disabled_react} onClick={this.onShowMessageField}> message </Button>
+
+            <Popover
+              open={Boolean(this.state.anchorElement)}
+              anchorEl={this.state.anchorElement}
+              onClose={this.onClosePopup}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'center',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'center',
+              }}
+            >
+              
+            <Input
+              placeholder="Enter Message"
+              inputProps={{
+                'aria-label': 'Description',
+              }}
+              endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="Open Content"
+                      onClick={this.onAddMessage}
+                      onClose={this.onClosePopup}
+                    >
+                    <IconArrowForward />
+                    </IconButton>
+                  </InputAdornment>
+                }
+            />
+
+          </Popover>
+
             <div style={domStyles.eventPicker}>
               <EventPicker disabled={disabled_event} onSelect={this.onSelect.bind(this)}/>
             </div>
