@@ -232,7 +232,7 @@ class Quiz extends Component {
             <div>
               <p style={domStyles.questionPreview}>{this.props.value.question}</p>
               { this.props.value.answers.map((a) => 
-                <div><input type="radio" style={domStyles.answerListPreview} /> {a.option} <br /></div>
+                <div><input type="checkbox" style={domStyles.answerListPreview} /> {a.option} <br /></div>
               )}
             </div>
           ) : ( // ternary middle
