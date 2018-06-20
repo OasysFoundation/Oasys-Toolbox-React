@@ -65,8 +65,9 @@ class SlideThumb extends Component {
       <ListItem button onClick={this.props.didSelectMenuItem.bind(this, this.props.index)}
                        style={(this.props.index===this.props.selectedSlideIndex) ? domStyles.selected : null}>
         <DragHandle />
-        {iconForSlideType(this.props.value.type)}
+        
         <ListItemText primary={this.props.value.name} />
+
         <DeleteIcon onClick={this.onSelfDestruct}  />
       </ListItem>
     )
