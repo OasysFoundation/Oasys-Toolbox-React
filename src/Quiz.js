@@ -23,7 +23,7 @@ import Tab from '@material-ui/core/Tab';
 
 // internationalization ------------------------------------------------------------
 const STR_QUIZ_HEADER_EN = 'Quiz editor';
-const STR_QUIZ_INTRO_EN = 'This is a short description of the quiz editor';
+const STR_QUIZ_INTRO_EN = 'Create a new quiz slide. Start with a question or statement and add potential answer options below. You can mark which answer options are correct (both multiple choice and single choice are possible that way).';
 const STR_QUIZ_ANSWERCORRECT_EN = 'correct';
 const STR_QUIZ_ANSWERWRONG_EN = 'wrong';
 const STR_EDIT_EN = 'edit';
