@@ -13,6 +13,7 @@ import DragHandleIcon from '@material-ui/icons/DragHandle';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Popover from '@material-ui/core/Popover';
 import Avatar from '@material-ui/core/Avatar';
+import IconButton from '@material-ui/core/IconButton';
 
 import {
   SortableContainer,
@@ -76,7 +77,9 @@ class SlideThumb extends Component {
         {/*<ListItemText primary={this.props.value.name} />*/}
         <img src={this.props.value.thumb} width={80} height={60} style={domStyles.thumb}/>
 
-        <DeleteIcon onClick={this.onSelfDestruct}  />
+        <IconButton onClick={this.onSelfDestruct} right>
+          <DeleteIcon />
+        </IconButton>
       </ListItem>
     )
   }

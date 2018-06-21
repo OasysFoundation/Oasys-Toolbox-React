@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
+import HelpIcon from '@material-ui/icons/Help';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
@@ -12,6 +13,17 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Checkbox from '@material-ui/core/Checkbox';
 import TextField from '@material-ui/core/TextField';
+import Tooltip from '@material-ui/core/Tooltip';
+import IconButton from '@material-ui/core/IconButton';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+
 import {
   SortableContainer,
   SortableElement,
@@ -24,7 +36,7 @@ import Tab from '@material-ui/core/Tab';
 
 // internationalization ------------------------------------------------------------
 const STR_QUIZ_HEADER_EN = 'Quiz editor';
-const STR_QUIZ_INTRO_EN = 'Create a new quiz slide. Start with a question or statement and add potential answer options below. You can mark which answer options are correct (both multiple choice and single choice are possible that way).';
+const STR_QUIZ_INTRO_EN = 'Create a new quiz slide. Start with a question or statement and add potential answer options below. You can mark which answer options are correct (both multiple choice and single choice are possible that way). You can learn more in our documentation.';
 const STR_QUIZ_ANSWERCORRECT_EN = 'correct';
 const STR_QUIZ_ANSWERWRONG_EN = 'wrong';
 const STR_EDIT_EN = 'edit';
@@ -42,21 +54,23 @@ const compStyles = theme => ({
 
 let domStyles = {
     answerField: {
-      paddingTop: 3,
-      paddingBottom: 3,
+      paddingTop: '3px',
+      paddingBottom: '3px',
       resize: 'none',
-      width: 500,
+      width: 1000,
       height: 30,
-      margin: 5,
     },
     answerList: {
       marginTop: 10,
     },
-    questionField: {
+    questionWrap: {
       resize: 'none',
-      width: 335,
-      height: 50,
-      margin: 10,
+      display: 'flex',
+      flexDirection: 'row', 
+      alignItems: 'center',
+    },
+    questionField: {
+      width: 1000
     },
     answerWrap: {
       display: 'flex',
@@ -87,7 +101,7 @@ class Question extends Component {
     return (
       <TextField
               id="name"
-              placeholder="Quetion or Statement"
+              placeholder="Question or Statement"
               style={domStyles.questionField} 
               value={this.props.value} 
               onChange={this.onChange}
@@ -116,10 +130,12 @@ class Answer extends Component {
 
   render() {
     return (
-      <div style={domStyles.answerField}>
+      <div style={{marginTop:'10px'}}>
         <Paper elevation={paperElevation}> 
           <div style={domStyles.answerWrap}>
-            <DragHandle />
+            <IconButton>
+              <DragHandle />
+            </IconButton>
             <TextField
               id="name"
               placeholder="Quiz Answer"
@@ -127,12 +143,17 @@ class Answer extends Component {
               onChange={this.onChange}
               style={domStyles.answerField} 
               margin="normal"
+              InputProps={{
+                 disableUnderline: true
+              }}
             />
             <select onChange={this.onChangeCorrect} value={this.props.value.correct ? "1" : "0"} style={{cursor:'pointer'}} >
               <option value="1">{STR_QUIZ_ANSWERCORRECT_EN}</option>
               <option value="0">{STR_QUIZ_ANSWERWRONG_EN}</option>
             </select>
-            <DeleteIcon onClick={this.onSelfDestruct} style={{cursor:'pointer'}} />
+            <IconButton onClick={this.onSelfDestruct} style={{cursor:'pointer'}}>
+              <DeleteIcon  />
+            </IconButton>
           </div>
         </Paper>
       </div>
@@ -167,7 +188,8 @@ class Quiz extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      preview: false
+      preview: false,
+      showsHelpDialog: false
      };
     const handlers = ['onRemoveAnswer', 'onChangeAnswer', 'onChangeAnswerCorrect', 'onChangeQuestion'];
     for (let i in handlers) { this[handlers[i]] = this[handlers[i]].bind(this) };
@@ -219,6 +241,14 @@ class Quiz extends Component {
     this.props.onChange(obj);
   }
 
+  showHelp() {
+    this.setState({ showsHelpDialog: true });
+  }
+
+  closeHelp() {
+    this.setState({ showsHelpDialog: false });
+  }
+
   changeTab = (event, value) => {
     this.setState({ 
       preview: Boolean(value)
@@ -266,26 +296,74 @@ class Quiz extends Component {
             <div>
               
               <Typography component="p">
-                  {STR_QUIZ_INTRO_EN}
+                  
               </Typography>
               <div  id="quizPreview">
-              <Question value={this.props.value.question} 
-                        onChangeQuestion={this.onChangeQuestion}/>
-              </div>
-              <Button variant="raised" style={{background: 'orange', color: 'white'}} aria-label="add" 
-                      className={compStyles.button} 
-                      onClick={this.onAddAnswer.bind(this)}>
-                   Add answer
-                  <AddIcon />
-              </Button>
+              <Card>
+                <CardContent>
+                <Typography style={{marginBottom: 16, fontSize: 14}} color="textSecondary">
+                  Quiz Question
+                </Typography>
+                  <div style={domStyles.questionWrap}>
+                  <Question value={this.props.value.question} 
+                          onChangeQuestion={this.onChangeQuestion}/>
 
+                  <IconButton aria-label="Help" onClick={this.showHelp.bind(this)}>
+                    <HelpIcon />
+                  </IconButton>
+                  </div>
+                </CardContent>
+              </Card>
+              </div>
+              
+              <Dialog
+                open={this.state.showsHelpDialog}
+                onClose={this.closeHelp.bind(this)}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+              >
+                <DialogTitle id="alert-dialog-title">{"Oasys Quiz Editor"}</DialogTitle>
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-description">
+                    {STR_QUIZ_INTRO_EN}
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={this.closeHelp.bind(this)} color="primary">
+                    Learn more…
+                  </Button>
+                  <Button onClick={this.closeHelp.bind(this)} color="primary" autoFocus>
+                    Continue editing…
+                  </Button>
+                </DialogActions>
+              </Dialog>
+
+              
+              
               <div style={domStyles.answerList}>
+              <Card>
+                <CardContent>
+                <Typography style={{marginBottom: 16, fontSize: 14}} color="textSecondary">
+                  Quiz Answers
+                </Typography>
                 <SortableAnswerList items={this.props.value.answers} 
                               onSortEnd={this.onSortEnd} 
                               useDragHandle={true} 
                               handlers={answerHandlers} />
-
+                </CardContent>
+              </Card>
               </div>
+              
+              <div style={{'text-align': 'center'}}>
+              <Button variant="raised" style={{background: 'orange', color: 'white', 'margin-top': '20px'}} aria-label="add" 
+                      className={compStyles.button} 
+                      onClick={this.onAddAnswer.bind(this)}
+                      centered>
+                   Add answer
+                  <AddIcon />
+              </Button>
+              </div>
+              
             </div> // ternary end
           ) } 
       </div>
