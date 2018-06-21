@@ -1,0 +1,11 @@
+.quill-editor .ql-toolbar.ql-snow,
+.quill-editor .ql-container.ql-snow {
+  border: none;
+}
+
+.quill-editor .ql-toolbar {
+  position: fixed;
+  z-index: 100;
+  background: #ccc;
+  top: 0;
+}

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import ReactQuill from 'react-quill';
 import Quiz from './Quiz';
 import ModuleEditor from './ModuleEditor';
 import glb from "./globals";
 import 'react-quill/dist/quill.snow.css';
+import QuillEditor from './QuillEditor'
 
 class SlideEditor extends Component {
   
@@ -12,13 +12,12 @@ class SlideEditor extends Component {
     this.onChange = this.props.onChange.bind(this);
   }
 
-  conditionalRender(){
+  conditionalRender() {
      if (this.props.slideType === glb.QUIZ) {
         return <Quiz value={this.props.slide.content}
               onChange={this.onChange} />
       } else if (this.props.slideType === glb.QUILL) {
-       return <ReactQuill value={this.props.slide.content}
-                    onChange={this.onChange}  /> 
+       return <QuillEditor onChange={this.onChange} slideContent={this.props.slide.content}/>
       } else if (this.props.slideType === glb.GAME) {
         return <ModuleEditor value={this.props.slide.content}
                              onChange={this.onChange} />
