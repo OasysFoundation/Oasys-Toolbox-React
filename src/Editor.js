@@ -56,6 +56,7 @@ class Editor extends Component {
       selectedSlideIndex: newSlideIndex,
       currSlideType: glb.QUILL,
     });
+    this.renderThumbnail()
   }
 
   onAddNewQuiz() {
@@ -72,6 +73,7 @@ class Editor extends Component {
       selectedSlideIndex: newSlideIndex,
       currSlideType: glb.QUIZ,
     });
+    this.renderThumbnail()
   }
 
   onAddNewGame() {
@@ -89,9 +91,11 @@ class Editor extends Component {
       selectedSlideIndex: newSlideIndex,
       currSlideType: glb.GAME,
     });
+    this.renderThumbnail()
   }
 
   onChangedSlide(newSlideIndex) {
+    
     let slideType = null;
     if (this.state.slides.length > 0) {
       slideType = this.state.slides[newSlideIndex].type;
@@ -106,6 +110,20 @@ class Editor extends Component {
     let slides = this.state.slides;
     slides[this.state.selectedSlideIndex].content = content;
 
+    if (Date.now() - this.state.lastCapture > 2500) {
+      this.setState({
+        lastCapture: Date.now()
+      })
+      this.renderThumbnail()
+      
+    } else {
+        this.setState({slides: slides});
+    }
+  }
+
+  renderThumbnail() {
+    let slides = this.state.slides;
+
     // update thumbnail
     let elem;
     if (slides[this.state.selectedSlideIndex].type === glb.QUILL) {
@@ -116,18 +134,10 @@ class Editor extends Component {
       elem = document.getElementById("pseudoCodePreview");
     } 
 
-    if (Date.now() - this.state.lastCapture > 2500) {
-      this.setState({
-        lastCapture: Date.now()
-      })
-      html2canvas(elem, {width: 160, height: 120}).then(canvas => {
+    html2canvas(elem, {width: 160, height: 120}).then(canvas => {
         slides[this.state.selectedSlideIndex].thumb = canvas.toDataURL("image/png");
         this.setState({slides: slides});
       });
-    } else {
-        this.setState({slides: slides});
-    }
-    
   }
 
   // gets called after slide is removed, or slides have been rearranged via drag and drop
