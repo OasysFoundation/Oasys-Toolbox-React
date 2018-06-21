@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
 
-const BG = "CadetBlue";
+const BG = "#74A4AC";
 
 const styles = {
   root: {
