@@ -116,6 +116,7 @@ class Answer extends Component {
             <DragHandle />
             <TextField
               id="name"
+              placeholder="Quiz Answer"
               value={this.props.value.option}
               onChange={this.onChange}
               style={domStyles.answerField} 
