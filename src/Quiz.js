@@ -239,7 +239,7 @@ class Quiz extends Component {
       return (
         <div style={domStyles.wrapper}>
           <Paper>
-            <Tabs value={+ this.state.preview} onChange={this.changeTab}>
+            <Tabs value={+ this.state.preview} onChange={this.changeTab} inkBarStyle={{background: 'orange'}}>
               <Tab label="Quiz Editor" />
               <Tab label="Preview" />
             </Tabs>
@@ -272,7 +272,7 @@ class Quiz extends Component {
                         onChangeQuestion={this.onChangeQuestion}/>
 
               <div style={domStyles.answerList}>
-                <Button variant="raised" color="primary" aria-label="add" 
+                <Button variant="raised" style={{background: 'orange', color: 'white'}} aria-label="add" 
                       className={compStyles.button} 
                       onClick={this.onAddAnswer.bind(this)}>
                    Add answer
