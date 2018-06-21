@@ -34,8 +34,9 @@ const STR_PREVIEW_EN = 'preview';
 const paperElevation = 4;
 
 const compStyles = theme => ({
-  button: {},
-  buttonPreview: {},
+  button: {
+    width: 165
+  },
   dragHandle: {},
 });
 
@@ -53,9 +54,9 @@ let domStyles = {
     },
     questionField: {
       resize: 'none',
-      width: 500,
+      width: 335,
       height: 50,
-      margin: 5,
+      margin: 10,
     },
     answerWrap: {
       display: 'flex',
@@ -271,17 +272,19 @@ class Quiz extends Component {
               <Question value={this.props.value.question} 
                         onChangeQuestion={this.onChangeQuestion}/>
 
-              <div style={domStyles.answerList}>
-                <Button variant="raised" style={{background: 'orange', color: 'white'}} aria-label="add" 
+              <Button variant="raised" style={{background: 'orange', color: 'white'}} aria-label="add" 
                       className={compStyles.button} 
                       onClick={this.onAddAnswer.bind(this)}>
                    Add answer
                   <AddIcon />
-                </Button>
+              </Button>
+
+              <div style={domStyles.answerList}>
                 <SortableAnswerList items={this.props.value.answers} 
                               onSortEnd={this.onSortEnd} 
                               useDragHandle={true} 
                               handlers={answerHandlers} />
+
               </div>
             </div> // ternary end
           ) } 
