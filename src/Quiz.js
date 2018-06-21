@@ -11,6 +11,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Checkbox from '@material-ui/core/Checkbox';
+import TextField from '@material-ui/core/TextField';
 import {
   SortableContainer,
   SortableElement,
@@ -113,9 +114,13 @@ class Answer extends Component {
         <Paper elevation={paperElevation}> 
           <div style={domStyles.answerWrap}>
             <DragHandle />
-            <textarea style={domStyles.answerField} 
-                      onChange={this.onChange} 
-                      value={this.props.value.option} />
+            <TextField
+              id="name"
+              value={this.props.value.option}
+              onChange={this.onChange}
+              style={domStyles.answerField} 
+              margin="normal"
+            />
             <select onChange={this.onChangeCorrect} value={this.props.value.correct ? "1" : "0"} style={{cursor:'pointer'}} >
               <option value="1">{STR_QUIZ_ANSWERCORRECT_EN}</option>
               <option value="0">{STR_QUIZ_ANSWERWRONG_EN}</option>
