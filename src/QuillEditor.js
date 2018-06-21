@@ -14,7 +14,7 @@ class QuillEditor extends Component {
 
 	render() {
 		return (<div>
-          <Card>
+          <Card style={{height: '70vh'}}>
             <CardContent>
               <ReactQuill value={this.props.slideContent}
                         onChange={this.onChange}
