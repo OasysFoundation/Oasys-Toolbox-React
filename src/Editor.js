@@ -3,7 +3,9 @@ import SlidesThumbnailView from "./SlidesThumbnailView";
 import MenuBarView from "./MenuBarView";
 import SlideEditor from "./SlideEditor";
 import Grid from '@material-ui/core/Grid';
+import html2canvas from 'html2canvas';
 import glb from "./globals";
+
 
 const saveEndpoint = 'http://174.138.2.82/saveEditor';
 const loadEndpoint = 'http://174.138.2.82/loadEditor';
@@ -14,7 +16,8 @@ function createSlide(name, identifier, content, type) {
     name: name,
     identifier: identifier,
     content: content,
-    type: type
+    type: type,
+    thumb: null
   }
 }
 
@@ -95,11 +98,21 @@ class Editor extends Component {
   }
 
   onEditorChange(content) {
-    console.log(content)
     let slides = this.state.slides;
     slides[this.state.selectedSlideIndex].content = content;
-    this.setState({
-      slides: slides,
+
+    // update thumbnail
+    let elem;
+    if (slides[this.state.selectedSlideIndex].type === glb.QUILL) {
+      elem = document.querySelector(".ql-editor");
+    } else if (slides[this.state.selectedSlideIndex].type === glb.QUIZ) {
+      elem = document.getElementById("quizPreview");
+    } else if (slides[this.state.selectedSlideIndex].type === glb.GAME) {
+      elem = document.getElementById("pseudoCodePreview");
+    } 
+    html2canvas(elem, {width: 160, height: 120}).then(canvas => {
+      slides[this.state.selectedSlideIndex].thumb = canvas.toDataURL("image/png");
+      this.setState({slides: slides});
     });
   }
 
@@ -173,9 +186,11 @@ class Editor extends Component {
                                onChangedSlide = {this.onChangedSlide}   />
         </Grid>
         <Grid item xs={7}>
+          <div id="bla">
             <SlideEditor slide = {this.state.slides[this.state.selectedSlideIndex]}
                          slideType = {this.state.currSlideType}
                          onChange = {this.onEditorChange.bind(this)} />
+           </div>
         </Grid>
         </Grid>
       </div>

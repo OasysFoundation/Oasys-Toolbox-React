@@ -268,10 +268,10 @@ class Quiz extends Component {
               <Typography component="p">
                   {STR_QUIZ_INTRO_EN}
               </Typography>
-
+              <div  id="quizPreview">
               <Question value={this.props.value.question} 
                         onChangeQuestion={this.onChangeQuestion}/>
-
+              </div>
               <Button variant="raised" style={{background: 'orange', color: 'white'}} aria-label="add" 
                       className={compStyles.button} 
                       onClick={this.onAddAnswer.bind(this)}>

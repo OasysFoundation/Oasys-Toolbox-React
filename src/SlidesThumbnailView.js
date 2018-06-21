@@ -36,6 +36,10 @@ import glb from "./globals";
 let domStyles = {
     selected: {
       backgroundColor: '#ddeedd',
+    },
+    thumb: {
+      marginLeft: '10px',
+      marginRight: '10px',
     }
 }
 
@@ -69,7 +73,8 @@ class SlideThumb extends Component {
                        style={(this.props.index===this.props.selectedSlideIndex) ? domStyles.selected : null}>
         <DragHandle />
 
-        <ListItemText primary={this.props.value.name} />
+        {/*<ListItemText primary={this.props.value.name} />*/}
+        <img src={this.props.value.thumb} width={80} height={60} style={domStyles.thumb}/>
 
         <DeleteIcon onClick={this.onSelfDestruct}  />
       </ListItem>

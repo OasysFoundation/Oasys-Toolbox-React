@@ -223,13 +223,13 @@ class ModuleEditor extends Component {
               <EventPicker disabled={disabled_event} onSelect={this.onSelect.bind(this)}/>
             </div>
           </div>
-            <div style={domStyles.pseudoCode}>
+            <div style={domStyles.pseudoCode} id="pseudoCodePreview">
               {this.renderPseudocode()}
             </div>
           </div>
         )
       } else {
-        gameEditor = <div></div>
+        gameEditor = <div id="pseudoCodePreview"></div>
       }
       return (
         <div>
