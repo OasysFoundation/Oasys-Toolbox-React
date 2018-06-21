@@ -32,7 +32,8 @@ class Editor extends Component {
       slides: [defaultSlide],
       selectedSlideIndex: 0,
       currSlideType: glb.QUILL,
-      contentId: defaultId
+      contentId: defaultId,
+      lastCapture: null
     }
 
     this.onAddNewSlide = this.onAddNewSlide.bind(this);
@@ -114,10 +115,19 @@ class Editor extends Component {
     } else if (slides[this.state.selectedSlideIndex].type === glb.GAME) {
       elem = document.getElementById("pseudoCodePreview");
     } 
-    html2canvas(elem, {width: 160, height: 120}).then(canvas => {
-      slides[this.state.selectedSlideIndex].thumb = canvas.toDataURL("image/png");
-      this.setState({slides: slides});
-    });
+
+    if (Date.now() - this.state.lastCapture > 2500) {
+      this.setState({
+        lastCapture: Date.now()
+      })
+      html2canvas(elem, {width: 160, height: 120}).then(canvas => {
+        slides[this.state.selectedSlideIndex].thumb = canvas.toDataURL("image/png");
+        this.setState({slides: slides});
+      });
+    } else {
+        this.setState({slides: slides});
+    }
+    
   }
 
   // gets called after slide is removed, or slides have been rearranged via drag and drop
@@ -191,11 +201,9 @@ class Editor extends Component {
                                onChangedSlide = {this.onChangedSlide}   />
         </Grid>
         <Grid item xs={7}>
-          <div id="bla">
             <SlideEditor slide = {this.state.slides[this.state.selectedSlideIndex]}
                          slideType = {this.state.currSlideType}
                          onChange = {this.onEditorChange.bind(this)} />
-           </div>
         </Grid>
         </Grid>
       </div>
