@@ -91,9 +91,13 @@ class Editor extends Component {
   }
 
   onChangedSlide(newSlideIndex) {
+    let slideType = null;
+    if (this.state.slides.length > 0) {
+      slideType = this.state.slides[newSlideIndex].type;
+    }
     this.setState({
       selectedSlideIndex: newSlideIndex,
-      currSlideType: this.state.slides[newSlideIndex].type,
+      currSlideType: slideType,
     });
   }
 
@@ -116,6 +120,7 @@ class Editor extends Component {
     });
   }
 
+  // gets called after slide is removed, or slides have been rearranged via drag and drop
   onSlideOrderChange(slides, idxold, idxnew){
     let index = this.state.selectedSlideIndex;
     if (index === idxold) { index = idxnew; } 

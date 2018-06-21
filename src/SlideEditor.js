@@ -22,6 +22,8 @@ class SlideEditor extends Component {
       } else if (this.props.slideType === glb.GAME) {
         return <ModuleEditor value={this.props.slide.content}
                              onChange={this.onChange} />
+      } else {
+        return <div></div>
       }
   }
 
