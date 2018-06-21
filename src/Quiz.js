@@ -84,9 +84,14 @@ class Question extends Component {
 
   render() {
     return (
-      <textarea style={domStyles.questionField} 
-                value={this.props.value} 
-                onChange={this.onChange} />
+      <TextField
+              id="name"
+              placeholder="Quetion or Statement"
+              style={domStyles.questionField} 
+              value={this.props.value} 
+              onChange={this.onChange}
+              margin="normal"
+            />
     )
   }
 
