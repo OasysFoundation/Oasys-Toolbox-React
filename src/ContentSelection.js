@@ -3,6 +3,7 @@ import {Component} from 'react';
 import styled from "styled-components"
 import SimpleMediaCard from "./SimpleMediaCard"
 import imgA from './play_images/Intervals800.png';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const Flexer = styled.section`
   display: flex;
@@ -11,24 +12,6 @@ const Flexer = styled.section`
   justify-content: space-around;
 `
 
-const mockDataContentList =
-    [
-        {
-            "title": "YOLO",
-            "tags": ["physics", "math"],
-            "description": "John Hapiderp is exploring the rainforest, when suddenly he stumbles upon an ancient temple",
-            "thumbnail": "",
-            "location": "/contents/markus/deerhunter"
-        },
-
-        {
-            "title": "Brunz Feather",
-            "tags": ["chemistry"],
-            "description": "Thiel ferdinand is a rogue tomato trapped inside a hyperbarric chamber",
-            "thumbnail": "", "location": ""
-        }
-
-    ];
 
 class ContentSelection extends Component {
     constructor(props) {
@@ -36,7 +19,7 @@ class ContentSelection extends Component {
         const loadContent = 'http://174.138.2.82/GetContentsPreview';
         const that = this;
         this.state = {
-            content: mockDataContentList
+            content: []
         }
 
         fetch(loadContent, {
@@ -55,7 +38,12 @@ class ContentSelection extends Component {
         return (
             <div>
                 <Flexer>
-                    {this.state.content.map((d, i) => <SimpleMediaCard key={i} imgURL={d.thumbnail} contentData={d}/>)}
+                    {this.state.content.length==0? (
+                            <CircularProgress style={{ color: 'orange' }} thickness={7} />
+                        ) : (
+                            this.state.content.map((d, i) => <SimpleMediaCard key={i} imgURL={d.thumbnail} contentData={d}/>)
+                        )
+                    }
                 </Flexer>
             </div>
         )

@@ -8,19 +8,7 @@ import ContentList from "./ContentList"
 import Rating from "./Rating"
 
 
-const mockContent = [{"name": "Slide 1", "identifier": "1", "content": "<p>Content Slide 1</p>", "type": "quill"},
-    {"name": "Slide 2", "identifier": "0.w91nrv58u7", "content": "<p>Content Slide 2</p>", "type": "quill"},
-    {
-        "name": "Slide 3", "identifier": "0.3e6wwp8j4zl",
-        "content": {
-            "question": "Quiz question on slide 3",
-            "answers": [{"option": "Answer 1", "correct": false}, {
-                "option": "Answer 2",
-                "correct": false
-            }, {"option": "Answer 3", "correct": true}]
-        }, "type": "quiz"
-    },
-    {"name": "Slide 4", "identifier": "0.60xotjf2sbu", "content": "<p>Content Slide 4</p>", "type": "quill"}]
+const content = []
 
 
 class ContentView extends Component {
@@ -34,18 +22,18 @@ class ContentView extends Component {
 
     slideCount(increment = 0) {
         const newIdx = this.state.slideIdx + increment;
-        if (newIdx < 0 || newIdx > mockContent.length) {
+        if (newIdx < 0 || newIdx > content.length) {
             return
         }
         this.setState({slideIdx: newIdx})
     }
 
     render() {
-        if (this.state.slideIdx >= mockContent.length) {
+        if (this.state.slideIdx >= content.length) {
             return (<Rating />)
         }
 
-        const obj = mockContent[this.state.slideIdx];
+        const obj = content[this.state.slideIdx];
         const slideView = (obj.type === "quill") ? <Preview content={obj.content}/> :
             <QuizPreview content={obj.content}/>
 
@@ -57,7 +45,7 @@ class ContentView extends Component {
                     {"<<<"}
                 </Button>
                 {/*Progress Text*/}
-                {`${this.state.slideIdx + 1} / ${mockContent.length}`}
+                {`${this.state.slideIdx + 1} / ${content.length}`}
 
                 <Button variant="fab" size="small" color="primary"
                         onClick={() => this.slideCount(+1)}>
