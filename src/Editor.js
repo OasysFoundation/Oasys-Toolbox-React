@@ -18,7 +18,7 @@ function createSlide(name, identifier, content, type) {
   }
 }
 
-const defaultSlide = createSlide("Slide", "1","This is the editor. Write your content here.", glb.QUILL);
+const defaultSlide = createSlide("Slide", "1","This is the start of your exciting educational story.", glb.QUILL);
 
 class Editor extends Component {
 

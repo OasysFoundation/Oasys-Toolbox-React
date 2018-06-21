@@ -11,6 +11,9 @@ import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
 import GamesIcon from '@material-ui/icons/Games';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Popover from '@material-ui/core/Popover';
+import Avatar from '@material-ui/core/Avatar';
+
 import {
   SortableContainer,
   SortableElement,
@@ -65,7 +68,7 @@ class SlideThumb extends Component {
       <ListItem button onClick={this.props.didSelectMenuItem.bind(this, this.props.index)}
                        style={(this.props.index===this.props.selectedSlideIndex) ? domStyles.selected : null}>
         <DragHandle />
-        
+
         <ListItemText primary={this.props.value.name} />
 
         <DeleteIcon onClick={this.onSelfDestruct}  />
@@ -100,21 +103,40 @@ class SlidesThumbnailView extends Component {
     this.didSelectAddNewQuiz = this.didSelectAddNewQuiz.bind(this);
     this.didSelectAddNewGame = this.didSelectAddNewGame.bind(this);
     this.onRemoveSlide = this.onRemoveSlide.bind(this);
+
+    this.state = {
+            anchorEl: null,
+    }
   }
 
   didSelectMenuItem(index) {
     this.props.onChangedSlide(index);
   }
 
+  onAddNewSlide(event) {
+    this.setState({
+      anchorEl: event.currentTarget,
+    });
+  }
+
+  onClosePopup() {
+    this.setState({
+      anchorEl: null,
+    });
+  }
+
   didSelectAddNewSlide() {
+    this.onClosePopup();
     this.props.onAddNewSlide();
   }
 
   didSelectAddNewQuiz() {
+    this.onClosePopup();
     this.props.onAddNewQuiz();
   }
 
   didSelectAddNewGame() {
+    this.onClosePopup();
     this.props.onAddNewGame();
   }
 
@@ -137,23 +159,53 @@ class SlidesThumbnailView extends Component {
     return (
       <div onClick={this.props.onClick}> 
         <section> 
-          <List component="nav">
+          <Popover
+          open={Boolean(this.state.anchorEl)}
+          anchorEl={this.state.anchorEl}
+          onClose={this.onClosePopup.bind(this)}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'left',
+          }}
+        >
+          
+        <List component="nav">
             <ListItem button onClick={this.didSelectAddNewSlide.bind(this)}>
-              <AddIcon />
+              <Avatar>
+                <WallpaperIcon />
+              </Avatar>
               <ListItemText primary="New Slide"/>
             </ListItem>
             <ListItem button onClick={this.didSelectAddNewQuiz.bind(this)}>
-              <AddIcon />
+              <Avatar>
+                <QuestionAnswerIcon />
+              </Avatar>
               <ListItemText primary="New Quiz" />
             </ListItem>
             <ListItem button onClick={this.didSelectAddNewGame.bind(this)}>
-              <AddIcon />
+              <Avatar>
+                <GamesIcon />
+              </Avatar>
               <ListItemText primary="New Game" />
+            </ListItem>
+        </List>
+
+      </Popover>
+
+          <List component="nav">
+            <ListItem button onClick={this.onAddNewSlide.bind(this)}>
+              <AddIcon />
+              <ListItemText primary="Add new Slide"/>
             </ListItem>
             {/* ListItem button>
               <CallSplitIcon />
               <ListItemText primary="New Split" />
             </ListItem> */}
+            <Divider />
             <Divider />
             <SortableSlideList items={this.props.slides} 
                               onSortEnd={this.onSortEnd} 

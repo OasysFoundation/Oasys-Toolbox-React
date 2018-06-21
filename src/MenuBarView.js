@@ -79,7 +79,9 @@ class MenuBarView extends Component {
   }
 
   onClosePopup() {
-    
+    this.setState({
+      anchorEl: null,
+    });
   };
 
   render() {
@@ -94,7 +96,7 @@ class MenuBarView extends Component {
       <Popover
           open={Boolean(this.state.anchorEl)}
           anchorEl={this.state.anchorEl}
-          onClose={this.onClosePopup}
+          onClose={this.onClosePopup.bind(this)}
           anchorOrigin={{
             vertical: 'bottom',
             horizontal: 'center',
