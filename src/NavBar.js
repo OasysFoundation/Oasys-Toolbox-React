@@ -33,7 +33,7 @@ function NavBar(props) {
           <Typography variant="title" color="inherit" className={classes.flex}>
             Oasys Education
           </Typography>
-            <Button href='/learn' color="inherit">Explore</Button>
+            <Button href='/explore' color="inherit">Explore</Button>
             <Button href='/create' color="inherit">Create</Button>
             <Button href='/user' color="inherit">My Account</Button>
             <Button href='https://joinoasys.org' color="inherit">About</Button>

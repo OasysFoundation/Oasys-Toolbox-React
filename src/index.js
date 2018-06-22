@@ -25,7 +25,7 @@ class Index extends Component {
                         <NavBar/>
                         <Switch>
                             <Route exact path="/" component={ContentSelection}/>
-                            <Route path="/learn" component={ContentSelection}/>
+                            <Route path="/explore" component={ContentSelection}/>
                             <Route path="/create" component={Editor} />
 
                             <Route path="/user/:username/:contentname" component={ContentViewTest}/>
