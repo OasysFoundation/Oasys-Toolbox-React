@@ -25,13 +25,12 @@ class ContentSelection extends Component {
         fetch(loadContent, {
             method: 'GET'
         }).then(function (response) {
-            console.log(response);
             return response.json();
         })
-            .then(function (myJson) {
-                console.log(myJson);
-                that.setState({content: myJson})
-            });
+        .then(function (myJson) {
+            console.log(myJson);
+            that.setState({content: myJson})
+        });
 
     }
     render(){
@@ -41,7 +40,7 @@ class ContentSelection extends Component {
                     {this.state.content.length==0? (
                             <CircularProgress style={{ color: 'orange' }} thickness={7} />
                         ) : (
-                            this.state.content.map((d, i) => <SimpleMediaCard key={i} imgURL={d.thumbnail} contentData={d}/>)
+                            this.state.content.map((d, i) => <SimpleMediaCard key={i} contentData={d}/>)
                         )
                     }
                 </Flexer>
