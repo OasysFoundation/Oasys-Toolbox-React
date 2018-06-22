@@ -130,7 +130,7 @@ class MenuBarView extends Component {
         <SaveIcon />
 	        Save Draft
 	    </Button>
-      <Button onClick={this.onPublish} style={{color: 'orange'}} >
+      <Button onClick={this.onPublish.bind(this)} style={{color: 'orange'}} >
         <PublishIcon />
           Publish on Oasys
         </Button>
