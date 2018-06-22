@@ -44,15 +44,17 @@ class MenuBarView extends Component {
     this.state = {
             anchorEl: null,
         }
+
+    this.show = notify.createShowQueue();
   }
 
   onSave() {
-    notify.show('Saved Draft');
+    this.show('Saved Draft');
     this.props.onSave(this.contentId, false);
   }
 
   onPublish() {
-    notify.show('Publishing…');
+    this.show('Publishing…');
     this.props.onSave(this.contentId, true);
   }
 
@@ -69,7 +71,7 @@ class MenuBarView extends Component {
   };
 
   onLoad() {
-    notify.show('Opening…');
+    this.show('Opening…');
     this.props.onLoad(this.contentId);
     this.handleClose()
   }
