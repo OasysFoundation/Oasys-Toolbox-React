@@ -28,8 +28,9 @@ class Index extends Component {
                             <Route path="/learn" component={ContentSelection}/>
                             <Route path="/create" component={Editor} />
 
-                            <Route path="/:username/:contentname" component={ContentViewTest}/>
-                            <Route path="/:username" component={UserPage}/>
+                            <Route path="user/:username/:contentname" component={ContentViewTest}/>
+                            <Route path="user/:username" component={UserPage}/>
+                            <Route path="user/" component={UserPage}/>
 
 
                             <Route component={NotFoundPage}/>
