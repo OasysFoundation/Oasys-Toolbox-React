@@ -14,10 +14,11 @@ class QuillEditor extends Component {
 
 	render() {
 		return (<div>
-          <Card style={{height: '70vh'}}>
+          <Card style={{height: '70vh', 'max-width': '600px'}}>
             <CardContent>
               <ReactQuill value={this.props.slideContent}
                         onChange={this.onChange}
+                        style={{height: '60vh'}}
                           /> 
             </CardContent>
           </Card>

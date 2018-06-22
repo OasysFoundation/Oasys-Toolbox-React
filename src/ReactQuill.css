@@ -3,9 +3,7 @@
   border: none;
 }
 
-.quill-editor .ql-toolbar {
-  position: fixed;
-  z-index: 100;
-  background: #ccc;
-  top: 0;
+.ql-container.ql-snow {
+	height: '70vh';
+	max-width: '400px';
 }
