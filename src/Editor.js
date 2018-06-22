@@ -7,8 +7,10 @@ import html2canvas from 'html2canvas';
 import glb from "./globals";
 
 
-const saveEndpoint = 'http://174.138.2.82/saveEditor';
-const loadEndpoint = 'http://174.138.2.82/loadEditor';
+//https://api.joinoasys.org/{userName}/{contentName}/save
+const saveEndpoint = 'https://api.joinoasys.org/';
+//https://api.joinoasys.org/{userName}/{contentName}
+const loadEndpoint = 'https://api.joinoasys.org/';
 const defaultId = 666;
 
 function createSlide(name, identifier, content, type) {

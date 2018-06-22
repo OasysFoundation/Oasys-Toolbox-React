@@ -16,7 +16,7 @@ const Flexer = styled.section`
 class ContentSelection extends Component {
     constructor(props) {
         super();
-        const loadContent = 'http://174.138.2.82/GetContentsPreview';
+        const loadContent = 'https://api.joinoasys.org/GetContentsPreview';
         const that = this;
         this.state = {
             content: []
