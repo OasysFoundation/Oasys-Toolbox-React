@@ -13,6 +13,9 @@ import Editor from "./Editor"
 
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import createBrowserHistory from 'history/createBrowserHistory';
+
+import MyAccountPage from './MyAccountPage'
+
 const history = createBrowserHistory();
 
 
@@ -46,12 +49,6 @@ class Index extends Component {
 const UserPage = ({ match }) => (
     <div>
         <h3>Username: {match.params.username}</h3>
-    </div>
-);
-
-const MyAccountPage = ({ match }) => (
-    <div>
-        <h3>This is your personal user account page. You see all your content here. In the future. Right now, this is just a demo text.</h3>
     </div>
 );
 

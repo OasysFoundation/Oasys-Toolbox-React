@@ -4,6 +4,9 @@ import styled from "styled-components"
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
+import IconExplore from '@material-ui/icons/Explore';
+import IconCreate from '@material-ui/icons/Create';
+import IconAccountCircle from '@material-ui/icons/AccountCircle';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -33,9 +36,9 @@ function NavBar(props) {
           <Typography variant="title" color="inherit" className={classes.flex}>
             Oasys Education
           </Typography>
-            <Button href='/explore' color="inherit">Explore</Button>
-            <Button href='/create' color="inherit">Create</Button>
-            <Button href='/user' color="inherit">My Account</Button>
+            <Button href='/explore' color="inherit"> <IconExplore/> Explore</Button>
+            <Button href='/create' color="inherit"> <IconCreate/> Create</Button>
+            <Button href='/user' color="inherit"> <IconAccountCircle /> My Account</Button>
             <Button href='https://joinoasys.org' color="inherit">About</Button>
         </Toolbar>
       </AppBar>
