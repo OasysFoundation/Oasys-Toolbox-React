@@ -53,7 +53,8 @@ class MenuBarView extends Component {
     this.state = {
             anchorEl: null,
             showsSaveDialog: false,
-            saveAction: null
+            saveAction: null,
+            link: null
         }
 
     this.show = notify.createShowQueue();
@@ -128,10 +129,28 @@ class MenuBarView extends Component {
     });
   };
 
-  onLoad() {
+  onLoad(event) {
     this.show('Opening…');
-    this.props.onLoad(this.contentId);
-    this.handleClose()
+    // this.props.onLoad(this.contentId);
+    
+    var loadContent = this.state.link;
+
+    console.log(loadContent);
+
+    fetch(loadContent, {
+      method: 'GET'
+    }).then(function(response) {
+        console.log(response);
+        return response.json();
+      })
+      .then(function(myJson) {
+        console.log(myJson);
+      });
+
+
+    this.handleClose();
+
+
   }
 
   onChange(event) { 
@@ -168,7 +187,6 @@ class MenuBarView extends Component {
   };
 
   handleChange(chips) {
-
     if(this.state.hashtags)
       this.setState({ hashtags: [...this.state.hashtags, chips] })
     else{
@@ -176,6 +194,12 @@ class MenuBarView extends Component {
           hashtags: [chips]
         });
     }
+  }
+
+  handleLoadChange(event) {
+    this.setState({
+      link: event.target.value
+    })
   }
 
   closeSaveDialog() {
@@ -208,7 +232,9 @@ class MenuBarView extends Component {
         >
           
         <Input
-          placeholder="Content ID (Link)"
+          placeholder="Link to Content"
+          value={this.state.title}
+          onChange={this.handleLoadChange.bind(this)}
           inputProps={{
             'aria-label': 'Description',
           }}
