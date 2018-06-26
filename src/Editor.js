@@ -158,7 +158,7 @@ class Editor extends Component {
   }
 
   // TODO: When endpoint accepts publish flag, we need to update here
-  save(id, publish) {
+  save(id, publish, title, username, tags, pictureURL, description) {
     if (id!==null) {
       this.setState({contentId: id});
     }
