@@ -44,9 +44,11 @@ class MenuBarView extends Component {
     super(props);
     this.onChange = this.onChange.bind(this);
     this.onSave = this.onSave.bind(this);
+    this.completeFetch = this.completeFetch.bind(this);
     this.onLoad = this.onLoad.bind(this);
     this.contentId = 0;
     this.onOpen = this.onOpen.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.state = {
             anchorEl: null,
@@ -60,9 +62,8 @@ class MenuBarView extends Component {
   onSave() {
     this.setState({
       saveAction: 'save',
-      showsSaveDialog: true
+      showsSaveDialog: true,
     });
-
   }
 
   onPublish() {
@@ -72,14 +73,46 @@ class MenuBarView extends Component {
     });
   }
 
+  completeFetch(contentId, published, username, hashtags, pictureURL, description) {
+
+    var saveEndpoint = 'https://api.joinoasys.org/'+username+'/'+contentId+'/save';
+    var data = {
+      "data":"Still a test",
+      "published":published,
+      "picture":pictureURL,
+      "title":contentId,
+      "description":description,
+      "tags":hashtags,
+      "url":'/'+username+'/'+contentId
+    }
+
+    fetch(saveEndpoint, {
+      method: 'POST', 
+      body: JSON.stringify(data),
+      headers: new Headers({
+       'Content-Type': 'application/json',
+     })
+    }).then(res => res.json())
+    .catch(error => console.error('Error:', error))
+    .then(response => {
+      console.log('Success:', response);
+      this.setState({
+        showsSaveDialog: false
+      });
+
+      });
+
+
+  }
+
   onSubmit() {
     if (this.state.saveAction == 'save') {
       this.show('Saved Draft');
-      this.props.onSave(this.contentId, false, this.state.title, this.state.username, this.state.hashtags, this.state.pictureURL, this.state.description);
+      this.completeFetch(this.state.title, 0, this.state.username, this.state.hashtags, this.state.pictureURL, this.state.description);
     }
     if (this.state.saveAction == 'publish') {
-      this.show('Publishing…');
-      this.props.onSave(this.contentId, true, this.state.title, this.state.username, this.state.hashtags, this.state.pictureURL, this.state.description);
+      this.show('Published');
+      this.completeFetch(this.state.title, 1, this.state.username, this.state.hashtags, this.state.pictureURL, this.state.description);
     }
   }
 
@@ -102,7 +135,30 @@ class MenuBarView extends Component {
   }
 
   onChange(event) { 
-    this.contentId = event.target.value;
+    switch (event.target.id){
+      case "title": 
+        this.setState({
+          title: event.target.value,
+        });
+        break;
+      case "username": 
+        this.setState({
+          username: event.target.value,
+        });
+        break;
+      case "pictureURL": 
+        this.setState({
+          pictureURL: event.target.value,
+        });
+        break;
+      case "description": 
+        this.setState({
+          description: event.target.value,
+        });
+        break;
+      default:
+
+    }
   }
 
   onClosePopup() {
@@ -110,6 +166,17 @@ class MenuBarView extends Component {
       anchorEl: null,
     });
   };
+
+  handleChange(chips) {
+
+    if(this.state.hashtags)
+      this.setState({ hashtags: [...this.state.hashtags, chips] })
+    else{
+       this.setState({
+          hashtags: [chips]
+        });
+    }
+  }
 
   closeSaveDialog() {
     this.setState({
@@ -174,55 +241,57 @@ class MenuBarView extends Component {
         onClose={this.closeSaveDialog.bind(this)}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">{"Oasys Quiz Editor"}</DialogTitle>
+      >        
+
+        <DialogTitle id="alert-dialog-title">{"You are almost done!"}</DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            This is a beta user interface. Most of these fields will be embedded into the editor in future. For now we need these values otherwise the server would reject our save request.
+        <DialogContentText id="alert-dialog-description">
+          We need a little more information to properly save your content. 
           </DialogContentText>
             <TextField
-              id="name"
-              placeholder="Content Title"
+              id="title"
+              placeholder="Title"
               style={{width:'100%'}} 
               value={this.props.contentTitle} 
-              onChange={this.onChange}
+              onChange={this.onChange.bind(this)}
               margin="normal"
             />
             <TextField
-              id="name"
+              id="username"
               placeholder="Username"
               style={{width:'100%'}} 
               value={this.props.username} 
-              onChange={this.onChange}
+              onChange={this.onChange.bind(this)}
               margin="normal"
             />
             <TextField
-              id="name"
+              id="pictureURL"
               placeholder="Picture URL"
               style={{width:'100%'}} 
               value={this.props.pictureURL} 
-              onChange={this.onChange}
+              onChange={this.onChange.bind(this)}
               margin="normal"
             />
             <TextField
-              id="name"
+              id="description"
               placeholder="Description"
               style={{width:'100%'}} 
               value={this.props.description} 
-              onChange={this.onChange}
+              onChange={this.onChange.bind(this)}
               margin="normal"
             />
             <ChipInput
+              id="hashtags"
               placeholder="Hashtags"
               style={{width:'100%'}} 
-              value={this.props.hashtags} 
+              onChange={(chips) => this.handleChange(chips)}
             />
         </DialogContent>
         <DialogActions>
           <Button onClick={this.closeSaveDialog.bind(this)} color="primary">
             Cancel
           </Button>
-          <Button onClick={this.closeSaveDialog.bind(this)} color="primary" autoFocus>
+          <Button onClick={this.onSubmit.bind(this)} color="primary" autoFocus>
             Submit
           </Button>
         </DialogActions>
