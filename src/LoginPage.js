@@ -53,6 +53,16 @@ constructor(props) {
     event.preventDefault();
   }
 
+  signup = (event) => {
+   
+    const {
+      history,
+    } = this.props;
+
+    history.push('/signup');
+    event.preventDefault();
+  }
+
 render() {
 	const {
       email,
@@ -98,6 +108,9 @@ render() {
 		      <CardActions style={{marginTop:'15px'}}>
               <Button disabled={isInvalid} variant="raised" color="primary" onClick={this.onSubmit.bind(this)} >
 		        Sign In
+		      </Button>
+		      <Button variant="contained" color="primary" onClick={this.signup.bind(this)} >
+		        New User
 		      </Button>
 		      { error && <p>{error.message}</p> }
 		      </CardActions>
