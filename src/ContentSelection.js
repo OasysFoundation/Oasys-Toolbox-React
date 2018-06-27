@@ -4,6 +4,9 @@ import styled from "styled-components"
 import SimpleMediaCard from "./SimpleMediaCard"
 import imgA from './play_images/Intervals800.png';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Paper from '@material-ui/core/Paper';
+import TextField from '@material-ui/core/TextField';
+import logo from './logo.jpg'
 
 const Flexer = styled.section`
   display: flex;
@@ -36,6 +39,24 @@ class ContentSelection extends Component {
     render(){
         return (
             <div>
+                <Paper style={{margin:'16px', padding:'16px'}}>
+                    <center>
+                    <img src={logo} style={{maxWidth:'100px'}}/>
+                    <h2> Welcome to Oasys! </h2>
+                    <p style={{maxWidth:'450px'}}>
+                    Start your educational journey here. Search for topics you're interested in or select one of the personally curated contents below.
+                    </p>
+
+                    <TextField
+                      id="search"
+                      label="Search…"
+                      style={{width:'400px'}} 
+                      type="text"
+                      margin="normal"
+                    />
+
+                    </center>
+                </Paper>
                 <Flexer>
                     {this.state.content.length==0? (
                             <CircularProgress style={{ color: 'orange' }} thickness={7} />
