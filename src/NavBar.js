@@ -10,6 +10,7 @@ import IconAccountCircle from '@material-ui/icons/AccountCircle';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import SignOutButton from './SignOutPage';
 
 
 const BG = "#74A4AC";
@@ -40,6 +41,9 @@ function NavBar(props) {
             <Button href='/create' color="inherit"> <IconCreate style={{marginRight:'7px'}}/> Create</Button>
             <Button href='/user' color="inherit"> <IconAccountCircle style={{marginRight:'7px'}}/> My Account</Button>
             <Button href='https://joinoasys.org' color="inherit">About</Button>
+            <SignOutButton color="inherit"/>
+
+
         </Toolbar>
       </AppBar>
     )
