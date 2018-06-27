@@ -29,6 +29,7 @@ render() {
 	              value={this.props.value} 
 	              onChange={this.onChange}
 	              margin="normal"
+	              autoComplete="username"
 	              type="email"
 	            />
 		        <TextField
@@ -36,7 +37,7 @@ render() {
 		          label="Password"
 		          style={{width:'100%'}} 
 		          type="password"
-		          autoComplete="current-password"
+		          autoComplete="new-password"
 		          margin="normal"
 		        />
 		        <TextField
@@ -44,7 +45,7 @@ render() {
 		          label="Verify Password"
 		          style={{width:'100%'}} 
 		          type="password"
-		          autoComplete="current-password"
+		          autoComplete="new-password"
 		          margin="normal"
 		        />
 		      <CardActions style={{marginTop:'15px'}}>
