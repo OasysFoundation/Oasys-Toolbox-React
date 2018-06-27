@@ -146,7 +146,7 @@ class SlidesThumbnailView extends Component {
 
   didSelectAddNewGame() {
     this.onClosePopup();
-    this.props.onAddNewGame();
+    this.props.onAddNewHyperVideo();
   }
 
   didSelectAddHyperVideo() {

@@ -96,6 +96,19 @@ class Editor extends Component {
     this.renderThumbnail()
   }
 
+  onAddNewHyperVideo() {
+    let slides = this.state.slides;
+    let content = { }
+    slides.push(createSlide("Hypervideo ", Math.random().toString(36), content, glb.HYPERVIDEO));
+    const newSlideIndex = slides.length -1;
+    this.setState({
+      slides: slides,
+      selectedSlideIndex: newSlideIndex,
+      currSlideType: glb.HYPERVIDEO,
+    });
+    this.renderThumbnail()
+  }
+
   onChangedSlide(newSlideIndex) {
     
     let slideType = null;
@@ -123,6 +136,8 @@ class Editor extends Component {
     }
   }
 
+
+
   renderThumbnail() {
     let slides = this.state.slides;
 
@@ -134,7 +149,9 @@ class Editor extends Component {
       elem = document.getElementById("quizPreview");
     } else if (slides[this.state.selectedSlideIndex].type === glb.GAME) {
       elem = document.getElementById("pseudoCodePreview");
-    } 
+    } else if (slides[this.state.selectedSlideIndex].type === glb.HYPERVIDEO) {
+      
+    }
 
     html2canvas(elem, {width: 160, height: 120}).then(canvas => {
         slides[this.state.selectedSlideIndex].thumb = canvas.toDataURL("image/png");
@@ -208,6 +225,7 @@ class Editor extends Component {
                                onAddNewSlide={this.onAddNewSlide} 
                                onAddNewQuiz={this.onAddNewQuiz} 
                                onAddNewGame={this.onAddNewGame} 
+                               onAddNewHyperVideo={this.onAddNewHyperVideo}
                                selectedSlideIndex={this.state.selectedSlideIndex} 
                                onSlideOrderChange = {this.onSlideOrderChange}
                                onChangedSlide = {this.onChangedSlide}   />
