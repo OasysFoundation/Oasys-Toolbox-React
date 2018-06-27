@@ -201,7 +201,7 @@ class Editor extends Component {
       <div>
         <Grid container spacing={24}>
         <Grid item xs={12}>
-          <MenuBarView onSave={this.save} onLoad={this.load}/>
+          <MenuBarView onSave={this.save} onLoad={this.load} slides={this.slides}/>
         </Grid>
         <Grid item xs={3}>
           <SlidesThumbnailView slides={this.state.slides} 

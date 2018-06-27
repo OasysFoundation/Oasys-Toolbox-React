@@ -74,11 +74,11 @@ class MenuBarView extends Component {
     });
   }
 
-  completeFetch(contentId, published, username, hashtags, pictureURL, description) {
+  completeFetch(contentId, published, username, hashtags, pictureURL, description, slides) {
 
     var saveEndpoint = 'https://api.joinoasys.org/'+username+'/'+contentId+'/save';
     var data = {
-      "data":"Still a test",
+      "data":slides,
       "published":published,
       "picture":pictureURL,
       "title":contentId,
@@ -107,13 +107,14 @@ class MenuBarView extends Component {
   }
 
   onSubmit() {
+    console.log(this.slides);
     if (this.state.saveAction == 'save') {
       this.show('Saved Draft');
-      this.completeFetch(this.state.title, 0, this.state.username, this.state.hashtags, this.state.pictureURL, this.state.description);
+      this.completeFetch(this.state.title, 0, this.state.username, this.state.hashtags, this.state.pictureURL, this.state.description, this.slides);
     }
     if (this.state.saveAction == 'publish') {
       this.show('Published');
-      this.completeFetch(this.state.title, 1, this.state.username, this.state.hashtags, this.state.pictureURL, this.state.description);
+      this.completeFetch(this.state.title, 1, this.state.username, this.state.hashtags, this.state.pictureURL, this.state.description, this.slides);
     }
   }
 
