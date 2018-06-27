@@ -11,6 +11,7 @@ import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
 import GamesIcon from '@material-ui/icons/Games';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
 import DeleteIcon from '@material-ui/icons/Delete';
+import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
 import Popover from '@material-ui/core/Popover';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
@@ -148,6 +149,10 @@ class SlidesThumbnailView extends Component {
     this.props.onAddNewGame();
   }
 
+  didSelectAddHyperVideo() {
+    this.onClosePopup();
+  }
+
   onRemoveSlide(index) {
     let slides = this.props.slides;
     slides.splice(index, 1);
@@ -197,6 +202,12 @@ class SlidesThumbnailView extends Component {
                 <GamesIcon />
               </Avatar>
               <ListItemText primary="New Game" />
+            </ListItem>
+            <ListItem button onClick={this.didSelectAddHyperVideo.bind(this)}>
+              <Avatar>
+                <VideoLibraryIcon />
+              </Avatar>
+              <ListItemText primary="New Hypervideo" />
             </ListItem>
         </List>
 
