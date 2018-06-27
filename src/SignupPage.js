@@ -44,8 +44,6 @@ constructor(props) {
       history,
     } = this.props;
 
-    console.log(auth);
-
     auth.doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
         this.setState(() => ({ ...INITIAL_STATE }));

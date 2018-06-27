@@ -6,11 +6,64 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import logo from './logo.jpg'
 import Typography from '@material-ui/core/Typography';
+import { auth } from './firebase';
+
+import {
+  Link,
+  withRouter,
+} from 'react-router-dom';
+
+
+
+const INITIAL_STATE = {
+  email: '',
+  password: '',
+  error: null,
+};
+
+const byPropKey = (propertyName, value) => () => ({
+  [propertyName]: value,
+});
 
 class LoginPage extends Component {
- 
+constructor(props) {
+    super(props);
+    this.state = { ...INITIAL_STATE };
+  }
 
-  render() {
+  onSubmit = (event) => {
+    const {
+      email,
+      password,
+    } = this.state;
+
+    const {
+      history,
+    } = this.props;
+
+    auth.doSignInWithEmailAndPassword(email, password)
+      .then(() => {
+        this.setState(() => ({ ...INITIAL_STATE }));
+        history.push('/');
+      })
+      .catch(error => {
+        this.setState(byPropKey('error', error));
+      });
+
+    event.preventDefault();
+  }
+
+render() {
+	const {
+      email,
+      password,
+      error,
+    } = this.state;
+
+     const isInvalid =
+      password === '' ||
+      email === '';
+
     return (
 		<Card style={{maxWidth:'350px', position:'absolute', top: '50%', left: '50%', transform: 'translateX(-50%) translateY(-50%)'}}>
 			<CardContent>
@@ -26,10 +79,10 @@ class LoginPage extends Component {
 	              id="name"
 	              label="Email Address"
 	              style={{width:'100%'}} 
-	              value={this.props.value} 
-	              onChange={this.onChange}
+	              value={email} 
 	              margin="normal"
 	              type="email"
+          		  onChange={event => this.setState(byPropKey('email', event.target.value))}
 	            />
 		        <TextField
 		          id="password-input"
@@ -38,19 +91,19 @@ class LoginPage extends Component {
 		          type="password"
 		          autoComplete="current-password"
 		          margin="normal"
+		          value={password}
+		          onChange={event => this.setState(byPropKey('password', event.target.value))}
+
 		        />
 		      <CardActions style={{marginTop:'15px'}}>
-			  <Button variant="contained" color="primary" >
-		        Forgot password?
+              <Button disabled={isInvalid} variant="raised" color="primary" onClick={this.onSubmit.bind(this)} >
+		        Sign In
 		      </Button>
-              <Button variant="raised" color="primary" >
-		        Login
-		      </Button>
+		      { error && <p>{error.message}</p> }
 		      </CardActions>
 			</CardContent>
 		</Card>
     	)
 }
 }
-
-export default LoginPage;
+export default withRouter(LoginPage);
