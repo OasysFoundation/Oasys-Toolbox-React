@@ -29,6 +29,7 @@ class LoginPage extends Component {
 	              value={this.props.value} 
 	              onChange={this.onChange}
 	              margin="normal"
+	              type="email"
 	            />
 		        <TextField
 		          id="password-input"
