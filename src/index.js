@@ -15,6 +15,8 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import createBrowserHistory from 'history/createBrowserHistory';
 
 import MyAccountPage from './MyAccountPage'
+import SignupPage from './SignupPage'
+import LoginPage from './LoginPage'
 
 const history = createBrowserHistory();
 
@@ -30,6 +32,9 @@ class Index extends Component {
                             <Route exact path="/" component={ContentSelection}/>
                             <Route path="/explore" component={ContentSelection}/>
                             <Route path="/create" component={Editor} />
+
+                            <Route path="/login" component={LoginPage} />
+                            <Route path="/signup" component={SignupPage} />
 
                             <Route path="/user/:username/:contentname" component={ContentViewTest}/>
                             <Route path="/user/:username" component={UserPage}/>
