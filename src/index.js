@@ -48,7 +48,7 @@ class Index extends Component {
                     <div>
                         <NavBar authUser={this.state.authUser}/>
                         <Switch>
-                            <Route exact path="/" render={()=><HomePage  authUser={this.state.authUser}/>} />
+                            <Route exact path="/" render={()=><ContentSelection  authUser={this.state.authUser}/>} />
                             <Route path="/explore" component={ContentSelection}/>
                             <Route path="/create" component={Editor} />
 
