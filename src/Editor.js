@@ -44,7 +44,6 @@ class Editor extends Component {
     this.onSlideOrderChange = this.onSlideOrderChange.bind(this);
     this.onChangedSlide = this.onChangedSlide.bind(this);
     this.onAddNewHyperVideo = this.onAddNewHyperVideo.bind(this);
-    this.save = this.save.bind(this);
     this.load = this.load.bind(this);
   }
 
@@ -175,8 +174,7 @@ class Editor extends Component {
     }
   }
 
-  // TODO: When endpoint accepts publish flag, we need to update here
-  save(id, publish, title, username, tags, pictureURL, description) {
+  /*save(id, publish, title, username, tags, pictureURL, description) {
     if (id!==null) {
       this.setState({contentId: id});
     }
@@ -196,7 +194,7 @@ class Editor extends Component {
     }).then(res => res.json())
     .catch(error => console.error('Error:', error))
     .then(response => console.log('Success:', response));
-  }
+  } */
 
   load(id) {
     fetch(loadEndpoint, {
@@ -219,7 +217,7 @@ class Editor extends Component {
       <div>
         <Grid container spacing={24}>
         <Grid item xs={12}>
-          <MenuBarView onSave={this.save} onLoad={this.load} slides={this.slides}/>
+          <MenuBarView onLoad={this.load} slides={this.state.slides}/>
         </Grid>
         <Grid item xs={3}>
           <SlidesThumbnailView slides={this.state.slides} 
