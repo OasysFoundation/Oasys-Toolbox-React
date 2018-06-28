@@ -126,7 +126,7 @@ class MenuBarView extends Component {
 
   onLoad(event) {
     this.show('Opening…');
-    var loadContent = 'https://api.joinoasys.org/'+this.state.link;
+    var loadContent = this.state.link;
 
     console.log(loadContent);
 
