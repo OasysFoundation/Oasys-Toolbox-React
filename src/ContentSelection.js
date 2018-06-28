@@ -41,7 +41,6 @@ class ContentSelection extends Component {
             <div>
                 <Paper style={{margin:'16px', padding:'16px'}}>
                     <center>
-                    <img src={logo} style={{maxWidth:'100px'}}/>
                     <h2> Welcome to Oasys! </h2>
                     <p style={{maxWidth:'450px'}}>
                     Start your educational journey here. Search for topics you're interested in or select one of the personally curated contents below.
