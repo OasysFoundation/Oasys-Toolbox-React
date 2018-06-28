@@ -43,6 +43,7 @@ class Editor extends Component {
     this.onAddNewGame = this.onAddNewGame.bind(this);
     this.onSlideOrderChange = this.onSlideOrderChange.bind(this);
     this.onChangedSlide = this.onChangedSlide.bind(this);
+    this.onAddNewHyperVideo = this.onAddNewHyperVideo.bind(this);
     this.save = this.save.bind(this);
     this.load = this.load.bind(this);
   }
@@ -150,7 +151,7 @@ class Editor extends Component {
     } else if (slides[this.state.selectedSlideIndex].type === glb.GAME) {
       elem = document.getElementById("pseudoCodePreview");
     } else if (slides[this.state.selectedSlideIndex].type === glb.HYPERVIDEO) {
-      
+
     }
 
     html2canvas(elem, {width: 160, height: 120}).then(canvas => {
