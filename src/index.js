@@ -18,6 +18,9 @@ import MyAccountPage from './MyAccountPage'
 import SignupPage from './SignupPage'
 import LoginPage from './LoginPage'
 import HomePage from './HomePage'
+import PasswordForget from './PasswordForget'
+import PasswordReset from './PasswordReset'
+
 
 import { firebase } from './firebase';
 import ContentView from './ContentView'
@@ -59,6 +62,9 @@ class Index extends Component {
                             <Route path="/user/:username/:contentname" component={ContentView}/>
                             <Route path="/user/:username" component={UserPage}/>
                             <Route path="/user" render={(props)=>(<MyAccountPage authUser={this.state.authUser}/>)} />
+                            <Route path="/forgotPassword" component={PasswordForget}/>
+                            <Route path="/resetPassword" component={PasswordReset}/>
+
 
 
                             <Route component={NotFoundPage}/>

@@ -5,11 +5,24 @@ import Typography from '@material-ui/core/Typography';
 import IconAccountCircle from '@material-ui/icons/AccountCircle';
 import Button from '@material-ui/core/Button';
 import logo from './logo.jpg'
+import {
+  Link,
+  withRouter,
+} from 'react-router-dom';
 
 class MyAccountPage extends Component {
 	constructor(props) {
         super();
     }
+
+	resetPw = () => {
+	 	const {
+	      history,
+	    } = this.props;
+
+		history.push('/resetPassword');  	
+	  }
+
 
 	render() {
 		console.log(this.props.authUser);
@@ -31,13 +44,10 @@ class MyAccountPage extends Component {
 			        </Typography>
 
 			   <div style={{marginTop:'16px'}}>
-			   <Button variant="contained" color="primary" >
+			   <Button variant="contained" color="primary" onClick={this.resetPw.bind(this)}>
 		        Change Password
 		      </Button>
 		      <br />
-              <Button variant="contained" color="primary" >
-		        Change Email Address
-		      </Button>
 		      </div>
 			      </Paper>
 			    </center>
@@ -45,4 +55,5 @@ class MyAccountPage extends Component {
 	}
 }
 
-export default MyAccountPage;
+
+export default withRouter(MyAccountPage);
