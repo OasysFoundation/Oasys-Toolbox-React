@@ -7,7 +7,12 @@ import Button from '@material-ui/core/Button';
 import logo from './logo.jpg'
 
 class MyAccountPage extends Component {
+	constructor(props) {
+        super();
+    }
+
 	render() {
+		console.log(this.props.authUser);
 		return (
 				<center>
 			      <Paper style={{margin: 36, padding: 16, maxWidth: '400px', textAlign:'left'}} elevation={4}>
@@ -15,7 +20,11 @@ class MyAccountPage extends Component {
 					<img src={logo} style={{maxWidth:'100px', marginBottom:'16px'}}/>
 					</center>
 			        <Typography variant="headline" component="h3" style={{marginBottom:'16px'}}>
-			          <IconAccountCircle /> Welcome, Frederik!
+			          <IconAccountCircle /> Welcome{
+			          	this.props.authUser
+			          	? ", " + this.props.authUser.displayName
+       				    : ""
+			          }
 			        </Typography>
 			        <Typography component="p">
 			          This is your personal user account page. You see all your content here. In the future. Right now, this is just a demo text.

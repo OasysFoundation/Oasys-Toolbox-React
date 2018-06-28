@@ -20,7 +20,6 @@ class NavigationAuth extends React.Component {
     }
 
     render(){
-      console.log(this.props.authUser)
       return(
         <AppBar position="static">
         <Toolbar style={{backgroundColor: BG}}>
