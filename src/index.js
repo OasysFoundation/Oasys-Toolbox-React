@@ -17,6 +17,7 @@ import createBrowserHistory from 'history/createBrowserHistory';
 import MyAccountPage from './MyAccountPage'
 import SignupPage from './SignupPage'
 import LoginPage from './LoginPage'
+import HomePage from './HomePage'
 
 import { firebase } from './firebase';
 
@@ -38,7 +39,7 @@ class Index extends Component {
             : this.setState(() => ({ authUser: null }));
         });
     }
-    
+
     render() {
         return (
             <div>
@@ -46,7 +47,7 @@ class Index extends Component {
                     <div>
                         <NavBar authUser={this.state.authUser}/>
                         <Switch>
-                            <Route exact path="/" component={ContentSelection}/>
+                            <Route exact path="/" render={()=><HomePage  authUser={this.state.authUser}/>} />
                             <Route path="/explore" component={ContentSelection}/>
                             <Route path="/create" component={Editor} />
 
