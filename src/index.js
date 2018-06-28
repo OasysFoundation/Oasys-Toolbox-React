@@ -18,16 +18,33 @@ import MyAccountPage from './MyAccountPage'
 import SignupPage from './SignupPage'
 import LoginPage from './LoginPage'
 
+import { firebase } from './firebase';
+
+
 const history = createBrowserHistory();
 
 
 class Index extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            authUser: null,
+        };
+    }
+    componentDidMount() {
+        firebase.auth.onAuthStateChanged(authUser => {
+            authUser
+            ? this.setState(() => ({ authUser }))
+            : this.setState(() => ({ authUser: null }));
+        });
+    }
+    
     render() {
         return (
             <div>
                 <BrowserRouter history={history}>
                     <div>
-                        <NavBar/>
+                        <NavBar authUser={this.state.authUser}/>
                         <Switch>
                             <Route exact path="/" component={ContentSelection}/>
                             <Route path="/explore" component={ContentSelection}/>

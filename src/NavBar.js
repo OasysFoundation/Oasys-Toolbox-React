@@ -53,7 +53,7 @@ const styles = {
 //     )
 // }
 
-function NavBar (props, { authUser }) {
+function NavBar ({ authUser },props) {
   return(
     <div>
       { authUser
