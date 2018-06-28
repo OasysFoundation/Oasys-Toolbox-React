@@ -48,7 +48,7 @@ function SimpleMediaCard(props) {
                         Explore
                     </Button>
                     {/*{tags ? tags.map((t,i) => <div key={i}> {t + " | "}</div>) : ""}*/}
-                    { (<div> {tags.join() || "untagged"}</div>)}
+                    { (<div> {Array.isArray(tags) ? tags.join() : tags}</div>)}
                 </CardActions>
             </Card>
         </div>

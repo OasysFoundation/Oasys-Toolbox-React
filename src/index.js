@@ -20,6 +20,7 @@ import LoginPage from './LoginPage'
 import HomePage from './HomePage'
 
 import { firebase } from './firebase';
+import ContentView from './ContentView'
 
 
 const history = createBrowserHistory();

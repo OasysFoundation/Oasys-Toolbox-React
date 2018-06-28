@@ -1,10 +1,8 @@
 import React, {Component} from 'react';
-import './App.css';
 import Button from '@material-ui/core/Button';
 import NavBar from "./NavBar"
 import Preview from "./Preview"
 import QuizPreview from "./QuizPreview";
-import ContentList from "./ContentList"
 import Rating from "./Rating"
 
 
