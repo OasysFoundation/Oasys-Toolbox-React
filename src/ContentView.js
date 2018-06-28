@@ -16,8 +16,30 @@ class ContentView extends Component {
         super();
         this.state = {
             slideIdx: 0,
-        }
-        //TODO getLocationRef and then render content
+            content: content
+        };
+
+        //extract OUT the /username/contentname in the routes
+        const loc = window.location.href;
+        const directory = loc.split('/').filter(e => e.length > 0).slice(-2);
+        const userName = directory[0]
+        const contentName = directory[1]
+
+        const APICALL = `https://api.joinoasys.org/user/${userName}/${contentName}/`;
+
+        console.log("call", APICALL, directory)
+
+        const that = this;
+        fetch(APICALL, {
+            method: 'GET'
+        }).then(function (response) {
+            console.log(response);
+            return response.json();
+        })
+            .then(function (myJson) {
+                console.log("content here: ", myJson);
+                that.setState({content: myJson})
+            });
     }
 
     slideCount(increment = 0) {

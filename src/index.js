@@ -54,7 +54,7 @@ class Index extends Component {
                             <Route path="/login" component={LoginPage} />
                             <Route path="/signup" component={SignupPage} />
 
-                            <Route path="/user/:username/:contentname" component={ContentViewTest}/>
+                            <Route path="/user/:username/:contentname" component={ContentView}/>
                             <Route path="/user/:username" component={UserPage}/>
                             <Route path="/user" component={MyAccountPage}/>
 
