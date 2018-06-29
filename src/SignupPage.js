@@ -98,15 +98,6 @@ render() {
 		          </Typography>
 				
 				</center>
-				<TextField
-	              id="username"
-	              label="Username"
-	              style={{width:'100%'}} 
-	              value={username} 
-          		  onChange={event => this.setState(byPropKey('username', event.target.value))}
-	              margin="normal"
-	              type="text"
-	            />
 
           		<TextField
 	              id="email"
@@ -117,6 +108,16 @@ render() {
 	              margin="normal"
 	              autoComplete="email"
 	              type="email"
+	            />
+				
+				<TextField
+	              id="username"
+	              label="Username"
+	              style={{width:'100%'}} 
+	              value={username} 
+          		  onChange={event => this.setState(byPropKey('username', event.target.value))}
+	              margin="normal"
+	              type="text"
 	            />
 
 		        <TextField
