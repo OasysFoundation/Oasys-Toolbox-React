@@ -4,9 +4,9 @@ import NavBar from "./NavBar"
 import Preview from "./Preview"
 import QuizPreview from "./QuizPreview";
 import Rating from "./Rating"
+import globals from "./globals"
 
 
-const content = []
 
 
 class ContentView extends Component {
@@ -14,7 +14,7 @@ class ContentView extends Component {
         super();
         this.state = {
             slideIdx: 0,
-            content: content
+            content: null
         };
 
         //extract OUT the /username/contentname in the routes
@@ -35,37 +35,63 @@ class ContentView extends Component {
             return response.json();
         })
             .then(function (myJson) {
-                console.log("content here: ", myJson);
-                that.setState({content: myJson})
+                //WHY IS IT ARRAY IF THERE's ONLY ONE ENTRY?
+                console.log("content here: ", myJson[0]);
+                that.setState({content: myJson[0]})
             });
     }
 
     slideCount(increment = 0) {
         const newIdx = this.state.slideIdx + increment;
-        if (newIdx < 0 || newIdx > content.length) {
+        if (newIdx < 0 || newIdx > this.state.content.length) {
             return
         }
         this.setState({slideIdx: newIdx})
     }
 
+    whatRenderer(obj) {
+
+        console.log(obj.type, globals,  "TYPPPEP")
+        switch(obj.type) {
+            case globals.QUILL:
+                return <Preview content={obj.content}/>
+            case globals.QUIZ:
+                return <QuizPreview content={obj.content}/>
+            default:
+                return <div>not a quill content</div>
+        }
+    }
     render() {
-        if (this.state.slideIdx >= content.length) {
+        const content = this.state.content;
+        if (!content) {
+            return <div>No Content Found</div>
+        }
+        if (this.state.slideIdx >= content.data.length) {
             return (<Rating />)
         }
 
-        const obj = content[this.state.slideIdx];
-        const slideView = (obj.type === "quill") ? <Preview content={obj.content}/> :
-            <QuizPreview content={obj.content}/>
+        const obj = content.data[this.state.slideIdx];
+
+
+        //TODO >>>>> This is ugly. Make case switch statement that returns the right render component
+
+
+        const contentDisplayType = this.whatRenderer(obj)
+
+        //<QuizPreview content={obj.content}/>
+
+
+        //TODO <<<<<
 
         return (
             <div>
-                {slideView}
+                {contentDisplayType}
                 <Button variant="fab" size="small" color="primary"
                         onClick={() => this.slideCount(-1)}>
                     {"<<<"}
                 </Button>
                 {/*Progress Text*/}
-                {`${this.state.slideIdx + 1} / ${content.length}`}
+                {`${this.state.slideIdx + 1} / ${content.data.length}`}
 
                 <Button variant="fab" size="small" color="primary"
                         onClick={() => this.slideCount(+1)}>
