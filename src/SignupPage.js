@@ -90,7 +90,6 @@ render() {
 	              value={username} 
           		  onChange={event => this.setState(byPropKey('username', event.target.value))}
 	              margin="normal"
-	              autoComplete="username"
 	              type="text"
 	            />
 
