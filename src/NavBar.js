@@ -46,9 +46,4 @@ function NavBar({authUser}, props) {
     )
 }
 
-NavBar.propTypes = {
-    classes: PropTypes.object.isRequired,
-};
-
-
 export default NavBar;

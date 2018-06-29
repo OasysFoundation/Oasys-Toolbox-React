@@ -4,7 +4,7 @@ import NavBar from "./NavBar"
 import Preview from "./Preview"
 import QuizPreview from "./QuizPreview";
 import Rating from "./Rating"
-import glb from "globals"
+import globals from "./globals"
 
 
 
@@ -49,6 +49,18 @@ class ContentView extends Component {
         this.setState({slideIdx: newIdx})
     }
 
+    whatRenderer(obj) {
+
+        console.log(obj.type, globals,  "TYPPPEP")
+        switch(obj.type) {
+            case globals.QUILL:
+                return <Preview content={obj.content}/>
+            case globals.QUIZ:
+                return <QuizPreview content={obj.content}/>
+            default:
+                return <div>not a quill content</div>
+        }
+    }
     render() {
         const content = this.state.content;
         if (!content) {
@@ -63,8 +75,10 @@ class ContentView extends Component {
 
         //TODO >>>>> This is ugly. Make case switch statement that returns the right render component
 
-        const contentDisplayType = (obj.type === glb.QUILL) ? <Preview content={obj.content}/> :
-            <QuizPreview content={obj.content}/>
+
+        const contentDisplayType = this.whatRenderer(obj)
+
+        //<QuizPreview content={obj.content}/>
 
 
         //TODO <<<<<

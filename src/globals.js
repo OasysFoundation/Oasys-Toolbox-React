@@ -1,4 +1,4 @@
-const glb = {
+const globals = {
 	QUILL: 0,
 	QUIZ: 1,
 	GAME: 2,
@@ -9,4 +9,4 @@ const glb = {
 	BOOL_ENABLED : 1,
 };
 
-export default glb;
+export default globals;

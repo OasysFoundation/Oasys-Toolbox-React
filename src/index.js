@@ -24,6 +24,7 @@ import PasswordReset from './PasswordReset'
 
 import { firebase } from './firebase';
 import ContentView from './ContentView'
+import IFrameEmbed from "./IFrameEmbed";
 
 
 const history = createBrowserHistory();
@@ -55,6 +56,7 @@ class Index extends Component {
                             <Route exact path="/" render={()=><ContentSelection authUser={this.state.authUser}/>} />
                             <Route path="/explore" component={ContentSelection}/>
                             <Route path="/create" component={Editor} />
+                            <Route path="/game" component={IFrameEmbed} />
 
                             <Route path="/login" component={LoginPage} />
                             <Route path="/signup" component={SignupPage} />
