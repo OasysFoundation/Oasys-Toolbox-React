@@ -12,6 +12,7 @@ import Rating from './Rating';
 const styles = {
     card: {
         maxWidth: 300,
+        minWidth:300,
         marginTop: 2 + "rem"
     },
     media: {
