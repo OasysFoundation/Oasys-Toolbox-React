@@ -302,7 +302,7 @@ class Quiz extends Component {
               <Card>
                 <CardContent>
                 <Typography style={{marginBottom: 16, fontSize: 14}} color="textSecondary">
-                  Quiz Question
+                  Quiz Question at {this.props.value.time? (this.props.value.time) : null} seconds
                 </Typography>
                   <div style={domStyles.questionWrap}>
                   <Question value={this.props.value.question} 

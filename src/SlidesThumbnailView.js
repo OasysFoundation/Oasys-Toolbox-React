@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-//import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import AddIcon from '@material-ui/icons/Add';
 import WallpaperIcon from '@material-ui/icons/Wallpaper';
-//import CallSplitIcon from '@material-ui/icons/CallSplit';
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
 import GamesIcon from '@material-ui/icons/Games';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
@@ -15,6 +13,7 @@ import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
 import Popover from '@material-ui/core/Popover';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
+import SlideThumb from './SlideThumb'
 
 import {
   SortableContainer,
@@ -53,37 +52,6 @@ function iconForSlideType(type) {
     } else if (type === glb.QUILL) {
       return <WallpaperIcon />
     }
-}
-
-const DragHandle = SortableHandle(() => <DragHandleIcon />);
-
-class SlideThumb extends Component {
-  constructor(props) {
-    super(props);
-    this.onSelfDestruct = this.onSelfDestruct.bind(this);
-  }
-
-  onSelfDestruct(event){ 
-    event.stopPropagation();
-    event.nativeEvent.stopImmediatePropagation();
-    this.props.onRemoveSlide(this.props.index); 
-  }
-
-  render(){
-    return (
-      <ListItem button onClick={this.props.didSelectMenuItem.bind(this, this.props.index)}
-                       style={(this.props.index===this.props.selectedSlideIndex) ? domStyles.selected : null}>
-        <DragHandle />
-
-        {/*<ListItemText primary={this.props.value.name} />*/}
-        <img src={this.props.value.thumb} width={80} height={60} style={domStyles.thumb}/>
-
-        <IconButton onClick={this.onSelfDestruct} right>
-          <DeleteIcon />
-        </IconButton>
-      </ListItem>
-    )
-  }
 }
 
 const SortableSlide = SortableElement(props => 
