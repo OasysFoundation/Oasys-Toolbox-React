@@ -48,7 +48,6 @@ class MenuBarView extends Component {
     this.onLoad = this.onLoad.bind(this);
     this.contentId = 0;
     this.onOpen = this.onOpen.bind(this);
-    this.handleChange = this.handleChange.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.state = {
             anchorEl: null,
@@ -75,7 +74,6 @@ class MenuBarView extends Component {
   }
 
   completeFetch(contentId, published, username, hashtags, pictureURL, description, slides) {
-
     var saveEndpoint = 'https://api.joinoasys.org/'+username+'/'+contentId+'/save';
     var data = {
       "data":slides,
@@ -84,7 +82,7 @@ class MenuBarView extends Component {
       "title":contentId,
       "description":description,
       "tags":hashtags,
-      "url":'/'+username+'/'+contentId
+      "url":'/user/'+username+'/'+contentId
     }
 
     fetch(saveEndpoint, {
@@ -96,25 +94,21 @@ class MenuBarView extends Component {
     }).then(res => res.json())
     .catch(error => console.error('Error:', error))
     .then(response => {
-      console.log('Success:', response);
       this.setState({
         showsSaveDialog: false
       });
 
       });
-
-
   }
 
   onSubmit() {
-    console.log(this.slides);
     if (this.state.saveAction == 'save') {
       this.show('Saved Draft');
-      this.completeFetch(this.state.title, 0, this.state.username, this.state.hashtags, this.state.pictureURL, this.state.description, this.slides);
+      this.completeFetch(this.state.title, 0, this.state.username, this.state.hashtags, this.state.pictureURL, this.state.description, this.props.slides);
     }
     if (this.state.saveAction == 'publish') {
       this.show('Published');
-      this.completeFetch(this.state.title, 1, this.state.username, this.state.hashtags, this.state.pictureURL, this.state.description, this.slides);
+      this.completeFetch(this.state.title, 1, this.state.username, this.state.hashtags, this.state.pictureURL, this.state.description, this.props.slides);
     }
   }
 
@@ -132,8 +126,6 @@ class MenuBarView extends Component {
 
   onLoad(event) {
     this.show('Opening…');
-    // this.props.onLoad(this.contentId);
-    
     var loadContent = this.state.link;
 
     console.log(loadContent);
@@ -176,6 +168,11 @@ class MenuBarView extends Component {
           description: event.target.value,
         });
         break;
+      case "hashtags": 
+        this.setState({
+          hashtags: event.target.value,
+        });
+        break;
       default:
 
     }
@@ -186,16 +183,6 @@ class MenuBarView extends Component {
       anchorEl: null,
     });
   };
-
-  handleChange(chips) {
-    if(this.state.hashtags)
-      this.setState({ hashtags: [...this.state.hashtags, chips] })
-    else{
-       this.setState({
-          hashtags: [chips]
-        });
-    }
-  }
 
   handleLoadChange(event) {
     this.setState({
@@ -307,11 +294,12 @@ class MenuBarView extends Component {
               onChange={this.onChange.bind(this)}
               margin="normal"
             />
-            <ChipInput
+            <TextField
               id="hashtags"
               placeholder="Hashtags"
               style={{width:'100%'}} 
-              onChange={(chips) => this.handleChange(chips)}
+              onChange={this.onChange.bind(this)}
+              margin="normal"
             />
         </DialogContent>
         <DialogActions>

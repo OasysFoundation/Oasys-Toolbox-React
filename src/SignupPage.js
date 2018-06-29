@@ -8,6 +8,8 @@ import logo from './logo.jpg'
 import Typography from '@material-ui/core/Typography';
 import { auth } from './firebase';
 
+import firebase from 'firebase/app';
+import 'firebase/auth';
 import {
   Link,
   withRouter,
@@ -47,12 +49,25 @@ constructor(props) {
     auth.doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
         this.setState(() => ({ ...INITIAL_STATE }));
+        
+
+		var user = firebase.auth().currentUser
+
+        user.updateProfile({
+		  displayName: username,
+		}).then(function() {
+		  // Update successful.
+		}).catch(function(error) {
+		  // An error happened.
+		});
         history.push('/');
 
       })
       .catch(error => {
         this.setState(byPropKey('error', error));
       });
+
+ 
 
     event.preventDefault();
   }

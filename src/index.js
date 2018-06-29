@@ -18,8 +18,12 @@ import MyAccountPage from './MyAccountPage'
 import SignupPage from './SignupPage'
 import LoginPage from './LoginPage'
 import HomePage from './HomePage'
+import PasswordForget from './PasswordForget'
+import PasswordReset from './PasswordReset'
+
 
 import { firebase } from './firebase';
+import ContentView from './ContentView'
 
 
 const history = createBrowserHistory();
@@ -41,22 +45,26 @@ class Index extends Component {
     }
 
     render() {
+        console.log(this.state.authUser)
         return (
             <div>
                 <BrowserRouter history={history}>
                     <div>
                         <NavBar authUser={this.state.authUser}/>
                         <Switch>
-                            <Route exact path="/" render={()=><HomePage  authUser={this.state.authUser}/>} />
+                            <Route exact path="/" render={()=><ContentSelection authUser={this.state.authUser}/>} />
                             <Route path="/explore" component={ContentSelection}/>
                             <Route path="/create" component={Editor} />
 
                             <Route path="/login" component={LoginPage} />
                             <Route path="/signup" component={SignupPage} />
 
-                            <Route path="/user/:username/:contentname" component={ContentViewTest}/>
+                            <Route path="/user/:username/:contentname" component={ContentView}/>
                             <Route path="/user/:username" component={UserPage}/>
-                            <Route path="/user" component={MyAccountPage}/>
+                            <Route path="/user" render={(props)=>(<MyAccountPage authUser={this.state.authUser}/>)} />
+                            <Route path="/forgotPassword" component={PasswordForget}/>
+                            <Route path="/resetPassword" component={PasswordReset}/>
+
 
 
                             <Route component={NotFoundPage}/>
