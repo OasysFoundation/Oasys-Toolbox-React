@@ -13,7 +13,10 @@ const styles = {
     card: {
         maxWidth: 300,
         minWidth:300,
-        marginTop: 2 + "rem"
+        marginTop: 1 + "rem",
+        marginBottom: 1 + "rem",
+        marginLeft: 0.5 + "rem",
+        marginRight: 0.5 + "rem",
     },
     media: {
         height: 0,
