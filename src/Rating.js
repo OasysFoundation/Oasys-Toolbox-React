@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
 import {Rate} from 'antd';
+import 'antd/dist/antd.css';
+
 
 class Rating extends Component {
     constructor(props) {
         super(props);
-        this.state = {value: props.value || 0, disabled: props.disabled || true};
+        this.state = {value: props.value || 0, disabled: props.disabled, preview:props.preview};
         this.handleChange = this.handleChange.bind(this);
     }
 
@@ -13,13 +15,26 @@ class Rating extends Component {
     }
 
     render() {
+    	var completed;
+    	if (this.state.preview) {
+	      completed = null;
+	    } else {
+	      completed = <h1>Completed! Thank you for playing</h1>;
+	    }
+
         return (
             <div>
-                <h1>Completed! Thank you for playing</h1>
-                <Rate onChange={this.handleChange} value={this.state.value} disabled={this.state.diabled}/>
+                {completed}
+                <Rate allowHalf onChange={this.handleChange} value={this.state.value} disabled={this.state.diabled}/>
             </div>
         )
     }
+
+
 }
+
+
+
+
 
 export default Rating;

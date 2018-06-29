@@ -26,7 +26,7 @@ const styles = {
 
 function SimpleMediaCard(props) {
     const { classes } = props;
-    const {picture, title, description, url, tags} = props.contentData;
+    const {picture, title, description, url, tags, rating} = props.contentData;
     return (
         <div>
             <Card className={classes.card}>
@@ -43,7 +43,7 @@ function SimpleMediaCard(props) {
                         {description || "Test"}
                     </Typography>
                 </CardContent>
-                {/*<Rating value={rating} disabled={true} />*/}
+                {<Rating value={rating} disabled={false} preview={true}/>}
                 <CardActions>
                     <Button
                         variant="contained"
