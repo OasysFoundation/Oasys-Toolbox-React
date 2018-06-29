@@ -43,7 +43,7 @@ function SimpleMediaCard(props) {
                         {description || "Test"}
                     </Typography>
                 </CardContent>
-                {<Rating value={rating} disabled={false} preview={true}/>}
+                {<Rating value={rating} preview={true}/>}
                 <CardActions>
                     <Button
                         variant="contained"
