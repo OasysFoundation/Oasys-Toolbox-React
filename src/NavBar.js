@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import styled from "styled-components"
+import PropTypes from 'prop-types';
+
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
@@ -8,70 +9,46 @@ import IconExplore from '@material-ui/icons/Explore';
 import IconCreate from '@material-ui/icons/Create';
 import IconAccountCircle from '@material-ui/icons/AccountCircle';
 import Typography from '@material-ui/core/Typography';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import SignOutButton from './SignOutPage';
-import NavigationAuth from './NavigationAuth';
-import NavigationNonAuth from './NavigationNonAuth';
 
 
 import {
-  Link,
-  withRouter,
+    Link,
+    withRouter,
 } from 'react-router-dom';
 
 const BG = "#74A4AC";
 
-const styles = {
-  root: {
-    flexGrow: 1,
-  },
-  flex: {
-    flex: 1,
-  },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20,
-  },
-};
+function NavBar({authUser}, props) {
+    return (<AppBar position="static">
+            <section style={{backgroundColor: BG, display: "flex", flexDirection: "row", justifyContent: "flex-end"}}>
+                <Typography style={{flexGrow: 1, padding: "1em"}} variant="title" color="inherit">
+                    Oasys Education
+                </Typography>
 
-
-// function NavBar(props) {
-//   const { classes } = props;
-//     return (
-//         <AppBar position="static">
-//         <Toolbar style={{backgroundColor: BG}}>
-//           <Typography variant="title" color="inherit" className={classes.flex}>
-//             Oasys Education
-//           </Typography>
-//             <Button href='/explore' color="inherit"> <IconExplore style={{marginRight:'7px'}}/> Explore</Button>
-//             <Button href='/create' color="inherit"> <IconCreate style={{marginRight:'7px'}}/> Create</Button>
-//             <Button href='/user' color="inherit"> <IconAccountCircle style={{marginRight:'7px'}}/> My Account</Button>
-//             <Button href='https://joinoasys.org' color="inherit">About</Button>
-//             <SignOutButton color="inherit"/>
-
-
-//         </Toolbar>
-//       </AppBar>
-//     )
-// }
-
-function NavBar ({ authUser },props) {
-  return(
-    <div>
-      { authUser
-          ? <NavigationAuth classes={props} authUser={authUser}/>
-          : <NavigationNonAuth classes={props}/>
-      }
-    </div>
+                <Toolbar style={{display: "flex", justifyContent: "flex-end"}}>
+                    <Button href='/explore' color="inherit"> <IconExplore
+                        style={{marginRight: '7px'}}/> Explore</Button>
+                    <Button href='/create' color="inherit"> <IconCreate style={{marginRight: '7px'}}/> Create</Button>
+                    <Button href='https://joinoasys.org' color="inherit">About</Button>
+                    {authUser ? (
+                            <div>
+                                <Button href='/user' color="inherit">
+                                    <IconAccountCircle style={{marginRight: '7px'}}/> {authUser.displayName}
+                                </Button>
+                                <SignOutButton color="inherit"/>
+                            </div>)
+                        : <Button href="https://app.joinoasys.org/login" color="inherit">Sign In</Button>
+                    }
+                </Toolbar>
+            </section>
+        </AppBar>
     )
 }
 
-
 NavBar.propTypes = {
-  classes: PropTypes.object.isRequired,
+    classes: PropTypes.object.isRequired,
 };
 
 
-
-export default withStyles(styles)(NavBar);
+export default NavBar;
