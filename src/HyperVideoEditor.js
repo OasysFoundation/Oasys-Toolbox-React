@@ -13,7 +13,9 @@ class HyperVideoEditor extends Component {
 	constructor(props) {
 	    super(props);
 	    this.state = {
-	    	currentTime: 0
+	    	currentTime: 0,
+	    	quizIsShown: false,
+	    	quizzes: []
 	    }
 	}
 
@@ -36,6 +38,10 @@ class HyperVideoEditor extends Component {
 
 	addOverlay() {
 		plyr.pause();
+		this.setState({
+			quizIsShown: true
+		})
+		plyr.toggleControls(false);
 
 		const elem = document.createElement('div');
 		elem.innerHTML = "";
@@ -47,7 +53,7 @@ class HyperVideoEditor extends Component {
 	      "answers": [{"option": "bla bla bluybb", "correct": true}, {"option": "bla bla bluybb2", "correct": true}],
 	    };
 		ReactDOM.render((
-			<Card style={{maxWidth:'350px', position:'absolute', top: '50%', left: '50%', transform: 'translateX(-50%) translateY(-50%)'}}>
+			<Card style={{maxWidth:'350px', position:'absolute', top: '50%', left: '50%', transform: 'translateX(-50%) translateY(-50%)', 'z-index':'1000'}}>
 			<CardContent>
 				<QuizPreview content={quizConfig} onChange={this.onChange.bind(this)} />
 			</CardContent>
@@ -86,6 +92,9 @@ class HyperVideoEditor extends Component {
 		plyr = player.player;
 		plyr.on("timeupdate", event => {
 			const instance = event.detail.plyr;
+			if (this.state.quizIsShown) {
+				instance.pause();
+			}
 			this.setState({
 				currentTime: instance.currentTime
 			});
