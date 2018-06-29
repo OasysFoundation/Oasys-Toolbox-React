@@ -22,16 +22,13 @@ class NavigationNonAuth extends React.Component {
       return(
         <AppBar position="static">
         <Toolbar style={{backgroundColor: BG}}>
-          <Typography variant="title" color="inherit" className={this.props.classes.flex}>
+          <Typography variant="title" color="inherit" style={{flex: 1}}>
             Oasys Education
           </Typography>
             <Button href='/explore' color="inherit"> <IconExplore style={{marginRight:'7px'}}/> Explore</Button>
             <Button href='/create' color="inherit"> <IconCreate style={{marginRight:'7px'}}/> Create</Button>
             <Button href='https://joinoasys.org' color="inherit">About</Button>
             <Button href="/login" color="inherit">Sign In</Button>
-
-
-
         </Toolbar>
       </AppBar>
 

@@ -23,7 +23,7 @@ class NavigationAuth extends React.Component {
       return(
         <AppBar position="static">
         <Toolbar style={{backgroundColor: BG}}>
-          <Typography variant="title" color="inherit" className={this.props.classes.flex}>
+          <Typography variant="title" color="inherit" style={{flex: 1}}>
             Oasys Education
           </Typography>
             <Button href='/explore' color="inherit"> <IconExplore style={{marginRight:'7px'}}/> Explore</Button>
