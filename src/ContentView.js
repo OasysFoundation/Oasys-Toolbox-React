@@ -4,6 +4,7 @@ import NavBar from "./NavBar"
 import Preview from "./Preview"
 import QuizPreview from "./QuizPreview";
 import Rating from "./Rating"
+import glb from "globals"
 
 
 
@@ -58,12 +59,19 @@ class ContentView extends Component {
         }
 
         const obj = content.data[this.state.slideIdx];
-        const slideView = (obj.name === "Slide") ? <Preview content={obj.content}/> :
+
+
+        //TODO >>>>> This is ugly. Make case switch statement that returns the right render component
+
+        const contentDisplayType = (obj.type === glb.QUILL) ? <Preview content={obj.content}/> :
             <QuizPreview content={obj.content}/>
+
+
+        //TODO <<<<<
 
         return (
             <div>
-                {slideView}
+                {contentDisplayType}
                 <Button variant="fab" size="small" color="primary"
                         onClick={() => this.slideCount(-1)}>
                     {"<<<"}
