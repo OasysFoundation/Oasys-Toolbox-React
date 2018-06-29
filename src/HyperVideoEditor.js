@@ -9,9 +9,9 @@ import HorizontalSlidePicker from './HorizontalSlidePicker'
 
 let plyr = null;
 
-const quizConfig = {
-"question": "",
-"answers": [{"option": ""}]
+const defaultQuiz = {
+  "question": "",
+  "answers": [{"option": "", "correct": false}]
 };
 
 class HyperVideoEditor extends Component {
@@ -21,8 +21,7 @@ class HyperVideoEditor extends Component {
 	    this.state = {
 	    	currentTime: 0,
 	    	currentQuiz: null,
-	    	quizzes: [],
-
+	    	quizzes: []
 	    }
 	}
 
@@ -43,10 +42,10 @@ class HyperVideoEditor extends Component {
 		plyr.toggleControls(false);
 
 
-		let newQuiz = quizConfig;
-		quizConfig.time = plyr.currentTime;
+		let newQuiz = defaultQuiz;
+		newQuiz.time = plyr.currentTime;
 		let quizzes = this.state.quizzes;
-		quizzes.push(quizConfig)
+		quizzes.push(newQuiz);
 		this.setState({
 			quizzes: quizzes
 		});
@@ -99,9 +98,6 @@ class HyperVideoEditor extends Component {
 		plyr.elements.container.children[0].append(elem);
 
 		
-		
-
-		
 		plyr.on("timeupdate", event => {
 			const instance = event.detail.plyr;
 			
@@ -116,27 +112,28 @@ class HyperVideoEditor extends Component {
 
 	refreshCurrentQuiz() {
 		let currentQuiz = null;
+		let currentTime = this.state.currentTime;
 			this.state.quizzes.forEach(function(quiz) {
-				if (this.state.currentTime-2 < quiz.time && quiz.time < this.state.currentTime+2 ) {
+				if (currentTime-2 < quiz.time && quiz.time < currentTime+2 ) {
 					currentQuiz = quiz;
+					console.log("current quiz" + currentQuiz);
 				}
 			});
 
 			if (currentQuiz != this.state.currentQuiz) {
+				console.log("rendering quz");
 				this.setState({
 					currentQuiz: currentQuiz
 				});
 
 				ReactDOM.render((
-					this.state.currentQuiz? (
+					
 						<Card style={{maxWidth:'450px', position:'absolute', top: '50%', left: '50%', transform: 'translateX(-50%) translateY(-50%)', 'z-index':'1000'}} >
 						<CardContent>
 						<QuizPreview content={this.state.currentQuiz} onChange={this.onChange.bind(this)} />
 						</CardContent>
 						</Card>
-					) : (
-						null
-					)
+					
 				
 				), document.getElementById("overlay-container")
 				);
