@@ -8,7 +8,11 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Rating from './Rating';
+<<<<<<< HEAD
 import ButtonBase from '@material-ui/core/ButtonBase';
+=======
+import Remix from './Remix';
+>>>>>>> 7abbb314d4c5680ccfb0025cf5dd94eb08214b6a
 
 const styles = {
     card: {
@@ -31,7 +35,7 @@ const styles = {
 
 function SimpleMediaCard(props) {
     const { classes } = props;
-    const {picture, title, description, url, tags} = props.contentData;
+    const {picture, title, description, url, tags, rating} = props.contentData;
     return (
         <div>
             <Card className={classes.card}>
@@ -45,15 +49,18 @@ function SimpleMediaCard(props) {
                     title="Contemplative Reptile"
                 />
                 <CardContent>
+                 <CardActions>
                     <Typography gutterBottom variant="headline" component="h2">
                         {title  || "Nothing here"}
                     </Typography>
+                    <Remix url={url}/>
+                   
+                 </CardActions>
                     <Typography component="p">
                         {description || "Test"}
                     </Typography>
                 </CardContent>
-
-                {/*<Rating value={rating} disabled={true} />*/}
+                {<Rating value={rating} preview={true}/>}
                 <CardActions>
                     <Button
                         variant="contained"

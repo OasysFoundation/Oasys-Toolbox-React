@@ -1,25 +1,61 @@
 import React, {Component} from 'react';
 import {Rate} from 'antd';
+import 'antd/dist/antd.css';
+
 
 class Rating extends Component {
     constructor(props) {
         super(props);
-        this.state = {value: props.value || 0, disabled: props.disabled || true};
+        this.state = {value: props.value || 0, preview:props.preview};
         this.handleChange = this.handleChange.bind(this);
     }
 
     handleChange = (value) => {
         this.setState({value});
+
+        const loc = window.location.href;
+        const directory = loc.split('/').filter(e => e.length > 0).slice(-2);
+        const userName = directory[0]
+        const contentName = directory[1]
+
+        const APICALL = `https://api.joinoasys.org/${userName}/${contentName}/rate/${value}`;
+
+        fetch(APICALL, {
+		  method: 'POST'
+		}).then(function(response) {
+		    console.log(response);
+		    return response.json();
+		  })
+		  .then(function(myJson) {
+		    console.log(myJson);
+		  });
+
+
     }
 
     render() {
+    	var completed, ratingElement;
+    	if (this.state.preview) {
+	      completed = null;
+	      ratingElement = <Rate allowHalf value={this.state.value} disabled/>
+	    } else {
+	      completed = <h1>Completed! Thank you for playing</h1>;
+	      ratingElement = <Rate allowHalf onChange={this.handleChange} value={this.state.value}/>
+	    }
+
         return (
             <div>
-                <h1>Completed! Thank you for playing</h1>
-                <Rate onChange={this.handleChange} value={this.state.value} disabled={this.state.diabled}/>
+                {completed}
+                {ratingElement}
             </div>
         )
     }
+
+
 }
+
+
+
+
 
 export default Rating;

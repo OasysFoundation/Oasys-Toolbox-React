@@ -23,9 +23,20 @@ class MyAccountPage extends Component {
 		history.push('/resetPassword');  	
 	  }
 
+	 redirect = () => {
+		const {
+	      history,
+	    } = this.props;
+
+		history.push('/login');  	
+	 }
+
 
 	render() {
 		console.log(this.props.authUser);
+		if(!this.props.authUser){
+			this.redirect();
+		}
 		return (
 				<center>
 			      <Paper style={{margin: 36, padding: 16, maxWidth: '400px', textAlign:'left'}} elevation={4}>

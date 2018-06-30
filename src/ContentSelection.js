@@ -16,6 +16,7 @@ const Flexer = styled.section`
 `
 
 
+
 class ContentSelection extends Component {
     constructor(props) {
         super();
@@ -32,10 +33,12 @@ class ContentSelection extends Component {
         })
         .then(function (myJson) {
             console.log(myJson);
-            that.setState({content: myJson})
-        });
+            that.setState({content: myJson});
 
+        });
     }
+
+
     render(){
         return (
             <div>
