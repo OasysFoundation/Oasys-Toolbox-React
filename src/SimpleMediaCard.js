@@ -8,6 +8,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Rating from './Rating';
+import Remix from './Remix';
 
 const styles = {
     card: {
@@ -36,9 +37,13 @@ function SimpleMediaCard(props) {
                     title="Contemplative Reptile"
                 />
                 <CardContent>
+                 <CardActions>
                     <Typography gutterBottom variant="headline" component="h2">
                         {title  || "Nothing here"}
                     </Typography>
+                    <Remix url={url}/>
+                   
+                 </CardActions>
                     <Typography component="p">
                         {description || "Test"}
                     </Typography>
