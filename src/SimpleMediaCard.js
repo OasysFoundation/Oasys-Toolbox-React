@@ -8,11 +8,8 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Rating from './Rating';
-<<<<<<< HEAD
 import ButtonBase from '@material-ui/core/ButtonBase';
-=======
 import Remix from './Remix';
->>>>>>> 7abbb314d4c5680ccfb0025cf5dd94eb08214b6a
 
 const styles = {
     card: {
