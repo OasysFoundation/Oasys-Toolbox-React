@@ -8,6 +8,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Rating from './Rating';
+import ButtonBase from '@material-ui/core/ButtonBase';
 
 const styles = {
     card: {
@@ -22,6 +23,10 @@ const styles = {
         height: 0,
         paddingTop: '56.25%', // 16:9
     },
+    cardAction: {
+        display: 'block',
+        textAlign: 'initial'
+    }
 };
 
 function SimpleMediaCard(props) {
@@ -30,6 +35,10 @@ function SimpleMediaCard(props) {
     return (
         <div>
             <Card className={classes.card}>
+                  <ButtonBase
+                      className={classes.cardAction}
+                      onClick={function(event) {event.preventDefault(); window.location.href = url || "nope"; }}
+                  >
                 <CardMedia
                     className={classes.media}
                     image={picture}
@@ -43,6 +52,7 @@ function SimpleMediaCard(props) {
                         {description || "Test"}
                     </Typography>
                 </CardContent>
+
                 {/*<Rating value={rating} disabled={true} />*/}
                 <CardActions>
                     <Button
@@ -54,6 +64,7 @@ function SimpleMediaCard(props) {
                     {/*{tags ? tags.map((t,i) => <div key={i}> {t + " | "}</div>) : ""}*/}
                     { (<div> {Array.isArray(tags) ? tags.join() : tags}</div>)}
                 </CardActions>
+                </ButtonBase>
             </Card>
         </div>
     );
