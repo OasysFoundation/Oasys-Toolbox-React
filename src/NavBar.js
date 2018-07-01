@@ -11,6 +11,8 @@ import IconAccountCircle from '@material-ui/icons/AccountCircle';
 import Typography from '@material-ui/core/Typography';
 import SignOutButton from './SignOutPage';
 
+import firebase from 'firebase/app';
+import 'firebase/auth';
 
 import {
     Link,
@@ -18,6 +20,16 @@ import {
 } from 'react-router-dom';
 
 const BG = "#74A4AC";
+
+
+//hack because firebase sucks and cant provide display name right away
+function username(name){
+  if (name)
+    return name;
+  else
+    return "My Profile";
+
+}
 
 function NavBar({authUser}, props) {
     return (<AppBar position="static">
@@ -34,7 +46,7 @@ function NavBar({authUser}, props) {
                     {authUser ? (
                             <div>
                                 <Button href='/user' color="inherit">
-                                    <IconAccountCircle style={{marginRight: '7px'}}/> {authUser.displayName}
+                                    <IconAccountCircle style={{marginRight: '7px'}}/> {username(authUser.displayName)}
                                 </Button>
                                 <SignOutButton color="inherit"/>
                             </div>)
