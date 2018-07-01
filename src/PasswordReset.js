@@ -8,6 +8,9 @@ import logo from './logo.jpg'
 import Typography from '@material-ui/core/Typography';
 import { auth } from './firebase';
 
+import firebase from 'firebase/app';
+import 'firebase/auth';
+
 
 import {
   Link,
@@ -19,6 +22,7 @@ import {
 const INITIAL_STATE = {
   passwordOne: '',
   passwordTwo: '',
+  passwordOld: '',
   error: null,
 };
 
@@ -33,15 +37,28 @@ constructor(props) {
   }
 
   onSubmit = (event) => {
-    const { passwordOne } = this.state;
 
-    auth.doPasswordUpdate(passwordOne)
-      .then(() => {
-        this.setState(() => ({ ...INITIAL_STATE }));
-      })
-      .catch(error => {
-        this.setState(byPropKey('error', error));
-      });
+    var email = firebase.auth().currentUser.email;
+    console.log(email);
+    console.log(this.state.passwordOld);
+    var that = this;
+
+    firebase.auth()
+        .signInWithEmailAndPassword(email, this.state.passwordOld)
+        .then(function(user) {
+            console.log("successfully logged in");
+
+            firebase.auth().currentUser.updatePassword(that.state.passwordOne).then(function(){
+            }).catch(function(err){
+              alert(err);
+            });
+
+        }).catch(function(err){
+            //Do something
+            alert(err);
+        });
+    
+    this.setState(() => ({ ...INITIAL_STATE }));
 
     const {
       history,
@@ -54,12 +71,13 @@ render() {
 	const {
       passwordOne,
       passwordTwo,
+      passwordOld,
       error,
     } = this.state;
 
     const isInvalid =
       passwordOne !== passwordTwo ||
-      passwordOne === '';
+      passwordOne === '' || passwordOld === '';
 
 
     return (
@@ -75,7 +93,18 @@ render() {
 				</center>
 				 <TextField
               id="password-input"
-              label="Password"
+              label="Old Password"
+              style={{width:'100%'}} 
+              type="password"
+              autoComplete="current-password"
+              margin="normal"
+              value={passwordOld}
+              onChange={event => this.setState(byPropKey('passwordOld', event.target.value))}
+
+            />
+         <TextField
+              id="password-input"
+              label="New Password"
               style={{width:'100%'}} 
               type="password"
               autoComplete="current-password"
