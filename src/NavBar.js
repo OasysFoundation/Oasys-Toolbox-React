@@ -9,7 +9,7 @@ import IconExplore from '@material-ui/icons/Explore';
 import IconCreate from '@material-ui/icons/Create';
 import IconAccountCircle from '@material-ui/icons/AccountCircle';
 import Typography from '@material-ui/core/Typography';
-import SignOutButton from './SignOutPage';
+import SignOutPage from './SignOutPage';
 
 import firebase from 'firebase/app';
 import 'firebase/auth';
@@ -48,7 +48,7 @@ function NavBar({authUser}, props) {
                                 <Button href='/user' color="inherit">
                                     <IconAccountCircle style={{marginRight: '7px'}}/> {username(authUser.displayName)}
                                 </Button>
-                                <SignOutButton color="inherit"/>
+                                <SignOutPage color="inherit"/>
                             </div>)
                         : <Button href="https://app.joinoasys.org/login" color="inherit">Sign In</Button>
                     }
