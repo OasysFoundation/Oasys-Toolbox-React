@@ -26,8 +26,12 @@ import { firebase } from './firebase';
 import ContentView from './ContentView'
 import IFrameEmbed from "./IFrameEmbed";
 
+import { withRouter } from 'react-router'
+
+
 
 const history = createBrowserHistory();
+
 
 
 class Index extends Component {
@@ -45,15 +49,16 @@ class Index extends Component {
         });
     }
 
+
     render() {
-        console.log(this.state.authUser)
+
         return (
             <div>
                 <BrowserRouter history={history}>
                     <div>
                         <NavBar authUser={this.state.authUser}/>
                         <Switch>
-                            <Route exact path="/" render={()=><ContentSelection authUser={this.state.authUser}/>} />
+                            <Route exact path="/" render={()=><ContentSelection/>} />
                             <Route path="/explore" component={ContentSelection}/>
                             <Route path="/create" component={Editor} />
                             <Route path="/game" component={IFrameEmbed} />
@@ -92,7 +97,7 @@ const ContentViewTest = ({ match }) => (
 );
 
 
-export default Index;
+export default withRouter(Index);
 
 
 ReactDOM.render(<Index/>, document.getElementById('root'));

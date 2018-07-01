@@ -60,7 +60,10 @@ constructor(props) {
 		}).catch(function(error) {
 		  // An error happened.
 		});
-        history.push('/');
+
+		history.push({
+		  pathname: '/',
+		})
 
       })
       .catch(error => {
