@@ -104,6 +104,7 @@ class HyperVideoEditor extends Component {
 		      ref="video"
 		      clickToPlay= {false}
 		      clickToPause= {false}
+		      controls= {['play', 'progress', 'current-time', 'mute', 'volume', 'captions', 'settings', 'pip', 'airplay', 'fullscreen']}
 		    />
 
 		    <Button variant="raised" onClick={this.addNewQuizAtCurrentTime.bind(this)} style={{color: 'black'}} >
