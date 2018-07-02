@@ -6,6 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import ReactDOM from 'react-dom';
 import QuizPreview from './QuizPreview'
 import HorizontalSlidePicker from './HorizontalSlidePicker'
+import TextField from '@material-ui/core/TextField';
 
 let plyr = null;
 
@@ -21,7 +22,8 @@ class HyperVideoEditor extends Component {
 	    this.state = {
 	    	currentTime: 0,
 	    	currentQuiz: null,
-	    	quizzes: []
+	    	quizzes: [],
+	    	videoURL: 'https://youtu.be/bBC-nXj3Ng4'
 	    }
 	}
 
@@ -60,23 +62,49 @@ class HyperVideoEditor extends Component {
 		})
 	}
 
+	didChangeVideoURL(textfield) {
+		const url = textfield.target.value;
+		console.log(url);
+		if (this.isValidYouTubeUrl(url)) {
+			this.setState({
+				videoURL: '' + url
+			});
+		}
+	}
+
+	isValidYouTubeUrl(url)
+	{
+        if (url != undefined || url != '') {
+            var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
+            var match = url.match(regExp);
+            if (match && match[2].length == 11) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+	}
+
 	render() {
  	   return (
  	   	<div id='hyperVideoEditor'>
+ 	   		<TextField
+              id="name"
+              placeholder="YouTube URL"
+              margin="normal"
+              style={{width:'100%', 'margin-bottom': '20px'}}
+              onChange={this.didChangeVideoURL.bind(this)}
+              helperText="Wrong URL format"
+            />
  	   		<center>
- 	   		<h1>
- 	   			HYPER VIDEO EDITOR
- 	   		</h1>
  	   		<Plyr
 		      type="youtube" // or "vimeo"
-		      videoId="bTqVqk7FSmY"
+		      videoId={this.state.videoURL}
 		      ref="video"
-		      clickToPlay= 'false'
-		      clickToPause= 'false'
+		      clickToPlay= {false}
+		      clickToPause= {false}
 		    />
-
-
-		    
 
 		    <Button variant="raised" onClick={this.addNewQuizAtCurrentTime.bind(this)} style={{color: 'black'}} >
 	          Insert Quiz at {Math.round(this.state.currentTime)} seconds
