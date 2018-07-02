@@ -44,19 +44,19 @@ class QuizPreview extends Component {
     render() {
         const that = this;
         return (
-            <div><p>{this.props.content.question}</p>
+            <div><p>{this.props.content.question? (this.props.content.question) : ("This quiz does not yet have a question.")}</p>
                 {this.props.content.answers.map(function(answer, i) {
-
-                    const isCorrect = (that.state.realAnswers[i] === that.state.userAnswers[i]);
-                    console.log(isCorrect)
-                    return <div key={i+1}><input key={i} onChange={function(ev){that.updateUserAnswers(ev.target, i)}} type="checkbox" /> {answer.option} <br/>
-                        <section key={i+2}
-                                 hidden={!that.state.hasSubmitted}
-                                 style={{background: isCorrect ? "lightgreen" : "red"}}>
-                            {"This option was " + (that.state.realAnswers[i] ? " correct" : " wrong")}
-                        </section>
-                    </div>
+                    if (answer.option) {
+                        const isCorrect = (that.state.realAnswers[i] === that.state.userAnswers[i]);
+                        return <div key={i+1}><input key={i} onChange={function(ev){that.updateUserAnswers(ev.target, i)}} type="checkbox" /> {answer.option} <br/>
+                            <section key={i+2}
+                                     hidden={!that.state.hasSubmitted}
+                                     style={{background: isCorrect ? "lightgreen" : "red"}}>
+                                {"This option was " + (that.state.realAnswers[i] ? " correct" : " wrong")}
+                            </section>
+                        </div>
                     }
+                }
                 )}
                 <Button variant="contained"
                         size="large"

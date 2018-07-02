@@ -48,7 +48,7 @@ class HyperVideoEditor extends Component {
 		newQuiz.time = plyr.currentTime;
 		let quizzes = this.state.quizzes;
 		quizzes.push(newQuiz);
-		
+
 		this.setState({
 			quizzes: quizzes
 		});

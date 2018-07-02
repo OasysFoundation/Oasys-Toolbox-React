@@ -34,14 +34,14 @@ class HorizontalSlidePicker extends Component {
 		})
 	}
 
-	handleStepChange() {
-
+	handleStepChange(newStep) {
+		this.setState({
+			currentlySelectedIndex: newStep
+		})
 	}
 
 	onChange(content) {
-		const time = this.props.quizzes[this.state.currentlySelectedIndex].time;
 		this.props.quizzes[this.state.currentlySelectedIndex] = content;
-		this.props.quizzes[this.state.currentlySelectedIndex].time = time;
 		this.props.onChange(this.props.quizzes);
 	}
 
