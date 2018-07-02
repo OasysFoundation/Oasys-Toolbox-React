@@ -23,7 +23,8 @@ class SlideEditor extends Component {
         return <ModuleEditor value={this.props.slide.content}
                              onChange={this.onChange} />
       } else if (this.props.slideType === glb.HYPERVIDEO) {
-        return <HyperVideoEditor />
+        return <HyperVideoEditor onChange={this.onChange}
+                                 value={this.props.slide.content} />
       } else {
         return <div></div>
       }
