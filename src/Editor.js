@@ -98,7 +98,10 @@ class Editor extends Component {
 
   onAddNewHyperVideo() {
     let slides = this.state.slides;
-    let content = { }
+    let content = {
+      "videoURL": "https://youtu.be/bBC-nXj3Ng4",
+      "quizzes": []
+    }
     slides.push(createSlide("Hypervideo ", Math.random().toString(36), content, glb.HYPERVIDEO));
     const newSlideIndex = slides.length -1;
     this.setState({
