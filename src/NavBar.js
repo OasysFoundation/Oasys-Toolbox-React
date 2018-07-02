@@ -50,7 +50,7 @@ function NavBar({authUser}, props) {
                                 </Button>
                                 <SignOutPage color="inherit"/>
                             </div>)
-                        : <Button href="https://app.joinoasys.org/login" color="inherit">Sign In</Button>
+                        : <Button href="/login" color="inherit">Sign In</Button>
                     }
                 </Toolbar>
             </section>
