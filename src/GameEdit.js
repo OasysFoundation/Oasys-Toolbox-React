@@ -10,6 +10,7 @@ class GameEdit extends Component {
             selectedIdx: gameMetaData[0],
             selectedGame: gameMetaData[0]
         };
+        this.onChange = this.props.onChange.bind(this);
         this.onChooseModule = this.onChooseModule.bind(this);
     }
 
@@ -18,8 +19,8 @@ class GameEdit extends Component {
             selectedIdx: value.value,
             selectedGame: gameMetaData[value.value]
         })
+        // this.onChange();
     }
-
     handleTryOut() {
         window.open(`/games/${this.state.selectedGame.name}`);
     }

@@ -15,7 +15,7 @@ const GameEmbedder = function({location}, props){
         )
     }
     catch (error) {
-        console.alert("Hey, this is the Error from GameEmbedder:   ",  error)
+        console.alert("Hey, this is the Error from GameEmbedder: ",  error)
     }
 
 }

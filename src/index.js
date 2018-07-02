@@ -65,8 +65,6 @@ class Index extends Component {
 
                             <Route path="/games/:name" component={GameEmbedder} />
                             <Route path="/games" component={ContentViewTest} />
-
-
                             <Route path="/login" component={LoginPage} />
                             <Route path="/signup" component={SignupPage} />
 
