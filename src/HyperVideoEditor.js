@@ -62,7 +62,7 @@ class HyperVideoEditor extends Component {
 
 	render() {
  	   return (
- 	   	<div>
+ 	   	<div id='hyperVideoEditor'>
  	   		<center>
  	   		<h1>
  	   			HYPER VIDEO EDITOR

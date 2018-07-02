@@ -150,7 +150,7 @@ class Editor extends Component {
     } else if (slides[this.state.selectedSlideIndex].type === glb.GAME) {
       elem = document.getElementById("pseudoCodePreview");
     } else if (slides[this.state.selectedSlideIndex].type === glb.HYPERVIDEO) {
-
+      elem = document.getElementById("hyperVideoEditor");
     }
 
     html2canvas(elem, {width: 160, height: 120}).then(canvas => {
