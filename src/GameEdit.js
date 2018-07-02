@@ -5,7 +5,7 @@ import gameMetaData from "./gameMetaData"
 
 class GameEdit extends Component {
     constructor({location}, props) {
-        super(props);
+        super();
         this.state = {
             selectedIdx: gameMetaData[0],
             selectedGame: gameMetaData[0]
@@ -35,7 +35,7 @@ class GameEdit extends Component {
                 <img src={this.state.selectedGame.thumbnail}
                      style={{width: this.props.width || 70 + "vw", height: this.props.height || 50 + "vh"}}/>
                 <figcaption>{this.state.selectedGame.description}</figcaption>
-                <Button variant="contained" color="primary" style={{backGround: "orange"}} onClick={this.handleTryOut.bind(this)}> Try Out </Button>
+                <Button variant="flat" color="primary" style={{backGround: "orange"}} onClick={this.handleTryOut.bind(this)}> Try Out </Button>
             </div>
         )
     }
