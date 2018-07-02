@@ -23,7 +23,7 @@ import ChipInput from 'material-ui-chip-input'
 
 const BG = "#5C8B8E";
 
-var username = "test";
+//var username = "test";
 
 const styles = {
   root: {
@@ -53,7 +53,7 @@ class MenuBarView extends Component {
             anchorEl: null,
             showsSaveDialog: false,
             saveAction: null,
-            link: null
+            link: null,
         }
 
     this.show = notify.createShowQueue();
@@ -74,6 +74,7 @@ class MenuBarView extends Component {
   }
 
   completeFetch(contentId, published, hashtags, pictureURL, description, slides) {
+    var username = this.props.authUser.displayName;
     var saveEndpoint = 'https://api.joinoasys.org/'+username+'/'+contentId+'/save';
     var data = {
       "data":slides,
