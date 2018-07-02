@@ -269,13 +269,15 @@ class Quiz extends Component {
     };
       return (
         <div style={domStyles.wrapper}>
-          <Paper>
+          {this.props.shouldHideTabbar ? (<div />): (
+            <Paper>
             <Tabs value={+ this.state.preview} onChange={this.changeTab} inkBarStyle={{background: 'orange'}}>
               <Tab label="Quiz Editor" />
               <Tab label="Preview" />
             </Tabs>
           </Paper>
-          <br />
+            )}
+          
           {this.state.preview ? ( // ternary beginning
             <div>
             <FormControl component="fieldset">

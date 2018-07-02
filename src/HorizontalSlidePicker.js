@@ -58,7 +58,7 @@ class HorizontalSlidePicker extends Component {
 		          enableMouseEvents
 		        >
 		        {this.props.quizzes.map(quiz => (
-		        	<Quiz value={quiz} onChange={this.onChange.bind(this)} />
+		        	<Quiz shouldHideTabbar={true} value={quiz} onChange={this.onChange.bind(this)} />
 	            ))}
 		        </SwipeableViews>
 		        <MobileStepper

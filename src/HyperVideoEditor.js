@@ -46,6 +46,7 @@ class HyperVideoEditor extends Component {
 		newQuiz.time = plyr.currentTime;
 		let quizzes = this.state.quizzes;
 		quizzes.push(newQuiz);
+		
 		this.setState({
 			quizzes: quizzes
 		});
@@ -121,7 +122,6 @@ class HyperVideoEditor extends Component {
 			});
 
 			if (currentQuiz != this.state.currentQuiz) {
-				console.log("rendering quz");
 				this.setState({
 					currentQuiz: currentQuiz
 				});
@@ -130,7 +130,7 @@ class HyperVideoEditor extends Component {
 					
 						<Card style={{maxWidth:'450px', position:'absolute', top: '50%', left: '50%', transform: 'translateX(-50%) translateY(-50%)', 'z-index':'1000'}} >
 						<CardContent>
-						<QuizPreview content={this.state.currentQuiz} onChange={this.onChange.bind(this)} />
+						<QuizPreview content={currentQuiz} onChange={this.onChange.bind(this)} />
 						</CardContent>
 						</Card>
 					
