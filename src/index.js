@@ -41,18 +41,18 @@ class Index extends Component {
         this.state = {
             authUser: null,
         };
-    }
-    componentDidMount() {
         firebase.auth.onAuthStateChanged(authUser => {
             authUser
             ? this.setState(() => ({ authUser }))
-            : this.setState(() => ({ authUser: null }));
+            : this.setState(() => ({ authUser: "loggedOut" }));
         });
+    }
+    componentDidMount() {
+        
     }
 
 
     render() {
-
         return (
             <div>
                 <BrowserRouter history={history}>
@@ -65,8 +65,6 @@ class Index extends Component {
 
                             <Route path="/games/:name" component={GameEmbedder} />
                             <Route path="/games" component={ContentViewTest} />
-
-
                             <Route path="/login" component={LoginPage} />
                             <Route path="/signup" component={SignupPage} />
 

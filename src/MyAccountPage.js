@@ -4,67 +4,36 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import IconAccountCircle from '@material-ui/icons/AccountCircle';
 import Button from '@material-ui/core/Button';
-import logo from './logo.jpg'
-import {
-  Link,
-  withRouter,
-} from 'react-router-dom';
+import logo from './logo.jpg';
+import UserMainPage from './userMainPage';
+import LoginPage from './LoginPage'
 
 class MyAccountPage extends Component {
 	constructor(props) {
-        super();
+        super(props);
     }
 
-	resetPw = () => {
-	 	const {
-	      history,
-	    } = this.props;
-
-		history.push('/resetPassword');  	
-	  }
-
-	 redirect = () => {
-		const {
-	      history,
-	    } = this.props;
-
-		history.push('/login');  	
-	 }
-
-
 	render() {
+		console.log("niii");
 		console.log(this.props.authUser);
-		if(!this.props.authUser){
-			this.redirect();
-		}
 		return (
-				<center>
-			      <Paper style={{margin: 36, padding: 16, maxWidth: '400px', textAlign:'left'}} elevation={4}>
-			      <center>
-					<img src={logo} style={{maxWidth:'100px', marginBottom:'16px'}}/>
-					</center>
-			        <Typography variant="headline" component="h3" style={{marginBottom:'16px'}}>
-			          <IconAccountCircle /> Welcome{
-			          	this.props.authUser
-			          	? ", " + this.props.authUser.displayName
-       				    : ""
-			          }
-			        </Typography>
-			        <Typography component="p">
-			          This is your personal user account page. You see all your content here. In the future. Right now, this is just a demo text.
-			        </Typography>
-
-			   <div style={{marginTop:'16px'}}>
-			   <Button variant="contained" color="primary" onClick={this.resetPw.bind(this)}>
-		        Change Password
-		      </Button>
-		      <br />
-		      </div>
-			      </Paper>
-			    </center>
-			)
+			<div>
+			{ !this.props.authUser ?(
+				 null
+				 )
+					: (
+						this.props.authUser == "loggedOut" ? (
+						 <LoginPage/>
+					    )
+					    : (
+						 <UserMainPage authUser={this.props.authUser}/>
+						)
+					   )
+			}
+			</div>
+		)
 	}
 }
 
 
-export default withRouter(MyAccountPage);
+export default MyAccountPage;
