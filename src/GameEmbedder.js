@@ -9,7 +9,7 @@ const GameEmbedder = function({location}, props){
 
         return (
             <iframe style={{width: window.innerWidth, height: window.innerHeight * 0.85}}
-                    sandbox="allow-same-origin allow-scripts allow-modals" allow="microphone" allow="camera"
+                    sandbox="allow-same-origin allow-scripts allow-modals" allow="geolocation *; microphone *; camera *;"
                     seamless src={url} frameBorder="0" allowFullScreen>
             </iframe>
         )
