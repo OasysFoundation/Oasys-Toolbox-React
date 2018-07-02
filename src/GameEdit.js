@@ -10,14 +10,14 @@ class GameEdit extends Component {
             selectedIdx: gameMetaData[0],
             selectedGame: gameMetaData[0]
         };
-        this.onChange = this.props.onChange.bind(this);
+        // this.onChange = this.props.onChange.bind(this);
         this.onChooseModule = this.onChooseModule.bind(this);
     }
 
     onChooseModule(value) {
         this.setState({
             selectedIdx: value.value,
-            selectedGame: gameMetaData[value.value]
+            selectedGame: gameMetaData[value.value] || gameMetaData[0]
         })
         // this.onChange();
     }
@@ -26,6 +26,10 @@ class GameEdit extends Component {
     }
 
     render() {
+        //set Ratios of Thumbnail
+        const w = window.innerWidth * 0.5;
+        const h = w / 4 * 2.5;
+
         return (
             <div>
                 <ReactMaterialSelect label="Choose a Simulation!" onChange={this.onChooseModule}>
@@ -34,7 +38,7 @@ class GameEdit extends Component {
                     )}
                 </ReactMaterialSelect>
                 <img src={this.state.selectedGame.thumbnail}
-                     style={{width: this.props.width || 70 + "vw", height: this.props.height || 50 + "vh"}}/>
+                     style={{width: this.props.width || w, height: this.props.height || h}}/>
                 <figcaption>{this.state.selectedGame.description}</figcaption>
                 <Button variant="flat" color="primary" style={{backGround: "orange"}} onClick={this.handleTryOut.bind(this)}> Try Out </Button>
             </div>
