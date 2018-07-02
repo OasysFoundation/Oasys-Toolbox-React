@@ -151,7 +151,7 @@ class Editor extends Component {
     } else if (slides[this.state.selectedSlideIndex].type === glb.QUIZ) {
       elem = document.getElementById("quizPreview");
     } else if (slides[this.state.selectedSlideIndex].type === glb.GAME) {
-      elem = document.getElementById("pseudoCodePreview");
+      elem = document.getElementById("gameRenderer");
     } else if (slides[this.state.selectedSlideIndex].type === glb.HYPERVIDEO) {
       elem = document.getElementById("hyperVideoEditor");
     }
