@@ -118,7 +118,6 @@ class NavBar extends React.Component {
                         />
                         </div>
                         )
->>>>>>> 975a6ec55bfdb0c2d58f7f9111fd975621d31eed
                     }
                     
                 </Toolbar>
