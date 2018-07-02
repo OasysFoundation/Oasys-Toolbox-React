@@ -23,7 +23,7 @@ import ChipInput from 'material-ui-chip-input'
 
 const BG = "#5C8B8E";
 
-
+var username = "test";
 
 const styles = {
   root: {
@@ -73,7 +73,7 @@ class MenuBarView extends Component {
     });
   }
 
-  completeFetch(contentId, published, username, hashtags, pictureURL, description, slides) {
+  completeFetch(contentId, published, hashtags, pictureURL, description, slides) {
     var saveEndpoint = 'https://api.joinoasys.org/'+username+'/'+contentId+'/save';
     var data = {
       "data":slides,
@@ -82,7 +82,6 @@ class MenuBarView extends Component {
       "title":contentId,
       "description":description,
       "tags":hashtags,
-      "url":'/user/'+username+'/'+contentId
     }
 
     fetch(saveEndpoint, {
@@ -104,11 +103,11 @@ class MenuBarView extends Component {
   onSubmit() {
     if (this.state.saveAction == 'save') {
       this.show('Saved Draft');
-      this.completeFetch(this.state.title, 0, this.state.username, this.state.hashtags, this.state.pictureURL, this.state.description, this.props.slides);
+      this.completeFetch(this.state.title, 0, this.state.hashtags, this.state.pictureURL, this.state.description, this.props.slides);
     }
     if (this.state.saveAction == 'publish') {
       this.show('Published');
-      this.completeFetch(this.state.title, 1, this.state.username, this.state.hashtags, this.state.pictureURL, this.state.description, this.props.slides);
+      this.completeFetch(this.state.title, 1, this.state.hashtags, this.state.pictureURL, this.state.description, this.props.slides);
     }
   }
 
@@ -151,11 +150,6 @@ class MenuBarView extends Component {
       case "title": 
         this.setState({
           title: event.target.value,
-        });
-        break;
-      case "username": 
-        this.setState({
-          username: event.target.value,
         });
         break;
       case "pictureURL": 
@@ -267,14 +261,6 @@ class MenuBarView extends Component {
               placeholder="Title"
               style={{width:'100%'}} 
               value={this.props.contentTitle} 
-              onChange={this.onChange.bind(this)}
-              margin="normal"
-            />
-            <TextField
-              id="username"
-              placeholder="Username"
-              style={{width:'100%'}} 
-              value={this.props.username} 
               onChange={this.onChange.bind(this)}
               margin="normal"
             />

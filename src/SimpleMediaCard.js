@@ -32,7 +32,10 @@ const styles = {
 
 function SimpleMediaCard(props) {
     const { classes } = props;
-    const {picture, title, description, url, tags, rating} = props.contentData;
+    const {picture, title, description, userId, tags, rating} = props.contentData;
+    var url = '';
+    if(title && userId)
+        url = "/user/"+userId+"/"+title;
     return (
         <div>
             <Card className={classes.card}>
