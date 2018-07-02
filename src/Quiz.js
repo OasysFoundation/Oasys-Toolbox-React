@@ -236,7 +236,8 @@ class Quiz extends Component {
     const answers = this.props.value.answers.map(x => ({"option": x.option, "correct": x.correct}));
     const obj = {
       "question": this.props.value.question,
-      "answers":  answers
+      "answers":  answers,
+      "time": this.props.value.time
     };
     this.props.onChange(obj);
   }
@@ -304,7 +305,7 @@ class Quiz extends Component {
               <Card>
                 <CardContent>
                 <Typography style={{marginBottom: 16, fontSize: 14}} color="textSecondary">
-                  Quiz Question at {this.props.value.time? (this.props.value.time) : null} seconds
+                  Quiz Question {this.props.value.time ? ("at " + this.props.value.time + " seconds") : null}
                 </Typography>
                   <div style={domStyles.questionWrap}>
                   <Question value={this.props.value.question} 

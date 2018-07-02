@@ -34,8 +34,10 @@ class HorizontalSlidePicker extends Component {
 		})
 	}
 
-	handleStepChange() {
-
+	handleStepChange(newStep) {
+		this.setState({
+			currentlySelectedIndex: newStep
+		})
 	}
 
 	onChange(content) {
