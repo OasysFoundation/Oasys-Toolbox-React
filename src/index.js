@@ -24,9 +24,10 @@ import PasswordReset from './PasswordReset'
 
 import { firebase } from './firebase';
 import ContentView from './ContentView'
-import IFrameEmbed from "./IFrameEmbed";
+import GameEdit from "./GameEdit";
 
 import { withRouter } from 'react-router'
+import GameEmbedder from "./GameEmbedder";
 
 
 
@@ -61,7 +62,10 @@ class Index extends Component {
                             <Route exact path="/" render={()=><ContentSelection/>} />
                             <Route path="/explore" component={ContentSelection}/>
                             <Route path="/create" component={Editor} />
-                            <Route path="/game" component={IFrameEmbed} />
+
+                            <Route path="/games/:name" component={GameEmbedder} />
+                            <Route path="/games" component={ContentViewTest} />
+
 
                             <Route path="/login" component={LoginPage} />
                             <Route path="/signup" component={SignupPage} />

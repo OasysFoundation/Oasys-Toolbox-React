@@ -5,6 +5,7 @@ import glb from "./globals";
 import 'react-quill/dist/quill.snow.css';
 import QuillEditor from './QuillEditor'
 import HyperVideoEditor from './HyperVideoEditor'
+import GameEdit from "./GameEdit";
 
 class SlideEditor extends Component {
   
@@ -20,8 +21,9 @@ class SlideEditor extends Component {
       } else if (this.props.slideType === glb.QUILL) {
        return <QuillEditor onChange={this.onChange} slideContent={this.props.slide.content}/>
       } else if (this.props.slideType === glb.GAME) {
-        return <ModuleEditor value={this.props.slide.content}
-                             onChange={this.onChange} />
+         return <GameEdit/>
+        // return <ModuleEditor value={this.props.slide.content}
+        //                      onChange={this.onChange} />
       } else if (this.props.slideType === glb.HYPERVIDEO) {
         return <HyperVideoEditor onChange={this.onChange}
                                  value={this.props.slide.content} />
