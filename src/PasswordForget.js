@@ -29,6 +29,9 @@ class PasswordForget extends Component {
 constructor(props) {
     super(props);
     this.state = { ...INITIAL_STATE };
+    this.state = {
+      emailError : false,
+    }
   }
 
   onSubmit = (event) => {
@@ -37,17 +40,25 @@ constructor(props) {
     auth.doPasswordReset(email)
       .then(() => {
         this.setState(() => ({ ...INITIAL_STATE }));
+        const {
+          history,
+        } = this.props;
+
+        history.push('/');
+        event.preventDefault();
       })
       .catch(error => {
         this.setState(byPropKey('error', error));
+        if(error.code=="auth/invalid-email" || error.code=="auth/user-not-found" || error.code == "auth/user-disabled"){
+          this.setState({emailError:true})
+        }
+        else{
+          this.setState({emailError:false})
+        }
+
       });
 
-    const {
-      history,
-    } = this.props;
-
-    history.push('/');
-    event.preventDefault();
+    
 
 
   }
@@ -73,6 +84,7 @@ render() {
 				
 				</center>
 				<TextField
+                error={this.state.emailError}
 	              id="name"
 	              label="Email Address"
 	              style={{width:'100%'}} 

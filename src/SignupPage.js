@@ -7,6 +7,10 @@ import Button from '@material-ui/core/Button';
 import logo from './logo.jpg'
 import Typography from '@material-ui/core/Typography';
 import { auth } from './firebase';
+import Input from "@material-ui/core/Input";
+import InputLabel from "@material-ui/core/InputLabel";
+import FormHelperText from "@material-ui/core/FormHelperText";
+import FormControl from "@material-ui/core/FormControl";
 
 import firebase from 'firebase/app';
 import 'firebase/auth';
@@ -33,6 +37,10 @@ class SignupPage extends Component {
 constructor(props) {
     super(props);
     this.state = { ...INITIAL_STATE };
+    this.state = {
+    	emailError : false,
+    	passwordError : false
+    }
   }
 
   onSubmit = (event) => {
@@ -59,6 +67,8 @@ constructor(props) {
 		  // Update successful.
 		}).catch(function(error) {
 		  // An error happened.
+		  console.log("error here");
+		  console.log(error);
 		});
 
 		history.push({
@@ -68,6 +78,14 @@ constructor(props) {
       })
       .catch(error => {
         this.setState(byPropKey('error', error));
+        if(error.code=="auth/invalid-email" || error.code=="auth/email-already-in-use"){
+        	this.setState({emailError:true})
+        	this.setState({passwordError:false})
+        }
+        if(error.code=="auth/weak-password"){
+        	this.setState({emailError:false})
+        	this.setState({passwordError:true})
+        }
       });
 
  
@@ -101,8 +119,8 @@ render() {
 		          </Typography>
 				
 				</center>
-
-          		<TextField
+ 
+          		<TextField error={this.state.emailError}
 	              id="email"
 	              label="Email"
 	              style={{width:'100%'}} 
@@ -112,6 +130,7 @@ render() {
 	              autoComplete="email"
 	              type="email"
 	            />
+
 				
 				<TextField
 	              id="username"
@@ -124,6 +143,7 @@ render() {
 	            />
 
 		        <TextField
+		          error={this.state.passwordError}
 		          id="password-input"
 		          value={passwordOne}
 		          onChange={event => this.setState(byPropKey('passwordOne', event.target.value))}
@@ -133,11 +153,12 @@ render() {
 		          autoComplete="new-password"
 		          margin="normal"
 		        />
-		        <TextField
+		        <TextField 
+		          error={this.state.passwordError}
 		          id="password-input"
 		          value={passwordTwo}
 		          onChange={event => this.setState(byPropKey('passwordTwo', event.target.value))}
-		          label="Confirm Password"
+		          label="Confirm Password (Must Match)"
 		          style={{width:'100%'}} 
 		          type="password"
 		          autoComplete="new-password"

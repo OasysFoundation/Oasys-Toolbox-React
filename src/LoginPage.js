@@ -30,6 +30,10 @@ class LoginPage extends Component {
 constructor(props) {
     super(props);
     this.state = { ...INITIAL_STATE };
+    this.state = {
+    	emailError : false,
+    	passwordError : false
+    }
   }
 
   onSubmit = (event) => {
@@ -49,6 +53,16 @@ constructor(props) {
       })
       .catch(error => {
         this.setState(byPropKey('error', error));
+
+        if(error.code=="auth/invalid-email" || error.code=="auth/user-not-found" || error.code == "auth/user-disabled"){
+        	this.setState({emailError:true})
+        	this.setState({passwordError:false})
+        }
+        if(error.code=="auth/wrong-password"){
+        	this.setState({emailError:false})
+        	this.setState({passwordError:true})
+        }
+
       });
 
     event.preventDefault();
@@ -95,6 +109,7 @@ render() {
 				
 				</center>
 				<TextField
+				  error={this.state.emailError}
 	              id="name"
 	              label="Email Address"
 	              style={{width:'100%'}} 
@@ -104,6 +119,7 @@ render() {
           		  onChange={event => this.setState(byPropKey('email', event.target.value))}
 	            />
 		        <TextField
+		          error={this.state.passwordError}
 		          id="password-input"
 		          label="Password"
 		          style={{width:'100%'}} 
@@ -118,14 +134,15 @@ render() {
               <Button disabled={isInvalid} variant="raised" color="primary" onClick={this.onSubmit.bind(this)} >
 		        Sign In
 		      </Button>
-		      <Button variant="contained" color="primary" onClick={this.signup.bind(this)} >
-		        New User
+		      <Button variant="raised" color="primary" onClick={this.signup.bind(this)} >
+		        Sign up
 		      </Button>
-		      <Button variant="contained" color="primary" onClick={this.forgotPw.bind(this)} >
-		        Forgot Password?
+		      <Button variant="raised" color="primary" onClick={this.forgotPw.bind(this)} >
+		        Forgot Password
 		      </Button>
-		      { error && <p>{error.message}</p> }
 		      </CardActions>
+		      { error && <p>{error.message}</p> }
+
 			</CardContent>
 		</Card>
     	)

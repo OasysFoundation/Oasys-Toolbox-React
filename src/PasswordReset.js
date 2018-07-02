@@ -34,6 +34,10 @@ class PasswordReset extends Component {
 constructor(props) {
     super(props);
     this.state = { ...INITIAL_STATE };
+    this.state = {
+      oldPwError : false,
+      newPwError : false
+    }
   }
 
   onSubmit = (event) => {
@@ -42,30 +46,43 @@ constructor(props) {
     console.log(email);
     console.log(this.state.passwordOld);
     var that = this;
-
+    var newPw = this.state.passwordOne;
     firebase.auth()
         .signInWithEmailAndPassword(email, this.state.passwordOld)
         .then(function(user) {
             console.log("successfully logged in");
 
-            firebase.auth().currentUser.updatePassword(that.state.passwordOne).then(function(){
-            }).catch(function(err){
-              alert(err);
+            firebase.auth().currentUser.updatePassword(newPw).then(function(){
+              const {
+                history,
+              } = that.props;
+
+              history.push('/');
+              event.preventDefault(); 
+            }).catch(function(error){
+              console.log("actually failed 1");
+              console.log(error);
+              that.setState(byPropKey('error', error));
+              if(error.code=="auth/weak-password"){
+                that.setState({newPwError:true})
+                that.setState({oldPwError:false})
+              }
             });
 
-        }).catch(function(err){
+        }).catch(function(error){
             //Do something
-            alert(err);
+            console.log("actually failed 2");
+
+            that.setState(byPropKey('error', error));
+            if(error.code=="auth/wrong-password"){
+                that.setState({newPwError:false})
+                that.setState({oldPwError:true})
+              }
         });
     
     this.setState(() => ({ ...INITIAL_STATE }));
 
-    const {
-      history,
-    } = this.props;
-
-    history.push('/');
-    event.preventDefault();  }
+   }
 
 render() {
 	const {
@@ -92,35 +109,38 @@ render() {
 				
 				</center>
 				 <TextField
+              error={this.state.oldPwError}
               id="password-input"
               label="Old Password"
               style={{width:'100%'}} 
               type="password"
               autoComplete="current-password"
               margin="normal"
-              value={passwordOld}
+              value={this.state.passwordOld}
               onChange={event => this.setState(byPropKey('passwordOld', event.target.value))}
 
             />
          <TextField
+              error={this.state.newPwError}
               id="password-input"
               label="New Password"
               style={{width:'100%'}} 
               type="password"
               autoComplete="current-password"
               margin="normal"
-              value={passwordOne}
+              value={this.state.passwordOne}
               onChange={event => this.setState(byPropKey('passwordOne', event.target.value))}
 
             />
             <TextField
+              error={this.state.newPwError}
               id="password-input"
               label="Confirm Password"
               style={{width:'100%'}} 
               type="password"
               autoComplete="current-password"
               margin="normal"
-              value={passwordTwo}
+              value={this.state.passwordTwo}
               onChange={event => this.setState(byPropKey('passwordTwo', event.target.value))}
 
             />
