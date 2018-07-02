@@ -59,6 +59,8 @@ class HyperVideoEditor extends Component {
 	onChange(content) {
 		this.setState({
 			quizzes: content
+		}, function() {
+			this.refreshCurrentQuiz();
 		})
 	}
 
@@ -141,31 +143,34 @@ class HyperVideoEditor extends Component {
 	}
 
 	refreshCurrentQuiz() {
+
 		let currentQuiz = null;
 		let currentTime = this.state.currentTime;
 			this.state.quizzes.forEach(function(quiz) {
 				if (currentTime-2 < quiz.time && quiz.time < currentTime+2 ) {
 					currentQuiz = quiz;
-					console.log("current quiz" + currentQuiz);
 				}
 			});
 
-			if (currentQuiz != this.state.currentQuiz) {
+			if (!(currentQuiz === this.state.currentQuiz)) {
 				this.setState({
 					currentQuiz: currentQuiz
+				}, function() {
+							ReactDOM.render((
+								<Card style={{maxWidth:'450px', position:'absolute', top: '50%', left: '50%', transform: 'translateX(-50%) translateY(-50%)', 'z-index':'1000'}} >
+								{this.state.currentQuiz ? (
+										<CardContent>
+										<QuizPreview content={this.state.currentQuiz} onChange={this.onChange.bind(this)} />
+										</CardContent>
+									) : (
+										<div />
+									)}
+								</Card>
+							
+						
+						), document.getElementById("overlay-container")
+						);
 				});
-
-				ReactDOM.render((
-					
-						<Card style={{maxWidth:'450px', position:'absolute', top: '50%', left: '50%', transform: 'translateX(-50%) translateY(-50%)', 'z-index':'1000'}} >
-						<CardContent>
-						<QuizPreview content={currentQuiz} onChange={this.onChange.bind(this)} />
-						</CardContent>
-						</Card>
-					
-				
-				), document.getElementById("overlay-container")
-				);
 			}
 	}
 }

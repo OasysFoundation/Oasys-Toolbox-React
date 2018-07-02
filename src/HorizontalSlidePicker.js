@@ -39,7 +39,9 @@ class HorizontalSlidePicker extends Component {
 	}
 
 	onChange(content) {
+		const time = this.props.quizzes[this.state.currentlySelectedIndex].time;
 		this.props.quizzes[this.state.currentlySelectedIndex] = content;
+		this.props.quizzes[this.state.currentlySelectedIndex].time = time;
 		this.props.onChange(this.props.quizzes);
 	}
 
