@@ -50,7 +50,7 @@ class NavBar extends React.Component {
   }
 
   state = {
-    open: true,
+    open: false,
   };
 
   handleClick = () => {
@@ -84,7 +84,7 @@ class NavBar extends React.Component {
                                 <Button href='/user' color="inherit">
                                     <IconAccountCircle style={{marginRight: '7px'}}/> {username(this.props.authUser.displayName)}
                                 </Button>
-                                <SignOutPage color="inherit" handleClick={this.handleClick}/>
+                                <SignOutPage color="inherit" handleClick={this.handleClick.bind(this)}/>
                             </div>)
                         : (
                         <div>
@@ -100,11 +100,8 @@ class NavBar extends React.Component {
                           ContentProps={{
                             'aria-describedby': 'message-id',
                           }}
-                          message={<span id="message-id">You are not signed in</span>}
+                          message={<span id="message-id">Signed out successful</span>}
                           action={[
-                            <Button key="undo" color="secondary" size="small" onClick={this.handleClose}>
-                              UNDO
-                            </Button>,
                             <IconButton
                               key="close"
                               aria-label="Close"

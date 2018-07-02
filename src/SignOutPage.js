@@ -11,13 +11,17 @@ import { withStyles } from '@material-ui/core/styles';
 class SignOutPage extends React.Component {
 
 
+  handleClick() {
+    auth.doSignOut();
+    this.props.handleClick();
+  }
 
    render() {
     return (
       <Button
         type="button"
         color="inherit"
-        onClick={auth.doSignOut}
+        onClick={this.handleClick.bind(this)}
       >Sign Out</Button>
     )
   }
