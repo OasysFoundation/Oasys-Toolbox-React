@@ -30,6 +30,9 @@ class QuizPreview extends Component {
     }
     checkAnswers() {
         this.setState({hasSubmitted: true})
+        if (this.props.onCompleted) {
+            this.props.onCompleted();
+        }
     }
     updateUserAnswers(inputEl, index) {
         console.log("inptel ", inputEl.checked, index)

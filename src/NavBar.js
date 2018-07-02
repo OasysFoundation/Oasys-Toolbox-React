@@ -75,19 +75,18 @@ class NavBar extends React.Component {
                 </Typography>
 
                 <Toolbar style={{display: "flex", justifyContent: "flex-end"}}>
-                    <Button href='/explore' color="inherit"> <IconExplore
+                    
+                          <div>
+                          { !this.props.authUser ?(
+                             null
+                             )
+                              : (
+                                this.props.authUser == "loggedOut" ? (
+                                  <div>
+                                  <Button href='/explore' color="inherit"> <IconExplore
                         style={{marginRight: '7px'}}/> Explore</Button>
                     <Button href='/create' color="inherit"> <IconCreate style={{marginRight: '7px'}}/> Create</Button>
                     <Button href='https://joinoasys.org' color="inherit">About</Button>
-                    {this.props.authUser ? (
-                            <div>
-                                <Button href='/user' color="inherit">
-                                    <IconAccountCircle style={{marginRight: '7px'}}/> {username(this.props.authUser.displayName)}
-                                </Button>
-                                <SignOutPage color="inherit" handleClick={this.handleClick.bind(this)}/>
-                            </div>)
-                        : (
-                        <div>
                         <Button href="/login" color="inherit">Sign In</Button>
                         <Snackbar
                           anchorOrigin={{
@@ -114,8 +113,22 @@ class NavBar extends React.Component {
                           ]}
                         />
                         </div>
-                        )
-                    }
+                                  )
+                                  : (
+                                <div>
+                                <Button href='/explore' color="inherit"> <IconExplore
+                        style={{marginRight: '7px'}}/> Explore</Button>
+                    <Button href='/create' color="inherit"> <IconCreate style={{marginRight: '7px'}}/> Create</Button>
+                    <Button href='https://joinoasys.org' color="inherit">About</Button>
+                                <Button href='/user' color="inherit">
+                                    <IconAccountCircle style={{marginRight: '7px'}}/> {username(this.props.authUser.displayName)}
+                                </Button>
+                                <SignOutPage color="inherit" handleClick={this.handleClick.bind(this)}/>
+                            </div>
+                                )
+                                 )
+                          }
+                          </div>
                     
                 </Toolbar>
             </section>

@@ -212,7 +212,6 @@ class Editor extends Component {
         this.setState({contentId: id});
         console.log(myJson);
       });
-
   }
 
   render() {
