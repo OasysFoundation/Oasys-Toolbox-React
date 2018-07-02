@@ -40,18 +40,18 @@ class Index extends Component {
         this.state = {
             authUser: null,
         };
-    }
-    componentDidMount() {
         firebase.auth.onAuthStateChanged(authUser => {
             authUser
             ? this.setState(() => ({ authUser }))
-            : this.setState(() => ({ authUser: null }));
+            : this.setState(() => ({ authUser: "loggedOut" }));
         });
+    }
+    componentDidMount() {
+        
     }
 
 
     render() {
-
         return (
             <div>
                 <BrowserRouter history={history}>
