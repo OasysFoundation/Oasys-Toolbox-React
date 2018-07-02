@@ -22,8 +22,8 @@ class HyperVideoEditor extends Component {
 	    this.state = {
 	    	currentTime: 0,
 	    	currentQuiz: null,
-	    	quizzes: [],
-	    	videoURL: 'https://youtu.be/bBC-nXj3Ng4'
+	    	quizzes: this.props.value.quizzes,
+	    	videoURL: this.props.value.videoURL
 	    }
 	}
 
@@ -61,7 +61,15 @@ class HyperVideoEditor extends Component {
 			quizzes: content
 		}, function() {
 			this.refreshCurrentQuiz();
+			this.notifyDelegate();
 		})
+	}
+
+	notifyDelegate() {
+		this.props.onChange({
+			"videoURL": this.state.videoURL,
+			"quizzes": this.state.quizzes
+		});
 	}
 
 	didChangeVideoURL(textfield) {
@@ -70,6 +78,8 @@ class HyperVideoEditor extends Component {
 		if (this.isValidYouTubeUrl(url)) {
 			this.setState({
 				videoURL: '' + url
+			}, function() {
+				this.notifyDelegate();
 			});
 		}
 	}
