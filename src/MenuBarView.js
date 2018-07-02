@@ -45,7 +45,6 @@ class MenuBarView extends Component {
     this.onChange = this.onChange.bind(this);
     this.onSave = this.onSave.bind(this);
     this.completeFetch = this.completeFetch.bind(this);
-    this.onLoad = this.onLoad.bind(this);
     this.contentId = 0;
     this.onOpen = this.onOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
@@ -54,6 +53,7 @@ class MenuBarView extends Component {
             showsSaveDialog: false,
             saveAction: null,
             link: null,
+            slides: this.props.slides,
         }
 
     this.show = notify.createShowQueue();
@@ -127,8 +127,10 @@ class MenuBarView extends Component {
   onLoad(event) {
     this.show('Opening…');
     var loadContent = this.state.link;
+    loadContent = loadContent.replace("app.joinoasys.org", "api.joinoasys.org");
 
     console.log(loadContent);
+    var that = this;
 
     fetch(loadContent, {
       method: 'GET'
@@ -138,6 +140,9 @@ class MenuBarView extends Component {
       })
       .then(function(myJson) {
         console.log(myJson);
+        that.setState({
+          slides:myJson[0]
+        })
       });
 
 
@@ -191,6 +196,10 @@ class MenuBarView extends Component {
     });
   }
 
+  open(){
+    this.props.onLoad(this.state.link);
+  }
+
   render() {
     return (
     	<div>
@@ -225,7 +234,7 @@ class MenuBarView extends Component {
               <InputAdornment position="end">
                 <IconButton
                   aria-label="Open Content"
-                  onClick={this.onLoad}
+                  onClick={this.open.bind(this)}
                   onClose={this.onClosePopup}
                 >
                 <IconArrowForward />
