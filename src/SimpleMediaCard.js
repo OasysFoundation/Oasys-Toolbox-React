@@ -33,27 +33,32 @@ const styles = {
 function SimpleMediaCard(props) {
     const { classes } = props;
     const {picture, title, description, userId, tags, rating, contentId} = props.contentData;
-    var url = '';
-    if(title && userId)
-       url = '/user/'+userId+'/'+contentId;
+    var userUrl = '';
+    if (userId) {
+        userUrl = '/user/'+userId;
+    }
+    var contentUrl = '';
+    if (contentId && userUrl) {
+        contentUrl = userUrl+'/'+contentId;
+    }
     return (
         <div>
             <Card className={classes.card}>
                   <ButtonBase
                       className={classes.cardAction}
-                      onClick={function(event) {event.preventDefault(); window.location.href = url || "nope"; }}
+                      onClick={function(event) {event.preventDefault(); window.location.href = contentUrl || "nope"; }}
                   >
                 <CardMedia
                     className={classes.media}
                     image={picture}
-                    title="Contemplative Reptile"
+                    title={title}
                 />
                 <CardContent>
                  <CardActions>
                     <Typography gutterBottom variant="headline" component="h2">
                         {title  || "Nothing here"}
                     </Typography>
-                    <Remix url={url}/>
+                    <Remix url={contentUrl}/>
                    
                  </CardActions>
                     <Typography component="p">
@@ -61,17 +66,24 @@ function SimpleMediaCard(props) {
                     </Typography>
                 </CardContent>
                 {<Rating value={rating} preview={true}/>}
+                </ButtonBase>
                 <CardActions>
                     <Button
                         variant="contained"
                         size="small" color="primary"
-                        onClick={function(event) {event.preventDefault(); window.location.href = {url} || "nope"; }}>
+                        onClick={function(event) {event.preventDefault(); window.location.href = {contentUrl} || "nope"; }}>
                         Explore
+                    </Button>
+                    <Button
+                        variant="contained"
+                        size="small" color="primary"
+                        onClick={function(event) {event.preventDefault(); window.location.href = {userUrl} || "nope"; }}>
+                        Made by {userId}
                     </Button>
                     {/*{tags ? tags.map((t,i) => <div key={i}> {t + " | "}</div>) : ""}*/}
                     { (<div> {Array.isArray(tags) ? tags.join() : tags}</div>)}
                 </CardActions>
-                </ButtonBase>
+                
             </Card>
         </div>
     );
