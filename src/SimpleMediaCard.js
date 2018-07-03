@@ -71,13 +71,13 @@ function SimpleMediaCard(props) {
                     <Button
                         variant="contained"
                         size="small" color="primary"
-                        onClick={function(event) {event.preventDefault(); window.location.href = {contentUrl} || "nope"; }}>
+                        onClick={function(event) {event.preventDefault(); window.location.href = contentUrl || "nope"; }}>
                         Explore
                     </Button>
                     <Button
                         variant="contained"
                         size="small" color="primary"
-                        onClick={function(event) {event.preventDefault(); window.location.href = {userUrl} || "nope"; }}>
+                        onClick={function(event) {event.preventDefault(); window.location.href = userUrl || "nope"; }}>
                         Made by {userId}
                     </Button>
                     {/*{tags ? tags.map((t,i) => <div key={i}> {t + " | "}</div>) : ""}*/}
