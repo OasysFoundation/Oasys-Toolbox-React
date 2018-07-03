@@ -32,7 +32,8 @@ const styles = {
 
 function SimpleMediaCard(props) {
     const { classes } = props;
-    const {picture, title, description, url, tags, rating} = props.contentData;
+    const {picture, title, description, userId, tags, rating, contentId} = props.contentData;
+    const url = '/user/'+userId+'/'+contentId;
     return (
         <div>
             <Card className={classes.card}>
@@ -62,7 +63,7 @@ function SimpleMediaCard(props) {
                     <Button
                         variant="contained"
                         size="small" color="primary"
-                        onClick={function(event) {event.preventDefault(); window.location.href = url || "nope"; }}>
+                        onClick={function(event) {event.preventDefault(); window.location.href = {url} || "nope"; }}>
                         Explore
                     </Button>
                     {/*{tags ? tags.map((t,i) => <div key={i}> {t + " | "}</div>) : ""}*/}
