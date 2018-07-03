@@ -9,6 +9,8 @@ import MobileStepper from '@material-ui/core/MobileStepper';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import SwipeableViews from 'react-swipeable-views';
+import NotFoundPage from './NotFoundPage'
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 
 
@@ -18,7 +20,8 @@ class ContentView extends Component {
         super(props);
         this.state = {
             slideIdx: 0,
-            content: null
+            content: null,
+            hasLoaded: false
         };
 
         const userName = this.props.match.params.username;
@@ -38,7 +41,7 @@ class ContentView extends Component {
             .then(function (myJson) {
                 //WHY IS IT ARRAY IF THERE's ONLY ONE ENTRY?
                 console.log("content here: ", myJson[0]);
-                that.setState({content: myJson[0]})
+                that.setState({content: myJson[0], hasLoaded: true})
             });
     }
 
@@ -51,10 +54,6 @@ class ContentView extends Component {
     }
 
     whatRenderer(obj) {
-        if (this.state.slideIdx >= this.state.content.data.length) {
-            return (<Rating />)
-        }
-
         switch(obj.type) {
             case globals.QUILL:
                 return <Preview content={obj.content}/>
@@ -67,13 +66,13 @@ class ContentView extends Component {
 
     handleNext() {
         this.setState({
-            slideIdx: this.state.currentlySelectedIndex+1
+            slideIdx: this.state.slideIdx+1
         })
     }
 
     handlePrevious() {
         this.setState({
-            slideIdx: this.state.currentlySelectedIndex-1
+            slideIdx: this.state.slideIdx-1
         })
     }
 
@@ -84,24 +83,14 @@ class ContentView extends Component {
     }
 
     render() {
-        const content = this.state.content;
-        if (!content) {
-            return <div>No Content Found</div>
+        if (!this.state.hasLoaded) {
+            return <center><CircularProgress style={{ color: 'orange' }} thickness={7} /></center>
         }
 
-
-        const obj = content.data[this.state.slideIdx];
-
-
-        //TODO >>>>> This is ugly. Make case switch statement that returns the right render component
-
-
-        const contentDisplayType = this.whatRenderer(obj)
-
-        //<QuizPreview content={obj.content}/>
-
-
-        //TODO <<<<<
+        const content = this.state.content;
+        if (!content) {
+            return <NotFoundPage />
+        }
 
         return (
             <div>
@@ -111,7 +100,10 @@ class ContentView extends Component {
                       onChangeIndex={this.handleStepChange.bind(this)}
                       enableMouseEvents
                     >
-                   {contentDisplayType}
+                    {content.data.map(slide => (
+                        this.whatRenderer(slide)
+                    ))}
+                    <Rating />
                     </SwipeableViews>
                     <MobileStepper
                       steps={content.data.length + 1}
