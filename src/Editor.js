@@ -5,6 +5,9 @@ import SlideEditor from "./SlideEditor";
 import Grid from '@material-ui/core/Grid';
 import html2canvas from 'html2canvas';
 import glb from "./globals";
+import TextField from '@material-ui/core/TextField';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import EditIcon from '@material-ui/icons/Edit';
 
 
 //https://api.joinoasys.org/{userName}/{contentName}/save
@@ -35,7 +38,8 @@ class Editor extends Component {
       selectedSlideIndex: 0,
       currSlideType: glb.QUILL,
       contentId: defaultId,
-      lastCapture: null
+      lastCapture: null,
+      title: "Untitled Project"
     }
 
     this.onAddNewSlide = this.onAddNewSlide.bind(this);
@@ -226,12 +230,33 @@ class Editor extends Component {
 
   }
 
+  onChangeTitle(event) {
+    this.setState({
+      title: event.target.value
+    })
+  }
+
   render() {
     return (
       <div>
         <Grid container spacing={24}>
         <Grid item xs={12}>
-          <MenuBarView onLoad={this.onLoad.bind(this)} slides={this.state.slides} authUser={this.props.authUser} />
+          <MenuBarView onLoad={this.onLoad.bind(this)} slides={this.state.slides} authUser={this.props.authUser} contentTitle={this.state.title}/>
+          <TextField
+                      id="search"
+                      value={this.state.title}
+                      type="text"
+                      margin="normal"
+                      style={{marginLeft: "20px"}}
+                      onChange={this.onChangeTitle.bind(this)}
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <EditIcon />
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
         </Grid>
         <Grid item xs={3}>
           <SlidesThumbnailView slides={this.state.slides} 

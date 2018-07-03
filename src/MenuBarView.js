@@ -54,6 +54,7 @@ class MenuBarView extends Component {
             saveAction: null,
             link: null,
             slides: this.props.slides,
+            title: this.props.contentTitle
         }
 
     this.show = notify.createShowQueue();
