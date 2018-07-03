@@ -31,7 +31,7 @@ class GameEdit extends Component {
         const h = w / 4 * 2.5;
 
         return (
-            <div>
+            <div id='gameRenderer'>
                 <ReactMaterialSelect label="Choose a Simulation!" onChange={this.onChooseModule}>
                     {gameMetaData.map((item, idx) =>
                         <option dataValue={idx}> {item.primaryText} </option>
