@@ -23,7 +23,7 @@ import ChipInput from 'material-ui-chip-input'
 
 const BG = "#5C8B8E";
 
-
+//var username = "test";
 
 const styles = {
   root: {
@@ -45,7 +45,6 @@ class MenuBarView extends Component {
     this.onChange = this.onChange.bind(this);
     this.onSave = this.onSave.bind(this);
     this.completeFetch = this.completeFetch.bind(this);
-    this.onLoad = this.onLoad.bind(this);
     this.contentId = 0;
     this.onOpen = this.onOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
@@ -53,7 +52,8 @@ class MenuBarView extends Component {
             anchorEl: null,
             showsSaveDialog: false,
             saveAction: null,
-            link: null
+            link: null,
+            slides: this.props.slides,
         }
 
     this.show = notify.createShowQueue();
@@ -73,7 +73,8 @@ class MenuBarView extends Component {
     });
   }
 
-  completeFetch(contentId, published, username, hashtags, pictureURL, description, slides) {
+  completeFetch(contentId, published, hashtags, pictureURL, description, slides) {
+    var username = this.props.authUser.displayName;
     var saveEndpoint = 'https://api.joinoasys.org/'+username+'/'+contentId+'/save';
     var data = {
       "data":slides,
@@ -82,7 +83,6 @@ class MenuBarView extends Component {
       "title":contentId,
       "description":description,
       "tags":hashtags,
-      "url":'/user/'+username+'/'+contentId
     }
 
     fetch(saveEndpoint, {
@@ -104,11 +104,11 @@ class MenuBarView extends Component {
   onSubmit() {
     if (this.state.saveAction == 'save') {
       this.show('Saved Draft');
-      this.completeFetch(this.state.title, 0, this.state.username, this.state.hashtags, this.state.pictureURL, this.state.description, this.props.slides);
+      this.completeFetch(this.state.title, 0, this.state.hashtags, this.state.pictureURL, this.state.description, this.props.slides);
     }
     if (this.state.saveAction == 'publish') {
       this.show('Published');
-      this.completeFetch(this.state.title, 1, this.state.username, this.state.hashtags, this.state.pictureURL, this.state.description, this.props.slides);
+      this.completeFetch(this.state.title, 1, this.state.hashtags, this.state.pictureURL, this.state.description, this.props.slides);
     }
   }
 
@@ -127,8 +127,10 @@ class MenuBarView extends Component {
   onLoad(event) {
     this.show('Opening…');
     var loadContent = this.state.link;
+    loadContent = loadContent.replace("app.joinoasys.org", "api.joinoasys.org");
 
     console.log(loadContent);
+    var that = this;
 
     fetch(loadContent, {
       method: 'GET'
@@ -138,6 +140,9 @@ class MenuBarView extends Component {
       })
       .then(function(myJson) {
         console.log(myJson);
+        that.setState({
+          slides:myJson[0]
+        })
       });
 
 
@@ -151,11 +156,6 @@ class MenuBarView extends Component {
       case "title": 
         this.setState({
           title: event.target.value,
-        });
-        break;
-      case "username": 
-        this.setState({
-          username: event.target.value,
         });
         break;
       case "pictureURL": 
@@ -196,6 +196,10 @@ class MenuBarView extends Component {
     });
   }
 
+  open(){
+    this.props.onLoad(this.state.link);
+  }
+
   render() {
     return (
     	<div>
@@ -230,7 +234,7 @@ class MenuBarView extends Component {
               <InputAdornment position="end">
                 <IconButton
                   aria-label="Open Content"
-                  onClick={this.onLoad}
+                  onClick={this.open.bind(this)}
                   onClose={this.onClosePopup}
                 >
                 <IconArrowForward />
@@ -267,14 +271,6 @@ class MenuBarView extends Component {
               placeholder="Title"
               style={{width:'100%'}} 
               value={this.props.contentTitle} 
-              onChange={this.onChange.bind(this)}
-              margin="normal"
-            />
-            <TextField
-              id="username"
-              placeholder="Username"
-              style={{width:'100%'}} 
-              value={this.props.username} 
               onChange={this.onChange.bind(this)}
               margin="normal"
             />

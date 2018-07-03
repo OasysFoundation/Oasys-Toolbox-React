@@ -44,7 +44,7 @@ class Editor extends Component {
     this.onSlideOrderChange = this.onSlideOrderChange.bind(this);
     this.onChangedSlide = this.onChangedSlide.bind(this);
     this.onAddNewHyperVideo = this.onAddNewHyperVideo.bind(this);
-    this.load = this.load.bind(this);
+    this.onLoad = this.onLoad.bind(this);
   }
 
   onAddNewSlide() { // Quill slides only
@@ -199,19 +199,31 @@ class Editor extends Component {
     .then(response => console.log('Success:', response));
   } */
 
-  load(id) {
-    fetch(loadEndpoint, {
-      method: 'GET', 
-      headers: new Headers({
-        'id': id,
-      })
+  onLoad(link) {
+    //this.show('Opening…');
+    var loadContent = link;
+    loadContent = loadContent.replace("app.joinoasys.org", "api.joinoasys.org");
+
+    console.log(loadContent);
+    var that = this;
+
+    fetch(loadContent, {
+      method: 'GET'
     }).then(function(response) {
+        console.log(response);
         return response.json();
       })
       .then(function(myJson) {
-        this.setState({contentId: id});
         console.log(myJson);
+        that.setState({
+          slides:myJson[0]
+        })
       });
+
+
+    //this.handleClose();
+
+
   }
 
   render() {
@@ -219,7 +231,7 @@ class Editor extends Component {
       <div>
         <Grid container spacing={24}>
         <Grid item xs={12}>
-          <MenuBarView onLoad={this.load} slides={this.state.slides}/>
+          <MenuBarView onLoad={this.onLoad.bind(this)} slides={this.state.slides} authUser={this.props.authUser} />
         </Grid>
         <Grid item xs={3}>
           <SlidesThumbnailView slides={this.state.slides} 
