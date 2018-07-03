@@ -5,27 +5,28 @@ import Preview from "./Preview"
 import QuizPreview from "./QuizPreview";
 import Rating from "./Rating"
 import globals from "./globals"
+import MobileStepper from '@material-ui/core/MobileStepper';
+import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
+import SwipeableViews from 'react-swipeable-views';
 
 
 
 
 class ContentView extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             slideIdx: 0,
             content: null
         };
 
-        //extract OUT the /username/contentname in the routes
-        const loc = window.location.href;
-        const directory = loc.split('/').filter(e => e.length > 0).slice(-2);
-        const userName = directory[0]
-        const contentName = directory[1]
+        const userName = this.props.match.params.username;
+        const contentName = this.props.match.params.contentname;
+
+        console.log(userName + "," + contentName);
 
         const APICALL = `https://api.joinoasys.org/user/${userName}/${contentName}/`;
-
-        console.log("call", APICALL, directory)
 
         const that = this;
         fetch(APICALL, {
@@ -50,25 +51,44 @@ class ContentView extends Component {
     }
 
     whatRenderer(obj) {
+        if (this.state.slideIdx >= this.state.content.data.length) {
+            return (<Rating />)
+        }
 
-        console.log(obj.type, globals,  "TYPPPEP")
         switch(obj.type) {
             case globals.QUILL:
                 return <Preview content={obj.content}/>
             case globals.QUIZ:
                 return <QuizPreview content={obj.content}/>
             default:
-                return <div>not a quill content</div>
+                return <div>not yet implemented ☹️</div>
         }
     }
+
+    handleNext() {
+        this.setState({
+            slideIdx: this.state.currentlySelectedIndex+1
+        })
+    }
+
+    handlePrevious() {
+        this.setState({
+            slideIdx: this.state.currentlySelectedIndex-1
+        })
+    }
+
+    handleStepChange(newStep) {
+        this.setState({
+            slideIdx: newStep
+        })
+    }
+
     render() {
         const content = this.state.content;
         if (!content) {
             return <div>No Content Found</div>
         }
-        if (this.state.slideIdx >= content.data.length) {
-            return (<Rating />)
-        }
+
 
         const obj = content.data[this.state.slideIdx];
 
@@ -85,18 +105,31 @@ class ContentView extends Component {
 
         return (
             <div>
-                {contentDisplayType}
-                <Button variant="fab" size="small" color="primary"
-                        onClick={() => this.slideCount(-1)}>
-                    {"<<<"}
-                </Button>
-                {/*Progress Text*/}
-                {`${this.state.slideIdx + 1} / ${content.data.length}`}
-
-                <Button variant="fab" size="small" color="primary"
-                        onClick={() => this.slideCount(+1)}>
-                    {">>>"}
-                </Button>
+                <SwipeableViews
+                      axis={'x'}
+                      index={this.state.slideIdx}
+                      onChangeIndex={this.handleStepChange.bind(this)}
+                      enableMouseEvents
+                    >
+                   {contentDisplayType}
+                    </SwipeableViews>
+                    <MobileStepper
+                      steps={content.data.length + 1}
+                      position="static"
+                      activeStep={this.state.slideIdx}
+                      nextButton={
+                        <Button size="small" onClick={this.handleNext.bind(this)} disabled={this.state.slideIdx === content.data.length}>
+                          Next
+                          {<KeyboardArrowRight />}
+                        </Button>
+                      }
+                      backButton={
+                        <Button size="small" onClick={this.handlePrevious.bind(this)} disabled={this.state.slideIdx === 0}>
+                          {<KeyboardArrowLeft />}
+                          Back
+                        </Button>
+                      }
+                    />
             </div>
         );
     }
