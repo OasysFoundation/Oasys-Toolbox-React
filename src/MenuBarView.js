@@ -5,12 +5,12 @@ import PublishIcon from '@material-ui/icons/Publish';
 import FolderIcon from '@material-ui/icons/Folder';
 import Input from '@material-ui/core/Input';
 import Toolbar from '@material-ui/core/Toolbar';
+import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Typography from '@material-ui/core/Typography';
 import IconArrowForward from '@material-ui/icons/ArrowForward';
 import Popover from '@material-ui/core/Popover';
-import Notifications, {notify} from 'react-notify-toast';
 import OpenProjectDialog from './OpenProjectDialog'
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -20,6 +20,10 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import ChipInput from 'material-ui-chip-input'
 //import Grid from '@material-ui/core/Grid';
+import CloseIcon from '@material-ui/icons/Close';
+import Snackbar from '@material-ui/core/Snackbar';
+import OpenContentDialog from './OpenContentDialog'
+
 
 const BG = "#5C8B8E";
 
@@ -47,17 +51,16 @@ class MenuBarView extends Component {
     this.completeFetch = this.completeFetch.bind(this);
     this.contentId = 0;
     this.onOpen = this.onOpen.bind(this);
-    this.handleClose = this.handleClose.bind(this);
+
     this.state = {
-            anchorEl: null,
             showsSaveDialog: false,
             saveAction: null,
             link: null,
             slides: this.props.slides,
-            title: this.props.contentTitle
+            title: this.props.contentTitle,
+            snackBarMessage: null,
+            showsOpenDialog: false
         }
-
-    this.show = notify.createShowQueue();
   }
 
   onSave() {
@@ -104,29 +107,29 @@ class MenuBarView extends Component {
 
   onSubmit() {
     if (this.state.saveAction == 'save') {
-      this.show('Saved Draft');
+      this.setState({
+        snackBarMessage: 'Saved Draft'
+      })
       this.completeFetch(this.state.title, 0, this.state.hashtags, this.state.pictureURL, this.state.description, this.props.slides);
     }
     if (this.state.saveAction == 'publish') {
-      this.show('Published');
+      this.setState({
+        snackBarMessage: 'Published'
+      })
       this.completeFetch(this.state.title, 1, this.state.hashtags, this.state.pictureURL, this.state.description, this.props.slides);
     }
   }
 
   onOpen(event) {
     this.setState({
-      anchorEl: event.currentTarget,
+      showsOpenDialog: true,
     });
   }
 
-  handleClose() {
-    this.setState({
-      anchorEl: null,
-    });
-  };
-
   onLoad(event) {
-    this.show('Opening…');
+    this.setState({
+        snackBarMessage: 'Opening…'
+      })
     var loadContent = this.state.link;
     loadContent = loadContent.replace("app.joinoasys.org", "api.joinoasys.org");
 
@@ -179,11 +182,6 @@ class MenuBarView extends Component {
     }
   }
 
-  onClosePopup() {
-    this.setState({
-      anchorEl: null,
-    });
-  };
 
   handleLoadChange(event) {
     this.setState({
@@ -197,62 +195,49 @@ class MenuBarView extends Component {
     });
   }
 
-  open(){
+  open() {
     this.props.onLoad(this.state.link);
+  }
+
+  closeSnackBar() {
+    this.setState({
+      snackBarMessage: null
+    })
+  }
+
+  closeOpenDialog(selectedContent) {
+    console.log("Selected Content: " + selectedContent);
+    this.setState({
+      showsOpenDialog: false
+    })
   }
 
   render() {
     return (
     	<div>
-      <Notifications />
       <Toolbar style={{backgroundColor: BG}}>
+
+      <Tooltip enterDelay={500} id="tooltip-bottom" title="Open an existing content" placement="bottom">
       <Button onClick={this.onOpen} style={{color: 'white'}} >
         <FolderIcon />
           Open
       </Button>
-      <Popover
-          open={Boolean(this.state.anchorEl)}
-          anchorEl={this.state.anchorEl}
-          onClose={this.onClosePopup.bind(this)}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'center',
-          }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'center',
-          }}
-        >
-          
-        <Input
-          placeholder="Link to Content"
-          value={this.state.title}
-          onChange={this.handleLoadChange.bind(this)}
-          inputProps={{
-            'aria-label': 'Description',
-          }}
-          endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="Open Content"
-                  onClick={this.open.bind(this)}
-                  onClose={this.onClosePopup}
-                >
-                <IconArrowForward />
-                </IconButton>
-              </InputAdornment>
-            }
-        />
+      </Tooltip>
 
-      </Popover>
+      <Tooltip enterDelay={500} id="tooltip-bottom" title="Save content in your account but don't publish it yet. You can open drafts later again and continue editing." placement="bottom">
     	<Button onClick={this.onSave} style={{color: 'white'}} >
         <SaveIcon />
 	        Save Draft
 	    </Button>
+      </Tooltip>
+
+      <Tooltip enterDelay={500} id="tooltip-bottom" title="Pubish your content on the Oasys platform. Other users then can explore, use, share, edit, comment, and remix your content." placement="bottom">
       <Button onClick={this.onPublish.bind(this)} style={{color: 'orange'}} >
         <PublishIcon />
           Publish on Oasys
-        </Button>
+      </Button>
+      </Tooltip>
+
       </Toolbar>
 
       <Dialog
@@ -308,6 +293,32 @@ class MenuBarView extends Component {
           </Button>
         </DialogActions>
       </Dialog>
+
+      <OpenContentDialog open={this.state.showsOpenDialog} onClose={this.closeOpenDialog.bind(this)}/>
+
+      <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          open={this.state.snackBarMessage}
+          autoHideDuration={6000}
+          onClose={this.closeSnackBar.bind(this)}
+          ContentProps={{
+            'aria-describedby': 'message-id',
+          }}
+          message={<span id="message-id">{this.state.snackBarMessage}</span>}
+          action={[
+            <IconButton
+              key="close"
+              aria-label="Close"
+              color="inherit"
+              onClick={this.closeSnackBar.bind(this)}
+            >
+              <CloseIcon />
+            </IconButton>,
+          ]}
+        />
 
 	    </div>
 	)
