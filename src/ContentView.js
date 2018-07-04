@@ -27,8 +27,6 @@ class ContentView extends Component {
         const userName = this.props.match.params.username;
         const contentName = this.props.match.params.contentname;
 
-        console.log(userName + "," + contentName);
-
         const APICALL = `https://api.joinoasys.org/user/${userName}/${contentName}/`;
 
         const that = this;

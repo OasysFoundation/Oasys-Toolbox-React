@@ -21,6 +21,7 @@ import ChipInput from 'material-ui-chip-input'
 //import Grid from '@material-ui/core/Grid';
 import CloseIcon from '@material-ui/icons/Close';
 import Snackbar from '@material-ui/core/Snackbar';
+import OpenContentDialog from './OpenContentDialog'
 
 
 const BG = "#5C8B8E";
@@ -49,15 +50,15 @@ class MenuBarView extends Component {
     this.completeFetch = this.completeFetch.bind(this);
     this.contentId = 0;
     this.onOpen = this.onOpen.bind(this);
-    this.handleClose = this.handleClose.bind(this);
+
     this.state = {
-            anchorEl: null,
             showsSaveDialog: false,
             saveAction: null,
             link: null,
             slides: this.props.slides,
             title: this.props.contentTitle,
-            snackBarMessage: null
+            snackBarMessage: null,
+            showsOpenDialog: false
         }
   }
 
@@ -120,15 +121,9 @@ class MenuBarView extends Component {
 
   onOpen(event) {
     this.setState({
-      anchorEl: event.currentTarget,
+      showsOpenDialog: true,
     });
   }
-
-  handleClose() {
-    this.setState({
-      anchorEl: null,
-    });
-  };
 
   onLoad(event) {
     this.setState({
@@ -186,11 +181,6 @@ class MenuBarView extends Component {
     }
   }
 
-  onClosePopup() {
-    this.setState({
-      anchorEl: null,
-    });
-  };
 
   handleLoadChange(event) {
     this.setState({
@@ -214,6 +204,13 @@ class MenuBarView extends Component {
     })
   }
 
+  closeOpenDialog(selectedContent) {
+    console.log("Selected Content: " + selectedContent);
+    this.setState({
+      showsOpenDialog: false
+    })
+  }
+
   render() {
     return (
     	<div>
@@ -222,41 +219,7 @@ class MenuBarView extends Component {
         <FolderIcon />
           Open
       </Button>
-      <Popover
-          open={Boolean(this.state.anchorEl)}
-          anchorEl={this.state.anchorEl}
-          onClose={this.onClosePopup.bind(this)}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'center',
-          }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'center',
-          }}
-        >
-          
-        <Input
-          placeholder="Link to Content"
-          value={this.state.title}
-          onChange={this.handleLoadChange.bind(this)}
-          inputProps={{
-            'aria-label': 'Description',
-          }}
-          endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="Open Content"
-                  onClick={this.open.bind(this)}
-                  onClose={this.onClosePopup}
-                >
-                <IconArrowForward />
-                </IconButton>
-              </InputAdornment>
-            }
-        />
 
-      </Popover>
     	<Button onClick={this.onSave} style={{color: 'white'}} >
         <SaveIcon />
 	        Save Draft
@@ -321,6 +284,7 @@ class MenuBarView extends Component {
         </DialogActions>
       </Dialog>
 
+      <OpenContentDialog open={this.state.showsOpenDialog} onClose={this.closeOpenDialog.bind(this)}/>
 
       <Snackbar
           anchorOrigin={{
