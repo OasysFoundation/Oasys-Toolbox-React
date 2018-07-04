@@ -53,10 +53,10 @@ class Editor extends Component {
     this.onLoad = this.onLoad.bind(this);
   }
 
-  onAddNewSlide(newSlideContent = []) { // Quill slides only
+  onAddNewSlide(newSlideContent = null) { // Quill slides only
     let slides = this.state.slides;
     //const newSlideContent = {ops:[{insert:"This is the beginning of the exiting journey of slide no " + this.state.slides.length + "\n"}]};
-    if (newSlideContent==[]){
+    if (newSlideContent===null){
       "This is the beginning of the exiting journey of slide no " + (this.state.slides.length+1);
     }
     slides.push(createSlide("Slide ", Math.random().toString(36), newSlideContent, glb.QUILL));
@@ -69,13 +69,13 @@ class Editor extends Component {
     this.renderThumbnail()
   }
 
-  onAddNewQuiz(content = []) {
+  onAddNewQuiz(content = null) {
     let slides = this.state.slides;
     const defaultQuizContent = {
       "question": "",
       "answers": [{"option": "", "correct": false}]
     };
-    if (content==[]){
+    if (content===null){
       content = defaultQuizContent;
     }
     const newSlide = createSlide("Quiz ", Math.random().toString(36), content, glb.QUIZ);
@@ -89,9 +89,9 @@ class Editor extends Component {
     this.renderThumbnail()
   }
 
-    onAddNewGame(content = []) {
+    onAddNewGame(content = null) {
         let slides = this.state.slides;
-        if (content==[]){
+        if (content===null){
           content = gameMetaData[0];
         }
         slides.push(createSlide("Game ", Math.random().toString(36), content, glb.GAME));
@@ -104,7 +104,7 @@ class Editor extends Component {
         this.renderThumbnail()
     }
 
-    onAddNewModule(content = []) {
+    onAddNewModule(content = null) {
         let slides = this.state.slides;
         let defaultContent = {
             code: [],
@@ -112,7 +112,7 @@ class Editor extends Component {
             boolstate: glb.BOOL_DISABLED,
             moduleId: Math.random().toString(36)
         }
-        if (content==[]){
+        if (content===null){
           content = defaultContent;
         }
         slides.push(createSlide("Game ", Math.random().toString(36), content, glb.GAME));
@@ -125,15 +125,16 @@ class Editor extends Component {
         this.renderThumbnail()
     }
 
-  onAddNewHyperVideo(content = []) {
+  onAddNewHyperVideo(content = null) {
     let slides = this.state.slides;
     let defaultContent = {
       "videoURL": "https://youtu.be/bBC-nXj3Ng4",
       "quizzes": []
     }
-    if (content==[]){
+    if (content===null){
       content = defaultContent;
     }
+    console.log(content)
     slides.push(createSlide("Hypervideo ", Math.random().toString(36), content, glb.HYPERVIDEO));
     const newSlideIndex = slides.length -1;
     this.setState({
