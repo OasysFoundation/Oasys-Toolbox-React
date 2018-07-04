@@ -21,7 +21,8 @@ class SlideEditor extends Component {
       } else if (this.props.slideType === glb.QUILL) {
        return <QuillEditor onChange={this.onChange} slideContent={this.props.slide.content}/>
       } else if (this.props.slideType === glb.GAME) {
-         return <GameEdit />
+         return <GameEdit onChange={this.onChange}
+                          value={this.props.slide.content} />
         // return <ModuleEditor value={this.props.slide.content}
         //                      onChange={this.onChange} />
       } else if (this.props.slideType === glb.HYPERVIDEO) {

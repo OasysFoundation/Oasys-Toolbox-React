@@ -8,6 +8,7 @@ import glb from "./globals";
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import EditIcon from '@material-ui/icons/Edit';
+import gameMetaData from "./gameMetaData";
 
 
 //https://api.joinoasys.org/{userName}/{contentName}/save
@@ -82,23 +83,36 @@ class Editor extends Component {
     this.renderThumbnail()
   }
 
-  onAddNewGame() {
-    let slides = this.state.slides;
-    let content = {
-      code: [],
-      ifstate: glb.IF_BODY,
-      boolstate: glb.BOOL_DISABLED,
-      moduleId: Math.random().toString(36)
+    onAddNewGame() {
+        let slides = this.state.slides;
+        let content = gameMetaData[0];
+        slides.push(createSlide("Game ", Math.random().toString(36), content, glb.GAME));
+        const newSlideIndex = slides.length -1;
+        this.setState({
+            slides: slides,
+            selectedSlideIndex: newSlideIndex,
+            currSlideType: glb.GAME,
+        });
+        this.renderThumbnail()
     }
-    slides.push(createSlide("Game ", Math.random().toString(36), content, glb.GAME));
-    const newSlideIndex = slides.length -1;
-    this.setState({
-      slides: slides,
-      selectedSlideIndex: newSlideIndex,
-      currSlideType: glb.GAME,
-    });
-    this.renderThumbnail()
-  }
+
+    onAddNewModule() {
+        let slides = this.state.slides;
+        let content = {
+            code: [],
+            ifstate: glb.IF_BODY,
+            boolstate: glb.BOOL_DISABLED,
+            moduleId: Math.random().toString(36)
+        }
+        slides.push(createSlide("Game ", Math.random().toString(36), content, glb.GAME));
+        const newSlideIndex = slides.length -1;
+        this.setState({
+            slides: slides,
+            selectedSlideIndex: newSlideIndex,
+            currSlideType: glb.GAME,
+        });
+        this.renderThumbnail()
+    }
 
   onAddNewHyperVideo() {
     let slides = this.state.slides;
@@ -117,7 +131,7 @@ class Editor extends Component {
   }
 
   onChangedSlide(newSlideIndex) {
-    
+    console.log("SLIDES ", this.state.slides);
     let slideType = null;
     if (this.state.slides.length > 0) {
       slideType = this.state.slides[newSlideIndex].type;

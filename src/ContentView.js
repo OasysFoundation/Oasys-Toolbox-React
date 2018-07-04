@@ -11,7 +11,7 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import SwipeableViews from 'react-swipeable-views';
 import NotFoundPage from './NotFoundPage'
 import CircularProgress from '@material-ui/core/CircularProgress';
-
+import GameView from "./GameView"
 
 
 
@@ -53,12 +53,14 @@ class ContentView extends Component {
         this.setState({slideIdx: newIdx})
     }
 
-    whatRenderer(obj) {
-        switch(obj.type) {
+    whatRenderer(slide) {
+        switch(slide.type) {
             case globals.QUILL:
-                return <Preview content={obj.content}/>
+                return <Preview content={slide.content}/>
             case globals.QUIZ:
-                return <QuizPreview content={obj.content}/>
+                return <QuizPreview content={slide.content}/>
+            case globals.GAME:
+                return <GameView url={slide.content.url}/>
             default:
                 return <div>not yet implemented ☹️</div>
         }
