@@ -125,9 +125,7 @@ class SlidesThumbnailView extends Component {
   }
 
   onRemoveSlide(index) {
-    let slides = this.props.slides;
-    slides.splice(index, 1);
-    this.props.onSlideOrderChange(slides);
+    this.props.onRemoveSlide(index);
   }
 
   // rearrange slides

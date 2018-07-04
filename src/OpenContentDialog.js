@@ -44,7 +44,7 @@ class OpenContentDialog extends Component {
 	};
 
 	didSelectContent(selectedContent) {
-		this.props.onClose(selectedContent.title);
+		this.props.onClose(selectedContent);
 	}
 
 	render() {

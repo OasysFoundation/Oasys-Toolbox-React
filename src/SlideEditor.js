@@ -15,7 +15,9 @@ class SlideEditor extends Component {
   }
 
   conditionalRender() {
-     if (this.props.slideType === glb.QUIZ) {
+      if (this.props.slideType === undefined || this.props.slide === undefined) {
+        return <div></div>
+      } else if (this.props.slideType === glb.QUIZ) {
         return <Quiz value={this.props.slide.content}
               onChange={this.onChange} />
       } else if (this.props.slideType === glb.QUILL) {

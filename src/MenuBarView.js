@@ -195,21 +195,20 @@ class MenuBarView extends Component {
     });
   }
 
-  open() {
-    this.props.onLoad(this.state.link);
-  }
-
   closeSnackBar() {
     this.setState({
       snackBarMessage: null
-    })
+    });
   }
 
   closeOpenDialog(selectedContent) {
-    console.log("Selected Content: " + selectedContent);
+    console.log(selectedContent);
+    const link = "https://app.joinoasys.org/user/"+selectedContent.userId+"/"+selectedContent.contentId;
     this.setState({
-      showsOpenDialog: false
-    })
+      showsOpenDialog: false,
+      link: link
+    });
+    this.props.onLoad(link);
   }
 
   render() {

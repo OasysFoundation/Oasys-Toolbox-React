@@ -21,7 +21,9 @@ class ContentView extends Component {
         this.state = {
             slideIdx: 0,
             content: null,
-            hasLoaded: false
+            hasLoaded: false,
+            timing: [],
+            lastTime: new Date()
         };
 
         const userName = this.props.match.params.username;
@@ -64,16 +66,29 @@ class ContentView extends Component {
         }
     }
 
+    updateTiming() {
+        const t1 = this.state.lastTime;
+        const t2 = new Date();
+        let timing = this.state.timing.slice();
+        timing.push(t2-t1);
+        this.setState({
+            timing: timing,
+            lastTime: t2
+        })
+    }
+
     handleNext() {
         this.setState({
-            slideIdx: this.state.slideIdx+1
+            slideIdx: this.state.slideIdx+1,
         })
+        this.updateTiming();
     }
 
     handlePrevious() {
         this.setState({
             slideIdx: this.state.slideIdx-1
-        })
+        });
+        this.updateTiming();
     }
 
     handleStepChange(newStep) {

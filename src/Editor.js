@@ -48,14 +48,17 @@ class Editor extends Component {
     this.onAddNewGame = this.onAddNewGame.bind(this);
     this.onSlideOrderChange = this.onSlideOrderChange.bind(this);
     this.onChangedSlide = this.onChangedSlide.bind(this);
+    this.onRemoveSlide = this.onRemoveSlide.bind(this);
     this.onAddNewHyperVideo = this.onAddNewHyperVideo.bind(this);
     this.onLoad = this.onLoad.bind(this);
   }
 
-  onAddNewSlide() { // Quill slides only
+  onAddNewSlide(newSlideContent = []) { // Quill slides only
     let slides = this.state.slides;
     //const newSlideContent = {ops:[{insert:"This is the beginning of the exiting journey of slide no " + this.state.slides.length + "\n"}]};
-    const newSlideContent = "This is the beginning of the exiting journey of slide no " + (this.state.slides.length+1);
+    if (newSlideContent==[]){
+      "This is the beginning of the exiting journey of slide no " + (this.state.slides.length+1);
+    }
     slides.push(createSlide("Slide ", Math.random().toString(36), newSlideContent, glb.QUILL));
     const newSlideIndex = slides.length -1;
     this.setState({
@@ -66,13 +69,16 @@ class Editor extends Component {
     this.renderThumbnail()
   }
 
-  onAddNewQuiz() {
+  onAddNewQuiz(content = []) {
     let slides = this.state.slides;
     const defaultQuizContent = {
       "question": "",
       "answers": [{"option": "", "correct": false}]
     };
-    const newSlide = createSlide("Quiz ", Math.random().toString(36), defaultQuizContent, glb.QUIZ);
+    if (content==[]){
+      content = defaultQuizContent;
+    }
+    const newSlide = createSlide("Quiz ", Math.random().toString(36), content, glb.QUIZ);
     slides.push(newSlide);
     const newSlideIndex = slides.length -1;
     this.setState({
@@ -83,26 +89,10 @@ class Editor extends Component {
     this.renderThumbnail()
   }
 
-    onAddNewGame() {
+    onAddNewGame(content = []) {
         let slides = this.state.slides;
-        let content = gameMetaData[0];
-        slides.push(createSlide("Game ", Math.random().toString(36), content, glb.GAME));
-        const newSlideIndex = slides.length -1;
-        this.setState({
-            slides: slides,
-            selectedSlideIndex: newSlideIndex,
-            currSlideType: glb.GAME,
-        });
-        this.renderThumbnail()
-    }
-
-    onAddNewModule() {
-        let slides = this.state.slides;
-        let content = {
-            code: [],
-            ifstate: glb.IF_BODY,
-            boolstate: glb.BOOL_DISABLED,
-            moduleId: Math.random().toString(36)
+        if (content==[]){
+          content = gameMetaData[0];
         }
         slides.push(createSlide("Game ", Math.random().toString(36), content, glb.GAME));
         const newSlideIndex = slides.length -1;
@@ -114,11 +104,35 @@ class Editor extends Component {
         this.renderThumbnail()
     }
 
-  onAddNewHyperVideo() {
+    onAddNewModule(content = []) {
+        let slides = this.state.slides;
+        let defaultContent = {
+            code: [],
+            ifstate: glb.IF_BODY,
+            boolstate: glb.BOOL_DISABLED,
+            moduleId: Math.random().toString(36)
+        }
+        if (content==[]){
+          content = defaultContent;
+        }
+        slides.push(createSlide("Game ", Math.random().toString(36), content, glb.GAME));
+        const newSlideIndex = slides.length -1;
+        this.setState({
+            slides: slides,
+            selectedSlideIndex: newSlideIndex,
+            currSlideType: glb.GAME,
+        });
+        this.renderThumbnail()
+    }
+
+  onAddNewHyperVideo(content = []) {
     let slides = this.state.slides;
-    let content = {
+    let defaultContent = {
       "videoURL": "https://youtu.be/bBC-nXj3Ng4",
       "quizzes": []
+    }
+    if (content==[]){
+      content = defaultContent;
     }
     slides.push(createSlide("Hypervideo ", Math.random().toString(36), content, glb.HYPERVIDEO));
     const newSlideIndex = slides.length -1;
@@ -143,7 +157,7 @@ class Editor extends Component {
   }
 
   onEditorChange(content) {
-    let slides = this.state.slides;
+    let slides = this.state.slides.slice();
     slides[this.state.selectedSlideIndex].content = content;
 
     if (Date.now() - this.state.lastCapture > 2500) {
@@ -151,7 +165,6 @@ class Editor extends Component {
         lastCapture: Date.now()
       })
       this.renderThumbnail()
-      
     } else {
         this.setState({slides: slides});
     }
@@ -160,11 +173,12 @@ class Editor extends Component {
 
 
   renderThumbnail() {
-    let slides = this.state.slides;
-
+    let slides = this.state.slides.slice();
     // update thumbnail
     let elem;
-    if (slides[this.state.selectedSlideIndex].type === glb.QUILL) {
+    if (this.state.selectedSlideIndex < 0 || this.state.selectedSlideIndex === undefined) {
+      return;
+    } else if (slides[this.state.selectedSlideIndex].type === glb.QUILL) {
       elem = document.querySelector(".ql-editor");
     } else if (slides[this.state.selectedSlideIndex].type === glb.QUIZ) {
       elem = document.getElementById("quizPreview");
@@ -172,12 +186,14 @@ class Editor extends Component {
       elem = document.getElementById("gameRenderer");
     } else if (slides[this.state.selectedSlideIndex].type === glb.HYPERVIDEO) {
       elem = document.getElementById("hyperVideoEditor");
-    }
+    } 
 
-    html2canvas(elem, {width: 160, height: 120}).then(canvas => {
-        slides[this.state.selectedSlideIndex].thumb = canvas.toDataURL("image/png");
-        this.setState({slides: slides});
-      });
+    if (elem!==null) {
+      html2canvas(elem, {width: 160, height: 120}).then(canvas => {
+          slides[this.state.selectedSlideIndex].thumb = canvas.toDataURL("image/png");
+          this.setState({slides: slides});
+        });
+    }
   }
 
   // gets called after slide is removed, or slides have been rearranged via drag and drop
@@ -217,6 +233,39 @@ class Editor extends Component {
     .then(response => console.log('Success:', response));
   } */
 
+  onRemoveSlide(index){
+    console.log(index)
+    let slides = this.state.slides.slice();
+    slides.splice(index, 1);
+    this.setState({
+      currSlideType: -1,
+      slides: slides
+    });
+    this.onSlideOrderChange(slides);
+  }
+
+  insertNewSlide(slide) {
+    console.log(slide)
+    if (slide === undefined) {
+      return;
+    } else if (slide.type === glb.QUILL) {
+      this.onAddNewSlide(slide.content);
+    } else if (slide.type === glb.QUIZ) {
+      this.onAddNewQuiz(slide.content);
+    } else if (slide.type === glb.GAME) {
+      this.onAddNewGame(slide.content);
+    } else if (slide.type === glb.HYPERVIDEO) {
+      this.onAddNewHyperVideo(slide.content);
+    } 
+  }
+
+  insertMultipleSlides(slides){
+    console.log(slides)
+    for (let i=0; i<slides.length; i++) {
+      this.insertNewSlide(slides[i]);
+    }
+  }
+
   onLoad(link) {
     //this.show('Opening…');
     var loadContent = link;
@@ -232,15 +281,21 @@ class Editor extends Component {
         return response.json();
       })
       .then(function(myJson) {
-        console.log(myJson);
-        that.setState({
-          slides:myJson[0]
-        })
+        that.setState({selectedSlideIndex: 0, currSlideType: -1});
+        const len = that.state.slides.length;
+        for (let i=len-1; i>=0; i--) {
+          that.onRemoveSlide(i);
+        }
+        console.log(myJson)
+        if (myJson[0].data === undefined || !Array.isArray(myJson[0].data)) {
+          console.log("this is not a correct data format")
+        } else {
+          that.insertMultipleSlides(myJson[0].data);
+        }
       });
 
 
     //this.handleClose();
-
 
   }
 
@@ -280,7 +335,8 @@ class Editor extends Component {
                                onAddNewHyperVideo={this.onAddNewHyperVideo}
                                selectedSlideIndex={this.state.selectedSlideIndex} 
                                onSlideOrderChange = {this.onSlideOrderChange}
-                               onChangedSlide = {this.onChangedSlide}   />
+                               onChangedSlide = {this.onChangedSlide}
+                               onRemoveSlide = {this.onRemoveSlide}   />
         </Grid>
         <Grid item xs={7}>
             <SlideEditor slide = {this.state.slides[this.state.selectedSlideIndex]}
