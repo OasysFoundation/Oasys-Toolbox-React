@@ -14,6 +14,8 @@ import Popover from '@material-ui/core/Popover';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import SlideThumb from './SlideThumb'
+import Tooltip from '@material-ui/core/Tooltip';
+
 
 import {
   SortableContainer,
@@ -183,10 +185,12 @@ class SlidesThumbnailView extends Component {
       </Popover>
 
           <List component="nav">
+          <Tooltip enterDelay={500} id="tooltip-bottom" title="Add a new slide to your project. This can be text, images, games, videos,…" placement="bottom">
             <ListItem button onClick={this.onAddNewSlide.bind(this)}>
               <AddIcon />
               <ListItemText primary="Add new Slide"/>
             </ListItem>
+          </Tooltip>
             {/* ListItem button>
               <CallSplitIcon />
               <ListItemText primary="New Split" />

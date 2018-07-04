@@ -5,6 +5,7 @@ import PublishIcon from '@material-ui/icons/Publish';
 import FolderIcon from '@material-ui/icons/Folder';
 import Input from '@material-ui/core/Input';
 import Toolbar from '@material-ui/core/Toolbar';
+import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Typography from '@material-ui/core/Typography';
@@ -215,19 +216,28 @@ class MenuBarView extends Component {
     return (
     	<div>
       <Toolbar style={{backgroundColor: BG}}>
+
+      <Tooltip enterDelay={500} id="tooltip-bottom" title="Open an existing content" placement="bottom">
       <Button onClick={this.onOpen} style={{color: 'white'}} >
         <FolderIcon />
           Open
       </Button>
+      </Tooltip>
 
+      <Tooltip enterDelay={500} id="tooltip-bottom" title="Save content in your account but don't publish it yet. You can open drafts later again and continue editing." placement="bottom">
     	<Button onClick={this.onSave} style={{color: 'white'}} >
         <SaveIcon />
 	        Save Draft
 	    </Button>
+      </Tooltip>
+
+      <Tooltip enterDelay={500} id="tooltip-bottom" title="Pubish your content on the Oasys platform. Other users then can explore, use, share, edit, comment, and remix your content." placement="bottom">
       <Button onClick={this.onPublish.bind(this)} style={{color: 'orange'}} >
         <PublishIcon />
           Publish on Oasys
-        </Button>
+      </Button>
+      </Tooltip>
+
       </Toolbar>
 
       <Dialog
