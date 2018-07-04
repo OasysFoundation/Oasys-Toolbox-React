@@ -10,7 +10,6 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Typography from '@material-ui/core/Typography';
 import IconArrowForward from '@material-ui/icons/ArrowForward';
 import Popover from '@material-ui/core/Popover';
-import Notifications, {notify} from 'react-notify-toast';
 import OpenProjectDialog from './OpenProjectDialog'
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -20,6 +19,9 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import ChipInput from 'material-ui-chip-input'
 //import Grid from '@material-ui/core/Grid';
+import CloseIcon from '@material-ui/icons/Close';
+import Snackbar from '@material-ui/core/Snackbar';
+
 
 const BG = "#5C8B8E";
 
@@ -54,10 +56,9 @@ class MenuBarView extends Component {
             saveAction: null,
             link: null,
             slides: this.props.slides,
-            title: this.props.contentTitle
+            title: this.props.contentTitle,
+            snackBarMessage: null
         }
-
-    this.show = notify.createShowQueue();
   }
 
   onSave() {
@@ -104,11 +105,15 @@ class MenuBarView extends Component {
 
   onSubmit() {
     if (this.state.saveAction == 'save') {
-      this.show('Saved Draft');
+      this.setState({
+        snackBarMessage: 'Saved Draft'
+      })
       this.completeFetch(this.state.title, 0, this.state.hashtags, this.state.pictureURL, this.state.description, this.props.slides);
     }
     if (this.state.saveAction == 'publish') {
-      this.show('Published');
+      this.setState({
+        snackBarMessage: 'Published'
+      })
       this.completeFetch(this.state.title, 1, this.state.hashtags, this.state.pictureURL, this.state.description, this.props.slides);
     }
   }
@@ -126,7 +131,9 @@ class MenuBarView extends Component {
   };
 
   onLoad(event) {
-    this.show('Opening…');
+    this.setState({
+        snackBarMessage: 'Opening…'
+      })
     var loadContent = this.state.link;
     loadContent = loadContent.replace("app.joinoasys.org", "api.joinoasys.org");
 
@@ -197,14 +204,19 @@ class MenuBarView extends Component {
     });
   }
 
-  open(){
+  open() {
     this.props.onLoad(this.state.link);
+  }
+
+  closeSnackBar() {
+    this.setState({
+      snackBarMessage: null
+    })
   }
 
   render() {
     return (
     	<div>
-      <Notifications />
       <Toolbar style={{backgroundColor: BG}}>
       <Button onClick={this.onOpen} style={{color: 'white'}} >
         <FolderIcon />
@@ -308,6 +320,31 @@ class MenuBarView extends Component {
           </Button>
         </DialogActions>
       </Dialog>
+
+
+      <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          open={this.state.snackBarMessage}
+          autoHideDuration={6000}
+          onClose={this.closeSnackBar.bind(this)}
+          ContentProps={{
+            'aria-describedby': 'message-id',
+          }}
+          message={<span id="message-id">{this.state.snackBarMessage}</span>}
+          action={[
+            <IconButton
+              key="close"
+              aria-label="Close"
+              color="inherit"
+              onClick={this.closeSnackBar.bind(this)}
+            >
+              <CloseIcon />
+            </IconButton>,
+          ]}
+        />
 
 	    </div>
 	)
