@@ -66,7 +66,19 @@ function SimpleMediaCard(props) {
                     <Typography gutterBottom variant="headline" component="h2">
                         {title  || "Nothing here"}
                     </Typography>
-                    <Remix url={contentUrl}/>
+                     <Button
+                         variant="contained"
+                         size="small" color="primary"
+                         onClick={(event) => {
+                             window.location.replace(`/create/${userId}/${contentId}`);
+                             // this.props.history.push(`/create/${userId}/${contentId}`);
+                             event.preventDefault();
+                             event.stopPropagation();
+                         }
+                         }>
+                         Remix
+                     </Button>
+                    {/*<Remix url={contentUrl}/>*/}
                    
                  </CardActions>
                     <Typography component="p">
