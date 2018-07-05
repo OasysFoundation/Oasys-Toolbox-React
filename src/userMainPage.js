@@ -9,6 +9,7 @@ import {
   Link,
   withRouter,
 } from 'react-router-dom';
+import UserProjects from './UserProjects'
 
 class UserMainPage extends Component {
 	constructor(props) {
@@ -49,6 +50,7 @@ class UserMainPage extends Component {
 		      <br />
 		      </div>
 			      </Paper>
+			      <UserProjects userId={this.props.authUser.displayName}/>
 			    </center>
 			    )
 			}

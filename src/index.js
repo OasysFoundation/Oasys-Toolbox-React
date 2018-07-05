@@ -29,6 +29,8 @@ import GameEdit from "./GameEdit";
 import { withRouter } from 'react-router'
 import GameEmbedder from "./GameEmbedder";
 
+import UserProjects from './UserProjects'
+
 
 
 const history = createBrowserHistory();
@@ -89,6 +91,7 @@ class Index extends Component {
 const UserPage = ({ match }) => (
     <div>
         <h3>Username: {match.params.username}</h3>
+        <UserProjects userId={match.params.username}/>
     </div>
 );
 
