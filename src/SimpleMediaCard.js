@@ -21,7 +21,9 @@ const styles = {
         marginRight: 0.5 + "rem",
     },
     media: {
-        height: 0,
+        maxWidth: 300,
+        minWidth:300,
+        width: 20 + "vw",
         paddingTop: '56.25%', // 16:9
     },
     cardAction: {
@@ -30,9 +32,15 @@ const styles = {
     }
 };
 
+function checkURL(url) {
+    return(url.match(/\.(jpeg|jpg|gif|png)$/) != null);
+}
+
+const defaultPicture = "https://vignette.wikia.nocookie.net/the-demonic-paradise/images/a/aa/Illuminati_Symbol.jpg/revision/latest?cb=20150317032410"
 function SimpleMediaCard(props) {
     const { classes } = props;
     const {picture, title, description, userId, tags, rating, contentId} = props.contentData;
+    let pic = checkURL(picture) ? picture : defaultPicture;
     var userUrl = '';
     if (userId) {
         userUrl = '/user/'+userId;
@@ -50,7 +58,7 @@ function SimpleMediaCard(props) {
                   >
                 <CardMedia
                     className={classes.media}
-                    image={picture}
+                    image={pic}
                     title={title}
                 />
                 <CardContent>
@@ -65,7 +73,9 @@ function SimpleMediaCard(props) {
                         {description || "Test"}
                     </Typography>
                 </CardContent>
-                {<Rating value={rating} preview={true}/>}
+                      <div style={{display: "flex", justifyContent: 'center', padding: 1 + "rem"}}>
+                          {<Rating value={rating} preview={true}/>}
+                      </div>
                 </ButtonBase>
                 <CardActions>
                     <Button
