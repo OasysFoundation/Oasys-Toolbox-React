@@ -128,7 +128,7 @@ class Editor extends Component {
   onAddNewHyperVideo(content = null) {
     let slides = this.state.slides;
     let defaultContent = {
-      "videoURL": "https://youtu.be/bBC-nXj3Ng4",
+      "videoURL": null,
       "quizzes": []
     }
     if (content===null){
