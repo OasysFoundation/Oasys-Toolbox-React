@@ -17,6 +17,15 @@ const defaultQuiz = {
 
 class PlyrWrapper extends Component {
 
+	constructor(props) {
+	    super(props);
+	    this.state = {
+	    	currentTime: 0,
+	    	currentQuiz: null,
+	    	quizzes: this.props.value.quizzes
+	    }
+	}
+
 	onCompletedQuiz() {
 		plyr.play();
 	}
@@ -93,9 +102,32 @@ class PlyrWrapper extends Component {
 
 	notifyDelegate() {
 		this.props.onChange({
-			"videoURL": this.state.videoURL,
 			"quizzes": this.state.quizzes
 		});
+	}
+
+	componentDidMount() {
+
+		const player = this.refs.video;
+		plyr = player.player;
+
+		const elem = document.createElement('div');
+		elem.innerHTML = "";
+		elem.id = "overlay-container"
+		elem.setAttribute('style',  "position: absolute; left: 0px; top: 0px; width: 100%; height: 100%; z-index:1000; pointer-events: all;");
+		plyr.elements.container.children[0].append(elem);
+
+		
+		plyr.on("timeupdate", event => {
+			const instance = event.detail.plyr;
+			
+			this.setState({
+				currentTime: instance.currentTime
+			});
+
+			this.refreshCurrentQuiz();
+			
+		})
 	}
 
 	render() {
@@ -128,18 +160,9 @@ class HyperVideoEditor extends Component {
 	constructor(props) {
 	    super(props);
 	    this.state = {
-	    	currentTime: 0,
-	    	currentQuiz: null,
-	    	quizzes: this.props.value.quizzes,
 	    	videoURL: this.props.value.videoURL
 	    }
-	}
-
-	notifyDelegate() {
-		this.props.onChange({
-			"videoURL": this.state.videoURL,
-			"quizzes": this.state.quizzes
-		});
+	    this.onChange = this.onChange.bind(this);
 	}
 
 	didChangeVideoURL(textfield) {
@@ -168,6 +191,21 @@ class HyperVideoEditor extends Component {
         }
 	}
 
+	onChange(content) {
+		this.setState({
+			quizzes: content
+		}, function() {
+			this.refreshCurrentQuiz();
+			this.notifyDelegate();
+		})
+	}
+
+	notifyDelegate() {
+		this.props.onChange({
+			"quizzes": this.state.quizzes
+		});
+	}
+
 	render() {
  	   return (
  	   	<div id='hyperVideoEditor'>
@@ -181,37 +219,12 @@ class HyperVideoEditor extends Component {
               helperText="Wrong URL format"
             />
            :
-           <PlyrWrapper/>
+           <PlyrWrapper onChange={this.onChange}/>
  	   	}
  	   		
  	   	</div>
  	   	);
 	}
-
-	componentDidMount() {
-
-		const player = this.refs.video;
-		plyr = player.player;
-
-		const elem = document.createElement('div');
-		elem.innerHTML = "";
-		elem.id = "overlay-container"
-		elem.setAttribute('style',  "position: absolute; left: 0px; top: 0px; width: 100%; height: 100%; z-index:1000; pointer-events: all;");
-		plyr.elements.container.children[0].append(elem);
-
-		
-		plyr.on("timeupdate", event => {
-			const instance = event.detail.plyr;
-			
-			this.setState({
-				currentTime: instance.currentTime
-			});
-
-			this.refreshCurrentQuiz();
-			
-		})
-	}
-
 }
 
 export default HyperVideoEditor;
