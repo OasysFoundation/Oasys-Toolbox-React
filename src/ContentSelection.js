@@ -7,6 +7,12 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import logo from './logo.jpg'
+import Popover from '@material-ui/core/Popover';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Avatar from '@material-ui/core/Avatar';
+
 
 const Flexer = styled.section`
   display: flex;
@@ -23,7 +29,10 @@ class ContentSelection extends Component {
         const loadContent = 'https://api.joinoasys.org/GetContentsPreview';
         const that = this;
         this.state = {
-            content: []
+            content: [],
+            searchText: '',
+            searchAnchor: null,
+            searchResults: []
         }
 
         fetch(loadContent, {
@@ -38,8 +47,46 @@ class ContentSelection extends Component {
         });
     }
 
+    didChangeSearchText(textfield) {
+        this.setState({
+            searchText: textfield.target.value,
+            searchAnchor: textfield.currentTarget,
+            searchResults: this.state.content.filter(content => content.title.toLowerCase().includes(textfield.target.value.toLowerCase()))
+        })
+
+
+    }
+
+    closeSearchPopup() {
+        this.setState({
+            searchText: ''
+        })
+    }
+
 
     render(){
+
+        let searchListContent = (
+            <ListItem>
+                 <ListItemText primary="No Contents Found" />
+            </ListItem>
+            )
+
+        if (this.state.searchResults.length > 0) {
+             searchListContent = this.state.searchResults.map(content => (
+                  <ListItem button onClick={function(event) {event.preventDefault(); window.location.href = '/user/' + content.userId + '/' + content.contentId; }} key={content.contentId}>
+                    <Avatar alt="Remy Sharp" src={content.picture} />
+                    <ListItemText primary={content.title} secondary={"Created by " + content.userId}/>
+                  </ListItem>
+             ))
+        }
+
+        // no content was loaded form the server at all
+        if (!this.state.content) {
+            searchListContent = <CircularProgress style={{ color: 'orange' }} thickness={7} />
+        }
+
+
         return (
             <div>
                 <Paper style={{margin:'16px', padding:'16px'}}>
@@ -55,7 +102,27 @@ class ContentSelection extends Component {
                       style={{width:'400px'}} 
                       type="text"
                       margin="normal"
+                      onChange={this.didChangeSearchText.bind(this)}
+                      fullWidth
                     />
+                    <Popover
+                      open={this.state.searchText.length>0}
+                      anchorEl={this.state.searchAnchor}
+                      onClose={this.closeSearchPopup.bind(this)}
+                      disableAutoFocus={true}
+                      anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'center',
+                      }}
+                      transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'center',
+                      }}
+                    >
+                    <List>
+                    {searchListContent}
+                    </List>
+                    </Popover>
 
                     </center>
                 </Paper>
