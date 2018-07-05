@@ -1,6 +1,10 @@
 import React, {Component} from 'react';
 import gameMetaData from "./gameMetaData"
 
+
+//Had to make this one just for the routing and GameView separetely....
+//location is otherwise thought of as Props....because first argument...
+
 const GameEmbedder = function ({location}) {
     const folders = location.pathname.split('/').filter(e => e.length > 0).slice(-2);
     const gameName = folders[1];
