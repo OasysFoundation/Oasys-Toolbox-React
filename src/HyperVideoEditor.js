@@ -22,7 +22,8 @@ class PlyrWrapper extends Component {
 	    this.state = {
 	    	currentTime: 0,
 	    	currentQuiz: null,
-	    	quizzes: this.props.value.quizzes
+	    	quizzes: this.props.value.quizzes,
+	    	videoURL: this.props.videoURL
 	    }
 	}
 
@@ -209,7 +210,9 @@ class HyperVideoEditor extends Component {
 	render() {
  	   return (
  	   	<div id='hyperVideoEditor'>
- 	   	{this.state.videoURL === null ? 
+ 	   	{this.state.videoURL ? 
+ 	   		<PlyrWrapper onChange={this.onChange} value={this.props.value} videoURL={this.state.videoURL} />
+ 	   		:
  	   		<TextField
               id="name"
               placeholder="YouTube URL"
@@ -218,8 +221,6 @@ class HyperVideoEditor extends Component {
               onChange={this.didChangeVideoURL.bind(this)}
               helperText="Wrong URL format"
             />
-           :
-           <PlyrWrapper onChange={this.onChange}/>
  	   	}
  	   		
  	   	</div>
