@@ -32,6 +32,7 @@ const defaultSlide = createSlide("Slide", "1","This is the start of your excitin
 class Editor extends Component {
 
   constructor(props) {
+    console.log("PARAMS", props.match)
     super(props);
     this.state = {
       //slides: [createSlide("Slide 1", "1",{ops:[{insert:"This is the editor. Write your content here. \n"}]},"quill")],
@@ -51,6 +52,12 @@ class Editor extends Component {
     this.onRemoveSlide = this.onRemoveSlide.bind(this);
     this.onAddNewHyperVideo = this.onAddNewHyperVideo.bind(this);
     this.onLoad = this.onLoad.bind(this);
+
+    if (props.match) {
+        const link = "https://app.joinoasys.org/user/"+ props.match.params.userId +"/"+props.match.params.contentId;
+        this.onLoad(link)
+    }
+
   }
 
   onAddNewSlide(newSlideContent = null) { // Quill slides only
@@ -177,7 +184,21 @@ class Editor extends Component {
     let slides = this.state.slides.slice();
     // update thumbnail
     let elem;
-    if (this.state.selectedSlideIndex < 0 || this.state.selectedSlideIndex === undefined) {
+    let type;
+    const that = this;
+      try {
+          type = slides[this.state.selectedSlideIndex].type;
+      }
+      catch (error) {
+        console.log("Problem with rendering the Thumbnail");
+        return;
+      }
+
+      console.log(" SLIDE ", slides[this.state.selectedSlideIndex])
+      const slide = slides[that.state.selectedSlideIndex];
+
+
+      if (this.state.selectedSlideIndex < 0 || this.state.selectedSlideIndex === undefined) {
       return;
     } else if (slides[this.state.selectedSlideIndex].type === glb.QUILL) {
       elem = document.querySelector(".ql-editor");
@@ -189,10 +210,15 @@ class Editor extends Component {
       elem = document.getElementById("hyperVideoEditor");
     } 
 
-    if (elem!==null) {
-      html2canvas(elem, {width: 160, height: 120}).then(canvas => {
-          slides[this.state.selectedSlideIndex].thumb = canvas.toDataURL("image/png");
-          this.setState({slides: slides});
+    if (elem instanceof HTMLElement) {
+      html2canvas(elem, {width: 160, height: 120}).then(function(canvas) {
+          try {
+              slide.thumb = canvas.toDataURL("image/png");
+          }
+          catch (error ){
+            console.log("ERROR : ", error, "Maybe there is no .thumb property on the slide", slides[that.state.selectedSlideIndex])
+          }
+          that.setState({slides: slides});
         });
     }
   }

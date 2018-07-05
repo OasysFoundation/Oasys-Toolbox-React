@@ -61,6 +61,7 @@ class Index extends Component {
                         <Switch>
                             <Route exact path="/" render={()=><ContentSelection/>} />
                             <Route path="/explore" component={ContentSelection}/>
+                            <Route path="/create/:userId/:contentId" render={(props)=>(<Editor authUser={this.state.authUser} {...props}/>)} />
                             <Route path="/create" render={(props)=>(<Editor authUser={this.state.authUser}/>)} />
 
                             <Route path="/games/:name" component={GameEmbedder} />
