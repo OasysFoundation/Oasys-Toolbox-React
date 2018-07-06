@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 import logo from './logo.jpg'
 import Typography from '@material-ui/core/Typography';
 import { auth } from './firebase';
-
+import firebase from 'firebase/app';
 
 import {
   Link,
@@ -49,6 +49,12 @@ constructor(props) {
     auth.doSignInWithEmailAndPassword(email, password)
       .then(() => {
         this.setState(() => ({ ...INITIAL_STATE }));
+        
+        var user = firebase.auth().currentUser;
+        if (user) {
+          console.log("User ID: " + user.uid);
+        }
+
         history.push('/');
       })
       .catch(error => {

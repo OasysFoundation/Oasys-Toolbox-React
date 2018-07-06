@@ -39,7 +39,8 @@ constructor(props) {
     this.state = { ...INITIAL_STATE };
     this.state = {
     	emailError : false,
-    	passwordError : false
+    	passwordError : false,
+    	usernameError: false
     }
   }
 
@@ -59,7 +60,11 @@ constructor(props) {
         this.setState(() => ({ ...INITIAL_STATE }));
         
 
-		var user = firebase.auth().currentUser
+		var user = firebase.auth().currentUser;
+
+		if (user) {
+			console.log("User ID: " + user.uid);
+		}
 
         user.updateProfile({
 		  displayName: username,
