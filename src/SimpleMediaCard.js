@@ -98,12 +98,6 @@ function SimpleMediaCard(props) {
                     <Button
                         variant="contained"
                         size="small" color="primary"
-                        onClick={function(event) {event.preventDefault(); window.location.href = contentUrl || "nope"; }}>
-                        Explore
-                    </Button>
-                    <Button
-                        variant="contained"
-                        size="small" color="primary"
                         onClick={function(event) {event.preventDefault(); window.location.href = userUrl || "nope"; }}>
                         Made by {userId}
                         {console.log("userIDD ", userId)}
