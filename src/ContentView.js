@@ -70,7 +70,7 @@ class ContentView extends Component {
         const t1 = this.state.lastTime;
         const t2 = new Date();
         let timing = this.state.timing.slice();
-        timing.push(t2-t1);
+        timing.push({i: this.state.slideIdx, t:t2-t1});
         this.setState({
             timing: timing,
             lastTime: t2
@@ -78,17 +78,17 @@ class ContentView extends Component {
     }
 
     handleNext() {
+        this.updateTiming();
         this.setState({
             slideIdx: this.state.slideIdx+1,
         })
-        this.updateTiming();
     }
 
     handlePrevious() {
+        this.updateTiming();
         this.setState({
             slideIdx: this.state.slideIdx-1
         });
-        this.updateTiming();
     }
 
     handleStepChange(newStep) {
