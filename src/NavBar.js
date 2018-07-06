@@ -86,8 +86,7 @@ class NavBar extends React.Component {
                                   <Button href='/explore' color="inherit"> <IconExplore
                         style={{marginRight: '7px'}}/> Explore</Button>
                     <Button href='/create' color="inherit"> <IconCreate style={{marginRight: '7px'}}/> Create</Button>
-                    <Button href='https://joinoasys.org' color="inherit">About</Button>
-                        <Button href="/login" color="inherit">Sign In</Button>
+                    <Button href="/login" color="inherit">Sign In</Button>
                         <Snackbar
                           anchorOrigin={{
                             vertical: 'bottom',
@@ -129,7 +128,7 @@ class NavBar extends React.Component {
                                  )
                           }
                           </div>
-                    
+                    <Button href='https://joinoasys.org' color="inherit">About</Button>
                 </Toolbar>
             </section>
         </AppBar>
