@@ -122,8 +122,8 @@ class ContentView extends Component {
                     </SwipeableViews>
                     <MobileStepper
                       steps={content.data.length + 1}
-                      position="static"
                       activeStep={this.state.slideIdx}
+                      style = {{position: 'fixed', bottom: '0', width: '100%'}}
                       nextButton={
                         <Button size="small" onClick={this.handleNext.bind(this)} disabled={this.state.slideIdx === content.data.length}>
                           Next
