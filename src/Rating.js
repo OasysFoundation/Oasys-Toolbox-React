@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Rate} from 'antd';
 import 'antd/dist/antd.css';
+import Comment from './Comment'
 
 
 class Rating extends Component {
@@ -34,12 +35,14 @@ class Rating extends Component {
     }
 
     render() {
-    	var completed, ratingElement;
+    	var completed, ratingElement,commented;
     	if (this.state.preview) {
 	      completed = null;
+	      commented = null;
 	      ratingElement = <Rate allowHalf value={this.state.value} disabled/>
 	    } else {
 	      completed = <h1>Completed! Thank you for playing</h1>;
+	      commented = <Comment/>
 	      ratingElement = <Rate allowHalf onChange={this.handleChange} value={this.state.value}/>
 	    }
 
@@ -47,6 +50,8 @@ class Rating extends Component {
             <div>
                 {completed}
                 {ratingElement}
+                {commented}
+
             </div>
         )
     }
