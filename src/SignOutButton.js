@@ -8,7 +8,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import { withStyles } from '@material-ui/core/styles';
 
 
-class SignOutPage extends React.Component {
+class SignOutButton extends React.Component {
 
 
   handleClick() {
@@ -27,4 +27,4 @@ class SignOutPage extends React.Component {
   }
 }
 
-export default SignOutPage;   
+export default SignOutButton;   

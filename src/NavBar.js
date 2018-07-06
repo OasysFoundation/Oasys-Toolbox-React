@@ -9,7 +9,7 @@ import IconExplore from '@material-ui/icons/Explore';
 import IconCreate from '@material-ui/icons/Create';
 import IconAccountCircle from '@material-ui/icons/AccountCircle';
 import Typography from '@material-ui/core/Typography';
-import SignOutPage from './SignOutPage';
+import SignOutButton from './SignOutButton';
 
 import firebase from 'firebase/app';
 import 'firebase/auth';
@@ -65,9 +65,49 @@ class NavBar extends React.Component {
     this.setState({ open: false });
   };
 
-  render(){
+  render() {
+
+    const loggedIn = this.props.authUser && this.props.authUser != "loggedOut";
+
+    let accountMenuItems = (
+        <Button href="/login" color="inherit">Sign In</Button>
+      );
+    
+    if (loggedIn) {
+      accountMenuItems = (
+        <div style={{display: 'inline'}}>
+        <Button href='/user' color="inherit">
+            <IconAccountCircle style={{marginRight: '7px'}}/>
+            {username(this.props.authUser.displayName)}
+        </Button>
+
+        <SignOutButton color="inherit" handleClick={this.handleClick.bind(this)} />
+        </div>
+      )
+    }
+
+    let navBarElements = (
+        <div>
+        <Button href='/explore' color="inherit">
+          <IconExplore style={{marginRight: '7px'}}/>
+          Explore
+        </Button>
+                    
+        <Button href='/create' color="inherit">
+          <IconCreate style={{marginRight: '7px'}}/>
+          Create
+        </Button>
+
+        {accountMenuItems}
+
+        <Button href='https://joinoasys.org' color="inherit">About</Button>
+
+        </div>
+      );
+
+
     const { classes } = this.props;
-    return(
+    return (
       <AppBar position="static">
             <section style={{backgroundColor: BG, display: "flex", flexDirection: "row", justifyContent: "flex-end"}}>
                 <Typography style={{flexGrow: 1, padding: "1em"}} variant="title" color="inherit">
@@ -75,62 +115,37 @@ class NavBar extends React.Component {
                 </Typography>
 
                 <Toolbar style={{display: "flex", justifyContent: "flex-end"}}>
-                    
-                          <div>
-                          { !this.props.authUser ?(
-                             null
-                             )
-                              : (
-                                this.props.authUser == "loggedOut" ? (
-                                  <div>
-                                  <Button href='/explore' color="inherit"> <IconExplore
-                        style={{marginRight: '7px'}}/> Explore</Button>
-                    <Button href='/create' color="inherit"> <IconCreate style={{marginRight: '7px'}}/> Create</Button>
-                    <Button href="/login" color="inherit">Sign In</Button>
-                        <Snackbar
-                          anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'left',
-                          }}
-                          open={this.state.open}
-                          autoHideDuration={3000}
-                          onClose={this.handleClose}
-                          ContentProps={{
-                            'aria-describedby': 'message-id',
-                          }}
-                          message={<span id="message-id">Signed out successful</span>}
-                          action={[
-                            <IconButton
-                              key="close"
-                              aria-label="Close"
-                              color="inherit"
-                              className={classes.close}
-                              onClick={this.handleClose}
-                            >
-                              <CloseIcon />
-                            </IconButton>,
-                          ]}
-                        />
-                        </div>
-                                  )
-                                  : (
-                                <div>
-                                <Button href='/explore' color="inherit"> <IconExplore
-                        style={{marginRight: '7px'}}/> Explore</Button>
-                    <Button href='/create' color="inherit"> <IconCreate style={{marginRight: '7px'}}/> Create</Button>
-                    <Button href='https://joinoasys.org' color="inherit">About</Button>
-                                <Button href='/user' color="inherit">
-                                    <IconAccountCircle style={{marginRight: '7px'}}/> {username(this.props.authUser.displayName)}
-                                </Button>
-                                <SignOutPage color="inherit" handleClick={this.handleClick.bind(this)}/>
-                            </div>
-                                )
-                                 )
-                          }
-                          </div>
-                    <Button href='https://joinoasys.org' color="inherit">About</Button>
+                  <div>
+                    {navBarElements}
+                  </div>
                 </Toolbar>
             </section>
+
+            <Snackbar
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+              open={this.state.open}
+              autoHideDuration={3000}
+              onClose={this.handleClose}
+              ContentProps={{
+                'aria-describedby': 'message-id',
+              }}
+              message={<span id="message-id">Signed out successful</span>}
+              action={[
+                <IconButton
+                  key="close"
+                  aria-label="Close"
+                  color="inherit"
+                  className={classes.close}
+                  onClick={this.handleClose}
+                >
+                  <CloseIcon />
+                </IconButton>,
+              ]}
+            />
+
         </AppBar>
 
     )
