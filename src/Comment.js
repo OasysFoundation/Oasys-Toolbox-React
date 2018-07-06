@@ -9,7 +9,7 @@ const CommentExampleComment = () => (
     </Header>
 
     <Comment>
-      <Comment.Avatar src='/images/avatar/small/matt.jpg' />
+      <Comment.Avatar src='https://oasys-space.nyc3.digitaloceanspaces.com/person.png' />
       <Comment.Content>
         <Comment.Author as='a'>Matt</Comment.Author>
         <Comment.Metadata>
@@ -23,7 +23,7 @@ const CommentExampleComment = () => (
     </Comment>
 
     <Comment>
-      <Comment.Avatar src='/images/avatar/small/elliot.jpg' />
+      <Comment.Avatar src='https://oasys-space.nyc3.digitaloceanspaces.com/person.png' />
       <Comment.Content>
         <Comment.Author as='a'>Elliot Fu</Comment.Author>
         <Comment.Metadata>
@@ -38,7 +38,7 @@ const CommentExampleComment = () => (
       </Comment.Content>
       <Comment.Group>
         <Comment>
-          <Comment.Avatar src='/images/avatar/small/jenny.jpg' />
+          <Comment.Avatar src='https://oasys-space.nyc3.digitaloceanspaces.com/person.png' />
           <Comment.Content>
             <Comment.Author as='a'>Jenny Hess</Comment.Author>
             <Comment.Metadata>
@@ -54,7 +54,7 @@ const CommentExampleComment = () => (
     </Comment>
 
     <Comment>
-      <Comment.Avatar src='/images/avatar/small/joe.jpg' />
+      <Comment.Avatar src='https://oasys-space.nyc3.digitaloceanspaces.com/person.png' />
       <Comment.Content>
         <Comment.Author as='a'>Joe Henderson</Comment.Author>
         <Comment.Metadata>

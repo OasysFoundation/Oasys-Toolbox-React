@@ -4,6 +4,8 @@ import 'antd/dist/antd.css';
 import Comment from './Comment'
 
 
+
+
 class Rating extends Component {
     constructor(props) {
         super(props);
@@ -51,7 +53,6 @@ class Rating extends Component {
                 {completed}
                 {ratingElement}
                 {commented}
-
             </div>
         )
     }
