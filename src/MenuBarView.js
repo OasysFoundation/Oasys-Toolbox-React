@@ -57,7 +57,6 @@ class MenuBarView extends Component {
             saveAction: null,
             link: null,
             slides: this.props.slides,
-            title: this.props.contentTitle,
             snackBarMessage: null,
             showsOpenDialog: false
         }
@@ -110,13 +109,13 @@ class MenuBarView extends Component {
       this.setState({
         snackBarMessage: 'Saved Draft'
       })
-      this.completeFetch(this.state.title, 0, this.state.hashtags, this.state.pictureURL, this.state.description, this.props.slides);
+      this.completeFetch(this.props.contentTitle, 0, this.state.hashtags, this.state.pictureURL, this.state.description, this.props.slides);
     }
     if (this.state.saveAction == 'publish') {
       this.setState({
         snackBarMessage: 'Published'
       })
-      this.completeFetch(this.state.title, 1, this.state.hashtags, this.state.pictureURL, this.state.description, this.props.slides);
+      this.completeFetch(this.props.contentTitle, 1, this.state.hashtags, this.state.pictureURL, this.state.description, this.props.slides);
     }
   }
 
