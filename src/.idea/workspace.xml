@@ -13,15 +13,12 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="SimpleMediaCard.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/SimpleMediaCard.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
-              <folding>
-                <element signature="e#0#41#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="1380">
+              <caret line="107" column="39" selection-start-line="107" selection-start-column="39" selection-end-line="107" selection-end-column="39" />
             </state>
           </provider>
         </entry>
@@ -29,8 +26,8 @@
       <file leaf-file-name="Remix.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Remix.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="421">
-              <caret line="41" column="6" lean-forward="true" selection-start-line="41" selection-start-column="6" selection-end-line="46" selection-end-column="17" />
+            <state relative-caret-position="405">
+              <caret line="41" column="6" selection-start-line="41" selection-start-column="6" selection-end-line="46" selection-end-column="17" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -41,7 +38,7 @@
       <file leaf-file-name="Editor.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Editor.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="329">
+            <state relative-caret-position="2910">
               <caret line="204" column="52" lean-forward="true" selection-start-line="204" selection-start-column="52" selection-end-line="204" selection-end-column="52" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
@@ -53,7 +50,7 @@
       <file leaf-file-name="SlidesThumbnailView.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SlidesThumbnailView.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-33">
+            <state>
               <caret column="7" lean-forward="true" selection-start-column="7" selection-end-column="7" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
@@ -65,7 +62,7 @@
       <file leaf-file-name="SlideThumb.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SlideThumb.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-224">
+            <state>
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -90,7 +87,7 @@
       <file leaf-file-name="ContentSelection.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ContentSelection.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
+            <state relative-caret-position="15">
               <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
@@ -102,7 +99,7 @@
       <file leaf-file-name="MenuBarView.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MenuBarView.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="114">
+            <state relative-caret-position="2745">
               <caret line="205" column="104" lean-forward="true" selection-start-line="205" selection-start-column="17" selection-end-line="205" selection-end-column="104" />
             </state>
           </provider>
@@ -111,7 +108,7 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="520">
+            <state relative-caret-position="60">
               <caret line="35" column="7" selection-start-line="35" selection-end-line="36" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
@@ -124,7 +121,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>defaultslide</find>
       <find>quiz</find>
       <find>sing-a-song</find>
       <find>default</find>
@@ -154,6 +150,7 @@
       <find>remi</find>
       <find>r</find>
       <find>remix</find>
+      <find>userId</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -204,10 +201,10 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds">
     <option name="y" value="23" />
-    <option name="width" value="1440" />
-    <option name="height" value="797" />
+    <option name="width" value="1920" />
+    <option name="height" value="977" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -266,15 +263,16 @@
       <workItem from="1530438154382" duration="2676000" />
       <workItem from="1530539780124" duration="13799000" />
       <workItem from="1530696101712" duration="7896000" />
-      <workItem from="1530783930968" duration="8245000" />
+      <workItem from="1530783930968" duration="8926000" />
+      <workItem from="1530870912609" duration="545000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="47659000" />
+    <option name="totallyTimeSpent" value="48885000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="797" extended-state="6" />
+    <frame x="0" y="23" width="1920" height="977" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
@@ -366,9 +364,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="275">
           <caret line="69" column="28" selection-start-line="69" selection-start-column="22" selection-end-line="69" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -390,9 +385,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="483">
           <caret line="83" column="9" lean-forward="true" selection-start-line="83" selection-start-column="9" selection-end-line="83" selection-end-column="9" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -406,13 +398,7 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/QuizPreview.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/Preview.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -435,9 +421,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
           <caret line="142" column="22" selection-start-line="142" selection-start-column="14" selection-end-line="142" selection-end-column="22" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -452,9 +435,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="540">
           <caret line="36" column="18" lean-forward="true" selection-start-line="36" selection-start-column="18" selection-end-line="36" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -462,9 +442,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="3" column="14" selection-start-line="3" selection-start-column="14" selection-end-line="3" selection-end-column="14" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -472,9 +449,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
           <caret line="5" column="72" selection-start-line="5" selection-start-column="72" selection-end-line="5" selection-end-column="72" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -482,9 +456,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="276">
           <caret line="64" column="5" lean-forward="true" selection-start-line="53" selection-end-line="65" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -529,7 +500,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MenuBarView.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
+        <state relative-caret-position="2745">
           <caret line="205" column="104" lean-forward="true" selection-start-line="205" selection-start-column="17" selection-end-line="205" selection-end-column="104" />
         </state>
       </provider>
@@ -539,7 +510,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SlideThumb.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-224">
+        <state>
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
@@ -548,7 +519,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Editor.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="329">
+        <state relative-caret-position="2910">
           <caret line="204" column="52" lean-forward="true" selection-start-line="204" selection-start-column="52" selection-end-line="204" selection-end-column="52" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
@@ -565,7 +536,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="520">
+        <state relative-caret-position="60">
           <caret line="35" column="7" selection-start-line="35" selection-end-line="36" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
@@ -575,7 +546,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SlidesThumbnailView.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-33">
+        <state>
           <caret column="7" lean-forward="true" selection-start-column="7" selection-end-column="7" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
@@ -585,7 +556,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ContentSelection.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
+        <state relative-caret-position="15">
           <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
@@ -595,8 +566,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Remix.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="421">
-          <caret line="41" column="6" lean-forward="true" selection-start-line="41" selection-start-column="6" selection-end-line="46" selection-end-column="17" />
+        <state relative-caret-position="405">
+          <caret line="41" column="6" selection-start-line="41" selection-start-column="6" selection-end-line="46" selection-end-column="17" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
@@ -605,11 +576,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SimpleMediaCard.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="1380">
+          <caret line="107" column="39" selection-start-line="107" selection-start-column="39" selection-end-line="107" selection-end-column="39" />
         </state>
       </provider>
     </entry>
