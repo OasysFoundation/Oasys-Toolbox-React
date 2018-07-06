@@ -22,22 +22,7 @@ class UploadPicContentDialog extends Component {
 
 		this.didSelectContent.bind(this);
 
-		const loadContent = 'https://api.joinoasys.org/GetContentsPreview';
-        const that = this;
 
-        fetch(loadContent, {
-            method: 'GET'
-        }).then(function (response) {
-            return response.json();
-        })
-        .then(function (myJson) {
-            console.log(myJson);
-            that.setState({
-            	contents: myJson,
-            	didLoadContent: true
-            });
-
-        });
        	this.state = {
       		imageURL: '',
     	};
