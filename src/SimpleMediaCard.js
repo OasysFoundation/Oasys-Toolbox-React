@@ -39,8 +39,13 @@ function checkURL(url) {
 const defaultPicture = "https://vignette.wikia.nocookie.net/the-demonic-paradise/images/a/aa/Illuminati_Symbol.jpg/revision/latest?cb=20150317032410"
 function SimpleMediaCard(props) {
     const { classes } = props;
-    const {picture, title, description, userId, tags, rating, contentId} = props.contentData;
+    const {picture, title, description, tags, rating, contentId} = props.contentData;
+    let {userId} = props.contentData;
+
     let pic = checkURL(picture) ? picture : defaultPicture;
+
+    userId = userId === "undefined" ? "Anonymous" : userId;
+
     var userUrl = '';
     if (userId) {
         userUrl = '/user/'+userId;
@@ -101,6 +106,7 @@ function SimpleMediaCard(props) {
                         size="small" color="primary"
                         onClick={function(event) {event.preventDefault(); window.location.href = userUrl || "nope"; }}>
                         Made by {userId}
+                        {console.log("userIDD ", userId)}
                     </Button>
                     {/*{tags ? tags.map((t,i) => <div key={i}> {t + " | "}</div>) : ""}*/}
                     { (<div> {Array.isArray(tags) ? tags.join() : tags}</div>)}
