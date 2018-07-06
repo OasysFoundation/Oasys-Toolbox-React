@@ -51,10 +51,16 @@ class ContentSelection extends Component {
         this.setState({
             searchText: textfield.target.value,
             searchAnchor: textfield.currentTarget,
-            searchResults: this.state.content.filter(content => content.title.toLowerCase().includes(textfield.target.value.toLowerCase()))
+            searchResults: this.state.content.filter(content => this.contentMatchesSearchString(content, textfield.target.value))
         })
+    }
 
-
+    contentMatchesSearchString(content, searchString) {
+        searchString = searchString.trim();
+        const titleMatched = content.title.toLowerCase().includes(searchString.toLowerCase());
+        const hashTagsMatched = content.tags.toLowerCase().includes(searchString.toLowerCase());
+        const usernameMatched = content.userId.toLowerCase().includes(searchString.toLowerCase());
+        return (titleMatched || hashTagsMatched || usernameMatched);
     }
 
     closeSearchPopup() {
@@ -104,6 +110,7 @@ class ContentSelection extends Component {
                       margin="normal"
                       onChange={this.didChangeSearchText.bind(this)}
                       fullWidth
+                      autocomplete="off"
                     />
                     <Popover
                       open={this.state.searchText.length>0}
