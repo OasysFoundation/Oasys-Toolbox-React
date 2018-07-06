@@ -168,6 +168,8 @@ class Editor extends Component {
     let slides = this.state.slides.slice();
     slides[this.state.selectedSlideIndex].content = content;
 
+    console.log("set slide content: " + slides[this.state.selectedSlideIndex].content.quizzes);
+
     if (Date.now() - this.state.lastCapture > 2500) {
       this.setState({
         lastCapture: Date.now()
@@ -314,10 +316,12 @@ class Editor extends Component {
           that.onRemoveSlide(i);
         }
         console.log(myJson)
-        if (myJson[0].data === undefined || !Array.isArray(myJson[0].data)) {
-          console.log("this is not a correct data format")
-        } else {
-          that.insertMultipleSlides(myJson[0].data);
+        if (myJson.length > 0) {
+          if (myJson[0].data === undefined || !Array.isArray(myJson[0].data)) {
+            console.log("this is not a correct data format")
+          } else {
+            that.insertMultipleSlides(myJson[0].data);
+          }
         }
       });
 
