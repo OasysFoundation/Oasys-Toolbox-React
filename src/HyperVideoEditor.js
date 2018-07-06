@@ -22,7 +22,7 @@ class PlyrWrapper extends Component {
 	    this.state = {
 	    	currentTime: 0,
 	    	currentQuiz: null,
-	    	quizzes: this.props.value.quizzes,
+	    	quizzes: this.props.quizzes,
 	    	videoURL: this.props.videoURL
 	    }
 	}
@@ -101,12 +101,6 @@ class PlyrWrapper extends Component {
 		})
 	}
 
-	notifyDelegate() {
-		this.props.onChange({
-			"quizzes": this.state.quizzes
-		});
-	}
-
 	componentDidMount() {
 
 		const player = this.refs.video;
@@ -161,17 +155,18 @@ class HyperVideoEditor extends Component {
 	constructor(props) {
 	    super(props);
 	    this.state = {
-	    	videoURL: this.props.value.videoURL
+	    	videoURL: this.props.value.videoURL,
+	    	quizzes: this.props.value.quizzes
 	    }
 	    this.onChange = this.onChange.bind(this);
 	}
 
 	didChangeVideoURL(textfield) {
 		const url = textfield.target.value;
-		console.log(url);
+		console.log("didChangeVideoURL: "+url);
 		if (this.isValidYouTubeUrl(url)) {
 			this.setState({
-				videoURL: '' + url
+				videoURL: url
 			}, function() {
 				this.notifyDelegate();
 			});
@@ -203,15 +198,18 @@ class HyperVideoEditor extends Component {
 
 	notifyDelegate() {
 		this.props.onChange({
-			"quizzes": this.state.quizzes
+			"quizzes": this.state.quizzes,
+			"videoURL": this.state.videoURL
 		});
 	}
 
 	render() {
+
+
  	   return (
  	   	<div id='hyperVideoEditor'>
  	   	{this.state.videoURL ? 
- 	   		<PlyrWrapper onChange={this.onChange} value={this.props.value} videoURL={this.state.videoURL} />
+ 	   		<PlyrWrapper onChange={this.onChange} quizzes={this.state.quizzes} videoURL={this.state.videoURL} />
  	   		:
  	   		<TextField
               id="name"
