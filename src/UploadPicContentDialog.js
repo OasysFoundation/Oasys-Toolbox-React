@@ -34,12 +34,12 @@ class UploadPicContentDialog extends Component {
 
   handleUploadImage(ev) {
     ev.preventDefault();
-
-    const spacesEndpoint = 'https://api.joinoasys.org/upload'
+    var uid = this.props.authUser.uid;
+    const spacesEndpoint = 'https://api.joinoasys.org/'+uid+'/uploadProfilePic'
 
     const data = new FormData();
     data.append('upload', this.uploadInput.files[0]);
-    var name = this.uploadInput.files[0].name;
+    data.append('name', uid);
     //data.append('filename', 'profile_pic_' + this.props.authUser);
 
 
@@ -53,7 +53,7 @@ class UploadPicContentDialog extends Component {
     }).then((response) => {
       response.json().then((body) => {
       	console.log(body);
-      	var newUrl = 'https://oasys-space.nyc3.digitaloceanspaces.com/' + name;
+      	var newUrl = 'https://oasys-space.nyc3.digitaloceanspaces.com/' + uid;
         this.setState({ imageURL: newUrl });
         this.props.pic(newUrl);
       });
