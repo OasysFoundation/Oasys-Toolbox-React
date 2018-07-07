@@ -45,7 +45,7 @@ class UploadPicContentDialog extends Component {
 
 	
 
-
+    var that = this;
     fetch(spacesEndpoint, {
       method: 'POST',
       body: data,
@@ -53,9 +53,7 @@ class UploadPicContentDialog extends Component {
     }).then((response) => {
       response.json().then((body) => {
       	console.log(body);
-      	var newUrl = 'https://oasys-space.nyc3.digitaloceanspaces.com/' + uid;
-        this.setState({ imageURL: newUrl });
-        this.props.pic(newUrl);
+        that.props.pic();
       });
     });
     this.props.onClose(null);

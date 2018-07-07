@@ -60,10 +60,21 @@ class UserMainPage extends Component {
 	    });
 	  }
 
-	  sendPic(photo){
-	  	this.setState({
-	  		pic: photo,
-	  	});
+	  sendPic(){
+
+	  	const profile = 'https://api.joinoasys.org/'+this.props.authUser.uid+'/profile'
+	    fetch(profile, {
+	      method: 'GET',
+	    }).then((response) => {
+	      	response.json().then((body) => {
+		      	console.log(body);
+		      	if(body)
+		        	this.setState({ imageURL: body[0].PIC });
+		        else{
+		        	this.setState({ imageURL: logo });
+		        }
+	     	 });
+	        });
 	  }
 
 	render() {
