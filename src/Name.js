@@ -7,6 +7,7 @@ class Name extends React.Component {
     this.state={
       username:null
     };
+
     const profile = 'https://api.joinoasys.org/'+this.props.authUser.uid+'/profile'
       fetch(profile, {
         method: 'GET',
@@ -23,7 +24,6 @@ class Name extends React.Component {
   render() {
       return (
         this.state.username
-
       )
   }
 }

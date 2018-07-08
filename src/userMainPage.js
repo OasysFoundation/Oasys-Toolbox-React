@@ -6,6 +6,7 @@ import IconAccountCircle from '@material-ui/icons/AccountCircle';
 import Button from '@material-ui/core/Button';
 import logo from './logo.jpg'
 import UploadPicContentDialog from './UploadPicContentDialog'
+import Name from './Name'
 
 import {
   Link,
@@ -89,9 +90,9 @@ class UserMainPage extends Component {
 			      }
 					</center>
 			        <Typography variant="headline" component="h3" style={{marginBottom:'16px'}}>
-			          <IconAccountCircle /> Welcome{
+			          <IconAccountCircle /> Welcome {
 			          	this.props.authUser
-			          	? ", " + this.props.authUser.displayName
+			          	?<Name authUser={this.props.authUser} mainPage={true}/>
        				    : ""
 			          }
 			        </Typography>
