@@ -7,22 +7,20 @@ class Name extends React.Component {
     this.state={
       username:null
     };
-
+    const profile = 'https://api.joinoasys.org/'+this.props.authUser.uid+'/profile'
+      fetch(profile, {
+        method: 'GET',
+      }).then((response) => {
+          response.json().then((body) => {
+            console.log(body);
+            if(body)
+              this.setState({username:body[0].NAME});
+          });
+      });
     }
 
 
   render() {
-    const profile = 'https://api.joinoasys.org/'+this.props.authUser.uid+'/profile'
-        fetch(profile, {
-          method: 'GET',
-        }).then((response) => {
-            response.json().then((body) => {
-              console.log(body);
-              if(body)
-                this.setState({username:body[0].NAME});
-            });
-        });
-
       return (
         this.state.username
 
