@@ -122,7 +122,10 @@ class NavBar extends React.Component {
 
                 <Toolbar style={{display: "flex", justifyContent: "flex-end"}}>
                   <div>
-                    {navBarElements}
+                    {this.props.authUser
+                      ? navBarElements
+                      : null
+                    }
                   </div>
                 </Toolbar>
             </section>
