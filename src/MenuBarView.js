@@ -22,7 +22,10 @@ import ChipInput from 'material-ui-chip-input'
 //import Grid from '@material-ui/core/Grid';
 import CloseIcon from '@material-ui/icons/Close';
 import Snackbar from '@material-ui/core/Snackbar';
-import OpenContentDialog from './OpenContentDialog'
+import OpenContentDialog from './OpenContentDialog';
+import UploadPicContentDialog from './UploadPicContentDialog'
+import logo from './logo.jpg'
+
 
 
 const BG = "#5C8B8E";
@@ -58,7 +61,9 @@ class MenuBarView extends Component {
             link: null,
             slides: this.props.slides,
             snackBarMessage: null,
-            showsOpenDialog: false
+            showsOpenDialog: false,
+            showsUploadPicDialog: false,
+            pictureURL: '',
         }
   }
 
@@ -77,7 +82,7 @@ class MenuBarView extends Component {
   }
 
   completeFetch(contentId, published, hashtags, pictureURL, description, slides) {
-    var username = this.props.authUser.displayName;
+    var username = this.props.authUser.uid;
     var saveEndpoint = 'https://api.joinoasys.org/'+username+'/'+contentId+'/save';
     var data = {
       "data":slides,
@@ -210,6 +215,36 @@ class MenuBarView extends Component {
     this.props.onLoad(link);
   }
 
+  updateURL(){
+    const allData = 'https://api.joinoasys.org/user/'+this.props.authUser.uid+'/'+this.props.contentTitle
+    console.log(allData);
+    fetch(allData, {
+      method: 'GET',
+    }).then((response) => {
+      console.log(response);
+        response.json().then((body) => {
+          console.log(body);
+          if(body)
+            this.setState({ pictureURL: body[0].picture });
+          else{
+            this.setState({ pictureURL: logo });
+          }
+       });
+        });
+  }
+
+  onUpload() {
+      this.setState({
+        showsUploadPicDialog: true,
+      });
+    }
+
+  closeUploadDialog() {
+    this.setState({
+      showsUploadPicDialog: false,
+    });
+  }
+
   render() {
     return (
     	<div>
@@ -259,14 +294,6 @@ class MenuBarView extends Component {
               margin="normal"
             />
             <TextField
-              id="pictureURL"
-              placeholder="Picture URL"
-              style={{width:'100%'}} 
-              value={this.props.pictureURL} 
-              onChange={this.onChange.bind(this)}
-              margin="normal"
-            />
-            <TextField
               id="description"
               placeholder="Description"
               style={{width:'100%'}} 
@@ -281,6 +308,11 @@ class MenuBarView extends Component {
               onChange={this.onChange.bind(this)}
               margin="normal"
             />
+            <Button variant="contained" color="primary" onClick={this.onUpload.bind(this)}>
+            Upload Cover Picture  
+            </Button>
+            <UploadPicContentDialog titleUpload={true} url={this.updateURL.bind(this)} authUser={this.props.authUser} contentId={this.props.contentTitle} open={this.state.showsUploadPicDialog} onClose={this.closeUploadDialog.bind(this)}/>
+
         </DialogContent>
         <DialogActions>
           <Button onClick={this.closeSaveDialog.bind(this)} color="primary">
@@ -291,6 +323,8 @@ class MenuBarView extends Component {
           </Button>
         </DialogActions>
       </Dialog>
+
+
 
       <OpenContentDialog open={this.state.showsOpenDialog} onClose={this.closeOpenDialog.bind(this)}/>
 
