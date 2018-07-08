@@ -42,7 +42,7 @@ function SimpleMediaCard(props) {
     const {picture, title, description, tags, rating, contentId} = props.contentData;
     let {userId} = props.contentData;
 
-    let pic = checkURL(picture) ? picture : defaultPicture;
+    let pic = (picture) ? picture : defaultPicture;
 
     userId = userId === "undefined" ? "Anonymous" : userId;
 
