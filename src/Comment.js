@@ -56,6 +56,10 @@ class CommentSection extends Component {
       .catch(error => console.error('Error:', error))
       .then(response => {
         console.log("success");
+        this.setState({
+          comment:''
+        });
+        this.handleChange();
 
         });
     }
@@ -67,25 +71,23 @@ class CommentSection extends Component {
       })
     }
 
-    handleChange = (value) => {
-        this.setState({value});
+    handleChange = () => {
 
+        var that = this;
         const loc = window.location.href;
         const directory = loc.split('/').filter(e => e.length > 0).slice(-2);
-        const userName = directory[0]
-        const contentName = directory[1]
+        const contentName = directory[1];
+          var loadComments = 'https://api.joinoasys.org/comment/user/'+contentName;
+          fetch(loadComments, {
+              method: 'GET'
+          }).then(function (response) {
+              return response.json();
+          })
+          .then(function (myJson) {
+              console.log(myJson);
+              that.setState({comments: myJson});
 
-        const APICALL = `https://api.joinoasys.org/rate/${userName}/${contentName}/${value}`;
-
-        fetch(APICALL, {
-      method: 'POST'
-    }).then(function(response) {
-        console.log(response);
-        return response.json();
-      })
-      .then(function(myJson) {
-        console.log(myJson);
-      });
+          });
 
 
     }
@@ -106,7 +108,7 @@ class CommentSection extends Component {
     
 
     <Form reply>
-      <Form.TextArea onChange={this.addComment.bind(this)}/>
+      <Form.TextArea value={this.state.comment} onChange={this.addComment.bind(this)}/>
       <Button onClick={this.onSubmit.bind()} content='Add Reply' labelPosition='left' icon='edit' primary />
     </Form>
   </Comment.Group>

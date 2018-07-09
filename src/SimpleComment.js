@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Button, Comment, Form, Header } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css';
+var moment = require('moment');
 
 
 function SimpleComment(props){
@@ -12,7 +13,7 @@ function SimpleComment(props){
       <Comment.Content>
         <Comment.Author as='a'>{userId}</Comment.Author>
         <Comment.Metadata>
-          <div>Today at {time}</div>
+          <div>{moment(time).format("DD MMM YYYY hh:mm a")}</div>
         </Comment.Metadata>
         <Comment.Text>{comment}</Comment.Text>
       </Comment.Content>
