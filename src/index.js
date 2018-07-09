@@ -31,6 +31,8 @@ import GameEmbedder from "./GameEmbedder";
 
 import UserProjects from './UserProjects'
 
+import Wallet from './Wallet'
+
 
 
 const history = createBrowserHistory();
@@ -76,6 +78,8 @@ class Index extends Component {
                             <Route path="/user" render={(props)=>(<MyAccountPage authUser={this.state.authUser}/>)} />
                             <Route path="/forgotPassword" component={PasswordForget}/>
                             <Route path="/resetPassword" component={PasswordReset}/>
+
+                            <Route path="/wallet" component={Wallet}/>
 
 
 

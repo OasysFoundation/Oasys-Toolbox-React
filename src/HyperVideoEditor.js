@@ -101,6 +101,13 @@ class PlyrWrapper extends Component {
 		})
 	}
 
+	notifyDelegate() {
+		this.props.onChange({
+			"quizzes": this.state.quizzes,
+			"videoURL": this.state.videoURL
+		});
+	}
+
 	componentDidMount() {
 
 		const player = this.refs.video;
@@ -161,6 +168,15 @@ class HyperVideoEditor extends Component {
 	    this.onChange = this.onChange.bind(this);
 	}
 
+	componentWillReceiveProps(nextProps) {
+		console.log("componentDidReceiveProps");
+		console.log(nextProps);
+		this.state = {
+	    	videoURL: nextProps.value.videoURL,
+	    	quizzes: nextProps.value.quizzes
+	    }
+	}
+
 	didChangeVideoURL(textfield) {
 		const url = textfield.target.value;
 		console.log("didChangeVideoURL: "+url);
@@ -189,9 +205,9 @@ class HyperVideoEditor extends Component {
 
 	onChange(content) {
 		this.setState({
-			quizzes: content
+			quizzes: content.quizzes,
+			videoURL: content.videoURL
 		}, function() {
-			this.refreshCurrentQuiz();
 			this.notifyDelegate();
 		})
 	}

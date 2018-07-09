@@ -27,10 +27,10 @@ class UserMainPage extends Component {
 	      method: 'GET',
 	    }).then((response) => {
 	      	response.json().then((body) => {
-		      	console.log(body);
-		      	if(body)
+		      	console.log("body: " + body);
+		      	if(body) {
 		        	this.setState({ imageURL: body[0].PIC });
-		        else{
+		      	} else {
 		        	this.setState({ imageURL: logo });
 		        }
 	     	 });
@@ -108,6 +108,9 @@ class UserMainPage extends Component {
 		        Upload Picture  
 		      </Button>
 		      <UploadPicContentDialog pic={this.sendPic.bind(this)} authUser={this.props.authUser} open={this.state.showsOpenDialog} onClose={this.closeOpenDialog.bind(this)}/>
+		      <Button variant="contained" color="primary" onClick={function(event) {event.preventDefault(); window.location.href = './wallet/'}} >
+		        My Wallet  
+		      </Button>
 		      <br />
 		      </div>
 			      </Paper>
