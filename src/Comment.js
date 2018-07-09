@@ -15,7 +15,7 @@ class CommentSection extends Component {
         const loc = window.location.href;
       const directory = loc.split('/').filter(e => e.length > 0).slice(-2);
       const contentName = directory[1];
-        var loadComments = 'https://api.joinoasys.org/user/'+contentName+'/comments';
+        var loadComments = 'https://api.joinoasys.org/comment/user/'+contentName;
         fetch(loadComments, {
             method: 'GET'
         }).then(function (response) {
@@ -39,7 +39,7 @@ class CommentSection extends Component {
       myUsername = this.props.name.displayName
       : null
 
-      var commentEndpoint = 'https://api.joinoasys.org/'+myUsername+'/'+contentName+'/comment';
+      var commentEndpoint = 'https://api.joinoasys.org/comment/'+myUsername+'/'+contentName;
       var currentTime = Date.now();
       var data = {
         "time":currentTime,
@@ -75,7 +75,7 @@ class CommentSection extends Component {
         const userName = directory[0]
         const contentName = directory[1]
 
-        const APICALL = `https://api.joinoasys.org/${userName}/${contentName}/rate/${value}`;
+        const APICALL = `https://api.joinoasys.org/rate/${userName}/${contentName}/${value}`;
 
         fetch(APICALL, {
       method: 'POST'

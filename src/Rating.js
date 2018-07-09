@@ -21,7 +21,7 @@ class Rating extends Component {
         const userName = directory[0]
         const contentName = directory[1]
 
-        const APICALL = `https://api.joinoasys.org/${userName}/${contentName}/rate/${value}`;
+        const APICALL = `https://api.joinoasys.org/rate/${userName}/${contentName}/${value}`;
 
         fetch(APICALL, {
 		  method: 'POST'
