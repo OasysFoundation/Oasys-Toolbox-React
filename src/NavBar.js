@@ -84,7 +84,7 @@ class NavBar extends React.Component {
         <div style={{display: 'inline'}}>
         <Button href='/user' color="inherit">
             <IconAccountCircle style={{marginRight: '7px'}}/>
-            <Name authUser={this.props.authUser}/>
+            {this.props.authUser.displayName}
         </Button>
 
         <SignOutButton color="inherit" handleClick={this.handleClick.bind(this)} />

@@ -82,7 +82,7 @@ class MenuBarView extends Component {
   }
 
   completeFetch(contentId, published, hashtags, pictureURL, description, slides) {
-    var username = this.props.authUser.uid;
+    var username = this.props.authUser.displayName;
     var saveEndpoint = 'https://api.joinoasys.org/'+username+'/'+contentId+'/save';
     var data = {
       "data":slides,

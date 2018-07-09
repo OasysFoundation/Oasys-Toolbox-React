@@ -92,7 +92,7 @@ class UserMainPage extends Component {
 			        <Typography variant="headline" component="h3" style={{marginBottom:'16px'}}>
 			          <IconAccountCircle /> Welcome {
 			          	this.props.authUser
-			          	?<Name authUser={this.props.authUser} mainPage={true}/>
+			          	?this.props.authUser.displayName
        				    : ""
 			          }
 			        </Typography>
