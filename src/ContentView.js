@@ -12,6 +12,7 @@ import SwipeableViews from 'react-swipeable-views';
 import NotFoundPage from './NotFoundPage'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import GameView from "./GameView"
+import { firebase } from './firebase';
 
 
 
@@ -23,11 +24,19 @@ class ContentView extends Component {
             content: null,
             hasLoaded: false,
             timing: [],
-            lastTime: new Date()
+            lastTime: new Date(),
+            startTime: new Date(),
+            endTime: null
         };
 
         const userName = this.props.match.params.username;
         const contentName = this.props.match.params.contentname;
+        
+        firebase.auth.onAuthStateChanged(authUser => {
+            this.setState({
+                userID: authUser.uid
+            })
+        });
 
         const APICALL = `https://api.joinoasys.org/user/${userName}/${contentName}/`;
 
@@ -35,12 +44,10 @@ class ContentView extends Component {
         fetch(APICALL, {
             method: 'GET'
         }).then(function (response) {
-            console.log(response);
             return response.json();
         })
             .then(function (myJson) {
-                //WHY IS IT ARRAY IF THERE's ONLY ONE ENTRY?
-                console.log("content here: ", myJson[0]);
+                console.log(myJson);
                 that.setState({content: myJson[0], hasLoaded: true})
             });
     }
@@ -77,11 +84,38 @@ class ContentView extends Component {
         })
     }
 
+    completeFetch(slideTiming, startTime, endTime) {
+        let contentId = null
+        var username = this.props.match.params.username;
+        var saveEndpoint = 'https://api.joinoasys.org/'+username+'/'+contentId+'/save';
+        var data = {
+          "slideTiming": slideTiming,
+          "startTime": startTime,
+          "endTime": endTime,
+          "contentId": this.state.content.contentId,
+          "userId": this.state.userID
+        }
+
+        fetch(saveEndpoint, {
+          method: 'POST', 
+          body: JSON.stringify(data),
+          headers: new Headers({
+           'Content-Type': 'application/json',
+             })
+          })
+    }
+
     handleNext() {
+        let idx = this.state.slideIdx+1;
         this.updateTiming();
-        this.setState({
-            slideIdx: this.state.slideIdx+1,
-        })
+        this.setState({ slideIdx: idx });
+        if (idx === this.state.content.length - 1) {
+            let endTime = new Date();
+            this.setState({ endTime: endTime });
+            this.completeFetch(this.state.timing, this.state.startTime, endTime);
+        } else {
+            this.completeFetch(this.state.timing, this.state.startTime, null);
+        }
     }
 
     handlePrevious() {
@@ -89,6 +123,7 @@ class ContentView extends Component {
         this.setState({
             slideIdx: this.state.slideIdx-1
         });
+        this.completeFetch(this.state.timing, this.state.startTime, null);
     }
 
     handleStepChange(newStep) {
