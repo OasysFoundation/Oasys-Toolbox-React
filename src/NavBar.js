@@ -19,6 +19,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import { withStyles } from '@material-ui/core/styles';
 import Name from './Name'
+import ButtonBase from '@material-ui/core/ButtonBase';
 
 
 import {
@@ -37,23 +38,9 @@ const BG = "#74A4AC";
  
 
 class NavBar extends React.Component {
- constructor(props) {
+  constructor(props) {
     super(props);
-    }
-
-
-  // getName(){
-  //   const profile = 'https://api.joinoasys.org/'+this.props.authUser.uid+'/profile'
-  //       fetch(profile, {
-  //         method: 'GET',
-  //       }).then((response) => {
-  //           response.json().then((body) => {
-  //             console.log(body);
-  //             if(body)
-  //               return(body[0].NAME);
-  //           });
-  //       });
-  // }
+  }
 
   state = {
     open: false,
@@ -116,9 +103,13 @@ class NavBar extends React.Component {
     return (
       <AppBar position="static">
             <section style={{backgroundColor: BG, display: "flex", flexDirection: "row", justifyContent: "flex-end"}}>
-                <Typography style={{flexGrow: 1, padding: "1em"}} variant="title" color="inherit">
+            <ButtonBase
+            onClick={function(event) {event.preventDefault(); window.location.href = './explore/'}} style={{flexGrow: 1, padding: "1em", display: 'inline-block'}}>
+                <Typography variant="title" color="inherit" href='/explore'>
                     Oasys Education
                 </Typography>
+            </ButtonBase>
+            
 
                 <Toolbar style={{display: "flex", justifyContent: "flex-end"}}>
                   <div>
