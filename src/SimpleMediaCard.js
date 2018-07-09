@@ -90,10 +90,16 @@ function SimpleMediaCard(props) {
                         {description || "Test"}
                     </Typography>
                 </CardContent>
+                </ButtonBase>
                       <div style={{display: "flex", justifyContent: 'center', padding: 1 + "rem"}}>
                           {<Rating value={rating} preview={true}/>}
+                          <Button
+                            variant="contained"
+                            size="small" color="primary"
+                            onClick={function(event) {event.preventDefault(); window.location.href = ('/comments/'+title) }}>
+                            Comments
+                        </Button>
                       </div>
-                </ButtonBase>
                 <CardActions>
                     <Button
                         variant="contained"

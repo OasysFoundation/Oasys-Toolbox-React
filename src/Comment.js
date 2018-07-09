@@ -11,29 +11,56 @@ class CommentSection extends Component {
           comment:'',
         }
 
-        var that = this;
-        const loc = window.location.href;
-      const directory = loc.split('/').filter(e => e.length > 0).slice(-2);
-      const contentName = directory[1];
-        var loadComments = 'https://api.joinoasys.org/comment/user/'+contentName;
-        fetch(loadComments, {
-            method: 'GET'
-        }).then(function (response) {
-            return response.json();
-        })
-        .then(function (myJson) {
-            console.log(myJson);
-            that.setState({comments: myJson});
+        if(!this.props.match){
+            var that = this;
+            const loc = window.location.href;
+            const directory = loc.split('/').filter(e => e.length > 0).slice(-2);
+            const contentName = directory[1];
+            var loadComments = 'https://api.joinoasys.org/comment/user/'+contentName;
+            fetch(loadComments, {
+                method: 'GET'
+            }).then(function (response) {
+                return response.json();
+            })
+            .then(function (myJson) {
+                console.log(myJson);
+                that.setState({comments: myJson});
 
-        });
+            });
+        }
+        else{
+            var that = this;
+            const contentName = this.props.match.params.contentId;
+            var loadComments = 'https://api.joinoasys.org/comment/user/'+contentName;
+            fetch(loadComments, {
+                method: 'GET'
+            }).then(function (response) {
+                return response.json();
+            })
+            .then(function (myJson) {
+                console.log(myJson);
+                that.setState({comments: myJson});
+
+            });
+        }
         
     }
 
     onSubmit = (e) => {
 
-      const loc = window.location.href;
-      const directory = loc.split('/').filter(e => e.length > 0).slice(-2);
-      const contentName = directory[1];
+      var contentName = '';
+
+      if(!this.props.match){
+            const loc = window.location.href;
+            const directory = loc.split('/').filter(e => e.length > 0).slice(-2);
+            contentName = directory[1];
+      }
+      else{
+            contentName = this.props.match.params.contentId;
+      }
+
+
+
       var myUsername = ''
       this.props.name?
       myUsername = this.props.name.displayName
@@ -73,21 +100,38 @@ class CommentSection extends Component {
 
     handleChange = () => {
 
-        var that = this;
-        const loc = window.location.href;
-        const directory = loc.split('/').filter(e => e.length > 0).slice(-2);
-        const contentName = directory[1];
-          var loadComments = 'https://api.joinoasys.org/comment/user/'+contentName;
-          fetch(loadComments, {
-              method: 'GET'
-          }).then(function (response) {
-              return response.json();
-          })
-          .then(function (myJson) {
-              console.log(myJson);
-              that.setState({comments: myJson});
+        if(!this.props.match){
+            var that = this;
+            const loc = window.location.href;
+            const directory = loc.split('/').filter(e => e.length > 0).slice(-2);
+            const contentName = directory[1];
+            var loadComments = 'https://api.joinoasys.org/comment/user/'+contentName;
+            fetch(loadComments, {
+                method: 'GET'
+            }).then(function (response) {
+                return response.json();
+            })
+            .then(function (myJson) {
+                console.log(myJson);
+                that.setState({comments: myJson});
 
-          });
+            });
+        }
+        else{
+            var that = this;
+            const contentName = this.props.match.params.contentId;
+            var loadComments = 'https://api.joinoasys.org/comment/user/'+contentName;
+            fetch(loadComments, {
+                method: 'GET'
+            }).then(function (response) {
+                return response.json();
+            })
+            .then(function (myJson) {
+                console.log(myJson);
+                that.setState({comments: myJson});
+
+            });
+        }
 
 
     }

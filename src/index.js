@@ -32,6 +32,7 @@ import GameEmbedder from "./GameEmbedder";
 import UserProjects from './UserProjects'
 
 import Wallet from './Wallet'
+import Comment from './Comment'
 
 
 
@@ -81,6 +82,7 @@ class Index extends Component {
 
                             <Route path="/wallet" component={Wallet}/>
 
+                            <Route path="/comments/:contentId" render={(props)=>(<Comment name={this.state.authUser}/>)} />
 
 
                             <Route component={NotFoundPage}/>
