@@ -10,6 +10,7 @@ import ContentSelection from "./ContentSelection";
 import NavBar from "./NavBar"
 import NotFoundPage from "./NotFoundPage"
 import Editor from "./Editor"
+import DataView from "./DataView";
 
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import createBrowserHistory from 'history/createBrowserHistory';
@@ -60,6 +61,7 @@ class Index extends Component {
                         <NavBar authUser={this.state.authUser}/>
                         <Switch>
                             <Route exact path="/" render={()=><ContentSelection/>} />
+                            <Route path="/data" component={DataView}/>
                             <Route path="/explore" component={ContentSelection}/>
                             <Route path="/create" render={(props)=>(<Editor authUser={this.state.authUser}/>)} />
 
