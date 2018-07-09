@@ -87,7 +87,7 @@ class ContentView extends Component {
     completeFetch(slideTiming, startTime, endTime) {
         let contentId = null
         var username = this.props.match.params.username;
-        var saveEndpoint = 'https://api.joinoasys.org/'+username+'/'+contentId+'/save';
+        var saveEndpoint = 'https://api.joinoasys.org/'+username+'/'+contentId+'/access';
         var data = {
           "slideTiming": slideTiming,
           "startTime": startTime,
