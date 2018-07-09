@@ -71,7 +71,7 @@ class Index extends Component {
                             <Route path="/login" component={LoginPage} />
                             <Route path="/signup" component={SignupPage} />
 
-                            <Route path="/user/:username/:contentname" component={ContentView}/>
+                            <Route path="/user/:username/:contentname" render={(props)=>(<ContentView authUser={this.state.authUser}/>)} />
                             <Route path="/user/:username" component={UserPage}/>
                             <Route path="/user" render={(props)=>(<MyAccountPage authUser={this.state.authUser}/>)} />
                             <Route path="/forgotPassword" component={PasswordForget}/>

@@ -23,11 +23,13 @@ class ContentView extends Component {
             content: null,
             hasLoaded: false,
             timing: [],
-            lastTime: new Date()
+            lastTime: new Date(),
         };
 
-        const userName = this.props.match.params.username;
-        const contentName = this.props.match.params.contentname;
+        const loc = window.location.href;
+        const directory = loc.split('/').filter(e => e.length > 0).slice(-2);
+        const userName = directory[0];
+        const contentName = directory[1];
 
         const APICALL = `https://api.joinoasys.org/user/${userName}/${contentName}/`;
 
@@ -118,7 +120,7 @@ class ContentView extends Component {
                     {content.data.map(slide => (
                         this.whatRenderer(slide)
                     ))}
-                    <Rating />
+                    <Rating username={this.props.authUser}/>
                     </SwipeableViews>
                     <MobileStepper
                       steps={content.data.length + 1}

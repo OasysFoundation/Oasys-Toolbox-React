@@ -3,32 +3,19 @@ import { Button, Comment, Form, Header } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css';
 import SimpleComment from './SimpleComment'
 
-
-const CommentFormat = (
-    <Comment>
-      <Comment.Avatar src='https://oasys-space.nyc3.digitaloceanspaces.com/person.png' />
-      <Comment.Content>
-        <Comment.Author as='a'>Matt</Comment.Author>
-        <Comment.Metadata>
-          <div>Today at 5:42PM</div>
-        </Comment.Metadata>
-        <Comment.Text>How artistic!</Comment.Text>
-      </Comment.Content>
-    </Comment>
-)
-    
-
 class CommentSection extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          comments:[]
+          comments:[],
+          comment:'',
         }
+
         var that = this;
         const loc = window.location.href;
       const directory = loc.split('/').filter(e => e.length > 0).slice(-2);
       const contentName = directory[1];
-        var loadComments = 'https://api.joinoasys.org/1/'+contentName+'/comments';
+        var loadComments = 'https://api.joinoasys.org/user/'+contentName+'/comments';
         fetch(loadComments, {
             method: 'GET'
         }).then(function (response) {
@@ -42,17 +29,21 @@ class CommentSection extends Component {
         
     }
 
-    onSubmit = () => {
+    onSubmit = (e) => {
 
       const loc = window.location.href;
       const directory = loc.split('/').filter(e => e.length > 0).slice(-2);
       const contentName = directory[1];
-      const myUsername = "test User";
+      var myUsername = ''
+      this.props.name?
+      myUsername = this.props.name.displayName
+      : null
 
       var commentEndpoint = 'https://api.joinoasys.org/'+myUsername+'/'+contentName+'/comment';
+      var currentTime = Date.now();
       var data = {
-        "time":"12321",
-        "comment":"test Comment",
+        "time":currentTime,
+        "comment":this.state.comment,
       }
 
       fetch(commentEndpoint, {
@@ -67,6 +58,13 @@ class CommentSection extends Component {
         console.log("success");
 
         });
+    }
+
+    addComment = (event) => {
+
+      this.setState({
+        comment:event.target.value
+      })
     }
 
     handleChange = (value) => {
@@ -108,7 +106,7 @@ class CommentSection extends Component {
     
 
     <Form reply>
-      <Form.TextArea />
+      <Form.TextArea onChange={this.addComment.bind(this)}/>
       <Button onClick={this.onSubmit.bind()} content='Add Reply' labelPosition='left' icon='edit' primary />
     </Form>
   </Comment.Group>
