@@ -16,6 +16,7 @@ function SimpleComment(props){
           <div>{moment(time).format("DD MMM YYYY hh:mm a")}</div>
         </Comment.Metadata>
         <Comment.Text>{comment}</Comment.Text>
+        {props.reply()}
       </Comment.Content>
     </Comment>
     )

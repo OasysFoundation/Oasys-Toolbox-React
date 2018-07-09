@@ -9,6 +9,7 @@ class CommentSection extends Component {
         this.state = {
           comments:[],
           comment:'',
+          reply: '',
         }
 
         if(!this.props.match){
@@ -44,6 +45,51 @@ class CommentSection extends Component {
             });
         }
         
+    }
+
+    onSubmitReply = (e) => {
+
+      var contentName = '';
+
+      if(!this.props.match){
+            const loc = window.location.href;
+            const directory = loc.split('/').filter(e => e.length > 0).slice(-2);
+            contentName = directory[1];
+      }
+      else{
+            contentName = this.props.match.params.contentId;
+      }
+
+
+
+      var myUsername = ''
+      this.props.name?
+      myUsername = this.props.name.displayName
+      : null
+
+      var commentEndpoint = 'https://api.joinoasys.org/comment/'+myUsername+'/'+contentName;
+      var currentTime = Date.now();
+      var data = {
+        "time":currentTime,
+        "comment":this.state.comment,
+      }
+
+      fetch(commentEndpoint, {
+        method: 'POST', 
+        body: JSON.stringify(data),
+        headers: new Headers({
+         'Content-Type': 'application/json',
+       })
+      }).then(res => res.json())
+      .catch(error => console.error('Error:', error))
+      .then(response => {
+        console.log("success");
+        this.setState({
+          comment:''
+        });
+        this.handleChange();
+
+        });
     }
 
     onSubmit = (e) => {
@@ -98,6 +144,33 @@ class CommentSection extends Component {
       })
     }
 
+    someFunction(id){
+      this.setState({
+        reply:id
+      })
+
+    }
+
+    addReply = (id) => {
+      return(
+        <div>
+        <Comment.Actions>
+          <Button content='Reply' onClick={this.someFunction.bind(this, id)}/>
+        </Comment.Actions>
+        {this.state.reply==id
+          ?(
+            <Form reply>
+              <Form.TextArea />
+              <Button content='Add Reply' labelPosition='left' icon='edit' primary />
+            </Form>
+            )
+          :(null)
+        }
+        
+        </div>
+      )
+    }
+
     handleChange = () => {
 
         if(!this.props.match){
@@ -146,7 +219,7 @@ class CommentSection extends Component {
     {this.state.comments.length==0?
       (null)
       : (
-      this.state.comments.map((d,i) => < SimpleComment key={i} contentData={d}/>)
+      this.state.comments.map((d,i) => < SimpleComment key={i} contentData={d} reply={this.addReply.bind(this, d.time)}/>)
       )
     }
     
