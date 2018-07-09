@@ -18,6 +18,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import { withStyles } from '@material-ui/core/styles';
+import Name from './Name'
 
 
 import {
@@ -33,21 +34,26 @@ const styles = theme => ({
 });
 
 const BG = "#74A4AC";
-
-
-//hack because firebase sucks and cant provide display name right away
-function username(name){
-  if (name)
-    return name;
-  else
-    return "My Profile";
-
-}
+ 
 
 class NavBar extends React.Component {
  constructor(props) {
     super(props);
-  }
+    }
+
+
+  // getName(){
+  //   const profile = 'https://api.joinoasys.org/'+this.props.authUser.uid+'/profile'
+  //       fetch(profile, {
+  //         method: 'GET',
+  //       }).then((response) => {
+  //           response.json().then((body) => {
+  //             console.log(body);
+  //             if(body)
+  //               return(body[0].NAME);
+  //           });
+  //       });
+  // }
 
   state = {
     open: false,
@@ -78,7 +84,7 @@ class NavBar extends React.Component {
         <div style={{display: 'inline'}}>
         <Button href='/user' color="inherit">
             <IconAccountCircle style={{marginRight: '7px'}}/>
-            {username(this.props.authUser.displayName)}
+            {this.props.authUser.displayName}
         </Button>
 
         <SignOutButton color="inherit" handleClick={this.handleClick.bind(this)} />
@@ -116,7 +122,10 @@ class NavBar extends React.Component {
 
                 <Toolbar style={{display: "flex", justifyContent: "flex-end"}}>
                   <div>
-                    {navBarElements}
+                    {this.props.authUser
+                      ? navBarElements
+                      : null
+                    }
                   </div>
                 </Toolbar>
             </section>

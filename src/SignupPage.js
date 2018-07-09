@@ -40,7 +40,8 @@ constructor(props) {
     this.state = {
     	emailError : false,
     	passwordError : false,
-    	usernameError: false
+    	userNameError: false,
+    	uid: '',
     }
   }
 
@@ -56,9 +57,7 @@ constructor(props) {
     } = this.props;
 
     auth.doCreateUserWithEmailAndPassword(email, passwordOne)
-      .then(authUser => {
-        this.setState(() => ({ ...INITIAL_STATE }));
-        
+      .then(authUser => {        
 
 		var user = firebase.auth().currentUser;
 
@@ -66,19 +65,33 @@ constructor(props) {
 			console.log("User ID: " + user.uid);
 		}
 
-        user.updateProfile({
-		  displayName: username,
-		}).then(function() {
-		  // Update successful.
-		}).catch(function(error) {
-		  // An error happened.
-		  console.log("error here");
-		  console.log(error);
-		});
-
-		history.push({
-		  pathname: '/',
-		})
+		this.setState({uid:user.uid});
+		const profile = 'https://api.joinoasys.org/'+user.uid+'/new/'+username
+	    fetch(profile, {
+	      method: 'POST',
+	    }).then((response,err) => {
+	    	if (err) throw err;
+	      	response.json().then((body) => {
+		      	console.log(body);
+		      	if(body.userNameExists)
+		        	this.setState({ userNameError: true });
+		        else if (!body.userNameExists){
+		        	 user.updateProfile({
+					  displayName: username,
+					}).then(function() {
+					  // Update successful.
+					}).catch(function(error) {
+					  // An error happened.
+					  console.log("error here");
+					  console.log(error);
+					});
+		        	this.setState(() => ({ ...INITIAL_STATE }));
+		        	history.push({
+					  pathname: '/',
+					})
+		        }
+	     	 });
+	        });
 
       })
       .catch(error => {
@@ -96,6 +109,47 @@ constructor(props) {
  
 
     event.preventDefault();
+  }
+
+  newUserName = (event) => {
+
+  	const {
+      history,
+    } = this.props;
+
+    	var user = firebase.auth().currentUser;
+   		var uid = this.state.uid;
+   		var username = this.state.username;
+		const profile = 'https://api.joinoasys.org/'+uid+'/new/'+username
+	    fetch(profile, {
+	      method: 'POST',
+	    }).then((response,err) => {
+	    	if (err) throw err;
+	      	response.json().then((body) => {
+		      	console.log(body);
+		      	if(body.userNameExists)
+		        	this.setState({ userNameError: true });
+		        else if (!body.userNameExists){
+		        	user.updateProfile({
+					  displayName: username,
+					}).then(function() {
+					  // Update successful.
+					}).catch(function(error) {
+					  // An error happened.
+					  console.log("error here");
+					  console.log(error);
+					});
+					this.setState(() => ({ ...INITIAL_STATE }));
+		        	history.push({
+					  pathname: '/',
+					})
+		        }
+	     	 });
+	        });
+
+
+    event.preventDefault();
+
   }
 
 render() {
@@ -137,11 +191,11 @@ render() {
 	            />
 
 				
-				<TextField
+				<TextField error={this.state.userNameError}
 	              id="username"
 	              label="Username"
 	              style={{width:'100%'}} 
-	              value={username} 
+	              value={this.state.username} 
           		  onChange={event => this.setState(byPropKey('username', event.target.value))}
 	              margin="normal"
 	              type="text"
@@ -150,7 +204,7 @@ render() {
 		        <TextField
 		          error={this.state.passwordError}
 		          id="password-input"
-		          value={passwordOne}
+		          value={this.state.passwordOne}
 		          onChange={event => this.setState(byPropKey('passwordOne', event.target.value))}
 		          label="Password"
 		          style={{width:'100%'}} 
@@ -161,7 +215,7 @@ render() {
 		        <TextField 
 		          error={this.state.passwordError}
 		          id="password-input"
-		          value={passwordTwo}
+		          value={this.state.passwordTwo}
 		          onChange={event => this.setState(byPropKey('passwordTwo', event.target.value))}
 		          label="Confirm Password (Must Match)"
 		          style={{width:'100%'}} 
@@ -170,7 +224,9 @@ render() {
 		          margin="normal"
 		        />
 		      <CardActions style={{marginTop:'15px'}}>
-		      <Button disabled={isInvalid} variant="raised" onClick={this.onSubmit.bind(this)} color="primary" autoFocus>
+		      	<Button disabled={isInvalid} variant="raised" onClick={this.state.userNameError
+		      		?this.newUserName.bind(this)
+		      		:this.onSubmit.bind(this)} color="primary" autoFocus>
             	Sign Up
           		</Button>
         		{ error && <p>{error.message}</p> }

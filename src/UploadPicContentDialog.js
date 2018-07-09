@@ -27,25 +27,27 @@ class UploadPicContentDialog extends Component {
       		imageURL: '',
     	};
 
-    	this.handleUploadImage = this.handleUploadImage.bind(this);
+    	this.handleUploadProfilePic = this.handleUploadProfilePic.bind(this);
+    	this.handleUploadTitlePic = this.handleUploadTitlePic.bind(this);
 
 	}
 
 
-  handleUploadImage(ev) {
+  handleUploadTitlePic(ev) {
     ev.preventDefault();
-
-    const spacesEndpoint = 'https://api.joinoasys.org/upload'
+    var uid = this.props.authUser.uid;
+    var contentId = this.props.contentId;
+    const spacesEndpoint = 'https://api.joinoasys.org/'+uid+'/'+contentId+'/uploadTitle'
 
     const data = new FormData();
     data.append('upload', this.uploadInput.files[0]);
-    var name = this.uploadInput.files[0].name;
+    data.append('name', uid);
     //data.append('filename', 'profile_pic_' + this.props.authUser);
 
 
 	
 
-
+    var that = this;
     fetch(spacesEndpoint, {
       method: 'POST',
       body: data,
@@ -53,9 +55,32 @@ class UploadPicContentDialog extends Component {
     }).then((response) => {
       response.json().then((body) => {
       	console.log(body);
-      	var newUrl = 'https://oasys-space.nyc3.digitaloceanspaces.com/' + name;
-        this.setState({ imageURL: newUrl });
-        this.props.pic(newUrl);
+        that.props.url();
+      });
+    });
+    this.props.onClose(null);
+
+  }
+
+  handleUploadProfilePic(ev) {
+    ev.preventDefault();
+    var uid = this.props.authUser.uid;
+    const spacesEndpoint = 'https://api.joinoasys.org/'+uid+'/uploadProfilePic'
+
+    const data = new FormData();
+    data.append('upload', this.uploadInput.files[0]);
+    data.append('name', uid);
+    //data.append('filename', 'profile_pic_' + this.props.authUser);
+
+    var that = this;
+    fetch(spacesEndpoint, {
+      method: 'POST',
+      body: data,
+      arrayKey:'',
+    }).then((response) => {
+      response.json().then((body) => {
+      	console.log(body);
+        that.props.pic();
       });
     });
     this.props.onClose(null);
@@ -78,7 +103,10 @@ class UploadPicContentDialog extends Component {
 		        <DialogTitle id="simple-dialog-title">Upload Profile Picture</DialogTitle>
 		        <div>
 
-		          <form onSubmit={this.handleUploadImage}>
+		          <form onSubmit={ this.props.titleUpload
+		          	? this.handleUploadTitlePic
+		          	: this.handleUploadProfilePic
+		          }>
 			        <div>
 			          <input ref={(ref) => { this.uploadInput = ref; }} name="file" type="file" />
 			        </div>
@@ -92,7 +120,10 @@ class UploadPicContentDialog extends Component {
 			      </form>
 		        </div>
 		         <DialogActions>
-		            <Button onClick={this.handleUploadImage.bind(this)} color="primary">
+		            <Button onClick={ this.props.titleUpload
+		          	? this.handleUploadTitlePic
+		          	: this.handleUploadProfilePic
+		          } color="primary">
 		              Upload
 		            </Button>
 		            <Button onClick={this.handleClose.bind(this)} color="primary">
