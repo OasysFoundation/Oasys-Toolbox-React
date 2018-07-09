@@ -101,6 +101,13 @@ class PlyrWrapper extends Component {
 		})
 	}
 
+	notifyDelegate() {
+		this.props.onChange({
+			"quizzes": this.state.quizzes,
+			"videoURL": this.state.videoURL
+		});
+	}
+
 	componentDidMount() {
 
 		const player = this.refs.video;
@@ -154,6 +161,8 @@ class HyperVideoEditor extends Component {
 
 	constructor(props) {
 	    super(props);
+	    console.log("HyperVideoEditor");
+	    console.log(this.props.value.quizzes);
 	    this.state = {
 	    	videoURL: this.props.value.videoURL,
 	    	quizzes: this.props.value.quizzes
@@ -189,9 +198,9 @@ class HyperVideoEditor extends Component {
 
 	onChange(content) {
 		this.setState({
-			quizzes: content
+			quizzes: content.quizzes,
+			videoURL: content.videoURL
 		}, function() {
-			this.refreshCurrentQuiz();
 			this.notifyDelegate();
 		})
 	}
