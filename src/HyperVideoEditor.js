@@ -161,13 +161,20 @@ class HyperVideoEditor extends Component {
 
 	constructor(props) {
 	    super(props);
-	    console.log("HyperVideoEditor");
-	    console.log(this.props.value.quizzes);
 	    this.state = {
 	    	videoURL: this.props.value.videoURL,
 	    	quizzes: this.props.value.quizzes
 	    }
 	    this.onChange = this.onChange.bind(this);
+	}
+
+	componentWillReceiveProps(nextProps) {
+		console.log("componentDidReceiveProps");
+		console.log(nextProps);
+		this.state = {
+	    	videoURL: nextProps.value.videoURL,
+	    	quizzes: nextProps.value.quizzes
+	    }
 	}
 
 	didChangeVideoURL(textfield) {
