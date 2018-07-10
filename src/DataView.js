@@ -4,8 +4,8 @@ import Typography from '@material-ui/core/Typography';
 import taucharts from 'taucharts';
 import './taucharts.min.css';
 
-const BARWIDTH = 400;
-const BARHEIGHT = 200;
+const CORRECT_ANSWER_DIV = "<div style='width:10px; height:10px; background-color: #00aa00; border: 1px solid #dddddd; float:left'></div>";
+const WRONG_ANSWER_DIV   = "<div style='width:10px; height:10px; background-color: #aa0000; border: 1px solid #dddddd; float:left'></div>";
 
 
 function generateFakeSlideTimes(n) {
@@ -61,23 +61,13 @@ function wrapTiming(x) {
     let a = [];
     for (let i=0; i<x.length; i++) {
         if (x[i].i < a.length) {
-            a[x[i].i] = a[x[i].i] + x[i].t;
+            a[x[i].i].time = a[x[i].i].time + x[i].t;
         } else {
-            a.push(x[i].t);
+            a.push({slide: i, time: x[i].t});
         }
     }
-    let data = {
-        labels: new Array(a.length).fill(1).map((e,i) => i+1),
-        datasets: [{
-            backgroundColor: 'rgba(255,99,132,0.2)',
-            borderColor: 'rgba(255,99,132,1)',
-            borderWidth: 1,
-            hoverBackgroundColor: 'rgba(255,99,132,0.4)',
-            hoverBorderColor: 'rgba(255,99,132,1)',
-            data: a,
-    }]};
-
-    return data;
+    console.log(a)
+    return a;
 }
 
 function getBarOptions() {
@@ -95,61 +85,44 @@ class DataView extends Component {
         console.log(taucharts)
         super(props);
         this.state = {
-            allContentsForUser: generateFakeData()
+            allContentsForUser: generateFakeData(),
         };
     }
 
     renderBarChart() {
-        var defData = [
-            {"team": "d", "cycleTime": 1, "effort": 1, "count": 1, "priority": "low"}, {
-                "team": "d",
-                "cycleTime": 2,
-                "effort": 2,
-                "count": 5,
-                "priority": "low"
-            }, {"team": "d", "cycleTime": 3, "effort": 3, "count": 8, "priority": "medium"}, {
-                "team": "d",
-                "cycleTime": 4,
-                "effort": 4,
-                "count": 3,
-                "priority": "high"
-            }, {"team": "l", "cycleTime": 2, "effort": 1, "count": 1, "priority": "low"}, {
-                "team": "l",
-                "cycleTime": 3,
-                "effort": 2,
-                "count": 5,
-                "priority": "low"
-            }, {"team": "l", "cycleTime": 4, "effort": 3, "count": 8, "priority": "medium"}, {
-                "team": "l",
-                "cycleTime": 5,
-                "effort": 4,
-                "count": 3,
-                "priority": "high"
-            },
-            {"team": "k", "cycleTime": 2, "effort": 4, "count": 1, "priority": "low"}, {
-                "team": "k",
-                "cycleTime": 3,
-                "effort": 5,
-                "count": 5,
-                "priority": "low"
-            }, {"team": "k", "cycleTime": 4, "effort": 6, "count": 8, "priority": "medium"}, {
-                "team": "k",
-                "cycleTime": 5,
-                "effort": 8,
-                "count": 3,
-                "priority": "high"
-            }];
-        var chart = new taucharts.Chart({
-            data: defData,
-            type: 'bar',
-            x: 'team',
-            y: 'effort'
-        });
-        chart.renderTo('#bar');
+        let contents = this.state.allContentsForUser;
+        for (let i=0; i<contents.length; i++) {
+            let timing = wrapTiming(contents[i].slideTimings);
+            var chart = new taucharts.Chart({
+                data: timing,
+                type: 'bar',
+                x: 'slide',
+                y: 'time'
+            });
+            chart.renderTo('#bar'+i);
+        }
+    }
+
+    renderQuiz(){
+        let contents = this.state.allContentsForUser;
+        for (let i=0; i<contents.length; i++) {
+            let elem = document.getElementById('quiz'+i);
+            let answers = contents[i].quizAnswers;
+            let domStr = "";
+            for (let j=0; j<answers.length; j++) {
+                if (answers[j]===false){
+                    domStr = domStr + WRONG_ANSWER_DIV;
+                } else {
+                    domStr = domStr + CORRECT_ANSWER_DIV;
+                }
+            }
+            elem.innerHTML = domStr;
+        }
     }
 
     componentDidMount(){
-        this.renderBarChart()
+        this.renderBarChart();
+        this.renderQuiz();
     }
 
     render() {
@@ -159,9 +132,8 @@ class DataView extends Component {
                                         {x: 0.8, y: 0.7}]}]};
         return (
             <div>
-             {this.state.allContentsForUser.map(slide => (
+             {this.state.allContentsForUser.map((slide,i) => (
                 <div>
-                    <div id="bar"></div>
                     <Typography gutterBottom variant="headline" component="h2">
                         {slide.contentId}
                     </Typography>
@@ -174,12 +146,11 @@ class DataView extends Component {
                     <Typography gutterBottom component="p">
                         {"quiz: " + slide.quizAnswers.map(answer => answer.toString())}
                     </Typography>
+                    <div id={"quiz"+i}></div><br/>
                     <Typography gutterBottom component="p">
                         {"slideTiming: " + slide.slideTimings.map(x => "slide " + x.i.toString() + "(" + padNumber(Math.floor(x.t / 60)) + ":" + padNumber(Math.ceil(x.t % 60)) + ")")}
                     </Typography>
-                    <div style={{width: BARWIDTH, height: BARHEIGHT}}>
-                        <Bar data={wrapTiming(slide.slideTimings)} options={getBarOptions()} />
-                    </div>
+                    <div id={"bar"+i}></div>
                 </div>
              ))}
                <Line data={data} options={options} width="600" height="250"/>
