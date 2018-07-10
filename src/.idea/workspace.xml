@@ -14,7 +14,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="GameEdit.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="GameEdit.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/GameEdit.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="270">
@@ -22,6 +22,15 @@
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NavBar.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/NavBar.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="292">
+              <caret line="106" column="127" selection-start-line="106" selection-start-column="127" selection-end-line="106" selection-end-column="127" />
             </state>
           </provider>
         </entry>
@@ -72,8 +81,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>sing-a-song</find>
-      <find>default</find>
       <find>option</find>
       <find>datav</find>
       <find>onchoose</find>
@@ -102,6 +109,8 @@
       <find>remix</find>
       <find>userid</find>
       <find>userId</find>
+      <find>navbar</find>
+      <find>lex</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -113,7 +122,6 @@
         <option value="$PROJECT_DIR$/../../../learnOAS/src/Preview.js" />
         <option value="$PROJECT_DIR$/quizEditor/Quiz.js" />
         <option value="$PROJECT_DIR$/Rating.js" />
-        <option value="$PROJECT_DIR$/NavBar.js" />
         <option value="$PROJECT_DIR$/globals.js" />
         <option value="$PROJECT_DIR$/ModuleEditor.js" />
         <option value="$PROJECT_DIR$/IFrameEmbed.js" />
@@ -129,6 +137,7 @@
         <option value="$PROJECT_DIR$/SimpleMediaCard.js" />
         <option value="$PROJECT_DIR$/gameMetaData.js" />
         <option value="$PROJECT_DIR$/GameEdit.js" />
+        <option value="$PROJECT_DIR$/NavBar.js" />
       </list>
     </option>
   </component>
@@ -216,12 +225,12 @@
       <workItem from="1530696101712" duration="7896000" />
       <workItem from="1530783930968" duration="8926000" />
       <workItem from="1530870912609" duration="1348000" />
-      <workItem from="1531213362663" duration="6855000" />
+      <workItem from="1531213362663" duration="7185000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="56543000" />
+    <option name="totallyTimeSpent" value="56873000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="797" extended-state="0" />
@@ -316,13 +325,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="275">
           <caret line="69" column="28" selection-start-line="69" selection-start-column="22" selection-end-line="69" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/NavBar.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1347">
-          <caret line="125" column="1" selection-start-line="125" selection-start-column="1" selection-end-line="125" selection-end-column="1" />
         </state>
       </provider>
     </entry>
@@ -525,6 +527,13 @@
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NavBar.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="292">
+          <caret line="106" column="127" selection-start-line="106" selection-start-column="127" selection-end-line="106" selection-end-column="127" />
         </state>
       </provider>
     </entry>
