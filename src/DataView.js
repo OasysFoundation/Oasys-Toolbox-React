@@ -1,6 +1,10 @@
 import React, {Component} from 'react';
 import {Line, Bar} from 'react-chartjs-2';
 
+const allContentsForUser = {
+    
+}
+
 class DataView extends Component {
 
     constructor(props) {

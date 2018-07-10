@@ -31,8 +31,8 @@ class ContentView extends Component {
 
         const loc = window.location.href;
         const directory = loc.split('/').filter(e => e.length > 0).slice(-2);
-        const userName = directory[0];
-        const contentName = directory[1];
+        //const userName = directory[0];
+        //const contentName = directory[1];
         const userName = this.props.match.params.username;
         const contentName = this.props.match.params.contentname;
         
