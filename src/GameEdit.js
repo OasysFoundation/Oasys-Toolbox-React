@@ -12,8 +12,14 @@ class GameEdit extends Component {
         this.onChooseGame = this.onChooseGame.bind(this);
         this.updateEditor = this.updateEditor.bind(this);
         this.state ={
-            chosen: props.value ? true : false,
+            chosen: !!props.value
         }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            chosen: !!nextProps.value
+        })
     }
 
     onChooseGame(index) {
