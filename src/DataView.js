@@ -1,6 +1,11 @@
 import React, {Component} from 'react';
 import {Line, Bar} from 'react-chartjs-2';
 import Typography from '@material-ui/core/Typography';
+import taucharts from 'taucharts';
+import './taucharts.min.css';
+
+const BARWIDTH = 400;
+const BARHEIGHT = 200;
 
 
 function generateFakeSlideTimes(n) {
@@ -52,7 +57,7 @@ function padNumber(x) {
     return x.toString().padStart(2,'0')
 }
 
-function wrapTiming(x, id) {
+function wrapTiming(x) {
     let a = [];
     for (let i=0; i<x.length; i++) {
         if (x[i].i < a.length) {
@@ -64,7 +69,6 @@ function wrapTiming(x, id) {
     let data = {
         labels: new Array(a.length).fill(1).map((e,i) => i+1),
         datasets: [{
-            label: id,
             backgroundColor: 'rgba(255,99,132,0.2)',
             borderColor: 'rgba(255,99,132,1)',
             borderWidth: 1,
@@ -77,16 +81,75 @@ function wrapTiming(x, id) {
 }
 
 function getBarOptions() {
-    return {maintainAspectRatio: true}
+    return {
+        maintainAspectRatio: false, 
+        title: {display: false},
+        scales: {xAxes: [{labelString: 'slide number'}],
+                 yAxes: [{labelString: 'time [s]'}]}
+    }
 }
 
 class DataView extends Component {
 
     constructor(props) {
+        console.log(taucharts)
         super(props);
         this.state = {
             allContentsForUser: generateFakeData()
         };
+    }
+
+    renderBarChart() {
+        var defData = [
+            {"team": "d", "cycleTime": 1, "effort": 1, "count": 1, "priority": "low"}, {
+                "team": "d",
+                "cycleTime": 2,
+                "effort": 2,
+                "count": 5,
+                "priority": "low"
+            }, {"team": "d", "cycleTime": 3, "effort": 3, "count": 8, "priority": "medium"}, {
+                "team": "d",
+                "cycleTime": 4,
+                "effort": 4,
+                "count": 3,
+                "priority": "high"
+            }, {"team": "l", "cycleTime": 2, "effort": 1, "count": 1, "priority": "low"}, {
+                "team": "l",
+                "cycleTime": 3,
+                "effort": 2,
+                "count": 5,
+                "priority": "low"
+            }, {"team": "l", "cycleTime": 4, "effort": 3, "count": 8, "priority": "medium"}, {
+                "team": "l",
+                "cycleTime": 5,
+                "effort": 4,
+                "count": 3,
+                "priority": "high"
+            },
+            {"team": "k", "cycleTime": 2, "effort": 4, "count": 1, "priority": "low"}, {
+                "team": "k",
+                "cycleTime": 3,
+                "effort": 5,
+                "count": 5,
+                "priority": "low"
+            }, {"team": "k", "cycleTime": 4, "effort": 6, "count": 8, "priority": "medium"}, {
+                "team": "k",
+                "cycleTime": 5,
+                "effort": 8,
+                "count": 3,
+                "priority": "high"
+            }];
+        var chart = new taucharts.Chart({
+            data: defData,
+            type: 'bar',
+            x: 'team',
+            y: 'effort'
+        });
+        chart.renderTo('#bar');
+    }
+
+    componentDidMount(){
+        this.renderBarChart()
     }
 
     render() {
@@ -98,6 +161,7 @@ class DataView extends Component {
             <div>
              {this.state.allContentsForUser.map(slide => (
                 <div>
+                    <div id="bar"></div>
                     <Typography gutterBottom variant="headline" component="h2">
                         {slide.contentId}
                     </Typography>
@@ -113,7 +177,9 @@ class DataView extends Component {
                     <Typography gutterBottom component="p">
                         {"slideTiming: " + slide.slideTimings.map(x => "slide " + x.i.toString() + "(" + padNumber(Math.floor(x.t / 60)) + ":" + padNumber(Math.ceil(x.t % 60)) + ")")}
                     </Typography>
-                    <Bar data={wrapTiming(slide.slideTimings, slide.contentId)} options={getBarOptions()} />
+                    <div style={{width: BARWIDTH, height: BARHEIGHT}}>
+                        <Bar data={wrapTiming(slide.slideTimings)} options={getBarOptions()} />
+                    </div>
                 </div>
              ))}
                <Line data={data} options={options} width="600" height="250"/>
