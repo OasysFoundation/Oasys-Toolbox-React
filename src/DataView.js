@@ -52,6 +52,34 @@ function padNumber(x) {
     return x.toString().padStart(2,'0')
 }
 
+function wrapTiming(x, id) {
+    let a = [];
+    for (let i=0; i<x.length; i++) {
+        if (x[i].i < a.length) {
+            a[x[i].i] = a[x[i].i] + x[i].t;
+        } else {
+            a.push(x[i].t);
+        }
+    }
+    let data = {
+        labels: new Array(a.length).fill(1).map((e,i) => i+1),
+        datasets: [{
+            label: id,
+            backgroundColor: 'rgba(255,99,132,0.2)',
+            borderColor: 'rgba(255,99,132,1)',
+            borderWidth: 1,
+            hoverBackgroundColor: 'rgba(255,99,132,0.4)',
+            hoverBorderColor: 'rgba(255,99,132,1)',
+            data: a,
+    }]};
+
+    return data;
+}
+
+function getBarOptions() {
+    return {maintainAspectRatio: true}
+}
+
 class DataView extends Component {
 
     constructor(props) {
@@ -66,7 +94,6 @@ class DataView extends Component {
         let data = {datasets: [{data: [5, 23, 46, 36, 44, 52, 78]}]};
         let data2 = {datasets: [{data: [{x: 0.2, y: 0.4}, 
                                         {x: 0.8, y: 0.7}]}]};
-        console.log(this.state.allContentsForUser);
         return (
             <div>
              {this.state.allContentsForUser.map(slide => (
@@ -86,10 +113,10 @@ class DataView extends Component {
                     <Typography gutterBottom component="p">
                         {"slideTiming: " + slide.slideTimings.map(x => "slide " + x.i.toString() + "(" + padNumber(Math.floor(x.t / 60)) + ":" + padNumber(Math.ceil(x.t % 60)) + ")")}
                     </Typography>
+                    <Bar data={wrapTiming(slide.slideTimings, slide.contentId)} options={getBarOptions()} />
                 </div>
              ))}
                <Line data={data} options={options} width="600" height="250"/>
-               <Bar data={data2} />
             </div>
         );
     }
