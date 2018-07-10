@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { Button, Comment, Form, Header } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css';
 import SimpleComment from './SimpleComment'
+import OrganizeComments from './OrganizeComments'
 
 class CommentSection extends Component {
     constructor(props) {
@@ -10,6 +11,8 @@ class CommentSection extends Component {
           comments:[],
           comment:'',
           reply: '',
+          currentReply: '',
+          finalComments:[],
         }
 
         if(!this.props.match){
@@ -47,8 +50,9 @@ class CommentSection extends Component {
         
     }
 
-    onSubmitReply = (e) => {
+    onSubmitReply = (e,id) => {
 
+      var parent = e;
       var contentName = '';
 
       if(!this.props.match){
@@ -60,9 +64,7 @@ class CommentSection extends Component {
             contentName = this.props.match.params.contentId;
       }
 
-
-
-      var myUsername = ''
+      var myUsername = '';
       this.props.name?
       myUsername = this.props.name.displayName
       : null
@@ -71,7 +73,8 @@ class CommentSection extends Component {
       var currentTime = Date.now();
       var data = {
         "time":currentTime,
-        "comment":this.state.comment,
+        "comment":this.state.currentReply,
+        "parent": parent,
       }
 
       fetch(commentEndpoint, {
@@ -85,7 +88,7 @@ class CommentSection extends Component {
       .then(response => {
         console.log("success");
         this.setState({
-          comment:''
+          currentReply:''
         });
         this.handleChange();
 
@@ -144,6 +147,13 @@ class CommentSection extends Component {
       })
     }
 
+    addReply = (event) => {
+
+      this.setState({
+        currentReply:event.target.value
+      })
+    }
+
     someFunction(id){
       this.setState({
         reply:id
@@ -151,7 +161,7 @@ class CommentSection extends Component {
 
     }
 
-    addReply = (id) => {
+    myReply = (id) => {
       return(
         <div>
         <Comment.Actions>
@@ -160,8 +170,8 @@ class CommentSection extends Component {
         {this.state.reply==id
           ?(
             <Form reply>
-              <Form.TextArea />
-              <Button content='Add Reply' labelPosition='left' icon='edit' primary />
+              <Form.TextArea value={this.state.currentReply} onChange={this.addReply.bind(this)}/>
+              <Button onClick={this.onSubmitReply.bind(this,id)} content='Add Reply' labelPosition='left' icon='edit' primary />
             </Form>
             )
           :(null)
@@ -209,6 +219,8 @@ class CommentSection extends Component {
 
     }
 
+    
+
     render() {
         return (
           <div>
@@ -219,11 +231,10 @@ class CommentSection extends Component {
     {this.state.comments.length==0?
       (null)
       : (
-      this.state.comments.map((d,i) => < SimpleComment key={i} contentData={d} reply={this.addReply.bind(this, d.time)}/>)
+      <OrganizeComments comments={this.state.comments} reply={this.myReply.bind(this)}/>
       )
     }
     
-
     <Form reply>
       <Form.TextArea value={this.state.comment} onChange={this.addComment.bind(this)}/>
       <Button onClick={this.onSubmit.bind()} content='Add Reply' labelPosition='left' icon='edit' primary />
