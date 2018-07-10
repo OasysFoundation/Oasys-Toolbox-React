@@ -11,7 +11,7 @@ class GameEdit extends Component {
         // this.onChooseModule = this.onChooseModule.bind(this);
         this.onChooseGame = this.onChooseGame.bind(this);
         this.updateEditor = this.updateEditor.bind(this);
-        this.state ={
+        this.state = {
             chosen: !!props.value
         }
     }
@@ -26,9 +26,10 @@ class GameEdit extends Component {
         const game = gameMetaData[index];
         this.setState({
             chosen: true
-        }, () => this.updateEditor(game, {type:globals.GAME}))
+        }, () => this.updateEditor(game, {type: globals.GAME}))
 
     }
+
     updateEditor(slide) {
         console.log("SLLLIIIDEEM  ", slide)
         this.props.onChange(slide);
@@ -45,12 +46,17 @@ class GameEdit extends Component {
 
         return (
             <div id='gameRenderer'>
-                {this.state.chosen ? (<section>
-                    <Button variant="flat" color="primary" onClick={()=> this.setState({chosen:false})}> Choose Different Game </Button>
-                    <img src={this.props.value.thumbnail} style={{width: this.props.width || w, height: this.props.height || h}}/>
-                    <figcaption style={{padding: 1 + "rem"}}>{this.props.value.description}</figcaption>
-                    <Button variant="flat" color="primary" onClick={this.handleTryOut.bind(this)}> Try Out </Button>
-                </section>) : <ChooseGameGrid choose={this.onChooseGame}/>
+                {this.state.chosen ?
+                    (<section>
+                        <Button variant="flat" color="primary" onClick={() => this.setState({chosen: false})}> Choose
+                            Different Game </Button>
+                        <img src={this.props.value.thumbnail}
+                             style={{width: this.props.width || w, height: this.props.height || h}}/>
+                        <figcaption style={{padding: 1 + "rem"}}>{this.props.value.description}</figcaption>
+                        <Button variant="flat" color="primary" onClick={this.handleTryOut.bind(this)}> Try Out </Button>
+                    </section>)
+
+                    : <ChooseGameGrid choose={this.onChooseGame}/>
                 }
             </div>
         )
@@ -59,7 +65,7 @@ class GameEdit extends Component {
 
 
 const ChooseGameGrid = props => {
-    const width = window.innerWidth * 2/3;
+    const width = window.innerWidth * 2 / 3;
     const flexer = {
         display: "flex",
         flexGrow: 1,
@@ -70,9 +76,9 @@ const ChooseGameGrid = props => {
 
     return (<section style={flexer}>
             {gameMetaData.map((item, idx) =>
-                (<div key ={idx} onClick={() => props.choose(idx)} style={{cursor: "pointer"}}>
+                (<div key={idx} onClick={() => props.choose(idx)} style={{cursor: "pointer"}}>
                         <Tooltip fontSize={20} id="tooltip-fab" title={item.description}>
-                            <img src={item.thumbnail} width={width/3} style={{padding: 1 + "rem"}}/>
+                            <img src={item.thumbnail} width={width / 3} style={{padding: 1 + "rem"}}/>
                         </Tooltip>
                     </div>
                 )

@@ -17,7 +17,7 @@ import { firebase } from './firebase';
 
 
 class ContentView extends Component {
-    constructor(props) {
+    constructor(props, {match}) {
         super(props);
         this.state = {
             slideIdx: 0,
@@ -28,13 +28,16 @@ class ContentView extends Component {
             startTime: new Date(),
             endTime: null
         };
+        console.log(match, props, "MAATCH")
 
         const loc = window.location.href;
         const directory = loc.split('/').filter(e => e.length > 0).slice(-2);
-        //const userName = directory[0];
-        //const contentName = directory[1];
-        const userName = this.props.match.params.username;
-        const contentName = this.props.match.params.contentname;
+        this.userName = directory[0];
+        this.contentName = directory[1];
+
+        // console.log(this.props, "MATCH")
+        // const userName = this.props.match.params.username;
+        // const contentName = this.props.match.params.contentname;
         
         firebase.auth.onAuthStateChanged(authUser => {
             this.setState({
@@ -42,7 +45,7 @@ class ContentView extends Component {
             })
         });
 
-        const APICALL = `https://api.joinoasys.org/user/${userName}/${contentName}/`;
+        const APICALL = `https://api.joinoasys.org/user/${this.userName}/${this.contentName}/`;
 
         const that = this;
         fetch(APICALL, {
@@ -90,7 +93,8 @@ class ContentView extends Component {
 
     completeFetch(slideTiming, startTime, endTime) {
         let contentId = null
-        var username = this.props.match.params.username;
+        //this.props.match.params.username || 
+        var username = this.userName;
         var saveEndpoint = 'https://api.joinoasys.org/'+username+'/'+contentId+'/access';
         var data = {
           "slideTiming": slideTiming,
