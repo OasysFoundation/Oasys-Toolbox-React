@@ -33,6 +33,7 @@
     "slate": "^0.33.6",
     "slate-react": "^0.12.6",
     "styled-components": "^3.3.2",
+    "taucharts": "^2.3.2",
     "yarn": "^1.7.0"
   },
   "scripts": {

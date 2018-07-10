@@ -1,6 +1,11 @@
 import React, {Component} from 'react';
 import {Line, Bar} from 'react-chartjs-2';
 import Typography from '@material-ui/core/Typography';
+import taucharts from 'taucharts';
+import './taucharts.min.css';
+
+const CORRECT_ANSWER_DIV = "<div style='width:10px; height:10px; background-color: #00aa00; border: 1px solid #dddddd; float:left'></div>";
+const WRONG_ANSWER_DIV   = "<div style='width:10px; height:10px; background-color: #aa0000; border: 1px solid #dddddd; float:left'></div>";
 
 
 function generateFakeSlideTimes(n) {
@@ -52,41 +57,72 @@ function padNumber(x) {
     return x.toString().padStart(2,'0')
 }
 
-function wrapTiming(x, id) {
+function wrapTiming(x) {
     let a = [];
     for (let i=0; i<x.length; i++) {
         if (x[i].i < a.length) {
-            a[x[i].i] = a[x[i].i] + x[i].t;
+            a[x[i].i].time = a[x[i].i].time + x[i].t;
         } else {
-            a.push(x[i].t);
+            a.push({slide: i, time: x[i].t});
         }
     }
-    let data = {
-        labels: new Array(a.length).fill(1).map((e,i) => i+1),
-        datasets: [{
-            label: id,
-            backgroundColor: 'rgba(255,99,132,0.2)',
-            borderColor: 'rgba(255,99,132,1)',
-            borderWidth: 1,
-            hoverBackgroundColor: 'rgba(255,99,132,0.4)',
-            hoverBorderColor: 'rgba(255,99,132,1)',
-            data: a,
-    }]};
-
-    return data;
+    console.log(a)
+    return a;
 }
 
 function getBarOptions() {
-    return {maintainAspectRatio: true}
+    return {
+        maintainAspectRatio: false, 
+        title: {display: false},
+        scales: {xAxes: [{labelString: 'slide number'}],
+                 yAxes: [{labelString: 'time [s]'}]}
+    }
 }
 
 class DataView extends Component {
 
     constructor(props) {
+        console.log(taucharts)
         super(props);
         this.state = {
-            allContentsForUser: generateFakeData()
+            allContentsForUser: generateFakeData(),
         };
+    }
+
+    renderBarChart() {
+        let contents = this.state.allContentsForUser;
+        for (let i=0; i<contents.length; i++) {
+            let timing = wrapTiming(contents[i].slideTimings);
+            var chart = new taucharts.Chart({
+                data: timing,
+                type: 'bar',
+                x: 'slide',
+                y: 'time'
+            });
+            chart.renderTo('#bar'+i);
+        }
+    }
+
+    renderQuiz(){
+        let contents = this.state.allContentsForUser;
+        for (let i=0; i<contents.length; i++) {
+            let elem = document.getElementById('quiz'+i);
+            let answers = contents[i].quizAnswers;
+            let domStr = "";
+            for (let j=0; j<answers.length; j++) {
+                if (answers[j]===false){
+                    domStr = domStr + WRONG_ANSWER_DIV;
+                } else {
+                    domStr = domStr + CORRECT_ANSWER_DIV;
+                }
+            }
+            elem.innerHTML = domStr;
+        }
+    }
+
+    componentDidMount(){
+        this.renderBarChart();
+        this.renderQuiz();
     }
 
     render() {
@@ -96,7 +132,7 @@ class DataView extends Component {
                                         {x: 0.8, y: 0.7}]}]};
         return (
             <div>
-             {this.state.allContentsForUser.map(slide => (
+             {this.state.allContentsForUser.map((slide,i) => (
                 <div>
                     <Typography gutterBottom variant="headline" component="h2">
                         {slide.contentId}
@@ -110,10 +146,11 @@ class DataView extends Component {
                     <Typography gutterBottom component="p">
                         {"quiz: " + slide.quizAnswers.map(answer => answer.toString())}
                     </Typography>
+                    <div id={"quiz"+i}></div><br/>
                     <Typography gutterBottom component="p">
                         {"slideTiming: " + slide.slideTimings.map(x => "slide " + x.i.toString() + "(" + padNumber(Math.floor(x.t / 60)) + ":" + padNumber(Math.ceil(x.t % 60)) + ")")}
                     </Typography>
-                    <Bar data={wrapTiming(slide.slideTimings, slide.contentId)} options={getBarOptions()} />
+                    <div id={"bar"+i}></div>
                 </div>
              ))}
                <Line data={data} options={options} width="600" height="250"/>
