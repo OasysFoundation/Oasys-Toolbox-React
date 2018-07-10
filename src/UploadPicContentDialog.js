@@ -64,7 +64,7 @@ class UploadPicContentDialog extends Component {
 
   handleUploadProfilePic(ev) {
     ev.preventDefault();
-    var uid = this.props.authUser.uid;
+    var uid = this.props.authUser.displayName;
     const spacesEndpoint = 'https://api.joinoasys.org/uploadProfilePic/'+uid
 
     const data = new FormData();
