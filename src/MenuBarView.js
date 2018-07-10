@@ -81,13 +81,12 @@ class MenuBarView extends Component {
     });
   }
 
-  completeFetch(contentId, published, hashtags, pictureURL, description, slides) {
+  completeFetch(contentId, published, hashtags, description, slides) {
     var username = this.props.authUser.displayName;
     var saveEndpoint = 'https://api.joinoasys.org/save/'+username+'/'+contentId;
     var data = {
       "data":slides,
       "published":published,
-      "picture":pictureURL,
       "title":contentId,
       "description":description,
       "tags":hashtags,
@@ -114,13 +113,13 @@ class MenuBarView extends Component {
       this.setState({
         snackBarMessage: 'Saved Draft'
       })
-      this.completeFetch(this.props.contentTitle, 0, this.state.hashtags, this.state.pictureURL, this.state.description, this.props.slides);
+      this.completeFetch(this.props.contentTitle, 0, this.state.hashtags, this.state.description, this.props.slides);
     }
     if (this.state.saveAction == 'publish') {
       this.setState({
         snackBarMessage: 'Published'
       })
-      this.completeFetch(this.props.contentTitle, 1, this.state.hashtags, this.state.pictureURL, this.state.description, this.props.slides);
+      this.completeFetch(this.props.contentTitle, 1, this.state.hashtags, this.state.description, this.props.slides);
     }
   }
 
@@ -216,7 +215,7 @@ class MenuBarView extends Component {
   }
 
   updateURL(){
-    const allData = 'https://api.joinoasys.org/user/'+this.props.authUser.uid+'/'+this.props.contentTitle
+    const allData = 'https://api.joinoasys.org/user/'+this.props.authUser.displayName+'/'+this.props.contentTitle
     console.log(allData);
     fetch(allData, {
       method: 'GET',

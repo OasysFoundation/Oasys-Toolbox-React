@@ -35,7 +35,7 @@ class UploadPicContentDialog extends Component {
 
   handleUploadTitlePic(ev) {
     ev.preventDefault();
-    var uid = this.props.authUser.uid;
+    var uid = this.props.authUser.displayName;
     var contentId = this.props.contentId;
     const spacesEndpoint = 'https://api.joinoasys.org/uploadTitle/'+uid+'/'+contentId
 
