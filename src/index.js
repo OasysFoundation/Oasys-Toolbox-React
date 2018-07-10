@@ -10,6 +10,7 @@ import ContentSelection from "./ContentSelection";
 import NavBar from "./NavBar"
 import NotFoundPage from "./NotFoundPage"
 import Editor from "./Editor"
+import DataView from "./DataView";
 
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import createBrowserHistory from 'history/createBrowserHistory';
@@ -32,6 +33,7 @@ import GameEmbedder from "./GameEmbedder";
 import UserProjects from './UserProjects'
 
 import Wallet from './Wallet'
+import Comment from './Comment'
 
 
 
@@ -64,6 +66,7 @@ class Index extends Component {
                         <NavBar authUser={this.state.authUser}/>
                         <Switch>
                             <Route exact path="/" render={()=><ContentSelection/>} />
+                            <Route path="/data" component={DataView}/>
                             <Route path="/explore" component={ContentSelection}/>
                             <Route path="/create/:userId/:contentId" render={(props)=>(<Editor authUser={this.state.authUser} {...props}/>)} />
                             <Route path="/create" render={(props)=>(<Editor authUser={this.state.authUser}/>)} />
@@ -73,7 +76,7 @@ class Index extends Component {
                             <Route path="/login" component={LoginPage} />
                             <Route path="/signup" component={SignupPage} />
 
-                            <Route path="/user/:username/:contentname" component={ContentView}/>
+                            <Route path="/user/:username/:contentname" render={(props)=>(<ContentView authUser={this.state.authUser}/>)} />
                             <Route path="/user/:username" component={UserPage}/>
                             <Route path="/user" render={(props)=>(<MyAccountPage authUser={this.state.authUser}/>)} />
                             <Route path="/forgotPassword" component={PasswordForget}/>
@@ -81,6 +84,7 @@ class Index extends Component {
 
                             <Route path="/wallet" component={Wallet}/>
 
+                            <Route path="/comments/:contentId" render={(props)=>(<Comment name={this.state.authUser}/>)} />
 
 
                             <Route component={NotFoundPage}/>

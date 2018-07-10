@@ -66,7 +66,7 @@ constructor(props) {
 		}
 
 		this.setState({uid:user.uid});
-		const profile = 'https://api.joinoasys.org/'+user.uid+'/new/'+username
+		const profile = 'https://api.joinoasys.org/newUsername/'+user.uid+'/'+username
 	    fetch(profile, {
 	      method: 'POST',
 	    }).then((response,err) => {
@@ -120,7 +120,7 @@ constructor(props) {
     	var user = firebase.auth().currentUser;
    		var uid = this.state.uid;
    		var username = this.state.username;
-		const profile = 'https://api.joinoasys.org/'+uid+'/new/'+username
+		const profile = 'https://api.joinoasys.org/newUsername/'+uid+'/'+username
 	    fetch(profile, {
 	      method: 'POST',
 	    }).then((response,err) => {

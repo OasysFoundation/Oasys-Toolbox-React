@@ -37,7 +37,7 @@ class UploadPicContentDialog extends Component {
     ev.preventDefault();
     var uid = this.props.authUser.uid;
     var contentId = this.props.contentId;
-    const spacesEndpoint = 'https://api.joinoasys.org/'+uid+'/'+contentId+'/uploadTitle'
+    const spacesEndpoint = 'https://api.joinoasys.org/uploadTitle/'+uid+'/'+contentId
 
     const data = new FormData();
     data.append('upload', this.uploadInput.files[0]);
@@ -65,7 +65,7 @@ class UploadPicContentDialog extends Component {
   handleUploadProfilePic(ev) {
     ev.preventDefault();
     var uid = this.props.authUser.uid;
-    const spacesEndpoint = 'https://api.joinoasys.org/'+uid+'/uploadProfilePic'
+    const spacesEndpoint = 'https://api.joinoasys.org/uploadProfilePic/'+uid
 
     const data = new FormData();
     data.append('upload', this.uploadInput.files[0]);

@@ -1,6 +1,9 @@
 import polyphonicThumb from "./play_images/polyphonic.png"
 import soundManThumb from "./play_images/soundman.png"
 import forceAndMotionThumb from "./play_images/forceAndMotion.png"
+import circuit from "./play_images/circuit.png"
+import gravitation from "./play_images/gravitation.png"
+import pendulum from "./play_images/pendulum.png"
 
 const gameMetaData = [
     {
@@ -9,6 +12,27 @@ const gameMetaData = [
         primaryText: 'See Your Voice',
         description: "See your Pitch inside a Realtime Spectrogram",
         thumbnail: polyphonicThumb
+    },
+    {
+        name: "circuitConstruction",
+        url: "https://phet.colorado.edu/sims/html/circuit-construction-kit-dc-virtual-lab/latest/circuit-construction-kit-dc-virtual-lab_en.html",
+        primaryText: 'Build your own circuits',
+        description: "Build your own circuits",
+        thumbnail: circuit
+    },
+    {
+        name: "pendulum",
+        url:"https://phet.colorado.edu/sims/html/pendulum-lab/latest/pendulum-lab_en.html",
+        primaryText: 'Play with Pendulums',
+        description: "Discover how the period of a simple pendulum depends on the length, mass, gravity, and the amplitude of the swing.",
+        thumbnail: pendulum
+    },
+    {
+        name: "gravitation",
+        url: "https://phet.colorado.edu/sims/html/gravity-force-lab/latest/gravity-force-lab_en.html",
+        primaryText: 'Play with the gravitational force that two objects exert on each other',
+        description: "Play with the gravitational force that two objects exert on each other",
+        thumbnail: "https://phet.colorado.edu/sims/html/gravity-force-lab/latest/gravity-force-lab-600.png"
     },
 	{
         name: "Forces and Motion Basics",

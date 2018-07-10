@@ -21,7 +21,7 @@ class Rating extends Component {
         const userName = directory[0]
         const contentName = directory[1]
 
-        const APICALL = `https://api.joinoasys.org/${userName}/${contentName}/rate/${value}`;
+        const APICALL = `https://api.joinoasys.org/rate/${userName}/${contentName}/${value}`;
 
         fetch(APICALL, {
 		  method: 'POST'
@@ -44,7 +44,7 @@ class Rating extends Component {
 	      ratingElement = <Rate allowHalf value={this.state.value} disabled/>
 	    } else {
 	      completed = <h1>Completed! Thank you for playing</h1>;
-	      commented = <Comment/>
+	      commented = <Comment name={this.props.username}/>
 	      ratingElement = <Rate allowHalf onChange={this.handleChange} value={this.state.value}/>
 	    }
 

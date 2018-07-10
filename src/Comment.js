@@ -2,57 +2,79 @@ import React, {Component} from 'react';
 import { Button, Comment, Form, Header } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css';
 import SimpleComment from './SimpleComment'
-
-
-const CommentFormat = (
-    <Comment>
-      <Comment.Avatar src='https://oasys-space.nyc3.digitaloceanspaces.com/person.png' />
-      <Comment.Content>
-        <Comment.Author as='a'>Matt</Comment.Author>
-        <Comment.Metadata>
-          <div>Today at 5:42PM</div>
-        </Comment.Metadata>
-        <Comment.Text>How artistic!</Comment.Text>
-      </Comment.Content>
-    </Comment>
-)
-    
+import OrganizeComments from './OrganizeComments'
 
 class CommentSection extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          comments:[]
+          comments:[],
+          comment:'',
+          reply: '',
+          currentReply: '',
+          finalComments:[],
         }
-        var that = this;
-        const loc = window.location.href;
-      const directory = loc.split('/').filter(e => e.length > 0).slice(-2);
-      const contentName = directory[1];
-        var loadComments = 'https://api.joinoasys.org/1/'+contentName+'/comments';
-        fetch(loadComments, {
-            method: 'GET'
-        }).then(function (response) {
-            return response.json();
-        })
-        .then(function (myJson) {
-            console.log(myJson);
-            that.setState({comments: myJson});
 
-        });
+        if(!this.props.match){
+            var that = this;
+            const loc = window.location.href;
+            const directory = loc.split('/').filter(e => e.length > 0).slice(-2);
+            const contentName = directory[1];
+            var loadComments = 'https://api.joinoasys.org/comment/user/'+contentName;
+            fetch(loadComments, {
+                method: 'GET'
+            }).then(function (response) {
+                return response.json();
+            })
+            .then(function (myJson) {
+                console.log(myJson);
+                that.setState({comments: myJson});
+
+            });
+        }
+        else{
+            var that = this;
+            const contentName = this.props.match.params.contentId;
+            var loadComments = 'https://api.joinoasys.org/comment/user/'+contentName;
+            fetch(loadComments, {
+                method: 'GET'
+            }).then(function (response) {
+                return response.json();
+            })
+            .then(function (myJson) {
+                console.log(myJson);
+                that.setState({comments: myJson});
+
+            });
+        }
         
     }
 
-    onSubmit = () => {
+    onSubmitReply = (e,id) => {
 
-      const loc = window.location.href;
-      const directory = loc.split('/').filter(e => e.length > 0).slice(-2);
-      const contentName = directory[1];
-      const myUsername = "test User";
+      var parent = e;
+      var contentName = '';
 
-      var commentEndpoint = 'https://api.joinoasys.org/'+myUsername+'/'+contentName+'/comment';
+      if(!this.props.match){
+            const loc = window.location.href;
+            const directory = loc.split('/').filter(e => e.length > 0).slice(-2);
+            contentName = directory[1];
+      }
+      else{
+            contentName = this.props.match.params.contentId;
+      }
+
+      var myUsername = '';
+      this.props.name?
+      myUsername = this.props.name.displayName
+      : null
+
+      var commentEndpoint = 'https://api.joinoasys.org/comment/'+myUsername+'/'+contentName;
+      var currentTime = Date.now();
       var data = {
-        "time":"12321",
-        "comment":"test Comment",
+        "time":currentTime,
+        "comment":this.state.currentReply,
+        "parent": parent,
       }
 
       fetch(commentEndpoint, {
@@ -65,32 +87,139 @@ class CommentSection extends Component {
       .catch(error => console.error('Error:', error))
       .then(response => {
         console.log("success");
+        this.setState({
+          currentReply:''
+        });
+        this.handleChange();
 
         });
     }
 
-    handleChange = (value) => {
-        this.setState({value});
+    onSubmit = (e) => {
 
-        const loc = window.location.href;
-        const directory = loc.split('/').filter(e => e.length > 0).slice(-2);
-        const userName = directory[0]
-        const contentName = directory[1]
+      var contentName = '';
 
-        const APICALL = `https://api.joinoasys.org/${userName}/${contentName}/rate/${value}`;
+      if(!this.props.match){
+            const loc = window.location.href;
+            const directory = loc.split('/').filter(e => e.length > 0).slice(-2);
+            contentName = directory[1];
+      }
+      else{
+            contentName = this.props.match.params.contentId;
+      }
 
-        fetch(APICALL, {
-      method: 'POST'
-    }).then(function(response) {
-        console.log(response);
-        return response.json();
+
+
+      var myUsername = ''
+      this.props.name?
+      myUsername = this.props.name.displayName
+      : null
+
+      var commentEndpoint = 'https://api.joinoasys.org/comment/'+myUsername+'/'+contentName;
+      var currentTime = Date.now();
+      var data = {
+        "time":currentTime,
+        "comment":this.state.comment,
+      }
+
+      fetch(commentEndpoint, {
+        method: 'POST', 
+        body: JSON.stringify(data),
+        headers: new Headers({
+         'Content-Type': 'application/json',
+       })
+      }).then(res => res.json())
+      .catch(error => console.error('Error:', error))
+      .then(response => {
+        console.log("success");
+        this.setState({
+          comment:''
+        });
+        this.handleChange();
+
+        });
+    }
+
+    addComment = (event) => {
+
+      this.setState({
+        comment:event.target.value
       })
-      .then(function(myJson) {
-        console.log(myJson);
-      });
+    }
+
+    addReply = (event) => {
+
+      this.setState({
+        currentReply:event.target.value
+      })
+    }
+
+    someFunction(id){
+      this.setState({
+        reply:id
+      })
+
+    }
+
+    myReply = (id) => {
+      return(
+        <div>
+        <Comment.Actions>
+          <Button content='Reply' onClick={this.someFunction.bind(this, id)}/>
+        </Comment.Actions>
+        {this.state.reply==id
+          ?(
+            <Form reply>
+              <Form.TextArea value={this.state.currentReply} onChange={this.addReply.bind(this)}/>
+              <Button onClick={this.onSubmitReply.bind(this,id)} content='Add Reply' labelPosition='left' icon='edit' primary />
+            </Form>
+            )
+          :(null)
+        }
+        
+        </div>
+      )
+    }
+
+    handleChange = () => {
+
+        if(!this.props.match){
+            var that = this;
+            const loc = window.location.href;
+            const directory = loc.split('/').filter(e => e.length > 0).slice(-2);
+            const contentName = directory[1];
+            var loadComments = 'https://api.joinoasys.org/comment/user/'+contentName;
+            fetch(loadComments, {
+                method: 'GET'
+            }).then(function (response) {
+                return response.json();
+            })
+            .then(function (myJson) {
+                console.log(myJson);
+                that.setState({comments: myJson});
+
+            });
+        }
+        else{
+            var that = this;
+            const contentName = this.props.match.params.contentId;
+            var loadComments = 'https://api.joinoasys.org/comment/user/'+contentName;
+            fetch(loadComments, {
+                method: 'GET'
+            }).then(function (response) {
+                return response.json();
+            })
+            .then(function (myJson) {
+                console.log(myJson);
+                that.setState({comments: myJson});
+
+            });
+        }
 
 
     }
+
+    
 
     render() {
         return (
@@ -102,13 +231,12 @@ class CommentSection extends Component {
     {this.state.comments.length==0?
       (null)
       : (
-      this.state.comments.map((d,i) => < SimpleComment key={i} contentData={d}/>)
+      <OrganizeComments comments={this.state.comments} reply={this.myReply.bind(this)}/>
       )
     }
     
-
     <Form reply>
-      <Form.TextArea />
+      <Form.TextArea value={this.state.comment} onChange={this.addComment.bind(this)}/>
       <Button onClick={this.onSubmit.bind()} content='Add Reply' labelPosition='left' icon='edit' primary />
     </Form>
   </Comment.Group>
