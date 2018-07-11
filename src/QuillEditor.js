@@ -5,40 +5,71 @@ import PropTypes from 'prop-types';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+import katex from 'katex/dist/katex.js';
+import 'katex/dist/katex.min.css';
 import './ReactQuill.css';
 
 // see https://devarchy.com/react/library/react-quill
 const CustomButton = () => <span className="latexButton" />
 const CustomToolbar = () => (
   <div id="toolbar">
-    <select class="ql-size">
-        <option value="12px">Small</option>
-        <option selected value="18px">Medium</option>
-        <option value="24px">Large</option>
-        <option value="30px">Huge</option>
-    </select>
-    <select class="ql-font">
-      <option value="mirza" selected>Mirza</option>
-      <option value="roboto">Roboto</option>
-    </select>
-    <button className="ql-bold"></button>
-    <button className="ql-italic"></button>
-    <select className="ql-color">
-      <option value="red"></option>
-      <option value="green"></option>
-      <option value="blue"></option>
-      <option value="orange"></option>
-      <option value="violet"></option>
-      <option value="#d0d1d2"></option>
-      <option selected></option>
-    </select>    
-    <button className="ql-insertEquation">
-      <CustomButton />
-    </button>
+    <span class="ql-formats">
+      <select class="ql-size">
+          <option value="12px" id="fontsize1">Small</option>
+          <option selected value="18px" id="fontsize2">Medium</option>
+          <option value="24px" id="fontsize3">Large</option>
+          <option value="30px" id="fontsize4">Huge</option>
+      </select>
+      <select class="ql-font">
+        <option value="inconsolata" className="ql-font-inconsolata">Inconsolata</option>
+        <option value="mirza" selected className="ql-font-mirza">Mirza</option>
+        <option value="roboto" className="ql-font-roboto">Roboto</option>
+        <option value="sailec" className="ql-font-sailec">Sailec Light</option>
+        <option value="sofia" className="ql-font-sofia">Sofia Pro</option>
+        <option value="ubuntu" className="ql-font-ubuntu">Ubuntu</option>
+      </select>
+    </span>
+    <span class="ql-formats">
+      <button class="ql-bold"></button>
+      <button class="ql-italic"></button>
+      <button class="ql-underline"></button>
+      <button class="ql-strike"></button>
+    </span>
+    <span class="ql-formats">
+      <select class="ql-color"></select>
+      <select class="ql-background"></select>
+    </span>
+    <span class="ql-formats">
+      <button class="ql-script" value="sub"></button>
+      <button class="ql-script" value="super"></button>
+    </span>
+    <span class="ql-formats">
+      <button class="ql-clean"></button>
+    </span>
+    <br/>
+    <span class="ql-formats">
+      <button class="ql-list" value="ordered"></button>
+      <button class="ql-list" value="bullet"></button>
+      <button class="ql-indent" value="-1"></button>
+      <button class="ql-indent" value="+1"></button>
+    </span>
+    <span class="ql-formats">
+      <button class="ql-direction" value="rtl"></button>
+      <select class="ql-align"></select>
+    </span>
+    <span class="ql-formats">
+      <button class="ql-link"></button>
+      <button class="ql-image"></button>
+      <button class="ql-video"></button>
+      <button class="ql-formula"></button>
+    </span>
+    <span class="ql-formats">
+      <button className="ql-insertStar">
+        <CustomButton />
+      </button>
+    </span>
   </div>
 )
-
-
 
 function insertEquation () {
   const cursorPosition = this.quill.getSelection().index
@@ -52,8 +83,8 @@ class QuillEditor extends Component {
     super(props);
     this.onChange = this.props.onChange.bind(this);
 
-    let font = ReactQuill.Quill.import('formats/font'); // <<<< ReactQuill exports it
-    font.whitelist = ['mirza', 'roboto']; // allow ONLY these fonts and the default
+    let font = ReactQuill.Quill.import('formats/font');
+    font.whitelist = ['mirza', 'roboto', 'sofia', 'slabo', 'sailec', 'roboto', 'inconsolata', 'ubuntu'];
     ReactQuill.Quill.register(font, true);
 
     let fontSize = ReactQuill.Quill.import('attributors/style/size');

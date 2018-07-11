@@ -8,10 +8,6 @@
 	max-width: '400px';
 }
 
-.ql-insertEquation {
-	border: 1px solid black;
-}
-
 /* Set default font-family */
 #editor-container {
   font-family: "Mirza";
@@ -24,9 +20,22 @@
 #toolbar-container .ql-font span[data-label="Mirza"]::before {
   font-family: "Mirza";
 }
+#toolbar-container .ql-font span[data-label="Inconsolata"]::before {
+  font-family: "Inconsolata";
+}
+#toolbar-container .ql-font span[data-label="Sailec"]::before {
+  font-family: "Sailec";
+}
+#toolbar-container .ql-font span[data-label="Sofia"]::before {
+  font-family: "Sofia";
+}
 #toolbar-container .ql-font span[data-label="Roboto"]::before {
   font-family: "Roboto";
 }
+#toolbar-container .ql-font span[data-label="Ubuntu"]::before {
+  font-family: "Ubuntu";
+}
+
 
 /* Set content font-families */
 .ql-font-mirza {
@@ -34,4 +43,36 @@
 }
 .ql-font-roboto {
   font-family: "Roboto";
+}
+.ql-font-inconsolata {
+  font-family: "Inconsolata";
+}
+.ql-font-sailec {
+  font-family: "Sailec";
+}
+.ql-font-sofia {
+  font-family: "Sofia";
+}
+.ql-font-ubuntu {
+  font-family: "Ubuntu";
+}
+
+#fontsize1 {
+  font-size: 12px;
+}
+#fontsize2 {
+  font-size: 18px;
+}
+#fontsize3 {
+  font-size: 24px;
+}
+#fontsize4 {
+  font-size: 30px;
+}
+
+/* set quill video embed size */
+
+.ql-video {
+	width: 640px;
+	height: 480px;
 }

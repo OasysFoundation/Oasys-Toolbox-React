@@ -26,14 +26,8 @@ class ContentView extends Component {
             timing: [],
             lastTime: new Date(),
             startTime: new Date(),
-            endTime: null,
-            userID: '',
+            endTime: null
         };
-
-        this.props.authUser
-        ?this.setState({userID:this.props.authUser.uid})
-        :null
-
         console.log(match, props, "MAATCH")
 
         const loc = window.location.href;
@@ -41,6 +35,15 @@ class ContentView extends Component {
         this.userName = directory[0];
         this.contentName = directory[1];
 
+        // console.log(this.props, "MATCH")
+        // const userName = this.props.match.params.username;
+        // const contentName = this.props.match.params.contentname;
+        
+        firebase.auth.onAuthStateChanged(authUser => {
+            this.setState({
+                userID: authUser.uid
+            })
+        });
 
         const APICALL = `https://api.joinoasys.org/user/${this.userName}/${this.contentName}/`;
 
@@ -154,6 +157,7 @@ class ContentView extends Component {
                       index={this.state.slideIdx}
                       onChangeIndex={this.handleStepChange.bind(this)}
                       enableMouseEvents
+                      style={{width: '640px'}}
                     >
                     {content.data.map(slide => (
                         this.whatRenderer(slide)
