@@ -315,12 +315,15 @@ class Editor extends Component {
         for (let i=len-1; i>=0; i--) {
           that.onRemoveSlide(i);
         }
-        console.log(myJson)
+        
         if (myJson.length > 0) {
           if (myJson[0].data === undefined || !Array.isArray(myJson[0].data)) {
             console.log("this is not a correct data format")
           } else {
             that.insertMultipleSlides(myJson[0].data);
+            that.setState({
+              title: myJson[0].contentId
+            });
           }
         }
       });
