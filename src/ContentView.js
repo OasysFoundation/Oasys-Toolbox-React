@@ -155,6 +155,7 @@ class ContentView extends Component {
 
         return (
             <div>
+            <center>
                 <SwipeableViews
                       axis={'x'}
                       index={this.state.slideIdx}
@@ -184,6 +185,7 @@ class ContentView extends Component {
                         </Button>
                       }
                     />
+            </center>
             </div>
         );
     }
