@@ -7,3 +7,31 @@
 	height: '70vh';
 	max-width: '400px';
 }
+
+.ql-insertEquation {
+	border: 1px solid black;
+}
+
+/* Set default font-family */
+#editor-container {
+  font-family: "Mirza";
+}
+
+/* Set dropdown font-families */
+#toolbar-container .ql-font span[data-label="Aref Ruqaa"]::before {
+  font-family: "Aref Ruqaa";
+}
+#toolbar-container .ql-font span[data-label="Mirza"]::before {
+  font-family: "Mirza";
+}
+#toolbar-container .ql-font span[data-label="Roboto"]::before {
+  font-family: "Roboto";
+}
+
+/* Set content font-families */
+.ql-font-mirza {
+  font-family: "Mirza";
+}
+.ql-font-roboto {
+  font-family: "Roboto";
+}

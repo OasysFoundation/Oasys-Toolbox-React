@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import {Line, Bar} from 'react-chartjs-2';
 import Typography from '@material-ui/core/Typography';
+import d3 from 'd3';
 import taucharts from 'taucharts';
 import './taucharts.min.css';
 
-const CORRECT_ANSWER_DIV = "<div style='width:10px; height:10px; background-color: #00aa00; border: 1px solid #dddddd; float:left'></div>";
-const WRONG_ANSWER_DIV   = "<div style='width:10px; height:10px; background-color: #aa0000; border: 1px solid #dddddd; float:left'></div>";
+const CORRECT_ANSWER_DIV = "<div style='width:10px; height:10px; background-color: #00aa00; border: 1px solid #dddddd; float:left;'></div>";
+const WRONG_ANSWER_DIV   = "<div style='width:10px; height:10px; background-color: #aa0000; border: 1px solid #dddddd; float:left;'></div>";
 
 
 function generateFakeSlideTimes(n) {
@@ -66,23 +66,12 @@ function wrapTiming(x) {
             a.push({slide: i, time: x[i].t});
         }
     }
-    console.log(a)
     return a;
-}
-
-function getBarOptions() {
-    return {
-        maintainAspectRatio: false, 
-        title: {display: false},
-        scales: {xAxes: [{labelString: 'slide number'}],
-                 yAxes: [{labelString: 'time [s]'}]}
-    }
 }
 
 class DataView extends Component {
 
     constructor(props) {
-        console.log(taucharts)
         super(props);
         this.state = {
             allContentsForUser: generateFakeData(),
@@ -97,7 +86,11 @@ class DataView extends Component {
                 data: timing,
                 type: 'bar',
                 x: 'slide',
-                y: 'time'
+                y: 'time',
+                dimensions: {
+                    slide    : { type: 'measure', scale: 'linear' },
+                    time    : { type: 'measure', scale: 'linear' }
+                }
             });
             chart.renderTo('#bar'+i);
         }
@@ -144,16 +137,12 @@ class DataView extends Component {
                         {"duration: "+ padNumber(slide.duration.getHours()-1) + "h:" + padNumber(slide.duration.getMinutes()) + "m:" + padNumber(slide.duration.getSeconds()) + "s"}
                     </Typography>
                     <Typography gutterBottom component="p">
-                        {"quiz: " + slide.quizAnswers.map(answer => answer.toString())}
+                        {"Quiz answers: "}
                     </Typography>
-                    <div id={"quiz"+i}></div><br/>
-                    <Typography gutterBottom component="p">
-                        {"slideTiming: " + slide.slideTimings.map(x => "slide " + x.i.toString() + "(" + padNumber(Math.floor(x.t / 60)) + ":" + padNumber(Math.ceil(x.t % 60)) + ")")}
-                    </Typography>
+                    <div id={"quiz"+i}></div>
                     <div id={"bar"+i}></div>
                 </div>
              ))}
-               <Line data={data} options={options} width="600" height="250"/>
             </div>
         );
     }
