@@ -12,16 +12,14 @@ import 'katex/dist/katex.min.css';
 import "highlight.js/styles/atom-one-light.css";
 import './ReactQuill.css';
 
-
-
 // see https://devarchy.com/react/library/react-quill
 const CustomButton = () => <span className="latexButton" />
 const CustomToolbar = () => (
   <div id="toolbar">
-    <span class="ql-formats">
-      <select class="ql-size">
+    <span className="ql-formats">
+      <select className="ql-size">
       </select>
-      <select class="ql-font">
+      <select className="ql-font">
         <option value="inconsolata" className="ql-font-inconsolata">Inconsolata</option>
         <option value="mirza" selected className="ql-font-mirza">Mirza</option>
         <option value="roboto" className="ql-font-roboto">Roboto</option>
@@ -29,40 +27,40 @@ const CustomToolbar = () => (
         <option value="sofia" className="ql-font-sofia">Sofia Pro</option>
         <option value="ubuntu" className="ql-font-ubuntu">Ubuntu</option>
       </select>
-      <span class="ql-formats">
-        <button class="ql-clean"></button>
+      <span className="ql-formats">
+        <button className="ql-clean"></button>
       </span>
     </span>
     <br/>
-    <span class="ql-formats">
-      <button class="ql-bold"></button>
-      <button class="ql-italic"></button>
-      <button class="ql-underline"></button>
-      <button class="ql-strike"></button>
+    <span className="ql-formats">
+      <button className="ql-bold"></button>
+      <button className="ql-italic"></button>
+      <button className="ql-underline"></button>
+      <button className="ql-strike"></button>
     </span>
-    <span class="ql-formats">
-      <select class="ql-color"></select>
-      <select class="ql-background"></select>
+    <span className="ql-formats">
+      <select className="ql-color"></select>
+      <select className="ql-background"></select>
     </span>
-    <span class="ql-formats">
-      <button class="ql-script" value="sub"></button>
-      <button class="ql-script" value="super"></button>
+    <span className="ql-formats">
+      <button className="ql-script" value="sub"></button>
+      <button className="ql-script" value="super"></button>
     </span>
     <br/>
-    <span class="ql-formats">
-      <button class="ql-list" value="ordered"></button>
-      <button class="ql-list" value="bullet"></button>
-      <select class="ql-align"></select>
-      <button class="ql-indent" value="-1"></button>
-      <button class="ql-indent" value="+1"></button>
+    <span className="ql-formats">
+      <button className="ql-list" value="ordered"></button>
+      <button className="ql-list" value="bullet"></button>
+      <select className="ql-align"></select>
+      <button className="ql-indent" value="-1"></button>
+      <button className="ql-indent" value="+1"></button>
     </span>
-    <span class="ql-formats">
-      <button class="ql-link"></button>
-      <button class="ql-image"></button>
-      <button class="ql-video"></button>
-      <button class="ql-formula"></button>
+    <span className="ql-formats">
+      <button className="ql-link"></button>
+      <button className="ql-image"></button>
+      <button className="ql-video"></button>
+      <button className="ql-formula"></button>
     </span>
-    <span class="ql-formats">
+    <span className="ql-formats">
       <button className="ql-insertStar">
         <CustomButton />
       </button>
@@ -85,14 +83,7 @@ class QuillEditor extends Component {
     let font = ReactQuill.Quill.import('formats/font');
     font.whitelist = ['mirza', 'roboto', 'sofia', 'slabo', 'sailec', 'roboto', 'inconsolata', 'ubuntu'];
     ReactQuill.Quill.register(font, true);
-
-    let fontSize = ReactQuill.Quill.import('attributors/style/size');
-    fontSize.whitelist = ['12px', '18px', '24px', '30px'];
-    ReactQuill.Quill.register(fontSize, true);
-
-    let formula = ReactQuill.Quill.import('formats/formula');
-    font.whitelist = ['formula'];
-    ReactQuill.Quill.register(formula, true);
+    
   }
 
   componentDidMount(){
@@ -104,6 +95,7 @@ class QuillEditor extends Component {
           <Card style={{height: '70vh', 'max-width': '600px'}}>
             <CardContent>
               <CustomToolbar />
+              <hr/>
               <ReactQuill value={this.props.slideContent}
                         onChange={this.onChange}
                         style={{height: '60vh'}}

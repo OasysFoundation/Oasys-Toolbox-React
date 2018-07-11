@@ -13,29 +13,6 @@
   font-family: "Mirza";
 }
 
-/* Set dropdown font-families */
-#toolbar-container .ql-font span[data-label="Aref Ruqaa"]::before {
-  font-family: "Aref Ruqaa";
-}
-#toolbar-container .ql-font span[data-label="Mirza"]::before {
-  font-family: "Mirza";
-}
-#toolbar-container .ql-font span[data-label="Inconsolata"]::before {
-  font-family: "Inconsolata";
-}
-#toolbar-container .ql-font span[data-label="Sailec"]::before {
-  font-family: "Sailec";
-}
-#toolbar-container .ql-font span[data-label="Sofia"]::before {
-  font-family: "Sofia";
-}
-#toolbar-container .ql-font span[data-label="Roboto"]::before {
-  font-family: "Roboto";
-}
-#toolbar-container .ql-font span[data-label="Ubuntu"]::before {
-  font-family: "Ubuntu";
-}
-
 
 /* Set content font-families */
 .ql-font-mirza {
@@ -55,19 +32,6 @@
 }
 .ql-font-ubuntu {
   font-family: "Ubuntu";
-}
-
-#fontsize1 {
-  font-size: 12px;
-}
-#fontsize2 {
-  font-size: 18px;
-}
-#fontsize3 {
-  font-size: 24px;
-}
-#fontsize4 {
-  font-size: 30px;
 }
 
 /* set quill video embed size */
