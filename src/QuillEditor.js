@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import ReactQuill from 'react-quill';
 import Quill from 'quill';
 import PropTypes from 'prop-types';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import katex from 'katex/dist/katex.js';
+import katex from 'katex';
+
 import 'katex/dist/katex.min.css';
+import "highlight.js/styles/atom-one-light.css";
 import './ReactQuill.css';
+
+
 
 // see https://devarchy.com/react/library/react-quill
 const CustomButton = () => <span className="latexButton" />
@@ -15,10 +20,6 @@ const CustomToolbar = () => (
   <div id="toolbar">
     <span class="ql-formats">
       <select class="ql-size">
-          <option value="12px" id="fontsize1">Small</option>
-          <option selected value="18px" id="fontsize2">Medium</option>
-          <option value="24px" id="fontsize3">Large</option>
-          <option value="30px" id="fontsize4">Huge</option>
       </select>
       <select class="ql-font">
         <option value="inconsolata" className="ql-font-inconsolata">Inconsolata</option>
@@ -28,7 +29,11 @@ const CustomToolbar = () => (
         <option value="sofia" className="ql-font-sofia">Sofia Pro</option>
         <option value="ubuntu" className="ql-font-ubuntu">Ubuntu</option>
       </select>
+      <span class="ql-formats">
+        <button class="ql-clean"></button>
+      </span>
     </span>
+    <br/>
     <span class="ql-formats">
       <button class="ql-bold"></button>
       <button class="ql-italic"></button>
@@ -43,19 +48,13 @@ const CustomToolbar = () => (
       <button class="ql-script" value="sub"></button>
       <button class="ql-script" value="super"></button>
     </span>
-    <span class="ql-formats">
-      <button class="ql-clean"></button>
-    </span>
     <br/>
     <span class="ql-formats">
       <button class="ql-list" value="ordered"></button>
       <button class="ql-list" value="bullet"></button>
+      <select class="ql-align"></select>
       <button class="ql-indent" value="-1"></button>
       <button class="ql-indent" value="+1"></button>
-    </span>
-    <span class="ql-formats">
-      <button class="ql-direction" value="rtl"></button>
-      <select class="ql-align"></select>
     </span>
     <span class="ql-formats">
       <button class="ql-link"></button>
@@ -90,6 +89,14 @@ class QuillEditor extends Component {
     let fontSize = ReactQuill.Quill.import('attributors/style/size');
     fontSize.whitelist = ['12px', '18px', '24px', '30px'];
     ReactQuill.Quill.register(fontSize, true);
+
+    let formula = ReactQuill.Quill.import('formats/formula');
+    font.whitelist = ['formula'];
+    ReactQuill.Quill.register(formula, true);
+  }
+
+  componentDidMount(){
+    window.katex = katex;
   }
 
 	render() {
