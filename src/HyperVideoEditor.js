@@ -23,7 +23,8 @@ class PlyrWrapper extends Component {
 	    	currentTime: 0,
 	    	currentQuiz: null,
 	    	quizzes: this.props.quizzes,
-	    	videoURL: this.props.videoURL
+	    	videoURL: this.props.videoURL,
+	    	preview: this.props.preview
 	    }
 	}
 
@@ -144,12 +145,20 @@ class PlyrWrapper extends Component {
 			      clickToPause= {false}
 			      controls= {['play', 'progress', 'current-time', 'mute', 'volume', 'captions', 'settings', 'pip', 'airplay', 'fullscreen']}
 			    />
+			    </center>
 
-			    <Button variant="raised" onClick={this.addNewQuizAtCurrentTime.bind(this)} style={{color: 'black'}} >
-		          Insert Quiz at {Math.round(this.state.currentTime)} seconds
-		      	</Button>
-	 	   		</center>
-	 	   		<HorizontalSlidePicker quizzes={this.state.quizzes} onChange={this.onChange.bind(this)} />
+			    {this.state.preview? 
+			    	<div />
+			    	:
+			    	<div>
+			    	<center>
+			    	<Button variant="raised" onClick={this.addNewQuizAtCurrentTime.bind(this)} style={{color: 'black'}} >
+			          Insert Quiz at {Math.round(this.state.currentTime)} seconds
+			      	</Button>
+		 	   		</center>
+		 	   		<HorizontalSlidePicker quizzes={this.state.quizzes} onChange={this.onChange.bind(this)} />
+		 	   		</div>
+			    }
 		 	</div>
 		 )
 	}
@@ -163,7 +172,8 @@ class HyperVideoEditor extends Component {
 	    super(props);
 	    this.state = {
 	    	videoURL: this.props.value.videoURL,
-	    	quizzes: this.props.value.quizzes
+	    	quizzes: this.props.value.quizzes,
+	    	preview: this.props.preview
 	    }
 	    this.onChange = this.onChange.bind(this);
 	}
@@ -225,7 +235,7 @@ class HyperVideoEditor extends Component {
  	   return (
  	   	<div id='hyperVideoEditor'>
  	   	{this.state.videoURL ? 
- 	   		<PlyrWrapper onChange={this.onChange} quizzes={this.state.quizzes} videoURL={this.state.videoURL} />
+ 	   		<PlyrWrapper onChange={this.onChange} quizzes={this.state.quizzes} videoURL={this.state.videoURL} preview={this.state.preview}/>
  	   		:
  	   		<TextField
               id="name"

@@ -13,6 +13,7 @@ import NotFoundPage from './NotFoundPage'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import GameView from "./GameView"
 import { firebase } from './firebase';
+import HyperVideoEditor from './HyperVideoEditor'
 
 
 
@@ -75,6 +76,8 @@ class ContentView extends Component {
                 return <QuizPreview content={slide.content}/>
             case globals.GAME:
                 return <GameView url={slide.content.url}/>
+            case globals.HYPERVIDEO:
+                return <HyperVideoEditor value={slide.content} preview={true}/>
             default:
                 return <div>not yet implemented ☹️</div>
         }
