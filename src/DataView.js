@@ -7,6 +7,9 @@ import taucharts from 'taucharts';
 //import 'taucharts/css/tauCharts.css';
 import './taucharts.min.css';
 
+// TODO: time spent on platform per day
+// TODO: what are the last few contents for which I did not get all answers right
+
 const styles = {
   paperWrap:{
     display: 'flex',
