@@ -6,11 +6,13 @@ import PropTypes from 'prop-types';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import katex from 'katex/dist/katex.js';
+import katex from 'katex';
 
 import 'katex/dist/katex.min.css';
 import "highlight.js/styles/atom-one-light.css";
 import './ReactQuill.css';
+
+
 
 // see https://devarchy.com/react/library/react-quill
 const CustomButton = () => <span className="latexButton" />
@@ -87,6 +89,14 @@ class QuillEditor extends Component {
     let fontSize = ReactQuill.Quill.import('attributors/style/size');
     fontSize.whitelist = ['12px', '18px', '24px', '30px'];
     ReactQuill.Quill.register(fontSize, true);
+
+    let formula = ReactQuill.Quill.import('formats/formula');
+    font.whitelist = ['formula'];
+    ReactQuill.Quill.register(formula, true);
+  }
+
+  componentDidMount(){
+    window.katex = katex;
   }
 
 	render() {
