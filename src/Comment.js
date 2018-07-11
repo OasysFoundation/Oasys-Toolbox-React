@@ -13,14 +13,22 @@ class CommentSection extends Component {
           reply: '',
           currentReply: '',
           finalComments:[],
+          slideLength:this.props.slideLength,
         }
+        this.slideNumber='';
+
+        if((typeof(this.props.slideNumber)=="number")&&((this.props.slideNumber)==this.props.slideLength))
+          this.slideNumber = "end"
+        else
+          this.slideNumber=this.props.slideNumber;
+
 
         if(!this.props.match){
             var that = this;
             const loc = window.location.href;
             const directory = loc.split('/').filter(e => e.length > 0).slice(-2);
             const contentName = directory[1];
-            var loadComments = 'https://api.joinoasys.org/comment/user/'+contentName;
+            var loadComments = 'https://api.joinoasys.org/comment/user/'+contentName+'/'+this.slideNumber;
             fetch(loadComments, {
                 method: 'GET'
             }).then(function (response) {
@@ -35,7 +43,7 @@ class CommentSection extends Component {
         else{
             var that = this;
             const contentName = this.props.match.params.contentId;
-            var loadComments = 'https://api.joinoasys.org/comment/user/'+contentName;
+            var loadComments = 'https://api.joinoasys.org/comment/user/'+contentName+'/'+this.slideNumber;
             fetch(loadComments, {
                 method: 'GET'
             }).then(function (response) {
@@ -71,10 +79,13 @@ class CommentSection extends Component {
 
       var commentEndpoint = 'https://api.joinoasys.org/comment/'+myUsername+'/'+contentName;
       var currentTime = Date.now();
+      if(typeof(this.slideNumber)=="number")
+        this.slideNumber = this.slideNumber.toString()
       var data = {
         "time":currentTime,
         "comment":this.state.currentReply,
         "parent": parent,
+        "slideNumber" : this.slideNumber,
       }
 
       fetch(commentEndpoint, {
@@ -117,9 +128,12 @@ class CommentSection extends Component {
 
       var commentEndpoint = 'https://api.joinoasys.org/comment/'+myUsername+'/'+contentName;
       var currentTime = Date.now();
+      if(typeof(this.slideNumber)=="number")
+        this.slideNumber = this.slideNumber.toString()
       var data = {
         "time":currentTime,
         "comment":this.state.comment,
+        "slideNumber" : this.slideNumber,
       }
 
       fetch(commentEndpoint, {
@@ -188,7 +202,7 @@ class CommentSection extends Component {
             const loc = window.location.href;
             const directory = loc.split('/').filter(e => e.length > 0).slice(-2);
             const contentName = directory[1];
-            var loadComments = 'https://api.joinoasys.org/comment/user/'+contentName;
+            var loadComments = 'https://api.joinoasys.org/comment/user/'+contentName+'/'+this.slideNumber;
             fetch(loadComments, {
                 method: 'GET'
             }).then(function (response) {
@@ -203,7 +217,7 @@ class CommentSection extends Component {
         else{
             var that = this;
             const contentName = this.props.match.params.contentId;
-            var loadComments = 'https://api.joinoasys.org/comment/user/'+contentName;
+            var loadComments = 'https://api.joinoasys.org/comment/user/'+contentName+'/'+this.slideNumber;
             fetch(loadComments, {
                 method: 'GET'
             }).then(function (response) {
