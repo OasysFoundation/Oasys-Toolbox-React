@@ -28,6 +28,14 @@ class PlyrWrapper extends Component {
 	    }
 	}
 
+	componentWillReceiveProps(nextProps) {
+		this.setState({
+			quizzes: nextProps.quizzes,
+	    	videoURL: nextProps.videoURL,
+	    	preview: nextProps.preview
+		});
+	}
+
 	onCompletedQuiz() {
 		plyr.play();
 	}
@@ -179,12 +187,10 @@ class HyperVideoEditor extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		console.log("componentDidReceiveProps");
-		console.log(nextProps);
-		this.state = {
+		this.setState({
 	    	videoURL: nextProps.value.videoURL,
 	    	quizzes: nextProps.value.quizzes
-	    }
+	    });
 	}
 
 	didChangeVideoURL(textfield) {
