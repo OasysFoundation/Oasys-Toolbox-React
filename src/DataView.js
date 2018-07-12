@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import { firebase } from './firebase';
 //import d3 from 'd3';
 import taucharts from 'taucharts';
 //import TauChart from 'taucharts-react';
@@ -118,8 +119,28 @@ class DataView extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            data: null,
             allContentsForUser: generateFakeData(),
-        };
+        }
+        this.loadContent();
+
+    }
+
+    loadContent() {
+        const loadContent = 'https://api.joinoasys.org/getAllContentsForUser/' + this.props.authUser.displayName;
+        console.log(loadContent)
+        const that = this;
+
+        fetch(loadContent, {
+            method: 'GET'
+        }).then(function (response) {
+            return response.json();
+        })
+        .then(function (myJson) {
+            console.log(myJson);
+            that.setState({data: myJson});
+
+        });
     }
 
     renderBarChart() {

@@ -8,6 +8,20 @@ import katex from 'katex';
 
 //next / previous Buttons
 
-const Preview = (props) => <ReactQuill value={props.content || "no content"} readOnly={true}  theme={null}/>;
+    
+
+class Preview extends Component {
+    constructor(props) {
+    	super(props)
+    }
+
+    componentDidMount() {
+        window.katex = katex;
+    }
+
+    render(){
+    	return (<ReactQuill value={this.props.content || "no content"} readOnly={true}  theme={null}/>)
+    }
+}
 
 export default Preview;
