@@ -74,7 +74,7 @@ class ContentView extends Component {
 
     slideCount(increment = 0) {
         const newIdx = this.state.slideIdx + increment;
-        if (newIdx < 0 || newIdx > this.state.content.length) {
+        if (newIdx < 0 || newIdx > this.state.content.data.length) {
             return
         }
         this.setState({slideIdx: newIdx})
@@ -181,7 +181,7 @@ class ContentView extends Component {
         let idx = this.state.slideIdx+1;
         this.updateTiming();
         this.setState({ slideIdx: idx });
-        if (idx === this.state.content.length - 1) {
+        if (idx === this.state.content.data.length - 1) {
             let endTime = new Date();
             this.setState({ endTime: endTime });
             this.completeFetch(this.state.timing, this.state.startTime, endTime);
@@ -193,7 +193,7 @@ class ContentView extends Component {
     handlePrevious() {
         this.updateTiming();
         this.setState({
-            slideIdx: this.state.slideIdx-1
+            slideIdx: this.state.slideIdx - 1,
         });
         this.completeFetch(this.state.timing, this.state.startTime, null);
     }
@@ -232,7 +232,7 @@ class ContentView extends Component {
                     <MobileStepper
                       steps={content.data.length + 1}
                       activeStep={this.state.slideIdx}
-                      style = {{position: 'relative', bottom: '0', width: '100%', minHeight: 12 + "vh"}}
+                      style = {{position: 'fixed', bottom: '0', width: '100%', minHeight: 12 + "vh"}}
                       nextButton={
                         <Button size="large" style={this.state.slideIdx === content.data.length ? null : buttonStyle} onClick={this.handleNext.bind(this)} disabled={this.state.slideIdx === content.data.length}>
                           Next

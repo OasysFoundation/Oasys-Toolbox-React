@@ -11,6 +11,7 @@ import katex from 'katex';
 import 'katex/dist/katex.min.css';
 import "highlight.js/styles/atom-one-light.css";
 import './ReactQuill.css';
+import graphIcon from './icons/graph.jpg';
 import d3 from "d3"
 
 
@@ -52,11 +53,14 @@ Quill.register(GraphBlot);
 
 
 // see https://devarchy.com/react/library/react-quill
-const CustomButton = () => <span className="latexButton" />
 const CustomToolbar = () => (
-  <div id="toolbar">
+  <div id="toolbar-quill">
     <span className="ql-formats">
       <select className="ql-size">
+          <option value="12px">Small</option>
+          <option value="16px">Normal</option>
+          <option value="22px">Large</option>
+          <option value="30px">Huge</option>
       </select>
       <select className="ql-font">
         <option value="inconsolata" className="ql-font-inconsolata">Inconsolata</option>
@@ -98,12 +102,7 @@ const CustomToolbar = () => (
       <button className="ql-image"></button>
       <button className="ql-video"></button>
       <button className="ql-formula"></button>
-      <button class="ui button" id="graph-button">Insert Graph</button>
-    </span>
-    <span className="ql-formats">
-      <button className="ql-insertGraph">
-        <CustomButton />
-      </button>
+      <button class="ui button" id="graph-button"><img src={graphIcon} width={30}/></button>
     </span>
 
   </div>
@@ -125,6 +124,10 @@ class QuillEditor extends Component {
     font.whitelist = ['mirza', 'roboto', 'sofia', 'slabo', 'sailec', 'roboto', 'inconsolata', 'ubuntu'];
     ReactQuill.Quill.register(font, true);
 
+    let fontSize = ReactQuill.Quill.import('attributors/style/size');
+    fontSize.whitelist =  ['12px', '16px', '22px', '30px', 'small', 'normal', 'large', 'huge'];
+    ReactQuill.Quill.register(fontSize, true);
+
   }
 
   componentDidMount() {
@@ -144,8 +147,8 @@ class QuillEditor extends Component {
   }
 
 	render() {
-		return (<div>
-          <Card style={{height: '70vh', 'max-width': '600px'}}>
+		return (
+          <Card style={{height: '70vh', marginLeft: "2em", marginRight: '2em', padding: '1rem'}}>
             <CardContent id='quill-container'>
               <CustomToolbar />
               <hr/>
@@ -158,15 +161,14 @@ class QuillEditor extends Component {
                   bounds={'#quill-container'}
               /> 
             </CardContent>
-          </Card>
-        </div>)
+          </Card>)
 	}
 }
 
 // this needs to be defined after the QuillEditor Component
 QuillEditor.modules = {
     toolbar: {
-      container: "#toolbar",
+      container: "#toolbar-quill",
       handlers: {
         "insertGraph": insertGraph,
       }

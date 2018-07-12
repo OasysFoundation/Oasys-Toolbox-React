@@ -5,30 +5,24 @@ import gameMetaData from "./gameMetaData"
 import globals from "./globals"
 import Tooltip from '@material-ui/core/Tooltip'
 import TextField from '@material-ui/core/TextField';
+import {buttonGradientCSS} from './stylings';
+import Card from '@material-ui/core/Card';
+
 
 class GameEdit extends Component {
     constructor({location}, props) {
         super();
         this.onChooseGame = this.onChooseGame.bind(this);
         this.submitNewGame = this.submitNewGame.bind(this);
-        this.state = {
-            chosen: !!props.value
-        }
         this.textInput = React.createRef();
 
+        this.state = {
+            isChoosing: false
+        }
     }
-
-    componentWillReceiveProps(nextProps) {
-        this.setState({
-            chosen: !!nextProps.value
-        })
-    }
-
     onChooseGame(game) {
-        this.setState({
-            chosen: true
-        }, () => this.props.onChange(game, {type: globals.GAME}))
-
+        this.setState({isChoosing: false});
+        this.props.onChange(game, {type: globals.GAME})
     }
 
     handleTryOut() {
@@ -51,17 +45,18 @@ class GameEdit extends Component {
         //set Ratios of Thumbnail
         const w = window.innerWidth * 0.5;
         const h = w / 4 * 2.5;
-
+        const that  = this;
         return (
+            <Card style={{marginLeft: "2em", marginRight: '2em', padding: '1rem'}}>
             <div id='gameRenderer'>
-                {this.state.chosen ?
+                {this.props.value && !that.state.isChoosing ?
                     (<section>
-                        <Button variant="flat" color="primary" onClick={() => this.setState({chosen: false})}> Choose
+                        <Button style={buttonGradientCSS} variant="flat" color="primary" onClick={() => that.setState({isChoosing: true})}> Choose
                             Different Game </Button>
-                        <img src={this.props.value.thumbnail}
+                            <img src={this.props.value ? this.props.value.thumbnail : ""}
                              style={{width: this.props.width || w, height: this.props.height || h}}/>
-                        <figcaption style={{padding: 1 + "rem"}}>{this.props.value.description}</figcaption>
-                        <Button variant="flat" color="primary" onClick={this.handleTryOut.bind(this)}> Try Out </Button>
+                        <figcaption style={{padding: 1 + "rem"}}>{this.props.value ? this.props.value.description : ""}</figcaption>
+                        <Button style={buttonGradientCSS} variant="flat" color="primary" onClick={this.handleTryOut.bind(this)}> Try Out </Button>
                     </section>)
 
                     :
@@ -75,12 +70,13 @@ class GameEdit extends Component {
                         {/*/>*/}
                         <input
                             ref={this.textInput} label="...add URL to embed your own Simulation" />
-                        <Button variant="flat" color="primary" onClick={this.submitNewGame}>Submit</Button>
+                        <Button style={buttonGradientCSS} variant="flat" color="primary" onClick={this.submitNewGame}>Submit</Button>
 
                         <ChooseGameGrid choose={this.onChooseGame}/>
                     </div>)
                 }
             </div>
+            </Card>
         )
     }
 }

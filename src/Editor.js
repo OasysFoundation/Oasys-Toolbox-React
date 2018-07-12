@@ -98,9 +98,9 @@ class Editor extends Component {
 
     onAddNewGame(content = null) {
         let slides = this.state.slides;
-        if (content===null){
-          content = gameMetaData[0];
-        }
+        // if (content===null){
+        //   content = gameMetaData[0];
+        // }
         slides.push(createSlide("Game ", Math.random().toString(36), content, glb.GAME));
         const newSlideIndex = slides.length -1;
         this.setState({
@@ -373,7 +373,7 @@ class Editor extends Component {
                                onChangedSlide = {this.onChangedSlide}
                                onRemoveSlide = {this.onRemoveSlide}   />
         </Grid>
-        <Grid item xs={7}>
+        <Grid item xs={9}>
             <SlideEditor slide = {this.state.slides[this.state.selectedSlideIndex]}
                          slideType = {this.state.currSlideType}
                          onChange = {this.onEditorChange.bind(this)} />
