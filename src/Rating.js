@@ -47,28 +47,23 @@ class Rating extends Component {
     }
 
     render() {
-    	var completed, ratingElement,commented;
-    	if (this.state.preview) {
-	      completed = null;
-	      commented = null;
-	      ratingElement = <Rate allowHalf value={this.state.value} disabled/>
-	    } else {
-	      completed = <div><p>  Please take a moment to give <i>{this.state.username}</i> some feedback for <i>{this.state.contentname}</i>.<br/><br/>Tell us more about what you learned, how much you learned, and how you liked the content you interacted with.</p></div>;
-	      commented = <Comment name={this.props.username} slideNumber="end"/>
-	      ratingElement = <Rate allowHalf onChange={this.handleChange} value={this.state.value}/>
-	    }
-
         return (
-            <div style={{marginTop:'20px', textAlign:'left'}}>
-                <center style={{marginBottom:'40px'}}>
-                <DoneIcon color="secondary" style={{ fontSize: '100px' }}/>
-                <h1>Completed</h1> 
-                </center>
-                {completed}
-                <center style={{marginBottom:'40px', marginTop:'30px'}}>
-                {ratingElement}
-                </center>
-                {commented}
+            <div>
+            {this.state.preview? (
+                <Rate allowHalf value={this.state.value} disabled/>
+                ) : (
+                <div style={{marginTop:'20px', textAlign:'left'}}>
+                    <center style={{marginBottom:'40px'}}>
+                    <DoneIcon color="secondary" style={{ fontSize: '100px' }}/>
+                    <h1>Completed</h1> 
+                    </center>
+                    <div><p>  Please take a moment to give <i>{this.state.username}</i> some feedback for <i>{this.state.contentname}</i>.<br/><br/>Tell us more about what you learned, how much you learned, and how you liked the content you interacted with.</p></div>
+                    <center style={{marginBottom:'40px', marginTop:'30px'}}>
+                    <Rate allowHalf onChange={this.handleChange} value={this.state.value}/>
+                    </center>
+                    <Comment name={this.props.username} slideNumber="end"/>
+                </div>
+                )}
             </div>
         )
     }
