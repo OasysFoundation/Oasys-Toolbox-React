@@ -148,7 +148,7 @@ class QuillEditor extends Component {
 	render() {
 		return (<div>
           <Card style={{height: '70vh', 'max-width': '600px'}}>
-            <CardContent>
+            <CardContent id='quill-container'>
               <CustomToolbar />
               <hr/>
               <ReactQuill
@@ -157,7 +157,8 @@ class QuillEditor extends Component {
                   ref="reactQuill"
                   style={{height: '60vh'}}
                   modules={QuillEditor.modules}
-                          /> 
+                  bounds={'#quill-container'}
+              /> 
             </CardContent>
           </Card>
         </div>)
