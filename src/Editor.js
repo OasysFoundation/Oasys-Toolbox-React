@@ -199,21 +199,22 @@ class Editor extends Component {
       console.log(" SLIDE ", slides[this.state.selectedSlideIndex])
       const slide = slides[that.state.selectedSlideIndex];
 
-
+      let canvasWidth = 640;
+      let canvasHeight = 480;
       if (this.state.selectedSlideIndex < 0 || this.state.selectedSlideIndex === undefined) {
-      return;
-    } else if (slides[this.state.selectedSlideIndex].type === glb.QUILL) {
-      elem = document.querySelector(".ql-editor");
-    } else if (slides[this.state.selectedSlideIndex].type === glb.QUIZ) {
-      elem = document.getElementById("quizPreview");
-    } else if (slides[this.state.selectedSlideIndex].type === glb.GAME) {
-      elem = document.getElementById("gameRenderer");
-    } else if (slides[this.state.selectedSlideIndex].type === glb.HYPERVIDEO) {
-      elem = document.getElementById("hyperVideoEditor");
-    } 
+        return;
+      } else if (slides[this.state.selectedSlideIndex].type === glb.QUILL) {
+        elem = document.querySelector(".ql-editor");
+      } else if (slides[this.state.selectedSlideIndex].type === glb.QUIZ) {
+        elem = document.getElementById("quizPreview");
+      } else if (slides[this.state.selectedSlideIndex].type === glb.GAME) {
+        elem = document.getElementById("gameRenderer");
+      } else if (slides[this.state.selectedSlideIndex].type === glb.HYPERVIDEO) {
+        elem = document.getElementById("hyperVideoEditor");
+      } 
 
     if (elem instanceof HTMLElement) {
-      html2canvas(elem, {width: 160, height: 120}).then(function(canvas) {
+      html2canvas(elem, {width: canvasWidth, height: canvasHeight}).then(function(canvas) {
           try {
               slide.thumb = canvas.toDataURL("image/png");
           }

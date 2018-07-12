@@ -1,12 +1,56 @@
 import React, {Component} from 'react';
+import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import d3 from 'd3';
 import taucharts from 'taucharts';
+//import TauChart from 'taucharts-react';
+//import 'taucharts/css/tauCharts.css';
 import './taucharts.min.css';
 
-const CORRECT_ANSWER_DIV = "<div style='width:10px; height:10px; background-color: #00aa00; border: 1px solid #dddddd; float:left;'></div>";
-const WRONG_ANSWER_DIV   = "<div style='width:10px; height:10px; background-color: #aa0000; border: 1px solid #dddddd; float:left;'></div>";
+// TODO: time spent on platform per day
+// TODO: what are the last few contents for which I did not get all answers right
 
+const styles = {
+  paperWrap:{
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    padding: 20,
+    width: '800px'
+  },
+  paper:{
+    width: '350px',
+    margin: 10,
+    textAlign: 'center',
+    padding: 10
+  },
+  quizWrap: {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  quizElemCorrect: {
+    width: '10px',
+    height: '10px', 
+    backgroundColor: '#00aa00', 
+    border: '1px solid #dddddd',
+  },
+  quizElemWrong: {
+    width: '10px',
+    height: '10px', 
+    backgroundColor: '#aa0000', 
+    border: '1px solid #dddddd',
+  },
+  marginRight: {
+    marginRight: '5px',
+  },
+  barWrap: {
+    height: '150px',
+    width: '350px',
+  }
+};
 
 function generateFakeSlideTimes(n) {
     let a = [];
@@ -96,52 +140,48 @@ class DataView extends Component {
         }
     }
 
-    renderQuiz(){
-        let contents = this.state.allContentsForUser;
-        for (let i=0; i<contents.length; i++) {
-            let elem = document.getElementById('quiz'+i);
-            let answers = contents[i].quizAnswers;
-            let domStr = "";
-            for (let j=0; j<answers.length; j++) {
-                if (answers[j]===false){
-                    domStr = domStr + WRONG_ANSWER_DIV;
-                } else {
-                    domStr = domStr + CORRECT_ANSWER_DIV;
-                }
-            }
-            elem.innerHTML = domStr;
+    getAnswerElem(answer){
+        if (answer) {
+            return (<div style={styles.quizElemCorrect}></div>)
+        } else {
+            return (<div style={styles.quizElemWrong}></div>)
         }
+    }
+
+    formatTimeDate(time) {
+        return time.toLocaleDateString("en-US") + ", " + padNumber(time.getHours())+ ":" + padNumber(time.getMinutes());
+    }
+
+    formatTime(time) {
+        return padNumber(time.getHours()-1) + "h:" + padNumber(time.getMinutes()) + "m:" + padNumber(time.getSeconds()) + "s";
     }
 
     componentDidMount(){
         this.renderBarChart();
-        this.renderQuiz();
     }
 
     render() {
-        let options = {};
-        let data = {datasets: [{data: [5, 23, 46, 36, 44, 52, 78]}]};
-        let data2 = {datasets: [{data: [{x: 0.2, y: 0.4}, 
-                                        {x: 0.8, y: 0.7}]}]};
         return (
-            <div>
+            <div style={styles.paperWrap}>
              {this.state.allContentsForUser.map((slide,i) => (
-                <div>
-                    <Typography gutterBottom variant="headline" component="h2">
-                        {slide.contentId}
+                <Paper zDepth={3} style={styles.paper}> 
+                    <Typography gutterBottom component="p">
+                        <strong>{slide.contentId}</strong>
+                        {" (accessed: "+ this.formatTimeDate(slide.endTime) + ")"}
                     </Typography>
                     <Typography gutterBottom component="p">
-                        {"last accessed: "+ slide.endTime.toLocaleDateString("en-US") + ", " + padNumber(slide.endTime.getHours())+ ":" + padNumber(slide.endTime.getMinutes())}
+                        {"time spent with content: "+ this.formatTime(slide.duration)}
                     </Typography>
-                    <Typography gutterBottom component="p">
-                        {"duration: "+ padNumber(slide.duration.getHours()-1) + "h:" + padNumber(slide.duration.getMinutes()) + "m:" + padNumber(slide.duration.getSeconds()) + "s"}
-                    </Typography>
-                    <Typography gutterBottom component="p">
-                        {"Quiz answers: "}
-                    </Typography>
-                    <div id={"quiz"+i}></div>
-                    <div id={"bar"+i}></div>
-                </div>
+                    <div id={"quiz"+i} style={styles.quizWrap}>
+                        <Typography gutterBottom component="p" style={styles.marginRight}>
+                            {"quiz answers: "}
+                        </Typography>
+                        {slide.quizAnswers.map(answer => (
+                            this.getAnswerElem(answer)
+                        ))}
+                    </div>
+                    <div id={"bar"+i} style={styles.barWrap}/>
+                </Paper>
              ))}
             </div>
         );

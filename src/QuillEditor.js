@@ -101,7 +101,7 @@ const CustomToolbar = () => (
       <button class="ui button" id="graph-button">Insert Graph</button>
     </span>
     <span className="ql-formats">
-      <button className="ql-insertStar">
+      <button className="ql-insertGraph">
         <CustomButton />
       </button>
     </span>
@@ -109,8 +109,8 @@ const CustomToolbar = () => (
   </div>
 )
 
-function insertEquation () {
-  const cursorPosition = this.quill.getSelection().index
+function insertGraph () {
+  const cursorPosition = this.quill.getSelection().index;
   this.quill.insertText(cursorPosition, "★")
   this.quill.setSelection(cursorPosition + 1)
 }
@@ -124,7 +124,7 @@ class QuillEditor extends Component {
     let font = ReactQuill.Quill.import('formats/font');
     font.whitelist = ['mirza', 'roboto', 'sofia', 'slabo', 'sailec', 'roboto', 'inconsolata', 'ubuntu'];
     ReactQuill.Quill.register(font, true);
-    
+
   }
 
   componentDidMount(){
@@ -169,7 +169,7 @@ QuillEditor.modules = {
     toolbar: {
       container: "#toolbar",
       handlers: {
-        "insertEquation": insertEquation,
+        "insertGraph": insertGraph,
       }
     }
   }

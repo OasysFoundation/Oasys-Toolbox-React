@@ -13,7 +13,8 @@ import NotFoundPage from './NotFoundPage'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import GameView from "./GameView"
 import { firebase } from './firebase';
-import HyperVideoEditor from './HyperVideoEditor'
+import HyperVideoEditor from './HyperVideoEditor';
+import Comment from './Comment'
 
 
 
@@ -27,7 +28,8 @@ class ContentView extends Component {
             timing: [],
             lastTime: new Date(),
             startTime: new Date(),
-            endTime: null
+            endTime: null,
+            showComments:false,
         };
         console.log(match, props, "MAATCH")
 
@@ -40,11 +42,6 @@ class ContentView extends Component {
         // const userName = this.props.match.params.username;
         // const contentName = this.props.match.params.contentname;
         
-        firebase.auth.onAuthStateChanged(authUser => {
-            this.setState({
-                userID: authUser.uid
-            })
-        });
 
         const APICALL = `https://api.joinoasys.org/user/${this.userName}/${this.contentName}/`;
 
@@ -60,6 +57,12 @@ class ContentView extends Component {
             });
     }
 
+    activateComments(){
+        this.setState({
+            showComments:true
+        })
+    }
+
     slideCount(increment = 0) {
         const newIdx = this.state.slideIdx + increment;
         if (newIdx < 0 || newIdx > this.state.content.length) {
@@ -69,15 +72,64 @@ class ContentView extends Component {
     }
 
     whatRenderer(slide) {
+        this.authUsername = '';
+        this.props.authUser
+        ?this.authUsername = this.props.authUser
+        :null
+        this.contentLength = this.state.content.data.length;
         switch(slide.type) {
             case globals.QUILL:
-                return <Preview content={slide.content}/>
+                return (
+                    <div>
+                    <Preview content={slide.content}/>
+                    <Button size="small" onClick={this.activateComments.bind(this)} >
+                      Show Comments
+                    </Button>                    
+                    {this.state.showComments
+                    ?<Comment name={this.authUsername} slideNumber={this.state.slideIdx} slideLength={this.contentLength}/>
+                    :null
+                    }
+                    </div>
+                    )
             case globals.QUIZ:
-                return <QuizPreview content={slide.content}/>
+                return (
+                    <div>
+                    <QuizPreview content={slide.content}/>
+                    <Button size="small" onClick={this.activateComments.bind(this)} >
+                      Show Comments
+                    </Button>    
+                    {this.state.showComments
+                        ?<Comment name={this.authUsername} slideNumber={this.state.slideIdx} slideLength={this.contentLength}/>
+                        :null
+                    }
+                    </div>
+                    )
             case globals.GAME:
-                return <GameView url={slide.content.url}/>
+                return (
+                    <div>
+                    <GameView url={slide.content.url}/>
+                    <Button size="small" onClick={this.activateComments.bind(this)} >
+                      Show Comments
+                    </Button>
+                    {this.state.showComments
+                        ?<Comment name={this.authUsername} slideNumber={this.state.slideIdx} slideLength={this.contentLength}/>
+                        :null
+                    }                    
+                    </div>
+                    )
             case globals.HYPERVIDEO:
-                return <HyperVideoEditor value={slide.content} preview={true}/>
+                return (
+                <div>
+                <Button size="small" onClick={this.activateComments.bind(this)} >
+                  Show Comments
+                </Button>
+                <HyperVideoEditor value={slide.content} preview={true}/>
+                {this.state.showComments
+                    ?<Comment name={this.authUsername} slideNumber={this.state.slideIdx} slideLength={this.contentLength}/>
+                    :null
+                }                
+                </div>
+                )
             default:
                 return <div>not yet implemented ☹️</div>
         }
