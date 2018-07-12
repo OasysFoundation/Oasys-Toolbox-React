@@ -54,9 +54,13 @@ Quill.register(GraphBlot);
 // see https://devarchy.com/react/library/react-quill
 const CustomButton = () => <span className="latexButton" />
 const CustomToolbar = () => (
-  <div id="toolbar">
+  <div id="toolbar-quill">
     <span className="ql-formats">
       <select className="ql-size">
+          <option value="12px">Small</option>
+          <option value="16px">Normal</option>
+          <option value="22px">Large</option>
+          <option value="30px">Huge</option>
       </select>
       <select className="ql-font">
         <option value="inconsolata" className="ql-font-inconsolata">Inconsolata</option>
@@ -125,6 +129,10 @@ class QuillEditor extends Component {
     font.whitelist = ['mirza', 'roboto', 'sofia', 'slabo', 'sailec', 'roboto', 'inconsolata', 'ubuntu'];
     ReactQuill.Quill.register(font, true);
 
+    let fontSize = ReactQuill.Quill.import('attributors/style/size');
+    fontSize.whitelist =  ['12px', '16px', '22px', '30px', 'small', 'normal', 'large', 'huge'];
+    ReactQuill.Quill.register(fontSize, true);
+
   }
 
   componentDidMount(){
@@ -168,7 +176,7 @@ class QuillEditor extends Component {
 // this needs to be defined after the QuillEditor Component
 QuillEditor.modules = {
     toolbar: {
-      container: "#toolbar",
+      container: "#toolbar-quill",
       handlers: {
         "insertGraph": insertGraph,
       }
