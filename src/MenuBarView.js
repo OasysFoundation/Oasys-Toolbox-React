@@ -11,7 +11,6 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Typography from '@material-ui/core/Typography';
 import IconArrowForward from '@material-ui/icons/ArrowForward';
 import Popover from '@material-ui/core/Popover';
-import OpenProjectDialog from './OpenProjectDialog'
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
