@@ -6,11 +6,31 @@
 .ql-container.ql-snow {
 	height: '70vh';
 	max-width: '400px';
+  font-family: "Mirza";
+  font-size: 16px;
 }
 
-/* Set default font-family */
-#editor-container {
+/* Set dropdown font-families */
+#toolbar-quill .ql-font span[data-label="Aref Ruqaa"]::before {
+  font-family: "Aref Ruqaa";
+}
+#toolbar-quill .ql-font span[data-label="Mirza"]::before {
   font-family: "Mirza";
+}
+#toolbar-quill .ql-font span[data-label="Inconsolata"]::before {
+  font-family: "Inconsolata";
+}
+#toolbar-quill .ql-font span[data-label="Sailec"]::before {
+  font-family: "Sailec";
+}
+#toolbar-quill .ql-font span[data-label="Sofia"]::before {
+  font-family: "Sofia";
+}
+#toolbar-quill .ql-font span[data-label="Roboto"]::before {
+  font-family: "Roboto";
+}
+#toolbar-quill .ql-font span[data-label="Ubuntu"]::before {
+  font-family: "Ubuntu";
 }
 
 
@@ -32,6 +52,34 @@
 }
 .ql-font-ubuntu {
   font-family: "Ubuntu";
+}
+
+/* Set dropdown font-sizes */
+#toolbar-quill .ql-size span[data-label="Small"]::before {
+  font-size: "12px";
+}
+#toolbar-quill .ql-size span[data-label="Normal"]::before {
+  font-size: "16px";
+}
+#toolbar-quill .ql-size span[data-label="Large"]::before {
+  font-size: "22px";
+}
+#toolbar-quill .ql-size span[data-label="Huge"]::before {
+  font-size: "30px";
+}
+
+/* Set content font-sizes */
+.ql-font-small {
+  font-size: "12px";
+}
+.ql-font-normal {
+  font-size: "16px";
+}
+.ql-font-large {
+  font-size: "22px";
+}
+.ql-font-huge {
+  font-size: "30px";
 }
 
 /* set quill video embed size */
