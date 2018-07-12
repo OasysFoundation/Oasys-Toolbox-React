@@ -4,6 +4,7 @@ import styled from "styled-components"
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import Button from '@material-ui/core/Button';
+import katex from 'katex';
 
 //next / previous Buttons
 

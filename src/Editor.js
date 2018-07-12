@@ -373,7 +373,7 @@ class Editor extends Component {
                                onChangedSlide = {this.onChangedSlide}
                                onRemoveSlide = {this.onRemoveSlide}   />
         </Grid>
-        <Grid item xs={7}>
+        <Grid item xs={9}>
             <SlideEditor slide = {this.state.slides[this.state.selectedSlideIndex]}
                          slideType = {this.state.currSlideType}
                          onChange = {this.onEditorChange.bind(this)} />
