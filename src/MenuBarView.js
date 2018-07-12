@@ -261,6 +261,12 @@ class MenuBarView extends Component {
     });
   }
 
+  updateSnackbar(message) {
+    this.setState({
+      snackBarMessage: message,
+    });
+  }
+
   render() {
     const {
       description,
@@ -325,7 +331,7 @@ class MenuBarView extends Component {
             <Button variant="contained" color="primary" onClick={this.onUpload.bind(this)}>
             Upload Cover Picture  
             </Button>
-            <UploadPicContentDialog titleUpload={true} url={this.updateURL.bind(this)} authUser={this.props.authUser} contentId={this.props.contentTitle} open={this.state.showsUploadPicDialog} onClose={this.closeUploadDialog.bind(this)}/>
+            <UploadPicContentDialog titleUpload={true} url={this.updateURL.bind(this)} authUser={this.props.authUser} contentId={this.props.contentTitle} open={this.state.showsUploadPicDialog} onClose={this.closeUploadDialog.bind(this)} snackBarControl={this.updateSnackbar.bind(this)}/>
 
         </DialogContent>
         <DialogActions>

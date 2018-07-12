@@ -53,8 +53,16 @@ class UploadPicContentDialog extends Component {
       body: data,
       arrayKey:'',
     }).then((response) => {
-      response.json().then((body) => {
+      response.json()
+      .catch(error => {
+      console.error('Error:', error);
+      this.props.snackBarControl('Error Uploading Image. If this continues, please contact info@joinoasys.org');
+    }).then((body) => {
       	console.log(body);
+      	if(body){
+      		this.props.snackBarControl('Picture Uploaded Successfully');
+
+      	}
         that.props.url();
       });
     });
