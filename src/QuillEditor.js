@@ -11,6 +11,45 @@ import katex from 'katex';
 import 'katex/dist/katex.min.css';
 import "highlight.js/styles/atom-one-light.css";
 import './ReactQuill.css';
+import d3 from "d3"
+
+
+let BlockEmbed = Quill.import('blots/block/embed');
+let Embed = Quill.import('blots/embed');
+
+class GraphBlot extends Embed {
+  static create(initialValue) {
+    const node = super.create();
+  node.setAttribute("spellcheck", false);
+  console.log(initialValue);
+
+
+  window.d3 = require('d3')
+  const functionPlot = require('function-plot')
+  const plot = functionPlot({
+    target: node,
+    disableZoom: true,
+    data: [{
+      fn: initialValue.equation
+    }]
+  })
+  node.equation = initialValue.equation;
+    return node;
+  }
+  
+  static value(node) {
+    return {
+      equation: node.equation
+    };
+  }
+}
+
+GraphBlot.blotName = 'graph';
+GraphBlot.tagName = 'div';
+GraphBlot.className = 'graph';
+
+Quill.register(GraphBlot);
+
 
 // see https://devarchy.com/react/library/react-quill
 const CustomButton = () => <span className="latexButton" />
@@ -59,12 +98,14 @@ const CustomToolbar = () => (
       <button className="ql-image"></button>
       <button className="ql-video"></button>
       <button className="ql-formula"></button>
+      <button class="ui button" id="graph-button">Insert Graph</button>
     </span>
     <span className="ql-formats">
       <button className="ql-insertStar">
         <CustomButton />
       </button>
     </span>
+
   </div>
 )
 
@@ -88,6 +129,20 @@ class QuillEditor extends Component {
 
   componentDidMount(){
     window.katex = katex;
+    window.d3 = require('d3')
+    
+    const quill = this.refs.reactQuill.getEditor();
+    console.log("quill");
+    console.log(quill);
+
+    window.document.getElementById('graph-button').addEventListener('click', function(e) {
+      var equation=prompt("Enter equation","x^3");
+        if (equation != null) {
+
+          const cursorPosition = quill.getSelection().index
+          quill.insertEmbed(cursorPosition + 1, 'graph', {equation: equation}, Quill.sources.USER);
+        }
+    });
   }
 
 	render() {
@@ -96,10 +151,12 @@ class QuillEditor extends Component {
             <CardContent>
               <CustomToolbar />
               <hr/>
-              <ReactQuill value={this.props.slideContent}
-                        onChange={this.onChange}
-                        style={{height: '60vh'}}
-                        modules={QuillEditor.modules}
+              <ReactQuill
+                  value={this.props.slideContent}
+                  onChange={this.onChange}
+                  ref="reactQuill"
+                  style={{height: '60vh'}}
+                  modules={QuillEditor.modules}
                           /> 
             </CardContent>
           </Card>
