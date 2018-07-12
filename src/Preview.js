@@ -12,13 +12,11 @@ import katex from 'katex';
 
 class Preview extends Component {
     constructor(props) {
-    	super(props)
-    }
-
-    componentDidMount() {
+    	super(props);
+    	console.log(katex)
         window.katex = katex;
     }
-
+    
     render(){
     	return (<ReactQuill value={this.props.content || "no content"} readOnly={true}  theme={null}/>)
     }
