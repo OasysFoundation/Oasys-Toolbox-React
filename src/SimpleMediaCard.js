@@ -96,7 +96,7 @@ function SimpleMediaCard(props) {
                           <Button
                             variant="contained"
                             size="small" color="primary"
-                            onClick={function(event) {event.preventDefault(); window.location.href = ('/comments/'+title) }}>
+                            onClick={function(event) {event.preventDefault(); window.location.href = ('/comments/'+userId+'/'+title) }}>
                             Comments
                         </Button>
                       </div>

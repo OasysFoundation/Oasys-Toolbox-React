@@ -83,7 +83,7 @@ class Index extends Component {
 
                             <Route path="/wallet" component={Wallet}/>
 
-                            <Route path="/comments/:contentId" render={(props)=>(<Comment name={this.state.authUser}/>)} />
+                            <Route path="/comments/:userId/:contentId" render={(props)=>(<Comment name={this.state.authUser}/>)} />
 
 
                             <Route component={NotFoundPage}/>

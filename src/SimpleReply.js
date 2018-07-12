@@ -6,13 +6,13 @@ var moment = require('moment');
 
 function SimpleReply(props){
   
-  const {time, userId, comment} = props.contentData;
+  const {time, accessUser, comment} = props.contentData;
 
   return(
    <Comment>
       <Comment.Avatar src='https://oasys-space.nyc3.digitaloceanspaces.com/person.png' />
       <Comment.Content>
-        <Comment.Author as='a'>{userId}</Comment.Author>
+        <Comment.Author as='a'>{accessUser}</Comment.Author>
         <Comment.Metadata>
           <div>{moment(time).format("DD MMM YYYY hh:mm a")}</div>
         </Comment.Metadata>
