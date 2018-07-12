@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import IconAccountCircle from '@material-ui/icons/AccountCircle';
 import Button from '@material-ui/core/Button';
 import logo from './logo.jpg';
-import UserMainPage from './userMainPage';
+import UserMainPage from './UserMainPage';
 import LoginPage from './LoginPage'
 
 class MyAccountPage extends Component {
