@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import d3 from 'd3';
+//import d3 from 'd3';
 import taucharts from 'taucharts';
 //import TauChart from 'taucharts-react';
 //import 'taucharts/css/tauCharts.css';
@@ -158,11 +158,28 @@ class DataView extends Component {
 
     componentDidMount(){
         this.renderBarChart();
+        //this.renderD3();
+    }
+
+    renderD3(){
+        /*let data = [4,8,12];
+        d3.select(".d3chart")
+          .selectAll("div")
+            .data(data)
+          .enter().append("div")
+            .style("width", function(d) { return d * 10 + "px"; })
+            .text(function(d) { return d; });
+        */
     }
 
     render() {
         return (
             <div style={styles.paperWrap}>
+             <div id={"d3chart"}>
+                <div style={{"width": "40px"}}>4</div>
+                <div style={{"width": "80px"}}>8</div>
+                <div style={{"width": "120px"}}>12</div>
+             </div>
              {this.state.allContentsForUser.map((slide,i) => (
                 <Paper zDepth={3} style={styles.paper}> 
                     <Typography gutterBottom component="p">
