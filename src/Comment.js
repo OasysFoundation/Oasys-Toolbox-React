@@ -179,6 +179,7 @@ class CommentSection extends Component {
         })
     }
 
+
     someFunction(id) {
         this.setState({
             reply: id

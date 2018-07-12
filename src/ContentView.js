@@ -72,6 +72,12 @@ class ContentView extends Component {
         })
     }
 
+    deactivateComments(){
+        this.setState({
+            showComments:false
+        })
+    }
+
     slideCount(increment = 0) {
         const newIdx = this.state.slideIdx + increment;
         if (newIdx < 0 || newIdx > this.state.content.data.length) {
@@ -91,9 +97,19 @@ class ContentView extends Component {
                 return (
                     <div>
                     <Preview content={slide.content}/>
-                    <Button size="small" onClick={this.activateComments.bind(this)} >
-                      Show Comments
-                    </Button>                    
+                    {this.state.showComments
+                        ?(
+                            <Button size="small" onClick={this.deactivateComments.bind(this)} >
+                              Hide Comments
+                            </Button>
+                        )
+                        : (
+                            <Button size="small" onClick={this.activateComments.bind(this)} >
+                              Show Comments
+                            </Button>
+
+                        )
+                    }                    
                     {this.state.showComments
                     ?<Comment name={this.authUsername} slideNumber={this.state.slideIdx} slideLength={this.contentLength}/>
                     :null
@@ -104,9 +120,19 @@ class ContentView extends Component {
                 return (
                     <div>
                     <QuizPreview content={slide.content}/>
-                    <Button size="small" onClick={this.activateComments.bind(this)} >
-                      Show Comments
-                    </Button>    
+                    {this.state.showComments
+                        ?(
+                            <Button size="small" onClick={this.deactivateComments.bind(this)} >
+                              Hide Comments
+                            </Button>
+                        )
+                        : (
+                            <Button size="small" onClick={this.activateComments.bind(this)} >
+                              Show Comments
+                            </Button>
+
+                        )
+                    }
                     {this.state.showComments
                         ?<Comment name={this.authUsername} slideNumber={this.state.slideIdx} slideLength={this.contentLength}/>
                         :null
@@ -117,9 +143,19 @@ class ContentView extends Component {
                 return (
                     <div>
                     <GameView url={slide.content.url}/>
-                    <Button size="small" onClick={this.activateComments.bind(this)} >
-                      Show Comments
-                    </Button>
+                    {this.state.showComments
+                        ?(
+                            <Button size="small" onClick={this.deactivateComments.bind(this)} >
+                              Hide Comments
+                            </Button>
+                        )
+                        : (
+                            <Button size="small" onClick={this.activateComments.bind(this)} >
+                              Show Comments
+                            </Button>
+
+                        )
+                    }                    
                     {this.state.showComments
                         ?<Comment name={this.authUsername} slideNumber={this.state.slideIdx} slideLength={this.contentLength}/>
                         :null
@@ -129,9 +165,19 @@ class ContentView extends Component {
             case globals.HYPERVIDEO:
                 return (
                 <div>
-                <Button size="small" onClick={this.activateComments.bind(this)} >
-                  Show Comments
-                </Button>
+                {this.state.showComments
+                    ?(
+                        <Button size="small" onClick={this.deactivateComments.bind(this)} >
+                          Hide Comments
+                        </Button>
+                    )
+                    : (
+                        <Button size="small" onClick={this.activateComments.bind(this)} >
+                          Show Comments
+                        </Button>
+
+                    )                
+                }                
                 <HyperVideoEditor value={slide.content} preview={true}/>
                 {this.state.showComments
                     ?<Comment name={this.authUsername} slideNumber={this.state.slideIdx} slideLength={this.contentLength}/>
