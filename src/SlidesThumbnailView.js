@@ -25,17 +25,6 @@ import {
 } from 'react-sortable-hoc';
 import glb from "./globals";
 
-/*const styles = theme => ({
-  root: {
-    width: '100%',
-    maxWidth: 360,
-    backgroundColor: theme.palette.background.paper,
-  },
-  selected: {
-    backgroundColor: 'red',
-  }
-});*/
-
 let domStyles = {
     selected: {
       backgroundColor: '#ddeedd',
@@ -43,16 +32,6 @@ let domStyles = {
     thumb: {
       marginLeft: '10px',
       marginRight: '10px',
-    }
-}
-
-function iconForSlideType(type) {
-    if (type === glb.QUIZ) {
-      return <QuestionAnswerIcon />
-    } else if (type === glb.GAME) {
-      return <GamesIcon />
-    } else if (type === glb.QUILL) {
-      return <WallpaperIcon />
     }
 }
 
@@ -189,10 +168,6 @@ class SlidesThumbnailView extends Component {
               <ListItemText primary="Add new Slide"/>
             </ListItem>
           </Tooltip>
-            {/* ListItem button>
-              <CallSplitIcon />
-              <ListItemText primary="New Split" />
-            </ListItem> */}
             <Divider />
             <Divider />
             <SortableSlideList items={this.props.slides} 
