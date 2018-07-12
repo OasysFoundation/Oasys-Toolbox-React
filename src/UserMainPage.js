@@ -22,7 +22,7 @@ class UserMainPage extends Component {
             imageURL: '',
             userName: '',
         }
-        const profile = 'https://api.joinoasys.org/profile/' + this.props.authUser.displayName
+        const profile = 'https://api.joinoasys.org/profile/' + this.props.authUser.uid
         fetch(profile, {
             method: 'GET',
             ContentType: "application/json"
