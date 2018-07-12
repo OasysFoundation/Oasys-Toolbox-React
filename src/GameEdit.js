@@ -58,9 +58,9 @@ class GameEdit extends Component {
                     (<section>
                         <Button variant="flat" color="primary" onClick={() => this.setState({chosen: false})}> Choose
                             Different Game </Button>
-                        <img src={this.props.value.thumbnail}
+                            <img src={this.props.value ? this.props.value.thumbnail : ""}
                              style={{width: this.props.width || w, height: this.props.height || h}}/>
-                        <figcaption style={{padding: 1 + "rem"}}>{this.props.value.description}</figcaption>
+                        <figcaption style={{padding: 1 + "rem"}}>{this.props.value ? this.props.value.description : ""}</figcaption>
                         <Button variant="flat" color="primary" onClick={this.handleTryOut.bind(this)}> Try Out </Button>
                     </section>)
 
