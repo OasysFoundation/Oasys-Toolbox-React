@@ -73,7 +73,8 @@ class GameEdit extends Component {
                             {/*margin="normal"*/}
                             {/*ref={this.textInput}*/}
                         {/*/>*/}
-                        <input ref={this.textInput} label="...add URL to embed your own Simulation" />
+                        <input
+                            ref={this.textInput} label="...add URL to embed your own Simulation" />
                         <Button variant="flat" color="primary" onClick={this.submitNewGame}>Submit</Button>
 
                         <ChooseGameGrid choose={this.onChooseGame}/>
