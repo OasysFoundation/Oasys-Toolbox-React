@@ -12,6 +12,7 @@ class CommentSection extends Component {
             comments: [],
             comment: '',
             reply: '',
+            hideReply: false,
             currentReply: '',
             finalComments: [],
             slideLength: this.props.slideLength,
@@ -182,7 +183,15 @@ class CommentSection extends Component {
 
     someFunction(id) {
         this.setState({
-            reply: id
+            reply: id,
+            hideReply: false,
+        })
+
+    }
+
+    cancelReply(id) {
+        this.setState({
+            hideReply: true,
         })
 
     }
@@ -195,11 +204,18 @@ class CommentSection extends Component {
                 </Comment.Actions>
                 {this.state.reply == id
                     ? (
-                        <Form reply>
-                            <Form.TextArea value={this.state.currentReply} onChange={this.addReply.bind(this)}/>
-                            <Button onClick={this.onSubmitReply.bind(this, id)} content='Add Reply' labelPosition='left'
-                                    icon='edit' primary/>
-                        </Form>
+                        this.state.hideReply
+                        ? null
+                        : (
+                            <Form reply>
+                                <Form.TextArea value={this.state.currentReply} onChange={this.addReply.bind(this)}/>
+                                <Button onClick={this.onSubmitReply.bind(this, id)} content='Add Reply' labelPosition='left'
+                                        icon='edit' primary/>
+                                <Button content='Cancel' labelPosition='left' onClick={this.cancelReply.bind(this, id)} />
+
+                            </Form>
+                        )
+
                     )
                     : (null)
                 }
