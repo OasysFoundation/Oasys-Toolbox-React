@@ -18,7 +18,6 @@ import createBrowserHistory from 'history/createBrowserHistory';
 import MyAccountPage from './MyAccountPage'
 import SignupPage from './SignupPage'
 import LoginPage from './LoginPage'
-import HomePage from './HomePage'
 import PasswordForget from './PasswordForget'
 import PasswordReset from './PasswordReset'
 
