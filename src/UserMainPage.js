@@ -7,6 +7,8 @@ import Button from '@material-ui/core/Button';
 import logo from './logo.jpg'
 import UploadPicContentDialog from './UploadPicContentDialog'
 import Name from './Name'
+import Snackbar from '@material-ui/core/Snackbar';
+
 
 import {
     Link,
@@ -21,6 +23,8 @@ class UserMainPage extends Component {
             showsOpenDialog: false,
             imageURL: '',
             userName: '',
+            snackBarMessage: null,
+
         }
         const profile = 'https://api.joinoasys.org/profile/' + this.props.authUser.uid
         fetch(profile, {
@@ -59,9 +63,21 @@ class UserMainPage extends Component {
         });
     }
 
+    closeSnackBar() {
+        this.setState({
+          snackBarMessage: null
+        });
+    }
+
+    updateSnackbar(message) {
+        this.setState({
+          snackBarMessage: message,
+        });
+    }
+
     sendPic() {
 
-        const profile = 'https://api.joinoasys.org/' + this.props.authUser.uid + '/profile'
+        const profile = 'https://api.joinoasys.org/profile/' + this.props.authUser.uid 
         fetch(profile, {
             method: 'GET',
         }).then((response) => {
@@ -106,7 +122,8 @@ class UserMainPage extends Component {
                         </Button>
                         <UploadPicContentDialog pic={this.sendPic.bind(this)} authUser={this.props.authUser}
                                                 open={this.state.showsOpenDialog}
-                                                onClose={this.closeOpenDialog.bind(this)}/>
+                                                onClose={this.closeOpenDialog.bind(this)}
+                                                snackBarControl={this.updateSnackbar.bind(this)}/>
                         <Button variant="contained" color="primary" onClick={function (event) {
                             event.preventDefault();
                             window.location.href = './wallet/'

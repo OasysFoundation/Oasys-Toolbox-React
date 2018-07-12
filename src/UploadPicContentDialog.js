@@ -72,7 +72,7 @@ class UploadPicContentDialog extends Component {
 
   handleUploadProfilePic(ev) {
     ev.preventDefault();
-    var uid = this.props.authUser.displayName;
+    var uid = this.props.authUser.uid;
     const spacesEndpoint = 'https://api.joinoasys.org/uploadProfilePic/'+uid
 
     const data = new FormData();
@@ -86,8 +86,15 @@ class UploadPicContentDialog extends Component {
       body: data,
       arrayKey:'',
     }).then((response) => {
-      response.json().then((body) => {
+      response.json().catch(error => {
+      console.error('Error:', error);
+      this.props.snackBarControl('Error Uploading Image. If this continues, please contact info@joinoasys.org');
+    }).then((body) => {
       	console.log(body);
+      	if(body){
+      		this.props.snackBarControl('Picture Uploaded Successfully');
+
+      	}
         that.props.pic();
       });
     });

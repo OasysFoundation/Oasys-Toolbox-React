@@ -332,7 +332,6 @@ class MenuBarView extends Component {
             Upload Cover Picture  
             </Button>
             <UploadPicContentDialog titleUpload={true} url={this.updateURL.bind(this)} authUser={this.props.authUser} contentId={this.props.contentTitle} open={this.state.showsUploadPicDialog} onClose={this.closeUploadDialog.bind(this)} snackBarControl={this.updateSnackbar.bind(this)}/>
-
         </DialogContent>
         <DialogActions>
           <Button onClick={this.closeSaveDialog.bind(this)} color="primary">
