@@ -232,7 +232,7 @@ class ContentView extends Component {
                     <MobileStepper
                       steps={content.data.length + 1}
                       activeStep={this.state.slideIdx}
-                      style = {{position: 'fixed', bottom: '0', width: '100%', minHeight: 12 + "vh"}}
+                      style = {{position: 'relative', bottom: '0', width: '100%', minHeight: 12 + "vh"}}
                       nextButton={
                         <Button size="large" style={this.state.slideIdx === content.data.length ? null : buttonStyle} onClick={this.handleNext.bind(this)} disabled={this.state.slideIdx === content.data.length}>
                           Next

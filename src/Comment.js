@@ -234,7 +234,6 @@ class CommentSection extends Component {
 
     render() {
         return (
-            <section>
                 <div style={{overflow: 'auto', maxHeight: 60+'vh'}}>
                     <Comment.Group>
                         <Header as='h3' dividing>
@@ -254,7 +253,6 @@ class CommentSection extends Component {
                         </Form>
                     </Comment.Group>
                 </div>
-            </section>
         )
     }
 }
