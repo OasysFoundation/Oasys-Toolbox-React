@@ -86,16 +86,16 @@ class SimpleMediaCard extends Component {
         contentUrl = userUrl+'/'+contentId;
     }
 
-    var hashtags = tags
-
+    var hashtags = tags;
     if(!Array.isArray(tags)) {
-      hashtags = tags.split(' ');
-      hashtags = hashtags.map(function(element) {
-        element.replace('#','');
-        element.replace(',','');
-        return element;
-      });
+        hashtags = tags.split(' ');
+        hashtags = hashtags.map(function(element) {
+          element.replace('#','');
+          element.replace(',','');
+          return element;
+        });
     }
+    
 
 
     return (
