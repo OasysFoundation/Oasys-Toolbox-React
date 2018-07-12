@@ -11,24 +11,10 @@ class GameEdit extends Component {
         super();
         this.onChooseGame = this.onChooseGame.bind(this);
         this.submitNewGame = this.submitNewGame.bind(this);
-        this.state = {
-            chosen: !!props.value
-        }
         this.textInput = React.createRef();
-
     }
-
-    componentWillReceiveProps(nextProps) {
-        this.setState({
-            chosen: !!nextProps.value
-        })
-    }
-
     onChooseGame(game) {
-        this.setState({
-            chosen: true
-        }, () => this.props.onChange(game, {type: globals.GAME}))
-
+        this.props.onChange(game, {type: globals.GAME})
     }
 
     handleTryOut() {
@@ -54,7 +40,7 @@ class GameEdit extends Component {
 
         return (
             <div id='gameRenderer'>
-                {this.state.chosen ?
+                {this.props.value ?
                     (<section>
                         <Button variant="flat" color="primary" onClick={() => this.setState({chosen: false})}> Choose
                             Different Game </Button>
@@ -95,7 +81,6 @@ const ChooseGameGrid = props => {
         flexDirection: "row",
         width: width
     }
-
     return (
         <section style={flexer}>
             {gameMetaData.map((item, idx) =>

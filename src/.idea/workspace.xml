@@ -14,11 +14,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="GameEdit.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="GameEdit.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/GameEdit.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="173">
-              <caret line="60" column="85" selection-start-line="60" selection-start-column="85" selection-end-line="60" selection-end-column="85" />
+            <state relative-caret-position="1230">
+              <caret line="82" column="5" selection-start-line="82" selection-start-column="5" selection-end-line="82" selection-end-column="5" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -65,11 +65,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Editor.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Editor.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Editor.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="46">
-              <caret line="98" column="31" selection-start-line="98" selection-start-column="31" selection-end-line="98" selection-end-column="31" />
+            <state relative-caret-position="5485">
+              <caret line="367" column="39" selection-start-line="367" selection-start-column="31" selection-end-line="367" selection-end-column="39" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -89,7 +89,7 @@
       <file leaf-file-name="gameMetaData.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/gameMetaData.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="122">
+            <state relative-caret-position="-69">
               <caret line="9" column="8" lean-forward="true" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
               <folding>
                 <element signature="e#0#58#0" expanded="true" />
@@ -126,7 +126,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>preview</find>
       <find>selectedidx</find>
       <find>this.state</find>
       <find>onchange</find>
@@ -155,6 +154,7 @@
       <find>mui</find>
       <find>addnew</find>
       <find>addnewgame</find>
+      <find>onaddnew</find>
       <find>thumbnail</find>
     </findStrings>
   </component>
@@ -185,8 +185,8 @@
         <option value="$PROJECT_DIR$/Comment.js" />
         <option value="$PROJECT_DIR$/ContentView.js" />
         <option value="$PROJECT_DIR$/MyAccountPage.js" />
-        <option value="$PROJECT_DIR$/GameEdit.js" />
         <option value="$PROJECT_DIR$/Editor.js" />
+        <option value="$PROJECT_DIR$/GameEdit.js" />
       </list>
     </option>
   </component>
@@ -280,7 +280,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="69729000" />
+    <option name="totallyTimeSpent" value="70677000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="797" extended-state="6" />
@@ -506,16 +506,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gameMetaData.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="122">
-          <caret line="9" column="8" lean-forward="true" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
-          <folding>
-            <element signature="e#0#58#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/GameEmbedder.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -589,22 +579,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/GameEdit.js">
+    <entry file="file://$PROJECT_DIR$/Editor.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="60" column="85" selection-start-line="60" selection-start-column="85" selection-end-line="60" selection-end-column="85" />
+        <state relative-caret-position="5485">
+          <caret line="367" column="39" selection-start-line="367" selection-start-column="31" selection-end-line="367" selection-end-column="39" />
           <folding>
-            <element signature="e#0#39#0" expanded="true" />
+            <element signature="e#0#41#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Editor.js">
+    <entry file="file://$PROJECT_DIR$/gameMetaData.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="46">
-          <caret line="98" column="31" selection-start-line="98" selection-start-column="31" selection-end-line="98" selection-end-column="31" />
+        <state relative-caret-position="-69">
+          <caret line="9" column="8" lean-forward="true" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
           <folding>
-            <element signature="e#0#41#0" expanded="true" />
+            <element signature="e#0#58#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GameEdit.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1230">
+          <caret line="82" column="5" selection-start-line="82" selection-start-column="5" selection-end-line="82" selection-end-column="5" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
           </folding>
         </state>
       </provider>
