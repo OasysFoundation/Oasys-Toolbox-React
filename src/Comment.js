@@ -240,6 +240,13 @@ class CommentSection extends Component {
                         <Header as='h3' dividing>
                             Comments
                         </Header>
+
+                        <Form reply style={{marginBottom:'30px'}}>
+                            <Form.TextArea value={this.state.comment} onChange={this.addComment.bind(this)}/>
+                            <Button onClick={this.onSubmit.bind()} content='Add Comment' labelPosition='left' icon='edit'
+                                    primary/>
+                        </Form>
+
                         {this.state.comments.length == 0 ?
                             (null)
                             : (
@@ -247,11 +254,7 @@ class CommentSection extends Component {
                             )
                         }
 
-                        <Form reply>
-                            <Form.TextArea value={this.state.comment} onChange={this.addComment.bind(this)}/>
-                            <Button onClick={this.onSubmit.bind()} content='Add Reply' labelPosition='left' icon='edit'
-                                    primary/>
-                        </Form>
+                        
                     </Comment.Group>
                 </div>
             </section>
