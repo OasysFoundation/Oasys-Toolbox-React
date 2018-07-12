@@ -11,6 +11,7 @@ import katex from 'katex';
 import 'katex/dist/katex.min.css';
 import "highlight.js/styles/atom-one-light.css";
 import './ReactQuill.css';
+import graphIcon from './icons/graph.jpg';
 import d3 from "d3"
 
 
@@ -52,7 +53,6 @@ Quill.register(GraphBlot);
 
 
 // see https://devarchy.com/react/library/react-quill
-const CustomButton = () => <span className="latexButton" />
 const CustomToolbar = () => (
   <div id="toolbar-quill">
     <span className="ql-formats">
@@ -102,12 +102,7 @@ const CustomToolbar = () => (
       <button className="ql-image"></button>
       <button className="ql-video"></button>
       <button className="ql-formula"></button>
-      <button class="ui button" id="graph-button">Insert Graph</button>
-    </span>
-    <span className="ql-formats">
-      <button className="ql-insertGraph">
-        <CustomButton />
-      </button>
+      <button class="ui button" id="graph-button"><img src={graphIcon} width={30}/></button>
     </span>
 
   </div>
