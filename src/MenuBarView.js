@@ -63,6 +63,9 @@ class MenuBarView extends Component {
             showsOpenDialog: false,
             showsUploadPicDialog: false,
             pictureURL: '',
+            hashtags:'',
+            description:'',
+            loading:false,
         }
   }
 
@@ -99,26 +102,40 @@ class MenuBarView extends Component {
        'Content-Type': 'application/json',
      })
     }).then(res => res.json())
-    .catch(error => console.error('Error:', error))
+    .catch(error => {
+      console.error('Error:', error);
+      this.setState({
+          snackBarMessage: 'Error Saving. If this continues, please contact info@joinoasys.org'
+      })
+    })
     .then(response => {
       this.setState({
         showsSaveDialog: false
       });
+
+      console.log(response);
+      if(response){
+        if (this.state.saveAction == 'save') {
+          this.setState({
+            snackBarMessage: 'Saved Draft'
+          })
+        }
+
+        if (this.state.saveAction == 'publish') {
+          this.setState({
+            snackBarMessage: 'Published'
+          })
+        }
+      }
 
       });
   }
 
   onSubmit() {
     if (this.state.saveAction == 'save') {
-      this.setState({
-        snackBarMessage: 'Saved Draft'
-      })
       this.completeFetch(this.props.contentTitle, 0, this.state.hashtags, this.state.description, this.props.slides);
     }
     if (this.state.saveAction == 'publish') {
-      this.setState({
-        snackBarMessage: 'Published'
-      })
       this.completeFetch(this.props.contentTitle, 1, this.state.hashtags, this.state.description, this.props.slides);
     }
   }
@@ -245,6 +262,11 @@ class MenuBarView extends Component {
   }
 
   render() {
+    const {
+      description,
+      hashtags
+    } = this.state;
+    const isInvalid = !description || !hashtags;
     return (
     	<div>
       <Toolbar style={{backgroundColor: BG}}>
@@ -288,7 +310,7 @@ class MenuBarView extends Component {
               id="description"
               placeholder="Description"
               style={{width:'100%'}} 
-              value={this.props.description} 
+              value={this.state.description} 
               onChange={this.onChange.bind(this)}
               margin="normal"
             />
@@ -296,6 +318,7 @@ class MenuBarView extends Component {
               id="hashtags"
               placeholder="Hashtags"
               style={{width:'100%'}} 
+              value={this.state.hashtags}
               onChange={this.onChange.bind(this)}
               margin="normal"
             />
@@ -309,7 +332,7 @@ class MenuBarView extends Component {
           <Button onClick={this.closeSaveDialog.bind(this)} color="primary">
             Cancel
           </Button>
-          <Button onClick={this.onSubmit.bind(this)} color="primary" autoFocus>
+          <Button disabled={isInvalid} onClick={this.onSubmit.bind(this)} color="primary" autoFocus>
             Submit
           </Button>
         </DialogActions>
