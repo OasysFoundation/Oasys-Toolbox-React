@@ -103,13 +103,14 @@ class NavBar extends React.Component {
     return (
       <AppBar position="static">
             <section style={{backgroundColor: BG, display: "flex", flexDirection: "row", justifyContent: "flex-end"}}>
+            <div style={{textAlign: "start", flexGrow: 1, padding: "1em", display: 'inline-block'}}>
             <ButtonBase
             onClick={function(event) {event.preventDefault(); window.location.href = '/explore/'}} style={{textAlign: "start", flexGrow: 1, padding: "1em", display: 'inline-block'}}>
                 <Typography variant="title" color="inherit" href='/explore'>
                     Oasys Education
                 </Typography>
             </ButtonBase>
-            
+            </div>
 
                 <Toolbar style={{display: "flex", justifyContent: "flex-end"}}>
                   <div>
