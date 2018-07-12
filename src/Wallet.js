@@ -11,6 +11,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import { firebase } from './firebase';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 var QRCode = require('qrcode.react');
 
@@ -43,13 +44,17 @@ class Wallet extends Component {
 	}
 
 	render() {
+		let qrCode = <CircularProgress style={{ color: 'orange' }} thickness={7} />
+		if (this.state.userID) {
+            qrCode = <QRCode value={this.state.userID} />
+        }
 		
 		return (
 			<Card style={{maxWidth:'500px', minWidth:'300px', position:'absolute', top: '50%', left: '50%', transform: 'translateX(-50%) translateY(-50%)'}}>
 				<CardContent>
 					<center>
 						<Typography style={{marginTop:'20px', marginBottom: '5px', fontSize: '15px'}} color="textSecondary">
-			            	Balance for {this.state.userID}
+			            	Balance
 				        </Typography>
 				        <Typography style={{marginTop:'5px', marginBottom: '5px',fontSize: '30px', fontFamily: 'monospace'}} color="textPrimary">
 			            	1 OASYS
@@ -57,9 +62,9 @@ class Wallet extends Component {
 				        <Typography style={{marginTop:'5px', marginBottom: '10px', fontSize: '15px', fontFamily: 'monospace'}} color="textSecondary">
 			            	1 USD
 				        </Typography>
-				        <QRCode value="0000-0000-0000-0000" />
+				        {qrCode}
 				        <Typography style={{marginTop:'7px', marginBottom: '5px', fontSize: '15px', fontFamily: 'monospace'}} color="textSecondary">
-			            	0000-0000-0000-0000
+			            	{this.state.userID}
 				        </Typography>
 					</center>
 				</CardContent>
