@@ -147,8 +147,8 @@ class QuillEditor extends Component {
   }
 
 	render() {
-		return (<div>
-          <Card style={{height: '70vh', 'max-width': '600px'}}>
+		return (
+          <Card style={{height: '70vh', marginLeft: "2em", marginRight: '2em', padding: '1rem'}}>
             <CardContent id='quill-container'>
               <CustomToolbar />
               <hr/>
@@ -161,8 +161,7 @@ class QuillEditor extends Component {
                   bounds={'#quill-container'}
               /> 
             </CardContent>
-          </Card>
-        </div>)
+          </Card>)
 	}
 }
 
