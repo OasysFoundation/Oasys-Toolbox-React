@@ -5,7 +5,9 @@ import gameMetaData from "./gameMetaData"
 import globals from "./globals"
 import Tooltip from '@material-ui/core/Tooltip'
 import TextField from '@material-ui/core/TextField';
-import {buttonGradientCSS} from './stylings'
+import {buttonGradientCSS} from './stylings';
+import Card from '@material-ui/core/Card';
+
 
 class GameEdit extends Component {
     constructor({location}, props) {
@@ -45,6 +47,7 @@ class GameEdit extends Component {
         const h = w / 4 * 2.5;
         const that  = this;
         return (
+            <Card style={{marginLeft: "2em", marginRight: '2em', padding: '1rem'}}>
             <div id='gameRenderer'>
                 {this.props.value && !that.state.isChoosing ?
                     (<section>
@@ -73,6 +76,7 @@ class GameEdit extends Component {
                     </div>)
                 }
             </div>
+            </Card>
         )
     }
 }
