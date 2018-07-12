@@ -284,14 +284,6 @@ class MenuBarView extends Component {
           We need a little more information to properly save your content. 
           </DialogContentText>
             <TextField
-              id="title"
-              placeholder="Title"
-              style={{width:'100%'}} 
-              value={this.props.contentTitle} 
-              onChange={this.onChange.bind(this)}
-              margin="normal"
-            />
-            <TextField
               id="description"
               placeholder="Description"
               style={{width:'100%'}} 
