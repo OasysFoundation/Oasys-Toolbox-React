@@ -98,9 +98,9 @@ class Editor extends Component {
 
     onAddNewGame(content = null) {
         let slides = this.state.slides;
-        if (content===null){
-          content = gameMetaData[0];
-        }
+        // if (content===null){
+        //   content = gameMetaData[0];
+        // }
         slides.push(createSlide("Game ", Math.random().toString(36), content, glb.GAME));
         const newSlideIndex = slides.length -1;
         this.setState({

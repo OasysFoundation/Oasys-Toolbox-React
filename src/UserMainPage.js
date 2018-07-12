@@ -78,7 +78,6 @@ class UserMainPage extends Component {
 
     render() {
         return (
-
             <center>
                 <Paper style={{margin: 36, padding: 16, maxWidth: '400px', textAlign: 'left'}} elevation={4}>
                     <center>

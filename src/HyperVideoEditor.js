@@ -15,23 +15,23 @@ const defaultQuiz = {
   "answers": [{"option": "", "correct": false}]
 };
 
-class PlyrWrapper extends Component {
+class HyperVideoEditor extends Component {
 
 	constructor(props) {
 	    super(props);
 	    this.state = {
 	    	currentTime: 0,
 	    	currentQuiz: null,
-	    	quizzes: this.props.quizzes,
-	    	videoURL: this.props.videoURL,
+	    	quizzes: this.props.value.quizzes,
+	    	videoURL: this.props.value.videoURL,
 	    	preview: this.props.preview
 	    }
 	}
 
 	componentWillReceiveProps(nextProps) {
 		this.setState({
-			quizzes: nextProps.quizzes,
-	    	videoURL: nextProps.videoURL,
+			quizzes: nextProps.value.quizzes,
+	    	videoURL: nextProps.value.videoURL,
 	    	preview: nextProps.preview
 		});
 	}
@@ -169,92 +169,6 @@ class PlyrWrapper extends Component {
 			    }
 		 	</div>
 		 )
-	}
-	
-
-}
-
-class HyperVideoEditor extends Component {
-
-	constructor(props) {
-	    super(props);
-	    this.state = {
-	    	videoURL: this.props.value.videoURL,
-	    	quizzes: this.props.value.quizzes,
-	    	preview: this.props.preview
-	    }
-	    this.onChange = this.onChange.bind(this);
-	}
-
-	componentWillReceiveProps(nextProps) {
-		this.setState({
-	    	videoURL: nextProps.value.videoURL,
-	    	quizzes: nextProps.value.quizzes
-	    });
-	}
-
-	didChangeVideoURL(textfield) {
-		const url = textfield.target.value;
-		console.log("didChangeVideoURL: "+url);
-		if (this.isValidYouTubeUrl(url)) {
-			this.setState({
-				videoURL: url
-			}, function() {
-				this.notifyDelegate();
-			});
-		}
-	}
-
-	isValidYouTubeUrl(url)
-	{
-        if (url != undefined || url != '') {
-            var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
-            var match = url.match(regExp);
-            if (match && match[2].length == 11) {
-                return true;
-            }
-            else {
-                return false;
-            }
-        }
-	}
-
-	onChange(content) {
-		this.setState({
-			quizzes: content.quizzes,
-			videoURL: content.videoURL
-		}, function() {
-			this.notifyDelegate();
-		})
-	}
-
-	notifyDelegate() {
-		this.props.onChange({
-			"quizzes": this.state.quizzes,
-			"videoURL": this.state.videoURL
-		});
-	}
-
-	render() {
-
-
- 	   return (
- 	   	<div id='hyperVideoEditor'>
- 	   	{this.state.videoURL ? 
- 	   		<PlyrWrapper onChange={this.onChange} quizzes={this.state.quizzes} videoURL={this.state.videoURL} preview={this.state.preview}/>
- 	   		:
- 	   		<TextField
-              id="name"
-              placeholder="YouTube URL"
-              margin="normal"
-              style={{width:'100%', 'margin-bottom': '20px'}}
-              onChange={this.didChangeVideoURL.bind(this)}
-              helperText="Wrong URL format"
-            />
- 	   	}
- 	   		
- 	   	</div>
- 	   	);
 	}
 }
 

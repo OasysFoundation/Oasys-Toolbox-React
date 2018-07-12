@@ -130,19 +130,17 @@ class QuillEditor extends Component {
 
   }
 
-  componentDidMount(){
+  componentDidMount() {
     window.katex = katex;
     window.d3 = require('d3')
     
     const quill = this.refs.reactQuill.getEditor();
-    console.log("quill");
-    console.log(quill);
 
     window.document.getElementById('graph-button').addEventListener('click', function(e) {
-      var equation=prompt("Enter equation","x^3");
+        var equation = prompt("Enter equation","x^3");
+        
         if (equation != null) {
-
-          const cursorPosition = quill.getSelection().index
+          const cursorPosition = quill.getSelection().index;
           quill.insertEmbed(cursorPosition + 1, 'graph', {equation: equation}, Quill.sources.USER);
         }
     });
