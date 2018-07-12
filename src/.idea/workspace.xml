@@ -35,11 +35,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Comment.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Comment.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Comment.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3465">
-              <caret line="231" column="9" selection-start-line="231" selection-start-column="9" selection-end-line="231" selection-end-column="9" />
+            <state relative-caret-position="294">
+              <caret line="240" column="36" lean-forward="true" selection-start-line="240" selection-start-column="36" selection-end-line="240" selection-end-column="36" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -47,11 +47,27 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ContentView.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="EventPicker.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/EventPicker.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1363" />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HyperVideoEditor.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/HyperVideoEditor.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="212">
+              <caret line="85" column="26" selection-start-line="85" selection-start-column="26" selection-end-line="85" selection-end-column="26" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ContentView.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ContentView.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="795">
-              <caret line="67" column="10" selection-start-line="67" selection-start-column="10" selection-end-line="67" selection-end-column="10" />
+            <state relative-caret-position="425">
+              <caret line="243" column="98" selection-start-line="243" selection-start-column="98" selection-end-line="243" selection-end-column="98" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -59,14 +75,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/index.js">
+      <file leaf-file-name="buttons.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/buttons.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="885">
-              <caret line="94" column="9" selection-start-line="94" selection-start-column="9" selection-end-line="94" selection-end-column="9" />
-              <folding>
-                <element signature="e#0#32#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="30">
+              <caret line="2" column="1" lean-forward="true" selection-start-line="2" selection-start-column="1" selection-end-line="2" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -76,24 +89,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="495">
               <caret line="33" column="177" selection-start-line="33" selection-start-column="177" selection-end-line="33" selection-end-column="177" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="NavBar.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/NavBar.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1200">
-              <caret line="107" column="127" selection-start-line="107" selection-start-column="127" selection-end-line="107" selection-end-column="127" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SlideEditor.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SlideEditor.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="24" column="49" selection-start-line="24" selection-start-column="44" selection-end-line="24" selection-end-column="49" />
             </state>
           </provider>
         </entry>
@@ -126,7 +121,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>props</find>
       <find>save</find>
       <find>button</find>
       <find>oneditorchan</find>
@@ -156,6 +150,7 @@
       <find>username</find>
       <find>onchoose</find>
       <find>iframe</find>
+      <find>mui</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -181,10 +176,11 @@
         <option value="$PROJECT_DIR$/gameMetaData.js" />
         <option value="$PROJECT_DIR$/NavBar.js" />
         <option value="$PROJECT_DIR$/userMainPage.js" />
-        <option value="$PROJECT_DIR$/ContentView.js" />
         <option value="$PROJECT_DIR$/GameEmbedder.js" />
         <option value="$PROJECT_DIR$/GameEdit.js" />
         <option value="$PROJECT_DIR$/Comment.js" />
+        <option value="$PROJECT_DIR$/buttons.css" />
+        <option value="$PROJECT_DIR$/ContentView.js" />
       </list>
     </option>
   </component>
@@ -273,12 +269,12 @@
       <workItem from="1530783930968" duration="8926000" />
       <workItem from="1530870912609" duration="1348000" />
       <workItem from="1531213362663" duration="9141000" />
-      <workItem from="1531377796590" duration="5271000" />
+      <workItem from="1531377796590" duration="6302000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="66643000" />
+    <option name="totallyTimeSpent" value="67674000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="797" extended-state="6" />
@@ -310,9 +306,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/registerServiceWorker.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/EditorView.js" />
     <entry file="file://$PROJECT_DIR$/../../../learnOAS/src/SimpleMediaCard.js" />
     <entry file="file://$PROJECT_DIR$/../../../learnOAS/src/Preview.js" />
@@ -374,13 +367,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/HyperVideoEditor.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="483">
-          <caret line="83" column="9" lean-forward="true" selection-start-line="83" selection-start-column="9" selection-end-line="83" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/HomePage.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -400,9 +386,6 @@
           <caret line="11" column="31" lean-forward="true" selection-start-line="11" selection-start-column="31" selection-end-line="11" selection-end-column="31" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/EventPicker.js">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/Quiz.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -536,16 +519,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ContentView.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="795">
-          <caret line="67" column="10" selection-start-line="67" selection-start-column="10" selection-end-line="67" selection-end-column="10" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/gameMetaData.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
@@ -590,10 +563,39 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/EventPicker.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1363" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HyperVideoEditor.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="212">
+          <caret line="85" column="26" selection-start-line="85" selection-start-column="26" selection-end-line="85" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Comment.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3465">
-          <caret line="231" column="9" selection-start-line="231" selection-start-column="9" selection-end-line="231" selection-end-column="9" />
+        <state relative-caret-position="294">
+          <caret line="240" column="36" lean-forward="true" selection-start-line="240" selection-start-column="36" selection-end-line="240" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/buttons.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="1" lean-forward="true" selection-start-line="2" selection-start-column="1" selection-end-line="2" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ContentView.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="243" column="98" selection-start-line="243" selection-start-column="98" selection-end-line="243" selection-end-column="98" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
