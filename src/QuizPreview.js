@@ -64,7 +64,9 @@ class QuizPreview extends Component {
                 <Button variant="contained"
                         size="large"
                         color="primary"
-                        onClick={() => this.checkAnswers()}>
+                        onClick={() => this.checkAnswers()}
+                        disabled={this.props.hyperVideoEditing}
+                        >
                 Submit
                 </Button>
                 </div>

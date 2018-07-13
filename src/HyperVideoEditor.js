@@ -61,7 +61,7 @@ class HyperVideoEditor extends Component {
 								<Card style={{maxWidth:'450px', position:'absolute', top: '50%', left: '50%', transform: 'translateX(-50%) translateY(-50%)', 'z-index':'1000'}} >
 								{this.state.currentQuiz ? (
 										<CardContent>
-										<QuizPreview content={this.state.currentQuiz} onChange={this.onChange.bind(this)} onCompleted={this.onCompletedQuiz.bind(this)}/>
+										<QuizPreview content={this.state.currentQuiz} onChange={this.onChange.bind(this)} onCompleted={this.onCompletedQuiz.bind(this)} hyperVideoEditing={true}/>
 										</CardContent>
 									) : (
 										<div />
