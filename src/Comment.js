@@ -12,6 +12,7 @@ class CommentSection extends Component {
             comments: [],
             comment: '',
             reply: '',
+            hideReply: false,
             currentReply: '',
             finalComments: [],
             slideLength: this.props.slideLength,
@@ -28,8 +29,9 @@ class CommentSection extends Component {
             var that = this;
             const loc = window.location.href;
             const directory = loc.split('/').filter(e => e.length > 0).slice(-2);
+            const userName = directory[0];
             const contentName = directory[1];
-            var loadComments = 'https://api.joinoasys.org/comment/user/' + contentName + '/' + this.slideNumber;
+            var loadComments = 'https://api.joinoasys.org/comment/'+userName+'/' + contentName + '/' + this.slideNumber;
             fetch(loadComments, {
                 method: 'GET'
             }).then(function (response) {
@@ -44,7 +46,8 @@ class CommentSection extends Component {
         else {
             var that = this;
             const contentName = this.props.match.params.contentId;
-            var loadComments = 'https://api.joinoasys.org/comment/user/' + contentName + '/' + this.slideNumber;
+            const userName = this.props.match.params.userName;
+            var loadComments = 'https://api.joinoasys.org/comment/'+userName+'/' + contentName + '/' + this.slideNumber;
             fetch(loadComments, {
                 method: 'GET'
             }).then(function (response) {
@@ -63,22 +66,26 @@ class CommentSection extends Component {
 
         var parent = e;
         var contentName = '';
+        var userName='';
 
         if (!this.props.match) {
             const loc = window.location.href;
             const directory = loc.split('/').filter(e => e.length > 0).slice(-2);
             contentName = directory[1];
+            userName = directory[0];
+
         }
         else {
             contentName = this.props.match.params.contentId;
+            userName = this.props.match.params.userId;
         }
 
-        var myUsername = '';
+        var accessUser = '';
         this.props.name ?
-            myUsername = this.props.name.displayName
+            accessUser = this.props.name.displayName
             : null
 
-        var commentEndpoint = 'https://api.joinoasys.org/comment/' + myUsername + '/' + contentName;
+        var commentEndpoint = 'https://api.joinoasys.org/comment/' + userName + '/' + contentName;
         var currentTime = Date.now();
         if (typeof(this.slideNumber) == "number")
             this.slideNumber = this.slideNumber.toString()
@@ -87,6 +94,7 @@ class CommentSection extends Component {
             "comment": this.state.currentReply,
             "parent": parent,
             "slideNumber": this.slideNumber,
+            "accessUser" : userName,
         }
 
         fetch(commentEndpoint, {
@@ -110,23 +118,26 @@ class CommentSection extends Component {
     onSubmit = (e) => {
 
         var contentName = '';
+        var userName='';
 
         if (!this.props.match) {
             const loc = window.location.href;
             const directory = loc.split('/').filter(e => e.length > 0).slice(-2);
             contentName = directory[1];
+            userName = directory[0];
         }
         else {
             contentName = this.props.match.params.contentId;
+            userName = this.props.match.params.userId;
         }
 
 
-        var myUsername = ''
+        var accessUser = ''
         this.props.name ?
-            myUsername = this.props.name.displayName
+            accessUser = this.props.name.displayName
             : null
 
-        var commentEndpoint = 'https://api.joinoasys.org/comment/' + myUsername + '/' + contentName;
+        var commentEndpoint = 'https://api.joinoasys.org/comment/' + userName + '/' + contentName;
         var currentTime = Date.now();
         if (typeof(this.slideNumber) == "number")
             this.slideNumber = this.slideNumber.toString()
@@ -134,6 +145,7 @@ class CommentSection extends Component {
             "time": currentTime,
             "comment": this.state.comment,
             "slideNumber": this.slideNumber,
+            "accessUser": accessUser,
         }
 
         fetch(commentEndpoint, {
@@ -168,9 +180,18 @@ class CommentSection extends Component {
         })
     }
 
+
     someFunction(id) {
         this.setState({
-            reply: id
+            reply: id,
+            hideReply: false,
+        })
+
+    }
+
+    cancelReply(id) {
+        this.setState({
+            hideReply: true,
         })
 
     }
@@ -183,11 +204,18 @@ class CommentSection extends Component {
                 </Comment.Actions>
                 {this.state.reply == id
                     ? (
-                        <Form reply>
-                            <Form.TextArea value={this.state.currentReply} onChange={this.addReply.bind(this)}/>
-                            <Button onClick={this.onSubmitReply.bind(this, id)} content='Add Reply' labelPosition='left'
-                                    icon='edit' primary/>
-                        </Form>
+                        this.state.hideReply
+                        ? null
+                        : (
+                            <Form reply>
+                                <Form.TextArea value={this.state.currentReply} onChange={this.addReply.bind(this)}/>
+                                <Button onClick={this.onSubmitReply.bind(this, id)} content='Add Reply' labelPosition='left'
+                                        icon='edit' primary/>
+                                <Button content='Cancel' labelPosition='left' onClick={this.cancelReply.bind(this, id)} />
+
+                            </Form>
+                        )
+
                     )
                     : (null)
                 }
@@ -203,7 +231,8 @@ class CommentSection extends Component {
             const loc = window.location.href;
             const directory = loc.split('/').filter(e => e.length > 0).slice(-2);
             const contentName = directory[1];
-            var loadComments = 'https://api.joinoasys.org/comment/user/' + contentName + '/' + this.slideNumber;
+            const userName = directory[0];
+            var loadComments = 'https://api.joinoasys.org/comment/'+userName+'/' + contentName + '/' + this.slideNumber;
             fetch(loadComments, {
                 method: 'GET'
             }).then(function (response) {
@@ -218,7 +247,8 @@ class CommentSection extends Component {
         else {
             var that = this;
             const contentName = this.props.match.params.contentId;
-            var loadComments = 'https://api.joinoasys.org/comment/user/' + contentName + '/' + this.slideNumber;
+            const userName = this.props.match.params.userId;
+            var loadComments = 'https://api.joinoasys.org/comment/'+userName+'/' + contentName + '/' + this.slideNumber;
             fetch(loadComments, {
                 method: 'GET'
             }).then(function (response) {
