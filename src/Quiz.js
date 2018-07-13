@@ -251,6 +251,11 @@ class Quiz extends Component {
     this.setState({ showsHelpDialog: false });
   }
 
+  learnMore() {
+    var win = window.open('/help', '_blank');
+    win.focus();
+  }
+
   changeTab = (event, value) => {
     this.setState({ 
       preview: Boolean(value)
@@ -333,7 +338,7 @@ class Quiz extends Component {
                   </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                  <Button onClick={this.closeHelp.bind(this)} color="primary">
+                  <Button onClick={this.learnMore.bind(this)} color="primary">
                     Learn more…
                   </Button>
                   <Button onClick={this.closeHelp.bind(this)} color="primary" autoFocus>
