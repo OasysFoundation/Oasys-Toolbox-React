@@ -359,7 +359,7 @@ class Quiz extends Component {
               </div>
               
               <div style={{'text-align': 'center'}}>
-              <CoolPinkButton 
+              <CoolPinkButton
                       className={compStyles.button} 
                       onClick={this.onAddAnswer.bind(this)}
                       centered>

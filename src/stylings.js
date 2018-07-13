@@ -15,8 +15,8 @@ const buttonGradientCSS = {
     }
 };
 
-const ClassInject = props => <Button className={props.classes.coolPink}>{props.children ? props.children : 'class names'}</Button>
+// const ClassInject = props => <Button onClick={this.onClick} className={props.classes.coolPink}>{props.children ? props.children : 'class names'}</Button>
 
-const CoolPinkButton = withStyles(buttonGradientCSS)(ClassInject)
+const CoolPinkButton = (props) => <Button {...props} style={buttonGradientCSS.coolPink} />
 
 export {buttonGradientCSS, CoolPinkButton}
