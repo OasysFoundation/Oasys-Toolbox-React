@@ -80,19 +80,20 @@ function generateFakeQuizAnswers(n) {
 
  function generateFakeData(){
     let allContentsForUser = [];
-    for (let i=0;i<5;i++) {
+    for (let i=0;i<4;i++) {
+        let oneContentForUser = [];
         let nSlides = 20 - Math.round(Math.random() * 10);
         let nQuiz = 4 - Math.round(Math.random() * 3);
-        let startTime = new Date();
-        startTime.setTime(startTime.getTime() - Math.round(Math.random()*60*60*24*1000*30)); // startTime in interval [now-30 days, now]
-        let endTime = new Date();
-        endTime.setTime(startTime.getTime() + Math.round(Math.random()*60*24*1000)); 
-        let slideTimings = generateFakeSlideTimes(nSlides);
-        let quizAnswers = generateFakeQuizAnswers(nQuiz);
-        let contentId = "content " + (i + 1);
-        let duration = new Date();
-        duration.setTime(endTime.getTime() - startTime.getTime());
-        let content = {contentId: contentId, startTime: startTime, endTime: endTime, slideTimings: slideTimings, quizAnswers: quizAnswers, duration: duration}
+            let startTime = new Date();
+            startTime.setTime(startTime.getTime() - Math.round(Math.random()*60*60*24*1000*30)); // startTime in interval [now-30 days, now]
+            let endTime = new Date();
+            endTime.setTime(startTime.getTime() + Math.round(Math.random()*60*24*1000)); 
+            let slideTimings = generateFakeSlideTimes(nSlides);
+            let quizAnswers = generateFakeQuizAnswers(nQuiz);
+            let contentId = "content " + (i + 1);
+            let duration = new Date();
+            duration.setTime(endTime.getTime() - startTime.getTime());
+            let content = {contentId: contentId, startTime: startTime, endTime: endTime, accessTimes: slideTimings, quizAnswers: quizAnswers, duration: duration}
         allContentsForUser.push(content);
     }
     return allContentsForUser;
@@ -122,12 +123,11 @@ class DataView extends Component {
             data: null,
             allContentsForUser: generateFakeData(),
         }
-        this.loadContent();
-
+        //this.loadContent();
     }
 
     loadContent() {
-        const loadContent = 'https://api.joinoasys.org/getAllContentsForUser/' + this.props.authUser.displayName;
+        const loadContent = 'https://api.joinoasys.org/getAllContentsForCreator/' + this.props.authUser.displayName;
         console.log(loadContent)
         const that = this;
 
@@ -146,7 +146,7 @@ class DataView extends Component {
     renderBarChart() {
         let contents = this.state.allContentsForUser;
         for (let i=0; i<contents.length; i++) {
-            let timing = wrapTiming(contents[i].slideTimings);
+            let timing = wrapTiming(contents[i].accessTimes);
             var chart = new taucharts.Chart({
                 data: timing,
                 type: 'bar',
@@ -169,8 +169,20 @@ class DataView extends Component {
         }
     }
 
-    formatTimeDate(time) {
-        return time.toLocaleDateString("en-US") + ", " + padNumber(time.getHours())+ ":" + padNumber(time.getMinutes());
+    showLastAcess(content) {
+        console.log(content)
+        let accessTime = null;
+        if (content.endTime!==null) {
+            accessTime = content.endTime;
+            console.log("1")
+        } else if (content.accessTimes != []) {
+            accessTime = content.accessTimes[-1].t;
+            console.log("2")
+        } else {
+            accessTime = content.startTime;
+            console.log("3")
+        }
+        return accessTime.toLocaleDateString("en-US") + ", " + padNumber(accessTime.getHours())+ ":" + padNumber(accessTime.getMinutes());
     }
 
     formatTime(time) {
@@ -196,25 +208,20 @@ class DataView extends Component {
     render() {
         return (
             <div style={styles.paperWrap}>
-             <div id={"d3chart"}>
-                <div style={{"width": "40px"}}>4</div>
-                <div style={{"width": "80px"}}>8</div>
-                <div style={{"width": "120px"}}>12</div>
-             </div>
-             {this.state.allContentsForUser.map((slide,i) => (
+             {this.state.allContentsForUser.map((content,i) => (
                 <Paper zDepth={3} style={styles.paper}> 
                     <Typography gutterBottom component="p">
-                        <strong>{slide.contentId}</strong>
-                        {" (accessed: "+ this.formatTimeDate(slide.endTime) + ")"}
+                        <strong>{content.contentId}</strong>
+                        {" (accessed: "+ this.showLastAcess(content) + ")"}
                     </Typography>
                     <Typography gutterBottom component="p">
-                        {"time spent with content: "+ this.formatTime(slide.duration)}
+                        {"time spent with content: "+ this.formatTime(content.duration)}
                     </Typography>
                     <div id={"quiz"+i} style={styles.quizWrap}>
                         <Typography gutterBottom component="p" style={styles.marginRight}>
                             {"quiz answers: "}
                         </Typography>
-                        {slide.quizAnswers.map(answer => (
+                        {content.quizAnswers.map(answer => (
                             this.getAnswerElem(answer)
                         ))}
                     </div>
