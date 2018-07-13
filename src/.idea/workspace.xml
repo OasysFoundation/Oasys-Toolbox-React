@@ -14,11 +14,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="GameEdit.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="GameEdit.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/GameEdit.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="212">
               <caret line="59" column="161" selection-start-line="59" selection-start-column="155" selection-end-line="59" selection-end-column="161" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Quiz.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Quiz.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="264">
+              <caret line="361" column="30" selection-start-line="361" selection-start-column="30" selection-end-line="361" selection-end-column="30" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -77,18 +89,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Tree.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Tree.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-509" />
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="stylings.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/stylings.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="20" column="42" lean-forward="true" selection-start-line="20" selection-start-column="42" selection-end-line="20" selection-end-column="42" />
+            <state relative-caret-position="135">
+              <caret line="9" column="28" selection-start-line="9" selection-start-column="28" selection-end-line="9" selection-end-column="28" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -100,7 +105,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>whatrender</find>
       <find>gameem</find>
       <find>game</find>
       <find>picture</find>
@@ -130,6 +134,7 @@
       <find>this.state</find>
       <find>submit</find>
       <find>button</find>
+      <find>cool</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -161,8 +166,9 @@
         <option value="$PROJECT_DIR$/Editor.js" />
         <option value="$PROJECT_DIR$/QuillEditor.js" />
         <option value="$PROJECT_DIR$/NavBar.js" />
-        <option value="$PROJECT_DIR$/stylings.js" />
         <option value="$PROJECT_DIR$/GameEdit.js" />
+        <option value="$PROJECT_DIR$/stylings.js" />
+        <option value="$PROJECT_DIR$/Quiz.js" />
       </list>
     </option>
   </component>
@@ -256,7 +262,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="73147000" />
+    <option name="totallyTimeSpent" value="73511000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="797" extended-state="6" />
@@ -343,13 +349,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="9" column="38" selection-start-line="9" selection-start-column="28" selection-end-line="9" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Quiz.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-27">
-          <caret line="3" column="13" selection-start-line="3" selection-start-column="7" selection-end-line="3" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -569,20 +568,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/stylings.js">
+    <entry file="file://$PROJECT_DIR$/GameEdit.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="42" lean-forward="true" selection-start-line="20" selection-start-column="42" selection-end-line="20" selection-end-column="42" />
+        <state relative-caret-position="212">
+          <caret line="59" column="161" selection-start-line="59" selection-start-column="155" selection-end-line="59" selection-end-column="161" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/GameEdit.js">
+    <entry file="file://$PROJECT_DIR$/stylings.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="212">
-          <caret line="59" column="161" selection-start-line="59" selection-start-column="155" selection-end-line="59" selection-end-column="161" />
+        <state relative-caret-position="135">
+          <caret line="9" column="28" selection-start-line="9" selection-start-column="28" selection-end-line="9" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Quiz.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="361" column="30" selection-start-line="361" selection-start-column="30" selection-end-line="361" selection-end-column="30" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
