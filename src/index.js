@@ -64,7 +64,7 @@ class Index extends Component {
                         <NavBar authUser={this.state.authUser}/>
                         <Switch>
                             <Route exact path="/" render={()=><ContentSelection/>} />
-                            <Route path="/data" render={(props)=>(<DataView authUser={this.state.authUser}/>)} />
+                            <Route path="/data" render={(props)=>( this.state.authUser ? <DataView authUser={this.state.authUser} /> : null)} />
                             <Route path="/explore" component={ContentSelection}/>
                             <Route path="/create/:userId/:contentId" render={(props)=>(<Editor authUser={this.state.authUser} {...props}/>)} />
                             <Route path="/create" render={(props)=>(<Editor authUser={this.state.authUser}/>)} />
