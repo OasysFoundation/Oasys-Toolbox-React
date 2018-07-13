@@ -128,17 +128,27 @@ class HyperVideoEditor extends Component {
 		elem.setAttribute('style',  "position: absolute; left: 0px; top: 0px; width: 100%; height: 100%; z-index:1000; pointer-events: all;");
 		plyr.elements.container.children[0].append(elem);
 
+		plyr.on("seeked", event => {
+			this.didUpdateTimeWithEvent(event);
+		});
+
+		plyr.on("seeking", event => {
+			this.didUpdateTimeWithEvent(event);
+		});
 		
 		plyr.on("timeupdate", event => {
-			const instance = event.detail.plyr;
-			
-			this.setState({
-				currentTime: instance.currentTime
-			});
-
-			this.refreshCurrentQuiz();
-			
+			this.didUpdateTimeWithEvent(event);
 		})
+	}
+
+	didUpdateTimeWithEvent(event) {
+		const that = this;
+		const newTime = event.detail.plyr.currentTime;
+		that.setState({
+			currentTime: newTime
+		}, function() {
+			that.refreshCurrentQuiz();
+		});
 	}
 
 	render() {
