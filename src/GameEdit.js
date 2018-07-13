@@ -7,6 +7,7 @@ import Tooltip from '@material-ui/core/Tooltip'
 import TextField from '@material-ui/core/TextField';
 import {buttonGradientCSS} from './stylings';
 import Card from '@material-ui/core/Card';
+import {CoolPinkButton} from './stylings'
 
 
 class GameEdit extends Component {
@@ -48,15 +49,15 @@ class GameEdit extends Component {
         const that  = this;
         return (
             <Card style={{marginLeft: "2em", marginRight: '2em', padding: '1rem'}}>
-            <div id='gameRenderer'>
+                <div id='gameRenderer'>
                 {this.props.value && !that.state.isChoosing ?
                     (<section>
-                        <Button style={buttonGradientCSS} variant="flat" color="primary" onClick={() => that.setState({isChoosing: true})}> Choose
-                            Different Game </Button>
+                        <CoolPinkButton style={buttonGradientCSS} variant="flat" color="primary" onClick={() => that.setState({isChoosing: true})}> Choose
+                            Different Game </CoolPinkButton>
                             <img src={this.props.value ? this.props.value.thumbnail : ""}
                              style={{width: this.props.width || w, height: this.props.height || h}}/>
                         <figcaption style={{padding: 1 + "rem"}}>{this.props.value ? this.props.value.description : ""}</figcaption>
-                        <Button style={buttonGradientCSS} variant="flat" color="primary" onClick={this.handleTryOut.bind(this)}> Try Out </Button>
+                        <CoolPinkButton style={buttonGradientCSS} variant="flat" color="primary" onClick={this.handleTryOut.bind(this)}> Try Out </CoolPinkButton>
                     </section>)
 
                     :
@@ -70,7 +71,7 @@ class GameEdit extends Component {
                         {/*/>*/}
                         <input
                             ref={this.textInput} label="...add URL to embed your own Simulation" />
-                        <Button style={buttonGradientCSS} variant="flat" color="primary" onClick={this.submitNewGame}>Submit</Button>
+                        <CoolPinkButton style={buttonGradientCSS} variant="flat" color="primary" onClick={this.submitNewGame}>Submit</CoolPinkButton>
 
                         <ChooseGameGrid choose={this.onChooseGame}/>
                     </div>)

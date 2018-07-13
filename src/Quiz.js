@@ -23,6 +23,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+import {CoolPinkButton} from "./stylings";
 
 import {
   SortableContainer,
@@ -358,13 +359,13 @@ class Quiz extends Component {
               </div>
               
               <div style={{'text-align': 'center'}}>
-              <Button variant="raised" style={{background: 'orange', color: 'white', 'margin-top': '20px'}} aria-label="add" 
+              <CoolPinkButton
                       className={compStyles.button} 
                       onClick={this.onAddAnswer.bind(this)}
                       centered>
                    Add answer
                   <AddIcon />
-              </Button>
+              </CoolPinkButton>
               </div>
               
             </div> // ternary end
