@@ -274,6 +274,7 @@ class ContentView extends Component {
                       index={this.state.slideIdx}
                       onChangeIndex={this.handleStepChange.bind(this)}
                       enableMouseEvents
+                      animateHeight={true}
                       style={{width: '640px'}}
                     >
                     {content.data.map(slide => (
