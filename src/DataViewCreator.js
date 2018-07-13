@@ -59,7 +59,12 @@ function generateFakeSlideTimes(n) {
         else if (Math.random() > 0.9 && i > 0) { i--; }
         else {i++; }
     }
-    return a;
+    if (Math.random() > 0.7) {
+        let maxnr = Math.round(Math.random()*a.length);
+        return a.slice(0,maxnr);
+    } else {
+        return a;
+    }
 }
 
 
@@ -81,7 +86,8 @@ function generateFakeQuizAnswers(n) {
         let oneContentForUser = [];
         let nSlides = 20 - Math.round(Math.random() * 10);
         let nQuiz = 4 - Math.round(Math.random() * 3);
-        for (let j=0;j<20;j++) {
+        let nUsers = 25 - Math.round(Math.random() * 10);
+        for (let j=0;j<nUsers;j++) {
             let startTime = new Date();
             startTime.setTime(startTime.getTime() - Math.round(Math.random()*60*60*24*1000*30)); // startTime in interval [now-30 days, now]
             let endTime = new Date();
@@ -109,7 +115,7 @@ function wrapTiming(x) {
         if (x[i].i < a.length) {
             a[x[i].i].time = a[x[i].i].time + x[i].t;
         } else {
-            a.push({slide: i, time: x[i].t});
+            a.push({slide: x[i].i, time: x[i].t});
         }
     }
     return a;
@@ -143,24 +149,6 @@ class DataView extends Component {
         });
     }
 
-    renderBarChart() {
-        let contents = this.state.allContentsForUser;
-        for (let i=0; i<contents.length; i++) {
-            let timing = wrapTiming(contents[i].accessTimes);
-            var chart = new taucharts.Chart({
-                data: timing,
-                type: 'bar',
-                x: 'slide',
-                y: 'time',
-                dimensions: {
-                    slide    : { type: 'measure', scale: 'linear' },
-                    time    : { type: 'measure', scale: 'linear' }
-                }
-            });
-            chart.renderTo('#bar'+i);
-        }
-    }
-
     getAnswerElem(answer){
         if (answer) {
             return (<div style={styles.quizElemCorrect}></div>)
@@ -174,13 +162,10 @@ class DataView extends Component {
         let accessTime = null;
         if (content.endTime!==null) {
             accessTime = content.endTime;
-            console.log("1")
         } else if (content.accessTimes != []) {
             accessTime = content.accessTimes[-1].t;
-            console.log("2")
         } else {
             accessTime = content.startTime;
-            console.log("3")
         }
         return accessTime.toLocaleDateString("en-US") + ", " + padNumber(accessTime.getHours())+ ":" + padNumber(accessTime.getMinutes());
     }
@@ -189,9 +174,112 @@ class DataView extends Component {
         return padNumber(time.getHours()-1) + "h:" + padNumber(time.getMinutes()) + "m:" + padNumber(time.getSeconds()) + "s";
     }
 
+
+    renderBarChart(data, dim1, dim2, div) {
+        var chart = new taucharts.Chart({
+            data: data,
+            type: 'bar',
+            x: dim1,
+            y: dim2
+        });
+        chart.renderTo(div);
+    }
+
+    rearrangeData(contents) {
+        // find total number of slides. we should change this later by directly
+        // importing the content, and looking up number of slides
+        let nSlides = 0;
+        for (let i=0; i<contents.length; i++) {
+            nSlides = Math.max(nSlides, wrapTiming(contents[i].accessTimes).length);
+        }
+        let nQuiz = 0;
+        for (let i=0; i<contents.length; i++) {
+            nQuiz = Math.max(nQuiz, wrapTiming(contents[i].quizAnswers).length);
+        }
+
+        let usersPerSlide = Array.apply(null, Array(nSlides)).map(Number.prototype.valueOf,0);
+        let timingTemplate = Array.apply(null, Array(nSlides)).map(Number.prototype.valueOf,0);
+        let timings = []
+        for (let i=0; i<contents.length; i++) {
+            let timing = wrapTiming(contents[i].accessTimes).map(a => a.time);
+            let tt = timingTemplate.slice();
+            tt.splice(0, timing.length, ...timing);
+            timings.push(tt);
+            for (let j=0; j<timing.length; j++) {
+                usersPerSlide[j]++;
+            }
+        }
+        let timingsPerSlide = [...Array(nSlides)].map(e => Array(0));
+        for (let i=0; i<timings.length; i++) {
+            for (let j=0; j<timings[i].length; j++) {
+                timingsPerSlide[j].push(timings[i][j])
+            }
+        }
+        let answers = Array.apply(null, Array(nQuiz)).map(Number.prototype.valueOf,0);
+        for (let i=0; i<contents.length; i++) {
+            for (let j=0; j<contents[i].quizAnswers.length; j++) {
+                if (contents[i].quizAnswers[j]) {
+                    // TODO: this is inccorectly divided by the number of users that accessed the content.
+                    // instead, it should be divided by the number of users who answered this quiz question.
+                    answers[j] += 1 / contents.length;
+                }
+            }
+        }
+        console.log(answers)
+        let data = {
+            usersPerSlide: usersPerSlide, 
+            timings: timings, 
+            nSlides: nSlides, 
+            timingsPerSlide: timingsPerSlide,
+            answers: answers,
+        }
+        return data
+    }
+
+    renderAvgTimeSpent(data, idx) {
+        let avgTimings = [];
+        for (let i=0; i<data.timingsPerSlide.length; i++) {
+            let sum = data.timingsPerSlide[i].reduce(function(a, b) { return a + b; });
+            avgTimings.push({
+                slide: i+1,
+                time: sum/data.timingsPerSlide[i].length
+            });
+        }
+        this.renderBarChart(avgTimings, "slide", "time", "#avgTime"+idx);
+    }
+
+    renderUsersPerSlide(data, idx) {
+        let users = [];
+        for (let i=0; i<data.usersPerSlide.length; i++) {
+            users.push({
+                slide: i+1,
+                users: data.usersPerSlide[i]
+            });
+        }
+        this.renderBarChart(users, "slide", "users", "#usersPerSlide"+idx);
+    }
+
+    renderQuizAnswers(data, idx) {
+        let answers = [];
+        for (let i=0; i<data.answers.length; i++) {
+            answers.push({
+                question: i+1,
+                correct: data.answers[i]
+            });
+        }
+        this.renderBarChart(answers, "question", "correct", "#quiz"+idx);
+    }
+
     componentDidMount(){
-        this.renderBarChart();
-        //this.renderD3();
+        let contents = this.state.allContentsForUser;
+        for (let i=0; i<contents.length; i++) {
+            let data = this.rearrangeData(contents[i]);
+            this.renderUsersPerSlide(data, i);
+            this.renderAvgTimeSpent(data, i);
+            this.renderQuizAnswers(data, i);
+
+            //this.renderD3();
+        }
     }
 
     renderD3(){
@@ -211,21 +299,24 @@ class DataView extends Component {
              {this.state.allContentsForUser.map((content,i) => (
                 <Paper zDepth={3} style={styles.paper}> 
                     <Typography gutterBottom component="p">
-                        <strong>{content.contentId}</strong>
-                        {" (accessed: "+ this.showLastAcess(content) + ")"}
+                        <strong>{content[0].contentId}</strong>
+                        {" (#accessed: "+ content.length + ")"}
                     </Typography>
+
                     <Typography gutterBottom component="p">
-                        {"time spent with content: "+ this.formatTime(content.duration)}
+                        {"Average number of users per slide"}
                     </Typography>
-                    <div id={"quiz"+i} style={styles.quizWrap}>
-                        <Typography gutterBottom component="p" style={styles.marginRight}>
-                            {"quiz answers: "}
-                        </Typography>
-                        {content.quizAnswers.map(answer => (
-                            this.getAnswerElem(answer)
-                        ))}
-                    </div>
-                    <div id={"bar"+i} style={styles.barWrap}/>
+                    <div id={"usersPerSlide"+i} style={styles.barWrap}/>
+
+                    <Typography gutterBottom component="p">
+                        {"Average time spent on each slide"}
+                    </Typography>
+                    <div id={"avgTime"+i} style={styles.barWrap}/>
+
+                    <Typography gutterBottom component="p">
+                        {"Quiz answers"}
+                    </Typography>
+                    <div id={"quiz"+i} style={styles.quizWrap}/>
                 </Paper>
              ))}
             </div>
