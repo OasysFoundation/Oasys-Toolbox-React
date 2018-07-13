@@ -5,8 +5,7 @@ import Comment from './Comment'
 import DoneIcon from '@material-ui/icons/CheckCircle';
 import {CoolPinkButton} from "./stylings";
 import Button from '@material-ui/core/Button';
-
-
+import NextIcon from '@material-ui/icons/ArrowForward';
 
 class Rating extends Component {
     constructor(props) {
@@ -56,7 +55,8 @@ class Rating extends Component {
                             <DoneIcon color="secondary" style={{fontSize: '100px'}}/>
                             <h1>Good. You finished</h1>
                             <CoolPinkButton onClick={() => window.location.replace('/')}>EXPLORE MORE
-                                >></CoolPinkButton>
+                            <NextIcon />
+                            </CoolPinkButton>
                         </center>
                         <div><p> Please take a moment to give <i>{this.state.username}</i> some feedback
                             for <i>{this.state.contentname}</i>.<br/><br/>Tell us more about what you learned, how much
