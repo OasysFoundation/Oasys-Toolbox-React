@@ -18,8 +18,15 @@ class HorizontalSlidePicker extends Component {
 	constructor(props) {
 	    super(props);
 		this.state = {
-			currentlySelectedIndex: 0
+			currentlySelectedIndex: this.props.currentlySelectedIndex,
+			quizzes: this.props.quizzes
 		}
+	}
+
+	componentWillReceiveProps(nextProps) {
+		this.setState({
+			quizzes: nextProps.quizzes
+		});
 	}
 
 	handleNext() {
@@ -42,16 +49,30 @@ class HorizontalSlidePicker extends Component {
 
 	onChange(content) {
 		this.props.quizzes[this.state.currentlySelectedIndex] = content;
-		this.props.onChange(this.props.quizzes);
+		this.props.onChange(this.state.quizzes);
 	}
 
 
 	render() {
 		return (
 			<div>
-				<Paper square elevation={0}>
-          			<Typography>QUIZZES</Typography>
-        		</Paper>
+        		<MobileStepper
+		          steps={this.state.quizzes.length}
+		          position="static"
+		          activeStep={this.state.currentlySelectedIndex}
+		          nextButton={
+		            <Button size="small" onClick={this.handleNext.bind(this)} disabled={this.state.currentlySelectedIndex >= this.state.quizzes.length - 1}>
+		              Next Quiz
+		              {<KeyboardArrowRight />}
+		            </Button>
+		          }
+		          backButton={
+		            <Button size="small" onClick={this.handlePrevious.bind(this)} disabled={this.state.currentlySelectedIndex === 0}>
+		              {<KeyboardArrowLeft />}
+		              Previous Quiz
+		            </Button>
+		          }
+		        />
 
         		<SwipeableViews
 		          axis={'x'}
@@ -59,27 +80,10 @@ class HorizontalSlidePicker extends Component {
 		          onChangeIndex={this.handleStepChange.bind(this)}
 		          enableMouseEvents
 		        >
-		        {this.props.quizzes.map(quiz => (
+		        {this.state.quizzes.map(quiz => (
 		        	<Quiz shouldHideTabbar={true} value={quiz} onChange={this.onChange.bind(this)} />
 	            ))}
 		        </SwipeableViews>
-		        <MobileStepper
-		          steps={this.props.quizzes.length}
-		          position="static"
-		          activeStep={this.state.currentlySelectedIndex}
-		          nextButton={
-		            <Button size="small" onClick={this.handleNext.bind(this)} disabled={this.state.currentlySelectedIndex === this.props.quizzes.length - 1}>
-		              Next
-		              {<KeyboardArrowRight />}
-		            </Button>
-		          }
-		          backButton={
-		            <Button size="small" onClick={this.handlePrevious.bind(this)} disabled={this.state.currentlySelectedIndex === 0}>
-		              {<KeyboardArrowLeft />}
-		              Back
-		            </Button>
-		          }
-		        />
 
 			</div>
 			);

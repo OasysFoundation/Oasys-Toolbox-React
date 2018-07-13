@@ -170,11 +170,11 @@ class HyperVideoEditor extends Component {
 			    	:
 			    	<div>
 			    	<center>
-			    	<Button variant="raised" onClick={this.addNewQuizAtCurrentTime.bind(this)} style={{color: 'black'}} >
+			    	<Button variant="raised" onClick={this.addNewQuizAtCurrentTime.bind(this)} style={{color: 'black', margin:'10px'}} >
 			          Insert Quiz at {Math.round(this.state.currentTime)} seconds
 			      	</Button>
 		 	   		</center>
-		 	   		<HorizontalSlidePicker quizzes={this.state.quizzes} onChange={this.onChange.bind(this)} />
+		 	   		<HorizontalSlidePicker quizzes={this.state.quizzes} onChange={this.onChange.bind(this)} currentlySelectedIndex={0}/>
 		 	   		</div>
 			    }
 		 	</div>
