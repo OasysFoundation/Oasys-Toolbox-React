@@ -71,16 +71,13 @@
       <file leaf-file-name="ContentView.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ContentView.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4192">
-              <caret line="281" column="34" selection-start-line="281" selection-start-column="21" selection-end-line="281" selection-end-column="34" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="270">
+              <caret line="18" column="13" lean-forward="true" selection-start-line="18" selection-end-line="19" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Rating.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Rating.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Rating.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="286">
@@ -92,11 +89,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Comment.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Comment.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Comment.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="211" column="39" selection-start-line="211" selection-start-column="33" selection-end-line="211" selection-end-column="39" />
+            <state relative-caret-position="290">
+              <caret line="250" column="106" selection-start-line="250" selection-start-column="106" selection-end-line="250" selection-end-column="106" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -107,8 +104,8 @@
       <file leaf-file-name="stylings.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/stylings.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="19" column="42" selection-start-line="19" selection-start-column="42" selection-end-line="19" selection-end-column="42" />
+            <state relative-caret-position="345">
+              <caret line="23" column="58" lean-forward="true" selection-start-line="23" selection-start-column="58" selection-end-line="23" selection-end-column="58" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -120,10 +117,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>picture</find>
-      <find>classes</find>
-      <find>open</find>
-      <find>onload</find>
       <find>elem!=</find>
       <find>remi</find>
       <find>r</find>
@@ -148,8 +141,12 @@
       <find>cool</find>
       <find>complete</find>
       <find>mui</find>
-      <find>button</find>
       <find>mobilestepper</find>
+      <find>button</find>
+      <find>show com</find>
+      <find>Buttonadd</find>
+      <find>add</find>
+      <find>add comm</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -174,16 +171,16 @@
         <option value="$PROJECT_DIR$/userMainPage.js" />
         <option value="$PROJECT_DIR$/GameEmbedder.js" />
         <option value="$PROJECT_DIR$/buttons.css" />
-        <option value="$PROJECT_DIR$/Comment.js" />
         <option value="$PROJECT_DIR$/MyAccountPage.js" />
-        <option value="$PROJECT_DIR$/ContentView.js" />
         <option value="$PROJECT_DIR$/Editor.js" />
         <option value="$PROJECT_DIR$/QuillEditor.js" />
         <option value="$PROJECT_DIR$/NavBar.js" />
         <option value="$PROJECT_DIR$/GameEdit.js" />
         <option value="$PROJECT_DIR$/Quiz.js" />
-        <option value="$PROJECT_DIR$/stylings.js" />
         <option value="$PROJECT_DIR$/Rating.js" />
+        <option value="$PROJECT_DIR$/stylings.js" />
+        <option value="$PROJECT_DIR$/ContentView.js" />
+        <option value="$PROJECT_DIR$/Comment.js" />
       </list>
     </option>
   </component>
@@ -277,7 +274,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="75101000" />
+    <option name="totallyTimeSpent" value="76363000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="797" extended-state="6" />
@@ -572,16 +569,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Comment.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="211" column="39" selection-start-line="211" selection-start-column="33" selection-end-line="211" selection-end-column="39" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/NavBar.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1843">
@@ -589,30 +576,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ContentView.js">
+    <entry file="file://$PROJECT_DIR$/Rating.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4192">
-          <caret line="281" column="34" selection-start-line="281" selection-start-column="21" selection-end-line="281" selection-end-column="34" />
+        <state relative-caret-position="286">
+          <caret line="57" column="59" selection-start-line="57" selection-start-column="59" selection-end-line="57" selection-end-column="59" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ContentView.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="13" lean-forward="true" selection-start-line="18" selection-end-line="19" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/stylings.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="42" selection-start-line="19" selection-start-column="42" selection-end-line="19" selection-end-column="42" />
+        <state relative-caret-position="345">
+          <caret line="23" column="58" lean-forward="true" selection-start-line="23" selection-start-column="58" selection-end-line="23" selection-end-column="58" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Rating.js">
+    <entry file="file://$PROJECT_DIR$/Comment.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="57" column="59" selection-start-line="57" selection-start-column="59" selection-end-line="57" selection-end-column="59" />
+        <state relative-caret-position="290">
+          <caret line="250" column="106" selection-start-line="250" selection-start-column="106" selection-end-line="250" selection-end-column="106" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>

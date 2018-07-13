@@ -15,6 +15,8 @@ import GameView from "./GameView"
 import { firebase } from './firebase';
 import HyperVideoEditor from './HyperVideoEditor';
 import Comment from './Comment'
+import {CoolPinkButton} from "./stylings";
+import {CoolBlueButton} from "./stylings";
 
 const buttonStyle = {
     background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
@@ -99,14 +101,14 @@ class ContentView extends Component {
                     <Preview content={slide.content}/>
                     {this.state.showComments
                         ?(
-                            <Button size="small" onClick={this.deactivateComments.bind(this)} >
+                            <CoolBlueButton size="small" onClick={this.deactivateComments.bind(this)} >
                               Hide Comments
-                            </Button>
+                            </CoolBlueButton>
                         )
                         : (
-                            <Button size="small" onClick={this.activateComments.bind(this)} >
+                            <CoolBlueButton size="small" onClick={this.activateComments.bind(this)} >
                               Show Comments
-                            </Button>
+                            </CoolBlueButton>
 
                         )
                     }                    
@@ -122,14 +124,14 @@ class ContentView extends Component {
                     <QuizPreview content={slide.content}/>
                     {this.state.showComments
                         ?(
-                            <Button size="small" onClick={this.deactivateComments.bind(this)} >
+                            <CoolBlueButton size="small" onClick={this.deactivateComments.bind(this)} >
                               Hide Comments
-                            </Button>
+                            </CoolBlueButton>
                         )
                         : (
-                            <Button size="small" onClick={this.activateComments.bind(this)} >
+                            <CoolBlueButton size="small" onClick={this.activateComments.bind(this)} >
                               Show Comments
-                            </Button>
+                            </CoolBlueButton>
 
                         )
                     }
@@ -145,14 +147,14 @@ class ContentView extends Component {
                     <GameView url={slide.content.url}/>
                     {this.state.showComments
                         ?(
-                            <Button size="small" onClick={this.deactivateComments.bind(this)} >
+                            <CoolBlueButton size="small" onClick={this.deactivateComments.bind(this)} >
                               Hide Comments
-                            </Button>
+                            </CoolBlueButton>
                         )
                         : (
-                            <Button size="small" onClick={this.activateComments.bind(this)} >
+                            <CoolBlueButton size="small" onClick={this.activateComments.bind(this)} >
                               Show Comments
-                            </Button>
+                            </CoolBlueButton>
 
                         )
                     }                    
@@ -167,14 +169,14 @@ class ContentView extends Component {
                 <div>
                 {this.state.showComments
                     ?(
-                        <Button size="small" onClick={this.deactivateComments.bind(this)} >
+                        <CoolBlueButton size="small" onClick={this.deactivateComments.bind(this)} >
                           Hide Comments
-                        </Button>
+                        </CoolBlueButton>
                     )
                     : (
-                        <Button size="small" onClick={this.activateComments.bind(this)} >
+                        <CoolBlueButton size="small" onClick={this.activateComments.bind(this)} >
                           Show Comments
-                        </Button>
+                        </CoolBlueButton>
 
                     )                
                 }                
@@ -282,7 +284,7 @@ class ContentView extends Component {
                     <MobileStepper
                       steps={content.data.length + 1}
                       activeStep={this.state.slideIdx}
-                      style = {{position: 'fixed', bottom: '0', width: '100%', minHeight: 12 + "vh"}}
+                      style = {{position: 'relative', bottom: '0', width: '100%', minHeight: 12 + "vh"}}
                       nextButton={
                         <Button size="large" style={this.state.slideIdx === content.data.length ? null : buttonStyle} onClick={this.handleNext.bind(this)} disabled={this.state.slideIdx === content.data.length}>
                           Next
