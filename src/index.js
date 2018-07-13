@@ -35,6 +35,8 @@ import UserProjects from './UserProjects'
 import Wallet from './Wallet'
 import Comment from './Comment'
 
+import Help from './Help'
+
 
 const history = createBrowserHistory();
 
@@ -82,6 +84,8 @@ class Index extends Component {
                             <Route path="/resetPassword" component={PasswordReset}/>
 
                             <Route path="/wallet" component={Wallet}/>
+
+                            <Route path="/help" component={Help}/>
 
                             <Route path="/comments/:userId/:contentId" render={(props)=>(<Comment name={this.state.authUser}/>)} />
 
