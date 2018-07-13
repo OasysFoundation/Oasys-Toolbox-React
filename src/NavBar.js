@@ -91,6 +91,11 @@ class NavBar extends React.Component {
           Create
         </Button>
 
+        <Button href='/data' color="inherit">
+          <IconCreate style={{marginRight: '7px'}}/>
+          Analytics
+        </Button>
+
         {accountMenuItems}
 
         <Button href='https://joinoasys.org' color="inherit">About</Button>

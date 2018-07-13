@@ -86,16 +86,16 @@ class SimpleMediaCard extends Component {
         contentUrl = userUrl+'/'+contentId;
     }
 
-    var hashtags = tags
-
+    var hashtags = tags;
     if(!Array.isArray(tags)) {
-      hashtags = tags.split(' ');
-      hashtags = hashtags.map(function(element) {
-        element.replace('#','');
-        element.replace(',','');
-        return element;
-      });
+        hashtags = tags.split(' ');
+        hashtags = hashtags.map(function(element) {
+          element.replace('#','');
+          element.replace(',','');
+          return element;
+        });
     }
+    
 
 
     return (
@@ -121,7 +121,7 @@ class SimpleMediaCard extends Component {
                       </ListItemIcon>
                       <ListItemText inset primary="Remix" />
                     </ListItem>
-                    <ListItem button onClick={function(event) {event.preventDefault(); window.location.href = ('/comments/'+title) }}>
+                    <ListItem button onClick={function(event) {event.preventDefault(); window.location.href = ('/comments/'+userId+'/'+title) }}>
                       <ListItemIcon>
                         <CommentIcon />
                       </ListItemIcon>                    
@@ -143,7 +143,6 @@ class SimpleMediaCard extends Component {
                     title={title}
                     subheader= {"Made by " + (userId.length < 13? userId : (userId.substring(0,13) + '…'))}
                   />
-
                   <ButtonBase
                       className={classes.cardAction}
                       onClick={function(event) {event.preventDefault(); window.location.href = contentUrl || "nope"; }}

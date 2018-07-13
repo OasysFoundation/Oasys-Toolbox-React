@@ -72,6 +72,12 @@ class ContentView extends Component {
         })
     }
 
+    deactivateComments(){
+        this.setState({
+            showComments:false
+        })
+    }
+
     slideCount(increment = 0) {
         const newIdx = this.state.slideIdx + increment;
         if (newIdx < 0 || newIdx > this.state.content.data.length) {
@@ -91,9 +97,19 @@ class ContentView extends Component {
                 return (
                     <div>
                     <Preview content={slide.content}/>
-                    <Button size="small" onClick={this.activateComments.bind(this)} >
-                      Show Comments
-                    </Button>                    
+                    {this.state.showComments
+                        ?(
+                            <Button size="small" onClick={this.deactivateComments.bind(this)} >
+                              Hide Comments
+                            </Button>
+                        )
+                        : (
+                            <Button size="small" onClick={this.activateComments.bind(this)} >
+                              Show Comments
+                            </Button>
+
+                        )
+                    }                    
                     {this.state.showComments
                     ?<Comment name={this.authUsername} slideNumber={this.state.slideIdx} slideLength={this.contentLength}/>
                     :null
@@ -104,9 +120,19 @@ class ContentView extends Component {
                 return (
                     <div>
                     <QuizPreview content={slide.content}/>
-                    <Button size="small" onClick={this.activateComments.bind(this)} >
-                      Show Comments
-                    </Button>    
+                    {this.state.showComments
+                        ?(
+                            <Button size="small" onClick={this.deactivateComments.bind(this)} >
+                              Hide Comments
+                            </Button>
+                        )
+                        : (
+                            <Button size="small" onClick={this.activateComments.bind(this)} >
+                              Show Comments
+                            </Button>
+
+                        )
+                    }
                     {this.state.showComments
                         ?<Comment name={this.authUsername} slideNumber={this.state.slideIdx} slideLength={this.contentLength}/>
                         :null
@@ -117,9 +143,19 @@ class ContentView extends Component {
                 return (
                     <div>
                     <GameView url={slide.content.url}/>
-                    <Button size="small" onClick={this.activateComments.bind(this)} >
-                      Show Comments
-                    </Button>
+                    {this.state.showComments
+                        ?(
+                            <Button size="small" onClick={this.deactivateComments.bind(this)} >
+                              Hide Comments
+                            </Button>
+                        )
+                        : (
+                            <Button size="small" onClick={this.activateComments.bind(this)} >
+                              Show Comments
+                            </Button>
+
+                        )
+                    }                    
                     {this.state.showComments
                         ?<Comment name={this.authUsername} slideNumber={this.state.slideIdx} slideLength={this.contentLength}/>
                         :null
@@ -129,9 +165,19 @@ class ContentView extends Component {
             case globals.HYPERVIDEO:
                 return (
                 <div>
-                <Button size="small" onClick={this.activateComments.bind(this)} >
-                  Show Comments
-                </Button>
+                {this.state.showComments
+                    ?(
+                        <Button size="small" onClick={this.deactivateComments.bind(this)} >
+                          Hide Comments
+                        </Button>
+                    )
+                    : (
+                        <Button size="small" onClick={this.activateComments.bind(this)} >
+                          Show Comments
+                        </Button>
+
+                    )                
+                }                
                 <HyperVideoEditor value={slide.content} preview={true}/>
                 {this.state.showComments
                     ?<Comment name={this.authUsername} slideNumber={this.state.slideIdx} slideLength={this.contentLength}/>
@@ -149,53 +195,57 @@ class ContentView extends Component {
         const t2 = new Date();
         let timing = this.state.timing.slice();
         timing.push({i: this.state.slideIdx, t:t2-t1});
-        this.setState({
+        let tobj = {
+            startTime: this.state.startTime,
             timing: timing,
             lastTime: t2
-        })
+        }
+        return tobj
     }
 
-    completeFetch(slideTiming, startTime, endTime) {
+    completeFetch(timeObj) {
         let contentId = null
-        //this.props.match.params.username || 
         var username = this.userName;
-        var saveEndpoint = 'https://api.joinoasys.org/'+username+'/'+contentId+'/access';
+        var saveEndpoint = 'https://api.joinoasys.org/saveUserContentAccess';
         var data = {
-          "slideTiming": slideTiming,
-          "startTime": startTime,
-          "endTime": endTime,
+          "accessTimes": timeObj.timing,
+          "startTime": timeObj.startTime,
+          "endTime": timeObj.endTime,
           "contentId": this.state.content.contentId,
-          "userId": this.state.userID
+          "accessUserId": this.props.authUser.displayName,
+          "contentUserId": this.state.content.userId
         }
-
         fetch(saveEndpoint, {
           method: 'POST', 
           body: JSON.stringify(data),
           headers: new Headers({
            'Content-Type': 'application/json',
              })
-          })
+          });
     }
 
     handleNext() {
         let idx = this.state.slideIdx+1;
-        this.updateTiming();
+        let tobj = this.updateTiming();
         this.setState({ slideIdx: idx });
+        let endTime = null;
         if (idx === this.state.content.data.length - 1) {
-            let endTime = new Date();
-            this.setState({ endTime: endTime });
-            this.completeFetch(this.state.timing, this.state.startTime, endTime);
+            endTime = new Date();
+            tobj.endTime = endTime;
+            this.setState(tobj);
         } else {
-            this.completeFetch(this.state.timing, this.state.startTime, null);
+            tobj.endTime = this.state.endTime;
         }
+        this.completeFetch(tobj);
     }
 
     handlePrevious() {
-        this.updateTiming();
+        let tobj = this.updateTiming();
+        tobj.endTime = this.state.endTime;
         this.setState({
             slideIdx: this.state.slideIdx - 1,
         });
-        this.completeFetch(this.state.timing, this.state.startTime, null);
+        this.completeFetch(tobj);
     }
 
     handleStepChange(newStep) {

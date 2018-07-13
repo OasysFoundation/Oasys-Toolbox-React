@@ -10,7 +10,8 @@ import ContentSelection from "./ContentSelection";
 import NavBar from "./NavBar"
 import NotFoundPage from "./NotFoundPage"
 import Editor from "./Editor"
-import DataView from "./DataView";
+import DataViewUser from "./DataViewUser";
+import DataViewCreator from "./DataViewCreator";
 
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import createBrowserHistory from 'history/createBrowserHistory';
@@ -64,8 +65,8 @@ class Index extends Component {
                         <NavBar authUser={this.state.authUser}/>
                         <Switch>
                             <Route exact path="/" render={()=><ContentSelection/>} />
-                            <Route path="/data" render={(props)=>(<DataView authUser={this.state.authUser}/>)} />
-                            <Route path="/explore" component={ContentSelection}/>
+                            <Route path="/data" render={(props)=>( this.state.authUser ? <DataViewCreator authUser={this.state.authUser} /> : null)} />
+                            <Route path="/explore" render={(props)=>( this.state.authUser ? <ContentSelection authUser={this.state.authUser} /> : null)} />
                             <Route path="/create/:userId/:contentId" render={(props)=>(<Editor authUser={this.state.authUser} {...props}/>)} />
                             <Route path="/create" render={(props)=>(<Editor authUser={this.state.authUser}/>)} />
 
@@ -82,7 +83,7 @@ class Index extends Component {
 
                             <Route path="/wallet" component={Wallet}/>
 
-                            <Route path="/comments/:contentId" render={(props)=>(<Comment name={this.state.authUser}/>)} />
+                            <Route path="/comments/:userId/:contentId" render={(props)=>(<Comment name={this.state.authUser}/>)} />
 
 
                             <Route component={NotFoundPage}/>

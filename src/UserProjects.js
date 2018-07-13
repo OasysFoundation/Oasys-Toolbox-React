@@ -19,7 +19,7 @@ class UserProjects extends Component {
 	    	content: []
 	    };
 
-	    const loadContent = 'https://api.joinoasys.org/GetContentsPreview';
+	    const loadContent = 'https://api.joinoasys.org/GetUserContentsPreview';
         const that = this;
 
 	    fetch(loadContent, {
