@@ -222,13 +222,20 @@ class MenuBarView extends Component {
   }
 
   closeOpenDialog(selectedContent) {
-    console.log(selectedContent);
-    const link = "https://app.joinoasys.org/user/"+selectedContent.userId+"/"+selectedContent.contentId;
-    this.setState({
-      showsOpenDialog: false,
-      link: link
-    });
-    this.props.onLoad(link);
+    if(selectedContent){
+      console.log(selectedContent);
+      const link = "https://app.joinoasys.org/user/"+selectedContent.userId+"/"+selectedContent.contentId;
+      this.setState({
+        showsOpenDialog: false,
+        link: link
+      });
+      this.props.onLoad(link);
+    }
+    else{
+      this.setState({
+        showsOpenDialog:false,
+      })
+    }
   }
 
   updateURL(){
@@ -345,7 +352,12 @@ class MenuBarView extends Component {
 
 
 
-      <OpenContentDialog open={this.state.showsOpenDialog} onClose={this.closeOpenDialog.bind(this)}/>
+      <OpenContentDialog userId={
+        this.props.authUser
+        ?this.props.authUser.displayName
+        :null
+      }
+      open={this.state.showsOpenDialog} onClose={this.closeOpenDialog.bind(this)}/>
 
       <Snackbar
           anchorOrigin={{
