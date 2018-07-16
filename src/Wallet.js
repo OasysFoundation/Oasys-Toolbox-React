@@ -21,6 +21,7 @@ class Wallet extends Component {
 		super(props);
 		this.state = {
 			showsSendDialog: false,
+			showsDepositDialog: false
 		};
 
 		firebase.auth.onAuthStateChanged(authUser => {
@@ -37,9 +38,16 @@ class Wallet extends Component {
 		})
 	}
 
+	makeDeposit() {
+		this.setState({
+			showsDepositDialog: true
+		})
+	}
+
 	handleClose() {
 		this.setState({
-			showsSendDialog: false
+			showsSendDialog: false,
+			showsDepositDialog: false
 		});
 	}
 
@@ -60,7 +68,7 @@ class Wallet extends Component {
 			            	1 OASYS
 				        </Typography>
 				        <Typography style={{marginTop:'5px', marginBottom: '10px', fontSize: '15px', fontFamily: 'monospace'}} color="textSecondary">
-			            	1 USD
+			            	2.5 USD
 				        </Typography>
 				        {qrCode}
 				        <Typography style={{marginTop:'7px', marginBottom: '5px', fontSize: '15px', fontFamily: 'monospace'}} color="textSecondary">
@@ -73,6 +81,9 @@ class Wallet extends Component {
 				<CardActions style={{marginTop:'5px', textAlign: "center"}}>
 					<Button variant="raised" color="primary" onClick={this.sendTokens.bind(this)} >
 						Send
+					</Button>
+					<Button variant="raised" color="primary" onClick={this.makeDeposit.bind(this)} >
+						Make Deposit
 					</Button>
 				</CardActions>
 				
@@ -112,6 +123,31 @@ class Wallet extends Component {
 		            </Button>
 		            <Button onClick={this.handleClose.bind(this)} color="primary">
 		              Send
+		            </Button>
+		          </DialogActions>
+		        </Dialog>
+
+
+
+		        <Dialog
+		          open={this.state.showsDepositDialog}
+		          onClose={this.handleClose.bind(this)}
+		          aria-labelledby="alert-dialog-title"
+		          aria-describedby="alert-dialog-description"
+		        >
+		          <DialogTitle id="alert-dialog-title">Deposit ETH to your Oasys Wallet</DialogTitle>
+		          <DialogContent>
+		            <DialogContentText id="alert-dialog-description">
+		              Send ETH to this address and it will be converted to OASYS Token immediately.
+		            </DialogContentText>
+		            <TextField
+		              style={{width:'100%'}} 
+		              value="0xE6B653141C0BD1913A973e915BE1D1b1E9372aD8"
+		            />
+		          </DialogContent>
+		          <DialogActions>
+		          	<Button onClick={this.handleClose.bind(this)} color="secondary">
+		              Close
 		            </Button>
 		          </DialogActions>
 		        </Dialog>

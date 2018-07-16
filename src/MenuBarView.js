@@ -84,7 +84,33 @@ class MenuBarView extends Component {
   }
 
   completeFetch(contentId, published, hashtags, description, slides) {
-    console.log(slides);
+    
+    let imagesToSave = [];
+    let m;
+    const findImageTagsRegEx = /<img src="?([^"\s]+)">/g;
+    slides.forEach(function(slide) {
+      if (slide.type == 0) {
+        //quill content
+        console.log(unescape(slide.content));
+        while ( m = findImageTagsRegEx.exec( unescape(slide.content) ) ) {
+            imagesToSave.push( m[1] );
+        }
+      }
+    });
+
+    
+    imagesToSave.forEach(function(image) {
+      // submit `image` to server
+
+      // get URL and replace it in quill thingy
+
+      // done.
+    });
+
+
+
+    
+
     var username = this.props.authUser.displayName;
     var saveEndpoint = 'https://api.joinoasys.org/save/'+username+'/'+contentId;
     var data = {
@@ -132,6 +158,7 @@ class MenuBarView extends Component {
   }
 
   onSubmit() {
+  
     if (this.state.saveAction == 'save') {
       this.completeFetch(this.props.contentTitle, 0, this.state.hashtags, this.state.description, this.props.slides);
     }
@@ -141,6 +168,8 @@ class MenuBarView extends Component {
   }
 
   onOpen(event) {
+
+
     this.setState({
       showsOpenDialog: true,
     });
