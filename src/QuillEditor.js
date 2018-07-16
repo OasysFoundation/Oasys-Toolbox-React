@@ -7,12 +7,14 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import katex from 'katex';
+import {ImageDrop} from 'quill-image-drop-module'
+import {ImageResize} from 'quill-image-resize-module-react';
+import d3 from "d3"
 
 import 'katex/dist/katex.min.css';
 import "highlight.js/styles/atom-one-light.css";
 import './ReactQuill.css';
 import graphIcon from './icons/graph.jpg';
-import d3 from "d3"
 
 
 let BlockEmbed = Quill.import('blots/block/embed');
@@ -128,6 +130,9 @@ class QuillEditor extends Component {
     fontSize.whitelist =  ['12px', '16px', '22px', '30px', 'small', 'normal', 'large', 'huge'];
     ReactQuill.Quill.register(fontSize, true);
 
+    ReactQuill.Quill.register('modules/imageResize', ImageResize);
+    ReactQuill.Quill.register('modules/imageDrop', ImageDrop)
+
   }
 
   componentDidMount() {
@@ -148,7 +153,7 @@ class QuillEditor extends Component {
 
 	render() {
 		return (
-          <Card style={{height: '70vh', width: 640 + 'px', marginLeft: "2em", marginRight: '2em', padding: '1rem'}}>
+          <Card style={{width: 720 + 'px', marginLeft: "2em", marginRight: '2em', padding: '1rem'}}>
             <CardContent id='quill-container'>
               <CustomToolbar />
               <hr/>
@@ -171,6 +176,11 @@ QuillEditor.modules = {
       handlers: {
         "insertGraph": insertGraph,
       }
+    },
+    imageDrop: true,
+    imageResize: {
+      parchment: Quill.import('parchment'),
+      modules: [ 'Resize', 'DisplaySize', 'Toolbar' ]
     }
   }
 
