@@ -96,6 +96,14 @@ class SimpleMediaCard extends Component {
         });
     }
     
+    var ratingString = ""
+    while (ratingString.length < rating) {
+        ratingString += "★";
+    }
+
+    while (ratingString.length < 5) {
+        ratingString += "☆";
+    }    
 
 
     return (
@@ -147,7 +155,10 @@ class SimpleMediaCard extends Component {
                       className={classes.cardAction}
                       onClick={function(event) {event.preventDefault(); window.location.href = contentUrl || "nope"; }}
                   >
-
+                <div style={{marginLeft:'20px', marginBottom:'20px'}}>
+                {ratingString} (12 Reviews)
+                </div>
+                
                 <CardMedia
                     className={classes.media}
                     image={pic}
