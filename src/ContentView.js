@@ -187,6 +187,30 @@ class ContentView extends Component {
                 }                
                 </div>
                 )
+            case globals.SYSTEM:
+                return (
+                    <div>
+                        {this.state.showComments
+                            ?(
+                                <CoolBlueButton size="small" onClick={this.deactivateComments.bind(this)} >
+                                    Hide Comments
+                                </CoolBlueButton>
+                            )
+                            : (
+                                <CoolBlueButton size="small" onClick={this.activateComments.bind(this)} >
+                                    Show Comments
+                                </CoolBlueButton>
+
+                            )
+                        }
+                        {/*SYSTEMSIM is also an IFRAME*/}
+                        <GameView value={slide.content} preview={true}/>
+                        {this.state.showComments
+                            ?<Comment name={this.authUsername} slideNumber={this.state.slideIdx} slideLength={this.contentLength}/>
+                            :null
+                        }
+                    </div>
+                )
             default:
                 return <div>not yet implemented ☹️</div>
         }

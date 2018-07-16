@@ -65,6 +65,7 @@ class Editor extends Component {
     this.onChangedSlide = this.onChangedSlide.bind(this);
     this.onRemoveSlide = this.onRemoveSlide.bind(this);
     this.onAddNewHyperVideo = this.onAddNewHyperVideo.bind(this);
+    this.onAddNewSystemSim = this.onAddNewSystemSim.bind(this);
     this.onLoad = this.onLoad.bind(this);
 
     if (props.match) {
@@ -124,6 +125,25 @@ class Editor extends Component {
         });
         this.renderThumbnail()
     }
+
+    onAddNewSystemSim(content = null) {
+        let slides = this.state.slides;
+        // if (content===null){
+        //   content = gameMetaData[0];
+        // }
+        if (content === null) {
+          content = {url: ""}
+        }
+        slides.push(createSlide("SystemSim ", Math.random().toString(36), content, glb.SYSTEM));
+        const newSlideIndex = slides.length -1;
+        this.setState({
+            slides: slides,
+            selectedSlideIndex: newSlideIndex,
+            currSlideType: glb.SYSTEM,
+        });
+        this.renderThumbnail()
+    }
+
 
     onAddNewModule(content = null) {
         let slides = this.state.slides;
@@ -382,7 +402,8 @@ class Editor extends Component {
                                onAddNewQuiz={this.onAddNewQuiz} 
                                onAddNewGame={this.onAddNewGame} 
                                onAddNewHyperVideo={this.onAddNewHyperVideo}
-                               selectedSlideIndex={this.state.selectedSlideIndex} 
+                               onAddNewSystemSim={this.onAddNewSystemSim}
+                               selectedSlideIndex={this.state.selectedSlideIndex}
                                onSlideOrderChange = {this.onSlideOrderChange}
                                onChangedSlide = {this.onChangedSlide}
                                onRemoveSlide = {this.onRemoveSlide}/>

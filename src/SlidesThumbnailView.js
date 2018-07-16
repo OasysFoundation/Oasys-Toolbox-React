@@ -60,6 +60,7 @@ class SlidesThumbnailView extends Component {
     this.didSelectAddNewSlide = this.didSelectAddNewSlide.bind(this);
     this.didSelectAddNewQuiz = this.didSelectAddNewQuiz.bind(this);
     this.didSelectAddNewGame = this.didSelectAddNewGame.bind(this);
+    this.didSelectAddSystemSim = this.didSelectAddSystemSim.bind(this);
     this.onRemoveSlide = this.onRemoveSlide.bind(this);
 
     this.state = {
@@ -88,6 +89,11 @@ class SlidesThumbnailView extends Component {
     this.props.onAddNewSlide();
   }
 
+  didSelectAddSystemSim(){
+    this.onClosePopup();
+    this.props.onAddNewSystemSim();
+  }
+
   didSelectAddNewQuiz() {
     this.onClosePopup();
     this.props.onAddNewQuiz();
@@ -101,6 +107,11 @@ class SlidesThumbnailView extends Component {
   didSelectAddHyperVideo() {
     this.onClosePopup();
     this.props.onAddNewHyperVideo();
+  }
+
+  didSelectAddSystemSim() {
+      this.onClosePopup();
+      this.props.onAddNewSystemSim();
   }
 
   onRemoveSlide(index) {
@@ -156,6 +167,12 @@ class SlidesThumbnailView extends Component {
                 <VideoLibraryIcon />
               </Avatar>
               <ListItemText primary="New Hypervideo" />
+            </ListItem>
+            <ListItem button onClick={this.didSelectAddSystemSim.bind(this)}>
+                <Avatar>
+                    <VideoLibraryIcon />
+                </Avatar>
+                <ListItemText primary="New System Simulation" />
             </ListItem>
         </List>
 
