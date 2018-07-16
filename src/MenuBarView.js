@@ -44,6 +44,10 @@ const styles = {
   },
 };
 
+const buttonStyle = {
+  padding: '0',
+}
+
 
 class MenuBarView extends Component {
   constructor(props) {
@@ -364,8 +368,10 @@ class MenuBarView extends Component {
               onChange={this.onChange.bind(this)}
               margin="normal"
             />
-            <Button variant="contained" color="primary" onClick={this.onUpload.bind(this)}>
-            Upload Cover Picture  
+            <br/>
+            <br/>
+            <Button style={buttonStyle} variant="contained" color="primary" onClick={this.onUpload.bind(this)}>
+            Upload Cover Picture 
             </Button>
             <UploadPicContentDialog titleUpload={true} url={this.updateURL.bind(this)} authUser={this.props.authUser} contentId={this.props.contentTitle} open={this.state.showsUploadPicDialog} onClose={this.closeUploadDialog.bind(this)} snackBarControl={this.updateSnackbar.bind(this)}/>
         </DialogContent>
