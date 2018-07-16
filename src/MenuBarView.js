@@ -86,19 +86,28 @@ class MenuBarView extends Component {
   completeFetch(contentId, published, hashtags, description, slides) {
     
     let imagesToSave = [];
-    // let m;
-    // const findImageTagsRegEx = /<img[^>]+src="?([^"\s]+)"?\s*\/>/g;
-    // slides.forEach(function(slide) {
-    //   if (slide.type == 0) {
-    //     //quill content
-    //     while ( m = findImageTagsRegEx.exec( unescape(slide.content) ) ) {
-    //         imagesToSave.push( m[1] );
-    //     }
-    //   }
-    // });
+    let m;
+    const findImageTagsRegEx = /<img src="?([^"\s]+)">/g;
+    slides.forEach(function(slide) {
+      if (slide.type == 0) {
+        //quill content
+        console.log(unescape(slide.content));
+        while ( m = findImageTagsRegEx.exec( unescape(slide.content) ) ) {
+            imagesToSave.push( m[1] );
+        }
+      }
+    });
 
-    console.log("IMAGES TO SAVE");
-    console.log(imagesToSave);
+    
+    imagesToSave.forEach(function(image) {
+      // submit `image` to server
+
+      // get URL and replace it in quill thingy
+
+      // done.
+    });
+
+
 
     
 
@@ -149,9 +158,7 @@ class MenuBarView extends Component {
   }
 
   onSubmit() {
-    
-    console.log("Submitting Content");
-
+  
     if (this.state.saveAction == 'save') {
       this.completeFetch(this.props.contentTitle, 0, this.state.hashtags, this.state.description, this.props.slides);
     }
@@ -161,6 +168,8 @@ class MenuBarView extends Component {
   }
 
   onOpen(event) {
+
+
     this.setState({
       showsOpenDialog: true,
     });

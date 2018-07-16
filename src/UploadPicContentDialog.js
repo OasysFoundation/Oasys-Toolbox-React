@@ -60,6 +60,7 @@ class UploadPicContentDialog extends Component {
     }).then((body) => {
       	console.log(body);
       	if(body){
+          console.log("filename:"+body);
       		this.props.snackBarControl('Picture Uploaded Successfully');
 
       	}
