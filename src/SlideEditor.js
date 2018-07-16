@@ -6,6 +6,7 @@ import 'react-quill/dist/quill.snow.css';
 import QuillEditor from './QuillEditor'
 import HyperVideoSetup from './HyperVideoSetup'
 import GameEdit from "./GameEdit";
+import SystemSimEdit from "./SystemSimEdit";
 
 class SlideEditor extends Component {
   
@@ -28,6 +29,11 @@ class SlideEditor extends Component {
       } else if (this.props.slideType === glb.HYPERVIDEO) {
         return <HyperVideoSetup onChange={this.onChange}
                                  value={this.props.slide.content} />
+      } else if (this.props.slideType === glb.SYSTEM) {
+          return <SystemSimEdit onChange={this.onChange}
+                                  value={this.props.slide.content}
+                                editing={true}
+          />
       } else {
         return <div></div>
       }

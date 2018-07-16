@@ -88,3 +88,7 @@
 	width: 640px;
 	height: 480px;
 }
+
+.ql-editor {
+  height: '60vh';
+}

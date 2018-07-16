@@ -15,6 +15,20 @@ import gameMetaData from "./gameMetaData";
 const saveEndpoint = 'https://api.joinoasys.org/';
 //https://api.joinoasys.org/{userName}/{contentName}
 const loadEndpoint = 'https://api.joinoasys.org/';
+
+/* TODO for refactor:
+1) it seems like contentId is not used any more, but instead only this.state.title, but this is "Untitled Project" project
+   unless user sets it. So, we should remove contentId, and force users to set the title (otherwise they cannot save)
+2) Why do we need name for slides, instead of just using type? Either delete name, or define new global for it.
+3) defaultSlide.content should be a string in a global lang_EN file.
+4) Is slide.identifier used anywhere? If so, why is it set to 1 in defaultSlide?
+5) All handlers that are defined by a component and are given to other components should be combined into an object
+6) Add environment variable that we can use to flip between production and development
+7) API call urls should be defined globally somewhere
+8) refactor onAddNewQuiz, anAddNewGame etc into one fuction
+9) Have a global function that calculates slide identifier with Math.random().toString(36)
+10) replace DOM id access with React ref access
+*/
 const defaultId = 666;
 
 function createSlide(name, identifier, content, type) {
@@ -51,6 +65,7 @@ class Editor extends Component {
     this.onChangedSlide = this.onChangedSlide.bind(this);
     this.onRemoveSlide = this.onRemoveSlide.bind(this);
     this.onAddNewHyperVideo = this.onAddNewHyperVideo.bind(this);
+    this.onAddNewSystemSim = this.onAddNewSystemSim.bind(this);
     this.onLoad = this.onLoad.bind(this);
 
     if (props.match) {
@@ -110,6 +125,25 @@ class Editor extends Component {
         });
         this.renderThumbnail()
     }
+
+    onAddNewSystemSim(content = null) {
+        let slides = this.state.slides;
+        // if (content===null){
+        //   content = gameMetaData[0];
+        // }
+        if (content === null) {
+          content = {url: ""}
+        }
+        slides.push(createSlide("SystemSim ", Math.random().toString(36), content, glb.SYSTEM));
+        const newSlideIndex = slides.length -1;
+        this.setState({
+            slides: slides,
+            selectedSlideIndex: newSlideIndex,
+            currSlideType: glb.SYSTEM,
+        });
+        this.renderThumbnail()
+    }
+
 
     onAddNewModule(content = null) {
         let slides = this.state.slides;
@@ -368,10 +402,11 @@ class Editor extends Component {
                                onAddNewQuiz={this.onAddNewQuiz} 
                                onAddNewGame={this.onAddNewGame} 
                                onAddNewHyperVideo={this.onAddNewHyperVideo}
-                               selectedSlideIndex={this.state.selectedSlideIndex} 
+                               onAddNewSystemSim={this.onAddNewSystemSim}
+                               selectedSlideIndex={this.state.selectedSlideIndex}
                                onSlideOrderChange = {this.onSlideOrderChange}
                                onChangedSlide = {this.onChangedSlide}
-                               onRemoveSlide = {this.onRemoveSlide}   />
+                               onRemoveSlide = {this.onRemoveSlide}/>
         </Grid>
         <Grid item xs={9}>
             <SlideEditor slide = {this.state.slides[this.state.selectedSlideIndex]}

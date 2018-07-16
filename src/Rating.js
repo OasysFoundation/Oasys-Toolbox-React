@@ -53,7 +53,7 @@ class Rating extends Component {
                     <div style={{marginTop: '20px', textAlign: 'left'}}>
                         <center style={{marginBottom: '40px'}}>
                             <DoneIcon color="secondary" style={{fontSize: '100px'}}/>
-                            <h1>Good. You finished</h1>
+                            <h1>Great! You finished learning this lesson successfully.</h1>
                             <CoolPinkButton onClick={() => window.location.replace('/')}>EXPLORE MORE
                             <NextIcon />
                             </CoolPinkButton>

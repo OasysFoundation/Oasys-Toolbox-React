@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import IconExplore from '@material-ui/icons/Explore';
 import IconCreate from '@material-ui/icons/Create';
 import IconAccountCircle from '@material-ui/icons/AccountCircle';
+import IconInsertChart from '@material-ui/icons/InsertChart';
 import Typography from '@material-ui/core/Typography';
 import SignOutButton from './SignOutButton';
 
@@ -92,7 +93,7 @@ class NavBar extends React.Component {
         </Button>
 
         <Button href='/data' color="inherit">
-          <IconCreate style={{marginRight: '7px'}}/>
+          <IconInsertChart style={{marginRight: '7px'}}/>
           Analytics
         </Button>
 

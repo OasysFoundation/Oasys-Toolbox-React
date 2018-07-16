@@ -311,7 +311,7 @@ class MenuBarView extends Component {
 	    </Button>
       </Tooltip>
 
-      <Tooltip enterDelay={500} id="tooltip-bottom" title="Pubish your content on the Oasys platform. Other users then can explore, use, share, edit, comment, and remix your content." placement="bottom">
+      <Tooltip enterDelay={500} id="tooltip-bottom" title="Publish your content on the Oasys platform. Other users then can explore, use, share, edit, comment, and remix your content." placement="bottom">
       <Button onClick={this.onPublish.bind(this)} style={{color: 'orange'}} >
         <PublishIcon />
           Publish on Oasys
