@@ -59,7 +59,7 @@ class Rating extends Component {
                             </CoolPinkButton>
                         </center>
                         <div><p> Please take a moment to give <i>{this.state.username}</i> some feedback
-                            for <i>{this.state.contentname}</i>.<br/><br/>Tell us more about what you learned, how much
+                            for <i>"{this.state.contentname}"</i>.<br/><br/>Tell us more about what you learned, how much
                             you learned, and how you liked the content you interacted with.</p></div>
                         <center style={{marginBottom: '40px', marginTop: '30px'}}>
                             <Rate allowHalf onChange={this.handleChange} value={this.state.value}/>

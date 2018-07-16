@@ -144,6 +144,7 @@ class QuillEditor extends Component {
     window.d3 = require('d3')
     
     const quill = this.refs.reactQuill.getEditor();
+    window.quill = quill;
 
     window.document.getElementById('graph-button').addEventListener('click', function(e) {
         var equation = prompt("Enter equation","x^3");
