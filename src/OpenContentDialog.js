@@ -20,7 +20,7 @@ class OpenContentDialog extends Component {
 
 		this.didSelectContent.bind(this);
 
-		const loadContent = 'https://api.joinoasys.org/GetContentsPreview';
+	    const loadContent = 'https://api.joinoasys.org/GetUserContentsPreview';
         const that = this;
 
         fetch(loadContent, {
