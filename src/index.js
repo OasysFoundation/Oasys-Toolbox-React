@@ -36,6 +36,8 @@ import Wallet from './Wallet'
 import Comment from './Comment'
 
 import Help from './Help'
+import Foxy from './Foxy'
+
 
 
 const history = createBrowserHistory();
@@ -92,6 +94,10 @@ class Index extends Component {
 
                             <Route component={NotFoundPage}/>
                         </Switch>
+                        <footer style={{position: 'fixed', bottom:0}}>
+                            <Foxy/>
+                        </footer>
+
                     </div>
                 </BrowserRouter>
             </div>
