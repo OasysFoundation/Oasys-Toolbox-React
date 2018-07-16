@@ -8,7 +8,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import katex from 'katex';
 import {ImageDrop} from 'quill-image-drop-module'
-import {ImageResize} from 'quill-image-resize-module-react';
+import ImageResize from 'quill-image-resize-module-react';
 import d3 from "d3"
 
 import 'katex/dist/katex.min.css';
@@ -111,9 +111,13 @@ const CustomToolbar = () => (
 )
 
 function insertGraph () {
-  const cursorPosition = this.quill.getSelection().index;
-  this.quill.insertText(cursorPosition, "★")
-  this.quill.setSelection(cursorPosition + 1)
+  let cursorPosition = this.quill.getSelection()
+  if (cursorPosition === null) {
+    cursorPosition = { index: 0, length: 0 };
+    this.quill.setSelection(cursorPosition);
+  }
+  this.quill.insertText(cursorPosition.index, "★")
+  this.quill.setSelection(cursorPosition.index + 1)
 }
 
 class QuillEditor extends Component {
@@ -145,8 +149,12 @@ class QuillEditor extends Component {
         var equation = prompt("Enter equation","x^3");
         
         if (equation != null) {
-          const cursorPosition = quill.getSelection().index;
-          quill.insertEmbed(cursorPosition + 1, 'graph', {equation: equation}, Quill.sources.USER);
+          let cursorPosition = quill.getSelection();
+          if (cursorPosition === null) {
+            cursorPosition = { index: 0, length: 0 };
+            quill.setSelection(cursorPosition);
+          }
+          quill.insertEmbed(cursorPosition.index + 1, 'graph', {equation: equation}, Quill.sources.USER);
         }
     });
   }

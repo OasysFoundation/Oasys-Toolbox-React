@@ -22,6 +22,7 @@ function OrganizeComments(props) {
           }
         }
       }
+      finalComments = finalComments.reverse();
 
       console.log(finalComments);
 
