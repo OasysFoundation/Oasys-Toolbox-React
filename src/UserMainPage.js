@@ -34,7 +34,7 @@ class UserMainPage extends Component {
             console.log(response)
             return response.json().then(body => {
                 console.log("body: " + body);
-                if (body) {
+                if (body && body.length>0) {
                     this.setState({imageURL: body[0].PIC});
                 } else {
                     this.setState({imageURL: logo});
