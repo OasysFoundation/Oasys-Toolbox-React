@@ -56,30 +56,30 @@
 
 /* Set dropdown font-sizes */
 #toolbar-quill .ql-size span[data-label="Small"]::before {
-  font-size: "12px";
+  font-size: 12px;
 }
 #toolbar-quill .ql-size span[data-label="Normal"]::before {
-  font-size: "16px";
+  font-size: 16px;
 }
 #toolbar-quill .ql-size span[data-label="Large"]::before {
-  font-size: "22px";
+  font-size: 22px;
 }
 #toolbar-quill .ql-size span[data-label="Huge"]::before {
-  font-size: "30px";
+  font-size: 30px;
 }
 
 /* Set content font-sizes */
 .ql-font-small {
-  font-size: "12px";
+  font-size: 12px;
 }
 .ql-font-normal {
-  font-size: "16px";
+  font-size: 16px;
 }
 .ql-font-large {
-  font-size: "22px";
+  font-size: 22px;
 }
 .ql-font-huge {
-  font-size: "30px";
+  font-size: 30px;
 }
 
 /* set quill video embed size */

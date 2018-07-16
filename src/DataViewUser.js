@@ -6,6 +6,7 @@ import { firebase } from './firebase';
 import taucharts from 'taucharts';
 //import TauChart from 'taucharts-react';
 //import 'taucharts/css/tauCharts.css';
+
 import './taucharts.min.css';
 
 // TODO: time spent on platform per day

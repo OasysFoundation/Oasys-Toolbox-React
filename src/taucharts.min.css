@@ -1715,3 +1715,28 @@
 .tau-chart__trendline {
   stroke-dasharray: 4, 4;
 }
+
+
+
+/* CUSTOM STYLE OVERRIDES */
+
+.tau-chart__legend {
+    width: 350px;
+    padding: 3px;
+}
+
+.tau-chart__legend__title {
+    display: none;
+}
+
+.tau-chart__legend__wrap {
+    display: flex;
+}
+/*
+.tau-chart__legend__item {
+    display: none;
+}
+*/
+.tau-chart__layout__container {
+  flex-direction: column-reverse;
+}

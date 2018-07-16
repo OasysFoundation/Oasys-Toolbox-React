@@ -5,6 +5,8 @@ import { firebase } from './firebase';
 //import d3 from 'd3';
 import taucharts from 'taucharts';
 import 'taucharts/dist/plugins/tooltip';
+import 'taucharts/dist/plugins/layers';
+import 'taucharts/dist/plugins/legend';
 //import TauChart from 'taucharts-react';
 //import 'taucharts/css/tauCharts.css';
 import './taucharts.min.css';
@@ -306,10 +308,50 @@ class DataView extends Component {
         for (let i=0; i<data.usersPerSlide.length; i++) {
             users.push({
                 slide: i+1,
-                users: data.usersPerSlide[i]
+                users: data.usersPerSlide[i],
+                comments: Math.round(3*Math.random()),
             });
         }
-        this.renderBarChart(users, "slide", "users", "#usersPerSlide"+idx);
+        var chart = new taucharts.Chart({
+            data: users,
+            type: 'bar',
+            x: 'slide',
+            y: 'users',
+            guide: {
+                x: {
+                    label: { text: 'slide' },
+                },
+                y: {
+                    label: { text: 'users' }
+                }
+            },
+            plugins: [
+                taucharts.api.plugins.get('layers')({
+                    mode: 'dock',
+                    showPanel: false,
+                    layers: [{
+                            type: 'line',
+                            y: ['comments'],
+                            guide: {
+                                    label: {
+                                        byKeys: {
+                                            comments: 'comments',
+                                    }
+                                },
+                                scaleOrient: 'right',
+                                textAnchor: 'start',
+                                zIndex: -1
+                            }
+                    }]
+                }),
+                taucharts.api.plugins.get('legend')({
+                    settings: {
+                        position: 'bottom',
+                    }
+                }),
+            ]
+        });
+        chart.renderTo("#usersPerSlide"+idx);
     }
 
     renderQuizAnswers(data, idx) {
@@ -323,26 +365,42 @@ class DataView extends Component {
         this.renderBarChart(answers, "question", "correct", "#quiz"+idx);
     }
 
-    renderUsersPerWeek() {
+    renderUsersPerWeek(num) {
         let data = [];
         const today = new Date();
         for (let i=0; i<8; i++) {
             let newDate = new Date();
             newDate.setDate(today.getDate() - 7*i);
-            data.push({'week': newDate, 'users': Math.max(0,200 - i*Math.round(40*Math.random()))})
+            if (num!==undefined) {
+                data.push({'week': newDate, 'users': Math.max(0,50 - i*Math.round(10*Math.random()))});
+            } else {
+                data.push({'week': newDate, 'users': Math.max(0,200 - i*Math.round(40*Math.random()))});
+            }
         }
-        this.renderLineChart(data, "week", "users", "#usersPerWeek", "number of users");
+        if (num!==undefined) {
+            this.renderLineChart(data, "week", "users", "#usersPerWeek"+num, "users");
+        } else {
+            this.renderLineChart(data, "week", "users", "#usersPerWeek", "users");
+        }
     }
 
-    renderRewardsPerWeek() {
+    renderRewardsPerWeek(num) {
         let data = [];
         const today = new Date();
         for (let i=0; i<8; i++) {
             let newDate = new Date();
             newDate.setDate(today.getDate() - 7*i);
-            data.push({'week': newDate, 'rewards': Math.random()})
+            if (num!==undefined) {
+                data.push({'week': newDate, 'rewards': 0.1*Math.random()})
+            } else {
+                data.push({'week': newDate, 'rewards': Math.random()})
+            }
+        } 
+        if (num!==undefined) {
+            this.renderLineChart(data, "week", "rewards", "#rewardsPerWeek"+num, "OAS tokens");
+        } else {
+            this.renderLineChart(data, "week", "rewards", "#rewardsPerWeek", "OAS tokens");
         }
-        this.renderLineChart(data, "week", "rewards", "#rewardsPerWeek", "OAS tokens");
     }
 
     renderCommentsPerWeek() {
@@ -366,11 +424,14 @@ class DataView extends Component {
         for (let i=0; i<contents.length; i++) {
             let data = rearrangeData(contents[i]);
             this.renderUsersPerSlide(data, i);
-            this.renderAvgTimeSpent(data, i);
-            this.renderQuizAnswers(data, i);
+            this.renderUsersPerWeek(i);
+            this.renderRewardsPerWeek(i);
+            //this.renderAvgTimeSpent(data, i);
+            //this.renderQuizAnswers(data, i);
 
             //this.renderD3();
         }
+
     }
 
     renderD3(){
@@ -439,27 +500,51 @@ class DataView extends Component {
                 <Typography gutterBottom variant="display1">
                     {"Content List"}
                 </Typography>
+                Sort by: <select onChange={this.onChangeSortOrder} style={{cursor:'pointer'}} >
+                  <option value="0">{"newest"}</option>
+                  <option value="1">{"most used"}</option>
+                  <option value="2">{"highest rated"}</option>
+                </select>
                  {this.state.allContentsForUser.map((content,i) => (
-                    <Paper zDepth={3} style={styles.paper}> 
-                        <Typography gutterBottom component="p">
-                            <strong>{content[0].contentId}</strong>
-                            {" (#accessed: "+ content.length + ")"}
-                        </Typography>
-
-                        <Typography gutterBottom component="p">
-                            {"Average number of users per slide"}
-                        </Typography>
-                        <div id={"usersPerSlide"+i} style={styles.barWrap}/>
-
-                        <Typography gutterBottom component="p">
-                            {"Average time spent on each slide"}
-                        </Typography>
-                        <div id={"avgTime"+i} style={styles.barWrap}/>
-
-                        <Typography gutterBottom component="p">
-                            {"Quiz answers"}
-                        </Typography>
-                        <div id={"quiz"+i} style={styles.quizWrap}/>
+                    <Paper zDepth={3} style={styles.paperSummary}> 
+                        <div style={styles.paperElem}>
+                            <Typography gutterBottom variant="headline">
+                                {content[0].contentId}
+                            </Typography>
+                            <br/>
+                            <div id="summaryWrap">
+                                <Typography gutterBottom variant="body1">
+                                    {"This content was accessed " + 45 + " times."}
+                                </Typography>
+                                <Typography gutterBottom variant="body1">
+                                    {"Total user feedback: " + 12 + " comments."}
+                                </Typography>
+                                <Typography gutterBottom variant="body1">
+                                    {"Average user rating: " + (Math.max(2,Math.round(50*Math.random())/10)) + " stars."}
+                                </Typography>
+                                <Typography gutterBottom variant="body1">
+                                    {"This content earned you " + (Math.round(10*Math.random()))/10 + " OAS tokens."}
+                                </Typography>
+                            </div>
+                        </div>
+                        <div id="usersPerWeekWrap" style={styles.paperElem}>
+                            <Typography gutterBottom variant="headline">
+                                {"Users per week"}
+                            </Typography>
+                            <div id={"usersPerWeek"+i} style={styles.barWrap}/>
+                        </div>
+                        <div id="rewardsPerWeekWrap" style={styles.paperElem}>
+                            <Typography gutterBottom variant="headline">
+                                {"Rewards per week"}
+                            </Typography>
+                            <div id={"rewardsPerWeek"+i} style={styles.barWrap}/>
+                        </div>
+                        <div id="commentsPerWeekWrap" style={styles.paperElem}>
+                            <Typography gutterBottom variant="headline">
+                                {"Users/Comments per slide"}
+                            </Typography>
+                            <div id={"usersPerSlide"+i} style={styles.barWrap}/>
+                        </div>
                     </Paper>
                  ))}
             </div>
@@ -467,5 +552,30 @@ class DataView extends Component {
     }
 }
 document.body.style.overflowX = 'auto';
+
+
+/*
+<Paper zDepth={3} style={styles.paper}> 
+    <Typography gutterBottom component="p">
+        <strong>{content[0].contentId}</strong>
+        {" (#accessed: "+ content.length + ")"}
+    </Typography>
+
+    <Typography gutterBottom component="p">
+        {"Average number of users per slide"}
+    </Typography>
+    <div id={"usersPerSlide"+i} style={styles.barWrap}/>
+
+    <Typography gutterBottom component="p">
+        {"Average time spent on each slide"}
+    </Typography>
+    <div id={"avgTime"+i} style={styles.barWrap}/>
+
+    <Typography gutterBottom component="p">
+        {"Quiz answers"}
+    </Typography>
+    <div id={"quiz"+i} style={styles.quizWrap}/>
+</Paper>
+*/
 
 export default DataView;
