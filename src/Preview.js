@@ -26,8 +26,17 @@ class Preview extends Component {
     }
 
     render(){
-    	return (<ReactQuill value={this.props.content || "no content"} readOnly={true}  theme={null}/>)
+    	return (
+            <div>
+                <ReactQuill value={this.props.content || "no content"} 
+                            readOnly={true}
+                            modules={Preview.modules}/>
+            </div>)
     }
+}
+
+Preview.modules = {
+    toolbar: null
 }
 
 export default Preview;

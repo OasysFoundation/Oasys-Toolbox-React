@@ -8,6 +8,13 @@ import taucharts from 'taucharts';
 //import 'taucharts/css/tauCharts.css';
 import './taucharts.min.css';
 
+/*
+- aggregate analytics over contents to show how many users total accesses them.
+- add ability to sort contents by total users, last created, etc.
+- revamp quiz answer graph: show 0.5 and 1.0 in y axis.
+- comments per slide (NEED to talk with robbie about that)
+*/
+
 const styles = {
   paperWrap:{
     display: 'flex',
