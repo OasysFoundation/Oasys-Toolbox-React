@@ -84,7 +84,24 @@ class MenuBarView extends Component {
   }
 
   completeFetch(contentId, published, hashtags, description, slides) {
-    console.log(slides);
+    
+    let imagesToSave = [];
+    // let m;
+    // const findImageTagsRegEx = /<img[^>]+src="?([^"\s]+)"?\s*\/>/g;
+    // slides.forEach(function(slide) {
+    //   if (slide.type == 0) {
+    //     //quill content
+    //     while ( m = findImageTagsRegEx.exec( unescape(slide.content) ) ) {
+    //         imagesToSave.push( m[1] );
+    //     }
+    //   }
+    // });
+
+    console.log("IMAGES TO SAVE");
+    console.log(imagesToSave);
+
+    
+
     var username = this.props.authUser.displayName;
     var saveEndpoint = 'https://api.joinoasys.org/save/'+username+'/'+contentId;
     var data = {
@@ -132,6 +149,9 @@ class MenuBarView extends Component {
   }
 
   onSubmit() {
+    
+    console.log("Submitting Content");
+
     if (this.state.saveAction == 'save') {
       this.completeFetch(this.props.contentTitle, 0, this.state.hashtags, this.state.description, this.props.slides);
     }
