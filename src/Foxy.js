@@ -7,7 +7,7 @@ class Foxy extends Component {
         this.height = 128 / 1.26
     }
 
-    
+
     render() {
         return <img alt={"Foxy, your friend"}
                     width={this.width}
