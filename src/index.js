@@ -94,7 +94,7 @@ class Index extends Component {
 
                             <Route component={NotFoundPage}/>
                         </Switch>
-                        <footer style={{position: 'absolute'}}>
+                        <footer style={{position: 'absolute', bottom:0}}>
                             <Foxy/>
                         </footer>
 
