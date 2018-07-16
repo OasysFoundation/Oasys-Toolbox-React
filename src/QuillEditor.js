@@ -156,7 +156,6 @@ class QuillEditor extends Component {
                   value={this.props.slideContent}
                   onChange={this.onChange}
                   ref="reactQuill"
-                  style={{height: '60vh'}}
                   modules={QuillEditor.modules}
                   bounds={'#quill-container'}
               /> 
