@@ -70,7 +70,7 @@ class SimpleMediaCard extends Component {
 
   render() {
     const { classes } = this.props;
-    const {picture, title, description, tags, rating, contentId} = this.props.contentData;
+    const {picture, title, description, tags, rating, contentId, numRatings} = this.props.contentData;
     let {userId} = this.props.contentData;
 
     let pic = (picture) ? picture : defaultPicture;
@@ -157,7 +157,8 @@ class SimpleMediaCard extends Component {
                   >
                   <center>
                   <div style={{marginLeft:'20px', marginBottom:'20px'}}>
-                  {ratingString} (12 Reviews)
+                  {ratingString} 
+                  {numRatings} Reviews
                   </div>
                   </center>
                 
