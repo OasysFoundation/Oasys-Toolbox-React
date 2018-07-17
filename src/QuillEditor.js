@@ -76,7 +76,6 @@ const CustomToolbar = () => (
         <button className="ql-clean"></button>
       </span>
     </span>
-    <br/>
     <span className="ql-formats">
       <button className="ql-bold"></button>
       <button className="ql-italic"></button>

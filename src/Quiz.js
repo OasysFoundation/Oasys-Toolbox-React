@@ -91,6 +91,9 @@ let domStyles = {
     answerPreview: {
       marginTop: '10px',
     },
+    marginTop: {
+      marginTop: '20px',
+    },
     flexbox: {
       display: 'flex',
       flexDirection: 'row', 
@@ -298,7 +301,7 @@ class Quiz extends Component {
             )}
           
           {this.state.preview ? ( // ternary beginning
-            <div>
+            <div style={domStyles.marginTop}>
             <FormControl component="fieldset">
               <FormLabel component="legend">{this.props.value.question}</FormLabel>
               <FormGroup>
