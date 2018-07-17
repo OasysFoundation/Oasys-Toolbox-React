@@ -79,7 +79,8 @@ let domStyles = {
       flexDirection: 'row', 
       alignItems: 'center',
     },
-    wrapper: {},
+    wrapper: {
+    },
     questionPreview: {
       fontWeight: 'bold',
       fontsize: '150%',
