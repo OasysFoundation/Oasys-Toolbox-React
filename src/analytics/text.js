@@ -29,22 +29,22 @@ const summary = {
 
 const details = {
     access: {
-        id: "accessSummaryHelp",
+        id: "accessDetailsHelp",
         text: "Users ",
         help: "How often this content has been accessed.",
     },
     comment: {
-        id: "commentSummaryHelp",
+        id: "commentDetailsHelp",
         text: "Comments ",
         help: "Total number of comments from other users."
     },
     rating: {
-        id: "ratingSummaryHelp",
+        id: "ratingDetailsHelp",
         text: "User rating ",
         help: "Average user rating for this content."
     },
     tokens: {
-        id: "tokensSummaryHelp",
+        id: "tokensDetailsHelp",
         text: "Tokens ",
         help: "Total amount of tokens this content has earned you."
     } 
