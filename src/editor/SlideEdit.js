@@ -18,18 +18,18 @@ class SlideEditor extends Component {
   conditionalRender() {
       if (this.props.slideType === undefined || this.props.slide === undefined) {
         return <div></div>
-      } else if (this.props.slideType === glb.QUIZ) {
+      } else if (this.props.slideType === glb.EDIT_QUIZ) {
         return <QuizEdit value={this.props.slide.content}
               onChange={this.onChange} />
-      } else if (this.props.slideType === glb.QUILL) {
+      } else if (this.props.slideType === glb.EDIT_QUILL) {
        return <QuillEdit onChange={this.onChange} slideContent={this.props.slide.content}/>
-      } else if (this.props.slideType === glb.GAME) {
+      } else if (this.props.slideType === glb.EDIT_GAME) {
          return <GameEdit onChange={this.onChange}
                           value={this.props.slide.content} />
-      } else if (this.props.slideType === glb.HYPERVIDEO) {
+      } else if (this.props.slideType === glb.EDIT_HYPERVIDEO) {
         return <HyperVideoSetup onChange={this.onChange}
                                  value={this.props.slide.content} />
-      } else if (this.props.slideType === glb.SYSTEM) {
+      } else if (this.props.slideType === glb.EDIT_SYSTEM) {
           return <SystemSimEdit onChange={this.onChange}
                                   value={this.props.slide.content}
                                 editing={true}

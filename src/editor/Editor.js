@@ -10,12 +10,6 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import EditIcon from '@material-ui/icons/Edit';
 import gameMetaData from "../gameMetaData";
 
-
-//https://api.joinoasys.org/{userName}/{contentName}/save
-const saveEndpoint = 'https://api.joinoasys.org/';
-//https://api.joinoasys.org/{userName}/{contentName}
-const loadEndpoint = 'https://api.joinoasys.org/';
-
 /* TODO for refactor:
 1) it seems like contentId is not used any more, but instead only this.state.title, but this is "Untitled Project" project
    unless user sets it. So, we should remove contentId, and force users to set the title (otherwise they cannot save)
@@ -31,6 +25,14 @@ const loadEndpoint = 'https://api.joinoasys.org/';
 */
 const defaultId = 666;
 
+function contentIdGenerator() {
+  return Math.random().toString(36);
+}
+
+function slideIdGenerator() {
+  return Math.random().toString(36);
+}
+
 function createSlide(name, identifier, content, type) {
   return {
     name: name,
@@ -41,24 +43,21 @@ function createSlide(name, identifier, content, type) {
   }
 }
 
-const defaultSlide = createSlide("Slide", "1","This is the start of your exciting educational story.", glb.QUILL);
-
 class Editor extends Component {
 
   constructor(props) {
     console.log("PARAMS", props.match)
     super(props);
     this.state = {
-      //slides: [createSlide("Slide 1", "1",{ops:[{insert:"This is the editor. Write your content here. \n"}]},"quill")],
-      slides: [defaultSlide],
+      slides: [],
       selectedSlideIndex: 0,
-      currSlideType: glb.QUILL,
-      contentId: defaultId,
+      currSlideType: -1,
+      contentId: contentIdGenerator(),
       lastCapture: null,
-      title: "Untitled Project"
+      title: "Untitled"
     }
 
-    this.onAddNewSlide = this.onAddNewSlide.bind(this);
+    this.onAddNewQuill = this.onAddNewQuill.bind(this);
     this.onAddNewQuiz = this.onAddNewQuiz.bind(this);
     this.onAddNewGame = this.onAddNewGame.bind(this);
     this.onSlideOrderChange = this.onSlideOrderChange.bind(this);
@@ -69,24 +68,57 @@ class Editor extends Component {
     this.onLoad = this.onLoad.bind(this);
 
     if (props.match) {
-        const link = "https://app.joinoasys.org/user/"+ props.match.params.userId +"/"+props.match.params.contentId;
+        const link = glb.OASYS_APP_BASE + "user/" + props.match.params.userId + "/" + props.match.params.contentId;
         this.onLoad(link)
     }
 
   }
 
-  onAddNewSlide(newSlideContent = null) { // Quill slides only
+  onAddNewSlide(type, content=null) {
+    let slides = this.state.slides.slice();
+    if (content === null) {
+      switch(type) {
+        case glb.EDIT_QUILL:
+          content = "";
+        case glb.EDIT_QUIZ:
+          content = {
+            "question": "",
+            "answers": [{"option": "", "correct": false}]
+          };
+        case glb.EDIT_GAME:
+          content = null;
+        case glb.EDIT_HYPERVIDEO:
+          content = {
+            "videoURL": null,
+            "quizzes": []
+          }
+        case glb.EDIT_SYSTEM:
+          content = {url: ""}
+      }
+    } 
+  
+    slides.push(createSlide(type, slideIdGenerator(), content, type));
+    const newSlideIndex = slides.length -1;
+    this.setState({
+      slides: slides,
+      selectedSlideIndex: newSlideIndex,
+      currSlideType: type,
+    });
+    this.renderThumbnail()
+  }
+
+  onAddNewQuill(newSlideContent = null) { // Quill slides only
     let slides = this.state.slides;
     //const newSlideContent = {ops:[{insert:"This is the beginning of the exiting journey of slide no " + this.state.slides.length + "\n"}]};
     if (newSlideContent===null){
       "This is the beginning of the exiting journey of slide no " + (this.state.slides.length+1);
     }
-    slides.push(createSlide("Slide ", Math.random().toString(36), newSlideContent, glb.QUILL));
+    slides.push(createSlide("Slide ", Math.random().toString(36), newSlideContent, glb.EDIT_QUILL));
     const newSlideIndex = slides.length -1;
     this.setState({
       slides: slides,
       selectedSlideIndex: newSlideIndex,
-      currSlideType: glb.QUILL,
+      currSlideType: glb.EDIT_QUILL,
     });
     this.renderThumbnail()
   }
@@ -100,13 +132,13 @@ class Editor extends Component {
     if (content===null){
       content = defaultQuizContent;
     }
-    const newSlide = createSlide("Quiz ", Math.random().toString(36), content, glb.QUIZ);
+    const newSlide = createSlide("Quiz ", Math.random().toString(36), content, glb.EDIT_QUIZ);
     slides.push(newSlide);
     const newSlideIndex = slides.length -1;
     this.setState({
       slides: slides,
       selectedSlideIndex: newSlideIndex,
-      currSlideType: glb.QUIZ,
+      currSlideType: glb.EDIT_QUIZ,
     });
     this.renderThumbnail()
   }
@@ -116,12 +148,12 @@ class Editor extends Component {
         // if (content===null){
         //   content = gameMetaData[0];
         // }
-        slides.push(createSlide("Game ", Math.random().toString(36), content, glb.GAME));
+        slides.push(createSlide("Game ", Math.random().toString(36), content, glb.EDIT_GAME));
         const newSlideIndex = slides.length -1;
         this.setState({
             slides: slides,
             selectedSlideIndex: newSlideIndex,
-            currSlideType: glb.GAME,
+            currSlideType: glb.EDIT_GAME,
         });
         this.renderThumbnail()
     }
@@ -134,12 +166,12 @@ class Editor extends Component {
         if (content === null) {
           content = {url: ""}
         }
-        slides.push(createSlide("SystemSim ", Math.random().toString(36), content, glb.SYSTEM));
+        slides.push(createSlide("SystemSim ", Math.random().toString(36), content, glb.EDIT_SYSTEM));
         const newSlideIndex = slides.length -1;
         this.setState({
             slides: slides,
             selectedSlideIndex: newSlideIndex,
-            currSlideType: glb.SYSTEM,
+            currSlideType: glb.EDIT_SYSTEM,
         });
         this.renderThumbnail()
     }
@@ -156,12 +188,12 @@ class Editor extends Component {
         if (content===null){
           content = defaultContent;
         }
-        slides.push(createSlide("Game ", Math.random().toString(36), content, glb.GAME));
+        slides.push(createSlide("Game ", Math.random().toString(36), content, glb.EDIT_GAME));
         const newSlideIndex = slides.length -1;
         this.setState({
             slides: slides,
             selectedSlideIndex: newSlideIndex,
-            currSlideType: glb.GAME,
+            currSlideType: glb.EDIT_GAME,
         });
         this.renderThumbnail()
     }
@@ -176,12 +208,12 @@ class Editor extends Component {
       content = defaultContent;
     }
     console.log(content)
-    slides.push(createSlide("Hypervideo ", Math.random().toString(36), content, glb.HYPERVIDEO));
+    slides.push(createSlide("Hypervideo ", Math.random().toString(36), content, glb.EDIT_HYPERVIDEO));
     const newSlideIndex = slides.length -1;
     this.setState({
       slides: slides,
       selectedSlideIndex: newSlideIndex,
-      currSlideType: glb.HYPERVIDEO,
+      currSlideType: glb.EDIT_HYPERVIDEO,
     });
     this.renderThumbnail()
   }
@@ -237,13 +269,13 @@ class Editor extends Component {
       let canvasHeight = 480;
       if (this.state.selectedSlideIndex < 0 || this.state.selectedSlideIndex === undefined) {
         return;
-      } else if (slides[this.state.selectedSlideIndex].type === glb.QUILL) {
+      } else if (slides[this.state.selectedSlideIndex].type === glb.EDIT_QUILL) {
         elem = document.querySelector(".ql-editor");
-      } else if (slides[this.state.selectedSlideIndex].type === glb.QUIZ) {
+      } else if (slides[this.state.selectedSlideIndex].type === glb.EDIT_QUIZ) {
         elem = document.getElementById("quizPreview");
-      } else if (slides[this.state.selectedSlideIndex].type === glb.GAME) {
+      } else if (slides[this.state.selectedSlideIndex].type === glb.EDIT_GAME) {
         elem = document.getElementById("gameRenderer");
-      } else if (slides[this.state.selectedSlideIndex].type === glb.HYPERVIDEO) {
+      } else if (slides[this.state.selectedSlideIndex].type === glb.EDIT_HYPERVIDEO) {
         elem = document.getElementById("hyperVideoEditor");
       } 
 
@@ -275,27 +307,6 @@ class Editor extends Component {
     }
   }
 
-  /*save(id, publish, title, username, tags, pictureURL, description) {
-    if (id!==null) {
-      this.setState({contentId: id});
-    }
-    if (publish===null) {
-      publish = false;
-    }
-    console.log(id)
-    var json = JSON.stringify({slides: this.state.slides});
-
-    fetch(saveEndpoint, {
-      method: 'POST', 
-      body: json,
-      headers: new Headers({
-       'Content-Type': 'application/json',
-        'id': id
-     })
-    }).then(res => res.json())
-    .catch(error => console.error('Error:', error))
-    .then(response => console.log('Success:', response));
-  } */
 
   onRemoveSlide(index){
     console.log(index)
@@ -308,33 +319,19 @@ class Editor extends Component {
     this.onSlideOrderChange(slides);
   }
 
-  insertNewSlide(slide) {
-    console.log(slide)
-    if (slide === undefined) {
-      return;
-    } else if (slide.type === glb.QUILL) {
-      this.onAddNewSlide(slide.content);
-    } else if (slide.type === glb.QUIZ) {
-      this.onAddNewQuiz(slide.content);
-    } else if (slide.type === glb.GAME) {
-      this.onAddNewGame(slide.content);
-    } else if (slide.type === glb.HYPERVIDEO) {
-      this.onAddNewHyperVideo(slide.content);
-    } 
-  }
-
   insertMultipleSlides(slides){
     console.log(slides)
     for (let i=0; i<slides.length; i++) {
-      this.insertNewSlide(slides[i]);
+      if (slides[i] === undefined) {
+        return;
+      } 
+      this.onAddNewSlide(slides[i].type, slides[i].content);
     }
   }
 
   onLoad(link) {
     //this.show('Opening…');
-    var loadContent = link;
-    loadContent = loadContent.replace("app.joinoasys.org", "api.joinoasys.org");
-
+    var loadContent = glb.OASYS_API_BASE + link;
     console.log(loadContent);
     var that = this;
 
@@ -398,7 +395,7 @@ class Editor extends Component {
         </Grid>
         <Grid item xs={3}>
           <SlidesThumbnailView slides={this.state.slides} 
-                               onAddNewSlide={this.onAddNewSlide} 
+                               onAddNewSlide={this.onAddNewQuill} 
                                onAddNewQuiz={this.onAddNewQuiz} 
                                onAddNewGame={this.onAddNewGame} 
                                onAddNewHyperVideo={this.onAddNewHyperVideo}

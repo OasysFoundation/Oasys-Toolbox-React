@@ -316,7 +316,7 @@ class MenuBarView extends Component {
         showsOpenDialog: false,
         link: link
       });
-      this.props.onLoad(link);
+      this.props.onLoad("user/"+selectedContent.userId+"/"+selectedContent.contentId);
     }
     else{
       this.setState({

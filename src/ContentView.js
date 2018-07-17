@@ -95,7 +95,7 @@ class ContentView extends Component {
         :null
         this.contentLength = this.state.content.data.length;
         switch(slide.type) {
-            case globals.QUILL:
+            case globals.EDIT_QUILL:
                 return (
                     <div>
                     <Preview content={slide.content}/>
@@ -118,7 +118,7 @@ class ContentView extends Component {
                     }
                     </div>
                     )
-            case globals.QUIZ:
+            case globals.EDIT_QUIZ:
                 return (
                     <div>
                     <QuizPreview content={slide.content}/>
@@ -141,7 +141,7 @@ class ContentView extends Component {
                     }
                     </div>
                     )
-            case globals.GAME:
+            case globals.EDIT_GAME:
                 return (
                     <div>
                     <GameView url={slide.content.url}/>
@@ -164,7 +164,7 @@ class ContentView extends Component {
                     }                    
                     </div>
                     )
-            case globals.HYPERVIDEO:
+            case globals.EDIT_HYPERVIDEO:
                 return (
                 <div>
                 {this.state.showComments
@@ -187,7 +187,7 @@ class ContentView extends Component {
                 }                
                 </div>
                 )
-            case globals.SYSTEM:
+            case globals.EDIT_SYSTEM:
                 return (
                     <div>
                         {this.state.showComments
