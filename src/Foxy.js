@@ -3,7 +3,7 @@ import tail from './foxy_assets/foxy_tail.gif'
 import body from './foxy_assets/foxy_body.gif'
 import head from './foxy_assets/foxy_head.gif'
 import './foxy_style.css'
-import {x} from './stylings'
+import {buttonGradientCSS} from "./stylings";
 
 class Foxy extends Component {
     constructor(props) {
@@ -16,34 +16,8 @@ class Foxy extends Component {
             y: this.height * this.height * 0.8
         }
         this.state = {
-            tailRot: 0
+            showFoxy: true
         }
-
-        //
-        //
-        // const base = {
-        //     position: 'absolute'
-        // }
-        // this.styles = {
-        //     head: Object.assign({
-        //         // width:50 + "%",
-        //         marginTop: -14 + "%",
-        //     }, base),
-        //
-        //     body: Object.assign({
-        //         marginTop: -7 + "%",
-        //         marginLeft: 3.5 + "%",
-        //         zIndex: -1
-        //
-        //     }, base),
-        //
-        //     tail: Object.assign({
-        //         marginTop: -10 + "%",
-        //         marginLeft: 7 + "%",
-        //         zIndex: -2
-        //
-        //     }, base),
-        // }
     }
 
     moveTail() {
@@ -83,6 +57,9 @@ class Foxy extends Component {
     // THE TAIL CAN't RECEIVE EVENTS>>>>> IT"S OCCLUDED OR SMTH BS*/}
 
     render() {
+        // if (!this.state.showFoxy) {
+        //     return <button style={buttonGradientCSS.mini} onClick={() => this.setState({showFoxy: true})}>Foxy!</button>
+        // }
         return (
             <div style={{marginTop: 7 + 'rem'}}>
                 {/*<div className={'foxy_eyes'}>$     $</div>*/}
@@ -99,6 +76,7 @@ class Foxy extends Component {
                      className={'foxy_tail'}
                      src={tail}>
                 </img>
+                {/*<button style={buttonGradientCSS.mini} onClick={() => this.setState({showFoxy: false})}>Hushhh!</button>*/}
             </div>)
     }
 }
