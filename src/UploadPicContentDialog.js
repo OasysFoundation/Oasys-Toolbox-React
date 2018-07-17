@@ -9,15 +9,19 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Avatar from '@material-ui/core/Avatar';
 import FormData from 'form-data';
+import $ from 'jquery'; 
 
-
+const imageStyle = {
+	maxWidth: 250,
+}
 
 class UploadPicContentDialog extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			contents: [],
-			didLoadContent: false
+			didLoadContent: false,
+			uploadPreview: false,
 		}
 
 		this.didSelectContent.bind(this);
@@ -29,6 +33,7 @@ class UploadPicContentDialog extends Component {
 
     	this.handleUploadProfilePic = this.handleUploadProfilePic.bind(this);
     	this.handleUploadTitlePic = this.handleUploadTitlePic.bind(this);
+    	this.readURL = this.readURL.bind(this);
 
 	}
 
@@ -105,18 +110,39 @@ class UploadPicContentDialog extends Component {
 
 	handleClose() {
 		this.props.onClose(null);
+		this.setState({
+          uploadPreview:false,
+        })
 	};
 
 	didSelectContent(selectedContent) {
 		this.props.onClose(selectedContent);
 	}
 
+	readURL(event) {
+		var that = this;
+		var input = this.uploadInput;
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#preview')
+                        .attr('src', e.target.result);
+                     that.setState({
+                     	uploadPreview:true,
+                     })
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
 	render() {
 		
 
 		return (
 			<Dialog onClose={this.handleClose} open={this.props.open}>
-		        <DialogTitle id="simple-dialog-title">Upload Profile Picture</DialogTitle>
+		        <DialogTitle id="simple-dialog-title">Upload Picture</DialogTitle>
 		        <div>
 
 		          <form onSubmit={ this.props.titleUpload
@@ -124,26 +150,26 @@ class UploadPicContentDialog extends Component {
 		          	: this.handleUploadProfilePic
 		          }>
 			        <div>
-			          <input ref={(ref) => { this.uploadInput = ref; }} name="file" type="file" />
+			          <input ref={(ref) => { this.uploadInput = ref; }} name="file" type="file" onChange={this.readURL}/>
 			        </div>
 			        <br />
 			        
 			        {
-			        	this.state.imageURL
-			        	? <img src={this.state.imageURL} alt="img" />
+			        	this.state.uploadPreview
+			        	? <img style={imageStyle} id="preview" src={this.state.imageURL} alt="loading preview.." />
 			        	: null
 			        }
 			      </form>
 		        </div>
 		         <DialogActions>
+		            <Button onClick={this.handleClose.bind(this)} color="primary">
+		              Cancel
+		            </Button>
 		            <Button onClick={ this.props.titleUpload
 		          	? this.handleUploadTitlePic
 		          	: this.handleUploadProfilePic
 		          } color="primary">
 		              Upload
-		            </Button>
-		            <Button onClick={this.handleClose.bind(this)} color="primary">
-		              Cancel
 		            </Button>
 		        </DialogActions>
 		      </Dialog>

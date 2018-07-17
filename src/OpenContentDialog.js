@@ -48,13 +48,18 @@ class OpenContentDialog extends Component {
 	}
 
 	render() {
+		var userContents = []
+		if(this.props.userId){
+			userContents = this.state.contents.filter(contents => contents.userId == this.props.userId);
+		}
+
 		let renderList = (
 			<ListItem>
 		         <ListItemText primary="No Contents Found" />
 		    </ListItem>
 			)
-		if (this.state.contents.length > 0) {
-			 renderList = this.state.contents.map(content => (
+		if (this.state.contents.length > 0 && userContents.length>0) {
+			 renderList = userContents.map(content => (
 	              <ListItem button onClick={() => {this.didSelectContent(content)}} key={content.contentId}>
 	              	<Avatar alt="Remy Sharp" src={content.picture} />
 	                <ListItemText primary={content.title} secondary={"Created by " + content.userId}/>
