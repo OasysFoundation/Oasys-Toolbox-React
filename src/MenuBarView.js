@@ -54,7 +54,7 @@ class MenuBarView extends Component {
     super(props);
     this.onChange = this.onChange.bind(this);
     this.onSave = this.onSave.bind(this);
-    this.completeFetch = this.completeFetch.bind(this);
+    // this.completeFetch = this.completeFetch.bind(this);
     this.contentId = 0;
     this.onOpen = this.onOpen.bind(this);
 
@@ -88,7 +88,7 @@ class MenuBarView extends Component {
   }
 
 
-  completeFetch(contentId, published, hashtags, description, slides) {
+  prepareSlides(slides, oncomplete) {
     
     let imagesToSave = [];
     let m;
@@ -97,10 +97,24 @@ class MenuBarView extends Component {
       if (slide.type == 0) {
         //quill content
         while ( m = findImageTagsRegEx.exec( unescape(slide.content) ) ) {
-            imagesToSave.push( m[1] );
+            let found = m[1];
+            if (!found.includes("http")) {
+              imagesToSave.push(found);
+            }
         }
       }
     });
+
+
+    slides.map(function(slide) {
+      slide.thumb = null;
+    });
+
+    if (imagesToSave.length == 0) {
+      //this.sendToServer(contentId, published, hashtags, description, slides);
+      oncomplete(slides);
+      return;
+    }
 
     var semaphore = 0;
     var that = this;
@@ -124,82 +138,91 @@ class MenuBarView extends Component {
         console.error('Error:', error);
       }).then((body) => {
           console.log(body);
-          if(body) {
+          if (body) {
             console.log('IMGUR LINK: ' + body.data.link);
+            slides.map(function(slide) {
+              if (slide.type == 0) {
+                //quill content
+                console.log(slide.content);
+                slide.content = slide.content.replace(base64Image, body.data.link);
+                console.log(slide.content);
+              }
+            });
 
-                slides.forEach(function(slide) {
-                if (slide.type == 0) {
-                  //quill content
-                  slide.content = slide.content.replace(base64Image,  body.data.link);
-                }
-              });
+            
 
             semaphore--;
+
             if (semaphore == 0) {
-              
-              var username = that.props.authUser.displayName;
-              var saveEndpoint = 'https://api.joinoasys.org/save/'+username+'/'+contentId;
-              var data = {
-                "data":slides,
-                "published":published,
-                "title":contentId,
-                "description":description,
-                "tags":hashtags,
-              }
-
-              fetch(saveEndpoint, {
-                method: 'POST', 
-                body: JSON.stringify(data),
-                headers: new Headers({
-                 'Content-Type': 'application/json',
-               })
-              }).then(res => res.json())
-              .catch(error => {
-                console.error('Error:', error);
-                that.setState({
-                    snackBarMessage: 'Error Saving. If this continues, please contact info@joinoasys.org'
-                })
-              })
-              .then(response => {
-                that.setState({
-                  showsSaveDialog: false
-                });
-
-                console.log(response);
-                if(response){
-                  if (that.state.saveAction == 'save') {
-                    that.setState({
-                      snackBarMessage: 'Saved Draft'
-                    })
-                  }
-
-                  if (that.state.saveAction == 'publish') {
-                    that.setState({
-                      snackBarMessage: 'Published'
-                    })
-                  }
-                }
-
-                });
-
+              oncomplete(slides);
+              // that.sendToServer(contentId, published, hashtags, description, slides);
             }
+
           }
         });
       });
-    });
+    });    
+  }
+
+  sendToServer(contentId, published, hashtags, description, slides) {
+    var username = this.props.authUser.displayName;
+    var saveEndpoint = 'https://api.joinoasys.org/save/'+username+'/'+contentId;
+    var data = {
+      "data":slides,
+      "published":published,
+      "title":contentId,
+      "description":description,
+      "tags":hashtags,
+    }
+
+    console.log(data);
 
 
-    
+    fetch(saveEndpoint, {
+      method: 'POST', 
+      body: JSON.stringify(data),
+      headers: new Headers({
+       'Content-Type': 'application/json',
+     })
+    }).then(res => res.json())
+    .catch(error => {
+      console.error('Error:', error);
+      this.setState({
+          snackBarMessage: 'Error Saving. If this continues, please contact info@joinoasys.org'
+      })
+    })
+    .then(response => {
+      this.setState({
+        showsSaveDialog: false
+      });
+
+      console.log(response);
+      if(response){
+        if (this.state.saveAction == 'save') {
+          this.setState({
+            snackBarMessage: 'Saved Draft'
+          })
+        }
+
+        if (this.state.saveAction == 'publish') {
+          this.setState({
+            snackBarMessage: 'Published'
+          })
+        }
+      }
+      });
   }
 
   onSubmit() {
-  
-    if (this.state.saveAction == 'save') {
-      this.completeFetch(this.props.contentTitle, 0, this.state.hashtags, this.state.description, this.props.slides);
-    }
-    if (this.state.saveAction == 'publish') {
-      this.completeFetch(this.props.contentTitle, 1, this.state.hashtags, this.state.description, this.props.slides);
-    }
+    var that = this;
+    this.prepareSlides(this.props.slides, function(slides) {
+      if (that.state.saveAction == 'save') {
+        that.sendToServer(that.props.contentTitle, 0, that.state.hashtags, that.state.description, slides);
+      }
+      if (that.state.saveAction == 'publish') {
+        that.sendToServer(that.props.contentTitle, 1, that.state.hashtags, that.state.description, slides);
+      }
+    });
   }
 
   onOpen(event) {
