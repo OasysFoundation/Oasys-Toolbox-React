@@ -15,6 +15,7 @@
     "function-plot": "^1.18.1",
     "highlight.js": "^9.12.0",
     "html2canvas": "^1.0.0-alpha.12",
+    "imgur": "^0.2.1",
     "immutable": "^3.8.2",
     "katex": "^0.10.0-beta",
     "material-ui-chip-input": "^1.0.0-beta.5",
@@ -36,8 +37,10 @@
     "react-quill": "^1.2.7",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
+    "react-simple-tooltip": "^2.3.2",
     "react-sortable-hoc": "^0.8.3",
     "react-swipeable-views": "^0.12.14",
+    "react-tooltip": "^3.6.1",
     "semantic-ui-css": "^2.3.2",
     "semantic-ui-react": "^0.81.3",
     "slate": "^0.33.6",
@@ -45,6 +48,7 @@
     "styled-components": "^3.3.2",
     "taucharts": "^2.3.2",
     "taucharts-react": "^1.1.0",
+    "uglifyjs-webpack-plugin": "^1.2.7",
     "yarn": "^1.7.0"
   },
   "scripts": {

@@ -12,6 +12,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import { firebase } from './firebase';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import LinearProgress from '@material-ui/core/LinearProgress';
+
 
 var QRCode = require('qrcode.react');
 
@@ -21,8 +23,17 @@ class Wallet extends Component {
 		super(props);
 		this.state = {
 			showsSendDialog: false,
-			showsDepositDialog: false
+			showsDepositDialog: false,
+			connectedToEthereum: false
 		};
+
+		const that = this;
+		setTimeout(function() {
+			that.setState({
+				connectedToEthereum: true
+			});
+		}, 3000);
+
 
 		firebase.auth.onAuthStateChanged(authUser => {
             this.setState({
@@ -56,8 +67,20 @@ class Wallet extends Component {
 		if (this.state.userID) {
             qrCode = <QRCode value={this.state.userID} />
         }
+
+        if (!this.state.connectedToEthereum) {
+        	return (
+        		<Card style={{maxWidth:'500px', minWidth:'300px', position:'absolute', top: '50%', left: '50%', transform: 'translateX(-50%) translateY(-50%)'}}>
+				<CardContent>
+	        		Connecting to Test Ethereum Network (Rinkeby)…
+					<LinearProgress style={{marginTop: '20px'}}/>
+				</CardContent>
+				</Card>
+        		)
+        }
 		
 		return (
+			<div>
 			<Card style={{maxWidth:'500px', minWidth:'300px', position:'absolute', top: '50%', left: '50%', transform: 'translateX(-50%) translateY(-50%)'}}>
 				<CardContent>
 					<center>
@@ -97,7 +120,7 @@ class Wallet extends Component {
 		          <DialogTitle id="alert-dialog-title">Sending OASYS Tokens</DialogTitle>
 		          <DialogContent>
 		            <DialogContentText id="alert-dialog-description">
-		              Enter the Oasys Wallet Address of the receiver to send them OASYS tokens.
+		              Enter the Oasys Wallet Address of the receiver to send them OASYS tokens. Estimated Gas fee: 0.00125 ETH
 		            </DialogContentText>
 		            <TextField
 		              label="OASYS Address"
@@ -138,7 +161,8 @@ class Wallet extends Component {
 		          <DialogTitle id="alert-dialog-title">Deposit ETH to your Oasys Wallet</DialogTitle>
 		          <DialogContent>
 		            <DialogContentText id="alert-dialog-description">
-		              Send ETH to this address and it will be converted to OASYS Token immediately.
+		              You need to install MetaMask to use this feature. https://metamask.io.
+		              Or: use this address to deposit ETH from your personal wallet to Oasys. ETH will be converted directly to Oasys Tokens.
 		            </DialogContentText>
 		            <TextField
 		              style={{width:'100%'}} 
@@ -153,6 +177,7 @@ class Wallet extends Component {
 		        </Dialog>
 
 			</Card>
+			</div>
 			)
 	}
 }

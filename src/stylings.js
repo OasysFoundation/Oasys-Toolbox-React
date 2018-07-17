@@ -22,12 +22,26 @@ const buttonGradientCSS = {
         padding: '0 10px',
         background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)',
         boxShadow: '0 3px 5px 2px rgba(33, 203, 243, .3)',
+    },
+    mini: {
+        height: 18,
+        boxShadow: '0 3px 5px 2px rgba(33, 203, 243, .3)',
+        background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)',
+        borderRadius: 3,
+        // marginLeft: 3 + "%",
+        color: 'white',
+        cursor: 'pointer'
     }
 };
+
+const x = {
+    a: 5
+}
 
 // const ClassInject = props => <Button onClick={this.onClick} className={props.classes.coolPink}>{props.children ? props.children : 'class names'}</Button>
 
 const CoolPinkButton = (props) => <Button {...props} style={buttonGradientCSS.pink} />
 const CoolBlueButton = (props) => <Button {...props} style={buttonGradientCSS.blue} />
+const MiniBlueButton = (props) => <Button {...props} style={buttonGradientCSS.mini} />
 
-export {buttonGradientCSS, CoolPinkButton, CoolBlueButton}
+export {x, buttonGradientCSS, CoolPinkButton, CoolBlueButton, MiniBlueButton}

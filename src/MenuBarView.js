@@ -54,7 +54,7 @@ class MenuBarView extends Component {
     super(props);
     this.onChange = this.onChange.bind(this);
     this.onSave = this.onSave.bind(this);
-    this.completeFetch = this.completeFetch.bind(this);
+    // this.completeFetch = this.completeFetch.bind(this);
     this.contentId = 0;
     this.onOpen = this.onOpen.bind(this);
 
@@ -87,7 +87,8 @@ class MenuBarView extends Component {
     });
   }
 
-  completeFetch(contentId, published, hashtags, description, slides) {
+
+  prepareSlides(slides, oncomplete) {
     
     let imagesToSave = [];
     let m;
@@ -95,26 +96,75 @@ class MenuBarView extends Component {
     slides.forEach(function(slide) {
       if (slide.type == 0) {
         //quill content
-        console.log(unescape(slide.content));
         while ( m = findImageTagsRegEx.exec( unescape(slide.content) ) ) {
-            imagesToSave.push( m[1] );
+            let found = m[1];
+            if (!found.includes("http")) {
+              imagesToSave.push(found);
+            }
         }
       }
     });
 
-    
-    imagesToSave.forEach(function(image) {
-      // submit `image` to server
 
-      // get URL and replace it in quill thingy
-
-      // done.
+    slides.map(function(slide) {
+      slide.thumb = null;
     });
 
+    if (imagesToSave.length == 0) {
+      //this.sendToServer(contentId, published, hashtags, description, slides);
+      oncomplete(slides);
+      return;
+    }
 
+    var semaphore = 0;
+    var that = this;
+    imagesToSave.forEach(function(base64Image) {
+    semaphore++;
+      const spacesEndpoint = 'https://api.imgur.com/3/image'
 
-    
+      let newBase64Image = base64Image.split(",")[1];
 
+      
+      fetch(spacesEndpoint, {
+        method: 'POST',
+        body: newBase64Image,
+        headers: new Headers({
+         'Authorization': 'Client-ID dab43e1ba5b9c27',
+         'Accept': 'application/json'
+        }),
+      }).then((response) => {
+        response.json()
+        .catch(error => {
+        console.error('Error:', error);
+      }).then((body) => {
+          console.log(body);
+          if (body) {
+            console.log('IMGUR LINK: ' + body.data.link);
+            slides.map(function(slide) {
+              if (slide.type == 0) {
+                //quill content
+                console.log(slide.content);
+                slide.content = slide.content.replace(base64Image, body.data.link);
+                console.log(slide.content);
+              }
+            });
+
+            
+
+            semaphore--;
+
+            if (semaphore == 0) {
+              oncomplete(slides);
+              // that.sendToServer(contentId, published, hashtags, description, slides);
+            }
+
+          }
+        });
+      });
+    });    
+  }
+
+  sendToServer(contentId, published, hashtags, description, slides) {
     var username = this.props.authUser.displayName;
     var saveEndpoint = 'https://api.joinoasys.org/save/'+username+'/'+contentId;
     var data = {
@@ -124,6 +174,9 @@ class MenuBarView extends Component {
       "description":description,
       "tags":hashtags,
     }
+
+    console.log(data);
+
 
     fetch(saveEndpoint, {
       method: 'POST', 
@@ -157,18 +210,19 @@ class MenuBarView extends Component {
           })
         }
       }
-
       });
   }
 
   onSubmit() {
-  
-    if (this.state.saveAction == 'save') {
-      this.completeFetch(this.props.contentTitle, 0, this.state.hashtags, this.state.description, this.props.slides);
-    }
-    if (this.state.saveAction == 'publish') {
-      this.completeFetch(this.props.contentTitle, 1, this.state.hashtags, this.state.description, this.props.slides);
-    }
+    var that = this;
+    this.prepareSlides(this.props.slides, function(slides) {
+      if (that.state.saveAction == 'save') {
+        that.sendToServer(that.props.contentTitle, 0, that.state.hashtags, that.state.description, slides);
+      }
+      if (that.state.saveAction == 'publish') {
+        that.sendToServer(that.props.contentTitle, 1, that.state.hashtags, that.state.description, slides);
+      }
+    });
   }
 
   onOpen(event) {

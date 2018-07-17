@@ -3,6 +3,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 import DeleteIcon from '@material-ui/icons/Delete';
 import HelpIcon from '@material-ui/icons/Help';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
@@ -78,7 +79,8 @@ let domStyles = {
       flexDirection: 'row', 
       alignItems: 'center',
     },
-    wrapper: {},
+    wrapper: {
+    },
     questionPreview: {
       fontWeight: 'bold',
       fontsize: '150%',
@@ -89,6 +91,16 @@ let domStyles = {
     answerPreview: {
       marginTop: '10px',
     },
+    flexbox: {
+      display: 'flex',
+      flexDirection: 'row', 
+    },
+    smallIcon: {
+      marginLeft: '5px',
+      width: '20px',
+      height: '20px',
+      cursor: 'pointer',
+    }
 }
 
 // Question component --------------------------------------------------------------
@@ -322,8 +334,6 @@ class Quiz extends Component {
                   </IconButton>
                   </div>
                 </CardContent>
-              </Card>
-              </div>
               
               <Dialog
                 open={this.state.showsHelpDialog}
@@ -350,27 +360,23 @@ class Quiz extends Component {
               
               
               <div style={domStyles.answerList}>
-              <Card>
                 <CardContent>
-                <Typography style={{marginBottom: 16, fontSize: 14}} color="textSecondary">
-                  Quiz Answers
-                </Typography>
+                <div style={domStyles.flexbox}>
+                  <Typography style={{marginBottom: 16, fontSize: 14}} color="textSecondary">
+                    Quiz Answers
+                  </Typography>
+                  <AddCircleIcon color="secondary"
+                      onClick={this.onAddAnswer.bind(this)}
+                      style={domStyles.smallIcon}/>
+                </div>
                 <SortableAnswerList items={this.props.value.answers} 
                               onSortEnd={this.onSortEnd} 
                               useDragHandle={true} 
                               handlers={answerHandlers} />
                 </CardContent>
-              </Card>
+
               </div>
-              
-              <div style={{'text-align': 'center'}}>
-              <CoolPinkButton
-                      className={compStyles.button} 
-                      onClick={this.onAddAnswer.bind(this)}
-                      centered>
-                   Add answer
-                  <AddIcon />
-              </CoolPinkButton>
+              </Card>
               </div>
               
             </div> // ternary end

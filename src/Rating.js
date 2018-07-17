@@ -20,15 +20,19 @@ class Rating extends Component {
             value: props.value || 0,
             preview: props.preview,
             username: userName,
-            contentname: contentName
+            contentname: contentName,
+            rated: false
 
         };
         this.handleChange = this.handleChange.bind(this);
     }
 
     handleChange = (value) => {
-        this.setState({value});
-
+        console.log("rated")
+        this.setState({
+            value: value,
+            rated: true
+        });
 
         const APICALL = `https://api.joinoasys.org/rate/${this.state.username}/${this.state.contentname}/${value}`;
 
@@ -41,9 +45,8 @@ class Rating extends Component {
             .then(function (myJson) {
                 console.log(myJson);
             });
-
-
     }
+    
     render() {
         return (
             <div>
@@ -62,7 +65,11 @@ class Rating extends Component {
                             for <i>"{this.state.contentname}"</i>.<br/><br/>Tell us more about what you learned, how much
                             you learned, and how you liked the content you interacted with.</p></div>
                         <center style={{marginBottom: '40px', marginTop: '30px'}}>
-                            <Rate allowHalf onChange={this.handleChange} value={this.state.value}/>
+                            {this.state.rated ? (
+                                <Rate allowHalf value={this.state.value} disabled/>
+                            ) : (
+                                <Rate allowHalf onChange={this.handleChange} value={this.state.value}/>
+                            )}
                         </center>
                         <Comment name={this.props.username} slideNumber="end"/>
                     </div>
