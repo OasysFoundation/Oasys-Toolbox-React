@@ -76,7 +76,6 @@ const CustomToolbar = () => (
         <button className="ql-clean"></button>
       </span>
     </span>
-    <br/>
     <span className="ql-formats">
       <button className="ql-bold"></button>
       <button className="ql-italic"></button>
@@ -162,7 +161,7 @@ class QuillEditor extends Component {
 
 	render() {
 		return (
-          <Card style={{width: 720 + 'px', marginLeft: "2em", marginRight: '2em', padding: '1rem'}}>
+          <Card style={{marginLeft: "2em", marginRight: '2em', padding: '1rem', minHeight: '300px'}}>
             <CardContent id='quill-container'>
               <CustomToolbar />
               <hr/>

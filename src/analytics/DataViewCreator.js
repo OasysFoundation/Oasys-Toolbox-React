@@ -2,7 +2,7 @@
 import React, {Component} from 'react';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import { firebase } from './firebase';
+import { firebase } from '../firebase';
 import { withStyles } from '@material-ui/core/styles';
 import ReactTooltip from "react-tooltip"
 import IconHelpOutline from '@material-ui/icons/HelpOutline';
@@ -15,11 +15,11 @@ import 'taucharts/dist/plugins/layers';
 import 'taucharts/dist/plugins/legend';
 
 // import custom modules
-import './taucharts.min.css'; // we needed to modify this, so it's a custom import
-import {summary, details} from './analytics/text'
-import {styles} from './analytics/styles'
-import {generateSlideTimes, generateQuizAnswers, generateSynthData} from './analytics/genSyntheticData'
-import {rearrangeData, getLastAccess, formatTime} from './analytics/processData'
+import '../taucharts.min.css'; // we needed to modify this, so it's a custom import
+import {summary, details} from './text'
+import {styles} from './styles'
+import {generateSlideTimes, generateQuizAnswers, generateSynthData} from './genSyntheticData'
+import {rearrangeData, getLastAccess, formatTime} from './processData'
 
 // TODO
 // time spent per content as distribution
@@ -218,24 +218,26 @@ class DataView extends Component {
         this.renderChart(data, "week", "comments", "#commentsPerWeek", "comments", 'line');
     }
 
-    componentDidMount(){
-        window.d3 = require('d3');
-        let contents = this.state.allContentsForUser;
-        this.renderUsersPerWeek();
-        this.renderRewardsPerWeek();
-        this.renderCommentsPerWeek();
+    renderGraphComponent(id, label) {
+        return (
+            <div style={styles.paperElem}>
+                <Typography gutterBottom variant="subheading">
+                    {label}
+                </Typography>
+                <div id={id} style={styles.graphWrap}/>
+            </div>
+        )
+    }
 
-        for (let i=0; i<contents.length; i++) {
-            let data = rearrangeData(contents[i]);
-            this.renderUsersPerSlide(data, i);
-            this.renderUsersPerWeek(i);
-            this.renderRewardsPerWeek(i);
-            //this.renderAvgTimeSpent(data, i);
-            this.renderQuizAnswers(data, i);
-
-            //this.renderD3();
-        }
-
+    renderGraphComponentWide(id, label) {
+        return (
+            <div style={styles.paperElem}>
+                <Typography gutterBottom variant="subheading">
+                    {label}
+                </Typography>
+                <div id={id} style={styles.graphWrapWide}/>
+            </div>
+        )
     }
 
     renderAnalyticsSummaryRow(obj, num){
@@ -255,6 +257,21 @@ class DataView extends Component {
                 </td>
             </tr>
         )
+    }
+
+    componentDidMount(){
+        let contents = this.state.allContentsForUser;
+        this.renderUsersPerWeek();
+        this.renderRewardsPerWeek();
+        this.renderCommentsPerWeek();
+
+        for (let i=0; i<contents.length; i++) {
+            let data = rearrangeData(contents[i]);
+            this.renderUsersPerSlide(data, i);
+            this.renderUsersPerWeek(i);
+            this.renderRewardsPerWeek(i);
+            this.renderQuizAnswers(data, i);
+        }
     }
 
     render() {
@@ -278,24 +295,9 @@ class DataView extends Component {
                                 </table>
                             </div>
                         </div>
-                        <div id="usersPerWeekWrap" style={styles.paperElem}>
-                            <Typography gutterBottom variant="subheading">
-                                {"Users per week"}
-                            </Typography>
-                            <div id={"usersPerWeek"} style={styles.graphWrap}/>
-                        </div>
-                        <div id="rewardsPerWeekWrap" style={styles.paperElem}>
-                            <Typography gutterBottom variant="subheading">
-                                {"Rewards per week"}
-                            </Typography>
-                            <div id={"rewardsPerWeek"} style={styles.graphWrap}/>
-                        </div>
-                        <div id="commentsPerWeekWrap" style={styles.paperElem}>
-                            <Typography gutterBottom variant="subheading">
-                                {"Comments per week"}
-                            </Typography>
-                            <div id={"commentsPerWeek"} style={styles.graphWrap}/>
-                        </div>
+                        {this.renderGraphComponent("usersPerWeek", "Users per week")}
+                        {this.renderGraphComponent("rewardsPerWeek", "Rewards per week")}
+                        {this.renderGraphComponent("commentsPerWeek", "Comments per week")}
                     </Paper>
                 <div style={styles.flexContainer}>
                     <Typography gutterBottom variant="title">
@@ -321,50 +323,12 @@ class DataView extends Component {
                                 {this.renderAnalyticsSummaryRow(details.tokens, 1.0)}
                             </table>
                         </div>
-                        <div id="usersPerWeekWrap" style={styles.paperElem}>
-                            <Typography gutterBottom variant="subheading">
-                                {"Users per week"}
-                            </Typography>
-                            <div id={"usersPerWeek"+i} style={styles.graphWrap}/>
-                        </div>
-                        <div id="rewardsPerWeekWrap" style={styles.paperElem}>
-                            <Typography gutterBottom variant="subheading">
-                                {"Rewards per week"}
-                            </Typography>
-                            <div id={"rewardsPerWeek"+i} style={styles.graphWrap}/>
-                        </div>
-                        <div id="commentsPerWeekWrap" style={styles.paperElem}>
-                            <Typography gutterBottom variant="subheading">
-                                {"Quiz answers"}
-                            </Typography>
-                            <div id={"quiz"+i} style={styles.graphWrap}/>
-                        </div>
-                        <div id="commentsPerWeekWrap" style={styles.paperElem}>
-                            <Typography gutterBottom variant="subheading">
-                                {"Users/Comments per slide"}
-                            </Typography>
-                            <div id={"usersPerSlide"+i} style={styles.graphWrapWide}/>
-                        </div>
+                        {this.renderGraphComponent("usersPerWeek"+i, "Users per week")}
+                        {this.renderGraphComponent("rewardsPerWeek"+i, "Rewards per week")}
+                        {this.renderGraphComponent("quiz"+i, "Answers correct")}
+                        {this.renderGraphComponentWide("usersPerSlide"+i, "Users/Comments per slide")}
                     </Paper>
                  ))}
-                 <div class="container">
-                  <div class="bear">
-                    <div class="bear__ears">
-                      <div class="bear__ears__left ear"></div>
-                      <div class="bear__ears__right ear"></div>
-                    </div>
-                    <div class="bear__body">
-                      <div class="bear__eyes">
-                        <div class="bear__eyes--left eye"></div>
-                        <div class="bear__eyes--right eye"></div>
-                      </div>
-                      <div class="bear__nose">
-                        <div class="bear__nose--inner"></div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="shadow"></div>
-                </div>
             </div>
         );
     }
