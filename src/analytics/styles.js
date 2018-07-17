@@ -1,4 +1,10 @@
 const styles = {
+  flexContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'noWrap',
+    alignItems: 'center',
+  },
   pageWrap: {
     marginTop: '20px',
     marginLeft: '20px',
@@ -48,9 +54,16 @@ const styles = {
   marginRight: {
     marginRight: '5px',
   },
+  marginLeft: {
+    marginLeft: '10px',
+  },
   graphWrap: {
-    height: '100px',
+    height: '150px',
     width: '200px',
+  },
+  graphWrapWide: {
+    height: '150px',
+    width: '300px',
   },
   smallIcon: {
     height: '13px',

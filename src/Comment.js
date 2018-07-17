@@ -54,12 +54,11 @@ class CommentSection extends Component {
                 method: 'GET'
             }).then(function (response) {
                 return response.json();
-            })
-                .then(function (myJson) {
-                    console.log(myJson);
-                    that.setState({comments: myJson});
+            }).then(function (myJson) {
+                console.log(myJson);
+                that.setState({comments: myJson});
 
-                });
+            });
         }
 
     }
@@ -227,50 +226,44 @@ class CommentSection extends Component {
         )
     }
 
-    handleChange = () => {
-
-        if (!this.props.match) {
-            var that = this;
+    getContentInfo() {
+        let userName = null;
+        let contentName = null;
+        if (!this.props.match || this.props.match===undefined) {
             const loc = window.location.href;
             const directory = loc.split('/').filter(e => e.length > 0).slice(-2);
-            const contentName = directory[1];
-            const userName = directory[0];
-            var loadComments = 'https://api.joinoasys.org/comment/'+userName+'/' + contentName + '/' + this.slideNumber;
-            fetch(loadComments, {
-                method: 'GET'
-            }).then(function (response) {
-                return response.json();
-            })
-                .then(function (myJson) {
-                    console.log(myJson);
-                    that.setState({comments: myJson});
-
-                });
+            contentName = directory[1];
+            userName = directory[0];
+        } else {
+            contentName = this.props.match.params.contentId;
+            userName = this.props.match.params.userId;
         }
-        else {
-            var that = this;
-            const contentName = this.props.match.params.contentId;
-            const userName = this.props.match.params.userId;
-            var loadComments = 'https://api.joinoasys.org/comment/'+userName+'/' + contentName + '/' + this.slideNumber;
-            fetch(loadComments, {
-                method: 'GET'
-            }).then(function (response) {
-                return response.json();
-            })
-                .then(function (myJson) {
-                    console.log(myJson);
-                    that.setState({comments: myJson});
+        return {userName: userName, contentName: contentName}
+    }
 
-                });
-        }
+    handleChange = () => {
+        const info = this.getContentInfo();
+        const loadComments = 'https://api.joinoasys.org/comment/'+info.userName+'/' + info.contentName + '/' + this.slideNumber;
+        const that = this;
+        fetch(loadComments, {
+            method: 'GET'
+        }).then(function (response) {
+            return response.json();
+        })
+            .then(function (myJson) {
+                console.log(myJson);
+                that.setState({comments: myJson});
+
+        });
     }
 
     render() {
+        const info = this.getContentInfo();
         return (
-                <div style={{overflow: 'auto', maxHeight: 60+'vh'}}>
+                <div style={{overflow: 'auto', maxHeight: 60+'vh', margin: '20px'}}>
                     <Comment.Group>
                         <Header as='h3' dividing>
-                            Comments
+                            Comments for "{info.contentName}" by {info.userName}
                         </Header>
 
                         <Form reply style={{marginBottom:'30px'}}>

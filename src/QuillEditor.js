@@ -60,7 +60,7 @@ const CustomToolbar = () => (
     <span className="ql-formats">
       <select className="ql-size">
           <option value="12px">Small</option>
-          <option value="16px">Normal</option>
+          <option value="16px" selected>Normal</option>
           <option value="22px">Large</option>
           <option value="30px">Huge</option>
       </select>

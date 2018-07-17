@@ -155,9 +155,11 @@ class SimpleMediaCard extends Component {
                       className={classes.cardAction}
                       onClick={function(event) {event.preventDefault(); window.location.href = contentUrl || "nope"; }}
                   >
-                <div style={{marginLeft:'20px', marginBottom:'20px'}}>
-                {ratingString} (12 Reviews)
-                </div>
+                  <center>
+                  <div style={{marginLeft:'20px', marginBottom:'20px'}}>
+                  {ratingString} (12 Reviews)
+                  </div>
+                  </center>
                 
                 <CardMedia
                     className={classes.media}

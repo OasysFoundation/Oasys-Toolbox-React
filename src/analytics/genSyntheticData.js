@@ -42,7 +42,7 @@ function generateQuizAnswers(n) {
             endTime.setTime(startTime.getTime() + Math.round(Math.random()*60*24*1000)); 
             let slideTimings = generateSlideTimes(nSlides);
             let quizAnswers = generateQuizAnswers(nQuiz);
-            let contentId = "content " + (i + 1);
+            let contentId = "My Content " + (i + 1);
             let duration = new Date();
             duration.setTime(endTime.getTime() - startTime.getTime());
             let content = {contentId: contentId, startTime: startTime, endTime: endTime, accessTimes: slideTimings, quizAnswers: quizAnswers, duration: duration}
