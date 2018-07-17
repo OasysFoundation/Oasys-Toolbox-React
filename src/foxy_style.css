@@ -68,8 +68,8 @@
     }
 }
 
-@media screen and (min-color-index:0) {
-    @media {
+@media not all and (min-resolution:.001dpcm)
+{ @supports (-webkit-appearance:none) {
         .foxy_head {
             margin-top: -11.5%;
             margin-left: 1.5%;
