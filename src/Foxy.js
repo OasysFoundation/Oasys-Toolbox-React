@@ -84,7 +84,8 @@ class Foxy extends Component {
 
     render() {
         return (
-            <div>
+            <div style={{marginTop: 7 + 'rem'}}>
+                {/*<div className={'foxy_eyes'}>$     $</div>*/}
                 <img alt={"Foxy, your friend"}
                      className={'foxy_head'}
                      onMouseEnter={this.moveTail}

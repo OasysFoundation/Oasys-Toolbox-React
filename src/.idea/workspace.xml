@@ -14,11 +14,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Foxy.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Foxy.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Foxy.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="226">
-              <caret line="58" column="27" selection-start-line="58" selection-start-column="27" selection-end-line="58" selection-end-column="27" />
+            <state relative-caret-position="305">
+              <caret line="86" column="44" selection-start-line="86" selection-start-column="44" selection-end-line="86" selection-end-column="44" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -30,7 +30,7 @@
         <entry file="file://$PROJECT_DIR$/../../soundman/Splinter.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="748">
-              <caret line="51" column="62" lean-forward="true" selection-start-line="50" selection-start-column="8" selection-end-line="51" selection-end-column="62" />
+              <caret line="51" column="62" selection-start-line="50" selection-start-column="8" selection-end-line="51" selection-end-column="62" />
             </state>
           </provider>
         </entry>
@@ -51,11 +51,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="foxy_style.css" pinned="false" current-in-tab="false">
+      <file leaf-file-name="foxy_style.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/foxy_style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="16" column="27" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="27" />
+            <state relative-caret-position="39">
+              <caret line="70" column="37" selection-start-line="70" selection-start-column="37" selection-end-line="70" selection-end-column="37" />
             </state>
           </provider>
         </entry>
@@ -64,7 +64,7 @@
         <entry file="file://$PROJECT_DIR$/stylings.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="405">
-              <caret line="27" column="11" lean-forward="true" selection-start-line="27" selection-start-column="11" selection-end-line="27" selection-end-column="11" />
+              <caret line="27" column="11" selection-start-line="27" selection-start-column="11" selection-end-line="27" selection-end-column="11" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -94,7 +94,7 @@
         <entry file="file://$PROJECT_DIR$/index.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1185">
-              <caret line="117" column="49" lean-forward="true" selection-start-line="117" selection-start-column="49" selection-end-line="117" selection-end-column="49" />
+              <caret line="117" column="49" selection-start-line="117" selection-start-column="49" selection-end-line="117" selection-end-column="49" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
               </folding>
@@ -182,8 +182,8 @@
         <option value="$PROJECT_DIR$/../build/index.html" />
         <option value="$PROJECT_DIR$/index.js" />
         <option value="$PROJECT_DIR$/stylings.js" />
-        <option value="$PROJECT_DIR$/foxy_style.css" />
         <option value="$PROJECT_DIR$/Foxy.js" />
+        <option value="$PROJECT_DIR$/foxy_style.css" />
       </list>
     </option>
   </component>
@@ -275,12 +275,12 @@
       <workItem from="1531377796590" duration="7355000" />
       <workItem from="1531511357079" duration="318000" />
       <workItem from="1531729709813" duration="127000" />
-      <workItem from="1531815037049" duration="5230000" />
+      <workItem from="1531815037049" duration="7273000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="97256000" />
+    <option name="totallyTimeSpent" value="99299000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="797" extended-state="6" />
@@ -572,7 +572,7 @@
     <entry file="file://$PROJECT_DIR$/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1185">
-          <caret line="117" column="49" lean-forward="true" selection-start-line="117" selection-start-column="49" selection-end-line="117" selection-end-column="49" />
+          <caret line="117" column="49" selection-start-line="117" selection-start-column="49" selection-end-line="117" selection-end-column="49" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
           </folding>
@@ -583,16 +583,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="164">
           <caret line="156" column="54" selection-start-line="156" selection-start-column="47" selection-end-line="156" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/stylings.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="27" column="11" lean-forward="true" selection-start-line="27" selection-start-column="11" selection-end-line="27" selection-end-column="11" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -608,10 +598,13 @@
         <state relative-caret-position="-999" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../soundman/Splinter.js">
+    <entry file="file://$PROJECT_DIR$/stylings.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="748">
-          <caret line="51" column="62" lean-forward="true" selection-start-line="50" selection-start-column="8" selection-end-line="51" selection-end-column="62" />
+        <state relative-caret-position="405">
+          <caret line="27" column="11" selection-start-line="27" selection-start-column="11" selection-end-line="27" selection-end-column="11" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -622,20 +615,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/foxy_style.css">
+    <entry file="file://$PROJECT_DIR$/../../soundman/Splinter.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="16" column="27" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="27" />
+        <state relative-caret-position="748">
+          <caret line="51" column="62" selection-start-line="50" selection-start-column="8" selection-end-line="51" selection-end-column="62" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Foxy.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="58" column="27" selection-start-line="58" selection-start-column="27" selection-end-line="58" selection-end-column="27" />
+        <state relative-caret-position="305">
+          <caret line="86" column="44" selection-start-line="86" selection-start-column="44" selection-end-line="86" selection-end-column="44" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/foxy_style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="39">
+          <caret line="70" column="37" selection-start-line="70" selection-start-column="37" selection-end-line="70" selection-end-column="37" />
         </state>
       </provider>
     </entry>
