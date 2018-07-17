@@ -9,7 +9,13 @@ body {
 	text-align: left;
 }
 
+.ql-picker-options {
+  position:absolute;
+  z-index: 9999 !important;
+}
 
+
+/* for bear animation */
 
 body .container {
   display: -webkit-box;
