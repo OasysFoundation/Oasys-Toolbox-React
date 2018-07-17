@@ -40,7 +40,8 @@ class OpenContentDialog extends Component {
 	}
 
 	handleClose() {
-		this.props.onClose(null);
+		if(this.props)
+			this.props.onClose(null);
 	};
 
 	didSelectContent(selectedContent) {
