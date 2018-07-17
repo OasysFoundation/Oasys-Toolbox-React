@@ -306,7 +306,7 @@ class DataView extends Component {
                  {this.state.allContentsForUser.map((content,i) => (
                     <Paper zDepth={3} style={styles.paperSummary}> 
                         <div style={styles.paperElem}>
-                            <Typography gutterBottom variant="title">
+                            <Typography gutterBottom variant="subheading">
                                 {content[0].contentId}
                             </Typography>
                             <table className="textAlignLeft">
@@ -317,25 +317,25 @@ class DataView extends Component {
                             </table>
                         </div>
                         <div id="usersPerWeekWrap" style={styles.paperElem}>
-                            <Typography gutterBottom variant="title">
+                            <Typography gutterBottom variant="subheading">
                                 {"Users per week"}
                             </Typography>
                             <div id={"usersPerWeek"+i} style={styles.graphWrap}/>
                         </div>
                         <div id="rewardsPerWeekWrap" style={styles.paperElem}>
-                            <Typography gutterBottom variant="title">
+                            <Typography gutterBottom variant="subheading">
                                 {"Rewards per week"}
                             </Typography>
                             <div id={"rewardsPerWeek"+i} style={styles.graphWrap}/>
                         </div>
                         <div id="commentsPerWeekWrap" style={styles.paperElem}>
-                            <Typography gutterBottom variant="title">
+                            <Typography gutterBottom variant="subheading">
                                 {"Quiz answers"}
                             </Typography>
                             <div id={"quiz"+i} style={styles.graphWrap}/>
                         </div>
                         <div id="commentsPerWeekWrap" style={styles.paperElem}>
-                            <Typography gutterBottom variant="title">
+                            <Typography gutterBottom variant="subheading">
                                 {"Users/Comments per slide"}
                             </Typography>
                             <div id={"usersPerSlide"+i} style={styles.graphWrapWide}/>
