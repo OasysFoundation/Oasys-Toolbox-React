@@ -25,6 +25,7 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import {CoolPinkButton} from "./stylings";
+import QuizPreview from './QuizPreview'
 
 import {
   SortableContainer,
@@ -300,23 +301,8 @@ class Quiz extends Component {
           </Paper>
             )}
           
-          {this.state.preview ? ( // ternary beginning
-            <div style={domStyles.marginTop}>
-            <FormControl component="fieldset">
-              <FormLabel component="legend">{this.props.value.question}</FormLabel>
-              <FormGroup>
-              { this.props.value.answers.map((a) => 
-                  <FormControlLabel
-                    control={
-                      <Checkbox />
-                    }
-                    label={a.option}
-                  />
-              )}
-              </FormGroup>
-            </FormControl>
-            </div>
-          ) : ( // ternary middle
+          {this.state.preview ? (<QuizPreview content={this.props.value}/>)
+          : (
             <div>
               
               <Typography component="p">

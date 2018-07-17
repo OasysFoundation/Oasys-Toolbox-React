@@ -14,11 +14,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Foxy.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Foxy.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Foxy.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="243">
-              <caret line="19" column="9" selection-start-line="19" selection-start-column="9" selection-end-line="19" selection-end-column="9" />
+            <state relative-caret-position="330">
+              <caret line="27" column="21" selection-start-line="25" selection-start-column="9" selection-end-line="27" selection-end-column="21" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
                 <marker date="1531828907449" expanded="true" signature="1641:1809" ph="..." />
@@ -27,11 +27,59 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Splinter.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../../soundman/Splinter.js">
+      <file leaf-file-name="QuizPreview.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/QuizPreview.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="748">
-              <caret line="51" column="62" selection-start-line="50" selection-start-column="8" selection-end-line="51" selection-end-column="62" />
+            <state relative-caret-position="795">
+              <caret line="53" column="122" selection-start-line="53" selection-start-column="114" selection-end-line="53" selection-end-column="122" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ContentView.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ContentView.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1701">
+              <caret line="205" column="36" selection-start-line="205" selection-start-column="27" selection-end-line="205" selection-end-column="36" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../dacapo.io/web-piano/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="285">
+              <caret line="19" column="20" selection-start-line="19" selection-start-column="20" selection-end-line="19" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="QuillEditor.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/QuillEditor.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="15">
+              <caret line="17" selection-start-line="17" selection-end-line="17" />
+              <folding>
+                <element signature="e#0#41#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Quiz.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Quiz.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="155">
+              <caret line="303" column="75" selection-start-line="303" selection-start-column="75" selection-end-line="303" selection-end-column="75" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -39,23 +87,16 @@
       <file leaf-file-name="RacistGoblin.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../../soundman/RacistGoblin.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="174">
+            <state relative-caret-position="315">
               <caret line="21" column="7" selection-start-line="21" selection-start-column="7" selection-end-line="35" selection-end-column="14" />
             </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="canvasTransfromExample.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../../soundman/canvasTransfromExample.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-999" />
           </provider>
         </entry>
       </file>
       <file leaf-file-name="foxy_style.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/foxy_style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-386">
+            <state relative-caret-position="525">
               <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
             </state>
           </provider>
@@ -64,7 +105,7 @@
       <file leaf-file-name="stylings.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/stylings.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="347">
+            <state relative-caret-position="435">
               <caret line="31" column="19" lean-forward="true" selection-start-line="31" selection-start-column="19" selection-end-line="31" selection-end-column="19" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
@@ -73,38 +114,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../package.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="36" column="20" selection-start-line="36" selection-start-column="20" selection-end-line="36" selection-end-column="20" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1215">
-              <caret line="117" column="49" selection-start-line="117" selection-start-column="49" selection-end-line="117" selection-end-column="49" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ContentSelection.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ContentSelection.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-263">
-              <caret line="42" column="10" lean-forward="true" selection-start-line="42" selection-start-column="10" selection-end-line="42" selection-end-column="10" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserMainPage.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/UserMainPage.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-522">
-              <caret line="28" column="29" selection-start-line="28" selection-start-column="29" selection-end-line="28" selection-end-column="29" />
+              <caret line="119" column="49" selection-start-line="119" selection-start-column="49" selection-end-line="119" selection-end-column="49" />
             </state>
           </provider>
         </entry>
@@ -113,9 +127,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>mui</find>
-      <find>mobilestepper</find>
-      <find>button</find>
       <find>show com</find>
       <find>Buttonadd</find>
       <find>add</find>
@@ -143,6 +154,9 @@
       <find>cssloader</find>
       <find>extract</find>
       <find>image-res</find>
+      <find>preview</find>
+      <find>this.state.preview</find>
+      <find>question</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -162,7 +176,6 @@
         <option value="$PROJECT_DIR$/buttons.css" />
         <option value="$PROJECT_DIR$/MyAccountPage.js" />
         <option value="$PROJECT_DIR$/GameEdit.js" />
-        <option value="$PROJECT_DIR$/Quiz.js" />
         <option value="$PROJECT_DIR$/Rating.js" />
         <option value="$PROJECT_DIR$/Comment.js" />
         <option value="$PROJECT_DIR$/QuillEditor.js" />
@@ -182,6 +195,8 @@
         <option value="$PROJECT_DIR$/foxy_style.css" />
         <option value="$PROJECT_DIR$/stylings.js" />
         <option value="$PROJECT_DIR$/Foxy.js" />
+        <option value="$PROJECT_DIR$/QuizPreview.js" />
+        <option value="$PROJECT_DIR$/Quiz.js" />
       </list>
     </option>
   </component>
@@ -205,10 +220,10 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds">
     <option name="y" value="23" />
     <option name="width" value="1440" />
-    <option name="height" value="797" />
+    <option name="height" value="800" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -273,15 +288,16 @@
       <workItem from="1531377796590" duration="7355000" />
       <workItem from="1531511357079" duration="318000" />
       <workItem from="1531729709813" duration="127000" />
-      <workItem from="1531815037049" duration="10374000" />
+      <workItem from="1531815037049" duration="11570000" />
+      <workItem from="1531851857141" duration="1743000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="102400000" />
+    <option name="totallyTimeSpent" value="105339000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="797" extended-state="6" />
+    <frame x="0" y="23" width="1440" height="800" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.28402779" />
@@ -310,7 +326,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/NavigationNonAuth.js" />
     <entry file="file://$PROJECT_DIR$/HorizontalSlidePicker.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="275">
@@ -319,9 +334,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/HomePage.js" />
-    <entry file="file://$PROJECT_DIR$/QuizPreview.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/../config/paths.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -377,13 +389,6 @@
         <state relative-caret-position="-509" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Quiz.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="361" column="29" selection-start-line="361" selection-start-column="29" selection-end-line="361" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/HyperVideoEditor.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-866">
@@ -426,16 +431,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/QuillEditor.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1231">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Preview.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
@@ -447,15 +442,8 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="212">
           <caret line="113" column="34" selection-start-line="113" selection-start-column="17" selection-end-line="113" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ContentView.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="386">
-          <caret line="205" column="36" selection-start-line="205" selection-start-column="27" selection-end-line="205" selection-end-column="36" />
           <folding>
-            <element signature="e#0#39#0" expanded="true" />
+            <element signature="e#0#41#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -516,9 +504,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="17" column="35" selection-start-line="17" selection-start-column="27" selection-end-line="17" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#58#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -574,49 +559,42 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../../soundman/Splinter.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="748">
+        <state relative-caret-position="765">
           <caret line="51" column="62" selection-start-line="50" selection-start-column="8" selection-end-line="51" selection-end-column="62" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/UserMainPage.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-522">
+        <state relative-caret-position="180">
           <caret line="28" column="29" selection-start-line="28" selection-start-column="29" selection-end-line="28" selection-end-column="29" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ContentSelection.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-263">
+        <state relative-caret-position="435">
           <caret line="42" column="10" lean-forward="true" selection-start-line="42" selection-start-column="10" selection-end-line="42" selection-end-column="10" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../../soundman/RacistGoblin.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
+        <state relative-caret-position="315">
           <caret line="21" column="7" selection-start-line="21" selection-start-column="7" selection-end-line="35" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1215">
-          <caret line="117" column="49" selection-start-line="117" selection-start-column="49" selection-end-line="117" selection-end-column="49" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/foxy_style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-386">
+        <state relative-caret-position="525">
           <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/stylings.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="347">
+        <state relative-caret-position="435">
           <caret line="31" column="19" lean-forward="true" selection-start-line="31" selection-start-column="19" selection-end-line="31" selection-end-column="19" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
@@ -624,13 +602,67 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1215">
+          <caret line="119" column="49" selection-start-line="119" selection-start-column="49" selection-end-line="119" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Foxy.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="19" column="9" selection-start-line="19" selection-start-column="9" selection-end-line="19" selection-end-column="9" />
+        <state relative-caret-position="330">
+          <caret line="27" column="21" selection-start-line="25" selection-start-column="9" selection-end-line="27" selection-end-column="21" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
             <marker date="1531828907449" expanded="true" signature="1641:1809" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/QuillEditor.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../dacapo.io/web-piano/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="20" selection-start-line="19" selection-start-column="20" selection-end-line="19" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ContentView.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1701">
+          <caret line="205" column="36" selection-start-line="205" selection-start-column="27" selection-end-line="205" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/QuizPreview.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="795">
+          <caret line="53" column="122" selection-start-line="53" selection-start-column="114" selection-end-line="53" selection-end-column="122" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Quiz.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="155">
+          <caret line="303" column="75" selection-start-line="303" selection-start-column="75" selection-end-line="303" selection-end-column="75" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
           </folding>
         </state>
       </provider>
