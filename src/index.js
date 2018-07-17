@@ -30,7 +30,9 @@ import GameEdit from "./GameEdit";
 import { withRouter } from 'react-router'
 import GameEmbedder from "./GameEmbedder";
 
-import UserProjects from './UserProjects'
+import UserProjects from './UserProjects';
+import UserPublicProjects from './UserPublicProjects'
+
 
 import Wallet from './Wallet'
 import Comment from './Comment'
@@ -109,7 +111,7 @@ class Index extends Component {
 const UserPage = ({ match }) => (
     <div>
         <h3>Username: {match.params.username}</h3>
-        <UserProjects userId={match.params.username}/>
+        <UserPublicProjects userId={match.params.username}/>
     </div>
 );
 
