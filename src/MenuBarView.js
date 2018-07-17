@@ -83,6 +83,7 @@ class MenuBarView extends Component {
     });
   }
 
+
   completeFetch(contentId, published, hashtags, description, slides) {
     
     let imagesToSave = [];
@@ -91,7 +92,6 @@ class MenuBarView extends Component {
     slides.forEach(function(slide) {
       if (slide.type == 0) {
         //quill content
-        console.log(unescape(slide.content));
         while ( m = findImageTagsRegEx.exec( unescape(slide.content) ) ) {
             imagesToSave.push( m[1] );
         }
@@ -99,13 +99,23 @@ class MenuBarView extends Component {
     });
 
     
-    imagesToSave.forEach(function(image) {
-      // submit `image` to server
+    imagesToSave.forEach(function(base64Image) {
+      console.log(base64Image);
 
-      // get URL and replace it in quill thingy
-
-      // done.
+      const fd = new FormData();
+      fd.append('image', base64Image);
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', 'https://api.joinoasys.org/uploadQuillPic', true);
+      xhr.onload = () => {
+        if (xhr.status === 200) {
+          // this is callback data: url
+          console.log("URL");
+          console.log(xhr.responseText);
+        }
+      };
+      xhr.send(fd);
     });
+
 
 
 
