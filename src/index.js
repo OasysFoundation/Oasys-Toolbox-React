@@ -9,7 +9,7 @@ import EventPicker from './EventPicker'
 import ContentSelection from "./ContentSelection";
 import NavBar from "./NavBar"
 import NotFoundPage from "./NotFoundPage"
-import Editor from "./Editor"
+import Editor from "./editor/Editor"
 import DataViewCreator from "./analytics/DataViewCreator";
 
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
@@ -24,7 +24,6 @@ import PasswordReset from './PasswordReset'
 
 import { firebase } from './firebase';
 import ContentView from './ContentView'
-import GameEdit from "./GameEdit";
 
 import { withRouter } from 'react-router'
 import GameEmbedder from "./GameEmbedder";

@@ -13,7 +13,7 @@ import NotFoundPage from './NotFoundPage'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import GameView from "./GameView"
 import { firebase } from './firebase';
-import HyperVideoEditor from './HyperVideoEditor';
+import HyperVideoEdit from './editor/HyperVideoEdit';
 import Comment from './Comment'
 import {CoolPinkButton} from "./stylings";
 import {CoolBlueButton} from "./stylings";
@@ -180,7 +180,7 @@ class ContentView extends Component {
 
                     )                
                 }                
-                <HyperVideoEditor value={slide.content} preview={true}/>
+                <HyperVideoEdit value={slide.content} preview={true}/>
                 {this.state.showComments
                     ?<Comment name={this.authUsername} slideNumber={this.state.slideIdx} slideLength={this.contentLength}/>
                     :null

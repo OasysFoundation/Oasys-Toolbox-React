@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import Quiz from './Quiz';
-import ModuleEditor from './ModuleEditor';
-import glb from "./globals";
+import QuizEdit from './QuizEdit';
+import ModuleEdit from './ModuleEdit';
+import glb from "../globals";
 import 'react-quill/dist/quill.snow.css';
-import QuillEditor from './QuillEditor'
+import QuillEdit from './QuillEdit'
 import HyperVideoSetup from './HyperVideoSetup'
 import GameEdit from "./GameEdit";
 import SystemSimEdit from "./SystemSimEdit";
@@ -19,10 +19,10 @@ class SlideEditor extends Component {
       if (this.props.slideType === undefined || this.props.slide === undefined) {
         return <div></div>
       } else if (this.props.slideType === glb.QUIZ) {
-        return <Quiz value={this.props.slide.content}
+        return <QuizEdit value={this.props.slide.content}
               onChange={this.onChange} />
       } else if (this.props.slideType === glb.QUILL) {
-       return <QuillEditor onChange={this.onChange} slideContent={this.props.slide.content}/>
+       return <QuillEdit onChange={this.onChange} slideContent={this.props.slide.content}/>
       } else if (this.props.slideType === glb.GAME) {
          return <GameEdit onChange={this.onChange}
                           value={this.props.slide.content} />

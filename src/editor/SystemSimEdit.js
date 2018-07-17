@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Button from '@material-ui/core/Button';
-import {buttonGradientCSS} from "./stylings";
-import {CoolPinkButton} from "./stylings";
+
+import {buttonGradientCSS,CoolPinkButton} from "../stylings";
 
 
 const SystemSimEdit = function (props) {
