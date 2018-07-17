@@ -348,29 +348,4 @@ class DataView extends Component {
 }
 document.body.style.overflowX = 'auto';
 
-
-/*
-<Paper zDepth={3} style={styles.paper}> 
-    <Typography gutterBottom component="p">
-        <strong>{content[0].contentId}</strong>
-        {" (#accessed: "+ content.length + ")"}
-    </Typography>
-
-    <Typography gutterBottom component="p">
-        {"Average number of users per slide"}
-    </Typography>
-    <div id={"usersPerSlide"+i} style={styles.graphWrap}/>
-
-    <Typography gutterBottom component="p">
-        {"Average time spent on each slide"}
-    </Typography>
-    <div id={"avgTime"+i} style={styles.graphWrap}/>
-
-    <Typography gutterBottom component="p">
-        {"Quiz answers"}
-    </Typography>
-    <div id={"quiz"+i} style={styles.quizWrap}/>
-</Paper>
-*/
-
 export default DataView;
