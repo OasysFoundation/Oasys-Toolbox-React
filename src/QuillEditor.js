@@ -7,7 +7,7 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import katex from 'katex';
-import {ImageDrop} from 'quill-image-drop-module'
+//import {ImageDrop} from 'quill-image-drop-module'
 import ImageResize from 'quill-image-resize-module-react';
 import d3 from "d3"
 
@@ -135,7 +135,7 @@ class QuillEditor extends Component {
     ReactQuill.Quill.register(fontSize, true);
 
     ReactQuill.Quill.register('modules/imageResize', ImageResize);
-    ReactQuill.Quill.register('modules/imageDrop', ImageDrop)
+    //ReactQuill.Quill.register('modules/imageDrop', ImageDrop)
 
   }
 
@@ -186,7 +186,7 @@ QuillEditor.modules = {
         "insertGraph": insertGraph,
       }
     },
-    imageDrop: true,
+    //imageDrop: true,
     imageResize: {
       parchment: Quill.import('parchment'),
       modules: [ 'Resize', 'DisplaySize', 'Toolbar' ]
