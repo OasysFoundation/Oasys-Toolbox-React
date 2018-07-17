@@ -102,73 +102,94 @@ class MenuBarView extends Component {
       }
     });
 
-    
+    var semaphore = 0;
+    var that = this;
     imagesToSave.forEach(function(base64Image) {
-      console.log(base64Image);
+    semaphore++;
+      const spacesEndpoint = 'https://api.imgur.com/3/image'
 
-      const fd = new FormData();
-      fd.append('image', base64Image);
-      const xhr = new XMLHttpRequest();
-      xhr.open('POST', 'https://api.joinoasys.org/uploadQuillPic', true);
-      xhr.onload = () => {
-        if (xhr.status === 200) {
-          // this is callback data: url
-          console.log("URL");
-          console.log(xhr.responseText);
-        }
-      };
-      xhr.send(fd);
+      let newBase64Image = base64Image.split(",")[1];
+
+      
+      fetch(spacesEndpoint, {
+        method: 'POST',
+        body: newBase64Image,
+        headers: new Headers({
+         'Authorization': 'Client-ID dab43e1ba5b9c27',
+         'Accept': 'application/json'
+        }),
+      }).then((response) => {
+        response.json()
+        .catch(error => {
+        console.error('Error:', error);
+      }).then((body) => {
+          console.log(body);
+          if(body) {
+            console.log('IMGUR LINK: ' + body.data.link);
+
+                slides.forEach(function(slide) {
+                if (slide.type == 0) {
+                  //quill content
+                  slide.content = slide.content.replace(base64Image,  body.data.link);
+                }
+              });
+
+            semaphore--;
+            if (semaphore == 0) {
+              
+              var username = that.props.authUser.displayName;
+              var saveEndpoint = 'https://api.joinoasys.org/save/'+username+'/'+contentId;
+              var data = {
+                "data":slides,
+                "published":published,
+                "title":contentId,
+                "description":description,
+                "tags":hashtags,
+              }
+
+              fetch(saveEndpoint, {
+                method: 'POST', 
+                body: JSON.stringify(data),
+                headers: new Headers({
+                 'Content-Type': 'application/json',
+               })
+              }).then(res => res.json())
+              .catch(error => {
+                console.error('Error:', error);
+                that.setState({
+                    snackBarMessage: 'Error Saving. If this continues, please contact info@joinoasys.org'
+                })
+              })
+              .then(response => {
+                that.setState({
+                  showsSaveDialog: false
+                });
+
+                console.log(response);
+                if(response){
+                  if (that.state.saveAction == 'save') {
+                    that.setState({
+                      snackBarMessage: 'Saved Draft'
+                    })
+                  }
+
+                  if (that.state.saveAction == 'publish') {
+                    that.setState({
+                      snackBarMessage: 'Published'
+                    })
+                  }
+                }
+
+                });
+
+            }
+          }
+        });
+      });
     });
 
 
-
-
     
-
-    var username = this.props.authUser.displayName;
-    var saveEndpoint = 'https://api.joinoasys.org/save/'+username+'/'+contentId;
-    var data = {
-      "data":slides,
-      "published":published,
-      "title":contentId,
-      "description":description,
-      "tags":hashtags,
-    }
-
-    fetch(saveEndpoint, {
-      method: 'POST', 
-      body: JSON.stringify(data),
-      headers: new Headers({
-       'Content-Type': 'application/json',
-     })
-    }).then(res => res.json())
-    .catch(error => {
-      console.error('Error:', error);
-      this.setState({
-          snackBarMessage: 'Error Saving. If this continues, please contact info@joinoasys.org'
-      })
-    })
-    .then(response => {
-      this.setState({
-        showsSaveDialog: false
-      });
-
-      console.log(response);
-      if(response){
-        if (this.state.saveAction == 'save') {
-          this.setState({
-            snackBarMessage: 'Saved Draft'
-          })
-        }
-
-        if (this.state.saveAction == 'publish') {
-          this.setState({
-            snackBarMessage: 'Published'
-          })
-        }
-      }
-
-      });
   }
 
   onSubmit() {
