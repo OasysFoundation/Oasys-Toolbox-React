@@ -304,7 +304,10 @@ class ContentView extends Component {
                     {content.data.map(slide => (
                         this.whatRenderer(slide)
                     ))}
-                    <Rating username={this.props.authUser}/>
+                    { this.props.authUser
+                        ?<Rating username={this.props.authUser.displayName}/>
+                        : null
+                    }
                     </SwipeableViews>
                     <MobileStepper
                       steps={content.data.length + 1}
