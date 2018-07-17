@@ -10,7 +10,7 @@ import ContentSelection from "./ContentSelection";
 import NavBar from "./NavBar"
 import NotFoundPage from "./NotFoundPage"
 import Editor from "./Editor"
-import DataViewUser from "./DataViewUser";
+//import DataViewUser from "./DataViewUser";
 import DataViewCreator from "./DataViewCreator";
 
 import {BrowserRouter, Route, Switch} from 'react-router-dom';

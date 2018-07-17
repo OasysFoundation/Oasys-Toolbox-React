@@ -44,6 +44,10 @@ const styles = {
   },
 };
 
+const buttonStyle = {
+  padding: '0',
+}
+
 
 class MenuBarView extends Component {
   constructor(props) {
@@ -83,8 +87,44 @@ class MenuBarView extends Component {
     });
   }
 
+
   completeFetch(contentId, published, hashtags, description, slides) {
-    console.log(slides);
+    
+    let imagesToSave = [];
+    let m;
+    const findImageTagsRegEx = /<img src="?([^"\s]+)">/g;
+    slides.forEach(function(slide) {
+      if (slide.type == 0) {
+        //quill content
+        while ( m = findImageTagsRegEx.exec( unescape(slide.content) ) ) {
+            imagesToSave.push( m[1] );
+        }
+      }
+    });
+
+    
+    imagesToSave.forEach(function(base64Image) {
+      console.log(base64Image);
+
+      const fd = new FormData();
+      fd.append('image', base64Image);
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', 'https://api.joinoasys.org/uploadQuillPic', true);
+      xhr.onload = () => {
+        if (xhr.status === 200) {
+          // this is callback data: url
+          console.log("URL");
+          console.log(xhr.responseText);
+        }
+      };
+      xhr.send(fd);
+    });
+
+
+
+
+    
+
     var username = this.props.authUser.displayName;
     var saveEndpoint = 'https://api.joinoasys.org/save/'+username+'/'+contentId;
     var data = {
@@ -132,6 +172,7 @@ class MenuBarView extends Component {
   }
 
   onSubmit() {
+  
     if (this.state.saveAction == 'save') {
       this.completeFetch(this.props.contentTitle, 0, this.state.hashtags, this.state.description, this.props.slides);
     }
@@ -141,6 +182,8 @@ class MenuBarView extends Component {
   }
 
   onOpen(event) {
+
+
     this.setState({
       showsOpenDialog: true,
     });
@@ -222,13 +265,20 @@ class MenuBarView extends Component {
   }
 
   closeOpenDialog(selectedContent) {
-    console.log(selectedContent);
-    const link = "https://app.joinoasys.org/user/"+selectedContent.userId+"/"+selectedContent.contentId;
-    this.setState({
-      showsOpenDialog: false,
-      link: link
-    });
-    this.props.onLoad(link);
+    if(selectedContent){
+      console.log(selectedContent);
+      const link = "https://app.joinoasys.org/user/"+selectedContent.userId+"/"+selectedContent.contentId;
+      this.setState({
+        showsOpenDialog: false,
+        link: link
+      });
+      this.props.onLoad(link);
+    }
+    else{
+      this.setState({
+        showsOpenDialog:false,
+      })
+    }
   }
 
   updateURL(){
@@ -328,8 +378,10 @@ class MenuBarView extends Component {
               onChange={this.onChange.bind(this)}
               margin="normal"
             />
-            <Button variant="contained" color="primary" onClick={this.onUpload.bind(this)}>
-            Upload Cover Picture  
+            <br/>
+            <br/>
+            <Button style={buttonStyle} variant="contained" color="primary" onClick={this.onUpload.bind(this)}>
+            Upload Cover Picture 
             </Button>
             <UploadPicContentDialog titleUpload={true} url={this.updateURL.bind(this)} authUser={this.props.authUser} contentId={this.props.contentTitle} open={this.state.showsUploadPicDialog} onClose={this.closeUploadDialog.bind(this)} snackBarControl={this.updateSnackbar.bind(this)}/>
         </DialogContent>
@@ -345,7 +397,12 @@ class MenuBarView extends Component {
 
 
 
-      <OpenContentDialog open={this.state.showsOpenDialog} onClose={this.closeOpenDialog.bind(this)}/>
+      <OpenContentDialog userId={
+        this.props.authUser
+        ?this.props.authUser.displayName
+        :null
+      }
+      open={this.state.showsOpenDialog} onClose={this.closeOpenDialog.bind(this)}/>
 
       <Snackbar
           anchorOrigin={{
