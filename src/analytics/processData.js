@@ -59,7 +59,31 @@ function rearrangeData(contents) {
         timingsPerSlide: timingsPerSlide,
         answers: answers,
     }
-    return data
+    return data;
 }
 
-export {rearrangeData};
+
+
+function padNumber(x) {
+    return x.toString().padStart(2,'0')
+}
+
+function formatTime(time) {
+    return padNumber(time.getHours()-1) + "h:" + padNumber(time.getMinutes()) + "m:" + padNumber(time.getSeconds()) + "s";
+}
+
+
+function getLastAccess(content) {
+    // input: {accessTime: Array of slide access times, startTime: DateTime, endTime: DateTime}
+    let accessTime = null;
+    if (content.endTime!==null) {
+        accessTime = content.endTime;
+    } else if (content.accessTimes != []) {
+        accessTime = content.accessTimes[-1].t;
+    } else {
+        accessTime = content.startTime;
+    }
+    return accessTime.toLocaleDateString("en-US") + ", " + padNumber(accessTime.getHours())+ ":" + padNumber(accessTime.getMinutes());
+}
+
+export {rearrangeData, getLastAccess};
