@@ -25,9 +25,13 @@ const buttonGradientCSS = {
     }
 };
 
+const x = {
+    a: 5
+}
+
 // const ClassInject = props => <Button onClick={this.onClick} className={props.classes.coolPink}>{props.children ? props.children : 'class names'}</Button>
 
 const CoolPinkButton = (props) => <Button {...props} style={buttonGradientCSS.pink} />
 const CoolBlueButton = (props) => <Button {...props} style={buttonGradientCSS.blue} />
 
-export {buttonGradientCSS, CoolPinkButton, CoolBlueButton}
+export {x, buttonGradientCSS, CoolPinkButton, CoolBlueButton}

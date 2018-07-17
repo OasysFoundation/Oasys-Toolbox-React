@@ -1,0 +1,58 @@
+
+.foxy_head {
+    position: absolute;
+
+    margin-top: -14%;
+}
+
+.foxy_body {
+    position: absolute;
+
+    margin-top: -7%;
+    margin-left: 3.6%;
+    z-index: -1;
+}
+
+.foxy_head:hover {
+    animation: moveHead 0.6s ease-out;
+}
+
+
+/*THE FUCKING TAIL DOESN't FIRE A hover event....*/
+.foxy_tail {
+    position: absolute;
+
+    margin-top: -10%;
+    margin-left: 7%;
+    z-index: -2;
+    transform-origin: bottom left;
+}
+
+@keyframes moveTail {
+    0% {
+
+        transform: rotate(0deg);
+        transform-origin: bottom left;
+    }
+    50% {
+        transform: rotate(320deg);
+        transform-origin: bottom left;
+    }
+    100% {
+        transform: rotate(0deg);
+        transform-origin: bottom left;
+    }
+}
+
+@keyframes moveHead {
+    0% {
+        margin-top: -14%;
+    }
+    50% {
+        margin-top: -12%;
+    }
+    100% {
+        margin-top: -14%;
+    }
+
+}
