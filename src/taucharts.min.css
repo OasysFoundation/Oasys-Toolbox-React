@@ -1721,8 +1721,28 @@
 /* CUSTOM STYLE OVERRIDES */
 
 .tau-chart__legend {
-    width: 350px;
-    padding: 3px;
+    margin-top: -10px;
+    width: 200px;
+    padding: 0px 3px 3px 50px;
+    height: 25px;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+.tau-chart__legend__item {
+    font-size: 11px;
+    padding: 10px 5px 3px 30px;
+}
+
+.tau-chart__legend__guide {
+    width: 12px;
+    height: 12px;
+}
+
+
+.tau-chart__legend__guide--color__overlay {
+    width: 12px;
+    height: 12px;
 }
 
 .tau-chart__legend__title {
@@ -1738,5 +1758,5 @@
 }
 */
 .tau-chart__layout__container {
-  flex-direction: column-reverse;
+  flex-direction: column;
 }

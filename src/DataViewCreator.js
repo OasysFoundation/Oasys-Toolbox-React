@@ -1,42 +1,41 @@
+// import external modules
 import React, {Component} from 'react';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { firebase } from './firebase';
+import { withStyles } from '@material-ui/core/styles';
+import ReactTooltip from "react-tooltip"
 import IconHelpOutline from '@material-ui/icons/HelpOutline';
 import IconTrendingUp from '@material-ui/icons/TrendingUp';
 import IconTrendingDown from '@material-ui/icons/TrendingDown';
-//import d3 from 'd3';
+
 import taucharts from 'taucharts';
 import 'taucharts/dist/plugins/tooltip';
 import 'taucharts/dist/plugins/layers';
 import 'taucharts/dist/plugins/legend';
-//import TauChart from 'taucharts-react';
-//import 'taucharts/css/tauCharts.css';
-import './taucharts.min.css';
-import { withStyles } from '@material-ui/core/styles';
-import d3 from 'd3';
-import ReactTooltip from "react-tooltip"
-import {summary} from './analytics/text'
+
+// import custom modules
+import './taucharts.min.css'; // we needed to modify this, so it's a custom import
+import {summary, details} from './analytics/text'
 import {styles} from './analytics/styles'
 import {generateSlideTimes, generateQuizAnswers, generateSynthData} from './analytics/genSyntheticData'
-import {rearrangeData} from './analytics/processData'
+import {rearrangeData, getLastAccess, formatTime} from './analytics/processData'
 
-
-function padNumber(x) {
-    return x.toString().padStart(2,'0')
+const hostname = 'https://api.joinoasys.org'
+function apiCall(name) {
+    return hostname + '/getAllContentsForCreator/' + this.props.authUser.displayName;
 }
 
-function wrapTiming(x) {
-    let a = [];
-    for (let i=0; i<x.length; i++) {
-        if (x[i].i < a.length) {
-            a[x[i].i].time = a[x[i].i].time + x[i].t;
-        } else {
-            a.push({slide: x[i].i, time: x[i].t});
-        }
+const tauGuideDefault = {
+    autoScale: false,
+    showGridLines:'xy',
+    x: {
+        label: 'week',
+        tickPeriod: 'week',
+        tickFormat: 'week',
     }
-    return a;
 }
+
 
 class DataView extends Component {
 
@@ -50,11 +49,9 @@ class DataView extends Component {
     }
 
     loadContent() {
-        const loadContent = 'https://api.joinoasys.org/getAllContentsForCreator/' + this.props.authUser.displayName;
-        console.log(loadContent)
         const that = this;
 
-        fetch(loadContent, {
+        fetch(apiCall(this.props.authUser.displayName), {
             method: 'GET'
         }).then(function (response) {
             return response.json();
@@ -74,74 +71,6 @@ class DataView extends Component {
         }
     }
 
-    showLastAccess(content) {
-        console.log(content)
-        let accessTime = null;
-        if (content.endTime!==null) {
-            accessTime = content.endTime;
-        } else if (content.accessTimes != []) {
-            accessTime = content.accessTimes[-1].t;
-        } else {
-            accessTime = content.startTime;
-        }
-        return accessTime.toLocaleDateString("en-US") + ", " + padNumber(accessTime.getHours())+ ":" + padNumber(accessTime.getMinutes());
-    }
-
-    formatTime(time) {
-        return padNumber(time.getHours()-1) + "h:" + padNumber(time.getMinutes()) + "m:" + padNumber(time.getSeconds()) + "s";
-    }
-
-
-    renderBarChart(data, dim1, dim2, div) {
-        var chart = new taucharts.Chart({
-            data: data,
-            type: 'bar',
-            x: dim1,
-            y: dim2
-        });
-        chart.renderTo(div);
-    }
-
-    renderLineChart(data, dim1, dim2, div, ylabel) {
-        var chart = new taucharts.Chart({
-            data: data,
-            type: 'line',
-            x: dim1,
-            y: dim2,
-            guide: {
-                autoScale: false,
-                showGridLines:'xy',
-                x: {
-                    label: {text: 'week of the year'},
-                    tickPeriod: 'week',
-                    tickFormat: 'week',
-                },
-                y: {
-                    label: {text: ylabel}
-                },
-            },
-            plugins: [
-                taucharts.api.plugins.get('tooltip')()
-            ],
-            settings: {
-                fitModel: 'entire-view',
-            }
-        });
-        chart.renderTo(div);
-    }
-
-    renderAvgTimeSpent(data, idx) {
-        let avgTimings = [];
-        for (let i=0; i<data.timingsPerSlide.length; i++) {
-            let sum = data.timingsPerSlide[i].reduce(function(a, b) { return a + b; });
-            avgTimings.push({
-                slide: i+1,
-                time: sum/data.timingsPerSlide[i].length
-            });
-        }
-        this.renderBarChart(avgTimings, "slide", "time", "#avgTime"+idx);
-    }
-
     renderUsersPerSlide(data, idx) {
         let users = [];
         for (let i=0; i<data.usersPerSlide.length; i++) {
@@ -157,13 +86,10 @@ class DataView extends Component {
             x: 'slide',
             y: 'users',
             guide: {
-                x: {
-                    label: { text: 'slide' },
-                },
-                y: {
-                    label: { text: 'users' }
-                }
+                x: { label: { text: 'slide' }},
+                y: { label: { text: 'users' }},
             },
+            settings: { fitModel: 'entire-view', },
             plugins: [
                 taucharts.api.plugins.get('layers')({
                     mode: 'dock',
@@ -184,6 +110,7 @@ class DataView extends Component {
                     }]
                 }),
                 taucharts.api.plugins.get('legend')(),
+                taucharts.api.plugins.get('tooltip')(),
             ]
         });
         chart.renderTo("#usersPerSlide"+idx);
@@ -194,11 +121,48 @@ class DataView extends Component {
         for (let i=0; i<data.answers.length; i++) {
             answers.push({
                 question: i+1,
-                correct: data.answers[i]
+                correct: data.answers[i],
             });
         }
-        this.renderBarChart(answers, "question", "correct", "#quiz"+idx);
+        var chart = new taucharts.Chart({
+            data: answers,
+            type: "bar",
+            x: "question",
+            y: "correct",
+            plugins: [taucharts.api.plugins.get('tooltip')()],
+            settings: { fitModel: 'entire-view', },
+        });
+        chart.renderTo("#quiz"+idx);
+        //this.renderChart(answers, "question", "correct", "#quiz"+idx, 'correct', 'bar');
     }
+
+    renderChart(data, dim1, dim2, div, ylabel, type) {
+        const guide = Object.assign({y: {label: {text: ylabel}}}, tauGuideDefault);
+
+        var chart = new taucharts.Chart({
+            data: data,
+            type: type,
+            x: dim1,
+            y: dim2,
+            guide: guide,
+            plugins: [taucharts.api.plugins.get('tooltip')()],
+            settings: { fitModel: 'entire-view', }
+        });
+        chart.renderTo(div);
+    }
+
+    renderAvgTimeSpent(data, idx) {
+        let avgTimings = [];
+        for (let i=0; i<data.timingsPerSlide.length; i++) {
+            let sum = data.timingsPerSlide[i].reduce(function(a, b) { return a + b; });
+            avgTimings.push({
+                slide: i+1,
+                time: sum/data.timingsPerSlide[i].length
+            });
+        }
+        this.renderChart(avgTimings, "slide", "time", "#avgTime"+idx, 'bar');
+    }
+
 
     renderUsersPerWeek(num) {
         let data = [];
@@ -213,9 +177,9 @@ class DataView extends Component {
             }
         }
         if (num!==undefined) {
-            this.renderLineChart(data, "week", "users", "#usersPerWeek"+num, "users");
+            this.renderChart(data, "week", "users", "#usersPerWeek"+num, "users", 'line');
         } else {
-            this.renderLineChart(data, "week", "users", "#usersPerWeek", "users");
+            this.renderChart(data, "week", "users", "#usersPerWeek", "users", 'line');
         }
     }
 
@@ -232,9 +196,9 @@ class DataView extends Component {
             }
         } 
         if (num!==undefined) {
-            this.renderLineChart(data, "week", "rewards", "#rewardsPerWeek"+num, "OAS tokens");
+            this.renderChart(data, "week", "rewards", "#rewardsPerWeek"+num, "OAS tokens", 'line');
         } else {
-            this.renderLineChart(data, "week", "rewards", "#rewardsPerWeek", "OAS tokens");
+            this.renderChart(data, "week", "rewards", "#rewardsPerWeek", "OAS tokens", 'line');
         }
     }
 
@@ -246,7 +210,7 @@ class DataView extends Component {
             newDate.setDate(today.getDate() - 7*i);
             data.push({'week': newDate, 'comments': Math.round(6*Math.random())})
         }
-        this.renderLineChart(data, "week", "comments", "#commentsPerWeek", "comments");
+        this.renderChart(data, "week", "comments", "#commentsPerWeek", "comments", 'line');
     }
 
     componentDidMount(){
@@ -262,22 +226,11 @@ class DataView extends Component {
             this.renderUsersPerWeek(i);
             this.renderRewardsPerWeek(i);
             //this.renderAvgTimeSpent(data, i);
-            //this.renderQuizAnswers(data, i);
+            this.renderQuizAnswers(data, i);
 
             //this.renderD3();
         }
 
-    }
-
-    renderD3(){
-        /*let data = [4,8,12];
-        d3.select(".d3chart")
-          .selectAll("div")
-            .data(data)
-          .enter().append("div")
-            .style("width", function(d) { return d * 10 + "px"; })
-            .text(function(d) { return d; });
-        */
     }
 
     renderAnalyticsSummaryRow(obj, num){
@@ -313,6 +266,7 @@ class DataView extends Component {
                             <div id="summaryWrap">
                                 <table className="textAlignLeft">
                                     {this.renderAnalyticsSummaryRow(summary.content, this.state.allContentsForUser.length)}
+                                    {this.renderAnalyticsSummaryRow(summary.access, 498)}
                                     {this.renderAnalyticsSummaryRow(summary.comment, 38)}
                                     {this.renderAnalyticsSummaryRow(summary.rating, 4.1)}
                                     {this.renderAnalyticsSummaryRow(summary.tokens, 9.0)}
@@ -338,54 +292,53 @@ class DataView extends Component {
                             <div id={"commentsPerWeek"} style={styles.graphWrap}/>
                         </div>
                     </Paper>
-
-                <Typography gutterBottom variant="display1">
-                    {"Content List"}
-                </Typography>
-                Sort by: <select onChange={this.onChangeSortOrder} style={{cursor:'pointer'}} >
-                  <option value="0">{"newest"}</option>
-                  <option value="1">{"most used"}</option>
-                  <option value="2">{"highest rated"}</option>
-                </select>
+                <div style={styles.flexContainer}>
+                    <Typography gutterBottom variant="title">
+                        {"Content List"}
+                    </Typography>
+                    <span style={styles.marginLeft}>Sort by: </span>
+                    <select onChange={this.onChangeSortOrder} style={styles.marginLeft}>
+                      <option value="0">{"newest"}</option>
+                      <option value="1">{"most used"}</option>
+                      <option value="2">{"highest rated"}</option>
+                    </select>
+                </div>
                  {this.state.allContentsForUser.map((content,i) => (
                     <Paper zDepth={3} style={styles.paperSummary}> 
                         <div style={styles.paperElem}>
-                            <Typography gutterBottom variant="headline">
+                            <Typography gutterBottom variant="title">
                                 {content[0].contentId}
                             </Typography>
-                            <br/>
-                            <div id="summaryWrap">
-                                <Typography gutterBottom variant="body1">
-                                    {"This content was accessed " + 45 + " times."}
-                                </Typography>
-                                <Typography gutterBottom variant="body1">
-                                    {"Total user feedback: " + 12 + " comments."}
-                                </Typography>
-                                <Typography gutterBottom variant="body1">
-                                    {"Average user rating: " + (Math.max(2,Math.round(50*Math.random())/10)) + " stars."}
-                                </Typography>
-                                <Typography gutterBottom variant="body1">
-                                    {"This content earned you " + (Math.round(10*Math.random()))/10 + " OAS tokens."}
-                                </Typography>
-                            </div>
+                            <table className="textAlignLeft">
+                                {this.renderAnalyticsSummaryRow(details.access, 50)}
+                                {this.renderAnalyticsSummaryRow(details.comment, 10)}
+                                {this.renderAnalyticsSummaryRow(details.rating, 4.0)}
+                                {this.renderAnalyticsSummaryRow(details.tokens, 1.0)}
+                            </table>
                         </div>
                         <div id="usersPerWeekWrap" style={styles.paperElem}>
-                            <Typography gutterBottom variant="headline">
+                            <Typography gutterBottom variant="title">
                                 {"Users per week"}
                             </Typography>
                             <div id={"usersPerWeek"+i} style={styles.graphWrap}/>
                         </div>
                         <div id="rewardsPerWeekWrap" style={styles.paperElem}>
-                            <Typography gutterBottom variant="headline">
+                            <Typography gutterBottom variant="title">
                                 {"Rewards per week"}
                             </Typography>
                             <div id={"rewardsPerWeek"+i} style={styles.graphWrap}/>
                         </div>
                         <div id="commentsPerWeekWrap" style={styles.paperElem}>
-                            <Typography gutterBottom variant="headline">
+                            <Typography gutterBottom variant="title">
+                                {"Quiz answers"}
+                            </Typography>
+                            <div id={"quiz"+i} style={styles.graphWrap}/>
+                        </div>
+                        <div id="commentsPerWeekWrap" style={styles.paperElem}>
+                            <Typography gutterBottom variant="title">
                                 {"Users/Comments per slide"}
                             </Typography>
-                            <div id={"usersPerSlide"+i} style={styles.graphWrap}/>
+                            <div id={"usersPerSlide"+i} style={styles.graphWrapWide}/>
                         </div>
                     </Paper>
                  ))}
