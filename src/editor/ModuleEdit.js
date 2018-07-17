@@ -2,14 +2,16 @@ import React, {Component} from 'react';
 import Button from '@material-ui/core/Button';
 import ReactMaterialSelect from 'react-material-select'
 import 'react-material-select/lib/css/reactMaterialSelect.css'
-import glb from "./globals";
-import EventPicker from "./EventPicker";
 import Typography from '@material-ui/core/Typography';
 import IconArrowForward from '@material-ui/icons/ArrowForward';
 import Popover from '@material-ui/core/Popover';
 import Input from '@material-ui/core/Input';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
+
+import EventPicker from "../EventPicker";
+import glb from "../globals";
+
 
 const defaultModuleList = [
   { value: 1, primaryText: 'Sing-A-Song' },
@@ -53,7 +55,7 @@ function createOasysHandler(type, module)  {
   return {type: 'handler', handlerType: type, module: module, duration: null}
 }
 
-class ModuleEditor extends Component {
+class ModuleEdit extends Component {
 
   constructor(props) {
     super(props);
@@ -244,4 +246,4 @@ class ModuleEditor extends Component {
   }
 }
 
-export default ModuleEditor;
+export default ModuleEdit;

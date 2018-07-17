@@ -24,8 +24,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import {CoolPinkButton} from "./stylings";
-import QuizPreview from './QuizPreview'
 
 import {
   SortableContainer,
@@ -35,6 +33,9 @@ import {
 } from 'react-sortable-hoc';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+
+import QuizPreview from '../QuizPreview'
+import {CoolPinkButton} from "../stylings";
 
 
 // internationalization ------------------------------------------------------------

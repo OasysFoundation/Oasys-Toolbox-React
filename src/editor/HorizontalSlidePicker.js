@@ -6,7 +6,8 @@ import Button from '@material-ui/core/Button';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import SwipeableViews from 'react-swipeable-views';
-import Quiz from './Quiz'
+
+import QuizEdit from './QuizEdit'
 
 
 const defaultQuiz = {
@@ -81,7 +82,7 @@ class HorizontalSlidePicker extends Component {
 		          enableMouseEvents
 		        >
 		        {this.state.quizzes.map(quiz => (
-		        	<Quiz shouldHideTabbar={true} value={quiz} onChange={this.onChange.bind(this)} />
+		        	<QuizEdit shouldHideTabbar={true} value={quiz} onChange={this.onChange.bind(this)} />
 	            ))}
 		        </SwipeableViews>
 

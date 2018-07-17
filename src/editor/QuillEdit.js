@@ -13,8 +13,9 @@ import d3 from "d3"
 
 import 'katex/dist/katex.min.css';
 import "highlight.js/styles/atom-one-light.css";
-import './ReactQuill.css';
-import graphIcon from './icons/graph.jpg';
+
+import '../ReactQuill.css';
+import graphIcon from '../icons/graph.jpg';
 
 
 let BlockEmbed = Quill.import('blots/block/embed');
