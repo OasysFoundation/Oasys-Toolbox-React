@@ -18,7 +18,7 @@ import {summary, details} from './text'
 import {styles} from './styles'
 import {generateSynthData} from './genSyntheticData'
 import {rearrangeData} from './processData'
-//import api from "../tools";
+import api from "../tools";
 import glb from "../globals";
 
 // TODO
@@ -29,8 +29,11 @@ import glb from "../globals";
 // User filter!
 // const userContents = this.state.content.filter(content => content.userId == this.props.userId && content.published == 1);
     
+// getAllRatings/username only sometimes returns an accessUser
+// getAllRatings/username should also report time
+
 function apiCall(name) {
-    return glb.OASYS_API_BASE + '/getAllContentsForCreator/' + name;
+    return glb.OASYS_API_BASE + 'getAllContentsForCreator/' + name;
 }
 
 const tauGuideDefault = {
@@ -52,15 +55,17 @@ class DataView extends Component {
             data: null,
             allContentsForUser: generateSynthData(),
         }
-        //this.loadContent();
-        /*
-        let that = this;
-        let callback = function (myJson) {
-            console.log(myJson);
-            that.setState({data: myJson});
-        }
-        api.get(this.props.authUser, callback);
-        */
+        // getAllContentsForCreator gives array of: 
+        // startTime, endTime: null, contentId, contentUserId, accessUserId, accessTimes
+        // getAllRatings/username gives array of:
+        // contentId, userId, rating, accessUser
+        // getAllComments/username gives array of:
+        // contentId, userId, accessUser, time, comment, slideNumber
+
+        api.getContentsForCreator(
+            this.props.authUser, 
+            myJson => this.setState({data: myJson})
+        );
     }
 
     loadContent() {
