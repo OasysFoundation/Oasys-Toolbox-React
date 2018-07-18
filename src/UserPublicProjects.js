@@ -35,7 +35,7 @@ class UserProjects extends Component {
 	}
 
 	render() {
-		const userContents = this.state.content.filter(content => content.userId == this.props.userId && content.published == 1);
+		const userContents = this.state.content.filter(content => content.userId === this.props.userId && content.published === 1);
 		const contentList = userContents.map((d, i) => <SimpleMediaCard key={i} contentData={d}/> );
 
 		return (

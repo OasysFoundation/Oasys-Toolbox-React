@@ -4,7 +4,7 @@ import Tree from "./Tree"
 import Button from '@material-ui/core/Button';
 
 
-const x = {operators: ["IF", "AND", "OR", "ANDTHEN"]};
+// const x = {operators: ["IF", "AND", "OR", "ANDTHEN"]};
 
 
 const opt = ["A", "B", "C"];

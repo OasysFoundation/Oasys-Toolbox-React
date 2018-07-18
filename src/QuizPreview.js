@@ -5,7 +5,7 @@ import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
+//import FormHelperText from '@material-ui/core/FormHelperText';
 import Checkbox from '@material-ui/core/Checkbox';
 
 const styles = {
@@ -13,9 +13,6 @@ const styles = {
         marginTop: '20px',
     }
 }
-//next / previous Buttons
-
-const test = "<h1> YOOY </h1>"
 
 class QuizPreview extends Component {
     constructor(props) {

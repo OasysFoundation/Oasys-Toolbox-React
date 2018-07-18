@@ -1,17 +1,9 @@
 import {Component} from 'react';
 import React from 'react';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import IconAccountCircle from '@material-ui/icons/AccountCircle';
-import Button from '@material-ui/core/Button';
-import logo from './logo.jpg';
 import UserMainPage from './UserMainPage';
 import LoginPage from './LoginPage'
 
 class MyAccountPage extends Component {
-	constructor(props) {
-        super(props);
-    }
 
 	render() {
 		console.log("niii");
@@ -22,7 +14,7 @@ class MyAccountPage extends Component {
 				 null
 				 )
 					: (
-						this.props.authUser == "loggedOut" ? (
+						this.props.authUser === "loggedOut" ? (
 						 <LoginPage/>
 					    )
 					    : (

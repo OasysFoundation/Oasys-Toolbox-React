@@ -7,12 +7,12 @@ import AddIcon from '@material-ui/icons/Add';
 import WallpaperIcon from '@material-ui/icons/Wallpaper';
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
 import GamesIcon from '@material-ui/icons/Games';
-import DragHandleIcon from '@material-ui/icons/DragHandle';
-import DeleteIcon from '@material-ui/icons/Delete';
+//import DragHandleIcon from '@material-ui/icons/DragHandle';
+//import DeleteIcon from '@material-ui/icons/Delete';
 import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
 import Popover from '@material-ui/core/Popover';
 import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
+//import IconButton from '@material-ui/core/IconButton';
 import SlideThumb from './SlideThumb'
 import Tooltip from '@material-ui/core/Tooltip';
 
@@ -20,20 +20,10 @@ import Tooltip from '@material-ui/core/Tooltip';
 import {
   SortableContainer,
   SortableElement,
-  SortableHandle,
   arrayMove,
 } from 'react-sortable-hoc';
-import glb from "./globals";
 
-let domStyles = {
-    selected: {
-      backgroundColor: '#ddeedd',
-    },
-    thumb: {
-      marginLeft: '10px',
-      marginRight: '10px',
-    }
-}
+//import glb from "./globals";
 
 const SortableSlide = SortableElement(props => 
   <SlideThumb index={props.indexCopy} value={props.value}
@@ -108,12 +98,7 @@ class SlidesThumbnailView extends Component {
     this.onClosePopup();
     this.props.onAddNewHyperVideo();
   }
-
-  didSelectAddSystemSim() {
-      this.onClosePopup();
-      this.props.onAddNewSystemSim();
-  }
-
+  
   onRemoveSlide(index) {
     this.props.onRemoveSlide(index);
   }

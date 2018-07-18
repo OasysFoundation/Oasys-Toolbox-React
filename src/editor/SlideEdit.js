@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import QuizEdit from './QuizEdit';
-import ModuleEdit from './ModuleEdit';
 import glb from "../globals";
 import 'react-quill/dist/quill.snow.css';
 import QuillEdit from './QuillEdit'

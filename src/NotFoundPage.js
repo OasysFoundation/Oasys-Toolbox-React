@@ -1,6 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import styled from "styled-components"
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 

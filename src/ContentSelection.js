@@ -2,11 +2,9 @@ import React from 'react';
 import {Component} from 'react';
 import styled from "styled-components"
 import SimpleMediaCard from "./SimpleMediaCard"
-import imgA from './play_images/Intervals800.png';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
-import logo from './logo.jpg'
 import Popover from '@material-ui/core/Popover';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -141,7 +139,7 @@ class ContentSelection extends Component {
                     </center>
                 </Paper>
                 <Flexer>
-                    {this.state.content.length==0? (
+                    {this.state.content.length===0? (
                             <CircularProgress style={{ color: 'orange' }} thickness={7} />
                         ) : (
                             this.state.content.map((d, i) => <SimpleMediaCard key={i} contentData={d}/>)

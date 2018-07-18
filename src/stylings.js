@@ -1,5 +1,4 @@
-import React, {Component} from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import React from 'react';
 import Button from '@material-ui/core/Button';
 
 const buttonGradientCSS = {

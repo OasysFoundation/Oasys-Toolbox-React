@@ -5,14 +5,14 @@ import './index.css';
 import registerServiceWorker from './registerServiceWorker';
 
 
-import EventPicker from './EventPicker'
+//import EventPicker from './EventPicker'
 import ContentSelection from "./ContentSelection";
 import NavBar from "./NavBar"
 import NotFoundPage from "./NotFoundPage"
 import Editor from "./editor/Editor"
 import DataViewCreator from "./analytics/DataViewCreator";
 
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {Router, Route, Switch} from 'react-router-dom';
 import createBrowserHistory from 'history/createBrowserHistory';
 
 import MyAccountPage from './MyAccountPage'
@@ -28,7 +28,7 @@ import ContentView from './ContentView'
 import { withRouter } from 'react-router'
 import GameEmbedder from "./GameEmbedder";
 
-import UserProjects from './UserProjects';
+//import UserProjects from './UserProjects';
 import UserPublicProjects from './UserPublicProjects'
 
 
@@ -64,7 +64,7 @@ class Index extends Component {
     render() {
         return (
             <div>
-                <BrowserRouter history={history}>
+                <Router history={history}>
                     <div>
                         <NavBar authUser={this.state.authUser}/>
                         <Switch>
@@ -99,7 +99,7 @@ class Index extends Component {
                         </footer>
 
                     </div>
-                </BrowserRouter>
+                </Router>
             </div>
         )
     }

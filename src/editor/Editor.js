@@ -8,7 +8,7 @@ import glb from "../globals";
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import EditIcon from '@material-ui/icons/Edit';
-import gameMetaData from "../gameMetaData";
+//import gameMetaData from "../gameMetaData";
 
 /* TODO for refactor:
 1) it seems like contentId is not used any more, but instead only this.state.title, but this is "Untitled Project" project
@@ -23,7 +23,7 @@ import gameMetaData from "../gameMetaData";
 9) Have a global function that calculates slide identifier with Math.random().toString(36)
 10) replace DOM id access with React ref access
 */
-const defaultId = 666;
+
 
 function contentIdGenerator() {
   return Math.random().toString(36);
@@ -99,6 +99,8 @@ class Editor extends Component {
         case glb.EDIT_SYSTEM:
           content = {url: ""};
           break;
+        default:
+          content = null;
       }
     } 
     slides.push(createSlide(type, slideIdGenerator(), content, type));
@@ -168,23 +170,21 @@ class Editor extends Component {
 
   renderThumbnail() {
     let slides = this.state.slides.slice();
+    if (slides.length===0) {
+      return;
+    }
     // update thumbnail
     let elem;
-    let type;
     const that = this;
-      try {
-          type = slides[this.state.selectedSlideIndex].type;
-      }
-      catch (error) {
-        console.log("Problem with rendering the Thumbnail");
-        return;
-      }
 
       console.log(" SLIDE ", slides[this.state.selectedSlideIndex])
       const slide = slides[that.state.selectedSlideIndex];
 
       let canvasWidth = 640;
       let canvasHeight = 480;
+
+      console.log(slides)
+      console.log(this.state.selectedSlideIndex)
       if (this.state.selectedSlideIndex < 0 || this.state.selectedSlideIndex === undefined) {
         return;
       } else if (slides[this.state.selectedSlideIndex].type === glb.EDIT_QUILL) {

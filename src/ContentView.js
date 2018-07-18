@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import Button from '@material-ui/core/Button';
-import NavBar from "./NavBar"
 import Preview from "./Preview"
 import QuizPreview from "./QuizPreview";
 import Rating from "./Rating"
@@ -12,10 +11,8 @@ import SwipeableViews from 'react-swipeable-views';
 import NotFoundPage from './NotFoundPage'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import GameView from "./GameView"
-import { firebase } from './firebase';
 import HyperVideoEdit from './editor/HyperVideoEdit';
 import Comment from './Comment'
-import {CoolPinkButton} from "./stylings";
 import {CoolBlueButton} from "./stylings";
 
 const buttonStyle = {
@@ -230,8 +227,6 @@ class ContentView extends Component {
     }
 
     completeFetch(timeObj) {
-        let contentId = null
-        var username = this.userName;
         var saveEndpoint = 'https://api.joinoasys.org/saveUserContentAccess';
         var data = {
           "accessTimes": timeObj.timing,

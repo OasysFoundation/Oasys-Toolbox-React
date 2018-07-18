@@ -2,7 +2,7 @@ import polyphonicThumb from "./play_images/polyphonic.png"
 import soundManThumb from "./play_images/soundman.png"
 import forceAndMotionThumb from "./play_images/forceAndMotion.png"
 import circuit from "./play_images/circuit.png"
-import gravitation from "./play_images/gravitation.png"
+//import gravitation from "./play_images/gravitation.png"
 import pendulum from "./play_images/pendulum.png"
 
 const gameMetaData = [

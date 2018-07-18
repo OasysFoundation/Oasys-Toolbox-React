@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import { Button, Comment, Form, Header } from 'semantic-ui-react'
+import React from 'react';
+import { Comment } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css';
 import SimpleReply from './SimpleReply'
 var moment = require('moment');

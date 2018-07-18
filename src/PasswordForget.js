@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+  import React, { Component } from 'react';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -9,10 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import { auth } from './firebase';
 
 
-import {
-  Link,
-  withRouter,
-} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 
 
 
@@ -49,7 +46,7 @@ constructor(props) {
       })
       .catch(error => {
         this.setState(byPropKey('error', error));
-        if(error.code=="auth/invalid-email" || error.code=="auth/user-not-found" || error.code == "auth/user-disabled"){
+        if(error.code==="auth/invalid-email" || error.code==="auth/user-not-found" || error.code === "auth/user-disabled"){
           this.setState({emailError:true})
         }
         else{
@@ -77,7 +74,7 @@ render() {
 			<CardContent>
 
 				<center>
-				<img src={logo} style={{maxWidth:'100px'}}/>
+				<img src={logo} style={{maxWidth:'100px'}} alt=""/>
 				<Typography style={{marginTop:'20px', marginBottom: '10px', fontSize: '14'}} color="textSecondary">
 			            Login to Oasys Education
 		          </Typography>

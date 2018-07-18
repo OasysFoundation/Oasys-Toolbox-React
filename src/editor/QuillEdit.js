@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import ReactQuill from 'react-quill';
 import Quill from 'quill';
 import PropTypes from 'prop-types';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import katex from 'katex';
 //import {ImageDrop} from 'quill-image-drop-module'
 import ImageResize from 'quill-image-resize-module-react';
-import d3 from "d3"
 
 import 'katex/dist/katex.min.css';
 import "highlight.js/styles/atom-one-light.css";
@@ -17,8 +14,6 @@ import "highlight.js/styles/atom-one-light.css";
 import '../ReactQuill.css';
 import graphIcon from '../icons/graph.jpg';
 
-
-let BlockEmbed = Quill.import('blots/block/embed');
 let Embed = Quill.import('blots/embed');
 
 class GraphBlot extends Embed {
@@ -29,14 +24,6 @@ class GraphBlot extends Embed {
 
 
   window.d3 = require('d3')
-  const functionPlot = require('function-plot')
-  const plot = functionPlot({
-    target: node,
-    disableZoom: true,
-    data: [{
-      fn: initialValue.equation
-    }]
-  })
   node.equation = initialValue.equation;
     return node;
   }
@@ -104,7 +91,7 @@ const CustomToolbar = () => (
       <button className="ql-image"></button>
       <button className="ql-video"></button>
       <button className="ql-formula"></button>
-      <button class="ui button" id="graph-button"><img src={graphIcon} width={30}/></button>
+      <button class="ui button" id="graph-button"><img src={graphIcon} width={30} alt=""/></button>
     </span>
 
   </div>

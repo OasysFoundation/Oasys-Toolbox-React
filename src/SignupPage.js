@@ -7,17 +7,14 @@ import Button from '@material-ui/core/Button';
 import logo from './logo.jpg'
 import Typography from '@material-ui/core/Typography';
 import { auth } from './firebase';
-import Input from "@material-ui/core/Input";
-import InputLabel from "@material-ui/core/InputLabel";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import FormControl from "@material-ui/core/FormControl";
+//import Input from "@material-ui/core/Input";
+//import InputLabel from "@material-ui/core/InputLabel";
+//import FormHelperText from "@material-ui/core/FormHelperText";
+//import FormControl from "@material-ui/core/FormControl";
 
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import {
-  Link,
-  withRouter,
-} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 
 
 
@@ -96,11 +93,11 @@ constructor(props) {
       })
       .catch(error => {
         this.setState(byPropKey('error', error));
-        if(error.code=="auth/invalid-email" || error.code=="auth/email-already-in-use"){
+        if(error.code==="auth/invalid-email" || error.code==="auth/email-already-in-use"){
         	this.setState({emailError:true})
         	this.setState({passwordError:false})
         }
-        if(error.code=="auth/weak-password"){
+        if(error.code==="auth/weak-password"){
         	this.setState({emailError:false})
         	this.setState({passwordError:true})
         }
@@ -172,7 +169,7 @@ render() {
 			<CardContent>
 
 				<center>
-				<img src={logo} style={{maxWidth:'100px'}}/>
+				<img src={logo} style={{maxWidth:'100px'}} alt=""/>
 				<Typography style={{marginTop:'20px', marginBottom: '10px', fontSize: '14'}} color="textSecondary">
 			            Create a new account
 		          </Typography>

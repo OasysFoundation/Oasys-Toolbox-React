@@ -53,7 +53,7 @@ class OpenContentDialog extends Component {
 	render() {
 		var userContents = []
 		if(this.props.userId){
-			userContents = this.state.contents.filter(contents => contents.userId == this.props.userId);
+			userContents = this.state.contents.filter(contents => contents.userId === this.props.userId);
 		}
 
 		let renderList = (

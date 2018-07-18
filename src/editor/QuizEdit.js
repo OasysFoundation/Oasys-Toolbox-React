@@ -2,19 +2,11 @@ import React, {Component} from 'react';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import AddIcon from '@material-ui/icons/Add';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import DeleteIcon from '@material-ui/icons/Delete';
 import HelpIcon from '@material-ui/icons/Help';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
-import FormLabel from '@material-ui/core/FormLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import Checkbox from '@material-ui/core/Checkbox';
 import TextField from '@material-ui/core/TextField';
-import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -22,7 +14,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 
 import {
@@ -35,16 +26,15 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
 import QuizPreview from '../QuizPreview'
-import {CoolPinkButton} from "../stylings";
 
 
 // internationalization ------------------------------------------------------------
-const STR_QUIZ_HEADER_EN = 'Quiz editor';
+//const STR_QUIZ_HEADER_EN = 'Quiz editor';
 const STR_QUIZ_INTRO_EN = 'Create a new quiz slide. Start with a question or statement and add potential answer options below. You can mark which answer options are correct (both multiple choice and single choice are possible that way). You can learn more in our documentation.';
 const STR_QUIZ_ANSWERCORRECT_EN = 'correct';
 const STR_QUIZ_ANSWERWRONG_EN = 'wrong';
-const STR_EDIT_EN = 'edit';
-const STR_PREVIEW_EN = 'preview';
+//const STR_EDIT_EN = 'edit';
+//const STR_PREVIEW_EN = 'preview';
 
 // styles --------------------------------------------------------------------------
 const paperElevation = 4;

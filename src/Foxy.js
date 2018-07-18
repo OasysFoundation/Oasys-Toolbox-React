@@ -3,7 +3,7 @@ import tail from './foxy_assets/foxy_tail.gif'
 import body from './foxy_assets/foxy_body.gif'
 import head from './foxy_assets/foxy_head.gif'
 import './foxy_style.css'
-import {buttonGradientCSS} from "./stylings";
+//import {buttonGradientCSS} from "./stylings";
 
 class Foxy extends Component {
     constructor(props) {

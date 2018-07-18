@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
 import AppBar from '@material-ui/core/AppBar';
@@ -12,22 +11,13 @@ import IconInsertChart from '@material-ui/icons/InsertChart';
 import Typography from '@material-ui/core/Typography';
 import SignOutButton from './SignOutButton';
 
-import firebase from 'firebase/app';
 import 'firebase/auth';
-import { auth } from './firebase';
+
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import { withStyles } from '@material-ui/core/styles';
-import Name from './Name'
 import ButtonBase from '@material-ui/core/ButtonBase';
-
-
-
-import {
-    Link,
-    withRouter,
-} from 'react-router-dom';
 
 const styles = theme => ({
   close: {
@@ -40,10 +30,7 @@ const BG = "#74A4AC";
  
 
 class NavBar extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
+  
   state = {
     open: false,
   };
@@ -62,7 +49,7 @@ class NavBar extends React.Component {
 
   render() {
 
-    const loggedIn = this.props.authUser && this.props.authUser != "loggedOut";
+    const loggedIn = this.props.authUser && this.props.authUser !== "loggedOut";
 
     let accountMenuItems = (
         <Button href="/login" color="inherit">Sign In</Button>

@@ -6,14 +6,10 @@ import IconAccountCircle from '@material-ui/icons/AccountCircle';
 import Button from '@material-ui/core/Button';
 import logo from './logo.jpg'
 import UploadPicContentDialog from './UploadPicContentDialog'
-import Name from './Name'
-import Snackbar from '@material-ui/core/Snackbar';
+//import Name from './Name'
+//import Snackbar from '@material-ui/core/Snackbar';
 
-
-import {
-    Link,
-    withRouter,
-} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import UserProjects from './UserProjects'
 
 class UserMainPage extends Component {
@@ -98,7 +94,7 @@ class UserMainPage extends Component {
                 <Paper style={{margin: 36, padding: 16, maxWidth: '400px', textAlign: 'left'}} elevation={4}>
                     <center>
                         {this.state.imageURL
-                            ? <img src={this.state.imageURL} style={{maxWidth: '100px', marginBottom: '16px'}}/>
+                            ? <img src={this.state.imageURL} style={{maxWidth: '100px', marginBottom: '16px'}} alt=""/>
                             : null
                         }
                     </center>

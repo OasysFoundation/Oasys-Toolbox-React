@@ -2,12 +2,10 @@
 import React, {Component} from 'react';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import { firebase } from '../firebase';
-import { withStyles } from '@material-ui/core/styles';
 import ReactTooltip from "react-tooltip"
 import IconHelpOutline from '@material-ui/icons/HelpOutline';
 import IconTrendingUp from '@material-ui/icons/TrendingUp';
-import IconTrendingDown from '@material-ui/icons/TrendingDown';
+//import IconTrendingDown from '@material-ui/icons/TrendingDown';
 
 import taucharts from 'taucharts';
 import 'taucharts/dist/plugins/tooltip';
@@ -18,17 +16,21 @@ import 'taucharts/dist/plugins/legend';
 import '../taucharts.min.css'; // we needed to modify this, so it's a custom import
 import {summary, details} from './text'
 import {styles} from './styles'
-import {generateSlideTimes, generateQuizAnswers, generateSynthData} from './genSyntheticData'
-import {rearrangeData, getLastAccess, formatTime} from './processData'
+import {generateSynthData} from './genSyntheticData'
+import {rearrangeData} from './processData'
+//import api from "../tools";
+import glb from "../globals";
 
 // TODO
 // time spent per content as distribution
 // age of learners as distribution
 // time per question as distribution
 
-const hostname = 'https://api.joinoasys.org'
+// User filter!
+// const userContents = this.state.content.filter(content => content.userId == this.props.userId && content.published == 1);
+
 function apiCall(name) {
-    return hostname + '/getAllContentsForCreator/' + this.props.authUser.displayName;
+    return glb.OASYS_API_BASE + '/getAllContentsForCreator/' + name;
 }
 
 const tauGuideDefault = {
@@ -51,6 +53,14 @@ class DataView extends Component {
             allContentsForUser: generateSynthData(),
         }
         //this.loadContent();
+        /*
+        let that = this;
+        let callback = function (myJson) {
+            console.log(myJson);
+            that.setState({data: myJson});
+        }
+        api.get(this.props.authUser, callback);
+        */
     }
 
     loadContent() {

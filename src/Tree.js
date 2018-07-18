@@ -53,7 +53,6 @@ const Tree = class {
     findNodesWithProp(prop, value, arr = []) {
         let that = this;
         const memory = [that.name];
-        let breaker = 0;
         let active = true;
         while (that.children!==undefined && that.children!==null && that.children.length>0 && active) {
             active = false;

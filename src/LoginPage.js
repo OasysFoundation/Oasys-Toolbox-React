@@ -10,7 +10,6 @@ import { auth } from './firebase';
 import firebase from 'firebase/app';
 
 import {
-  Link,
   withRouter,
 } from 'react-router-dom';
 
@@ -60,11 +59,11 @@ constructor(props) {
       .catch(error => {
         this.setState(byPropKey('error', error));
 
-        if(error.code=="auth/invalid-email" || error.code=="auth/user-not-found" || error.code == "auth/user-disabled"){
+        if(error.code==="auth/invalid-email" || error.code==="auth/user-not-found" || error.code === "auth/user-disabled"){
         	this.setState({emailError:true})
         	this.setState({passwordError:false})
         }
-        if(error.code=="auth/wrong-password"){
+        if(error.code==="auth/wrong-password"){
         	this.setState({emailError:false})
         	this.setState({passwordError:true})
         }
@@ -108,7 +107,7 @@ render() {
 			<CardContent>
 
 				<center>
-				<img src={logo} style={{maxWidth:'100px'}}/>
+				<img src={logo} style={{maxWidth:'100px'}} alt=""/>
 				<Typography style={{marginTop:'20px', marginBottom: '10px', fontSize: '14'}} color="textSecondary">
 			            Login to Oasys Education
 		          </Typography>

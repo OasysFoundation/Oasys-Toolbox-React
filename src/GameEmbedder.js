@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import gameMetaData from "./gameMetaData"
 
 
@@ -19,7 +19,8 @@ const GameEmbedder = function ({location}) {
         alert("This Game is not yet added to the DataBase")
     }
     return (
-        <iframe style={{width: window.innerWidth, height: window.innerHeight * 0.85}}
+        <iframe title={Math.random().toString(36)}
+                style={{width: window.innerWidth, height: window.innerHeight * 0.85}}
                 allow="geolocation; microphone; camera;"
                 src={url}>
         </iframe>

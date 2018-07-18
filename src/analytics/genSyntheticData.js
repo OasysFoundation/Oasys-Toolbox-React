@@ -3,7 +3,7 @@ function generateSlideTimes(n) {
     let i=0;
     while(true) {
         a.push({i: i, t: Math.random()*60}); // max 1 minute per slide
-        if (i==n) { break; }
+        if (i===n) { break; }
         else if (Math.random() > 0.9 && i > 0) { i--; }
         else {i++; }
     }
