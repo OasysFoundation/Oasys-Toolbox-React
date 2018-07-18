@@ -48,8 +48,23 @@ class SimpleMediaCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      anchorEl: null
+      anchorEl: null,
+      userProfileURL: null
     }
+
+    const profile = 'https://api.joinoasys.org/profile/' + this.props.contentData.userId
+        fetch(profile, {
+            method: 'GET',
+            ContentType: "application/json"
+        }).then(response => {
+            return response.json().then(body => {
+                console.log("body: " + body);
+                if (body && body.length>0) {
+                    this.setState({userProfileURL: body[0].PIC});
+                }
+            })
+        })
+
   }
 
   showCardOptions(event) {
@@ -138,8 +153,13 @@ class SimpleMediaCard extends Component {
                   <CardHeader
                     avatar={
                       <Avatar aria-label="Recipe" className={classes.avatar}>
-                        {userId.substring(0,2).toUpperCase()}
-
+                        {this.state.userProfileURL? (
+                          <img src={this.state.userProfileURL} style={{width:'auto', height:'auto', 'max-height':'100%', 'max-width':'100%'}}/>  
+                          )
+                        :
+                        (
+                         userId.substring(0,2).toUpperCase()
+                          )}
                       </Avatar>
                     }
                     action={
