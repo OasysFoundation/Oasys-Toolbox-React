@@ -39,7 +39,9 @@ function createSlide(name, identifier, content, type) {
     identifier: identifier,
     content: content,
     type: type,
-    thumb: null
+    thumb: null,
+    description: null,
+    tags: null
   }
 }
 
@@ -54,7 +56,9 @@ class Editor extends Component {
       currSlideType: -1,
       contentId: contentIdGenerator(),
       lastCapture: null,
-      title: "Untitled"
+      title: "Untitled",
+      description: '',
+      tags: ''
     }
 
     this.onAddNewQuill = this.onAddNewQuill.bind(this);
@@ -268,8 +272,11 @@ class Editor extends Component {
             console.log("this is not a correct data format")
           } else {
             that.insertMultipleSlides(myJson[0].data);
+            console.log(myJson[0].description);
             that.setState({
-              title: myJson[0].contentId
+              title: myJson[0].contentId,
+              description: myJson[0].description,
+              tags: myJson[0].tags
             });
           }
         }
@@ -291,7 +298,7 @@ class Editor extends Component {
       <div>
         <Grid container spacing={24}>
         <Grid item xs={12}>
-          <MenuBarView onLoad={this.onLoad.bind(this)} slides={this.state.slides} authUser={this.props.authUser} contentTitle={this.state.title}/>
+          <MenuBarView onLoad={this.onLoad.bind(this)} slides={this.state.slides} authUser={this.props.authUser} contentTitle={this.state.title} hashtags={this.state.tags} description={this.state.description}/>
           <TextField
                       id="search"
                       value={this.state.title}
