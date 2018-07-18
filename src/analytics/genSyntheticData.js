@@ -29,10 +29,10 @@ function generateQuizAnswers(n) {
 }
 
 function genSynthData() {
-    // returns array of {startTime, endTime, contentId, contentUserId, accessUserId, accessTimes}
-    let allContentsForUser = [];
+    let contents = [];
+    let comments = [];
+    let ratings = [];
     for (let i=0;i<4;i++) {
-        let oneContentForUser = [];
         let nSlides = 20 - Math.round(Math.random() * 10);
         let nQuiz = 4 - Math.round(Math.random() * 3);
         let nUsers = 25 - Math.round(Math.random() * 10);
@@ -41,35 +41,44 @@ function genSynthData() {
             startTime.setTime(startTime.getTime() - Math.round(Math.random()*60*60*24*1000*30)); // startTime in interval [now-30 days, now]
             let endTime = new Date();
             endTime.setTime(startTime.getTime() + Math.round(Math.random()*60*24*1000)); 
-            if (Math.random>0.8) {
+            if (Math.random > 0.8) {
                 endTime = null;
             }
             let slideTimings = generateSlideTimes(nSlides);
-            let quizAnswers = generateQuizAnswers(nQuiz);
+            //let quizAnswers = generateQuizAnswers(nQuiz);
             let contentId = "My Content " + (i + 1);
-            let duration = new Date();
-            duration.setTime(endTime.getTime() - startTime.getTime());
             let content = {contentId: contentId, startTime: startTime, endTime: endTime, accessTimes: slideTimings}
-            oneContentForUser.push(content);
+            contents.push(content);
+
+            let nComments = Math.round(Math.random()*100);
+            for (let k=0;k<nComments;k++) {
+                let slideNumber = Math.round(Math.random()*nSlides).toString();
+                if (Math.random>0.5) {
+                    slideNumber = "end";
+                }
+                let time = null;
+                let comment = {contentId: contentId, time: time, comment: "", slideNumber: slideNumber, userId: null, accessUser: null}
+                comments.push(comment);
+            }
+
+            let nRatings = Math.round(Math.random()*200);
+            for (let k=0;k<nRatings;k++) {
+                let rating = {
+                    contentId: contentId, 
+                    rating: Math.round(5*Math.random()), 
+                    accessUser: null, 
+                    userId: null
+                }
+                ratings.push(rating);
+            }
         }
-        allContentsForUser.push(oneContentForUser);
     }
     let data = {
-        contents: allContentsForUser,
-        comments: [],
-        ratings: [],
+        contents: contents,
+        comments: comments,
+        ratings: ratings,
     }
     return data;
 }
-
-function genSynthComments() {
-    // returns array of {contentId, userId, accessUser, time, comment, slideNumber}
-
-}
-
-function genSynthRatings() {
-    // returns array of {contentId, userId, rating, accessUser}
-}
-
 
 export {generateSlideTimes, generateQuizAnswers, genSynthData}
