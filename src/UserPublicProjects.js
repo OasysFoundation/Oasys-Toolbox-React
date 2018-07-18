@@ -14,10 +14,13 @@ const Flexer = styled.section`
 class UserProjects extends Component {
 	constructor(props) {
 
+
 	    super(props);
 	    this.state = {
 	    	content: []
 	    };
+
+	    console.log("username is: " + this.props.userId);
 
 	    const loadContent = 'https://api.joinoasys.org/GetUserContentsPreview';
         const that = this;
@@ -28,14 +31,13 @@ class UserProjects extends Component {
             return response.json();
         })
         .then(function (myJson) {
-            console.log(myJson);
             that.setState({content: myJson});
 
         });
 	}
 
 	render() {
-		const userContents = this.state.content.filter(content => content.userId == this.props.userId && content.published == 1);
+		const userContents = this.state.content.filter(content => content.userId == this.props.userId);
 		const contentList = userContents.map((d, i) => <SimpleMediaCard key={i} contentData={d}/> );
 
 		return (
