@@ -101,6 +101,8 @@ class SimpleMediaCard extends Component {
         ratingString += "☆";
     }    
 
+    const userURL = '/user/' + userId;
+    const userLink = <div> Made by <a href={userURL}> {(userId.length < 13 ? userId : (userId.substring(0,13) + '…'))} </a> </div>;
 
     return (
         <div>
@@ -137,6 +139,7 @@ class SimpleMediaCard extends Component {
                     avatar={
                       <Avatar aria-label="Recipe" className={classes.avatar}>
                         {userId.substring(0,2).toUpperCase()}
+
                       </Avatar>
                     }
                     action={
@@ -145,7 +148,7 @@ class SimpleMediaCard extends Component {
                       </IconButton>
                     }
                     title={title}
-                    subheader= {"Made by " + (userId.length < 13? userId : (userId.substring(0,13) + '…'))}
+                    subheader= {userLink}
                     style={{textAlign:'left'}}
                   />
                   <ButtonBase
