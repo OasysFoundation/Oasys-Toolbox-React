@@ -80,23 +80,27 @@ class Editor extends Component {
       switch(type) {
         case glb.EDIT_QUILL:
           content = "";
+          break;
         case glb.EDIT_QUIZ:
           content = {
             "question": "",
             "answers": [{"option": "", "correct": false}]
           };
+          break;
         case glb.EDIT_GAME:
           content = null;
+          break;
         case glb.EDIT_HYPERVIDEO:
           content = {
             "videoURL": null,
             "quizzes": []
           }
+          break;
         case glb.EDIT_SYSTEM:
-          content = {url: ""}
+          content = {url: ""};
+          break;
       }
     } 
-  
     slides.push(createSlide(type, slideIdGenerator(), content, type));
     const newSlideIndex = slides.length -1;
     this.setState({
@@ -108,114 +112,28 @@ class Editor extends Component {
   }
 
   onAddNewQuill(newSlideContent = null) { // Quill slides only
-    let slides = this.state.slides;
-    //const newSlideContent = {ops:[{insert:"This is the beginning of the exiting journey of slide no " + this.state.slides.length + "\n"}]};
-    if (newSlideContent===null){
-      "This is the beginning of the exiting journey of slide no " + (this.state.slides.length+1);
-    }
-    slides.push(createSlide("Slide ", Math.random().toString(36), newSlideContent, glb.EDIT_QUILL));
-    const newSlideIndex = slides.length -1;
-    this.setState({
-      slides: slides,
-      selectedSlideIndex: newSlideIndex,
-      currSlideType: glb.EDIT_QUILL,
-    });
-    this.renderThumbnail()
+    this.onAddNewSlide(glb.EDIT_QUILL, newSlideContent);
   }
 
   onAddNewQuiz(content = null) {
-    let slides = this.state.slides;
-    const defaultQuizContent = {
-      "question": "",
-      "answers": [{"option": "", "correct": false}]
-    };
-    if (content===null){
-      content = defaultQuizContent;
-    }
-    const newSlide = createSlide("Quiz ", Math.random().toString(36), content, glb.EDIT_QUIZ);
-    slides.push(newSlide);
-    const newSlideIndex = slides.length -1;
-    this.setState({
-      slides: slides,
-      selectedSlideIndex: newSlideIndex,
-      currSlideType: glb.EDIT_QUIZ,
-    });
-    this.renderThumbnail()
+    this.onAddNewSlide(glb.EDIT_QUIZ, content);
   }
 
     onAddNewGame(content = null) {
-        let slides = this.state.slides;
-        // if (content===null){
-        //   content = gameMetaData[0];
-        // }
-        slides.push(createSlide("Game ", Math.random().toString(36), content, glb.EDIT_GAME));
-        const newSlideIndex = slides.length -1;
-        this.setState({
-            slides: slides,
-            selectedSlideIndex: newSlideIndex,
-            currSlideType: glb.EDIT_GAME,
-        });
-        this.renderThumbnail()
+    this.onAddNewSlide(glb.EDIT_GAME, content);
     }
 
     onAddNewSystemSim(content = null) {
-        let slides = this.state.slides;
-        // if (content===null){
-        //   content = gameMetaData[0];
-        // }
-        if (content === null) {
-          content = {url: ""}
-        }
-        slides.push(createSlide("SystemSim ", Math.random().toString(36), content, glb.EDIT_SYSTEM));
-        const newSlideIndex = slides.length -1;
-        this.setState({
-            slides: slides,
-            selectedSlideIndex: newSlideIndex,
-            currSlideType: glb.EDIT_SYSTEM,
-        });
-        this.renderThumbnail()
+    this.onAddNewSlide(glb.EDIT_SYSTEM, content);
     }
 
 
     onAddNewModule(content = null) {
-        let slides = this.state.slides;
-        let defaultContent = {
-            code: [],
-            ifstate: glb.IF_BODY,
-            boolstate: glb.BOOL_DISABLED,
-            moduleId: Math.random().toString(36)
-        }
-        if (content===null){
-          content = defaultContent;
-        }
-        slides.push(createSlide("Game ", Math.random().toString(36), content, glb.EDIT_GAME));
-        const newSlideIndex = slides.length -1;
-        this.setState({
-            slides: slides,
-            selectedSlideIndex: newSlideIndex,
-            currSlideType: glb.EDIT_GAME,
-        });
-        this.renderThumbnail()
+    this.onAddNewSlide(glb.EDIT_MODULE, content);
     }
 
   onAddNewHyperVideo(content = null) {
-    let slides = this.state.slides;
-    let defaultContent = {
-      "videoURL": null,
-      "quizzes": []
-    }
-    if (content===null){
-      content = defaultContent;
-    }
-    console.log(content)
-    slides.push(createSlide("Hypervideo ", Math.random().toString(36), content, glb.EDIT_HYPERVIDEO));
-    const newSlideIndex = slides.length -1;
-    this.setState({
-      slides: slides,
-      selectedSlideIndex: newSlideIndex,
-      currSlideType: glb.EDIT_HYPERVIDEO,
-    });
-    this.renderThumbnail()
+    this.onAddNewSlide(glb.EDIT_HYPERVIDEO, content);
   }
 
   onChangedSlide(newSlideIndex) {
