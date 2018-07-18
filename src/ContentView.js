@@ -77,140 +77,55 @@ class ContentView extends Component {
         })
     }
 
-    slideCount(increment = 0) {
-        const newIdx = this.state.slideIdx + increment;
-        if (newIdx < 0 || newIdx > this.state.content.data.length) {
-            return
-        }
-        this.setState({slideIdx: newIdx})
-    }
-
     whatRenderer(slide, idx) {
         this.authUsername = '';
-        this.props.authUser
-        ?this.authUsername = this.props.authUser
-        :null
+        this.props.authUser ? this.authUsername = this.props.authUser :null
         this.contentLength = this.state.content.data.length;
+
+        let render = (<div>No Content to be found here</div>)
+
         switch(slide.type) {
             case globals.EDIT_QUILL:
-                return (
-                    <div key={idx}>
-                    <Preview content={slide.content}/>
-                    {this.state.showComments
-                        ?(
-                            <CoolBlueButton size="small" onClick={this.deactivateComments.bind(this)} >
-                              Hide Comments
-                            </CoolBlueButton>
-                        )
-                        : (
-                            <CoolBlueButton size="small" onClick={this.activateComments.bind(this)} >
-                              Show Comments
-                            </CoolBlueButton>
+                render = <Preview content={slide.content}/>
+                break;
 
-                        )
-                    }                    
-                    {this.state.showComments
-                    ?<Comment name={this.authUsername} slideNumber={this.state.slideIdx} slideLength={this.contentLength}/>
-                    :null
-                    }
-                    </div>
-                    )
             case globals.EDIT_QUIZ:
-                return (
-                    <div key={idx}>
-                    <QuizPreview content={slide.content}/>
-                    {this.state.showComments
-                        ?(
-                            <CoolBlueButton size="small" onClick={this.deactivateComments.bind(this)} >
-                              Hide Comments
-                            </CoolBlueButton>
-                        )
-                        : (
-                            <CoolBlueButton size="small" onClick={this.activateComments.bind(this)} >
-                              Show Comments
-                            </CoolBlueButton>
-
-                        )
-                    }
-                    {this.state.showComments
-                        ?<Comment name={this.authUsername} slideNumber={this.state.slideIdx} slideLength={this.contentLength}/>
-                        :null
-                    }
-                    </div>
-                    )
+                render= <QuizPreview content={slide.content}/>
+                break;
             case globals.EDIT_GAME:
-                return (
-                    <div key={idx}>
-                    <GameView url={slide.content.url}/>
-                    {this.state.showComments
-                        ?(
-                            <CoolBlueButton size="small" onClick={this.deactivateComments.bind(this)} >
-                              Hide Comments
-                            </CoolBlueButton>
-                        )
-                        : (
-                            <CoolBlueButton size="small" onClick={this.activateComments.bind(this)} >
-                              Show Comments
-                            </CoolBlueButton>
-
-                        )
-                    }                    
-                    {this.state.showComments
-                        ?<Comment name={this.authUsername} slideNumber={this.state.slideIdx} slideLength={this.contentLength}/>
-                        :null
-                    }                    
-                    </div>
-                    )
+                render = <GameView url={slide.content.url}/>
+                break;
             case globals.EDIT_HYPERVIDEO:
-                return (
-                <div key={idx}>
-                {this.state.showComments
-                    ?(
-                        <CoolBlueButton size="small" onClick={this.deactivateComments.bind(this)} >
-                          Hide Comments
-                        </CoolBlueButton>
-                    )
-                    : (
-                        <CoolBlueButton size="small" onClick={this.activateComments.bind(this)} >
-                          Show Comments
-                        </CoolBlueButton>
-
-                    )                
-                }                
-                <HyperVideoEdit value={slide.content} preview={true}/>
-                {this.state.showComments
-                    ?<Comment name={this.authUsername} slideNumber={this.state.slideIdx} slideLength={this.contentLength}/>
-                    :null
-                }                
-                </div>
-                )
+                render = <HyperVideoEdit value={slide.content} preview={true}/>
+                break;
             case globals.EDIT_SYSTEM:
-                return (
-                    <div key={idx}>
-                        {this.state.showComments
-                            ?(
-                                <CoolBlueButton size="small" onClick={this.deactivateComments.bind(this)} >
-                                    Hide Comments
-                                </CoolBlueButton>
-                            )
-                            : (
-                                <CoolBlueButton size="small" onClick={this.activateComments.bind(this)} >
-                                    Show Comments
-                                </CoolBlueButton>
-
-                            )
-                        }
-                        {/*SYSTEMSIM is also an IFRAME*/}
-                        <GameView value={slide.content} preview={true}/>
-                        {this.state.showComments
-                            ?<Comment name={this.authUsername} slideNumber={this.state.slideIdx} slideLength={this.contentLength}/>
-                            :null
-                        }
-                    </div>
-                )
+                render = <GameView value={slide.content} preview={true}/>
+                break;
             default:
-                return <div key={idx}>not yet implemented ☹️</div>
+                return (<div key={idx}>not yet implemented ☹️</div>)
         }
+
+        return (<section>
+            {render}
+            {this.state.showComments
+                ?(
+                    <CoolBlueButton size="small" onClick={this.deactivateComments.bind(this)} >
+                        Hide Comments
+                    </CoolBlueButton>
+                )
+                : (
+                    <CoolBlueButton size="small" onClick={this.activateComments.bind(this)} >
+                        Show Comments
+                    </CoolBlueButton>
+
+                )
+            }
+            {this.state.showComments
+                ?<Comment name={this.authUsername} slideNumber={this.state.slideIdx} slideLength={this.contentLength}/>
+                :null
+            }
+        </section>)
+
     }
 
     updateTiming() {
