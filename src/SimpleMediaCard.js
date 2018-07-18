@@ -146,13 +146,14 @@ class SimpleMediaCard extends Component {
                     }
                     title={title}
                     subheader= {"Made by " + (userId.length < 13? userId : (userId.substring(0,13) + '…'))}
+                    style={{textAlign:'left'}}
                   />
                   <ButtonBase
                       className={classes.cardAction}
                       onClick={function(event) {event.preventDefault(); window.location.href = contentUrl || "nope"; }}
                   >
                   <center>
-                  <div style={{marginLeft:'20px', marginBottom:'20px'}}>
+                  <div style={{marginLeft:'20px', marginBottom:'20px', textAlign:'left'}}>
                   {ratingString} 
                   {numRatings} Reviews
                   </div>
