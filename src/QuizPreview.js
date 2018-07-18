@@ -33,7 +33,6 @@ class QuizPreview extends Component {
     }
 
     updateUserAnswers(inputEl, index) {
-        console.log("inptel ", inputEl.checked, index)
         const answers = this.state.userAnswers.slice();
         answers[index] = inputEl.checked;
         this.setState({
@@ -75,7 +74,8 @@ class QuizPreview extends Component {
                 <Button size="large"
                         color="primary"
                         onClick={() => this.checkAnswers()}
-                        disabled={this.props.hyperVideoEditing}>
+                        //disabled={this.props.hyperVideoEditing}
+                >
                     Submit
                 </Button>
                 </FormControl>

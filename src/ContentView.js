@@ -107,23 +107,23 @@ class ContentView extends Component {
 
         return (<section>
             {render}
-            {/*{this.state.showComments*/}
-            {/*? (*/}
-            {/*<CoolBlueButton size="small" onClick={this.deactivateComments.bind(this)}>*/}
-            {/*Hide Comments*/}
-            {/*</CoolBlueButton>*/}
-            {/*)*/}
-            {/*: (*/}
-            {/*<CoolBlueButton size="small" onClick={this.activateComments.bind(this)}>*/}
-            {/*Show Comments*/}
-            {/*</CoolBlueButton>*/}
+            {this.state.showComments
+            ? (
+            <CoolBlueButton size="small" onClick={this.deactivateComments.bind(this)}>
+            Hide Comments
+            </CoolBlueButton>
+            )
+            : (
+            <CoolBlueButton size="small" onClick={this.activateComments.bind(this)}>
+            Show Comments
+            </CoolBlueButton>
 
-            {/*)*/}
-            {/*}*/}
-            {/*{this.state.showComments*/}
-            {/*? <Comment name={this.authUsername} slideNumber={this.state.slideIdx} slideLength={this.contentLength}/>*/}
-            {/*: null*/}
-            {/*}*/}
+            )
+            }
+            {this.state.showComments
+            ? <Comment name={this.authUsername} slideNumber={this.state.slideIdx} slideLength={this.contentLength}/>
+            : null
+            }
         </section>)
 
     }
@@ -203,8 +203,8 @@ class ContentView extends Component {
         console.log('slide idx', this.state.slideIdx)
         let fullScreen;
         if (this.state.slideIdx < content.data.length) {
-            fullScreen = (content.data[this.state.slideIdx].type === globals.EDIT_GAME ||
-                content.data[this.state.slideIdx].type === globals.EDIT_SYSTEM)
+            const type = content.data[this.state.slideIdx].type;
+            fullScreen = (type === globals.EDIT_GAME || type === globals.EDIT_SYSTEM || type === globals.EDIT_HYPERVIDEO)
         }
         return (
             <center>
