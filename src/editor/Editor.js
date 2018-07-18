@@ -68,7 +68,7 @@ class Editor extends Component {
     this.onLoad = this.onLoad.bind(this);
 
     if (props.match) {
-        const link = glb.OASYS_APP_BASE + "user/" + props.match.params.userId + "/" + props.match.params.contentId;
+        const link = "user/" + props.match.params.userId + "/" + props.match.params.contentId;
         this.onLoad(link)
     }
 
@@ -334,7 +334,6 @@ class Editor extends Component {
     var loadContent = glb.OASYS_API_BASE + link;
     console.log(loadContent);
     var that = this;
-
     fetch(loadContent, {
       method: 'GET'
     }).then(function(response) {
