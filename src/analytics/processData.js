@@ -64,9 +64,12 @@ function rearrangeData(rawdata) {
             timings.push(tt);
             for (let k=0; k<timing.length; k++) {
                 usersPerSlide[k].users++;
-                let slideNum = k + 1;
-                usersPerSlide[k].comments += rawcomment.map(a=>a.slideNumber).filter(a=>a===slideNum.toString()).length;
             }
+        }
+
+        for (let k=0; k<nSlides; k++) {
+            let slideNum = k + 1;
+            usersPerSlide[k].comments += rawcomment.map(a=>a.slideNumber).filter(a=>a===slideNum.toString()).length;
         }
         // need to transpose timings array here
         //let timingsPerSlide = [...Array(nSlides)].map(e => Array(0));
