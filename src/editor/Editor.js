@@ -75,6 +75,7 @@ class Editor extends Component {
   }
 
   onAddNewSlide(type, content=null) {
+    console.log("add new " + type);
     let slides = this.state.slides.slice();
     if (content === null) {
       switch(type) {
@@ -227,7 +228,7 @@ class Editor extends Component {
 
 
   onRemoveSlide(index){
-    console.log(index)
+    console.log("remove slide " + index)
     let slides = this.state.slides.slice();
     slides.splice(index, 1);
     this.setState({
