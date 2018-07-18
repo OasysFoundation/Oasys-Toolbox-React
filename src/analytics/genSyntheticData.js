@@ -38,7 +38,7 @@ function genSynthData() {
         let nUsers = 25 - Math.round(Math.random() * 10);
         for (let j=0;j<nUsers;j++) {
             let startTime = new Date();
-            startTime.setTime(startTime.getTime() - Math.round(Math.random()*60*60*24*1000*30)); // startTime in interval [now-30 days, now]
+            startTime.setTime(startTime.getTime() - Math.round(Math.random()*60*60*24*1000*60)); // startTime in interval [now-60 days, now]
             let endTime = new Date();
             endTime.setTime(startTime.getTime() + Math.round(Math.random()*60*24*1000)); 
             if (Math.random > 0.8) {
@@ -52,11 +52,12 @@ function genSynthData() {
 
             let nComments = Math.round(Math.random()*100);
             for (let k=0;k<nComments;k++) {
-                let slideNumber = Math.round(Math.random()*nSlides).toString();
+                let slideNumber = Math.round(Math.random()*(nSlides-1)+1).toString();
                 if (Math.random>0.5) {
                     slideNumber = "end";
                 }
-                let time = null;
+                let time = new Date();
+                time.setTime(time.getTime() - Math.round(Math.random()*60*60*24*1000*60));
                 let comment = {contentId: contentId, time: time, comment: "", slideNumber: slideNumber, userId: null, accessUser: null}
                 comments.push(comment);
             }

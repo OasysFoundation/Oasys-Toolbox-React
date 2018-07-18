@@ -29,10 +29,6 @@ import glb from "../globals";
 // getAllRatings/username only sometimes returns an accessUser
 // getAllRatings/username should also report time
 
-function apiCall(name) {
-    return glb.OASYS_API_BASE + 'getAllContentsForCreator/' + name;
-}
-
 const tauGuideDefault = {
     autoScale: false,
     showGridLines:'xy',
@@ -50,15 +46,16 @@ class DataView extends Component {
         const fake = true;
 
         super(props);
+
         this.state = {
-            allContentsForUser: null,
+            data: null,
         }
+
         this.rawdata = {
             contents: null,
             comments: null,
             ratings: null,
         }
-        this.data = null;
         this.countApiCalls = 0;
         this.mounted = false;
         // getAllContentsForCreator gives array of: 
@@ -71,20 +68,14 @@ class DataView extends Component {
         if (fake) {
             let rawdata = genSynthData();
             this.rawdata = rawdata;
-            this.data = rearrangeData(rawdata);
             this.countApiCalls = 3;
-            if (this.mounted) {
-                this.renderGraphs();
-            }
+            this.safelySetState();
         } else {
             let callback = (statevar, myJson) => {
                 this.rawdata.statevar = myJson; 
                 this.countApiCalls++; 
                 if (this.countApiCalls===3) {
-                    this.data = rearrangeData(this.rawdata);
-                    if (this.mounted) {
-                        this.renderGraphs();
-                    }
+                    this.safelySetState();
                 } 
             }
             api.getContentsForCreator(this.props.authUser, callback.bind(this, 'contents'));
@@ -93,19 +84,17 @@ class DataView extends Component {
         }
     }
 
-    loadContent() {
-        const that = this;
-
-        fetch(apiCall(this.props.authUser.displayName), {
-            method: 'GET'
-        }).then(function (response) {
-            return response.json();
-        })
-        .then(function (myJson) {
-            console.log(myJson);
-            that.setState({data: myJson});
-
-        });
+    safelySetState(){
+        if (this.mounted) {
+            this.setState({data: rearrangeData(this.rawdata)}, function(){
+                this.renderGraphs();
+            });
+        } else {
+            this.state.data = rearrangeData(this.rawdata);
+            if (this.mounted) {
+                this.renderGraphs();
+            }
+        }
     }
 
     getAnswerElem(answer){
@@ -117,16 +106,12 @@ class DataView extends Component {
     }
 
     renderUsersPerSlide(data, idx) {
-        let users = [];
-        for (let i=0; i<data.usersPerSlide.length; i++) {
-            users.push({
-                slide: i+1,
-                users: data.usersPerSlide[i],
-                comments: Math.round(3*Math.random()),
-            });
+        if (data===undefined || data===null || data.length===0) {
+            return;
         }
+
         var chart = new taucharts.Chart({
-            data: users,
+            data: data,
             type: 'bar',
             x: 'slide',
             y: 'users',
@@ -162,15 +147,13 @@ class DataView extends Component {
     }
 
     renderQuizAnswers(data, idx) {
-        let answers = [];
-        for (let i=0; i<data.answers.length; i++) {
-            answers.push({
-                question: i+1,
-                correct: data.answers[i],
-            });
+        
+        if (data===undefined || data===null || data.length===0) {
+            return;
         }
+
         var chart = new taucharts.Chart({
-            data: answers,
+            data: data,
             type: "bar",
             x: "question",
             y: "correct",
@@ -182,6 +165,10 @@ class DataView extends Component {
     }
 
     renderChart(data, dim1, dim2, div, ylabel, type) {
+        if (data===undefined || data===null || data.length===0) {
+            return;
+        }
+
         const guide = Object.assign({y: {label: {text: ylabel}}}, tauGuideDefault);
 
         var chart = new taucharts.Chart({
@@ -209,18 +196,7 @@ class DataView extends Component {
     }
 
 
-    renderUsersPerWeek(num) {
-        let data = [];
-        const today = new Date();
-        for (let i=0; i<8; i++) {
-            let newDate = new Date();
-            newDate.setDate(today.getDate() - 7*i);
-            if (num!==undefined) {
-                data.push({'week': newDate, 'users': Math.max(0,50 - i*Math.round(10*Math.random()))});
-            } else {
-                data.push({'week': newDate, 'users': Math.max(0,200 - i*Math.round(40*Math.random()))});
-            }
-        }
+    renderUsersPerWeek(data, num) { 
         if (num!==undefined) {
             this.renderChart(data, "week", "users", "#usersPerWeek"+num, "users", 'line');
         } else {
@@ -228,18 +204,7 @@ class DataView extends Component {
         }
     }
 
-    renderRewardsPerWeek(num) {
-        let data = [];
-        const today = new Date();
-        for (let i=0; i<8; i++) {
-            let newDate = new Date();
-            newDate.setDate(today.getDate() - 7*i);
-            if (num!==undefined) {
-                data.push({'week': newDate, 'rewards': 0.1*Math.random()})
-            } else {
-                data.push({'week': newDate, 'rewards': Math.random()})
-            }
-        } 
+    renderRewardsPerWeek(data, num) {
         if (num!==undefined) {
             this.renderChart(data, "week", "rewards", "#rewardsPerWeek"+num, "OAS tokens", 'line');
         } else {
@@ -247,14 +212,7 @@ class DataView extends Component {
         }
     }
 
-    renderCommentsPerWeek() {
-        let data = [];
-        const today = new Date();
-        for (let i=0; i<8; i++) {
-            let newDate = new Date();
-            newDate.setDate(today.getDate() - 7*i);
-            data.push({'week': newDate, 'comments': Math.round(6*Math.random())})
-        }
+    renderCommentsPerWeek(data) {
         this.renderChart(data, "week", "comments", "#commentsPerWeek", "comments", 'line');
     }
 
@@ -300,18 +258,15 @@ class DataView extends Component {
     }
 
     renderGraphs() {
-        this.renderUsersPerWeek();
-        this.renderRewardsPerWeek();
-        this.renderCommentsPerWeek();
+        this.renderUsersPerWeek(this.state.data.usersPerWeek);
+        this.renderRewardsPerWeek(this.state.data.rewardsPerWeek);
+        this.renderCommentsPerWeek(this.state.data.commentsPerWeek);
 
-        console.log(this.data);
-        return;
-
-        for (let i=0; i<this.data.contents.length; i++) {
-            this.renderUsersPerSlide(this.data.contents[i], i);
-            this.renderUsersPerWeek(i);
-            this.renderRewardsPerWeek(i);
-            this.renderQuizAnswers(this.data.contents[i], i);
+        for (let i=0; i<this.state.data.contents.length; i++) {
+            this.renderUsersPerSlide(this.state.data.contents[i].usersPerSlide, i);
+            this.renderUsersPerWeek(this.state.data.contents[i].usersPerWeek, i);
+            this.renderRewardsPerWeek(this.state.data.contents[i].rewardsPerWeek, i);
+            this.renderQuizAnswers(this.state.data.contents[i].answers, i);
         }
     }
 
@@ -359,13 +314,13 @@ class DataView extends Component {
                     </select>
                 </div>
                 <div id="contentList" />
-                 { (this.state.allContentsForUser===null)
+                 { (this.state.data===null)
                  ?  null
-                 :  this.state.allContentsForUser.map((content,i) => (
+                 :  this.state.data.contents.map((content,i) => (
                         <Paper style={styles.paperSummary} key={i}> 
                             <div style={styles.paperElem}>
                                 <Typography gutterBottom variant="subheading">
-                                    {content[0].contentId}
+                                    {content.id}
                                 </Typography>
                                 <table className="textAlignLeft"><tbody>
                                     {this.renderAnalyticsSummaryRow(details.access, 50)}
