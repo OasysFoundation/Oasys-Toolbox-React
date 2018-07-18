@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import foxy_normal from './foxy_assets/foxy_normal.gif'
+import foxy_default from './foxy_assets/foxy_default.gif'
 import foxy_excited from './foxy_assets/foxy_excited.gif'
 // import './foxy_style.css'
 import {buttonGradientCSS} from "./stylings";
@@ -23,7 +23,7 @@ class Foxy extends Component {
                     <img
                         onMouseEnter={() => this.setState({isExcited: true})}
                         onMouseLeave={() => this.setState({isExcited: false})}
-                        src={this.state.isExcited ? foxy_excited : foxy_normal}
+                        src={this.state.isExcited ? foxy_excited : foxy_default}
                     />) : (null)}
 
                 <button style={buttonGradientCSS.mini}

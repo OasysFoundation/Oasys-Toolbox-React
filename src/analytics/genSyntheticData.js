@@ -36,9 +36,11 @@ function genSynthData() {
         let nSlides = 20 - Math.round(Math.random() * 10);
         let nQuiz = 4 - Math.round(Math.random() * 3);
         let nUsers = 25 - Math.round(Math.random() * 10);
+        let contentId = "My Content " + (i + 1);
+
         for (let j=0;j<nUsers;j++) {
             let startTime = new Date();
-            startTime.setTime(startTime.getTime() - Math.round(Math.random()*60*60*24*1000*30)); // startTime in interval [now-30 days, now]
+            startTime.setTime(startTime.getTime() - Math.round(Math.random()*60*60*24*1000*60)); // startTime in interval [now-60 days, now]
             let endTime = new Date();
             endTime.setTime(startTime.getTime() + Math.round(Math.random()*60*24*1000)); 
             if (Math.random > 0.8) {
@@ -46,31 +48,31 @@ function genSynthData() {
             }
             let slideTimings = generateSlideTimes(nSlides);
             //let quizAnswers = generateQuizAnswers(nQuiz);
-            let contentId = "My Content " + (i + 1);
             let content = {contentId: contentId, startTime: startTime, endTime: endTime, accessTimes: slideTimings}
             contents.push(content);
+        }
 
-            let nComments = Math.round(Math.random()*100);
-            for (let k=0;k<nComments;k++) {
-                let slideNumber = Math.round(Math.random()*nSlides).toString();
-                if (Math.random>0.5) {
-                    slideNumber = "end";
-                }
-                let time = null;
-                let comment = {contentId: contentId, time: time, comment: "", slideNumber: slideNumber, userId: null, accessUser: null}
-                comments.push(comment);
+        let nComments = Math.round(Math.random()*100);
+        for (let k=0;k<nComments;k++) {
+            let slideNumber = Math.round(Math.random()*(nSlides-1)+1).toString();
+            if (Math.random>0.5) {
+                slideNumber = "end";
             }
+            let time = new Date();
+            time.setTime(time.getTime() - Math.round(Math.random()*60*60*24*1000*60));
+            let comment = {contentId: contentId, time: time, comment: "", slideNumber: slideNumber, userId: null, accessUser: null}
+            comments.push(comment);
+        }
 
-            let nRatings = Math.round(Math.random()*200);
-            for (let k=0;k<nRatings;k++) {
-                let rating = {
-                    contentId: contentId, 
-                    rating: Math.round(5*Math.random()), 
-                    accessUser: null, 
-                    userId: null
-                }
-                ratings.push(rating);
+        let nRatings = Math.round(Math.random()*200);
+        for (let k=0;k<nRatings;k++) {
+            let rating = {
+                contentId: contentId, 
+                rating: Math.round(5*Math.random()), 
+                accessUser: null, 
+                userId: null
             }
+            ratings.push(rating);
         }
     }
     let data = {
