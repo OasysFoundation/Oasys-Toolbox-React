@@ -16,7 +16,7 @@ import 'taucharts/dist/plugins/legend';
 import '../taucharts.min.css'; // we needed to modify this, so it's a custom import
 import {summary, details} from './text'
 import {styles} from './styles'
-import {generateSynthData} from './genSyntheticData'
+import {genSynthData} from './genSyntheticData'
 import {rearrangeData} from './processData'
 import api from "../tools";
 import glb from "../globals";
@@ -50,11 +50,16 @@ const tauGuideDefault = {
 class DataView extends Component {
 
     constructor(props) {
+        const fake = true;
+
         super(props);
         this.state = {
+            rawContents: null,
+            rawRatings: null,
+            rawComments: null,
             data: null,
-            allContentsForUser: generateSynthData(),
         }
+        this.countApiCalls = 0;
         // getAllContentsForCreator gives array of: 
         // startTime, endTime: null, contentId, contentUserId, accessUserId, accessTimes
         // getAllRatings/username gives array of:
@@ -62,10 +67,27 @@ class DataView extends Component {
         // getAllComments/username gives array of:
         // contentId, userId, accessUser, time, comment, slideNumber
 
-        api.getContentsForCreator(
-            this.props.authUser, 
-            myJson => this.setState({data: myJson})
-        );
+        if (fake) {
+            let data = genSynthData();
+            console.log(data);
+            this.setState({
+                rawContents: data.contents,
+                rawComments: data.comments,
+                rawRatings: data.ratings,
+            });
+        } else {
+            let callback = (statevar, myJson) => {
+                this.setState({statevar: myJson}); 
+                this.countApiCalls++; 
+                if (this.countApiCalls===3) {
+                    //rearrangeData();
+                    console.log("api requests complete!");
+                } 
+            }
+            api.getContentsForCreator(this.props.authUser, callback.bind(this, 'rawContents'));
+            api.getCommentsForCreator(this.props.authUser, callback.bind(this, 'rawComments'));
+            api.getRatingsForCreator(this.props.authUser, callback.bind(this, 'rawRatings'));
+        }
     }
 
     loadContent() {

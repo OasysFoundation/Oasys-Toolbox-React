@@ -19,6 +19,15 @@ let api = {
         const url = glb.OASYS_API_BASE + 'getAllContentsForCreator/' + user.displayName;
         return this.get(url, callback);
     },
+
+    getCommentsForCreator: function (user, callback) {
+        const url = glb.OASYS_API_BASE + 'getAllComments/' + user.displayName;
+        return this.get(url, callback);
+    },
+    getRatingsForCreator: function (user, callback) {
+        const url = glb.OASYS_API_BASE + 'getAllRatings/' + user.displayName;
+        return this.get(url, callback);
+    },
 }
 
 export default api;
