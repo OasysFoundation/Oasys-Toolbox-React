@@ -24,6 +24,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import OpenContentDialog from './OpenContentDialog';
 import UploadPicContentDialog from './UploadPicContentDialog'
 import logo from './logo.jpg'
+import UploadingDialog from './UploadingDialog'
 
 
 
@@ -70,6 +71,7 @@ class MenuBarView extends Component {
             hashtags:'',
             description:'',
             loading:false,
+            isUploading: false
         }
   }
 
@@ -143,9 +145,7 @@ class MenuBarView extends Component {
             slides.map(function(slide) {
               if (slide.type == 0) {
                 //quill content
-                console.log(slide.content);
                 slide.content = slide.content.replace(base64Image, body.data.link);
-                console.log(slide.content);
               }
             });
 
@@ -188,7 +188,8 @@ class MenuBarView extends Component {
     .catch(error => {
       console.error('Error:', error);
       this.setState({
-          snackBarMessage: 'Error Saving. If this continues, please contact info@joinoasys.org'
+          snackBarMessage: 'Error Saving. If this continues, please contact info@joinoasys.org',
+          isUploading: false
       })
     })
     .then(response => {
@@ -197,16 +198,18 @@ class MenuBarView extends Component {
       });
 
       console.log(response);
-      if(response){
+      if (response) {
         if (this.state.saveAction == 'save') {
           this.setState({
-            snackBarMessage: 'Saved Draft'
+            snackBarMessage: 'Saved Draft',
+            isUploading: false
           })
         }
 
         if (this.state.saveAction == 'publish') {
           this.setState({
-            snackBarMessage: 'Published'
+            snackBarMessage: 'Published',
+            isUploading: false
           })
         }
       }
@@ -214,6 +217,9 @@ class MenuBarView extends Component {
   }
 
   onSubmit() {
+    this.setState({
+      isUploading: true
+    });
     var that = this;
     this.prepareSlides(this.props.slides, function(slides) {
       if (that.state.saveAction == 'save') {
@@ -369,6 +375,7 @@ class MenuBarView extends Component {
     const isInvalid = !description || !hashtags;
     return (
     	<div>
+      <UploadingDialog open={this.state.isUploading} />
       <Toolbar style={{backgroundColor: BG}}>
 
       <Tooltip enterDelay={500} id="tooltip-bottom" title="Open an existing content" placement="bottom">
