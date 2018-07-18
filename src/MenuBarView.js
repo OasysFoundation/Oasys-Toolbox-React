@@ -19,7 +19,7 @@ import OpenContentDialog from './OpenContentDialog';
 import UploadPicContentDialog from './UploadPicContentDialog'
 import logo from './logo.jpg'
 import UploadingDialog from './UploadingDialog'
-
+import PublishedCheerDialog from './PublishedCheerDialog'
 
 
 const BG = "#5C8B8E";
@@ -50,7 +50,8 @@ class MenuBarView extends Component {
             hashtags:'',
             description:'',
             loading:false,
-            isUploading: false
+            isUploading: false,
+            showsConclusionDialog: false
         }
   }
 
@@ -184,7 +185,8 @@ class MenuBarView extends Component {
         if (this.state.saveAction === 'publish') {
           this.setState({
             snackBarMessage: 'Published',
-            isUploading: false
+            isUploading: false,
+            showsConclusionDialog: true
           })
         }
       }
@@ -342,15 +344,26 @@ class MenuBarView extends Component {
     });
   }
 
+  closePublishedDialog() {
+    this.setState({
+      showsConclusionDialog: false
+    })
+  }
+
   render() {
     const {
       description,
       hashtags
     } = this.state;
     const isInvalid = !description || !hashtags;
+
+    const userName = this.props.authUser? this.props.authUser.displayName : "unknown";
+    const shareableLink = "https://app.joinoasys.org/" + userName +'/'+this.props.contentTitle;
+
     return (
     	<div>
       <UploadingDialog open={this.state.isUploading} />
+      <PublishedCheerDialog open={this.state.showsConclusionDialog} sharableLink={shareableLink} onClose={this.closePublishedDialog.bind(this)}/>
       <Toolbar style={{backgroundColor: BG}}>
 
       <Tooltip enterDelay={500} id="tooltip-bottom" title="Open an existing content" placement="bottom">
