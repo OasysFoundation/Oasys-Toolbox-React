@@ -11,9 +11,17 @@ function wrapTiming(x) {
     return a;
 }
 
-function rearrangeData(contents) {
+function rearrangeData(rawdata) {
     // find total number of slides. we should change this later by directly
     // importing the content, and looking up number of slides
+
+    console.log(rawdata);
+
+    let contents = rawdata.contents;
+    let uniqueContentIds = Array.from(new Set(contents.map(o=>o.contentId)));
+
+    return;
+
     let nSlides = 0;
     for (let i=0; i<contents.length; i++) {
         nSlides = Math.max(nSlides, wrapTiming(contents[i].accessTimes).length);

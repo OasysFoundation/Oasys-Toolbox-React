@@ -54,12 +54,16 @@ class DataView extends Component {
 
         super(props);
         this.state = {
-            rawContents: null,
-            rawRatings: null,
-            rawComments: null,
-            data: null,
+            allContentsForUser: null,
         }
+        this.rawdata = {
+            contents: null,
+            comments: null,
+            ratings: null,
+        }
+        this.data = null;
         this.countApiCalls = 0;
+        this.mounted = false;
         // getAllContentsForCreator gives array of: 
         // startTime, endTime: null, contentId, contentUserId, accessUserId, accessTimes
         // getAllRatings/username gives array of:
@@ -68,25 +72,26 @@ class DataView extends Component {
         // contentId, userId, accessUser, time, comment, slideNumber
 
         if (fake) {
-            let data = genSynthData();
-            console.log(data);
-            this.setState({
-                rawContents: data.contents,
-                rawComments: data.comments,
-                rawRatings: data.ratings,
-            });
+            let rawdata = genSynthData();
+            this.rawdata = rawdata;
+            this.data = rearrangeData(rawdata);
+            if (this.mounted) {
+                this.renderGraphs();
+            }
         } else {
             let callback = (statevar, myJson) => {
-                this.setState({statevar: myJson}); 
+                this.rawdata.statevar = myJson; 
                 this.countApiCalls++; 
                 if (this.countApiCalls===3) {
-                    //rearrangeData();
-                    console.log("api requests complete!");
+                    rearrangeData(this.rawdata);
+                    if (this.mounted) {
+                        this.renderGraphs();
+                    }
                 } 
             }
-            api.getContentsForCreator(this.props.authUser, callback.bind(this, 'rawContents'));
-            api.getCommentsForCreator(this.props.authUser, callback.bind(this, 'rawComments'));
-            api.getRatingsForCreator(this.props.authUser, callback.bind(this, 'rawRatings'));
+            api.getContentsForCreator(this.props.authUser, callback.bind(this, 'contents'));
+            api.getCommentsForCreator(this.props.authUser, callback.bind(this, 'comments'));
+            api.getRatingsForCreator(this.props.authUser, callback.bind(this, 'ratings'));
         }
     }
 
@@ -296,11 +301,14 @@ class DataView extends Component {
         )
     }
 
-    componentDidMount(){
-        let contents = this.state.allContentsForUser;
+    renderGraphs() {
+        let contents = this.data.contents;
+
         this.renderUsersPerWeek();
         this.renderRewardsPerWeek();
         this.renderCommentsPerWeek();
+
+        console.log(this.data);
 
         for (let i=0; i<contents.length; i++) {
             let data = rearrangeData(contents[i]);
@@ -308,6 +316,13 @@ class DataView extends Component {
             this.renderUsersPerWeek(i);
             this.renderRewardsPerWeek(i);
             this.renderQuizAnswers(data, i);
+        }
+    }
+
+    componentDidMount(){
+        this.mounted = true;
+        if (this.countApiCalls === 3) {
+            this.renderGraphs();
         }
     }
 
@@ -324,7 +339,7 @@ class DataView extends Component {
                             </Typography>
                             <div id="summaryWrap">
                                 <table className="textAlignLeft"><tbody>
-                                    {this.renderAnalyticsSummaryRow(summary.content, this.state.allContentsForUser.length)}
+                                    {this.renderAnalyticsSummaryRow(summary.content, 4)}
                                     {this.renderAnalyticsSummaryRow(summary.access, 498)}
                                     {this.renderAnalyticsSummaryRow(summary.comment, 38)}
                                     {this.renderAnalyticsSummaryRow(summary.rating, 4.1)}
@@ -347,25 +362,29 @@ class DataView extends Component {
                       <option value="2">{"highest rated"}</option>
                     </select>
                 </div>
-                 {this.state.allContentsForUser.map((content,i) => (
-                    <Paper style={styles.paperSummary} key={i}> 
-                        <div style={styles.paperElem}>
-                            <Typography gutterBottom variant="subheading">
-                                {content[0].contentId}
-                            </Typography>
-                            <table className="textAlignLeft"><tbody>
-                                {this.renderAnalyticsSummaryRow(details.access, 50)}
-                                {this.renderAnalyticsSummaryRow(details.comment, 10)}
-                                {this.renderAnalyticsSummaryRow(details.rating, 4.0)}
-                                {this.renderAnalyticsSummaryRow(details.tokens, 1.0)}
-                            </tbody></table>
-                        </div>
-                        {this.renderGraphComponent("usersPerWeek"+i, "Users per week")}
-                        {this.renderGraphComponent("rewardsPerWeek"+i, "Rewards per week")}
-                        {this.renderGraphComponent("quiz"+i, "Answers correct")}
-                        {this.renderGraphComponentWide("usersPerSlide"+i, "Users/Comments per slide")}
-                    </Paper>
-                 ))}
+                <div id="contentList" />
+                 { (this.state.allContentsForUser===null)
+                 ?  null
+                 :  this.state.allContentsForUser.map((content,i) => (
+                        <Paper style={styles.paperSummary} key={i}> 
+                            <div style={styles.paperElem}>
+                                <Typography gutterBottom variant="subheading">
+                                    {content[0].contentId}
+                                </Typography>
+                                <table className="textAlignLeft"><tbody>
+                                    {this.renderAnalyticsSummaryRow(details.access, 50)}
+                                    {this.renderAnalyticsSummaryRow(details.comment, 10)}
+                                    {this.renderAnalyticsSummaryRow(details.rating, 4.0)}
+                                    {this.renderAnalyticsSummaryRow(details.tokens, 1.0)}
+                                </tbody></table>
+                            </div>
+                            {this.renderGraphComponent("usersPerWeek"+i, "Users per week")}
+                            {this.renderGraphComponent("rewardsPerWeek"+i, "Rewards per week")}
+                            {this.renderGraphComponent("quiz"+i, "Answers correct")}
+                            {this.renderGraphComponentWide("usersPerSlide"+i, "Users/Comments per slide")}
+                        </Paper>
+                     ))
+                  }
             </div>
         );
     }
