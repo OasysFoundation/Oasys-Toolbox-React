@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 import {Button, Comment, Form, Header} from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css';
-import SimpleComment from './SimpleComment'
 import OrganizeComments from './OrganizeComments'
-import {CoolBlueButton} from "./stylings";
 import {buttonGradientCSS} from "./stylings";
 
 
@@ -21,53 +19,42 @@ class CommentSection extends Component {
         }
         this.slideNumber = '';
 
-        if ((typeof(this.props.slideNumber) == "number") && ((this.props.slideNumber) == this.props.slideLength))
+        if ((typeof(this.props.slideNumber) === "number") && ((this.props.slideNumber) === this.props.slideLength))
             this.slideNumber = "end"
         else
             this.slideNumber = this.props.slideNumber;
 
-
+        let that = this;
+        let userName = null;
+        let contentName = null;
         if (!this.props.match) {
-            var that = this;
             const loc = window.location.href;
             const directory = loc.split('/').filter(e => e.length > 0).slice(-2);
-            const userName = directory[0];
-            const contentName = directory[1];
-            var loadComments = 'https://api.joinoasys.org/comment/'+userName+'/' + contentName + '/' + this.slideNumber;
-            fetch(loadComments, {
-                method: 'GET'
-            }).then(function (response) {
-                return response.json();
-            })
-                .then(function (myJson) {
-                    console.log(myJson);
-                    that.setState({comments: myJson});
-
-                });
+            userName = directory[0];
+            contentName = directory[1];
+        } else {
+            contentName = this.props.match.params.contentId;
+            userName = this.props.match.params.userName;
         }
-        else {
-            var that = this;
-            const contentName = this.props.match.params.contentId;
-            const userName = this.props.match.params.userName;
-            var loadComments = 'https://api.joinoasys.org/comment/'+userName+'/' + contentName + '/' + this.slideNumber;
-            fetch(loadComments, {
-                method: 'GET'
-            }).then(function (response) {
-                return response.json();
-            }).then(function (myJson) {
+        let loadComments = 'https://api.joinoasys.org/comment/'+userName+'/' + contentName + '/' + this.slideNumber;
+        fetch(loadComments, {
+            method: 'GET'
+        }).then(function (response) {
+            return response.json();
+        })
+            .then(function (myJson) {
                 console.log(myJson);
                 that.setState({comments: myJson});
 
             });
-        }
-
+       
     }
 
     onSubmitReply = (e, id) => {
 
-        var parent = e;
-        var contentName = '';
-        var userName='';
+        let parent = e;
+        let contentName = '';
+        let userName='';
 
         if (!this.props.match) {
             const loc = window.location.href;
@@ -80,14 +67,9 @@ class CommentSection extends Component {
             userName = this.props.match.params.userId;
         }
 
-        var accessUser = '';
-        this.props.name ?
-            accessUser = this.props.name.displayName
-            : null
-
         var commentEndpoint = 'https://api.joinoasys.org/comment/' + userName + '/' + contentName;
         var currentTime = Date.now();
-        if (typeof(this.slideNumber) == "number")
+        if (typeof(this.slideNumber) === "number")
             this.slideNumber = this.slideNumber.toString()
         var data = {
             "time": currentTime,
@@ -136,14 +118,14 @@ class CommentSection extends Component {
         }
 
 
-        var accessUser = ''
+        let accessUser;
         this.props.name ?
             accessUser = this.props.name.displayName
-            : null
+            : accessUser = null;
 
         var commentEndpoint = 'https://api.joinoasys.org/comment/' + userName + '/' + contentName;
         var currentTime = Date.now();
-        if (typeof(this.slideNumber) == "number")
+        if (typeof(this.slideNumber) === "number")
             this.slideNumber = this.slideNumber.toString()
         var data = {
             "time": currentTime,
@@ -205,7 +187,7 @@ class CommentSection extends Component {
                 <Comment.Actions>
                     <Button content='Reply' onClick={this.someFunction.bind(this, id)}/>
                 </Comment.Actions>
-                {this.state.reply == id
+                {this.state.reply === id
                     ? (
                          this.state.hideReply
                         ? null
@@ -273,7 +255,7 @@ class CommentSection extends Component {
                                     primary/>
                         </Form>
 
-                        {this.state.comments.length == 0 ?
+                        {this.state.comments.length === 0 ?
                             (null)
                             : (
                                 <OrganizeComments comments={this.state.comments} reply={this.myReply.bind(this)}/>

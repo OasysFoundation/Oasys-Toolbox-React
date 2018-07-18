@@ -210,7 +210,7 @@ class DataView extends Component {
         return (
             <div style={styles.paperWrap}>
              {this.state.allContentsForUser.map((content,i) => (
-                <Paper zDepth={3} style={styles.paper}> 
+                <Paper style={styles.paper}> 
                     <Typography gutterBottom component="p">
                         <strong>{content.contentId}</strong>
                         {" (accessed: "+ this.showLastAcess(content) + ")"}

@@ -5,10 +5,6 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 
 class UploadingDialog extends Component {
 
-	constructor(props) {
-    	super(props);
-    }
-
 	render() {
 		return (
 			<div>

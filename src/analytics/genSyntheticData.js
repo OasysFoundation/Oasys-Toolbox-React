@@ -3,7 +3,7 @@ function generateSlideTimes(n) {
     let i=0;
     while(true) {
         a.push({i: i, t: Math.random()*60}); // max 1 minute per slide
-        if (i==n) { break; }
+        if (i===n) { break; }
         else if (Math.random() > 0.9 && i > 0) { i--; }
         else {i++; }
     }
@@ -28,7 +28,8 @@ function generateQuizAnswers(n) {
     return a;
 }
 
- function generateSynthData(){
+function genSynthData() {
+    // returns array of {startTime, endTime, contentId, contentUserId, accessUserId, accessTimes}
     let allContentsForUser = [];
     for (let i=0;i<4;i++) {
         let oneContentForUser = [];
@@ -40,18 +41,35 @@ function generateQuizAnswers(n) {
             startTime.setTime(startTime.getTime() - Math.round(Math.random()*60*60*24*1000*30)); // startTime in interval [now-30 days, now]
             let endTime = new Date();
             endTime.setTime(startTime.getTime() + Math.round(Math.random()*60*24*1000)); 
+            if (Math.random>0.8) {
+                endTime = null;
+            }
             let slideTimings = generateSlideTimes(nSlides);
             let quizAnswers = generateQuizAnswers(nQuiz);
             let contentId = "My Content " + (i + 1);
             let duration = new Date();
             duration.setTime(endTime.getTime() - startTime.getTime());
-            let content = {contentId: contentId, startTime: startTime, endTime: endTime, accessTimes: slideTimings, quizAnswers: quizAnswers, duration: duration}
+            let content = {contentId: contentId, startTime: startTime, endTime: endTime, accessTimes: slideTimings}
             oneContentForUser.push(content);
         }
         allContentsForUser.push(oneContentForUser);
     }
-    return allContentsForUser;
+    let data = {
+        contents: allContentsForUser,
+        comments: [],
+        ratings: [],
+    }
+    return data;
+}
+
+function genSynthComments() {
+    // returns array of {contentId, userId, accessUser, time, comment, slideNumber}
+
+}
+
+function genSynthRatings() {
+    // returns array of {contentId, userId, rating, accessUser}
 }
 
 
-export {generateSlideTimes, generateQuizAnswers, generateSynthData}
+export {generateSlideTimes, generateQuizAnswers, genSynthData}

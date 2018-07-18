@@ -3,21 +3,15 @@ import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
 import PublishIcon from '@material-ui/icons/Publish';
 import FolderIcon from '@material-ui/icons/Folder';
-import Input from '@material-ui/core/Input';
 import Toolbar from '@material-ui/core/Toolbar';
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import Typography from '@material-ui/core/Typography';
-import IconArrowForward from '@material-ui/icons/ArrowForward';
-import Popover from '@material-ui/core/Popover';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
-import ChipInput from 'material-ui-chip-input'
 //import Grid from '@material-ui/core/Grid';
 import CloseIcon from '@material-ui/icons/Close';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -29,21 +23,6 @@ import PublishedCheerDialog from './PublishedCheerDialog'
 
 
 const BG = "#5C8B8E";
-
-//var username = "test";
-
-const styles = {
-  root: {
-    flexGrow: 1,
-  },
-  flex: {
-    flex: 1,
-  },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20,
-  },
-};
 
 const buttonStyle = {
   padding: '0',
@@ -97,7 +76,7 @@ class MenuBarView extends Component {
     let m;
     const findImageTagsRegEx = /<img src="?([^"\s]+)"(.*?)>/g;
     slides.forEach(function(slide) {
-      if (slide.type == 0) {
+      if (slide.type === 0) {
         //quill content
         while ( m = findImageTagsRegEx.exec( unescape(slide.content) ) ) {
             let found = m[1];
@@ -113,14 +92,13 @@ class MenuBarView extends Component {
       slide.thumb = null;
     });
 
-    if (imagesToSave.length == 0) {
+    if (imagesToSave.length === 0) {
       //this.sendToServer(contentId, published, hashtags, description, slides);
       oncomplete(slides);
       return;
     }
 
     var semaphore = 0;
-    var that = this;
     imagesToSave.forEach(function(base64Image) {
     semaphore++;
       const spacesEndpoint = 'https://api.imgur.com/3/image'
@@ -144,7 +122,7 @@ class MenuBarView extends Component {
           if (body) {
             console.log('IMGUR LINK: ' + body.data.link);
             slides.map(function(slide) {
-              if (slide.type == 0) {
+              if (slide.type === 0) {
                 //quill content
                 slide.content = slide.content.replace(base64Image, body.data.link);
               }
@@ -152,7 +130,7 @@ class MenuBarView extends Component {
 
             semaphore--;
 
-            if (semaphore == 0) {
+            if (semaphore === 0) {
               oncomplete(slides);
             }
 
@@ -197,14 +175,14 @@ class MenuBarView extends Component {
 
       console.log(response);
       if (response) {
-        if (this.state.saveAction == 'save') {
+        if (this.state.saveAction === 'save') {
           this.setState({
             snackBarMessage: 'Saved Draft',
             isUploading: false
           })
         }
 
-        if (this.state.saveAction == 'publish') {
+        if (this.state.saveAction === 'publish') {
           this.setState({
             snackBarMessage: 'Published',
             isUploading: false,
@@ -221,10 +199,10 @@ class MenuBarView extends Component {
     });
     var that = this;
     this.prepareSlides(this.props.slides, function(slides) {
-      if (that.state.saveAction == 'save') {
+      if (that.state.saveAction === 'save') {
         that.sendToServer(that.props.contentTitle, 0, that.state.hashtags, that.state.description, slides);
       }
-      if (that.state.saveAction == 'publish') {
+      if (that.state.saveAction === 'publish') {
         that.sendToServer(that.props.contentTitle, 1, that.state.hashtags, that.state.description, slides);
       }
     });
@@ -441,7 +419,7 @@ class MenuBarView extends Component {
             />
             <br/>
             <br/>
-            <Button style={buttonStyle} variant="contained" color="primary" onClick={this.onUpload.bind(this)}>
+            <Button style={buttonStyle} color="primary" onClick={this.onUpload.bind(this)}>
             Upload Cover Picture 
             </Button>
             <UploadPicContentDialog titleUpload={true} url={this.updateURL.bind(this)} authUser={this.props.authUser} contentId={this.props.contentTitle} open={this.state.showsUploadPicDialog} onClose={this.closeUploadDialog.bind(this)} snackBarControl={this.updateSnackbar.bind(this)}/>

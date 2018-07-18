@@ -6,16 +6,13 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import logo from './logo.jpg'
 import Typography from '@material-ui/core/Typography';
-import { auth } from './firebase';
+//import { auth } from './firebase';
 
 import firebase from 'firebase/app';
 import 'firebase/auth';
 
 
-import {
-  Link,
-  withRouter,
-} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 
 
 
@@ -63,7 +60,7 @@ constructor(props) {
               console.log("actually failed 1");
               console.log(error);
               that.setState(byPropKey('error', error));
-              if(error.code=="auth/weak-password"){
+              if(error.code==="auth/weak-password"){
                 that.setState({newPwError:true})
                 that.setState({oldPwError:false})
               }
@@ -74,7 +71,7 @@ constructor(props) {
             console.log("actually failed 2");
 
             that.setState(byPropKey('error', error));
-            if(error.code=="auth/wrong-password"){
+            if(error.code==="auth/wrong-password"){
                 that.setState({newPwError:false})
                 that.setState({oldPwError:true})
               }
@@ -102,7 +99,7 @@ render() {
 			<CardContent>
 
 				<center>
-				<img src={logo} style={{maxWidth:'100px'}}/>
+				<img src={logo} style={{maxWidth:'100px'}} alt=""/>
 				<Typography style={{marginTop:'20px', marginBottom: '10px', fontSize: '14'}} color="textSecondary">
 			            Login to Oasys Education
 		          </Typography>

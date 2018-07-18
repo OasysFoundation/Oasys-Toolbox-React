@@ -1,7 +1,6 @@
-import React, {Component} from 'react';
-import Button from '@material-ui/core/Button';
+import React from 'react';
 
-import {buttonGradientCSS,CoolPinkButton} from "../stylings";
+import {CoolPinkButton} from "../stylings";
 
 
 const SystemSimEdit = function (props) {
@@ -43,7 +42,8 @@ const SystemSimEdit = function (props) {
             </div>)
         }
 
-        <iframe style={dim}
+        <iframe title={Math.random().toString(36)}
+                style={dim}
                 allow="geolocation; microphone; camera;"
                 src={url || defaultURL}>
         </iframe>

@@ -17,11 +17,10 @@
       <file leaf-file-name="Foxy.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Foxy.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="27" column="21" selection-start-line="25" selection-start-column="9" selection-end-line="27" selection-end-column="21" />
+            <state relative-caret-position="300">
+              <caret line="20" column="71" selection-start-line="20" selection-start-column="71" selection-end-line="20" selection-end-column="71" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
-                <marker date="1531828907449" expanded="true" signature="1641:1809" ph="..." />
               </folding>
             </state>
           </provider>
@@ -30,8 +29,8 @@
       <file leaf-file-name="QuizPreview.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/QuizPreview.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="795">
-              <caret line="53" column="122" selection-start-line="53" selection-start-column="114" selection-end-line="53" selection-end-column="122" />
+            <state relative-caret-position="735">
+              <caret line="49" column="50" selection-start-line="49" selection-start-column="50" selection-end-line="49" selection-end-column="50" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -42,8 +41,8 @@
       <file leaf-file-name="ContentView.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ContentView.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1701">
-              <caret line="205" column="36" selection-start-line="205" selection-start-column="27" selection-end-line="205" selection-end-column="36" />
+            <state relative-caret-position="1656">
+              <caret line="202" column="36" selection-start-line="202" selection-start-column="36" selection-end-line="202" selection-end-column="36" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -56,30 +55,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="285">
               <caret line="19" column="20" selection-start-line="19" selection-start-column="20" selection-end-line="19" selection-end-column="20" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="QuillEditor.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/QuillEditor.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="17" selection-start-line="17" selection-end-line="17" />
-              <folding>
-                <element signature="e#0#41#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Quiz.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Quiz.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="155">
-              <caret line="303" column="75" selection-start-line="303" selection-start-column="75" selection-end-line="303" selection-end-column="75" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -97,16 +72,16 @@
         <entry file="file://$PROJECT_DIR$/foxy_style.css">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="525">
-              <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
+              <caret line="35" selection-start-line="35" selection-end-line="35" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="stylings.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="stylings.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/stylings.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="435">
-              <caret line="31" column="19" lean-forward="true" selection-start-line="31" selection-start-column="19" selection-end-line="31" selection-end-column="19" />
+            <state relative-caret-position="335">
+              <caret line="29" column="28" selection-start-line="29" selection-start-column="28" selection-end-line="29" selection-end-column="28" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -117,8 +92,8 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1215">
-              <caret line="119" column="49" selection-start-line="119" selection-start-column="49" selection-end-line="119" selection-end-column="49" />
+            <state relative-caret-position="320">
+              <caret line="96" column="56" selection-start-line="96" selection-start-column="56" selection-end-line="96" selection-end-column="56" />
             </state>
           </provider>
         </entry>
@@ -155,8 +130,8 @@
       <find>extract</find>
       <find>image-res</find>
       <find>preview</find>
-      <find>this.state.preview</find>
       <find>question</find>
+      <find>this.state.preview</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -190,13 +165,13 @@
         <option value="$PROJECT_DIR$/index.css" />
         <option value="$PROJECT_DIR$/gameMetaData.js" />
         <option value="$PROJECT_DIR$/../build/index.html" />
-        <option value="$PROJECT_DIR$/index.js" />
         <option value="$PROJECT_DIR$/ContentSelection.js" />
         <option value="$PROJECT_DIR$/foxy_style.css" />
-        <option value="$PROJECT_DIR$/stylings.js" />
-        <option value="$PROJECT_DIR$/Foxy.js" />
         <option value="$PROJECT_DIR$/QuizPreview.js" />
         <option value="$PROJECT_DIR$/Quiz.js" />
+        <option value="$PROJECT_DIR$/index.js" />
+        <option value="$PROJECT_DIR$/Foxy.js" />
+        <option value="$PROJECT_DIR$/stylings.js" />
       </list>
     </option>
   </component>
@@ -220,7 +195,7 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="y" value="23" />
     <option name="width" value="1440" />
     <option name="height" value="800" />
@@ -289,12 +264,12 @@
       <workItem from="1531511357079" duration="318000" />
       <workItem from="1531729709813" duration="127000" />
       <workItem from="1531815037049" duration="11570000" />
-      <workItem from="1531851857141" duration="1743000" />
+      <workItem from="1531851857141" duration="3978000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="105339000" />
+    <option name="totallyTimeSpent" value="107574000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="800" extended-state="6" />
@@ -585,41 +560,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/foxy_style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/stylings.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="31" column="19" lean-forward="true" selection-start-line="31" selection-start-column="19" selection-end-line="31" selection-end-column="19" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1215">
-          <caret line="119" column="49" selection-start-line="119" selection-start-column="49" selection-end-line="119" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Foxy.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="27" column="21" selection-start-line="25" selection-start-column="9" selection-end-line="27" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-            <marker date="1531828907449" expanded="true" signature="1641:1809" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/QuillEditor.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
@@ -639,8 +579,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ContentView.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1701">
-          <caret line="205" column="36" selection-start-line="205" selection-start-column="27" selection-end-line="205" selection-end-column="36" />
+        <state relative-caret-position="1656">
+          <caret line="202" column="36" selection-start-line="202" selection-start-column="36" selection-end-line="202" selection-end-column="36" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
@@ -649,8 +589,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/QuizPreview.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="795">
-          <caret line="53" column="122" selection-start-line="53" selection-start-column="114" selection-end-line="53" selection-end-column="122" />
+        <state relative-caret-position="735">
+          <caret line="49" column="50" selection-start-line="49" selection-start-column="50" selection-end-line="49" selection-end-column="50" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
@@ -661,6 +601,40 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="155">
           <caret line="303" column="75" selection-start-line="303" selection-start-column="75" selection-end-line="303" selection-end-column="75" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/foxy_style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="35" selection-start-line="35" selection-end-line="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="96" column="56" selection-start-line="96" selection-start-column="56" selection-end-line="96" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Foxy.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="71" selection-start-line="20" selection-start-column="71" selection-end-line="20" selection-end-column="71" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/stylings.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="335">
+          <caret line="29" column="28" selection-start-line="29" selection-start-column="28" selection-end-line="29" selection-end-column="28" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>

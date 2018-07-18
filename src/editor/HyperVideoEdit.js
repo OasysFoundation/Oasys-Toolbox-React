@@ -6,7 +6,6 @@ import CardContent from '@material-ui/core/CardContent';
 import ReactDOM from 'react-dom';
 import QuizPreview from '../QuizPreview'
 import HorizontalSlidePicker from './HorizontalSlidePicker'
-import TextField from '@material-ui/core/TextField';
 
 let plyr = null;
 

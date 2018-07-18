@@ -1,5 +1,4 @@
-import React, {Component} from 'react';
-import { Button, Comment, Form, Header } from 'semantic-ui-react'
+import React from 'react';
 import SimpleComment from './SimpleComment'
 
 
@@ -16,7 +15,7 @@ function OrganizeComments(props) {
         else{
           var arrLength = finalComments.length;
           for(var j = 0; j < arrLength; j++){
-            if(finalComments[j][0].time==comment.parent){
+            if(finalComments[j][0].time===comment.parent){
               finalComments[j].push(comment);
             }
           }
@@ -28,7 +27,7 @@ function OrganizeComments(props) {
 
       return(
       	<div>
-		    {finalComments.length==0?
+		    {finalComments.length===0?
 		      (null)
 		      : (
 		      finalComments.map((d,i) => < SimpleComment key={i} contentData={d} reply={props.reply}/>)

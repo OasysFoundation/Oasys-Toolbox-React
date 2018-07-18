@@ -78,7 +78,7 @@ function getLastAccess(content) {
     let accessTime = null;
     if (content.endTime!==null) {
         accessTime = content.endTime;
-    } else if (content.accessTimes != []) {
+    } else if (content.accessTimes !== []) {
         accessTime = content.accessTimes[-1].t;
     } else {
         accessTime = content.startTime;

@@ -2,12 +2,10 @@
 import React, {Component} from 'react';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import { firebase } from '../firebase';
-import { withStyles } from '@material-ui/core/styles';
 import ReactTooltip from "react-tooltip"
 import IconHelpOutline from '@material-ui/icons/HelpOutline';
 import IconTrendingUp from '@material-ui/icons/TrendingUp';
-import IconTrendingDown from '@material-ui/icons/TrendingDown';
+//import IconTrendingDown from '@material-ui/icons/TrendingDown';
 
 import taucharts from 'taucharts';
 import 'taucharts/dist/plugins/tooltip';
@@ -18,17 +16,24 @@ import 'taucharts/dist/plugins/legend';
 import '../taucharts.min.css'; // we needed to modify this, so it's a custom import
 import {summary, details} from './text'
 import {styles} from './styles'
-import {generateSlideTimes, generateQuizAnswers, generateSynthData} from './genSyntheticData'
-import {rearrangeData, getLastAccess, formatTime} from './processData'
+import {genSynthData} from './genSyntheticData'
+import {rearrangeData} from './processData'
+import api from "../tools";
+import glb from "../globals";
 
 // TODO
 // time spent per content as distribution
 // age of learners as distribution
 // time per question as distribution
 
-const hostname = 'https://api.joinoasys.org'
+// User filter!
+// const userContents = this.state.content.filter(content => content.userId == this.props.userId && content.published == 1);
+    
+// getAllRatings/username only sometimes returns an accessUser
+// getAllRatings/username should also report time
+
 function apiCall(name) {
-    return hostname + '/getAllContentsForCreator/' + this.props.authUser.displayName;
+    return glb.OASYS_API_BASE + 'getAllContentsForCreator/' + name;
 }
 
 const tauGuideDefault = {
@@ -45,12 +50,44 @@ const tauGuideDefault = {
 class DataView extends Component {
 
     constructor(props) {
+        const fake = true;
+
         super(props);
         this.state = {
+            rawContents: null,
+            rawRatings: null,
+            rawComments: null,
             data: null,
-            allContentsForUser: generateSynthData(),
         }
-        //this.loadContent();
+        this.countApiCalls = 0;
+        // getAllContentsForCreator gives array of: 
+        // startTime, endTime: null, contentId, contentUserId, accessUserId, accessTimes
+        // getAllRatings/username gives array of:
+        // contentId, userId, rating, accessUser
+        // getAllComments/username gives array of:
+        // contentId, userId, accessUser, time, comment, slideNumber
+
+        if (fake) {
+            let data = genSynthData();
+            console.log(data);
+            this.setState({
+                rawContents: data.contents,
+                rawComments: data.comments,
+                rawRatings: data.ratings,
+            });
+        } else {
+            let callback = (statevar, myJson) => {
+                this.setState({statevar: myJson}); 
+                this.countApiCalls++; 
+                if (this.countApiCalls===3) {
+                    //rearrangeData();
+                    console.log("api requests complete!");
+                } 
+            }
+            api.getContentsForCreator(this.props.authUser, callback.bind(this, 'rawContents'));
+            api.getCommentsForCreator(this.props.authUser, callback.bind(this, 'rawComments'));
+            api.getRatingsForCreator(this.props.authUser, callback.bind(this, 'rawRatings'));
+        }
     }
 
     loadContent() {
@@ -246,8 +283,8 @@ class DataView extends Component {
                 <td>
                     <Typography gutterBottom variant="body1">
                         {obj.text} <IconHelpOutline style={styles.smallIcon} data-tip='tooltip' data-for={obj.id} />
-                        <ReactTooltip id={obj.id}> {obj.help} </ReactTooltip>
                     </Typography>
+                    <ReactTooltip id={obj.id}> {obj.help} </ReactTooltip>
                 </td>
                 <td style={styles.summaryTableCell}>
                     <Typography gutterBottom variant="body1">
@@ -280,19 +317,19 @@ class DataView extends Component {
                 <Typography gutterBottom variant="title">
                     {"Overview"}
                 </Typography>
-                    <Paper zDepth={3} style={styles.paperSummary}> 
+                    <Paper style={styles.paperSummary}> 
                         <div style={styles.paperElem}>
                             <Typography gutterBottom variant="subheading">
                                 {"Summary statistics"}
                             </Typography>
                             <div id="summaryWrap">
-                                <table className="textAlignLeft">
+                                <table className="textAlignLeft"><tbody>
                                     {this.renderAnalyticsSummaryRow(summary.content, this.state.allContentsForUser.length)}
                                     {this.renderAnalyticsSummaryRow(summary.access, 498)}
                                     {this.renderAnalyticsSummaryRow(summary.comment, 38)}
                                     {this.renderAnalyticsSummaryRow(summary.rating, 4.1)}
                                     {this.renderAnalyticsSummaryRow(summary.tokens, 9.0)}
-                                </table>
+                                </tbody></table>
                             </div>
                         </div>
                         {this.renderGraphComponent("usersPerWeek", "Users per week")}
@@ -311,17 +348,17 @@ class DataView extends Component {
                     </select>
                 </div>
                  {this.state.allContentsForUser.map((content,i) => (
-                    <Paper zDepth={3} style={styles.paperSummary}> 
+                    <Paper style={styles.paperSummary} key={i}> 
                         <div style={styles.paperElem}>
                             <Typography gutterBottom variant="subheading">
                                 {content[0].contentId}
                             </Typography>
-                            <table className="textAlignLeft">
+                            <table className="textAlignLeft"><tbody>
                                 {this.renderAnalyticsSummaryRow(details.access, 50)}
                                 {this.renderAnalyticsSummaryRow(details.comment, 10)}
                                 {this.renderAnalyticsSummaryRow(details.rating, 4.0)}
                                 {this.renderAnalyticsSummaryRow(details.tokens, 1.0)}
-                            </table>
+                            </tbody></table>
                         </div>
                         {this.renderGraphComponent("usersPerWeek"+i, "Users per week")}
                         {this.renderGraphComponent("rewardsPerWeek"+i, "Rewards per week")}

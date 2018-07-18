@@ -2,13 +2,9 @@ import React, { Component } from 'react';
 import DeleteIcon from '@material-ui/icons/Delete';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
 import {
-  SortableContainer,
-  SortableElement,
   SortableHandle,
-  arrayMove,
 } from 'react-sortable-hoc';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
 
 let domStyles = {
@@ -42,9 +38,9 @@ class SlideThumb extends Component {
         <DragHandle />
 
         {/*<ListItemText primary={this.props.value.name} />*/}
-        <img src={this.props.value.thumb} width={80} height={60} style={domStyles.thumb}/>
+        <img src={this.props.value.thumb} width={80} height={60} style={domStyles.thumb} alt=""/>
 
-        <IconButton onClick={this.onSelfDestruct} right>
+        <IconButton onClick={this.onSelfDestruct}>
           <DeleteIcon />
         </IconButton>
       </ListItem>

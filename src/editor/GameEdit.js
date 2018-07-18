@@ -1,8 +1,5 @@
 import React, {Component} from 'react';
-import ReactMaterialSelect from 'react-material-select';
-import Button from '@material-ui/core/Button';
-import Tooltip from '@material-ui/core/Tooltip'
-import TextField from '@material-ui/core/TextField';
+import Tooltip from '@material-ui/core/Tooltip';
 import Card from '@material-ui/core/Card';
 
 import {buttonGradientCSS} from '../stylings';
@@ -55,7 +52,7 @@ class GameEdit extends Component {
                     (<section>
                         <CoolPinkButton style={buttonGradientCSS} variant="flat" color="primary" onClick={() => that.setState({isChoosing: true})}> Choose
                             Different Game </CoolPinkButton>
-                            <img src={this.props.value ? this.props.value.thumbnail : ""}
+                            <img src={this.props.value ? this.props.value.thumbnail : ""} alt=""
                              style={{width: this.props.width || w, height: this.props.height || h}}/>
                         <figcaption style={{padding: 1 + "rem"}}>{this.props.value ? this.props.value.description : ""}</figcaption>
                         <CoolPinkButton style={buttonGradientCSS} variant="flat" color="primary" onClick={this.handleTryOut.bind(this)}> Try Out </CoolPinkButton>
@@ -99,7 +96,7 @@ const ChooseGameGrid = props => {
             {gameMetaData.map((item, idx) =>
                 (<div key={idx} onClick={() => props.choose(item)} style={{cursor: "pointer"}}>
                         <Tooltip fontSize={20} id="tooltip-fab" title={item.description}>
-                            <img src={item.thumbnail} width={width / 3} style={{padding: 1 + "rem"}}/>
+                            <img src={item.thumbnail} width={width / 3} style={{padding: 1 + "rem"}} alt=""/>
                         </Tooltip>
                     </div>
                 )

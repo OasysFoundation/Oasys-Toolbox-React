@@ -4,7 +4,6 @@ import 'antd/dist/antd.css';
 import Comment from './Comment'
 import DoneIcon from '@material-ui/icons/CheckCircle';
 import {CoolPinkButton} from "./stylings";
-import Button from '@material-ui/core/Button';
 import NextIcon from '@material-ui/icons/ArrowForward';
 
 class Rating extends Component {
