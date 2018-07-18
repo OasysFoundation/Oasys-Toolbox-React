@@ -115,7 +115,6 @@ class ContentSelection extends Component {
                       margin="normal"
                       onChange={this.didChangeSearchText.bind(this)}
                       fullWidth
-                      autocomplete="off"
                     />
                     <Popover
                       open={this.state.searchText.length>0}

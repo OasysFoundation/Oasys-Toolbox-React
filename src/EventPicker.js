@@ -108,8 +108,7 @@ class EventPicker extends Component {
                     <Column>
                         <Option name={this.state.tree.name} children={this.state.tree.children} active={this.state.tree.active} reset={this.reset} />
                     </Column>
-                    <Button variant="contained"
-                            size="small" color="primary"
+                    <Button size="small" color="primary"
                             onClick={this.giveEvent}>
                         OK
                     </Button>

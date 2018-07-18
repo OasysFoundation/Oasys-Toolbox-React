@@ -85,7 +85,7 @@ class ContentView extends Component {
         this.setState({slideIdx: newIdx})
     }
 
-    whatRenderer(slide) {
+    whatRenderer(slide, idx) {
         this.authUsername = '';
         this.props.authUser
         ?this.authUsername = this.props.authUser
@@ -94,7 +94,7 @@ class ContentView extends Component {
         switch(slide.type) {
             case globals.EDIT_QUILL:
                 return (
-                    <div>
+                    <div key={idx}>
                     <Preview content={slide.content}/>
                     {this.state.showComments
                         ?(
@@ -117,7 +117,7 @@ class ContentView extends Component {
                     )
             case globals.EDIT_QUIZ:
                 return (
-                    <div>
+                    <div key={idx}>
                     <QuizPreview content={slide.content}/>
                     {this.state.showComments
                         ?(
@@ -140,7 +140,7 @@ class ContentView extends Component {
                     )
             case globals.EDIT_GAME:
                 return (
-                    <div>
+                    <div key={idx}>
                     <GameView url={slide.content.url}/>
                     {this.state.showComments
                         ?(
@@ -163,7 +163,7 @@ class ContentView extends Component {
                     )
             case globals.EDIT_HYPERVIDEO:
                 return (
-                <div>
+                <div key={idx}>
                 {this.state.showComments
                     ?(
                         <CoolBlueButton size="small" onClick={this.deactivateComments.bind(this)} >
@@ -186,7 +186,7 @@ class ContentView extends Component {
                 )
             case globals.EDIT_SYSTEM:
                 return (
-                    <div>
+                    <div key={idx}>
                         {this.state.showComments
                             ?(
                                 <CoolBlueButton size="small" onClick={this.deactivateComments.bind(this)} >
@@ -209,7 +209,7 @@ class ContentView extends Component {
                     </div>
                 )
             default:
-                return <div>not yet implemented ☹️</div>
+                return <div key={idx}>not yet implemented ☹️</div>
         }
     }
 
@@ -296,8 +296,8 @@ class ContentView extends Component {
                       animateHeight={true}
                       style={{width: '640px', marginTop: '20px'}}
                     >
-                    {content.data.map(slide => (
-                        this.whatRenderer(slide)
+                    {content.data.map((slide,idx) => (
+                        this.whatRenderer(slide, idx)
                     ))}
                     { this.props.authUser
                         ?<Rating username={this.props.authUser.displayName}/>

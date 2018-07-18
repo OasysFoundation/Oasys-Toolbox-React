@@ -110,17 +110,17 @@ class UserMainPage extends Component {
                     </Typography>
 
                     <div style={{marginTop: '16px'}}>
-                        <Button variant="contained" color="primary" onClick={this.resetPw.bind(this)} style={{margin:'10px'}}>
+                        <Button color="primary" onClick={this.resetPw.bind(this)} style={{margin:'10px'}}>
                             Change Password
                         </Button>
-                        <Button variant="contained" color="primary" onClick={this.onUpload.bind(this)} style={{margin:'10px'}}>
+                        <Button color="primary" onClick={this.onUpload.bind(this)} style={{margin:'10px'}}>
                             Upload Picture
                         </Button>
                         <UploadPicContentDialog pic={this.sendPic.bind(this)} authUser={this.props.authUser}
                                                 open={this.state.showsOpenDialog}
                                                 onClose={this.closeOpenDialog.bind(this)}
                                                 snackBarControl={this.updateSnackbar.bind(this)}/>
-                        <Button variant="contained" color="primary" onClick={function (event) {
+                        <Button color="primary" onClick={function (event) {
                             event.preventDefault();
                             window.location.href = './wallet/'
                         }} style={{margin:'10px'}}>

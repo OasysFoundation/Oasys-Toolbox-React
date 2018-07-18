@@ -40,7 +40,7 @@ class SlideThumb extends Component {
         {/*<ListItemText primary={this.props.value.name} />*/}
         <img src={this.props.value.thumb} width={80} height={60} style={domStyles.thumb} alt=""/>
 
-        <IconButton onClick={this.onSelfDestruct} right>
+        <IconButton onClick={this.onSelfDestruct}>
           <DeleteIcon />
         </IconButton>
       </ListItem>

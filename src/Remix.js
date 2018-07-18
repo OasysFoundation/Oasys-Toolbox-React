@@ -24,9 +24,7 @@ class Remix extends Component {
     render(){
     	console.log(this.props.url);
       return(
-       <Button
-	        variant="contained"
-	        size="small" color="primary"
+       <Button size="small" color="primary"
 	        onClick={this.onSubmit.bind(this,this.props.url)}>
 	        Remix
 	    </Button>

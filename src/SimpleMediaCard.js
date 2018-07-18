@@ -169,8 +169,8 @@ class SimpleMediaCard extends Component {
                     </Typography>
                 
                     <div style={{display: 'flex', justifyContent: 'center', flexWrap: 'wrap'}}>
-                    {hashtags.map(function(element){
-                      return <Chip label={element} style={{margin:'3px'}}/> 
+                    {hashtags.map(function(element, idx){
+                      return <Chip key={idx} label={element} style={{margin:'3px'}}/> 
                     })}
                     </div>
                </CardContent>

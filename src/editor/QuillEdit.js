@@ -91,7 +91,7 @@ const CustomToolbar = () => (
       <button className="ql-image"></button>
       <button className="ql-video"></button>
       <button className="ql-formula"></button>
-      <button class="ui button" id="graph-button"><img src={graphIcon} width={30} alt=""/></button>
+      <button className="ui button" id="graph-button"><img src={graphIcon} width={30} alt=""/></button>
     </span>
 
   </div>

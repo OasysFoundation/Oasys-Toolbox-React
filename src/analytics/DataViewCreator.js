@@ -28,7 +28,7 @@ import glb from "../globals";
 
 // User filter!
 // const userContents = this.state.content.filter(content => content.userId == this.props.userId && content.published == 1);
-
+    
 function apiCall(name) {
     return glb.OASYS_API_BASE + '/getAllContentsForCreator/' + name;
 }
@@ -256,8 +256,8 @@ class DataView extends Component {
                 <td>
                     <Typography gutterBottom variant="body1">
                         {obj.text} <IconHelpOutline style={styles.smallIcon} data-tip='tooltip' data-for={obj.id} />
-                        <ReactTooltip id={obj.id}> {obj.help} </ReactTooltip>
                     </Typography>
+                    <ReactTooltip id={obj.id}> {obj.help} </ReactTooltip>
                 </td>
                 <td style={styles.summaryTableCell}>
                     <Typography gutterBottom variant="body1">
@@ -290,19 +290,19 @@ class DataView extends Component {
                 <Typography gutterBottom variant="title">
                     {"Overview"}
                 </Typography>
-                    <Paper zDepth={3} style={styles.paperSummary}> 
+                    <Paper style={styles.paperSummary}> 
                         <div style={styles.paperElem}>
                             <Typography gutterBottom variant="subheading">
                                 {"Summary statistics"}
                             </Typography>
                             <div id="summaryWrap">
-                                <table className="textAlignLeft">
+                                <table className="textAlignLeft"><tbody>
                                     {this.renderAnalyticsSummaryRow(summary.content, this.state.allContentsForUser.length)}
                                     {this.renderAnalyticsSummaryRow(summary.access, 498)}
                                     {this.renderAnalyticsSummaryRow(summary.comment, 38)}
                                     {this.renderAnalyticsSummaryRow(summary.rating, 4.1)}
                                     {this.renderAnalyticsSummaryRow(summary.tokens, 9.0)}
-                                </table>
+                                </tbody></table>
                             </div>
                         </div>
                         {this.renderGraphComponent("usersPerWeek", "Users per week")}
@@ -321,17 +321,17 @@ class DataView extends Component {
                     </select>
                 </div>
                  {this.state.allContentsForUser.map((content,i) => (
-                    <Paper zDepth={3} style={styles.paperSummary}> 
+                    <Paper style={styles.paperSummary} key={i}> 
                         <div style={styles.paperElem}>
                             <Typography gutterBottom variant="subheading">
                                 {content[0].contentId}
                             </Typography>
-                            <table className="textAlignLeft">
+                            <table className="textAlignLeft"><tbody>
                                 {this.renderAnalyticsSummaryRow(details.access, 50)}
                                 {this.renderAnalyticsSummaryRow(details.comment, 10)}
                                 {this.renderAnalyticsSummaryRow(details.rating, 4.0)}
                                 {this.renderAnalyticsSummaryRow(details.tokens, 1.0)}
-                            </table>
+                            </tbody></table>
                         </div>
                         {this.renderGraphComponent("usersPerWeek"+i, "Users per week")}
                         {this.renderGraphComponent("rewardsPerWeek"+i, "Rewards per week")}
