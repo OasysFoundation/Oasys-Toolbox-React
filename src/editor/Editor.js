@@ -75,8 +75,8 @@ class Editor extends Component {
   }
 
   onAddNewSlide(type, content=null) {
-    console.log("add new " + type);
-    let slides = this.state.slides.slice();
+    //let slides = this.state.slides.slice();
+    let slides = this.state.slides;
     if (content === null) {
       switch(type) {
         case glb.EDIT_QUILL:
@@ -111,7 +111,8 @@ class Editor extends Component {
       selectedSlideIndex: newSlideIndex,
       currSlideType: type,
     });
-    this.renderThumbnail()
+    this.renderThumbnail();
+    console.log(slides)
   }
 
   onAddNewQuill(newSlideContent = null) { // Quill slides only
@@ -140,7 +141,6 @@ class Editor extends Component {
   }
 
   onChangedSlide(newSlideIndex) {
-    console.log("SLIDES ", this.state.slides);
     let slideType = null;
     if (this.state.slides.length > 0) {
       slideType = this.state.slides[newSlideIndex].type;
@@ -184,8 +184,6 @@ class Editor extends Component {
       let canvasWidth = 640;
       let canvasHeight = 480;
 
-      console.log(slides)
-      console.log(this.state.selectedSlideIndex)
       if (this.state.selectedSlideIndex < 0 || this.state.selectedSlideIndex === undefined) {
         return;
       } else if (slides[this.state.selectedSlideIndex].type === glb.EDIT_QUILL) {
@@ -228,7 +226,6 @@ class Editor extends Component {
 
 
   onRemoveSlide(index){
-    console.log("remove slide " + index)
     let slides = this.state.slides.slice();
     slides.splice(index, 1);
     this.setState({
