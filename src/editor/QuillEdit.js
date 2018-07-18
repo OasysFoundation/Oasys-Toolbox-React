@@ -13,8 +13,9 @@ import d3 from "d3"
 
 import 'katex/dist/katex.min.css';
 import "highlight.js/styles/atom-one-light.css";
-import './ReactQuill.css';
-import graphIcon from './icons/graph.jpg';
+
+import '../ReactQuill.css';
+import graphIcon from '../icons/graph.jpg';
 
 
 let BlockEmbed = Quill.import('blots/block/embed');
@@ -76,7 +77,6 @@ const CustomToolbar = () => (
         <button className="ql-clean"></button>
       </span>
     </span>
-    <br/>
     <span className="ql-formats">
       <button className="ql-bold"></button>
       <button className="ql-italic"></button>
@@ -162,7 +162,7 @@ class QuillEditor extends Component {
 
 	render() {
 		return (
-          <Card style={{width: 720 + 'px', marginLeft: "2em", marginRight: '2em', padding: '1rem'}}>
+          <Card style={{marginLeft: "2em", marginRight: '2em', padding: '1rem', minHeight: '300px'}}>
             <CardContent id='quill-container'>
               <CustomToolbar />
               <hr/>

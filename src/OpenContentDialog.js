@@ -9,6 +9,8 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Avatar from '@material-ui/core/Avatar';
 
+import glb from "./globals";
+
 
 class OpenContentDialog extends Component {
 	constructor(props) {
@@ -20,7 +22,7 @@ class OpenContentDialog extends Component {
 
 		this.didSelectContent.bind(this);
 
-	    const loadContent = 'https://api.joinoasys.org/GetUserContentsPreview';
+	    const loadContent = glb.OASYS_API_BASE + 'GetUserContentsPreview';
         const that = this;
 
         fetch(loadContent, {
@@ -40,7 +42,8 @@ class OpenContentDialog extends Component {
 	}
 
 	handleClose() {
-		this.props.onClose(null);
+		if(this.props)
+			this.props.onClose(null);
 	};
 
 	didSelectContent(selectedContent) {

@@ -34,7 +34,7 @@ class Rating extends Component {
             rated: true
         });
 
-        const APICALL = `https://api.joinoasys.org/rate/${this.state.username}/${this.state.contentname}/${value}`;
+        const APICALL = `https://api.joinoasys.org/rate/${this.state.username}/${this.state.contentname}/${value}/${this.props.username}`;
 
         fetch(APICALL, {
             method: 'POST'

@@ -9,9 +9,8 @@ import EventPicker from './EventPicker'
 import ContentSelection from "./ContentSelection";
 import NavBar from "./NavBar"
 import NotFoundPage from "./NotFoundPage"
-import Editor from "./Editor"
-//import DataViewUser from "./DataViewUser";
-import DataViewCreator from "./DataViewCreator";
+import Editor from "./editor/Editor"
+import DataViewCreator from "./analytics/DataViewCreator";
 
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import createBrowserHistory from 'history/createBrowserHistory';
@@ -25,12 +24,13 @@ import PasswordReset from './PasswordReset'
 
 import { firebase } from './firebase';
 import ContentView from './ContentView'
-import GameEdit from "./GameEdit";
 
 import { withRouter } from 'react-router'
 import GameEmbedder from "./GameEmbedder";
 
-import UserProjects from './UserProjects'
+import UserProjects from './UserProjects';
+import UserPublicProjects from './UserPublicProjects'
+
 
 import Wallet from './Wallet'
 import Comment from './Comment'
@@ -109,7 +109,7 @@ class Index extends Component {
 const UserPage = ({ match }) => (
     <div>
         <h3>Username: {match.params.username}</h3>
-        <UserProjects userId={match.params.username}/>
+        <UserPublicProjects userId={match.params.username}/>
     </div>
 );
 

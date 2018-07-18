@@ -9,3 +9,6 @@ body {
 	text-align: left;
 }
 
+.ql-picker-options {
+  z-index: 9999 !important;
+}

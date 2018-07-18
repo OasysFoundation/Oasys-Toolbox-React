@@ -24,7 +24,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import {CoolPinkButton} from "./stylings";
 
 import {
   SortableContainer,
@@ -34,6 +33,9 @@ import {
 } from 'react-sortable-hoc';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+
+import QuizPreview from '../QuizPreview'
+import {CoolPinkButton} from "../stylings";
 
 
 // internationalization ------------------------------------------------------------
@@ -79,7 +81,8 @@ let domStyles = {
       flexDirection: 'row', 
       alignItems: 'center',
     },
-    wrapper: {},
+    wrapper: {
+    },
     questionPreview: {
       fontWeight: 'bold',
       fontsize: '150%',
@@ -89,6 +92,9 @@ let domStyles = {
     },
     answerPreview: {
       marginTop: '10px',
+    },
+    marginTop: {
+      marginTop: '20px',
     },
     flexbox: {
       display: 'flex',
@@ -296,23 +302,8 @@ class Quiz extends Component {
           </Paper>
             )}
           
-          {this.state.preview ? ( // ternary beginning
-            <div>
-            <FormControl component="fieldset">
-              <FormLabel component="legend">{this.props.value.question}</FormLabel>
-              <FormGroup>
-              { this.props.value.answers.map((a) => 
-                  <FormControlLabel
-                    control={
-                      <Checkbox />
-                    }
-                    label={a.option}
-                  />
-              )}
-              </FormGroup>
-            </FormControl>
-            </div>
-          ) : ( // ternary middle
+          {this.state.preview ? (<QuizPreview content={this.props.value}/>)
+          : (
             <div>
               
               <Typography component="p">

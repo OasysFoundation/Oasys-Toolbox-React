@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
 import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
-import HyperVideoEditor from './HyperVideoEditor'
+import HyperVideoEdit from './HyperVideoEdit'
 
 class HyperVideoSetup extends Component {
 
@@ -56,7 +56,7 @@ class HyperVideoSetup extends Component {
 			<div style={{maxWidth:'640px'}} id='hyperVideoEditor'>
 			{this.state.videoURL ? 
 				(
-					<HyperVideoEditor onChange={this.props.onChange} value={{quizzes: this.state.quizzes, videoURL: this.state.videoURL}} preview={false}/>
+					<HyperVideoEdit onChange={this.props.onChange} value={{quizzes: this.state.quizzes, videoURL: this.state.videoURL}} preview={false}/>
 				)
 				:
 				(

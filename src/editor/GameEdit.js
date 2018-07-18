@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
 import ReactMaterialSelect from 'react-material-select';
 import Button from '@material-ui/core/Button';
-import gameMetaData from "./gameMetaData"
-import globals from "./globals"
 import Tooltip from '@material-ui/core/Tooltip'
 import TextField from '@material-ui/core/TextField';
-import {buttonGradientCSS} from './stylings';
 import Card from '@material-ui/core/Card';
-import {CoolPinkButton} from './stylings'
+
+import {buttonGradientCSS} from '../stylings';
+import {CoolPinkButton} from '../stylings'
+import gameMetaData from "../gameMetaData"
+import globals from "../globals"
 
 
 class GameEdit extends Component {

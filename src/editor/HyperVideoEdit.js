@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import ReactDOM from 'react-dom';
-import QuizPreview from './QuizPreview'
+import QuizPreview from '../QuizPreview'
 import HorizontalSlidePicker from './HorizontalSlidePicker'
 import TextField from '@material-ui/core/TextField';
 
@@ -15,7 +15,7 @@ const defaultQuiz = {
   "answers": [{"option": "", "correct": false}]
 };
 
-class HyperVideoEditor extends Component {
+class HyperVideoEdit extends Component {
 
 	constructor(props) {
 	    super(props);
@@ -182,4 +182,4 @@ class HyperVideoEditor extends Component {
 	}
 }
 
-export default HyperVideoEditor;
+export default HyperVideoEdit;

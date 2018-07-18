@@ -13,7 +13,7 @@ import NotFoundPage from './NotFoundPage'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import GameView from "./GameView"
 import { firebase } from './firebase';
-import HyperVideoEditor from './HyperVideoEditor';
+import HyperVideoEdit from './editor/HyperVideoEdit';
 import Comment from './Comment'
 import {CoolPinkButton} from "./stylings";
 import {CoolBlueButton} from "./stylings";
@@ -95,7 +95,7 @@ class ContentView extends Component {
         :null
         this.contentLength = this.state.content.data.length;
         switch(slide.type) {
-            case globals.QUILL:
+            case globals.EDIT_QUILL:
                 return (
                     <div>
                     <Preview content={slide.content}/>
@@ -118,7 +118,7 @@ class ContentView extends Component {
                     }
                     </div>
                     )
-            case globals.QUIZ:
+            case globals.EDIT_QUIZ:
                 return (
                     <div>
                     <QuizPreview content={slide.content}/>
@@ -141,7 +141,7 @@ class ContentView extends Component {
                     }
                     </div>
                     )
-            case globals.GAME:
+            case globals.EDIT_GAME:
                 return (
                     <div>
                     <GameView url={slide.content.url}/>
@@ -164,7 +164,7 @@ class ContentView extends Component {
                     }                    
                     </div>
                     )
-            case globals.HYPERVIDEO:
+            case globals.EDIT_HYPERVIDEO:
                 return (
                 <div>
                 {this.state.showComments
@@ -180,14 +180,14 @@ class ContentView extends Component {
 
                     )                
                 }                
-                <HyperVideoEditor value={slide.content} preview={true}/>
+                <HyperVideoEdit value={slide.content} preview={true}/>
                 {this.state.showComments
                     ?<Comment name={this.authUsername} slideNumber={this.state.slideIdx} slideLength={this.contentLength}/>
                     :null
                 }                
                 </div>
                 )
-            case globals.SYSTEM:
+            case globals.EDIT_SYSTEM:
                 return (
                     <div>
                         {this.state.showComments
@@ -299,12 +299,15 @@ class ContentView extends Component {
                       onChangeIndex={this.handleStepChange.bind(this)}
                       enableMouseEvents
                       animateHeight={true}
-                      style={{width: '640px'}}
+                      style={{width: '640px', marginTop: '20px'}}
                     >
                     {content.data.map(slide => (
                         this.whatRenderer(slide)
                     ))}
-                    <Rating username={this.props.authUser}/>
+                    { this.props.authUser
+                        ?<Rating username={this.props.authUser.displayName}/>
+                        : null
+                    }
                     </SwipeableViews>
                     <MobileStepper
                       steps={content.data.length + 1}
