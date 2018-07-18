@@ -1,10 +1,10 @@
 import React from 'react';
+import TextField from '@material-ui/core/TextField'
 
-import {CoolPinkButton} from "../stylings";
+import {CoolPinkButton, CoolBlueButton} from "../stylings";
 
 
 const SystemSimEdit = function (props) {
-    // console.log("System props", props)
     let {url} = props.value;
     console.log('SYSPROPS', props)
 
@@ -36,9 +36,28 @@ const SystemSimEdit = function (props) {
     return (<div>
         {url ? null :
             (<div>
-                <input onChange={(ev) => inputting(ev)} label="...add System Sim"/>
+                <TextField
+                    id="full-width"
+                    label="Viewers can see and play with the state of your current system"
+                    placeholder="Shareable Link from System"
+                    margin="normal"
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                    fullWidth
+                    onChange={(ev) => inputting(ev)}
+                />
                 <CoolPinkButton style={{height: 1 + "rem"}} variant="flat" color="primary"
-                                onClick={() => props.onChange({url: inputVal})}>Submit</CoolPinkButton>
+                                onClick={() => props.onChange({url: inputVal})}>Put System/Model from Link as Slide</CoolPinkButton>
+                <figcaption style={{padding: 1 + "rem", color:'darkgrey'}}>{
+                    `How to get a shareable Link:
+                In the embedded window below, when your System is ready for your lesson:
+                Go to the Menu on the top left (next to the title)
+                and from there click on Share > Get Link to Shared View
+                `}</figcaption>
+                <CoolBlueButton onClick={() => window.open(defaultURL)}>
+                    System Full Screen
+                </CoolBlueButton>
             </div>)
         }
 

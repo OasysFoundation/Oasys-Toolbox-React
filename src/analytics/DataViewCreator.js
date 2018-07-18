@@ -26,9 +26,6 @@ import glb from "../globals";
 // age of learners as distribution
 // time per question as distribution
 
-// User filter!
-// const userContents = this.state.content.filter(content => content.userId == this.props.userId && content.published == 1);
-    
 // getAllRatings/username only sometimes returns an accessUser
 // getAllRatings/username should also report time
 
@@ -75,6 +72,7 @@ class DataView extends Component {
             let rawdata = genSynthData();
             this.rawdata = rawdata;
             this.data = rearrangeData(rawdata);
+            this.countApiCalls = 3;
             if (this.mounted) {
                 this.renderGraphs();
             }
@@ -83,7 +81,7 @@ class DataView extends Component {
                 this.rawdata.statevar = myJson; 
                 this.countApiCalls++; 
                 if (this.countApiCalls===3) {
-                    rearrangeData(this.rawdata);
+                    this.data = rearrangeData(this.rawdata);
                     if (this.mounted) {
                         this.renderGraphs();
                     }
@@ -302,20 +300,18 @@ class DataView extends Component {
     }
 
     renderGraphs() {
-        let contents = this.data.contents;
-
         this.renderUsersPerWeek();
         this.renderRewardsPerWeek();
         this.renderCommentsPerWeek();
 
         console.log(this.data);
+        return;
 
-        for (let i=0; i<contents.length; i++) {
-            let data = rearrangeData(contents[i]);
-            this.renderUsersPerSlide(data, i);
+        for (let i=0; i<this.data.contents.length; i++) {
+            this.renderUsersPerSlide(this.data.contents[i], i);
             this.renderUsersPerWeek(i);
             this.renderRewardsPerWeek(i);
-            this.renderQuizAnswers(data, i);
+            this.renderQuizAnswers(this.data.contents[i], i);
         }
     }
 
