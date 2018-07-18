@@ -37,7 +37,7 @@ class ContentView extends Component {
             lastTime: new Date(),
             startTime: new Date(),
             endTime: null,
-            showComments:false,
+            showComments: false,
         };
         console.log(match, props, "MAATCH")
 
@@ -49,7 +49,7 @@ class ContentView extends Component {
         // console.log(this.props, "MATCH")
         // const userName = this.props.match.params.username;
         // const contentName = this.props.match.params.contentname;
-        
+
 
         const APICALL = `https://api.joinoasys.org/user/${this.userName}/${this.contentName}/`;
 
@@ -65,32 +65,32 @@ class ContentView extends Component {
             });
     }
 
-    activateComments(){
+    activateComments() {
         this.setState({
-            showComments:true
+            showComments: true
         })
     }
 
-    deactivateComments(){
+    deactivateComments() {
         this.setState({
-            showComments:false
+            showComments: false
         })
     }
 
     whatRenderer(slide, idx) {
         this.authUsername = '';
-        this.props.authUser ? this.authUsername = this.props.authUser :null
+        this.props.authUser ? this.authUsername = this.props.authUser : null
         this.contentLength = this.state.content.data.length;
 
         let render = (<div>No Content to be found here</div>)
 
-        switch(slide.type) {
+        switch (slide.type) {
             case globals.EDIT_QUILL:
                 render = <Preview content={slide.content}/>
                 break;
 
             case globals.EDIT_QUIZ:
-                render= <QuizPreview content={slide.content}/>
+                render = <QuizPreview content={slide.content}/>
                 break;
             case globals.EDIT_GAME:
                 render = <GameView url={slide.content.url}/>
@@ -108,21 +108,21 @@ class ContentView extends Component {
         return (<section>
             {render}
             {this.state.showComments
-                ?(
-                    <CoolBlueButton size="small" onClick={this.deactivateComments.bind(this)} >
-                        Hide Comments
-                    </CoolBlueButton>
-                )
-                : (
-                    <CoolBlueButton size="small" onClick={this.activateComments.bind(this)} >
-                        Show Comments
-                    </CoolBlueButton>
+            ? (
+            <CoolBlueButton size="small" onClick={this.deactivateComments.bind(this)}>
+            Hide Comments
+            </CoolBlueButton>
+            )
+            : (
+            <CoolBlueButton size="small" onClick={this.activateComments.bind(this)}>
+            Show Comments
+            </CoolBlueButton>
 
-                )
+            )
             }
             {this.state.showComments
-                ?<Comment name={this.authUsername} slideNumber={this.state.slideIdx} slideLength={this.contentLength}/>
-                :null
+            ? <Comment name={this.authUsername} slideNumber={this.state.slideIdx} slideLength={this.contentLength}/>
+            : null
             }
         </section>)
 
@@ -132,7 +132,7 @@ class ContentView extends Component {
         const t1 = this.state.lastTime;
         const t2 = new Date();
         let timing = this.state.timing.slice();
-        timing.push({i: this.state.slideIdx, t:t2-t1});
+        timing.push({i: this.state.slideIdx, t: t2 - t1});
         let tobj = {
             startTime: this.state.startTime,
             timing: timing,
@@ -144,26 +144,26 @@ class ContentView extends Component {
     completeFetch(timeObj) {
         var saveEndpoint = 'https://api.joinoasys.org/saveUserContentAccess';
         var data = {
-          "accessTimes": timeObj.timing,
-          "startTime": timeObj.startTime,
-          "endTime": timeObj.endTime,
-          "contentId": this.state.content.contentId,
-          "accessUserId": this.props.authUser.displayName,
-          "contentUserId": this.state.content.userId
+            "accessTimes": timeObj.timing,
+            "startTime": timeObj.startTime,
+            "endTime": timeObj.endTime,
+            "contentId": this.state.content.contentId,
+            "accessUserId": this.props.authUser.displayName,
+            "contentUserId": this.state.content.userId
         }
         fetch(saveEndpoint, {
-          method: 'POST', 
-          body: JSON.stringify(data),
-          headers: new Headers({
-           'Content-Type': 'application/json',
-             })
-          });
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: new Headers({
+                'Content-Type': 'application/json',
+            })
+        });
     }
 
     handleNext() {
-        let idx = this.state.slideIdx+1;
+        let idx = this.state.slideIdx + 1;
         let tobj = this.updateTiming();
-        this.setState({ slideIdx: idx });
+        this.setState({slideIdx: idx});
         let endTime = null;
         if (idx === this.state.content.data.length - 1) {
             endTime = new Date();
@@ -192,53 +192,68 @@ class ContentView extends Component {
 
     render() {
         if (!this.state.hasLoaded) {
-            return <center><CircularProgress style={{ color: 'orange' }} thickness={7} /></center>
+            return <center><CircularProgress style={{color: 'orange'}} thickness={7}/></center>
         }
 
         const content = this.state.content;
         if (!content) {
-            return <NotFoundPage />
+            return <NotFoundPage/>
         }
 
+        console.log('slide idx', this.state.slideIdx)
+        let fullScreen;
+        if (this.state.slideIdx < content.data.length) {
+            const type = content.data[this.state.slideIdx].type;
+            fullScreen = (type === globals.EDIT_GAME || type === globals.EDIT_SYSTEM || type === globals.EDIT_HYPERVIDEO)
+        }
         return (
-            <div>
             <center>
+
                 <SwipeableViews
-                      axis={'x'}
-                      index={this.state.slideIdx}
-                      onChangeIndex={this.handleStepChange.bind(this)}
-                      enableMouseEvents
-                      animateHeight={true}
-                      style={{width: '640px', marginTop: '20px'}}
-                    >
-                    {content.data.map((slide,idx) => (
+                    axis={'x'}
+                    index={this.state.slideIdx}
+                    onChangeIndex={this.handleStepChange.bind(this)}
+                    enableMouseEvents
+                    animateHeight={true}
+                    style={{width: fullScreen ? window.width : '640px', marginTop: '20px'}}
+                >
+                    {content.data.map((slide, idx) => (
                         this.whatRenderer(slide, idx)
                     ))}
-                    { this.props.authUser
-                        ?<Rating username={this.props.authUser.displayName}/>
+                    {this.props.authUser
+                        ? <Rating username={this.props.authUser.displayName}/>
                         : null
                     }
-                    </SwipeableViews>
-                    <MobileStepper
-                      steps={content.data.length + 1}
-                      activeStep={this.state.slideIdx}
-                      style = {{position: 'relative', bottom: '0', width: '100%', minHeight: 12 + "vh"}}
-                      nextButton={
-                        <Button size="large" style={this.state.slideIdx === content.data.length ? null : buttonStyle} onClick={this.handleNext.bind(this)} disabled={this.state.slideIdx === content.data.length}>
-                          Next
-                          {<KeyboardArrowRight />}
-                        </Button>
-                      }
-                      backButton={
-                        <Button size="large" style={this.state.slideIdx === 0 ? null : buttonStyle} onClick={this.handlePrevious.bind(this)} disabled={this.state.slideIdx === 0}>
-                          {<KeyboardArrowLeft />}
-                          Back
-                        </Button>
-                      }
-                    />
+                </SwipeableViews>
+                <MobileStepper steps={content.data.length + 1}
+                               activeStep={this.state.slideIdx}
+                               style={{
+                                   position: 'relative',
+                                   bottom: '0',
+                                   width: '100%',
+                                   minHeight: 12 + "vh"
+                               }}
+                               nextButton={
+                                   <Button size="large"
+                                           style={this.state.slideIdx === content.data.length ? null : buttonStyle}
+                                           onClick={this.handleNext.bind(this)}
+                                           disabled={this.state.slideIdx === content.data.length}>
+                                       Next
+                                       {<KeyboardArrowRight/>}
+                                   </Button>
+                               }
+                               backButton={
+                                   <Button size="large"
+                                           style={this.state.slideIdx === 0 ? null : buttonStyle}
+                                           onClick={this.handlePrevious.bind(this)}
+                                           disabled={this.state.slideIdx === 0}>
+                                       {<KeyboardArrowLeft/>}
+                                       Back
+                                   </Button>
+                               }
+                />
             </center>
-            </div>
-        );
+        )
     }
 }
 

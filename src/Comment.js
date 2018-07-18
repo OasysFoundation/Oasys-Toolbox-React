@@ -42,11 +42,11 @@ class CommentSection extends Component {
         }).then(function (response) {
             return response.json();
         })
-            .then(function (myJson) {
-                console.log(myJson);
-                that.setState({comments: myJson});
+        .then(function (myJson) {
+            console.log(myJson);
+            that.setState({comments: myJson});
 
-            });
+        });
        
     }
 

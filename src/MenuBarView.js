@@ -47,12 +47,19 @@ class MenuBarView extends Component {
             showsOpenDialog: false,
             showsUploadPicDialog: false,
             pictureURL: '',
-            hashtags:'',
-            description:'',
+            hashtags:this.props.hashtags,
+            description:this.props.description,
             loading:false,
             isUploading: false,
             showsConclusionDialog: false
-        }
+      };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      hashtags:nextProps.hashtags,
+      description:nextProps.description
+    });
   }
 
   onSave() {
