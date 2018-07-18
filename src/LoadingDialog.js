@@ -3,13 +3,13 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
-class UploadingDialog extends Component {
+class LoadingDialog extends Component {
 
 	render() {
 		return (
 			<div>
 				<Dialog open={this.props.open}>
-        			<DialogTitle id="simple-dialog-title">Uploading Content…</DialogTitle>
+        			<DialogTitle id="simple-dialog-title">{this.props.message}</DialogTitle>
         			<LinearProgress />
         		</Dialog>
 			</div>
@@ -17,4 +17,4 @@ class UploadingDialog extends Component {
 	}
 }
 
-export default UploadingDialog;
+export default LoadingDialog;

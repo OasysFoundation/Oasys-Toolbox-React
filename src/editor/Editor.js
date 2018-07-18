@@ -8,6 +8,8 @@ import glb from "../globals";
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import EditIcon from '@material-ui/icons/Edit';
+import LoadingDialog from '../LoadingDialog'
+
 //import gameMetaData from "../gameMetaData";
 
 /* TODO for refactor:
@@ -48,6 +50,16 @@ class Editor extends Component {
   constructor(props) {
     console.log("PARAMS", props.match)
     super(props);
+    
+
+    var shouldDownloadContent = false;
+
+    if (props.match) {
+        const link = "user/" + props.match.params.userId + "/" + props.match.params.contentId;
+        this.onLoad(link);  
+        shouldDownloadContent = true;
+    }
+
     this.state = {
       slides: [],
       selectedSlideIndex: 0,
@@ -56,8 +68,9 @@ class Editor extends Component {
       lastCapture: null,
       title: "Untitled",
       description: '',
-      tags: ''
-    }
+      tags: '',
+      downloadingContent: shouldDownloadContent
+    };
 
     this.onAddNewQuill = this.onAddNewQuill.bind(this);
     this.onAddNewQuiz = this.onAddNewQuiz.bind(this);
@@ -69,10 +82,7 @@ class Editor extends Component {
     this.onAddNewSystemSim = this.onAddNewSystemSim.bind(this);
     this.onLoad = this.onLoad.bind(this);
 
-    if (props.match) {
-        const link = "user/" + props.match.params.userId + "/" + props.match.params.contentId;
-        this.onLoad(link)
-    }
+    
 
   }
 
@@ -248,6 +258,7 @@ class Editor extends Component {
   }
 
   onLoad(link) {
+
     //this.show('Opening…');
     var loadContent = glb.OASYS_API_BASE + link;
     console.log(loadContent);
@@ -274,7 +285,8 @@ class Editor extends Component {
             that.setState({
               title: myJson[0].contentId,
               description: myJson[0].description,
-              tags: myJson[0].tags
+              tags: myJson[0].tags,
+              downloadingContent: false
             });
           }
         }
@@ -294,6 +306,7 @@ class Editor extends Component {
   render() {
     return (
       <div>
+        <LoadingDialog open={this.state.downloadingContent} message='Loading Content…' />
         <Grid container spacing={24}>
         <Grid item xs={12}>
           <MenuBarView onLoad={this.onLoad.bind(this)} slides={this.state.slides} authUser={this.props.authUser} contentTitle={this.state.title} hashtags={this.state.tags} description={this.state.description}/>

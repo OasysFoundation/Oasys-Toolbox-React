@@ -18,7 +18,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import OpenContentDialog from './OpenContentDialog';
 import UploadPicContentDialog from './UploadPicContentDialog'
 import logo from './logo.jpg'
-import UploadingDialog from './UploadingDialog'
+import LoadingDialog from './LoadingDialog'
 import PublishedCheerDialog from './PublishedCheerDialog'
 
 
@@ -369,7 +369,7 @@ class MenuBarView extends Component {
 
     return (
     	<div>
-      <UploadingDialog open={this.state.isUploading} />
+      <LoadingDialog open={this.state.isUploading} message='Uploading Content…' />
       <PublishedCheerDialog open={this.state.showsConclusionDialog} sharableLink={shareableLink} onClose={this.closePublishedDialog.bind(this)}/>
       <Toolbar style={{backgroundColor: BG}}>
 
