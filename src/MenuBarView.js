@@ -94,7 +94,7 @@ class MenuBarView extends Component {
     
     let imagesToSave = [];
     let m;
-    const findImageTagsRegEx = /<img src="?([^"\s]+)">/g;
+    const findImageTagsRegEx = /<img src="?([^"\s]+)"(.*?)>/g;
     slides.forEach(function(slide) {
       if (slide.type == 0) {
         //quill content
@@ -149,13 +149,10 @@ class MenuBarView extends Component {
               }
             });
 
-            
-
             semaphore--;
 
             if (semaphore == 0) {
               oncomplete(slides);
-              // that.sendToServer(contentId, published, hashtags, description, slides);
             }
 
           }
