@@ -18,6 +18,7 @@ const thousands = require('thousands');
 var Web3 = require('web3');
 var abi = [{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"}],"name":"approve","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"},{"name":"_extraData","type":"bytes"}],"name":"approveAndCall","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transfer","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_from","type":"address"},{"indexed":true,"name":"_to","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_owner","type":"address"},{"indexed":true,"name":"_spender","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Approval","type":"event"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"payable":false,"stateMutability":"nonpayable","type":"fallback"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"constant":true,"inputs":[{"name":"_owner","type":"address"},{"name":"_spender","type":"address"}],"name":"allowance","outputs":[{"name":"remaining","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"}],"name":"balanceOf","outputs":[{"name":"balance","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"version","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"}];
 var web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/C2D8VJd9N6bPvd9mP60M"));
+
 var OASContract = new web3.eth.Contract(abi, '0x559623d3660bbae4ee3c90c6ad600d54a520b792', {
     from: '0x527CAe7D06376Aa7fd702043b80F30208542Df91', // default from address
     gasPrice: '20000000000' // default gas price in wei, 20 gwei in this case
@@ -75,6 +76,12 @@ class Wallet extends Component {
 		    });
 		});
 
+		web3.eth.getAccounts(function(err, accounts) {
+			console.log("accounts: " + err);
+			console.log(accounts[0]);
+
+		})
+
 
 		firebase.auth.onAuthStateChanged(authUser => {
             this.setState({
@@ -84,7 +91,7 @@ class Wallet extends Component {
 	}
 
 
-	sendTokens() {
+	showSendTokensDialog() {
 		this.setState({
 			showsSendDialog: true
 		})
@@ -100,6 +107,27 @@ class Wallet extends Component {
 		this.setState({
 			showsSendDialog: false,
 			showsDepositDialog: false
+		});
+	}
+
+	sendTokens() {
+
+		OASContract.methods.transferFrom(web3.eth.accounts[0], this.state.recipientAddress, this.state.sendingAmount).call()
+		.then(function(result) {
+			console.log("sent OAS: " + result);
+			this.handleClose();
+		});
+	}
+
+	onChangeRecipientAddress(event) {
+		this.setState({
+			recipientAddress: event.target.value
+		});
+	}
+
+	onChangeSendingAmount(event) {
+		this.setState({
+			sendingAmount: event.target.value
 		});
 	}
 
@@ -143,7 +171,7 @@ class Wallet extends Component {
 
 				
 				<CardActions style={{marginTop:'5px', textAlign: "center"}}>
-					<Button variant="raised" color="primary" onClick={this.sendTokens.bind(this)} >
+					<Button variant="raised" color="primary" onClick={this.showSendTokensDialog.bind(this)} >
 						Send
 					</Button>
 					<Button variant="raised" color="primary" onClick={this.makeDeposit.bind(this)} >
@@ -158,14 +186,15 @@ class Wallet extends Component {
 		          aria-labelledby="alert-dialog-title"
 		          aria-describedby="alert-dialog-description"
 		        >
-		          <DialogTitle id="alert-dialog-title">Sending OASYS Tokens</DialogTitle>
+		          <DialogTitle id="alert-dialog-title">Sending OAS Tokens</DialogTitle>
 		          <DialogContent>
 		            <DialogContentText id="alert-dialog-description">
-		              Enter the Oasys Wallet Address of the receiver to send them OASYS tokens. Estimated Gas fee: 0.00125 ETH
+		              Enter the Oasys Wallet Address of the receiver to send them OASYS tokens. Estimated Gas fee: 0.00125 OAS
 		            </DialogContentText>
 		            <TextField
-		              label="OASYS Address"
+		              label="OAS Address"
 		              style={{width:'100%'}} 
+		              onChange={this.onChangeRecipientAddress.bind(this)}
 		            />
 		            <TextField
 		              label="Amount"
@@ -173,6 +202,7 @@ class Wallet extends Component {
 		              type="number"
 		              autocomplete="number"
 		              required step="0.000001"
+		              onChange={this.onChangeSendingAmount.bind(this)}
 		            />
 		            <TextField
 		              label="Password"
@@ -185,7 +215,7 @@ class Wallet extends Component {
 		          	<Button onClick={this.handleClose.bind(this)} color="secondary">
 		              Cancel
 		            </Button>
-		            <Button onClick={this.handleClose.bind(this)} color="primary">
+		            <Button onClick={this.sendTokens.bind(this)} color="primary">
 		              Send
 		            </Button>
 		          </DialogActions>
