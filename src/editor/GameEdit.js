@@ -60,16 +60,9 @@ class GameEdit extends Component {
 
                     :
                     (<div>
-                        {/*<TextField*/}
-                            {/*id="with-placeholder"*/}
-                            {/*label="Embed Simulation from URL"*/}
-                            {/*placeholder="Your URL goes here"*/}
-                            {/*margin="normal"*/}
-                            {/*ref={this.textInput}*/}
-                        {/*/>*/}
-                        <input
-                            ref={this.textInput} label="...add URL to embed your own Simulation" />
-                        <CoolPinkButton style={buttonGradientCSS} variant="flat" color="primary" onClick={this.submitNewGame}>Submit</CoolPinkButton>
+                        {/*<input*/}
+                            {/*ref={this.textInput} label="...add URL to embed your own Simulation" />*/}
+                        {/*<CoolPinkButton style={buttonGradientCSS} variant="flat" color="primary" onClick={this.submitNewGame}>Submit</CoolPinkButton>*/}
 
                         <ChooseGameGrid choose={this.onChooseGame}/>
                     </div>)
@@ -86,9 +79,10 @@ const ChooseGameGrid = props => {
     const flexer = {
         display: "flex",
         flexGrow: 1,
+        justifyContent: 'center',
         flexWrap: "wrap",
         flexDirection: "row",
-        width: width
+        // width: width
     }
 
     return (
