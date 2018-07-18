@@ -39,9 +39,7 @@ function createSlide(name, identifier, content, type) {
     identifier: identifier,
     content: content,
     type: type,
-    thumb: null,
-    description: null,
-    tags: null
+    thumb: null
   }
 }
 
