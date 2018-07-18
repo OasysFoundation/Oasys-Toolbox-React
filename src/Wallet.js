@@ -40,7 +40,7 @@ class Wallet extends Component {
 			tokenDecimals: null,
 			tokenName: null,
 			tokenSymbol: null,
-			userAddress: '0x527CAe7D06376Aa7fd702043b80F30208542Df91'
+			userAddress: null
 		};
 
 		var that = this;
@@ -76,10 +76,12 @@ class Wallet extends Component {
 		    });
 		});
 
-		web3.eth.getAccounts(function(err, accounts) {
+		window.web3.eth.getAccounts(function(err, accounts) {
 			console.log("accounts: " + err);
 			console.log(accounts[0]);
-
+		    that.setState({
+		    	userAddress: accounts[0]
+		    });			
 		})
 
 
