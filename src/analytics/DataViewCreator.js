@@ -20,6 +20,8 @@ import {genSynthData} from './genSyntheticData'
 import {rearrangeData} from './processData'
 import api from "../tools";
 import glb from "../globals";
+import {CoolPinkButton} from "../stylings";
+import previewBackground from "../images/preview.png";
 
 // TODO
 // time spent per content as distribution
@@ -39,13 +41,31 @@ const tauGuideDefault = {
     }
 }
 
+const previewSummary = {
+    margin: 20,
+    backgroundImage: `url(${previewBackground})`,
+    backgroundRepeat: 'repeat',
+}
+
+const previewDetails = {
+    margin: 20,
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    backgroundImage: `url(${previewBackground})`,
+    backgroundRepeat: 'repeat',
+}
+
 
 class DataView extends Component {
 
     constructor(props) {
-        const fake = false;
-
         super(props);
+
+        this.fake = false;
+        if (window.location.pathname==="/data/preview") {
+            this.fake = true;
+        }
 
         this.state = {
             data: null,
@@ -65,7 +85,7 @@ class DataView extends Component {
         // getAllComments/username gives array of:
         // contentId, userId, accessUser, time, comment, slideNumber
 
-        if (fake) {
+        if (this.fake) {
             let rawdata = genSynthData();
             this.rawdata = rawdata;
             this.countApiCalls = 3;
@@ -305,7 +325,7 @@ class DataView extends Component {
         return (
             <div>
                 {this.state.data.contents.map((content,i) => (
-                    <Paper style={styles.paperDetails}> 
+                    <Paper style={this.fake ? previewDetails : styles.paperDetails}> 
                         <div style={styles.paperElem}>
                             <Typography gutterBottom variant="subheading">
                                 {content.id}
@@ -333,14 +353,14 @@ class DataView extends Component {
                 <Typography gutterBottom variant="title">
                     {"Overview"}
                 </Typography>
-                    <Paper style={styles.paperSummary}> 
-                        { (this.state.data===null)
-                        ?  <Typography gutterBottom variant="body1">
-                                {"Loading content..."}
-                           </Typography>
-                        : this.renderOverview()
-                        }
-                    </Paper>
+                <Paper style={this.fake ? previewSummary : styles.paperSummary} > 
+                    { (this.state.data===null)
+                    ?  <Typography gutterBottom variant="body1">
+                            {"Loading content..."}
+                       </Typography>
+                    : this.renderOverview()
+                    }
+                </Paper>
                 <div style={styles.flexContainer}>
                     <Typography gutterBottom variant="title">
                         {"Content List"}
@@ -352,11 +372,22 @@ class DataView extends Component {
                       <option value="2">{"highest rated"}</option>
                     </select>
                 </div>
-                <div id="contentList" />
+                <div id="contentList" >
                     { (this.state.data===null)
                     ?  null
                     : this.renderContentList()
                     }
+                </div>
+
+                <CoolPinkButton size="small" 
+                                data-tip='tooltip' 
+                                data-for='preview'
+                                onClick={function(){window.open('/data/preview', '_blank')}}>
+                Preview
+                </CoolPinkButton>
+                <ReactTooltip id="preview"> 
+                    {"Show a preview of how this page looks like with more data"} 
+                </ReactTooltip>
             </div>
         );
     }
