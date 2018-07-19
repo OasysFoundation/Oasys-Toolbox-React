@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SlidesThumbnailView from "../SlidesThumbnailView";
+import SlidesThumbnailView from "./SlidesThumbnailView";
 import MenuBarView from "../MenuBarView";
 import SlideEdit from "./SlideEdit";
 import Grid from '@material-ui/core/Grid';
@@ -73,14 +73,10 @@ class Editor extends Component {
       downloadingContent: shouldDownloadContent
     };
 
-    this.onAddNewQuill = this.onAddNewQuill.bind(this);
-    this.onAddNewQuiz = this.onAddNewQuiz.bind(this);
-    this.onAddNewGame = this.onAddNewGame.bind(this);
+    this.onAddNewSlide = this.onAddNewSlide.bind(this);
     this.onSlideOrderChange = this.onSlideOrderChange.bind(this);
     this.onChangedSlide = this.onChangedSlide.bind(this);
     this.onRemoveSlide = this.onRemoveSlide.bind(this);
-    this.onAddNewHyperVideo = this.onAddNewHyperVideo.bind(this);
-    this.onAddNewSystemSim = this.onAddNewSystemSim.bind(this);
     this.onLoad = this.onLoad.bind(this);
 
     
@@ -128,7 +124,7 @@ class Editor extends Component {
     console.log(slides)
   }
 
-  onAddNewQuill(newSlideContent = null) { // Quill slides only
+  onAddNewQuill(newSlideContent = null) {
     this.onAddNewSlide(glb.EDIT_QUILL, newSlideContent);
   }
 
@@ -329,11 +325,7 @@ class Editor extends Component {
         </Grid>
         <Grid item xs={3}>
           <SlidesThumbnailView slides={this.state.slides} 
-                               onAddNewSlide={this.onAddNewQuill} 
-                               onAddNewQuiz={this.onAddNewQuiz} 
-                               onAddNewGame={this.onAddNewGame} 
-                               onAddNewHyperVideo={this.onAddNewHyperVideo}
-                               onAddNewSystemSim={this.onAddNewSystemSim}
+                               onAddNewSlide={this.onAddNewSlide} 
                                selectedSlideIndex={this.state.selectedSlideIndex}
                                onSlideOrderChange = {this.onSlideOrderChange}
                                onChangedSlide = {this.onChangedSlide}
