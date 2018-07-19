@@ -11,21 +11,13 @@ import EditIcon from '@material-ui/icons/Edit';
 import LoadingDialog from '../LoadingDialog'
 import WelcomeToEditor from './WelcomeToEditor'
 
-//import gameMetaData from "../gameMetaData";
+import edit_game_thumb from '../images/edit_game_thumb.jpg'
+import edit_quiz_thumb from '../images/edit_quiz_thumb.jpg'
+import edit_system_thumb from '../images/edit_system_thumb.jpg'
+import edit_text_thumb from '../images/edit_text_thumb.jpg'
+import edit_video_thumb from '../images/edit_video_thumb.jpg'
 
-/* TODO for refactor:
-1) it seems like contentId is not used any more, but instead only this.state.title, but this is "Untitled Project" project
-   unless user sets it. So, we should remove contentId, and force users to set the title (otherwise they cannot save)
-2) Why do we need name for slides, instead of just using type? Either delete name, or define new global for it.
-3) defaultSlide.content should be a string in a global lang_EN file.
-4) Is slide.identifier used anywhere? If so, why is it set to 1 in defaultSlide?
-5) All handlers that are defined by a component and are given to other components should be combined into an object
-6) Add environment variable that we can use to flip between production and development
-7) API call urls should be defined globally somewhere
-8) refactor onAddNewQuiz, anAddNewGame etc into one fuction
-9) Have a global function that calculates slide identifier with Math.random().toString(36)
-10) replace DOM id access with React ref access
-*/
+//import gameMetaData from "../gameMetaData";
 
 
 function contentIdGenerator() {
@@ -78,14 +70,11 @@ class Editor extends Component {
     this.onChangedSlide = this.onChangedSlide.bind(this);
     this.onRemoveSlide = this.onRemoveSlide.bind(this);
     this.onLoad = this.onLoad.bind(this);
-
-    
-
   }
 
   onAddNewSlide(type, content=null) {
     //let slides = this.state.slides.slice();
-    let slides = this.state.slides; // this is unsafe but works better
+    let slides = this.state.slides.slice(); // this is unsafe but works better
     if (content === null) {
       switch(type) {
         case glb.EDIT_QUILL:
@@ -114,109 +103,104 @@ class Editor extends Component {
       }
     } 
     slides.push(createSlide(type, slideIdGenerator(), content, type));
+
+    const currentIndex = this.state.selectedSlideIndex;
     const newSlideIndex = slides.length -1;
+
     this.setState({
       slides: slides,
       selectedSlideIndex: newSlideIndex,
       currSlideType: type,
+    }, function(){
+      this.renderDefaultThumbnail(newSlideIndex, type);
+      if (slides.length > 1) {
+        this.renderThumbnail(currentIndex);
+      }
     });
-    this.renderThumbnail();
-    console.log(slides)
-  }
-
-  onAddNewQuill(newSlideContent = null) {
-    this.onAddNewSlide(glb.EDIT_QUILL, newSlideContent);
-  }
-
-  onAddNewQuiz(content = null) {
-    this.onAddNewSlide(glb.EDIT_QUIZ, content);
-  }
-
-    onAddNewGame(content = null) {
-    this.onAddNewSlide(glb.EDIT_GAME, content);
-    }
-
-    onAddNewSystemSim(content = null) {
-    this.onAddNewSlide(glb.EDIT_SYSTEM, content);
-    }
-
-
-    onAddNewModule(content = null) {
-    this.onAddNewSlide(glb.EDIT_MODULE, content);
-    }
-
-  onAddNewHyperVideo(content = null) {
-    this.onAddNewSlide(glb.EDIT_HYPERVIDEO, content);
   }
 
   onChangedSlide(newSlideIndex) {
+    // gets called when user selects another slide
     let slideType = null;
     if (this.state.slides.length > 0) {
       slideType = this.state.slides[newSlideIndex].type;
     }
-    this.setState({
+    const currentIndex = this.state.selectedSlideIndex;
+    const newState = {
       selectedSlideIndex: newSlideIndex,
       currSlideType: slideType,
-    });
+    }
+    this.renderThumbnail(currentIndex, newState);
   }
 
   onEditorChange(content) {
     let slides = this.state.slides.slice();
     slides[this.state.selectedSlideIndex].content = content;
 
-    console.log("set slide content: " + slides[this.state.selectedSlideIndex].content.quizzes);
-
     if (Date.now() - this.state.lastCapture > 2500) {
       this.setState({
         lastCapture: Date.now()
       })
-      this.renderThumbnail()
     } else {
         this.setState({slides: slides});
     }
   }
 
-
-
-  renderThumbnail() {
+  renderDefaultThumbnail(idx) {
     let slides = this.state.slides.slice();
-    if (slides.length===0) {
-      return;
-    }
-    // update thumbnail
-    let elem;
-    const that = this;
-
-      console.log(" SLIDE ", slides[this.state.selectedSlideIndex])
-      const slide = slides[that.state.selectedSlideIndex];
-
-      let canvasWidth = 640;
-      let canvasHeight = 480;
-
-      if (this.state.selectedSlideIndex < 0 || this.state.selectedSlideIndex === undefined) {
-        return;
-      } else if (slides[this.state.selectedSlideIndex].type === glb.EDIT_QUILL) {
-        elem = document.querySelector(".ql-editor");
-      } else if (slides[this.state.selectedSlideIndex].type === glb.EDIT_QUIZ) {
-        elem = document.getElementById("quizPreview");
-      } else if (slides[this.state.selectedSlideIndex].type === glb.EDIT_GAME) {
-        elem = document.getElementById("gameRenderer");
-      } else if (slides[this.state.selectedSlideIndex].type === glb.EDIT_HYPERVIDEO) {
-        elem = document.getElementById("hyperVideoEditor");
-      } 
-
-    if (elem instanceof HTMLElement) {
-      html2canvas(elem, {width: canvasWidth, height: canvasHeight}).then(function(canvas) {
-          try {
-              slide.thumb = canvas.toDataURL("image/png");
-          }
-          catch (error ){
-            console.log("ERROR : ", error, "Maybe there is no .thumb property on the slide", slides[that.state.selectedSlideIndex])
-          }
-          that.setState({slides: slides});
-        });
-    }
+    let slide = slides[idx];
+    let image = null;
+    if (slide.type === glb.EDIT_QUILL) { image = edit_text_thumb; } 
+    else if (slide.type === glb.EDIT_QUIZ) { image = edit_quiz_thumb; } 
+    else if (slide.type === glb.EDIT_GAME) { image = edit_game_thumb; } 
+    else if (slide.type === glb.EDIT_HYPERVIDEO) { image = edit_video_thumb; } 
+    else if (slide.type === glb.EDIT_SYSTEM) { image = edit_system_thumb; } 
+    else  { return; } 
+    slide.thumb = image;
+    slides[idx] = slide
+    this.setState({slides: slides});
   }
+
+  renderThumbnail(currentIndex, newState) {
+    if (this.state.slides.length===0 || 
+        currentIndex < 0 || 
+        currentIndex === undefined) { 
+      return; 
+    }
+    // thumbnail size is currently 80x60
+    console.log("rendering thumb started:" + currentIndex);
+    let canvasWidth = 640;
+    let canvasHeight = 480;
+    let selector = null;
+    let slides = this.state.slides.slice();
+    let slide = slides[currentIndex];
+
+    if (slide.type === glb.EDIT_QUILL) { selector = ".ql-editor"; } 
+    else if (slide.type === glb.EDIT_QUIZ) { return; } 
+    else if (slide.type === glb.EDIT_GAME) { selector = "#gameRenderer"; } 
+    else if (slide.type === glb.EDIT_HYPERVIDEO) { selector = "#hyperVideoEditor"; } 
+    else if (slide.type === glb.EDIT_SYSTEM) { return; } 
+    else  { return; } 
+
+    let elem = document.querySelector(selector);
+    const opts = {
+      width: canvasWidth, 
+      height: canvasHeight,
+    };
+    if (elem instanceof HTMLElement) {
+      html2canvas(elem, opts).then(function(canvas) {
+          slide.thumb = canvas.toDataURL("image/jpeg", 0.3);
+          slides[currentIndex] = slide;
+          console.log("rendering thumb done:" + currentIndex);
+          if (newState===undefined) {
+            this.setState({slides: slides});
+          } else {
+            newState.slides = slides;
+            this.setState(newState);
+          }
+        }.bind(this))
+      }
+    }
 
   // gets called after slide is removed, or slides have been rearranged via drag and drop
   onSlideOrderChange(slides, idxold, idxnew){
