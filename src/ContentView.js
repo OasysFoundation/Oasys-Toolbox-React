@@ -141,6 +141,7 @@ class ContentView extends Component {
     }
 
     completeFetch(timeObj) {
+        console.log(this.props.authUser.displayName);
         var saveEndpoint = 'https://api.joinoasys.org/saveUserContentAccess';
         var data = {
             "accessTimes": timeObj.timing,

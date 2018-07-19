@@ -61,43 +61,13 @@ class SlidesThumbnailView extends Component {
   }
 
   onAddNewSlide(event) {
-
     this.props.onAddNewSlide();
-
-    // this.setState({
-    //   anchorEl: event.currentTarget,
-    // });
   }
 
   onClosePopup() {
     this.setState({
       anchorEl: null,
     });
-  }
-
-  didSelectAddNewSlide(type) {
-    this.onClosePopup();
-    this.props.onAddNewSlide(type);
-  }
-
-  didSelectAddSystemSim(){
-    this.onClosePopup();
-    this.props.onAddNewSystemSim();
-  }
-
-  didSelectAddNewQuiz() {
-    this.onClosePopup();
-    this.props.onAddNewQuiz();
-  }
-
-  didSelectAddNewGame() {
-    this.onClosePopup();
-    this.props.onAddNewGame();
-  }
-
-  didSelectAddHyperVideo() {
-    this.onClosePopup();
-    this.props.onAddNewHyperVideo();
   }
   
   onRemoveSlide(index) {
