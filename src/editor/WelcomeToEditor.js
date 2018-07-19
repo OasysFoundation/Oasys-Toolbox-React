@@ -18,7 +18,7 @@ class WelcomeToEditor extends Component {
                 <div><p>Make a difference by teaching others. We take a different approach. Take a look at our contents on our website. Get inspired. Become a teacher yourself. Start today and be rewarded.</p></div>
                 <center>
                 <Button variant="raised" onClick={this.props.createNewSlide} color="primary" style={{marginTop:'20px'}}>
-		        	Crete First Slide
+		        	Create First Slide
 	            </Button>
 	            </center>
 			</div>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SlidesThumbnailView from "../SlidesThumbnailView";
+import SlidesThumbnailView from "./SlidesThumbnailView";
 import MenuBarView from "../MenuBarView";
 import SlideEdit from "./SlideEdit";
 import Grid from '@material-ui/core/Grid';
@@ -75,14 +75,10 @@ class Editor extends Component {
       showsSlideSelection: false
     };
 
-    this.onAddNewQuill = this.onAddNewQuill.bind(this);
-    this.onAddNewQuiz = this.onAddNewQuiz.bind(this);
-    this.onAddNewGame = this.onAddNewGame.bind(this);
+    this.onAddNewSlide = this.onAddNewSlide.bind(this);
     this.onSlideOrderChange = this.onSlideOrderChange.bind(this);
     this.onChangedSlide = this.onChangedSlide.bind(this);
     this.onRemoveSlide = this.onRemoveSlide.bind(this);
-    this.onAddNewHyperVideo = this.onAddNewHyperVideo.bind(this);
-    this.onAddNewSystemSim = this.onAddNewSystemSim.bind(this);
     this.onLoad = this.onLoad.bind(this);
 
     
@@ -92,7 +88,7 @@ class Editor extends Component {
   onAddNewSlide(type, content=null) {
     this.hideSlideSelection();
     //let slides = this.state.slides.slice();
-    let slides = this.state.slides;
+    let slides = this.state.slides; // this is unsafe but works better
     if (content === null) {
       switch(type) {
         case glb.EDIT_QUILL:
@@ -131,7 +127,7 @@ class Editor extends Component {
     console.log(slides)
   }
 
-  onAddNewQuill(newSlideContent = null) { // Quill slides only
+  onAddNewQuill(newSlideContent = null) {
     this.onAddNewSlide(glb.EDIT_QUILL, newSlideContent);
   }
 
@@ -345,11 +341,6 @@ class Editor extends Component {
         </Grid>
         <Grid item xs={3}>
           <SlidesThumbnailView slides={this.state.slides} 
-                               // onAddNewSlide={this.onAddNewQuill} 
-                               // onAddNewQuiz={this.onAddNewQuiz} 
-                               // onAddNewGame={this.onAddNewGame} 
-                               // onAddNewHyperVideo={this.onAddNewHyperVideo}
-                               // onAddNewSystemSim={this.onAddNewSystemSim}
                                selectedSlideIndex={this.state.selectedSlideIndex}
                                onSlideOrderChange = {this.onSlideOrderChange}
                                onChangedSlide = {this.onChangedSlide}

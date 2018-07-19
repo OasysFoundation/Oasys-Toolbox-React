@@ -15,6 +15,7 @@ import Avatar from '@material-ui/core/Avatar';
 //import IconButton from '@material-ui/core/IconButton';
 import SlideThumb from './SlideThumb'
 import Tooltip from '@material-ui/core/Tooltip';
+import glb from '../globals';
 
 
 import {
@@ -45,13 +46,9 @@ class SlidesThumbnailView extends Component {
 
   constructor(props) {
     super(props);
-    //Proptypes: data = react.array
-    this.didSelectMenuItem = this.didSelectMenuItem.bind(this);
     this.didSelectAddNewSlide = this.didSelectAddNewSlide.bind(this);
-    this.didSelectAddNewQuiz = this.didSelectAddNewQuiz.bind(this);
-    this.didSelectAddNewGame = this.didSelectAddNewGame.bind(this);
-    this.didSelectAddSystemSim = this.didSelectAddSystemSim.bind(this);
     this.onRemoveSlide = this.onRemoveSlide.bind(this);
+    this.didSelectMenuItem = this.didSelectMenuItem.bind(this);
 
     this.state = {
             anchorEl: null,
@@ -77,9 +74,9 @@ class SlidesThumbnailView extends Component {
     });
   }
 
-  didSelectAddNewSlide() {
+  didSelectAddNewSlide(type) {
     this.onClosePopup();
-    this.props.onAddNewSlide();
+    this.props.onAddNewSlide(type);
   }
 
   didSelectAddSystemSim(){
@@ -114,6 +111,7 @@ class SlidesThumbnailView extends Component {
   };
 
   render() {
+    let didSelectAddNewSlide = this.didSelectAddNewSlide;
     return (
       <div onClick={this.props.onClick}> 
         <section> 
@@ -132,31 +130,31 @@ class SlidesThumbnailView extends Component {
         >
           
         <List component="nav">
-            <ListItem button onClick={this.didSelectAddNewSlide.bind(this)}>
+            <ListItem button onClick={function(){didSelectAddNewSlide(glb.EDIT_QUILL)}}>
               <Avatar>
                 <WallpaperIcon />
               </Avatar>
               <ListItemText primary="New Slide"/>
             </ListItem>
-            <ListItem button onClick={this.didSelectAddNewQuiz.bind(this)}>
+            <ListItem button onClick={function(){didSelectAddNewSlide(glb.EDIT_QUIZ)}}>
               <Avatar>
                 <QuestionAnswerIcon />
               </Avatar>
               <ListItemText primary="New Quiz" />
             </ListItem>
-            <ListItem button onClick={this.didSelectAddNewGame.bind(this)}>
+            <ListItem button onClick={function(){didSelectAddNewSlide(glb.EDIT_GAME)}}>
               <Avatar>
                 <GamesIcon />
               </Avatar>
               <ListItemText primary="New Game" />
             </ListItem>
-            <ListItem button onClick={this.didSelectAddHyperVideo.bind(this)}>
+            <ListItem button onClick={function(){didSelectAddNewSlide(glb.EDIT_HYPERVIDEO)}}>
               <Avatar>
                 <VideoLibraryIcon />
               </Avatar>
               <ListItemText primary="New Hypervideo" />
             </ListItem>
-            <ListItem button onClick={this.didSelectAddSystemSim.bind(this)}>
+            <ListItem button onClick={function(){didSelectAddNewSlide(glb.EDIT_SYSTEM)}}>
                 <Avatar>
                     <VideoLibraryIcon />
                 </Avatar>

@@ -2,8 +2,8 @@ const styles = {
   flexContainer: {
     display: 'flex',
     flexDirection: 'row',
-    flexWrap: 'noWrap',
-    alignItems: 'center',
+    flexWrap: 'wrap',
+    //alignItems: 'center',
   },
   pageWrap: {
     marginTop: '20px',
@@ -23,10 +23,13 @@ const styles = {
     width: '800px'
   },
   paperSummary:{
+    margin: 20,
+  },
+  paperDetails:{
+    margin: 20,
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
-    margin: 20,
   },
   paperElem: {
     textAlign: 'center',

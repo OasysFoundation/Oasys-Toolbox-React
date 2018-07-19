@@ -70,6 +70,7 @@ class Index extends Component {
                         <Switch>
                             <Route exact path="/" render={()=><ContentSelection/>} />
                             <Route path="/data" render={(props)=>( this.state.authUser ? <DataViewCreator authUser={this.state.authUser} /> : null)} />
+                            <Route path="/data/preview" render={(props)=>( this.state.authUser ? <DataViewCreator authUser={this.state.authUser} /> : null)} />
                             <Route path="/explore" render={(props)=>( this.state.authUser ? <ContentSelection authUser={this.state.authUser} /> : null)} />
                             <Route path="/create/:userId/:contentId" render={(props)=>(<Editor authUser={this.state.authUser} {...props}/>)} />
                             <Route path="/create" render={(props)=>(<Editor authUser={this.state.authUser}/>)} />

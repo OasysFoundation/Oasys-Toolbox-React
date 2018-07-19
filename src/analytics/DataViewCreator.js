@@ -20,6 +20,8 @@ import {genSynthData} from './genSyntheticData'
 import {rearrangeData} from './processData'
 import api from "../tools";
 import glb from "../globals";
+import {CoolPinkButton} from "../stylings";
+import previewBackground from "../images/preview.png";
 
 // TODO
 // time spent per content as distribution
@@ -39,13 +41,31 @@ const tauGuideDefault = {
     }
 }
 
+const previewSummary = {
+    margin: 20,
+    backgroundImage: `url(${previewBackground})`,
+    backgroundRepeat: 'repeat',
+}
+
+const previewDetails = {
+    margin: 20,
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    backgroundImage: `url(${previewBackground})`,
+    backgroundRepeat: 'repeat',
+}
+
 
 class DataView extends Component {
 
     constructor(props) {
-        const fake = true;
-
         super(props);
+
+        this.fake = false;
+        if (window.location.pathname==="/data/preview") {
+            this.fake = true;
+        }
 
         this.state = {
             data: null,
@@ -58,22 +78,18 @@ class DataView extends Component {
         }
         this.countApiCalls = 0;
         this.mounted = false;
-        // getAllContentsForCreator gives array of: 
-        // startTime, endTime: null, contentId, contentUserId, accessUserId, accessTimes
-        // getAllRatings/username gives array of:
-        // contentId, userId, rating, accessUser
-        // getAllComments/username gives array of:
-        // contentId, userId, accessUser, time, comment, slideNumber
 
-        if (fake) {
+        if (this.fake) {
             let rawdata = genSynthData();
             this.rawdata = rawdata;
             this.countApiCalls = 3;
             this.safelySetState();
         } else {
             let callback = (statevar, myJson) => {
-                this.rawdata.statevar = myJson; 
+                this.rawdata[statevar] = myJson; 
                 this.countApiCalls++; 
+                // the page can only be safely rendered after a) the component has mounted and 
+                // b) data has been successfully loaded from backend
                 if (this.countApiCalls===3) {
                     this.safelySetState();
                 } 
@@ -84,7 +100,15 @@ class DataView extends Component {
         }
     }
 
+    componentDidMount(){
+        this.mounted = true;
+        if (this.countApiCalls === 3) {
+            this.renderGraphs();
+        }
+    }
+
     safelySetState(){
+        // correctly set state variable depending if component has finished mounting or not
         if (this.mounted) {
             this.setState({data: rearrangeData(this.rawdata)}, function(){
                 this.renderGraphs();
@@ -94,14 +118,6 @@ class DataView extends Component {
             if (this.mounted) {
                 this.renderGraphs();
             }
-        }
-    }
-
-    getAnswerElem(answer){
-        if (answer) {
-            return (<div style={styles.quizElemCorrect}></div>)
-        } else {
-            return (<div style={styles.quizElemWrong}></div>)
         }
     }
 
@@ -161,7 +177,6 @@ class DataView extends Component {
             settings: { fitModel: 'entire-view', },
         });
         chart.renderTo("#quiz"+idx);
-        //this.renderChart(answers, "question", "correct", "#quiz"+idx, 'correct', 'bar');
     }
 
     renderChart(data, dim1, dim2, div, ylabel, type) {
@@ -270,11 +285,54 @@ class DataView extends Component {
         }
     }
 
-    componentDidMount(){
-        this.mounted = true;
-        if (this.countApiCalls === 3) {
-            this.renderGraphs();
-        }
+    renderOverview() {
+        return (
+            <div style={styles.flexContainer}>
+                <div style={styles.paperElem}>
+                    <Typography gutterBottom variant="subheading">
+                        {"Summary statistics"}
+                    </Typography>
+                    <div id="summaryWrap">
+                        <table className="textAlignLeft"><tbody>
+                            {this.renderAnalyticsSummaryRow(summary.content, this.state.data.contents.length)}
+                            {this.renderAnalyticsSummaryRow(summary.access, this.state.data.users)}
+                            {this.renderAnalyticsSummaryRow(summary.comment, this.state.data.comments)}
+                            {this.renderAnalyticsSummaryRow(summary.rating, this.state.data.rating)}
+                            {this.renderAnalyticsSummaryRow(summary.tokens, 0)}
+                        </tbody></table>
+                    </div>
+                </div>
+                {this.renderGraphComponent("usersPerWeek", "Users per week")}
+                {this.renderGraphComponent("rewardsPerWeek", "Rewards per week")}
+                {this.renderGraphComponent("commentsPerWeek", "Comments per week")}
+            </div>
+        )
+    }
+
+    renderContentList() {
+        return (
+            <div>
+                {this.state.data.contents.map((content,i) => (
+                    <Paper style={this.fake ? previewDetails : styles.paperDetails}> 
+                        <div style={styles.paperElem}>
+                            <Typography gutterBottom variant="subheading">
+                                {content.id}
+                            </Typography>
+                            <table className="textAlignLeft"><tbody>
+                                {this.renderAnalyticsSummaryRow(details.access, content.users)}
+                                {this.renderAnalyticsSummaryRow(details.comment, content.comments)}
+                                {this.renderAnalyticsSummaryRow(details.rating, content.rating)}
+                                {this.renderAnalyticsSummaryRow(details.tokens, 0)}
+                            </tbody></table>
+                        </div>
+                        {this.renderGraphComponent("usersPerWeek"+i, "Users per week")}
+                        {this.renderGraphComponent("rewardsPerWeek"+i, "Rewards per week")}
+                        {this.renderGraphComponent("quiz"+i, "Answers correct")}
+                        {this.renderGraphComponentWide("usersPerSlide"+i, "Users/Comments per slide")}
+                    </Paper>
+                 ))}
+            </div>
+        )
     }
 
     render() {
@@ -283,25 +341,14 @@ class DataView extends Component {
                 <Typography gutterBottom variant="title">
                     {"Overview"}
                 </Typography>
-                    <Paper style={styles.paperSummary}> 
-                        <div style={styles.paperElem}>
-                            <Typography gutterBottom variant="subheading">
-                                {"Summary statistics"}
-                            </Typography>
-                            <div id="summaryWrap">
-                                <table className="textAlignLeft"><tbody>
-                                    {this.renderAnalyticsSummaryRow(summary.content, 4)}
-                                    {this.renderAnalyticsSummaryRow(summary.access, 498)}
-                                    {this.renderAnalyticsSummaryRow(summary.comment, 38)}
-                                    {this.renderAnalyticsSummaryRow(summary.rating, 4.1)}
-                                    {this.renderAnalyticsSummaryRow(summary.tokens, 9.0)}
-                                </tbody></table>
-                            </div>
-                        </div>
-                        {this.renderGraphComponent("usersPerWeek", "Users per week")}
-                        {this.renderGraphComponent("rewardsPerWeek", "Rewards per week")}
-                        {this.renderGraphComponent("commentsPerWeek", "Comments per week")}
-                    </Paper>
+                <Paper style={this.fake ? previewSummary : styles.paperSummary} > 
+                    { (this.state.data===null)
+                    ?  <Typography gutterBottom variant="body1">
+                            {"Loading content..."}
+                       </Typography>
+                    : this.renderOverview()
+                    }
+                </Paper>
                 <div style={styles.flexContainer}>
                     <Typography gutterBottom variant="title">
                         {"Content List"}
@@ -313,29 +360,27 @@ class DataView extends Component {
                       <option value="2">{"highest rated"}</option>
                     </select>
                 </div>
-                <div id="contentList" />
-                 { (this.state.data===null)
-                 ?  null
-                 :  this.state.data.contents.map((content,i) => (
-                        <Paper style={styles.paperSummary} key={i}> 
-                            <div style={styles.paperElem}>
-                                <Typography gutterBottom variant="subheading">
-                                    {content.id}
-                                </Typography>
-                                <table className="textAlignLeft"><tbody>
-                                    {this.renderAnalyticsSummaryRow(details.access, 50)}
-                                    {this.renderAnalyticsSummaryRow(details.comment, 10)}
-                                    {this.renderAnalyticsSummaryRow(details.rating, 4.0)}
-                                    {this.renderAnalyticsSummaryRow(details.tokens, 1.0)}
-                                </tbody></table>
-                            </div>
-                            {this.renderGraphComponent("usersPerWeek"+i, "Users per week")}
-                            {this.renderGraphComponent("rewardsPerWeek"+i, "Rewards per week")}
-                            {this.renderGraphComponent("quiz"+i, "Answers correct")}
-                            {this.renderGraphComponentWide("usersPerSlide"+i, "Users/Comments per slide")}
-                        </Paper>
-                     ))
-                  }
+                <div id="contentList" >
+                    { (this.state.data===null)
+                    ?  null
+                    : this.renderContentList()
+                    }
+                </div>
+                {this.fake 
+                ? null 
+                :   <div>
+                        <CoolPinkButton size="small" 
+                                    data-tip='tooltip' 
+                                    data-for='preview'
+                                    onClick={function(){window.open('/data/preview', '_blank')}}>
+                        Preview
+                        </CoolPinkButton>
+                        <ReactTooltip id="preview"> 
+                            {"Show a preview of how this page looks like with more data"} 
+                        </ReactTooltip>
+                    </div>
+                
+                }
             </div>
         );
     }
