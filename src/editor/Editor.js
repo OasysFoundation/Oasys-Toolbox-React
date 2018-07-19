@@ -9,6 +9,7 @@ import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import EditIcon from '@material-ui/icons/Edit';
 import LoadingDialog from '../LoadingDialog'
+import WelcomeToEditor from './WelcomeToEditor'
 
 //import gameMetaData from "../gameMetaData";
 
@@ -339,9 +340,12 @@ class Editor extends Component {
                                onRemoveSlide = {this.onRemoveSlide}/>
         </Grid>
         <Grid item style={{width: '720px'}}>
-            <SlideEdit slide = {this.state.slides[this.state.selectedSlideIndex]}
+            {this.state.slides.length==0? <WelcomeToEditor />            
+              :
+              <SlideEdit slide = {this.state.slides[this.state.selectedSlideIndex]}
                          slideType = {this.state.currSlideType}
                          onChange = {this.onEditorChange.bind(this)} />
+            }
         </Grid>
         </Grid>
       </div>

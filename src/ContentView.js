@@ -50,7 +50,7 @@ class ContentView extends Component {
         // const userName = this.props.match.params.username;
         // const contentName = this.props.match.params.contentname;
 
-
+        this.whatRenderer = this.whatRenderer.bind(this);
         const APICALL = `https://api.joinoasys.org/user/${this.userName}/${this.contentName}/`;
 
         const that = this;
@@ -105,7 +105,7 @@ class ContentView extends Component {
                 return (<div key={idx}>not yet implemented ☹️</div>)
         }
 
-        return (<section>
+        return (<section key={idx}>
             {render}
             {this.state.showComments
             ? (
@@ -120,8 +120,7 @@ class ContentView extends Component {
 
             )
             }
-            {this.state.showComments
-            ? <Comment name={this.authUsername} slideNumber={this.state.slideIdx} slideLength={this.contentLength}/>
+            {this.state.showComments ? <Comment name={this.authUsername} slideNumber={this.state.slideIdx} slideLength={this.contentLength}/>
             : null
             }
         </section>)
