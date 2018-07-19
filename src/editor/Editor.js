@@ -10,6 +10,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import EditIcon from '@material-ui/icons/Edit';
 import LoadingDialog from '../LoadingDialog'
 import WelcomeToEditor from './WelcomeToEditor'
+import SlideTypeSelection from './SlideTypeSelection'
 
 import edit_game_thumb from '../images/edit_game_thumb.jpg'
 import edit_quiz_thumb from '../images/edit_quiz_thumb.jpg'
@@ -62,7 +63,8 @@ class Editor extends Component {
       title: "Untitled",
       description: '',
       tags: '',
-      downloadingContent: shouldDownloadContent
+      downloadingContent: shouldDownloadContent,
+      showsSlideSelection: false
     };
 
     this.onAddNewSlide = this.onAddNewSlide.bind(this);
@@ -73,6 +75,7 @@ class Editor extends Component {
   }
 
   onAddNewSlide(type, content=null) {
+    this.hideSlideSelection();
     //let slides = this.state.slides.slice();
     let slides = this.state.slides.slice(); // this is unsafe but works better
     if (content === null) {
@@ -286,9 +289,22 @@ class Editor extends Component {
     })
   }
 
+  showSlideSelection() {
+    this.setState({
+      showsSlideSelection: true
+    });
+  }
+
+  hideSlideSelection() {
+    this.setState({
+      showsSlideSelection: false
+    }); 
+  }
+
   render() {
     return (
       <div>
+        <SlideTypeSelection open={this.state.showsSlideSelection} onClose={this.hideSlideSelection.bind(this)} onSelect={this.onAddNewSlide.bind(this)}/>
         <LoadingDialog open={this.state.downloadingContent} message='Loading Content…' />
         <Grid container spacing={24}>
         <Grid item xs={12}>
@@ -311,14 +327,15 @@ class Editor extends Component {
         </Grid>
         <Grid item xs={3}>
           <SlidesThumbnailView slides={this.state.slides} 
-                               onAddNewSlide={this.onAddNewSlide} 
                                selectedSlideIndex={this.state.selectedSlideIndex}
                                onSlideOrderChange = {this.onSlideOrderChange}
                                onChangedSlide = {this.onChangedSlide}
-                               onRemoveSlide = {this.onRemoveSlide}/>
+                               onRemoveSlide = {this.onRemoveSlide}
+                               onAddNewSlide = {this.showSlideSelection.bind(this)}
+                               />
         </Grid>
         <Grid item style={{width: '720px'}}>
-            {this.state.slides.length==0? <WelcomeToEditor />            
+            {this.state.slides.length==0? <WelcomeToEditor createNewSlide={this.showSlideSelection.bind(this)}/>            
               :
               <SlideEdit slide = {this.state.slides[this.state.selectedSlideIndex]}
                          slideType = {this.state.currSlideType}

@@ -49,6 +49,7 @@ class SlidesThumbnailView extends Component {
     this.didSelectAddNewSlide = this.didSelectAddNewSlide.bind(this);
     this.didSelectMenuItem = this.didSelectMenuItem.bind(this);
     this.onRemoveSlide = this.onRemoveSlide.bind(this);
+    this.didSelectMenuItem = this.didSelectMenuItem.bind(this);
 
     this.state = {
             anchorEl: null,
@@ -60,9 +61,12 @@ class SlidesThumbnailView extends Component {
   }
 
   onAddNewSlide(event) {
-    this.setState({
-      anchorEl: event.currentTarget,
-    });
+
+    this.props.onAddNewSlide();
+
+    // this.setState({
+    //   anchorEl: event.currentTarget,
+    // });
   }
 
   onClosePopup() {
@@ -161,7 +165,7 @@ class SlidesThumbnailView extends Component {
 
       </Popover>
 
-          <List component="nav">
+          <List component="nav" style={{width:'250px'}}>
           <Tooltip enterDelay={500} id="tooltip-bottom" title="Add a new slide to your project. This can be text, images, games, videos,…" placement="bottom">
             <ListItem button onClick={this.onAddNewSlide.bind(this)}>
               <AddIcon />

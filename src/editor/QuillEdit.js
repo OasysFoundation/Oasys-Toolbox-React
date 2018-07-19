@@ -174,8 +174,7 @@ class QuillEditor extends Component {
 QuillEditor.modules = {
     toolbar: {
       container: "#toolbar-quill",
-      handlers: {
-        "insertGraph": insertGraph,
+      handlers: { "insertGraph": insertGraph,
       }
     },
     //imageDrop: true,
