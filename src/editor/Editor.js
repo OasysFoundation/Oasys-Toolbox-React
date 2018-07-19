@@ -176,10 +176,10 @@ class Editor extends Component {
     let slide = slides[currentIndex];
 
     if (slide.type === glb.EDIT_QUILL) { selector = ".ql-editor"; } 
-    else if (slide.type === glb.EDIT_QUIZ) { return; } 
+    else if (slide.type === glb.EDIT_QUIZ) { } 
     else if (slide.type === glb.EDIT_GAME) { selector = "#gameRenderer"; } 
     else if (slide.type === glb.EDIT_HYPERVIDEO) { selector = "#hyperVideoEditor"; } 
-    else if (slide.type === glb.EDIT_SYSTEM) { return; } 
+    else if (slide.type === glb.EDIT_SYSTEM) { } 
     else  { return; } 
 
     let elem = document.querySelector(selector);
@@ -199,6 +199,8 @@ class Editor extends Component {
             this.setState(newState);
           }
         }.bind(this))
+      } else {
+        this.setState(newState);
       }
     }
 
