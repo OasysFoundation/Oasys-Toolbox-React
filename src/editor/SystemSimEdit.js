@@ -33,9 +33,9 @@ const SystemSimEdit = function (props) {
         dim = dimensions.edit;
     }
 
-    return (<div>
+    return (<div id="systemEditor">
         {url ? null :
-            (<div>
+            (<div id="systemEditor">
                 <TextField
                     id="full-width"
                     label="Viewers can see and play with the state of your current system"

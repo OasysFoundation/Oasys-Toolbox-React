@@ -47,6 +47,7 @@ class SlidesThumbnailView extends Component {
   constructor(props) {
     super(props);
     this.didSelectAddNewSlide = this.didSelectAddNewSlide.bind(this);
+    this.didSelectMenuItem = this.didSelectMenuItem.bind(this);
     this.onRemoveSlide = this.onRemoveSlide.bind(this);
     this.didSelectMenuItem = this.didSelectMenuItem.bind(this);
 
