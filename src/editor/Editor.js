@@ -12,11 +12,11 @@ import LoadingDialog from '../LoadingDialog'
 import WelcomeToEditor from './WelcomeToEditor'
 import SlideTypeSelection from './SlideTypeSelection'
 
-import edit_game_thumb from '../images/edit_game_thumb.jpg'
-import edit_quiz_thumb from '../images/edit_quiz_thumb.jpg'
-import edit_system_thumb from '../images/edit_system_thumb.jpg'
-import edit_text_thumb from '../images/edit_text_thumb.jpg'
-import edit_video_thumb from '../images/edit_video_thumb.jpg'
+import TextIcon from '../icons/Text.png'
+import QuizIcon from '../icons/Quiz.png'
+import GameIcon from '../icons/Game.png'
+import HypervideoIcon from '../icons/Hypervideo.png'
+import SystemSimulationIcon from '../icons/SystemSimulation.png'
 
 //import gameMetaData from "../gameMetaData";
 
@@ -153,11 +153,11 @@ class Editor extends Component {
     let slides = this.state.slides.slice();
     let slide = slides[idx];
     let image = null;
-    if (slide.type === glb.EDIT_QUILL) { image = edit_text_thumb; } 
-    else if (slide.type === glb.EDIT_QUIZ) { image = edit_quiz_thumb; } 
-    else if (slide.type === glb.EDIT_GAME) { image = edit_game_thumb; } 
-    else if (slide.type === glb.EDIT_HYPERVIDEO) { image = edit_video_thumb; } 
-    else if (slide.type === glb.EDIT_SYSTEM) { image = edit_system_thumb; } 
+    if (slide.type === glb.EDIT_QUILL) { image = TextIcon; } 
+    else if (slide.type === glb.EDIT_QUIZ) { image = QuizIcon; } 
+    else if (slide.type === glb.EDIT_GAME) { image = GameIcon; } 
+    else if (slide.type === glb.EDIT_HYPERVIDEO) { image = HypervideoIcon; } 
+    else if (slide.type === glb.EDIT_SYSTEM) { image = SystemSimulationIcon; } 
     else  { return; } 
     slide.thumb = image;
     slides[idx] = slide
