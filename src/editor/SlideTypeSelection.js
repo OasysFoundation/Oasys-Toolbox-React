@@ -27,7 +27,7 @@ const slideTypes = [glb.EDIT_QUILL, glb.EDIT_QUIZ, glb.EDIT_GAME, glb.EDIT_HYPER
 
 class SlideTypeSelection extends Component {
   constructor(props) {
-    super(props);
+    	super(props);
 	}
 
 	handleClose() {

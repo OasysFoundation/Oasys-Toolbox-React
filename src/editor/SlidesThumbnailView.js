@@ -91,7 +91,7 @@ class SlidesThumbnailView extends Component {
             <SortableSlideList items={this.props.slides} 
                               onSortEnd={this.onSortEnd} 
                               useDragHandle={true} 
-                              didSelectMenuItem={this.didSelectMenuItem} 
+                              didSelectMenuItem={this.didSelectMenuItem.bind(this)} 
                               selectedSlideIndex={this.props.selectedSlideIndex}
                               onRemoveSlide={this.onRemoveSlide}/>
           </List>

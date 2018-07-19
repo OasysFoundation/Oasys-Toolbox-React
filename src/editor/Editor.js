@@ -69,7 +69,6 @@ class Editor extends Component {
 
     this.onAddNewSlide = this.onAddNewSlide.bind(this);
     this.onSlideOrderChange = this.onSlideOrderChange.bind(this);
-    this.onChangedSlide = this.onChangedSlide.bind(this);
     this.onRemoveSlide = this.onRemoveSlide.bind(this);
     this.onLoad = this.onLoad.bind(this);
   }
@@ -124,6 +123,7 @@ class Editor extends Component {
 
   onChangedSlide(newSlideIndex) {
     // gets called when user selects another slide
+    console.log("onChangedSlide");
     let slideType = null;
     if (this.state.slides.length > 0) {
       slideType = this.state.slides[newSlideIndex].type;
@@ -329,7 +329,7 @@ class Editor extends Component {
           <SlidesThumbnailView slides={this.state.slides} 
                                selectedSlideIndex={this.state.selectedSlideIndex}
                                onSlideOrderChange = {this.onSlideOrderChange}
-                               onChangedSlide = {this.onChangedSlide}
+                               onChangedSlide = {this.onChangedSlide.bind(this)}
                                onRemoveSlide = {this.onRemoveSlide}
                                onAddNewSlide = {this.showSlideSelection.bind(this)}
                                />
