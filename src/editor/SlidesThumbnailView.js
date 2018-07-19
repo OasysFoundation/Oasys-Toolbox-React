@@ -48,6 +48,7 @@ class SlidesThumbnailView extends Component {
     super(props);
     this.didSelectAddNewSlide = this.didSelectAddNewSlide.bind(this);
     this.onRemoveSlide = this.onRemoveSlide.bind(this);
+    this.didSelectMenuItem = this.didSelectMenuItem.bind(this);
 
     this.state = {
             anchorEl: null,
