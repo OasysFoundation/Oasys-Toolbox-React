@@ -14,7 +14,6 @@ function wrapTiming(x) {
 function rearrangeData(rawdata) {
 
     let nWeeks = 8;
-    console.log(rawdata)
     let uniqueContentIds = Array.from(new Set(rawdata.contents.map(o=>o.contentId)));
     let data = {
         contents: [],
@@ -25,6 +24,7 @@ function rearrangeData(rawdata) {
         comments: 0,
         rating: 0,
     }
+
     let now = new Date();
     for (let i=0; i<nWeeks; i++) {
         let t = new Date();
@@ -85,8 +85,8 @@ function rearrangeData(rawdata) {
             }
         }
 
-        let startTimes = rawcontent.map(a=>a.startTime);
-        let commentTimes = rawcomment.map(a=>a.time);
+        let startTimes = rawcontent.map(a=>Date.parse(a.startTime));
+        let commentTimes = rawcomment.map(a=>Date.parse(a.time));
 
         /*
         let before = now.getTime() - nWeeks*60*60*24*1000*7;
