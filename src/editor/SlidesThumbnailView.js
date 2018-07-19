@@ -115,55 +115,6 @@ class SlidesThumbnailView extends Component {
     return (
       <div onClick={this.props.onClick}> 
         <section> 
-          <Popover
-          open={Boolean(this.state.anchorEl)}
-          anchorEl={this.state.anchorEl}
-          onClose={this.onClosePopup.bind(this)}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'left',
-          }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'left',
-          }}
-        >
-          
-        <List component="nav">
-            <ListItem button onClick={function(){didSelectAddNewSlide(glb.EDIT_QUILL)}}>
-              <Avatar>
-                <WallpaperIcon />
-              </Avatar>
-              <ListItemText primary="New Slide"/>
-            </ListItem>
-            <ListItem button onClick={function(){didSelectAddNewSlide(glb.EDIT_QUIZ)}}>
-              <Avatar>
-                <QuestionAnswerIcon />
-              </Avatar>
-              <ListItemText primary="New Quiz" />
-            </ListItem>
-            <ListItem button onClick={function(){didSelectAddNewSlide(glb.EDIT_GAME)}}>
-              <Avatar>
-                <GamesIcon />
-              </Avatar>
-              <ListItemText primary="New Game" />
-            </ListItem>
-            <ListItem button onClick={function(){didSelectAddNewSlide(glb.EDIT_HYPERVIDEO)}}>
-              <Avatar>
-                <VideoLibraryIcon />
-              </Avatar>
-              <ListItemText primary="New Hypervideo" />
-            </ListItem>
-            <ListItem button onClick={function(){didSelectAddNewSlide(glb.EDIT_SYSTEM)}}>
-                <Avatar>
-                    <VideoLibraryIcon />
-                </Avatar>
-                <ListItemText primary="New System Simulation" />
-            </ListItem>
-        </List>
-
-      </Popover>
-
           <List component="nav" style={{width:'250px'}}>
           <Tooltip enterDelay={500} id="tooltip-bottom" title="Add a new slide to your project. This can be text, images, games, videos,…" placement="bottom">
             <ListItem button onClick={this.onAddNewSlide.bind(this)}>
