@@ -38,8 +38,9 @@ class SlideThumb extends Component {
         <DragHandle />
 
         {/*<ListItemText primary={this.props.value.name} />*/}
+        <div>
         <img src={this.props.value.thumb} width={80} height={60} style={domStyles.thumb} alt=""/>
-
+        </div>
         <IconButton onClick={this.onSelfDestruct}>
           <DeleteIcon />
         </IconButton>
