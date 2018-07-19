@@ -14,6 +14,8 @@ let domStyles = {
     thumb: {
       marginLeft: '10px',
       marginRight: '10px',
+      'max-width': '80px',
+      'max-height': '60px'
     }
 }
 
@@ -39,8 +41,7 @@ class SlideThumb extends Component {
 
         {/*<ListItemText primary={this.props.value.name} />*/}
         <div>
-        <img src={this.props.value.thumb} width={80} height={60} style={domStyles.thumb} alt=""/>
-        <div>{this.props.index}</div>
+        <img src={this.props.value.thumb} style={domStyles.thumb} alt=""/>
         </div>
         <IconButton onClick={this.onSelfDestruct}>
           <DeleteIcon />

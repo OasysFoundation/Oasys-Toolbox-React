@@ -46,14 +46,7 @@ class SlidesThumbnailView extends Component {
 
   constructor(props) {
     super(props);
-    this.didSelectAddNewSlide = this.didSelectAddNewSlide.bind(this);
-    this.didSelectMenuItem = this.didSelectMenuItem.bind(this);
     this.onRemoveSlide = this.onRemoveSlide.bind(this);
-    this.didSelectMenuItem = this.didSelectMenuItem.bind(this);
-
-    this.state = {
-            anchorEl: null,
-    }
   }
 
   didSelectMenuItem(index) {
@@ -61,43 +54,13 @@ class SlidesThumbnailView extends Component {
   }
 
   onAddNewSlide(event) {
-
     this.props.onAddNewSlide();
-
-    // this.setState({
-    //   anchorEl: event.currentTarget,
-    // });
   }
 
   onClosePopup() {
     this.setState({
       anchorEl: null,
     });
-  }
-
-  didSelectAddNewSlide(type) {
-    this.onClosePopup();
-    this.props.onAddNewSlide(type);
-  }
-
-  didSelectAddSystemSim(){
-    this.onClosePopup();
-    this.props.onAddNewSystemSim();
-  }
-
-  didSelectAddNewQuiz() {
-    this.onClosePopup();
-    this.props.onAddNewQuiz();
-  }
-
-  didSelectAddNewGame() {
-    this.onClosePopup();
-    this.props.onAddNewGame();
-  }
-
-  didSelectAddHyperVideo() {
-    this.onClosePopup();
-    this.props.onAddNewHyperVideo();
   }
   
   onRemoveSlide(index) {
@@ -128,7 +91,7 @@ class SlidesThumbnailView extends Component {
             <SortableSlideList items={this.props.slides} 
                               onSortEnd={this.onSortEnd} 
                               useDragHandle={true} 
-                              didSelectMenuItem={this.didSelectMenuItem} 
+                              didSelectMenuItem={this.didSelectMenuItem.bind(this)} 
                               selectedSlideIndex={this.props.selectedSlideIndex}
                               onRemoveSlide={this.onRemoveSlide}/>
           </List>

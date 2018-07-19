@@ -27,7 +27,7 @@ const slideTypes = [glb.EDIT_QUILL, glb.EDIT_QUIZ, glb.EDIT_GAME, glb.EDIT_HYPER
 
 class SlideTypeSelection extends Component {
   constructor(props) {
-    super(props);
+    	super(props);
 	}
 
 	handleClose() {
@@ -63,7 +63,7 @@ class SlideTypeSelection extends Component {
 		var that = this;
 		return(
 			<div>
-				<Dialog open={this.props.open} onClose={this.handleClose} aria-labelledby="simple-dialog-title">
+				<Dialog open={this.props.open} onClose={this.handleClose.bind(this)} aria-labelledby="simple-dialog-title">
         		<DialogTitle id="simple-dialog-title">Add new Slide</DialogTitle>
         		<div>
         			<Grid container spacing={16} style={{flexGrow: 1, margin:'16px'}}>
