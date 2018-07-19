@@ -249,7 +249,8 @@ class Editor extends Component {
       if (slide.type === glb.EDIT_QUIZ || slide.type === glb.EDIT_SYSTEM) {
         this.renderDefaultThumbnail(i);
       } else {
-        this.renderThumbnail(i);
+        this.renderDefaultThumbnail(i);
+        //this.renderThumbnail(i);
       }
     });
 
