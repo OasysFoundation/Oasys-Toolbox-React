@@ -203,7 +203,7 @@ class ContentView extends Component {
         let fullScreen;
         if (this.state.slideIdx < content.data.length) {
             const type = content.data[this.state.slideIdx].type;
-            fullScreen = (type === globals.EDIT_GAME || type === globals.EDIT_SYSTEM || type === globals.EDIT_HYPERVIDEO)
+            fullScreen = (type === globals.EDIT_GAME || type === globals.EDIT_SYSTEM)
         }
         return (
             <center>

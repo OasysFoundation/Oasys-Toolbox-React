@@ -59,8 +59,8 @@
       <file leaf-file-name="QuillEdit.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/editor/QuillEdit.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2040">
-              <caret line="148" selection-start-line="148" selection-end-line="148" />
+            <state relative-caret-position="2685">
+              <caret line="179" column="10" selection-start-line="179" selection-start-column="10" selection-end-line="179" selection-end-column="10" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
                 <element signature="e#322#380#0" expanded="true" />
@@ -72,8 +72,8 @@
       <file leaf-file-name="ContentView.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ContentView.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="314">
-              <caret line="96" column="22" lean-forward="true" selection-start-line="96" selection-start-column="22" selection-end-line="96" selection-end-column="22" />
+            <state relative-caret-position="258">
+              <caret line="205" column="84" selection-start-line="205" selection-start-column="84" selection-end-line="205" selection-end-column="84" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -94,7 +94,7 @@
         <entry file="file://$PROJECT_DIR$/QuizPreview.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1050">
-              <caret line="76" column="65" lean-forward="true" selection-start-line="76" selection-start-column="65" selection-end-line="76" selection-end-column="65" />
+              <caret line="76" column="65" selection-start-line="76" selection-start-column="65" selection-end-line="76" selection-end-column="65" />
             </state>
           </provider>
         </entry>
@@ -108,7 +108,7 @@
         <entry file="file://$PROJECT_DIR$/Foxy.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="375">
-              <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
+              <caret line="27" selection-start-line="27" selection-end-line="27" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -120,8 +120,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>width</find>
-      <find>add new slide</find>
       <find>new hypervi</find>
       <find>ne</find>
       <find>new q</find>
@@ -148,8 +146,10 @@
       <find>onchange</find>
       <find>whatrender</find>
       <find>edit</find>
-      <find>activat</find>
       <find>console.log</find>
+      <find>activat</find>
+      <find>quill</find>
+      <find>toolbar-qull</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -191,6 +191,7 @@
         <option value="$PROJECT_DIR$/GameView.js" />
         <option value="$PROJECT_DIR$/Foxy.js" />
         <option value="$PROJECT_DIR$/QuizPreview.js" />
+        <option value="$PROJECT_DIR$/editor/QuillEdit.js" />
         <option value="$PROJECT_DIR$/ContentView.js" />
       </list>
     </option>
@@ -216,7 +217,7 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="y" value="23" />
+    <option name="y" value="203" />
     <option name="width" value="1440" />
     <option name="height" value="800" />
   </component>
@@ -292,12 +293,12 @@
       <workItem from="1531851857141" duration="5607000" />
       <workItem from="1531940681790" duration="40000" />
       <workItem from="1531940724724" duration="3479000" />
-      <workItem from="1531978890685" duration="1449000" />
+      <workItem from="1531978890685" duration="2271000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="117847000" />
+    <option name="totallyTimeSpent" value="118669000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="800" extended-state="6" />
@@ -551,17 +552,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/editor/QuillEdit.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2040">
-          <caret line="148" selection-start-line="148" selection-end-line="148" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-            <element signature="e#322#380#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/editor/SystemSimEdit.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -592,7 +582,7 @@
     <entry file="file://$PROJECT_DIR$/Foxy.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="375">
-          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
+          <caret line="27" selection-start-line="27" selection-end-line="27" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
@@ -602,7 +592,7 @@
     <entry file="file://$PROJECT_DIR$/QuizPreview.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1050">
-          <caret line="76" column="65" lean-forward="true" selection-start-line="76" selection-start-column="65" selection-end-line="76" selection-end-column="65" />
+          <caret line="76" column="65" selection-start-line="76" selection-start-column="65" selection-end-line="76" selection-end-column="65" />
         </state>
       </provider>
     </entry>
@@ -616,10 +606,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/editor/QuillEdit.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2685">
+          <caret line="179" column="10" selection-start-line="179" selection-start-column="10" selection-end-line="179" selection-end-column="10" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+            <element signature="e#322#380#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ContentView.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="314">
-          <caret line="96" column="22" lean-forward="true" selection-start-line="96" selection-start-column="22" selection-end-line="96" selection-end-column="22" />
+        <state relative-caret-position="258">
+          <caret line="205" column="84" selection-start-line="205" selection-start-column="84" selection-end-line="205" selection-end-column="84" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>

@@ -172,10 +172,12 @@ class QuillEditor extends Component {
 
 // this needs to be defined after the QuillEditor Component
 QuillEditor.modules = {
+    toolbar_emoji:true,
     toolbar: {
       container: "#toolbar-quill",
       handlers: {
-        "insertGraph": insertGraph,
+          'emoji': function() {},
+          "insertGraph": insertGraph,
       }
     },
     //imageDrop: true,
