@@ -17,6 +17,10 @@ class Foxy extends Component {
     }
 
     render() {
+        if (window.innerWidth < 550) {
+            // no Foxy
+            return
+        }
         return (
             <section style={{display: 'flex', flexDirection: 'column'}}>
                 {this.state.show ? (

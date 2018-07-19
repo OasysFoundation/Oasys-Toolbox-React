@@ -23,11 +23,12 @@ const buttonGradientCSS = {
         boxShadow: '0 3px 5px 2px rgba(33, 203, 243, .3)',
     },
     mini: {
-        height: 18,
+        height: 25,
         boxShadow: '0 3px 5px 2px rgba(33, 203, 243, .3)',
         background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)',
         borderRadius: 3,
-        padding: 0.2 + 'rem',
+        padding: 0.3 + 'rem',
+        margin: 0.3 + 'rem',
         // marginLeft: 3 + "%",
         color: 'white',
         cursor: 'pointer'
