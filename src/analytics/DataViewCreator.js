@@ -378,16 +378,21 @@ class DataView extends Component {
                     : this.renderContentList()
                     }
                 </div>
-
-                <CoolPinkButton size="small" 
-                                data-tip='tooltip' 
-                                data-for='preview'
-                                onClick={function(){window.open('/data/preview', '_blank')}}>
-                Preview
-                </CoolPinkButton>
-                <ReactTooltip id="preview"> 
-                    {"Show a preview of how this page looks like with more data"} 
-                </ReactTooltip>
+                {this.fake 
+                ? null 
+                :   <div>
+                        <CoolPinkButton size="small" 
+                                    data-tip='tooltip' 
+                                    data-for='preview'
+                                    onClick={function(){window.open('/data/preview', '_blank')}}>
+                        Preview
+                        </CoolPinkButton>
+                        <ReactTooltip id="preview"> 
+                            {"Show a preview of how this page looks like with more data"} 
+                        </ReactTooltip>
+                    </div>
+                
+                }
             </div>
         );
     }
