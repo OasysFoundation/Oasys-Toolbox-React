@@ -234,13 +234,33 @@ class Editor extends Component {
   }
 
   insertMultipleSlides(slides){
-    console.log(slides)
+    if (slides.length===0 || slides[0] === undefined) {
+      return;
+    } 
+
+    this.onAddNewSlide(slides[0].type, slides[0].content);
+    this.setState({
+      slides: slides,
+      selectedSlideIndex: 0,
+      currSlideType: slides[0].type,
+    });
+
+    slides.forEach((slide, i) => {
+      if (slide.type === glb.EDIT_QUIZ || slide.type === glb.EDIT_SYSTEM) {
+        this.renderDefaultThumbnail(i);
+      } else {
+        this.renderThumbnail(i);
+      }
+    });
+
+    /*
     for (let i=0; i<slides.length; i++) {
       if (slides[i] === undefined) {
         return;
       } 
       this.onAddNewSlide(slides[i].type, slides[i].content);
     }
+    */
   }
 
   onLoad(link) {
