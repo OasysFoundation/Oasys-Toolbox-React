@@ -14,12 +14,16 @@ function wrapTiming(x) {
 function rearrangeData(rawdata) {
 
     let nWeeks = 8;
+    console.log(rawdata)
     let uniqueContentIds = Array.from(new Set(rawdata.contents.map(o=>o.contentId)));
     let data = {
         contents: [],
         usersPerWeek: [],
         rewardsPerWeek: [],
         commentsPerWeek: [],
+        users: 0,
+        comments: 0,
+        rating: 0,
     }
     let now = new Date();
     for (let i=0; i<nWeeks; i++) {
@@ -71,6 +75,7 @@ function rearrangeData(rawdata) {
             let slideNum = k + 1;
             usersPerSlide[k].comments += rawcomment.map(a=>a.slideNumber).filter(a=>a===slideNum.toString()).length;
         }
+        
         // need to transpose timings array here
         //let timingsPerSlide = [...Array(nSlides)].map(e => Array(0));
         let timingsPerSlide = [...Array(nSlides+1)].map(e => Array(0)); // this is a hack!
@@ -115,6 +120,17 @@ function rearrangeData(rawdata) {
             }
         }
         */
+
+        let nUsers = rawcontent.length;
+        let nComments = rawcomment.length;
+        let rating = rawrating.map(a=>a.rating);
+        let sum = rating.reduce(function(a, b) { return a + b; });
+        rating = Math.round(sum*10/rating.length)/10;
+
+        data.users += nUsers;
+        data.comments += nComments;
+        data.rating += rating;
+
         let content = {
             id: uniqueContentIds[i],
             nSlides: nSlides,
@@ -123,10 +139,16 @@ function rearrangeData(rawdata) {
             answers: [],
             usersPerWeek: usersPerWeek,
             rewardsPerWeek: rewardsPerWeek,
-            commentsPerWeek: commentsPerWeek
+            commentsPerWeek: commentsPerWeek,
+            users: nUsers,
+            comments: nComments,
+            rating: rating,
         };
         data.contents.push(content);
     }
+
+    data.rating = Math.round(10 * data.rating / uniqueContentIds.length) / 10;
+
     return data;
 }
 

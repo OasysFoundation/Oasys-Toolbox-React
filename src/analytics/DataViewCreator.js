@@ -43,7 +43,7 @@ const tauGuideDefault = {
 class DataView extends Component {
 
     constructor(props) {
-        const fake = true;
+        const fake = false;
 
         super(props);
 
@@ -72,7 +72,7 @@ class DataView extends Component {
             this.safelySetState();
         } else {
             let callback = (statevar, myJson) => {
-                this.rawdata.statevar = myJson; 
+                this.rawdata[statevar] = myJson; 
                 this.countApiCalls++; 
                 if (this.countApiCalls===3) {
                     this.safelySetState();
@@ -277,6 +277,56 @@ class DataView extends Component {
         }
     }
 
+    renderOverview() {
+        return (
+            <div style={styles.flexContainer}>
+                <div style={styles.paperElem}>
+                    <Typography gutterBottom variant="subheading">
+                        {"Summary statistics"}
+                    </Typography>
+                    <div id="summaryWrap">
+                        <table className="textAlignLeft"><tbody>
+                            {this.renderAnalyticsSummaryRow(summary.content, this.state.data.contents.length)}
+                            {this.renderAnalyticsSummaryRow(summary.access, this.state.data.users)}
+                            {this.renderAnalyticsSummaryRow(summary.comment, this.state.data.comments)}
+                            {this.renderAnalyticsSummaryRow(summary.rating, this.state.data.rating)}
+                            {this.renderAnalyticsSummaryRow(summary.tokens, 0)}
+                        </tbody></table>
+                    </div>
+                </div>
+                {this.renderGraphComponent("usersPerWeek", "Users per week")}
+                {this.renderGraphComponent("rewardsPerWeek", "Rewards per week")}
+                {this.renderGraphComponent("commentsPerWeek", "Comments per week")}
+            </div>
+        )
+    }
+
+    renderContentList() {
+        return (
+            <div>
+                {this.state.data.contents.map((content,i) => (
+                    <Paper style={styles.paperDetails}> 
+                        <div style={styles.paperElem}>
+                            <Typography gutterBottom variant="subheading">
+                                {content.id}
+                            </Typography>
+                            <table className="textAlignLeft"><tbody>
+                                {this.renderAnalyticsSummaryRow(details.access, content.users)}
+                                {this.renderAnalyticsSummaryRow(details.comment, content.comments)}
+                                {this.renderAnalyticsSummaryRow(details.rating, content.rating)}
+                                {this.renderAnalyticsSummaryRow(details.tokens, 0)}
+                            </tbody></table>
+                        </div>
+                        {this.renderGraphComponent("usersPerWeek"+i, "Users per week")}
+                        {this.renderGraphComponent("rewardsPerWeek"+i, "Rewards per week")}
+                        {this.renderGraphComponent("quiz"+i, "Answers correct")}
+                        {this.renderGraphComponentWide("usersPerSlide"+i, "Users/Comments per slide")}
+                    </Paper>
+                 ))}
+            </div>
+        )
+    }
+
     render() {
         return (
             <div style={styles.pageWrap}>
@@ -284,23 +334,12 @@ class DataView extends Component {
                     {"Overview"}
                 </Typography>
                     <Paper style={styles.paperSummary}> 
-                        <div style={styles.paperElem}>
-                            <Typography gutterBottom variant="subheading">
-                                {"Summary statistics"}
-                            </Typography>
-                            <div id="summaryWrap">
-                                <table className="textAlignLeft"><tbody>
-                                    {this.renderAnalyticsSummaryRow(summary.content, 4)}
-                                    {this.renderAnalyticsSummaryRow(summary.access, 498)}
-                                    {this.renderAnalyticsSummaryRow(summary.comment, 38)}
-                                    {this.renderAnalyticsSummaryRow(summary.rating, 4.1)}
-                                    {this.renderAnalyticsSummaryRow(summary.tokens, 9.0)}
-                                </tbody></table>
-                            </div>
-                        </div>
-                        {this.renderGraphComponent("usersPerWeek", "Users per week")}
-                        {this.renderGraphComponent("rewardsPerWeek", "Rewards per week")}
-                        {this.renderGraphComponent("commentsPerWeek", "Comments per week")}
+                        { (this.state.data===null)
+                        ?  <Typography gutterBottom variant="body1">
+                                {"Loading content..."}
+                           </Typography>
+                        : this.renderOverview()
+                        }
                     </Paper>
                 <div style={styles.flexContainer}>
                     <Typography gutterBottom variant="title">
@@ -314,28 +353,10 @@ class DataView extends Component {
                     </select>
                 </div>
                 <div id="contentList" />
-                 { (this.state.data===null)
-                 ?  null
-                 :  this.state.data.contents.map((content,i) => (
-                        <Paper style={styles.paperSummary} key={i}> 
-                            <div style={styles.paperElem}>
-                                <Typography gutterBottom variant="subheading">
-                                    {content.id}
-                                </Typography>
-                                <table className="textAlignLeft"><tbody>
-                                    {this.renderAnalyticsSummaryRow(details.access, 50)}
-                                    {this.renderAnalyticsSummaryRow(details.comment, 10)}
-                                    {this.renderAnalyticsSummaryRow(details.rating, 4.0)}
-                                    {this.renderAnalyticsSummaryRow(details.tokens, 1.0)}
-                                </tbody></table>
-                            </div>
-                            {this.renderGraphComponent("usersPerWeek"+i, "Users per week")}
-                            {this.renderGraphComponent("rewardsPerWeek"+i, "Rewards per week")}
-                            {this.renderGraphComponent("quiz"+i, "Answers correct")}
-                            {this.renderGraphComponentWide("usersPerSlide"+i, "Users/Comments per slide")}
-                        </Paper>
-                     ))
-                  }
+                    { (this.state.data===null)
+                    ?  null
+                    : this.renderContentList()
+                    }
             </div>
         );
     }

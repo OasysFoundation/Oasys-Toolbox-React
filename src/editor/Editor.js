@@ -88,7 +88,7 @@ class Editor extends Component {
 
   onAddNewSlide(type, content=null) {
     //let slides = this.state.slides.slice();
-    let slides = this.state.slides;
+    let slides = this.state.slides; // this is unsafe but works better
     if (content === null) {
       switch(type) {
         case glb.EDIT_QUILL:
