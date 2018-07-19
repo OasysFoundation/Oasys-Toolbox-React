@@ -78,12 +78,6 @@ class DataView extends Component {
         }
         this.countApiCalls = 0;
         this.mounted = false;
-        // getAllContentsForCreator gives array of: 
-        // startTime, endTime: null, contentId, contentUserId, accessUserId, accessTimes
-        // getAllRatings/username gives array of:
-        // contentId, userId, rating, accessUser
-        // getAllComments/username gives array of:
-        // contentId, userId, accessUser, time, comment, slideNumber
 
         if (this.fake) {
             let rawdata = genSynthData();
@@ -94,6 +88,8 @@ class DataView extends Component {
             let callback = (statevar, myJson) => {
                 this.rawdata[statevar] = myJson; 
                 this.countApiCalls++; 
+                // the page can only be safely rendered after a) the component has mounted and 
+                // b) data has been successfully loaded from backend
                 if (this.countApiCalls===3) {
                     this.safelySetState();
                 } 
@@ -104,7 +100,15 @@ class DataView extends Component {
         }
     }
 
+    componentDidMount(){
+        this.mounted = true;
+        if (this.countApiCalls === 3) {
+            this.renderGraphs();
+        }
+    }
+
     safelySetState(){
+        // correctly set state variable depending if component has finished mounting or not
         if (this.mounted) {
             this.setState({data: rearrangeData(this.rawdata)}, function(){
                 this.renderGraphs();
@@ -114,14 +118,6 @@ class DataView extends Component {
             if (this.mounted) {
                 this.renderGraphs();
             }
-        }
-    }
-
-    getAnswerElem(answer){
-        if (answer) {
-            return (<div style={styles.quizElemCorrect}></div>)
-        } else {
-            return (<div style={styles.quizElemWrong}></div>)
         }
     }
 
@@ -181,7 +177,6 @@ class DataView extends Component {
             settings: { fitModel: 'entire-view', },
         });
         chart.renderTo("#quiz"+idx);
-        //this.renderChart(answers, "question", "correct", "#quiz"+idx, 'correct', 'bar');
     }
 
     renderChart(data, dim1, dim2, div, ylabel, type) {
@@ -287,13 +282,6 @@ class DataView extends Component {
             this.renderUsersPerWeek(this.state.data.contents[i].usersPerWeek, i);
             this.renderRewardsPerWeek(this.state.data.contents[i].rewardsPerWeek, i);
             this.renderQuizAnswers(this.state.data.contents[i].answers, i);
-        }
-    }
-
-    componentDidMount(){
-        this.mounted = true;
-        if (this.countApiCalls === 3) {
-            this.renderGraphs();
         }
     }
 
