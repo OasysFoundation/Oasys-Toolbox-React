@@ -365,7 +365,7 @@ class MenuBarView extends Component {
     const isInvalid = !description || !hashtags;
 
     const userName = this.props.authUser? this.props.authUser.displayName : "unknown";
-    const shareableLink = "https://app.joinoasys.org/" + userName +'/'+this.props.contentTitle;
+    const shareableLink = "https://app.joinoasys.org/user/" + userName +'/'+this.props.contentTitle;
 
     return (
     	<div>
