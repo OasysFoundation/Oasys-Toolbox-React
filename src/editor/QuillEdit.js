@@ -20,14 +20,19 @@ class GraphBlot extends Embed {
   static create(initialValue) {
     const node = super.create();
   node.setAttribute("spellcheck", false);
-  console.log(initialValue);
-
 
   window.d3 = require('d3')
+  const functionPlot = require('function-plot')
+  const plot = functionPlot({
+    target: node,
+    disableZoom: true,
+    data: [{
+      fn: initialValue.equation
+    }]
+  })
   node.equation = initialValue.equation;
     return node;
   }
-  
   static value(node) {
     return {
       equation: node.equation
