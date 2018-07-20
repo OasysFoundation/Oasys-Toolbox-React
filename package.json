@@ -52,6 +52,7 @@
     "taucharts-react": "^1.1.0",
     "thousands": "^1.0.1",
     "uglifyjs-webpack-plugin": "^1.2.7",
+    "urldecode": "^1.0.1",
     "web3": "^1.0.0-beta.34",
     "worker-loader": "^2.0.0",
     "yarn": "^1.7.0"

@@ -3,6 +3,7 @@ import {Button, Comment, Form, Header} from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css';
 import OrganizeComments from './OrganizeComments'
 import {buttonGradientCSS} from "./stylings";
+var decode = require('urldecode')
 
 
 class CommentSection extends Component {
@@ -242,11 +243,12 @@ class CommentSection extends Component {
 
     render() {
         const info = this.getContentInfo();
+
         return (
                 <div style={{overflow: 'auto', maxHeight: 60+'vh', margin: '20px'}}>
                     <Comment.Group>
                         <Header as='h3' dividing>
-                            Comments for "{info.contentName}" by {info.userName}
+                            Comments for "{decode(info.contentName)}" by {decode(info.userName)}
                         </Header>
 
                         <Form reply style={{marginBottom:'30px'}}>
