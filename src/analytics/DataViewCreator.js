@@ -5,6 +5,8 @@ import Typography from '@material-ui/core/Typography';
 import ReactTooltip from "react-tooltip"
 import IconHelpOutline from '@material-ui/icons/HelpOutline';
 import IconTrendingUp from '@material-ui/icons/TrendingUp';
+import IconTrendingFlat from '@material-ui/icons/TrendingFlat';
+import IconTrendingDown from '@material-ui/icons/TrendingDown';
 //import IconTrendingDown from '@material-ui/icons/TrendingDown';
 
 import taucharts from 'taucharts';
@@ -27,9 +29,7 @@ import previewBackground from "../images/preview.png";
 // time spent per content as distribution
 // age of learners as distribution
 // time per question as distribution
-
-// getAllRatings/username only sometimes returns an accessUser
-// getAllRatings/username should also report time
+// trending icons when showing statics for last week / month
 
 const tauGuideDefault = {
     autoScale: false,
@@ -253,7 +253,21 @@ class DataView extends Component {
         )
     }
 
-    renderAnalyticsSummaryRow(obj, num){
+    renderIconTrend(trend) {
+        if (trend===undefined || trend===null) {
+            return;
+        } else if (trend===-1) {
+            return (<IconTrendingDown style={styles.trendingDown} />)
+        } else if (trend===0) {
+            return (<IconTrendingFlat style={styles.trendingFlat} />)
+        } else if (trend===1) {
+            return (<IconTrendingUp style={styles.trendingUp} />)
+        } else { 
+            return; 
+        }
+    }
+
+    renderAnalyticsSummaryRow(obj, num, trend) {
         return (
             <tr>
                 <td>
@@ -265,7 +279,7 @@ class DataView extends Component {
                 <td style={styles.summaryTableCell}>
                     <Typography gutterBottom variant="body1">
                         {num}
-                        <IconTrendingUp style={styles.trendingUp} />
+                        {this.renderIconTrend(trend)}
                     </Typography>
                 </td>
             </tr>
