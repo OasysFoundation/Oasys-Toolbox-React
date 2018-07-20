@@ -21,9 +21,12 @@ class GraphBlot extends Embed {
     const node = super.create();
   node.setAttribute("spellcheck", false);
 
-  window.d3 = require('d3')
-  const functionPlot = require('function-plot')
+  window.d3 = require('d3');
+  const functionPlot = require('function-plot');
+  // for more options see https://github.com/mauriciopoppe/function-plot
   const plot = functionPlot({
+    width: 400,
+    height: 300,
     target: node,
     disableZoom: true,
     data: [{
