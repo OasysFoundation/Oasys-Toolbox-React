@@ -12,6 +12,7 @@
     "chartjs": "^0.3.24",
     "comma-number": "^2.0.0",
     "d3": "^3.5.17",
+    "dom-to-image": "^2.6.0",
     "firebase": "^5.2.0",
     "function-plot": "^1.18.1",
     "highlight.js": "^9.12.0",
@@ -52,6 +53,7 @@
     "thousands": "^1.0.1",
     "uglifyjs-webpack-plugin": "^1.2.7",
     "web3": "^1.0.0-beta.34",
+    "worker-loader": "^2.0.0",
     "yarn": "^1.7.0"
   },
   "scripts": {

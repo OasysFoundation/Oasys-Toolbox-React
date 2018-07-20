@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import SlidesThumbnailView from "./SlidesThumbnailView";
-import MenuBarView from "../MenuBarView";
+import MenuBarView from "./MenuBarView";
 import SlideEdit from "./SlideEdit";
 import Grid from '@material-ui/core/Grid';
 import html2canvas from 'html2canvas';
-import glb from "../globals";
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import EditIcon from '@material-ui/icons/Edit';
@@ -12,6 +11,7 @@ import LoadingDialog from '../LoadingDialog'
 import WelcomeToEditor from './WelcomeToEditor'
 import SlideTypeSelection from './SlideTypeSelection'
 
+import glb from "../globals";
 import TextIcon from '../icons/Text.png'
 import QuizIcon from '../icons/Quiz.png'
 import GameIcon from '../icons/Game.png'
@@ -183,15 +183,23 @@ class Editor extends Component {
     else if (slide.type === glb.EDIT_GAME) { selector = "#gameRenderer"; } 
     else if (slide.type === glb.EDIT_HYPERVIDEO) { selector = "#hyperVideoEditor"; } 
     else if (slide.type === glb.EDIT_SYSTEM) { } 
-    else  { return; } 
+    else  { } 
 
     let elem = document.querySelector(selector);
+    
     const opts = {
       width: canvasWidth, 
       height: canvasHeight,
+      quality: 0.5,
     };
+
     if (elem instanceof HTMLElement) {
-      html2canvas(elem, opts).then(function(canvas) {
+      let style = window.getComputedStyle ? getComputedStyle(elem, null) : elem.currentStyle;
+      if (slide.type === glb.EDIT_QUILL && parseInt(style.height) < 100) {
+        this.renderDefaultThumbnail(currentIndex);
+        this.setState(newState);
+      } else {
+        html2canvas(elem, opts).then(function(canvas) {
           slide.thumb = canvas.toDataURL("image/jpeg", 0.3);
           slides[currentIndex] = slide;
           console.log("rendering thumb done:" + currentIndex);
@@ -202,10 +210,11 @@ class Editor extends Component {
             this.setState(newState);
           }
         }.bind(this))
-      } else {
-        this.setState(newState);
       }
+    } else {
+      this.setState(newState);
     }
+  }
 
   // gets called after slide is removed, or slides have been rearranged via drag and drop
   onSlideOrderChange(slides, idxold, idxnew){
