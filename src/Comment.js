@@ -17,7 +17,7 @@ class CommentSection extends Component {
             finalComments: [],
             slideLength: this.props.slideLength,
         }
-        this.slideNumber = 0;
+        this.slideNumber = "end";
 
         if ((typeof(this.props.slideNumber) === "number") && ((this.props.slideNumber) === this.props.slideLength))
             this.slideNumber = "end"
