@@ -15,11 +15,12 @@ import TextField from '@material-ui/core/TextField';
 //import Grid from '@material-ui/core/Grid';
 import CloseIcon from '@material-ui/icons/Close';
 import Snackbar from '@material-ui/core/Snackbar';
-import OpenContentDialog from './OpenContentDialog';
-import UploadPicContentDialog from './UploadPicContentDialog'
-import logo from './logo.jpg'
-import LoadingDialog from './LoadingDialog'
-import PublishedCheerDialog from './PublishedCheerDialog'
+
+import OpenContentDialog from '../OpenContentDialog';
+import UploadPicContentDialog from '../UploadPicContentDialog'
+import logo from '../logo.jpg'
+import LoadingDialog from '../LoadingDialog'
+import PublishedCheerDialog from '../PublishedCheerDialog'
 
 
 const BG = "#5C8B8E";

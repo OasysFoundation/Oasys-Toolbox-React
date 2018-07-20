@@ -124,12 +124,17 @@ function rearrangeData(rawdata) {
         let nUsers = rawcontent.length;
         let nComments = rawcomment.length;
         let rating = rawrating.map(a=>a.rating);
-        let sum = rating.reduce(function(a, b) { return a + b; });
-        rating = Math.round(sum*10/rating.length)/10;
+        console.log(rating)
+        if (rating.length===0) {
+            rating = NaN;
+        } else {
+            let sum = rating.reduce(function(a, b) { return a + b; });
+            rating = Math.round(sum*10/rating.length)/10;
+            data.rating += rating;
+        }
 
         data.users += nUsers;
         data.comments += nComments;
-        data.rating += rating;
 
         let content = {
             id: uniqueContentIds[i],
