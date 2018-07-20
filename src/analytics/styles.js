@@ -83,6 +83,16 @@ const styles = {
     width: '15px',
     height: '15px',
   },
+  trendingDown: {
+    color: 'red',
+    width: '15px',
+    height: '15px',
+  },
+  trendingFlat: {
+    color: 'black',
+    width: '15px',
+    height: '15px',
+  },
   summaryTableCell: {
     paddingLeft: '20px',
     verticalAlign: 'middle',
