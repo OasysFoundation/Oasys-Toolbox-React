@@ -215,7 +215,10 @@ class ContentView extends Component {
                     onChangeIndex={this.handleStepChange.bind(this)}
                     enableMouseEvents
                     animateHeight={true}
-                    style={{width: fullScreen ? window.width : '640px', marginTop: '20px'}}
+                    style={{
+                        width: fullScreen ? window.width : '640px', marginTop: '20px',
+                        minHeight:window.innerHeight * 0.82
+                    }}
                 >
                     {content.data.map((slide, idx) => (
                         this.whatRenderer(slide, idx)

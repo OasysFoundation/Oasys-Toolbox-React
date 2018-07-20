@@ -16,140 +16,144 @@ import 'firebase/auth';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 import ButtonBase from '@material-ui/core/ButtonBase';
 
 const styles = theme => ({
-  close: {
-    width: theme.spacing.unit * 4,
-    height: theme.spacing.unit * 4,
-  },
+    close: {
+        width: theme.spacing.unit * 4,
+        height: theme.spacing.unit * 4,
+    },
 });
 
 const BG = "#74A4AC";
- 
+
 
 class NavBar extends React.Component {
-  
-  state = {
-    open: false,
-  };
 
-  handleClick = () => {
-    this.setState({ open: true });
-  };
+    state = {
+        open: false,
+    };
 
-  handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
+    handleClick = () => {
+        this.setState({open: true});
+    };
 
-    this.setState({ open: false });
-  };
+    handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
 
-  render() {
+        this.setState({open: false});
+    };
 
-    const loggedIn = this.props.authUser && this.props.authUser !== "loggedOut";
+    render() {
 
-    let accountMenuItems = (
-        <Button href="/login" color="inherit">Sign In</Button>
-      );
-    
-    if (loggedIn) {
-      accountMenuItems = (
-        <div style={{display: 'inline'}}>
-        <Button href='/user' color="inherit">
-            <IconAccountCircle style={{marginRight: '7px'}}/>
-            {this.props.authUser.displayName}
-        </Button>
+        const loggedIn = this.props.authUser && this.props.authUser !== "loggedOut";
 
-        <SignOutButton color="inherit" handleClick={this.handleClick.bind(this)} />
-        </div>
-      )
-    }
+        let accountMenuItems = (
+            <Button href="/login" color="inherit">Sign In</Button>
+        );
 
-    let navBarElements = (
-        <div>
-        <Button href='/explore' color="inherit">
-          <IconExplore style={{marginRight: '7px'}}/>
-          Explore
-        </Button>
-                    
-        <Button href='/create' color="inherit">
-          <IconCreate style={{marginRight: '7px'}}/>
-          Create
-        </Button>
+        if (loggedIn) {
+            accountMenuItems = (
+                <div style={{display: 'inline'}}>
+                    <Button href='/user' color="inherit">
+                        <IconAccountCircle style={{marginRight: '7px'}}/>
+                        {this.props.authUser.displayName}
+                    </Button>
 
-        <Button href='/data' color="inherit">
-          <IconInsertChart style={{marginRight: '7px'}}/>
-          Analytics
-        </Button>
+                    <SignOutButton color="inherit" handleClick={this.handleClick.bind(this)}/>
+                </div>
+            )
+        }
 
-        {accountMenuItems}
+        let navBarElements = (
+            <div>
+                <Button href='/explore' color="inherit">
+                    <IconExplore style={{marginRight: '7px'}}/>
+                    Explore
+                </Button>
 
-        <Button href='https://joinoasys.org' color="inherit">About</Button>
+                <Button href='/create' color="inherit">
+                    <IconCreate style={{marginRight: '7px'}}/>
+                    Create
+                </Button>
 
-        </div>
-      );
+                <Button href='/data' color="inherit">
+                    <IconInsertChart style={{marginRight: '7px'}}/>
+                    Analytics
+                </Button>
 
+                {accountMenuItems}
 
-    const { classes } = this.props;
-    return (
-      <AppBar position="static">
-            <section style={{backgroundColor: BG, display: "flex", flexDirection: "row", justifyContent: "flex-end"}}>
-            <div style={{textAlign: "start", flexGrow: 1, padding: "1em", display: 'inline-block'}}>
-            <ButtonBase
-            onClick={function(event) {event.preventDefault(); window.location.href = '/explore/'}} style={{textAlign: "start", flexGrow: 1, padding: "1em", display: 'inline-block'}}>
-                <Typography variant="title" color="inherit" href='/explore'>
-                    Oasys Education
-                </Typography>
-            </ButtonBase>
+                <Button href='https://joinoasys.org' color="inherit">About</Button>
+
             </div>
+        );
 
-                <Toolbar style={{display: "flex", justifyContent: "flex-end"}}>
-                  <div>
-                    {this.props.authUser
-                      ? navBarElements
-                      : null
-                    }
-                  </div>
-                </Toolbar>
-            </section>
 
-            <Snackbar
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              open={this.state.open}
-              autoHideDuration={3000}
-              onClose={this.handleClose}
-              ContentProps={{
-                'aria-describedby': 'message-id',
-              }}
-              message={<span id="message-id">Signed out successful</span>}
-              action={[
-                <IconButton
-                  key="close"
-                  aria-label="Close"
-                  color="inherit"
-                  className={classes.close}
-                  onClick={this.handleClose}
-                >
-                  <CloseIcon />
-                </IconButton>,
-              ]}
-            />
+        const {classes} = this.props;
+        return (
+            <AppBar position="static">
+                <section
+                    style={{backgroundColor: BG, display: "flex", flexDirection: "row", justifyContent: "flex-end"}}>
+                    <div style={{textAlign: "start", flexGrow: 1, padding: "1em", display: 'inline-block'}}>
+                        <ButtonBase
+                            onClick={function (event) {
+                                event.preventDefault();
+                                window.location.href = '/explore/'
+                            }} style={{textAlign: "start", flexGrow: 1, padding: "1em", display: 'inline-block'}}>
+                            <Typography variant="title" color="inherit" href='/explore'>
+                                Oasys Education
+                            </Typography>
+                        </ButtonBase>
+                    </div>
 
-        </AppBar>
+                    <Toolbar style={{display: "flex", justifyContent: "flex-end"}}>
+                        <div>
+                            {this.props.authUser
+                                ? navBarElements
+                                : null
+                            }
+                        </div>
+                    </Toolbar>
+                </section>
 
-    )
-  }
+                <Snackbar
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'left',
+                    }}
+                    open={this.state.open}
+                    autoHideDuration={3000}
+                    onClose={this.handleClose}
+                    ContentProps={{
+                        'aria-describedby': 'message-id',
+                    }}
+                    message={<span id="message-id">Signed out successful</span>}
+                    action={[
+                        <IconButton
+                            key="close"
+                            aria-label="Close"
+                            color="inherit"
+                            className={classes.close}
+                            onClick={this.handleClose}
+                        >
+                            <CloseIcon/>
+                        </IconButton>,
+                    ]}
+                />
+
+            </AppBar>
+
+        )
+    }
 }
 
 
 NavBar.propTypes = {
-  classes: PropTypes.object.isRequired,
+    classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(NavBar);   
