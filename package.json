@@ -60,5 +60,9 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "deploy": "npm run build && firebase deploy"
+  },
+  "devDependencies": {
+    "eslint": "^5.1.0",
+    "eslint-plugin-react": "^7.10.0"
   }
 }
