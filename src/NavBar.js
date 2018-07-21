@@ -85,13 +85,16 @@ class NavBar extends React.Component {
         const loggedIn = this.props.authUser && this.props.authUser !== "loggedOut";
 
         let accountMenuItems = (
-            <Button href="/login" color="inherit">Sign In</Button>
+            <NavItem style={{display: "flex",alignItems: "center", justifyContent: "center"}}>
+                    <NavLink href="/login/" className={"text-white"} style={{flex: 1}}>Sign In</NavLink>
+            </NavItem>
         );
+
         let accountMenuItemsNewSecond = (null);
 
         let accountMenuItemsNew = (
-                <NavItem style={{display: "flex",alignItems: "center", justifyContent: "center"}}>
-                    <NavLink href="/login/" className={"text-white"} style={{flex: 1}}>Sign In</NavLink>
+                <NavItem style={{display: "flex",alignItems: "center", justifyContent: "center", padding:"8px 10px 8px 10px"}}>
+                    <NavLink href="/login/" className={"text-white"} >Sign In</NavLink>
                 </NavItem>
         );
 
@@ -110,8 +113,8 @@ class NavBar extends React.Component {
 
         if (loggedIn) {
             accountMenuItemsNew = (
-                <NavItem style={{display: "flex",alignItems: "center", justifyContent: "center"}}>
-                    <IconAccountCircle style={{marginRight: '7px', color:"white", flex: 1}}/>
+                <NavItem style={{display: "flex",alignItems: "center", justifyContent: "center", padding:"8px 10px 8px 10px"}}>
+                    <IconAccountCircle style={{marginRight: '5px', color:"white", flex: 1}}/>
                     <NavLink href="/user/" className={"text-white"} style={{flex: 1}}>{this.props.authUser.displayName}</NavLink>
                 </NavItem>
             );
@@ -148,22 +151,22 @@ class NavBar extends React.Component {
 
         let navBarElementsNew = (
             <Nav className="ml-auto" navbar>
-              <NavItem style={{display: "flex",alignItems: "center", justifyContent: "center"}}>
-                <IconExplore style={{marginRight: '7px', color:"white", flex: 1}}/>
+              <NavItem style={{display: "flex",alignItems: "center", justifyContent: "center", padding:"8px 10px 8px 10px"}}>
+                <IconExplore style={{marginRight: '5px', color:"white", flex: 1}}/>
                 <NavLink href="/explore/" className={"text-white"} style={{flex: 1}}>Explore</NavLink>
               </NavItem>
-              <NavItem style={{display: "flex",alignItems: "center", justifyContent: "center"}}> 
-                <IconCreate style={{marginRight: '7px',color:"white", flex: 1}}/>
+              <NavItem style={{display: "flex",alignItems: "center", justifyContent: "center", padding:"8px 10px 8px 10px"}}> 
+                <IconCreate style={{marginRight: '5px',color:"white", flex: 1}}/>
                 <NavLink href="/create/" className={"text-white"} style={{flex: 1}} >Create</NavLink>
               </NavItem>
-              <NavItem style={{display: "flex",alignItems: "center", justifyContent: "center"}}>
-                <IconInsertChart style={{marginRight: '7px', color:"white", flex: 1}}/>
+              <NavItem style={{display: "flex",alignItems: "center", justifyContent: "center", padding:"8px 10px 8px 10px"}}>
+                <IconInsertChart style={{marginRight: '5px', color:"white", flex: 1}}/>
                 <NavLink href="/data/" className={"text-white"} style={{flex: 1}}>Analytics</NavLink>
               </NavItem>
               {accountMenuItemsNew}
               {accountMenuItemsNewSecond}
 
-              <NavItem style={{display: "flex",alignItems: "center", justifyContent: "center"}}>
+              <NavItem style={{display: "flex",alignItems: "center", justifyContent: "center", padding:"8px 10px 8px 10px"}}>
                 <NavLink href='https://joinoasys.org' className={"text-white"}>About</NavLink>
               </NavItem>
             </Nav>

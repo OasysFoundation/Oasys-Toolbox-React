@@ -25,9 +25,9 @@ class SignOutButton extends React.Component {
    render() {
     return (
 
-      <NavItem style={{display: "flex",alignItems: "center", justifyContent: "center"}}>
+      <NavItem style={{display: "flex",alignItems: "center", justifyContent: "center", padding:"8px 10px 8px 10px"}}>
                     
-      <Button style={{marginRight: '7px', color:"white", flex: 1}}
+      <Button style={{color:"white", flex: 1}}
         type="button"
         color="inherit"
         onClick={this.handleClick.bind(this)}
