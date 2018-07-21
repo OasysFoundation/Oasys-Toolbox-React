@@ -38,6 +38,7 @@ import Comment from './Comment'
 import Help from './Help'
 import Foxy from './Foxy'
 
+import 'bootstrap/dist/css/bootstrap.css';
 
 
 const history = createBrowserHistory();
