@@ -195,7 +195,7 @@ class Editor extends Component {
 
     if (elem instanceof HTMLElement) {
       let style = window.getComputedStyle ? getComputedStyle(elem, null) : elem.currentStyle;
-      if (slide.type === glb.EDIT_QUILL && parseInt(style.height) < 100) {
+      if (slide.type === glb.EDIT_QUILL && parseInt(style.height, 10) < 100) {
         this.renderDefaultThumbnail(currentIndex);
         this.setState(newState);
       } else {
@@ -365,7 +365,7 @@ class Editor extends Component {
                                />
         </Grid>
         <Grid item style={{width: '720px'}}>
-            {this.state.slides.length==0? <WelcomeToEditor createNewSlide={this.showSlideSelection.bind(this)}/>            
+            {this.state.slides.length===0? <WelcomeToEditor createNewSlide={this.showSlideSelection.bind(this)}/>            
               :
               <SlideEdit slide = {this.state.slides[this.state.selectedSlideIndex]}
                          slideType = {this.state.currSlideType}

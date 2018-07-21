@@ -24,7 +24,7 @@ class GraphBlot extends Embed {
   window.d3 = require('d3');
   const functionPlot = require('function-plot');
   // for more options see https://github.com/mauriciopoppe/function-plot
-  const plot = functionPlot({
+  functionPlot({
     width: 400,
     height: 300,
     target: node,

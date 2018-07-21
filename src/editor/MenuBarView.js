@@ -86,6 +86,8 @@ class MenuBarView extends Component {
     slides.forEach(function(slide) {
       if (slide.type === 0) {
         //quill content
+
+        // eslint-disable-next-line no-cond-assign
         while ( m = findImageTagsRegEx.exec( unescape(slide.content) ) ) {
             let found = m[1];
             if (!found.includes("http")) {
@@ -95,7 +97,7 @@ class MenuBarView extends Component {
       }
     });
 
-
+    // eslint-disable-next-line array-callback-return
     slides.map(function(slide) {
       slide.thumb = null;
     });
@@ -129,6 +131,8 @@ class MenuBarView extends Component {
           console.log(body);
           if (body) {
             console.log('IMGUR LINK: ' + body.data.link);
+
+            // eslint-disable-next-line array-callback-return
             slides.map(function(slide) {
               if (slide.type === 0) {
                 //quill content

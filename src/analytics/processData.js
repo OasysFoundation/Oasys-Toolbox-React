@@ -163,9 +163,11 @@ function padNumber(x) {
     return x.toString().padStart(2,'0')
 }
 
+/*
 function formatTime(time) {
     return padNumber(time.getHours()-1) + "h:" + padNumber(time.getMinutes()) + "m:" + padNumber(time.getSeconds()) + "s";
 }
+*/
 
 
 function getLastAccess(content) {

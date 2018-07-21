@@ -28,6 +28,7 @@ class Foxy extends Component {
                         onMouseEnter={() => this.setState({isExcited: true})}
                         onMouseLeave={() => this.setState({isExcited: false})}
                         src={this.state.isExcited ? foxy_excited : foxy_default}
+                        alt=""
                     />) : (null)}
 
                 <button style={buttonGradientCSS.mini}
