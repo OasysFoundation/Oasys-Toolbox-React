@@ -9,10 +9,6 @@ import Button from '@material-ui/core/Button';
 
 class PublishedCheerDialog extends Component {
 
-	constructor(props) {
-    	super(props);
-    }
-
     goToContentPage() {
     	window.location.href = this.props.sharableLink;
     }

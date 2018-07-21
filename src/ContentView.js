@@ -78,8 +78,10 @@ class ContentView extends Component {
     }
 
     whatRenderer(slide, idx) {
-        this.authUsername = '';
-        this.props.authUser ? this.authUsername = this.props.authUser : null
+        this.authUsername = null;
+        if (this.props.authUser) {
+            this.authUsername = this.props.authUser;
+        }
         this.contentLength = this.state.content.data.length;
 
         let render = (<div>No Content to be found here</div>)

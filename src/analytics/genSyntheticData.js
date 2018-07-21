@@ -34,7 +34,7 @@ function genSynthData() {
     let ratings = [];
     for (let i=0;i<4;i++) {
         let nSlides = 20 - Math.round(Math.random() * 10);
-        let nQuiz = 4 - Math.round(Math.random() * 3);
+        //let nQuiz = 4 - Math.round(Math.random() * 3);
         let nUsers = 25 - Math.round(Math.random() * 10);
         let contentId = "My Content " + (i + 1);
 

@@ -154,7 +154,7 @@ class SimpleMediaCard extends Component {
                     avatar={
                       <Avatar aria-label="Recipe" className={classes.avatar}>
                         {this.state.userProfileURL? (
-                          <img src={this.state.userProfileURL} style={{width:'auto', height:'auto', 'max-height':'100%', 'max-width':'100%'}}/>  
+                          <img src={this.state.userProfileURL} style={{width:'auto', height:'auto', 'max-height':'100%', 'max-width':'100%'}} alt=""/>  
                           )
                         :
                         (

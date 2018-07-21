@@ -42,8 +42,26 @@ class QuizPreview extends Component {
         // })
     }
 
+    renderAnswer(answer, i){
+        if (!answer.option) { 
+            return; 
+        }
+        const isCorrect = (this.state.realAnswers[i] === this.state.userAnswers[i]);
+        return (
+            <div key={i + 1}>
+                <FormControlLabel
+                    control={<Checkbox key={i} onChange={function (ev) {this.updateUserAnswers(ev.target, i)}} />}
+                    label={answer.option} />
+                <section key={i + 2}
+                    hidden={!this.state.hasSubmitted}
+                    style={{background: isCorrect ? "lightgreen" : "red"}}>
+                    {"This option was " + (this.state.realAnswers[i] ? " correct" : " wrong")}
+                </section>
+            </div>
+        )
+    }
+
     render() {
-        const that = this;
         return (
             <div style={styles.marginTop}>
                 <FormControl component="fieldset">
@@ -51,25 +69,7 @@ class QuizPreview extends Component {
                 <p>{this.props.content.question 
                     ? (<FormLabel component="legend">{this.props.content.question}</FormLabel>) 
                     : ("This quiz does not yet have a question.")}</p>
-
-                {this.props.content.answers.map(function (answer, i) {
-                        if (answer.option) {
-                            const isCorrect = (that.state.realAnswers[i] === that.state.userAnswers[i]);
-                            return <div key={i + 1}>
-                                <FormControlLabel
-                                    control={
-                                      <Checkbox key={i} onChange={function (ev) {that.updateUserAnswers(ev.target, i)}} />
-                                    }
-                                    label={answer.option} />
-                                    <section key={i + 2}
-                                         hidden={!that.state.hasSubmitted}
-                                         style={{background: isCorrect ? "lightgreen" : "red"}}>
-                                        {"This option was " + (that.state.realAnswers[i] ? " correct" : " wrong")}
-                                    </section>
-                                    </div>
-                        }
-                    }
-                )}
+                {this.props.content.answers.map((answer, i)=>this.renderAnswer(answer,i), this)}
                 </FormGroup>
                 <Button size="large"
                         color="primary"

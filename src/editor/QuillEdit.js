@@ -11,7 +11,7 @@ import ImageResize from 'quill-image-resize-module-react';
 import 'katex/dist/katex.min.css';
 import "highlight.js/styles/atom-one-light.css";
 
-import '../ReactQuill.css';
+import '../styles/QuillEdit.css';
 import graphIcon from '../icons/graph.jpg';
 
 let Embed = Quill.import('blots/embed');
@@ -24,7 +24,7 @@ class GraphBlot extends Embed {
   window.d3 = require('d3');
   const functionPlot = require('function-plot');
   // for more options see https://github.com/mauriciopoppe/function-plot
-  const plot = functionPlot({
+  functionPlot({
     width: 400,
     height: 300,
     target: node,
@@ -61,12 +61,15 @@ const CustomToolbar = () => (
           <option value="30px">Huge</option>
       </select>
       <select className="ql-font">
-        <option value="inconsolata" className="ql-font-inconsolata">Inconsolata</option>
-        <option value="mirza" selected className="ql-font-mirza">Mirza</option>
-        <option value="roboto" className="ql-font-roboto">Roboto</option>
-        <option value="sailec" className="ql-font-sailec">Sailec Light</option>
-        <option value="sofia" className="ql-font-sofia">Sofia Pro</option>
-        <option value="ubuntu" className="ql-font-ubuntu">Ubuntu</option>
+        <option value="arial" className="ql-font-arial">Arial</option>
+        <option value="bookman" className="ql-font-bookman">Bookman</option>
+        <option value="courier" className="ql-font-courier">Courier</option>
+        <option value="garamond" className="ql-font-garamond">Garamond</option>
+        <option value="georgia" className="ql-font-georgia">Georgia</option>
+        <option value="helvetica" selected className="ql-font-helvetica">Helvetica</option>
+        <option value="palatino" className="ql-font-palatino">Palatino</option>
+        <option value="times" className="ql-font-times">Times</option>
+        <option value="verdana" className="ql-font-verdana">Verdana</option>
       </select>
       <span className="ql-formats">
         <button className="ql-clean"></button>
@@ -122,7 +125,7 @@ class QuillEditor extends Component {
     this.onChange = this.props.onChange.bind(this);
 
     let font = ReactQuill.Quill.import('formats/font');
-    font.whitelist = ['mirza', 'roboto', 'sofia', 'slabo', 'sailec', 'roboto', 'inconsolata', 'ubuntu'];
+    font.whitelist = ['arial', 'bookman', 'courier', 'garamond', 'georgia', 'helvetica', 'palatino', 'times', 'verdana'];
     ReactQuill.Quill.register(font, true);
 
     let fontSize = ReactQuill.Quill.import('attributors/style/size');

@@ -1,0 +1,113 @@
+
+/* Set dropdown font-sizes */
+#toolbar-quill .ql-size span[data-label="Small"]::before {
+  font-size: 12px;
+}
+#toolbar-quill .ql-size span[data-label="Normal"]::before {
+  font-size: 16px;
+}
+#toolbar-quill .ql-size span[data-label="Large"]::before {
+  font-size: 22px;
+}
+#toolbar-quill .ql-size span[data-label="Huge"]::before {
+  font-size: 30px;
+}
+
+/* Set content font-sizes */
+.ql-font-small {
+  font-size: 12px;
+}
+.ql-font-normal {
+  font-size: 16px;
+}
+.ql-font-large {
+  font-size: 22px;
+}
+.ql-font-huge {
+  font-size: 30px;
+}
+
+
+/* Set dropdown font-families */
+#toolbar-quill .ql-font span[data-label="Arial"]::before {
+  font-family: "Arial";
+}
+#toolbar-quill .ql-font span[data-label="Bookman"]::before {
+  font-family: "Bookman";
+}
+#toolbar-quill .ql-font span[data-label="Courier"]::before {
+  font-family: "Courier";
+}
+#toolbar-quill .ql-font span[data-label="Garamond"]::before {
+  font-family: "Garamond";
+}
+#toolbar-quill .ql-font span[data-label="Georgia"]::before {
+  font-family: "Georgia";
+}
+#toolbar-quill .ql-font span[data-label="Helvetica"]::before {
+  font-family: "Helvetica";
+}
+#toolbar-quill .ql-font span[data-label="Palatino"]::before {
+  font-family: "Palatino";
+}
+#toolbar-quill .ql-font span[data-label="Times"]::before {
+  font-family: "Times";
+}
+#toolbar-quill .ql-font span[data-label="Verdana"]::before {
+  font-family: "Verdana";
+}
+
+
+/* Set content font-families */
+.ql-font-arial {
+  font-family: "Arial";
+}
+.ql-font-bookman {
+  font-family: "Bookman";
+}
+.ql-font-courier {
+  font-family: "Courier";
+}
+.ql-font-garamand {
+  font-family: "Garamond";
+}
+.ql-font-georgia {
+  font-family: "Georgia";
+}
+.ql-font-helvetica {
+  font-family: "Helvetica";
+}
+.ql-font-palatino {
+  font-family: "Palatino";
+}
+.ql-font-times {
+  font-family: "Times";
+}
+.ql-font-verdana {
+  font-family: "Verdana";
+}
+
+
+/* set quill video embed size */
+
+.ql-video {
+	width: 640px;
+	height: 480px;
+}
+
+.ql-editor {
+  height: '60vh';
+}
+
+
+.ql-toolbar.ql-snow,
+.ql-container.ql-snow {
+  border: none;
+}
+
+.ql-container.ql-snow {
+  height: '70vh';
+  max-width: '400px';
+  font-family: "Helvetica"; /* default font */
+  font-size: 16px;
+}

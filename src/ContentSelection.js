@@ -92,24 +92,24 @@ class ContentSelection extends Component {
 
 
     filteredContentForCategory(category) {
-        if (category == 'Featured') {
+        if (category === 'Featured') {
             return this.state.content;
         }
 
-        if (category == 'Recently Added') {
+        if (category === 'Recently Added') {
             return this.state.content;
         }
 
         var keywords = [];
-        if (category == 'Chemistry') {
+        if (category === 'Chemistry') {
             keywords = ['chemistry', 'atom', 'molecule'];
         }
 
-        if (category == 'Physics') {
+        if (category === 'Physics') {
             keywords = ['physic', 'simulation', 'work'];   
         }
 
-        if (category == 'Computer Science') {
+        if (category === 'Computer Science') {
             keywords = ['object', 'programming', 'ml', 'swift', 'code'];
         }
 
