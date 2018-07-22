@@ -54,7 +54,8 @@ class NavBar extends React.Component {
 
         this.toggle = this.toggle.bind(this);
         this.state = {
-          isOpen: false
+          isOpen: false,
+          isHidden: false,
         };
     }
 
@@ -76,7 +77,8 @@ class NavBar extends React.Component {
 
     toggle() {
     this.setState({
-      isOpen: !this.state.isOpen
+      isOpen: !this.state.isOpen,
+      isHidden: !this.state.isHidden,
     });
   }
 
@@ -152,16 +154,16 @@ class NavBar extends React.Component {
         let navBarElementsNew = (
             <Nav className="ml-auto" navbar>
               <NavItem style={{display: "flex",alignItems: "center", justifyContent: "center", padding:"8px 10px 8px 10px"}}>
-                <IconExplore style={{marginRight: '5px', color:"white", flex: 1}}/>
-                <NavLink href="/explore/" className={"text-white"} style={{flex: 1}}>Explore</NavLink>
+                <IconExplore style={{marginRight: '5px', color:"white"}}/>
+                <NavLink href="/explore/" className={"text-white"}>Explore</NavLink>
               </NavItem>
-              <NavItem style={{display: "flex",alignItems: "center", justifyContent: "center", padding:"8px 10px 8px 10px"}}> 
-                <IconCreate style={{marginRight: '5px',color:"white", flex: 1}}/>
-                <NavLink href="/create/" className={"text-white"} style={{flex: 1}} >Create</NavLink>
+              <NavItem hidden={this.state.isHidden} style={{display: "flex",alignItems: "center", justifyContent: "center", padding:"8px 10px 8px 10px"}}> 
+                <IconCreate style={{marginRight: '5px',color:"white"}}/>
+                <NavLink href="/create/" className={"text-white"}>Create</NavLink>
               </NavItem>
               <NavItem style={{display: "flex",alignItems: "center", justifyContent: "center", padding:"8px 10px 8px 10px"}}>
-                <IconInsertChart style={{marginRight: '5px', color:"white", flex: 1}}/>
-                <NavLink href="/data/" className={"text-white"} style={{flex: 1}}>Analytics</NavLink>
+                <IconInsertChart style={{marginRight: '5px', color:"white"}}/>
+                <NavLink href="/data/" className={"text-white"}>Analytics</NavLink>
               </NavItem>
               {accountMenuItemsNew}
               {accountMenuItemsNewSecond}
@@ -180,7 +182,7 @@ class NavBar extends React.Component {
         <Navbar light style={{backgroundColor: BG}} expand="md">
           <NavbarBrand href="/explore" className={"text-white"} style={{padding: "1em"}}>Oasys Education</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
-          <Collapse isOpen={this.state.isOpen} navbar>
+          <Collapse color="white" isOpen={this.state.isOpen} navbar>
             {this.props.authUser
                 ? navBarElementsNew
                 : null
