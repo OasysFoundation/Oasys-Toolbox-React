@@ -35,7 +35,7 @@ class MenuBarView extends Component {
     super(props);
     this.onChange = this.onChange.bind(this);
     this.onSave = this.onSave.bind(this);
-    // this.completeFetch = this.completeFetch.bind(this);
+    // this.postInteractionData = this.postInteractionData.bind(this);
     this.contentId = 0;
     this.onOpen = this.onOpen.bind(this);
 

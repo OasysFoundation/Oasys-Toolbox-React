@@ -5,17 +5,7 @@ const BASE_URL = glb.OASYS_API_BASE;
 //Markus: I use a Promise instead of a callback so you can chain
 //with .then and .catch (errorhandling) inside the component and
 
-const promiseGet = function(URL) {
-    return fetch(URL, {method: 'GET'})
-        .then(function (response) {
-            return response.json();
-        })
-        .catch(function(err){
-            console.debug("Content Fetch NO SUCCESS")
-        })
-};
-
-let api = {
+const api = {
     get: function(url, callback) {
         console.log(url)
         fetch(url, {method: 'GET'}).then(function (response) {
@@ -44,8 +34,32 @@ let api = {
     },
     getContent( {userName, contentName} ) { //ES6 Object destructuring
         const url = `${BASE_URL}user/${userName}/${contentName}`;
-        return promiseGet(url)
+        return betterFetch(url)
+    },
+    postUserContentAccess(interactionData) {
+        const url = `${BASE_URL}saveUserContentAccess`
+        return betterFetch(url, {
+            method: 'POST',
+            body: JSON.stringify(interactionData),
+            headers: new Headers({
+                'Content-Type': 'application/json',
+            })
+        })
     }
 }
+
+const betterFetch = function(url, params = {method: 'GET'}) {
+    return fetch(url, params)
+        .then(function (response) {
+            return response.json();
+        })
+        .catch(function(err){
+            console.debug(`
+            Content Fetch NO SUCCESS
+            URL = ${url}
+            ERROR = ${err}
+            `)
+        })
+};
 
 export default api;

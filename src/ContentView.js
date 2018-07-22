@@ -52,9 +52,6 @@ class ContentView extends Component {
         // const contentName = this.props.match.params.contentname;
 
         this.whatRenderer = this.whatRenderer.bind(this);
-        const URL = `https://api.joinoasys.org/user/${this.userName}/${this.contentName}/`;
-
-        const that = this;
 
         API.getContent({userName: this.userName, contentName: this.contentName})
             .then(content => this.setState({content: content[0], hasLoaded: true}))
@@ -124,9 +121,9 @@ class ContentView extends Component {
         return tobj
     }
 
-    completeFetch(timeObj) {
+    postInteractionData(timeObj) {
         console.log(this.props.authUser.displayName);
-        var data = {
+        const data = {
             "accessTimes": timeObj.timing,
             "startTime": timeObj.startTime,
             "endTime": timeObj.endTime,
@@ -134,14 +131,7 @@ class ContentView extends Component {
             "accessUserId": this.props.authUser.displayName,
             "contentUserId": this.state.content.userId
         }
-        var saveEndpoint = 'https://api.joinoasys.org/saveUserContentAccess';
-        fetch(saveEndpoint, {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: new Headers({
-                'Content-Type': 'application/json',
-            })
-        });
+        API.postUserContentAccess(data);
     }
 
     handleNext() {
@@ -156,7 +146,7 @@ class ContentView extends Component {
         } else {
             tobj.endTime = this.state.endTime;
         }
-        this.completeFetch(tobj);
+        this.postInteractionData(tobj);
     }
 
     handlePrevious() {
@@ -165,7 +155,7 @@ class ContentView extends Component {
         this.setState({
             slideIdx: this.state.slideIdx - 1,
         });
-        this.completeFetch(tobj);
+        this.postInteractionData(tobj);
     }
 
     handleStepChange(newStep) {
