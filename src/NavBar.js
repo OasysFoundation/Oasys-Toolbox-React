@@ -179,10 +179,10 @@ class NavBar extends React.Component {
         return (
         <div>
 
-        <Navbar light style={{backgroundColor: BG}} expand="md">
+        <Navbar inverse style={{backgroundColor: BG}} expand="md">
           <NavbarBrand href="/explore" className={"text-white"} style={{padding: "1em"}}>Oasys Education</NavbarBrand>
-          <NavbarToggler onClick={this.toggle} />
-          <Collapse color="white" isOpen={this.state.isOpen} navbar>
+          <NavbarToggler onClick={this.toggle}/>
+          <Collapse isOpen={this.state.isOpen} navbar>
             {this.props.authUser
                 ? navBarElementsNew
                 : null
