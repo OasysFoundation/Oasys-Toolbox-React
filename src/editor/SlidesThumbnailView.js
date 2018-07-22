@@ -12,6 +12,10 @@ import {
 
 import SlideThumb from './SlideThumb';
 import Tooltip from '@material-ui/core/Tooltip';
+import PropTypes from 'prop-types';
+
+
+
 
 const SortableSlide = SortableElement(props => 
   <SlideThumb index={props.indexCopy} value={props.value}
@@ -86,6 +90,11 @@ class SlidesThumbnailView extends Component {
     );
   }
 }
+
+SlidesThumbnailView.propTypes = {
+    id: PropTypes.number,
+    slides: PropTypes.array
+};
 
 
 export default SlidesThumbnailView;

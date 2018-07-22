@@ -13,6 +13,9 @@ import Avatar from '@material-ui/core/Avatar';
 import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
 import MenuItem from '@material-ui/core/MenuItem';
+import {substringInObjCount} from "./utils";
+import api from './tools'
+import {getTagsForCategory} from "./utils";
 
 
 const Flexer = styled.section`
@@ -21,8 +24,6 @@ const Flexer = styled.section`
   flex-wrap: wrap;
   justify-content: space-around;
 `
-
-
 
 class ContentSelection extends Component {
     constructor(props) {
@@ -39,42 +40,18 @@ class ContentSelection extends Component {
             // isLoading: true
         }
 
-        fetch(loadContent, {
-            method: 'GET'
-        }).then(function (response) {
-            return response.json();
-        })
-        .then(function (myJson) {
-            console.log(myJson);
-            that.setState({
-                content: myJson
-            }, function() {
-                that.setState({
-                    filteredContent: that.filteredContentForCategory(that.state.category)
-                })
-            });
-
-        });
-    }
-
-    componentDidMount() {
-        // setTimeout(() => this.setState({isLoading: false }), 1500); // simulates async loading
-    }
+        api.getContentsPreview()
+            .then(json => this.setState({
+                content: json},
+                () => this.setState({filteredContent: this.getContentForCategory(this.state.category)})))
+}
 
     didChangeSearchText(textfield) {
         this.setState({
             searchText: textfield.target.value,
             searchAnchor: textfield.currentTarget,
-            searchResults: this.state.content.filter(content => this.contentMatchesSearchString(content, textfield.target.value))
+            searchResults: this.state.content.filter(content => substringInObjCount(content, textfield.target.value) > 0)
         })
-    }
-
-    contentMatchesSearchString(content, searchString) {
-        searchString = searchString.trim();
-        const titleMatched = content.title.toLowerCase().includes(searchString.toLowerCase());
-        const hashTagsMatched = content.tags.toLowerCase().includes(searchString.toLowerCase());
-        const usernameMatched = content.userId.toLowerCase().includes(searchString.toLowerCase());
-        return (titleMatched || hashTagsMatched || usernameMatched);
     }
 
     closeSearchPopup() {
@@ -86,59 +63,24 @@ class ContentSelection extends Component {
     handleCategoryChange(event) {
         this.setState({
          category: event.target.value,
-         filteredContent: this.filteredContentForCategory(event.target.value)
+         filteredContent: this.getContentForCategory(event.target.value)
      });
     }
 
-
-    filteredContentForCategory(category) {
-        if (category === 'Featured') {
-            return this.state.content;
+    getContentForCategory(category) {
+        if (category === "Recently Added" || category === "Featured") {
+            return this.state.content
         }
-
-        if (category === 'Recently Added') {
-            return this.state.content;
-        }
-
-        var keywords = [];
-        if (category === 'Chemistry') {
-            keywords = ['chemistry', 'atom', 'molecule'];
-        }
-
-        if (category === 'Physics') {
-            keywords = ['physic', 'simulation', 'work'];   
-        }
-
-        if (category === 'Computer Science') {
-            keywords = ['object', 'programming', 'ml', 'swift', 'code'];
-        }
-
-        var that = this;
-        return this.state.content.filter(function(content) {
-            return that.stringContainsKeywords(content.tags, keywords);
-        })
+        const keywords = getTagsForCategory(category);
+        //confusing naming! tags sounds like array and state.content sounds like obj -- not array
+        return this.state.content
+            .filter(content => keywords
+            //filter out when the tags string (??? should be array!) includes the keyword
+                .filter(kw => content.tags.toLowerCase().includes(kw.toLowerCase()))
+                //if there is an array with at least 1 match then .length returns true(=> don't filter) else false
+                .length)
     }
-
-    stringContainsKeywords(string, keywords) {
-        var includesKeyword = false;
-        keywords.forEach(function(keyword) {
-            const lowercaseString = string.toLowerCase();
-            const lowercaseKeyword = keyword.toLowerCase();
-            if (lowercaseString.includes(lowercaseKeyword)) {
-                console.log(string);
-                includesKeyword = true;
-                return;
-            }
-        });
-
-        return includesKeyword;
-    }
-
-
     render(){
-        // if (this.state.isLoading) {
-        //     return <img style={{transform: 'rotate(180deg)'}} src={'https://media.giphy.com/media/xsE65jaPsUKUo/giphy.gif'}></img>
-        // }
         let searchListContent = (
             <ListItem>
                  <ListItemText primary="No Contents Found" />
