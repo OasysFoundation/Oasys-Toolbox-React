@@ -104,7 +104,7 @@ class NavBar extends React.Component {
             accountMenuItems = (
                 <div style={{display: 'inline'}}>
                     <Button href='/user' color="inherit">
-                        <IconAccountCircle style={{marginRight: '7px'}}/>
+                        <IconAccountCircle style={{marginRight: '5px'}}/>
                         {this.props.authUser.displayName}
                     </Button>
 
@@ -116,8 +116,8 @@ class NavBar extends React.Component {
         if (loggedIn) {
             accountMenuItemsNew = (
                 <NavItem style={{display: "flex",alignItems: "center", justifyContent: "center", padding:"8px 10px 8px 10px"}}>
-                    <IconAccountCircle style={{marginRight: '5px', color:"white", flex: 1}}/>
-                    <NavLink href="/user/" className={"text-white"} style={{flex: 1}}>{this.props.authUser.displayName}</NavLink>
+                    <IconAccountCircle style={{marginRight: '5px', color:"white"}}/>
+                    <NavLink href="/user/" className={"text-white"}>{this.props.authUser.displayName}</NavLink>
                 </NavItem>
             );
             accountMenuItemsNewSecond = (
