@@ -12,7 +12,6 @@ const api = {
             return response.json();
         }).then(callback);
     },
-
     post: function(url, callback) {
         fetch(url, {method: 'POST'}).then(function (response) {
             return response.json();
@@ -23,7 +22,6 @@ const api = {
         const url = BASE_URL + 'getAllContentsForCreator/' + user.displayName;
         return this.get(url, callback);
     },
-
     getCommentsForCreator: function (user, callback) {
         const url = BASE_URL + 'getAllComments/' + user.displayName;
         return this.get(url, callback);
@@ -34,8 +32,13 @@ const api = {
     },
     getContent( {userName, contentName} ) { //ES6 Object destructuring
         const url = `${BASE_URL}user/${userName}/${contentName}`;
+        return betterFetch(url);
+    },
+    getContentsPreview() {
+        const url = BASE_URL + 'getContentsPreview/';
         return betterFetch(url)
     },
+
     postUserContentAccess(interactionData) {
         const url = `${BASE_URL}saveUserContentAccess`
         return betterFetch(url, {
