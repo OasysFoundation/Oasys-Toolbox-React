@@ -89,8 +89,8 @@
       <file leaf-file-name="SlideEdit.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/editor/SlideEdit.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="544">
-              <caret line="49" column="2" selection-start-line="49" selection-start-column="2" selection-end-line="49" selection-end-column="2" />
+            <state relative-caret-position="529">
+              <caret line="48" column="38" selection-start-line="48" selection-start-column="38" selection-end-line="48" selection-end-column="38" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -313,12 +313,12 @@
       <workItem from="1532078761155" duration="1147000" />
       <workItem from="1532088891730" duration="582000" />
       <workItem from="1532233793050" duration="9169000" />
-      <workItem from="1532266289575" duration="14047000" />
+      <workItem from="1532266289575" duration="14323000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="150668000" />
+    <option name="totallyTimeSpent" value="150944000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="800" extended-state="6" />
@@ -610,8 +610,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/editor/SlideEdit.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="49" column="2" selection-start-line="49" selection-start-column="2" selection-end-line="49" selection-end-column="2" />
+        <state relative-caret-position="529">
+          <caret line="48" column="38" selection-start-line="48" selection-start-column="38" selection-end-line="48" selection-end-column="38" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>

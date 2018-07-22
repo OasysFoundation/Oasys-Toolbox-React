@@ -45,8 +45,8 @@ class SlideEditor extends Component {
 }
 
 SlideEditor.propTypes = {
-    slideType: PropTypes.string,
-    slide: PropTypes.object
+    slideType: PropTypes.string.isRequired,
+    slide: PropTypes.object.isRequired
 };
 
 export default SlideEditor;
