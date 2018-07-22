@@ -23,6 +23,7 @@ class QuizPreview extends Component {
             hasSubmitted: false
         };
         console.log(this.state);
+        this.updateUserAnswers = this.updateUserAnswers.bind(this);
     }
 
     checkAnswers() {
@@ -32,12 +33,14 @@ class QuizPreview extends Component {
         }
     }
 
-    updateUserAnswers(inputEl, index) {
+    updateUserAnswers(e, index) {
         const answers = this.state.userAnswers.slice();
-        answers[index] = inputEl.checked;
-        this.setState({
-            userAnswers: answers
-        })
+        if(e && e.target){
+            answers[index] = e.target.checked;
+            this.setState({
+                userAnswers: answers
+            })
+        }
         // this.setState({
         // })
     }
@@ -50,7 +53,7 @@ class QuizPreview extends Component {
         return (
             <div key={i + 1}>
                 <FormControlLabel
-                    control={<Checkbox key={i} onChange={function (ev) {this.updateUserAnswers(ev.target, i)}} />}
+                    control={<Checkbox key={i} onChange={(e) => {this.updateUserAnswers(e,i)}} />}
                     label={answer.option} />
                 <section key={i + 2}
                     hidden={!this.state.hasSubmitted}
