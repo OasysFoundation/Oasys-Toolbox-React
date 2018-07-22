@@ -28,6 +28,7 @@ const buttonStyle = {
     boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
 };
 
+
 class ContentView extends Component {
     constructor(props, {match}) {
         super(props);
@@ -40,6 +41,8 @@ class ContentView extends Component {
             startTime: new Date(),
             endTime: null,
             showComments: false,
+            quizzes: [],
+            
         };
         console.log(match, props, "MAATCH")
 
@@ -79,7 +82,7 @@ class ContentView extends Component {
                 break;
 
             case globals.EDIT_QUIZ:
-                render = <QuizPreview content={slide.content}/>
+                render = <QuizPreview content={slide.content} sendAnalyticsToBackend={this.handleQuizSumbit.bind(this)}/>
                 break;
             case globals.EDIT_GAME:
                 render = <GameView url={slide.content.url}/>
@@ -100,13 +103,21 @@ class ContentView extends Component {
     updateTiming() {
         const t1 = this.state.lastTime;
         const t2 = new Date();
-        let timing = this.state.timing.slice();
-        timing.push({i: this.state.slideIdx, t: t2 - t1});
+        var newelement = {i: this.state.slideIdx, t: t2 - t1};
+        var newArr = [...this.state.timing, newelement]
+
+        this.setState({
+          timing: newArr
+        })
+
         let tobj = {
             startTime: this.state.startTime,
-            timing: timing,
+            timing: newArr,
             lastTime: t2
         }
+        this.setState({
+            lastTime:t2
+        })
         return tobj
     }
 
@@ -121,6 +132,43 @@ class ContentView extends Component {
             "contentUserId": this.state.content.userId
         }
         API.postUserContentAccess(data);
+    }
+
+    postQuizData(quizObj) {
+        console.log(this.props.authUser.displayName);
+        const data = {
+            "startTime": quizObj.startTime,
+            "endTime": quizObj.endTime,
+            "contentId": this.state.content.contentId,
+            "accessUserId": this.props.authUser.displayName,
+            "contentUserId": this.state.content.userId,
+            "quizzes" : quizObj.quizzes,
+            "type" : "quizUpdate"
+        }
+        API.postUserContentAccess(data);
+    }
+
+    handleQuizSumbit(isCorrect){
+
+        var answer = isCorrect;
+        const t1 = this.state.lastTime;
+        const t2 = new Date();
+
+        var newelement = {i: this.state.slideIdx, correct: isCorrect, t: t2 - t1};
+        var newArr = [...this.state.quizzes, newelement]
+
+        this.setState({
+          quizzes: newArr
+        })
+
+
+        let endTime = new Date();
+        var quizObj = {
+            startTime: this.state.startTime,
+            endTime: endTime,
+            quizzes: newArr,
+        }
+        this.postQuizData(quizObj);
     }
 
     handleNext() {

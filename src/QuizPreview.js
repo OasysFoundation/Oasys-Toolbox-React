@@ -27,9 +27,20 @@ class QuizPreview extends Component {
     }
 
     checkAnswers() {
+        var isCorrect = true;
+        for(var i = 0; i < this.state.realAnswers.length; i++)
+        {
+            if(isCorrect && this.state.realAnswers && this.state.userAnswers){
+                isCorrect = ((this.state.realAnswers[i]=== true && this.state.userAnswers[i] === true) ||(this.state.realAnswers[i]=== false && this.state.userAnswers[i] === "not"));
+            }
+        }
+
         this.setState({hasSubmitted: true})
         if (this.props.onCompleted) {
             this.props.onCompleted();
+        }
+        if (this.props.sendAnalyticsToBackend) {
+            this.props.sendAnalyticsToBackend(isCorrect);
         }
     }
 
@@ -49,7 +60,8 @@ class QuizPreview extends Component {
         if (!answer.option) { 
             return; 
         }
-        const isCorrect = (this.state.realAnswers[i] === this.state.userAnswers[i]);
+        const isCorrect = ((this.state.realAnswers[i]=== true && this.state.userAnswers[i] === true) ||(this.state.realAnswers[i]=== false && this.state.userAnswers[i] === "not"));
+
         return (
             <div key={i + 1}>
                 <FormControlLabel
