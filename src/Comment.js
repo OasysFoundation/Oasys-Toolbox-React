@@ -69,16 +69,23 @@ class CommentSection extends Component {
             userName = this.props.match.params.userId;
         }
 
+        let accessUser;
+        this.props.name ?
+            accessUser = this.props.name.displayName
+            : accessUser = null;
+
         var commentEndpoint = 'https://api.joinoasys.org/comment/' + userName + '/' + contentName;
         var currentTime = Date.now();
         if (typeof(this.slideNumber) === "number")
             this.slideNumber = this.slideNumber.toString()
+        if(!accessUser)
+            accessUser = "Anonymous"
         var data = {
             "time": currentTime,
             "comment": this.state.currentReply,
             "parent": parent,
             "slideNumber": this.slideNumber,
-            "accessUser" : userName,
+            "accessUser" : accessUser,
         }
 
         fetch(commentEndpoint, {
@@ -129,6 +136,8 @@ class CommentSection extends Component {
         var currentTime = Date.now();
         if (typeof(this.slideNumber) === "number")
             this.slideNumber = this.slideNumber.toString()
+        if(!accessUser)
+            accessUser="Anonymous"
         var data = {
             "time": currentTime,
             "comment": this.state.comment,
