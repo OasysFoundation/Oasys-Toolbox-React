@@ -67,9 +67,6 @@ class ContentSelection extends Component {
      });
     }
 
-
-
-    //improve --> make a dictionary
     getContentForCategory(category) {
         if (category === "Recently Added" || category === "Featured") {
             return this.state.content

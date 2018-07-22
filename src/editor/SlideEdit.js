@@ -6,6 +6,7 @@ import QuillEdit from './QuillEdit'
 import HyperVideoSetup from './HyperVideoSetup'
 import GameEdit from "./GameEdit";
 import SystemSimEdit from "./SystemSimEdit";
+import PropTypes from 'prop-types';
 
 class SlideEditor extends Component {
   
@@ -43,5 +44,9 @@ class SlideEditor extends Component {
   }
 }
 
+SlideEditor.propTypes = {
+    slideType: PropTypes.string,
+    slide: PropTypes.object
+};
 
 export default SlideEditor;
