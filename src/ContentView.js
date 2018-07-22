@@ -60,7 +60,7 @@ class ContentView extends Component {
     }
 
     toggle(key) {
-        this.setState({ [key] : !this.state[key] })
+        this.setState({[key]: !this.state[key]})
     }
 
     whatRenderer(slide, idx) {
@@ -93,19 +93,7 @@ class ContentView extends Component {
                 return (<div key={idx}>not yet implemented ☹️</div>)
         }
 
-        return (<section key={idx}>
-            {render}
-
-            <CoolBlueButton size="small" onClick={() => this.toggle('showComments')}>
-                {this.state.showComments ? "Hide" : "Show"} {" Comments"}
-            </CoolBlueButton>
-
-            {this.state.showComments ?
-                <Comment name={this.authUsername} slideNumber={this.state.slideIdx} slideLength={this.contentLength}/>
-                : null
-            }
-        </section>)
-
+        return render
     }
 
     updateTiming() {
@@ -194,13 +182,28 @@ class ContentView extends Component {
                         minHeight: window.innerHeight * 0.82
                     }}
                 >
-                    {content.data.map((slide, idx) => (
-                        this.whatRenderer(slide, idx)
-                    ))}
+                    {content.data.map((slide, idx) =>
+                        (<section key={slide.identifier}>
+                            {this.whatRenderer(slide, idx)}
+
+                            <CoolBlueButton size="small" onClick={() => this.toggle('showComments')}>
+                                {this.state.showComments ? "Hide" : "Show"} {" Comments"}
+                            </CoolBlueButton>
+
+                            {this.state.showComments ?
+                                <Comment key={slide.identifier} name={this.authUsername} slideNumber={idx} justUpdate={this.state.slideIdx}
+                                         slideLength={this.contentLength}/>
+                                : null
+                            }
+                        </section>)
+                    )}
                     {this.props.authUser
                         ? <Rating username={this.props.authUser.displayName}/>
                         : null
                     }
+
+                    ))}
+
                 </SwipeableViews>
                 <MobileStepper steps={content.data.length + 1}
                                activeStep={this.state.slideIdx}

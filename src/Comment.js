@@ -45,7 +45,7 @@ class CommentSection extends Component {
             return response.json();
         })
         .then(function (myJson) {
-            console.log(myJson);
+            console.log("COMMENTS: " , myJson);
             that.setState({comments: myJson});
 
         });
@@ -235,7 +235,7 @@ class CommentSection extends Component {
             return response.json();
         })
             .then(function (myJson) {
-                console.log(myJson);
+                console.log("comments ", myJson);
                 that.setState({comments: myJson});
 
         });
