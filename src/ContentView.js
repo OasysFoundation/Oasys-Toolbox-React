@@ -14,6 +14,7 @@ import GameView from "./GameView"
 import HyperVideoEdit from './editor/HyperVideoEdit';
 import Comment from './Comment'
 import {CoolBlueButton} from "./stylings";
+import API from './tools'
 
 const buttonStyle = {
     background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
@@ -51,30 +52,18 @@ class ContentView extends Component {
         // const contentName = this.props.match.params.contentname;
 
         this.whatRenderer = this.whatRenderer.bind(this);
-        const APICALL = `https://api.joinoasys.org/user/${this.userName}/${this.contentName}/`;
+        const URL = `https://api.joinoasys.org/user/${this.userName}/${this.contentName}/`;
 
         const that = this;
-        fetch(APICALL, {
-            method: 'GET'
-        }).then(function (response) {
-            return response.json();
-        })
-            .then(function (myJson) {
-                console.log(myJson);
-                that.setState({content: myJson[0], hasLoaded: true})
-            });
+
+        API.getContent({userName: this.userName, contentName: this.contentName})
+            .then(content => this.setState({content: content[0], hasLoaded: true}))
+
+        this.toggle = this.toggle.bind(this);
     }
 
-    activateComments() {
-        this.setState({
-            showComments: true
-        })
-    }
-
-    deactivateComments() {
-        this.setState({
-            showComments: false
-        })
+    toggle(key) {
+        this.setState({ [key] : !this.state[key] })
     }
 
     whatRenderer(slide, idx) {
@@ -109,21 +98,14 @@ class ContentView extends Component {
 
         return (<section key={idx}>
             {render}
-            {this.state.showComments
-            ? (
-            <CoolBlueButton size="small" onClick={this.deactivateComments.bind(this)}>
-            Hide Comments
-            </CoolBlueButton>
-            )
-            : (
-            <CoolBlueButton size="small" onClick={this.activateComments.bind(this)}>
-            Show Comments
+
+            <CoolBlueButton size="small" onClick={() => this.toggle('showComments')}>
+                {this.state.showComments ? "Hide" : "Show"} {" Comments"}
             </CoolBlueButton>
 
-            )
-            }
-            {this.state.showComments ? <Comment name={this.authUsername} slideNumber={this.state.slideIdx} slideLength={this.contentLength}/>
-            : null
+            {this.state.showComments ?
+                <Comment name={this.authUsername} slideNumber={this.state.slideIdx} slideLength={this.contentLength}/>
+                : null
             }
         </section>)
 
@@ -144,7 +126,6 @@ class ContentView extends Component {
 
     completeFetch(timeObj) {
         console.log(this.props.authUser.displayName);
-        var saveEndpoint = 'https://api.joinoasys.org/saveUserContentAccess';
         var data = {
             "accessTimes": timeObj.timing,
             "startTime": timeObj.startTime,
@@ -153,6 +134,7 @@ class ContentView extends Component {
             "accessUserId": this.props.authUser.displayName,
             "contentUserId": this.state.content.userId
         }
+        var saveEndpoint = 'https://api.joinoasys.org/saveUserContentAccess';
         fetch(saveEndpoint, {
             method: 'POST',
             body: JSON.stringify(data),
@@ -219,7 +201,7 @@ class ContentView extends Component {
                     animateHeight={true}
                     style={{
                         width: fullScreen ? window.width : '640px', marginTop: '20px',
-                        minHeight:window.innerHeight * 0.82
+                        minHeight: window.innerHeight * 0.82
                     }}
                 >
                     {content.data.map((slide, idx) => (
