@@ -191,7 +191,7 @@ class ContentSelection extends Component {
                     <TextField
                       id="search"
                       label="Search…"
-                      style={{width:'400px'}} 
+                      style={{width:'15rem'}} 
                       type="text"
                       margin="normal"
                       onChange={this.didChangeSearchText.bind(this)}
