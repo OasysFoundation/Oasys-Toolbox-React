@@ -191,7 +191,7 @@ class ContentView extends Component {
                             </CoolBlueButton>
 
                             {this.state.showComments ?
-                                <Comment key={slide.identifier} name={this.authUsername} slideNumber={idx} justUpdate={this.state.slideIdx}
+                                <Comment key={slide.identifier} name={this.authUsername} slideNumber={this.state.slideIdx}
                                          slideLength={this.contentLength}/>
                                 : null
                             }
