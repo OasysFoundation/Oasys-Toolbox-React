@@ -164,7 +164,14 @@ class ContentSelection extends Component {
             <div>
                 <Paper style={{margin:'16px', padding:'16px'}}>
 
-                    <FormControl style={{position:'absoulte', top:'0', left:'0'}}>
+
+                    <center>
+                    <h2> Welcome to Oasys! </h2>
+                    <p style={{maxWidth:'450px'}}>
+                    Start your educational journey here. Search for topics you're interested in or select one of the personally curated contents below.
+                    </p>
+
+                    <FormControl style={{position:'absoulte', top:'0', left:'0', width:'15rem', padding:"0px 10px 0px 10px"}}>
                       <Select
                         onChange={this.handleCategoryChange.bind(this)}
                         displayEmpty
@@ -179,14 +186,6 @@ class ContentSelection extends Component {
                         <MenuItem value="Computer Science">Computer Science</MenuItem>
                       </Select>
                     </FormControl>
-
-                    <center>
-                    <h2> Welcome to Oasys! </h2>
-                    <p style={{maxWidth:'450px'}}>
-                    Start your educational journey here. Search for topics you're interested in or select one of the personally curated contents below.
-                    </p>
-
-                    
 
                     <TextField
                       id="search"
