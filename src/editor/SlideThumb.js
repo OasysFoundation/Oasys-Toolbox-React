@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
 import DeleteIcon from '@material-ui/icons/Delete';
-import DragHandleIcon from '@material-ui/icons/DragHandle';
-import {
-  SortableHandle,
-} from 'react-sortable-hoc';
 import ListItem from '@material-ui/core/ListItem';
 import IconButton from '@material-ui/core/IconButton';
 
@@ -18,8 +14,6 @@ let domStyles = {
       'max-height': '60px'
     }
 }
-
-const DragHandle = SortableHandle(() => <DragHandleIcon />);
 
 class SlideThumb extends Component {
   constructor(props) {
@@ -37,7 +31,6 @@ class SlideThumb extends Component {
     return (
       <ListItem button onClick={this.props.didSelectMenuItem.bind(this, this.props.index)}
                        style={(this.props.index===this.props.selectedSlideIndex) ? domStyles.selected : null}>
-        <DragHandle />
 
         {/*<ListItemText primary={this.props.value.name} />*/}
         <div>

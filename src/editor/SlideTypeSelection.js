@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
-import Paper from '@material-ui/core/Paper';
+//import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -26,9 +26,6 @@ import SystemSimulationIcon from '../icons/SystemSimulation.png'
 const slideTypes = [glb.EDIT_QUILL, glb.EDIT_QUIZ, glb.EDIT_GAME, glb.EDIT_HYPERVIDEO, glb.EDIT_SYSTEM];
 
 class SlideTypeSelection extends Component {
-  constructor(props) {
-    	super(props);
-	}
 
 	handleClose() {
 		this.props.onClose();
@@ -46,6 +43,7 @@ class SlideTypeSelection extends Component {
 			case glb.EDIT_GAME: return GameIcon;
 			case glb.EDIT_HYPERVIDEO: return HypervideoIcon;
 			case glb.EDIT_SYSTEM: return SystemSimulationIcon;
+			default: return;
 		}
 	}
 
@@ -56,6 +54,7 @@ class SlideTypeSelection extends Component {
 			case glb.EDIT_GAME: return "Game";
 			case glb.EDIT_HYPERVIDEO: return "Hypervideo";
 			case glb.EDIT_SYSTEM: return "System Simulation";
+			default: return "";
 		}
 	}
 

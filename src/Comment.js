@@ -3,6 +3,7 @@ import {Button, Comment, Form, Header} from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css';
 import OrganizeComments from './OrganizeComments'
 import {buttonGradientCSS} from "./stylings";
+var decode = require('urldecode')
 
 
 class CommentSection extends Component {
@@ -17,12 +18,13 @@ class CommentSection extends Component {
             finalComments: [],
             slideLength: this.props.slideLength,
         }
-        this.slideNumber = '';
+        this.slideNumber = "end";
 
         if ((typeof(this.props.slideNumber) === "number") && ((this.props.slideNumber) === this.props.slideLength))
             this.slideNumber = "end"
-        else
+        else if (this.props.slideNumber){
             this.slideNumber = this.props.slideNumber;
+        }
 
         let that = this;
         let userName = null;
@@ -43,7 +45,7 @@ class CommentSection extends Component {
             return response.json();
         })
         .then(function (myJson) {
-            console.log(myJson);
+            console.log("COMMENTS: " , myJson);
             that.setState({comments: myJson});
 
         });
@@ -67,16 +69,23 @@ class CommentSection extends Component {
             userName = this.props.match.params.userId;
         }
 
+        let accessUser;
+        this.props.name ?
+            accessUser = this.props.name.displayName
+            : accessUser = null;
+
         var commentEndpoint = 'https://api.joinoasys.org/comment/' + userName + '/' + contentName;
         var currentTime = Date.now();
         if (typeof(this.slideNumber) === "number")
             this.slideNumber = this.slideNumber.toString()
+        if(!accessUser)
+            accessUser = "Anonymous"
         var data = {
             "time": currentTime,
             "comment": this.state.currentReply,
             "parent": parent,
             "slideNumber": this.slideNumber,
-            "accessUser" : userName,
+            "accessUser" : accessUser,
         }
 
         fetch(commentEndpoint, {
@@ -127,6 +136,8 @@ class CommentSection extends Component {
         var currentTime = Date.now();
         if (typeof(this.slideNumber) === "number")
             this.slideNumber = this.slideNumber.toString()
+        if(!accessUser)
+            accessUser="Anonymous"
         var data = {
             "time": currentTime,
             "comment": this.state.comment,
@@ -233,7 +244,7 @@ class CommentSection extends Component {
             return response.json();
         })
             .then(function (myJson) {
-                console.log(myJson);
+                console.log("comments ", myJson);
                 that.setState({comments: myJson});
 
         });
@@ -241,11 +252,12 @@ class CommentSection extends Component {
 
     render() {
         const info = this.getContentInfo();
+
         return (
                 <div style={{overflow: 'auto', maxHeight: 60+'vh', margin: '20px'}}>
                     <Comment.Group>
                         <Header as='h3' dividing>
-                            Comments for "{info.contentName}" by {info.userName}
+                            Comments for "{decode(info.contentName)}" by {decode(info.userName)}
                         </Header>
 
                         <Form reply style={{marginBottom:'30px'}}>

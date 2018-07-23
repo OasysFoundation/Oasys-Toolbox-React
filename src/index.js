@@ -38,6 +38,7 @@ import Comment from './Comment'
 import Help from './Help'
 import Foxy from './Foxy'
 
+import 'bootstrap/dist/css/bootstrap.css';
 
 
 const history = createBrowserHistory();
@@ -59,7 +60,6 @@ class Index extends Component {
     componentDidMount() {
         
     }
-
 
     render() {
         return (
@@ -95,9 +95,7 @@ class Index extends Component {
 
                             <Route component={NotFoundPage}/>
                         </Switch>
-                        <footer style={{position: 'fixed', bottom:0}}>
-                            <Foxy/>
-                        </footer>
+                        
 
                     </div>
                 </Router>

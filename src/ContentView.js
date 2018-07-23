@@ -14,6 +14,9 @@ import GameView from "./GameView"
 import HyperVideoEdit from './editor/HyperVideoEdit';
 import Comment from './Comment'
 import {CoolBlueButton} from "./stylings";
+import API from './tools'
+import Media from "react-media";
+
 
 const buttonStyle = {
     background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
@@ -38,6 +41,8 @@ class ContentView extends Component {
             startTime: new Date(),
             endTime: null,
             showComments: false,
+            quizzes: [],
+            
         };
         console.log(match, props, "MAATCH")
 
@@ -51,35 +56,22 @@ class ContentView extends Component {
         // const contentName = this.props.match.params.contentname;
 
         this.whatRenderer = this.whatRenderer.bind(this);
-        const APICALL = `https://api.joinoasys.org/user/${this.userName}/${this.contentName}/`;
 
-        const that = this;
-        fetch(APICALL, {
-            method: 'GET'
-        }).then(function (response) {
-            return response.json();
-        })
-            .then(function (myJson) {
-                console.log(myJson);
-                that.setState({content: myJson[0], hasLoaded: true})
-            });
+        API.getContent({userName: this.userName, contentName: this.contentName})
+            .then(content => this.setState({content: content[0], hasLoaded: true}))
+
+        this.toggle = this.toggle.bind(this);
     }
 
-    activateComments() {
-        this.setState({
-            showComments: true
-        })
-    }
-
-    deactivateComments() {
-        this.setState({
-            showComments: false
-        })
+    toggle(key) {
+        this.setState({[key]: !this.state[key]})
     }
 
     whatRenderer(slide, idx) {
-        this.authUsername = '';
-        this.props.authUser ? this.authUsername = this.props.authUser : null
+        this.authUsername = null;
+        if (this.props.authUser) {
+            this.authUsername = this.props.authUser;
+        }
         this.contentLength = this.state.content.data.length;
 
         let render = (<div>No Content to be found here</div>)
@@ -90,7 +82,7 @@ class ContentView extends Component {
                 break;
 
             case globals.EDIT_QUIZ:
-                render = <QuizPreview content={slide.content}/>
+                render = <QuizPreview content={slide.content} sendAnalyticsToBackend={this.handleQuizSumbit.bind(this)}/>
                 break;
             case globals.EDIT_GAME:
                 render = <GameView url={slide.content.url}/>
@@ -105,45 +97,33 @@ class ContentView extends Component {
                 return (<div key={idx}>not yet implemented ☹️</div>)
         }
 
-        return (<section key={idx}>
-            {render}
-            {this.state.showComments
-            ? (
-            <CoolBlueButton size="small" onClick={this.deactivateComments.bind(this)}>
-            Hide Comments
-            </CoolBlueButton>
-            )
-            : (
-            <CoolBlueButton size="small" onClick={this.activateComments.bind(this)}>
-            Show Comments
-            </CoolBlueButton>
-
-            )
-            }
-            {this.state.showComments ? <Comment name={this.authUsername} slideNumber={this.state.slideIdx} slideLength={this.contentLength}/>
-            : null
-            }
-        </section>)
-
+        return render
     }
 
     updateTiming() {
         const t1 = this.state.lastTime;
         const t2 = new Date();
-        let timing = this.state.timing.slice();
-        timing.push({i: this.state.slideIdx, t: t2 - t1});
+        var newelement = {i: this.state.slideIdx, t: t2 - t1};
+        var newArr = [...this.state.timing, newelement]
+
+        this.setState({
+          timing: newArr
+        })
+
         let tobj = {
             startTime: this.state.startTime,
-            timing: timing,
+            timing: newArr,
             lastTime: t2
         }
+        this.setState({
+            lastTime:t2
+        })
         return tobj
     }
 
-    completeFetch(timeObj) {
+    postInteractionData(timeObj) {
         console.log(this.props.authUser.displayName);
-        var saveEndpoint = 'https://api.joinoasys.org/saveUserContentAccess';
-        var data = {
+        const data = {
             "accessTimes": timeObj.timing,
             "startTime": timeObj.startTime,
             "endTime": timeObj.endTime,
@@ -151,13 +131,44 @@ class ContentView extends Component {
             "accessUserId": this.props.authUser.displayName,
             "contentUserId": this.state.content.userId
         }
-        fetch(saveEndpoint, {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: new Headers({
-                'Content-Type': 'application/json',
-            })
-        });
+        API.postUserContentAccess(data);
+    }
+
+    postQuizData(quizObj) {
+        console.log(this.props.authUser.displayName);
+        const data = {
+            "startTime": quizObj.startTime,
+            "endTime": quizObj.endTime,
+            "contentId": this.state.content.contentId,
+            "accessUserId": this.props.authUser.displayName,
+            "contentUserId": this.state.content.userId,
+            "quizzes" : quizObj.quizzes,
+            "type" : "quizUpdate"
+        }
+        API.postUserContentAccess(data);
+    }
+
+    handleQuizSumbit(isCorrect){
+
+        var answer = isCorrect;
+        const t1 = this.state.lastTime;
+        const t2 = new Date();
+
+        var newelement = {i: this.state.slideIdx, correct: isCorrect, t: t2 - t1};
+        var newArr = [...this.state.quizzes, newelement]
+
+        this.setState({
+          quizzes: newArr
+        })
+
+
+        let endTime = new Date();
+        var quizObj = {
+            startTime: this.state.startTime,
+            endTime: endTime,
+            quizzes: newArr,
+        }
+        this.postQuizData(quizObj);
     }
 
     handleNext() {
@@ -172,7 +183,7 @@ class ContentView extends Component {
         } else {
             tobj.endTime = this.state.endTime;
         }
-        this.completeFetch(tobj);
+        this.postInteractionData(tobj);
     }
 
     handlePrevious() {
@@ -181,7 +192,7 @@ class ContentView extends Component {
         this.setState({
             slideIdx: this.state.slideIdx - 1,
         });
-        this.completeFetch(tobj);
+        this.postInteractionData(tobj);
     }
 
     handleStepChange(newStep) {
@@ -209,25 +220,84 @@ class ContentView extends Component {
         return (
             <center>
 
-                <SwipeableViews
+            <Media query="(max-width: 768px)">
+                    {matches =>
+                      matches ? (
+                            <SwipeableViews
                     axis={'x'}
                     index={this.state.slideIdx}
                     onChangeIndex={this.handleStepChange.bind(this)}
                     enableMouseEvents
                     animateHeight={true}
                     style={{
-                        width: fullScreen ? window.width : '640px', marginTop: '20px',
-                        minHeight:window.innerHeight * 0.82
+                        width: fullScreen ? window.width : '90%', marginTop: '20px',
+                        minHeight: window.innerHeight * 0.82
                     }}
                 >
-                    {content.data.map((slide, idx) => (
-                        this.whatRenderer(slide, idx)
-                    ))}
+                {content.data.map((slide, idx) =>
+                        (<section key={slide.identifier}>
+                            {this.whatRenderer(slide, idx)}
+
+                            <CoolBlueButton size="small" onClick={() => this.toggle('showComments')}>
+                                {this.state.showComments ? "Hide" : "Show"} {" Comments"}
+                            </CoolBlueButton>
+
+                            {this.state.showComments ?
+                                <Comment key={slide.identifier} name={this.authUsername} slideNumber={this.state.slideIdx}
+                                         slideLength={this.contentLength}/>
+                                : null
+                            }
+                        </section>)
+                    )}
                     {this.props.authUser
                         ? <Rating username={this.props.authUser.displayName}/>
                         : null
                     }
+
+                    ))}
+
                 </SwipeableViews>
+
+                      ) : (
+                      <SwipeableViews
+                    axis={'x'}
+                    index={this.state.slideIdx}
+                    onChangeIndex={this.handleStepChange.bind(this)}
+                    enableMouseEvents
+                    animateHeight={true}
+                    style={{
+                        width: fullScreen ? window.width : '75%', marginTop: '20px',
+                        minHeight: window.innerHeight * 0.82
+                    }}
+                >
+                {content.data.map((slide, idx) =>
+                        (<section key={slide.identifier}>
+                            {this.whatRenderer(slide, idx)}
+
+                            <CoolBlueButton size="small" onClick={() => this.toggle('showComments')}>
+                                {this.state.showComments ? "Hide" : "Show"} {" Comments"}
+                            </CoolBlueButton>
+
+                            {this.state.showComments ?
+                                <Comment key={slide.identifier} name={this.authUsername} slideNumber={this.state.slideIdx}
+                                         slideLength={this.contentLength}/>
+                                : null
+                            }
+                        </section>)
+                    )}
+                    {this.props.authUser
+                        ? <Rating username={this.props.authUser.displayName}/>
+                        : null
+                    }
+
+                    ))}
+
+                </SwipeableViews>
+
+                      )
+                    }
+                  </Media>
+                    
                 <MobileStepper steps={content.data.length + 1}
                                activeStep={this.state.slideIdx}
                                style={{

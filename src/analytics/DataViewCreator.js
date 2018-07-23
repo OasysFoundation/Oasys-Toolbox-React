@@ -21,7 +21,7 @@ import {styles} from './styles'
 import {genSynthData} from './genSyntheticData'
 import {rearrangeData} from './processData'
 import api from "../tools";
-import glb from "../globals";
+//import glb from "../globals";
 import {CoolPinkButton} from "../stylings";
 import previewBackground from "../images/preview.png";
 
@@ -114,6 +114,8 @@ class DataView extends Component {
                 this.renderGraphs();
             });
         } else {
+            // provide hint of eslint (here it is actually safe to mutate state)
+            // eslint-disable-next-line react/no-direct-mutation-state
             this.state.data = rearrangeData(this.rawdata);
             if (this.mounted) {
                 this.renderGraphs();

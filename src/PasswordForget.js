@@ -70,8 +70,9 @@ render() {
 
 
     return (
-		<Card style={{maxWidth:'350px', position:'absolute', top: '50%', left: '50%', transform: 'translateX(-50%) translateY(-50%)'}}>
-			<CardContent>
+<div style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: "10px"}}>
+    <Card style={{maxWidth:'90%'}}>			
+      <CardContent>
 
 				<center>
 				<img src={logo} style={{maxWidth:'100px'}} alt=""/>
@@ -98,6 +99,7 @@ render() {
 		      </CardActions>
 			</CardContent>
 		</Card>
+    </div>
     	)
 }
 }

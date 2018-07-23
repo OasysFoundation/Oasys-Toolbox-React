@@ -18,7 +18,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import RemixIcon from '@material-ui/icons/MergeType';
 import CommentIcon from '@material-ui/icons/ModeComment';
 import Chip from '@material-ui/core/Chip';
-
+import Media from "react-media";
 
 const styles = {
     card: {
@@ -49,7 +49,9 @@ class SimpleMediaCard extends Component {
     super(props);
     this.state = {
       anchorEl: null,
-      userProfileURL: null
+      userProfileURL: null,
+      disabledMessage: "Remix",
+      isDisabled: false,
     }
 
     const profile = 'https://api.joinoasys.org/profile/' + this.props.contentData.userId
@@ -80,6 +82,17 @@ class SimpleMediaCard extends Component {
   }
 
   render() {
+
+    var disabledMessage = this.state.disabledMessage;
+    var isDisabled = this.state.isDisabled;
+
+
+    if(this.props.onMobile)
+      disabledMessage = "Remix requires Desktop or ipad" 
+
+    if(this.props.onMobile)
+      isDisabled = true; 
+
     const { classes } = this.props;
     const {picture, title, description, tags, rating, contentId, numRatings} = this.props.contentData;
     let {userId} = this.props.contentData;
@@ -135,26 +148,53 @@ class SimpleMediaCard extends Component {
                     anchorEl={this.state.anchorEl}
                     onClose={this.closeCardOptions.bind(this)}
                   >
-                  <List component="nav">
-                    <ListItem button onClick={function(event) {window.location.replace(`/create/${userId}/${contentId}`)}}>
-                      <ListItemIcon>
-                        <RemixIcon />
-                      </ListItemIcon>
-                      <ListItemText inset primary="Remix" />
-                    </ListItem>
-                    <ListItem button onClick={function(event) {event.preventDefault(); window.location.href = ('/comments/'+userId+'/'+title) }}>
-                      <ListItemIcon>
-                        <CommentIcon />
-                      </ListItemIcon>                    
-                      <ListItemText inset primary="View Comments" />
-                    </ListItem>
-                  </List>
+
+                  <Media query="(max-width: 768px)">
+                    {matches =>
+                      matches ? (
+                        
+                        <List component="nav">
+                        <ListItem disabled={true} button onClick={function(event) {window.location.replace(`/create/${userId}/${contentId}`)}}>
+                          <ListItemIcon>
+                            <RemixIcon />
+                          </ListItemIcon>
+                          <ListItemText inset primary="Remix requires Desktop or ipad" />
+                        </ListItem>
+                        <ListItem button onClick={function(event) {event.preventDefault(); window.location.href = ('/comments/'+userId+'/'+title) }}>
+                          <ListItemIcon>
+                            <CommentIcon />
+                          </ListItemIcon>                    
+                          <ListItemText inset primary="View Comments" />
+                        </ListItem>
+                      </List>
+
+                      ) : (
+
+                      <List component="nav">
+                        <ListItem disabled={false} button onClick={function(event) {window.location.replace(`/create/${userId}/${contentId}`)}}>
+                          <ListItemIcon>
+                            <RemixIcon />
+                          </ListItemIcon>
+                          <ListItemText inset primary="Remix" />
+                        </ListItem>
+                        <ListItem button onClick={function(event) {event.preventDefault(); window.location.href = ('/comments/'+userId+'/'+title) }}>
+                          <ListItemIcon>
+                            <CommentIcon />
+                          </ListItemIcon>                    
+                          <ListItemText inset primary="View Comments" />
+                        </ListItem>
+                      </List>
+
+                      )
+                    }
+                  </Media>
+
                   </Popover>
                   <CardHeader
                     avatar={
                       <Avatar aria-label="Recipe" className={classes.avatar}>
                         {this.state.userProfileURL? (
-                          <img src={this.state.userProfileURL} style={{width:'auto', height:'auto', 'max-height':'100%', 'max-width':'100%'}}/>  
+                          <img src={this.state.userProfileURL} style={{width:'auto', height:'auto', 'max-height':'100%', 'max-width':'100%'}} alt=""/>  
                           )
                         :
                         (

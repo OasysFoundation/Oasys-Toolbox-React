@@ -4,27 +4,18 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import AddIcon from '@material-ui/icons/Add';
-import WallpaperIcon from '@material-ui/icons/Wallpaper';
-import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
-import GamesIcon from '@material-ui/icons/Games';
-//import DragHandleIcon from '@material-ui/icons/DragHandle';
-//import DeleteIcon from '@material-ui/icons/Delete';
-import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
-import Popover from '@material-ui/core/Popover';
-import Avatar from '@material-ui/core/Avatar';
-//import IconButton from '@material-ui/core/IconButton';
-import SlideThumb from './SlideThumb'
-import Tooltip from '@material-ui/core/Tooltip';
-import glb from '../globals';
-
-
 import {
   SortableContainer,
   SortableElement,
   arrayMove,
 } from 'react-sortable-hoc';
 
-//import glb from "./globals";
+import SlideThumb from './SlideThumb';
+import Tooltip from '@material-ui/core/Tooltip';
+import PropTypes from 'prop-types';
+
+
+
 
 const SortableSlide = SortableElement(props => 
   <SlideThumb index={props.indexCopy} value={props.value}
@@ -75,7 +66,6 @@ class SlidesThumbnailView extends Component {
   };
 
   render() {
-    let didSelectAddNewSlide = this.didSelectAddNewSlide;
     return (
       <div onClick={this.props.onClick}> 
         <section> 
@@ -89,8 +79,8 @@ class SlidesThumbnailView extends Component {
             <Divider />
             <Divider />
             <SortableSlideList items={this.props.slides} 
-                              onSortEnd={this.onSortEnd} 
-                              useDragHandle={true} 
+                              onSortEnd={this.onSortEnd}
+                              distance={1}
                               didSelectMenuItem={this.didSelectMenuItem.bind(this)} 
                               selectedSlideIndex={this.props.selectedSlideIndex}
                               onRemoveSlide={this.onRemoveSlide}/>
@@ -100,6 +90,11 @@ class SlidesThumbnailView extends Component {
     );
   }
 }
+
+SlidesThumbnailView.propTypes = {
+    id: PropTypes.number,
+    slides: PropTypes.array
+};
 
 
 export default SlidesThumbnailView;

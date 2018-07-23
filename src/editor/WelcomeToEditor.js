@@ -3,11 +3,7 @@ import Button from '@material-ui/core/Button';
 import EditorIcon from '@material-ui/icons/BorderColor';
 
 class WelcomeToEditor extends Component {
-	constructor(props) {
-		super(props);
-	}
-
-
+	
 	render() {
 		return (
 			<div>
