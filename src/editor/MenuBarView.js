@@ -55,7 +55,9 @@ class MenuBarView extends Component {
             isUploading: false,
             showsConclusionDialog: false,
             publishedSubmitted: false,
+            publishAck:true,
       };
+
   }
 
   componentWillReceiveProps(nextProps) {
@@ -374,6 +376,7 @@ class MenuBarView extends Component {
   closeAlreadyPublishedDialog() {
     this.setState({
       publishedSubmitted: false,
+      publishAck: false,
     })
   }
 
@@ -387,9 +390,13 @@ class MenuBarView extends Component {
     const userName = ((this.props.authUser && this.props.authUser.displayName) ? this.props.authUser.displayName : "Anonymous");
     const shareableLink = "https://app.joinoasys.org/user/" + userName +'/'+this.props.contentTitle;
 
+    var published = 0
+    if(this.props.published==1 && this.state.publishAck)
+      published = 1
+
     return (
     	<div>
-      <AlreadyPublishedDialog open={this.state.publishedSubmitted} onClose={this.closeAlreadyPublishedDialog.bind(this)} changeTitle={this.props.changeTitle} oldTitle={this.props.contentTitle}/>
+      <AlreadyPublishedDialog open={this.state.publishedSubmitted || published} onClose={this.closeAlreadyPublishedDialog.bind(this)} changeTitle={this.props.changeTitle} oldTitle={this.props.contentTitle}/>
       <LoadingDialog open={this.state.isUploading} message='Uploading Content…' />
       <PublishedCheerDialog open={this.state.showsConclusionDialog} sharableLink={shareableLink} onClose={this.closePublishedDialog.bind(this)}/>
       <Toolbar style={{backgroundColor: BG}}>
