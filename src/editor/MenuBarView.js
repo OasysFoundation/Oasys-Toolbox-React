@@ -52,7 +52,8 @@ class MenuBarView extends Component {
             description:this.props.description,
             loading:false,
             isUploading: false,
-            showsConclusionDialog: false
+            showsConclusionDialog: false,
+            publishedSubmitted: false,
       };
   }
 
@@ -198,7 +199,8 @@ class MenuBarView extends Component {
           this.setState({
             snackBarMessage: 'Published',
             isUploading: false,
-            showsConclusionDialog: true
+            showsConclusionDialog: true,
+            publishedSubmitted: true,
           })
         }
       }
@@ -408,11 +410,21 @@ class MenuBarView extends Component {
         aria-describedby="alert-dialog-description"
       >        
 
-        <DialogTitle id="alert-dialog-title">{"You are almost done!"}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">{"Great Work!"}</DialogTitle>
         <DialogContent>
-        <DialogContentText id="alert-dialog-description">
-          We need a little more information to properly save your content. 
-          </DialogContentText>
+        {this.state.saveAction==="publish"
+          ? (
+            <DialogContentText id="alert-dialog-description">
+              Once published, you cannot edit this content! Edits to this content will be saved as new content. 
+            </DialogContentText>
+            )
+          :(
+            <DialogContentText id="alert-dialog-description">
+              Providing hashtags and a description helps us get your content to the right people! 
+            </DialogContentText>
+            )
+        }
+
             <TextField
               id="description"
               placeholder="Description"
