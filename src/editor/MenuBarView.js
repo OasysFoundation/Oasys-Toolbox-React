@@ -193,14 +193,20 @@ class MenuBarView extends Component {
 
       console.log(response);
       if (response) {
-        if (this.state.saveAction === 'save') {
+        if(response.alreadyPublished){
+          this.setState({
+            snackBarMessage: 'Content already published, please change title and try again.',
+            isUploading: false
+          })
+        }
+        else if (this.state.saveAction === 'save') {
           this.setState({
             snackBarMessage: 'Saved Draft',
             isUploading: false
           })
         }
 
-        if (this.state.saveAction === 'publish') {
+        else if (this.state.saveAction === 'publish') {
           this.setState({
             snackBarMessage: 'Published',
             isUploading: false,
