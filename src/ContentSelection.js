@@ -136,9 +136,6 @@ class ContentSelection extends Component {
 
 
     render(){
-        // if (this.state.isLoading) {
-        //     return <img style={{transform: 'rotate(180deg)'}} src={'https://media.giphy.com/media/xsE65jaPsUKUo/giphy.gif'}></img>
-        // }
         let searchListContent = (
             <ListItem>
                  <ListItemText primary="No Contents Found" />
