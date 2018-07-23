@@ -155,6 +155,8 @@ class MenuBarView extends Component {
 
   sendToServer(contentId, published, hashtags, description, slides) {
     var username = this.props.authUser.displayName;
+    if(!username)
+      username= "Anonymous"
     var saveEndpoint = 'https://api.joinoasys.org/save/'+username+'/'+contentId;
     var data = {
       "data":slides,
@@ -323,7 +325,11 @@ class MenuBarView extends Component {
   }
 
   updateURL(){
-    const allData = 'https://api.joinoasys.org/user/'+this.props.authUser.displayName+'/'+this.props.contentTitle
+    var username=this.props.authUser.displayName;
+    if(!username)
+      username= "Anonymous"
+
+    const allData = 'https://api.joinoasys.org/user/'+username+'/'+this.props.contentTitle
     console.log(allData);
     fetch(allData, {
       method: 'GET',
@@ -371,7 +377,7 @@ class MenuBarView extends Component {
     } = this.state;
     const isInvalid = !description || !hashtags;
 
-    const userName = this.props.authUser? this.props.authUser.displayName : "unknown";
+    const userName = ((this.props.authUser && this.props.authUser.displayName) ? this.props.authUser.displayName : "Anonymous");
     const shareableLink = "https://app.joinoasys.org/user/" + userName +'/'+this.props.contentTitle;
 
     return (
