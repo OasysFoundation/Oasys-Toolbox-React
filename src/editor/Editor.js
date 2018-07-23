@@ -319,6 +319,14 @@ class Editor extends Component {
     })
   }
 
+  changeTitle(newTitle){
+    if(newTitle){
+      this.setState({
+        title: newTitle
+      })
+    }
+  }
+
   showSlideSelection() {
     this.setState({
       showsSlideSelection: true
@@ -338,7 +346,7 @@ class Editor extends Component {
         <LoadingDialog open={this.state.downloadingContent} message='Loading Content…' />
         <Grid container spacing={24}>
         <Grid item xs={12}>
-          <MenuBarView onLoad={this.onLoad.bind(this)} slides={this.state.slides} authUser={this.props.authUser} contentTitle={this.state.title} hashtags={this.state.tags} description={this.state.description}/>
+          <MenuBarView onLoad={this.onLoad.bind(this)} slides={this.state.slides} authUser={this.props.authUser} contentTitle={this.state.title} hashtags={this.state.tags} description={this.state.description} changeTitle={this.changeTitle.bind(this)}/>
           <TextField
                       id="search"
                       value={this.state.title}

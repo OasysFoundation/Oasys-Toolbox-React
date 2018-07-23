@@ -21,6 +21,7 @@ import UploadPicContentDialog from '../UploadPicContentDialog'
 import logo from '../logo.jpg'
 import LoadingDialog from '../LoadingDialog'
 import PublishedCheerDialog from '../PublishedCheerDialog'
+import AlreadyPublishedDialog from '../AlreadyPublishedDialog'
 
 
 const BG = "#5C8B8E";
@@ -370,6 +371,12 @@ class MenuBarView extends Component {
     })
   }
 
+  closeAlreadyPublishedDialog() {
+    this.setState({
+      publishedSubmitted: false,
+    })
+  }
+
   render() {
     const {
       description,
@@ -382,6 +389,7 @@ class MenuBarView extends Component {
 
     return (
     	<div>
+      <AlreadyPublishedDialog open={this.state.publishedSubmitted} onClose={this.closeAlreadyPublishedDialog.bind(this)} changeTitle={this.props.changeTitle} oldTitle={this.props.contentTitle}/>
       <LoadingDialog open={this.state.isUploading} message='Uploading Content…' />
       <PublishedCheerDialog open={this.state.showsConclusionDialog} sharableLink={shareableLink} onClose={this.closePublishedDialog.bind(this)}/>
       <Toolbar style={{backgroundColor: BG}}>
