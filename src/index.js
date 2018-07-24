@@ -62,6 +62,7 @@ class Index extends Component {
     }
 
     render() {
+        console.log("Index has run");
         return (
             <div>
                 <Router history={history}>
