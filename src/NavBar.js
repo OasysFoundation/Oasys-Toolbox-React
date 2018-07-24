@@ -116,7 +116,9 @@ class NavBar extends React.Component {
         if (loggedIn) {
             accountMenuItemsNew = (
                 <NavItem style={{display: "flex",alignItems: "center", justifyContent: "center", padding:"8px 10px 8px 10px"}}>
-                    <IconAccountCircle style={{color:"white"}}/>
+                    <NavLink href="/user/" style={{paddingLeft:"0px",paddingRight: "0px"}}>
+                        <IconAccountCircle style={{color:"white"}}/>
+                    </NavLink>
                     <NavLink href="/user/" className={"text-white"} style={{paddingLeft:"2px"}}>{this.props.authUser.displayName}</NavLink>
                 </NavItem>
             );
@@ -154,15 +156,21 @@ class NavBar extends React.Component {
         let navBarElementsNew = (
             <Nav className="ml-auto" navbar>
               <NavItem style={{display: "flex",alignItems: "center", justifyContent: "center", padding:"8px 10px 8px 10px"}}>
-                <IconExplore style={{color:"white"}}/>
+                <NavLink href="/explore/" style={{paddingLeft:"0px",paddingRight: "0px"}}>
+                    <IconExplore style={{color:"white"}}/>
+                </NavLink>
                 <NavLink href="/explore/" className={"text-white"} style={{paddingLeft:"2px"}}>Explore</NavLink>
               </NavItem>
               <NavItem hidden={this.state.isHidden} style={{display: "flex",alignItems: "center", justifyContent: "center", padding:"8px 10px 8px 10px"}}> 
-                <IconCreate style={{color:"white"}}/>
+                <NavLink href="/create/" style={{paddingLeft:"0px",paddingRight: "0px"}}>
+                    <IconCreate style={{color:"white"}}/>
+                </NavLink>
                 <NavLink href="/create/" className={"text-white"} style={{paddingLeft:"2px"}}>Create</NavLink>
               </NavItem>
               <NavItem style={{display: "flex",alignItems: "center", justifyContent: "center", padding:"8px 10px 8px 10px"}}>
-                <IconInsertChart style={{color:"white"}}/>
+                <NavLink href="/data/" style={{paddingLeft:"0px",paddingRight: "0px"}}>
+                    <IconInsertChart style={{color:"white"}}/>
+                </NavLink>
                 <NavLink href="/data/" className={"text-white"} style={{paddingLeft:"2px"}}>Analytics</NavLink>
               </NavItem>
               {accountMenuItemsNew}
