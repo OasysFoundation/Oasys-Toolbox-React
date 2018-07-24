@@ -41,11 +41,11 @@ const styles = theme => ({
         height: theme.spacing.unit * 4,
     },
     navbar: {
-        backgroundColor: "#74A4AC"
+        backgroundColor: "#00695c"
     }
 });
 
-const BG = "#74A4AC";
+const BG = "#00695c";
 
 
 class NavBar extends React.Component {

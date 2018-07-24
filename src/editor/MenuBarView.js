@@ -24,7 +24,7 @@ import PublishedCheerDialog from '../PublishedCheerDialog'
 import AlreadyPublishedDialog from '../AlreadyPublishedDialog'
 
 
-const BG = "#5C8B8E";
+const BG = "#00897b";
 
 const buttonStyle = {
   padding: '0',
@@ -422,7 +422,7 @@ class MenuBarView extends Component {
       </Tooltip>
 
       <Tooltip enterDelay={500} id="tooltip-bottom" title="Publish your content on the Oasys platform. Other users then can explore, use, share, edit, comment, and remix your content." placement="bottom">
-      <Button onClick={this.onPublish.bind(this)} style={{color: 'orange'}} >
+      <Button onClick={this.onPublish.bind(this)} style={{color: '#ffd54f'}} >
         <PublishIcon />
           Publish on Oasys
       </Button>
