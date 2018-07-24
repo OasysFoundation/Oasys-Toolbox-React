@@ -21,6 +21,7 @@ import UploadPicContentDialog from '../UploadPicContentDialog'
 import logo from '../logo.jpg'
 import LoadingDialog from '../LoadingDialog'
 import PublishedCheerDialog from '../PublishedCheerDialog'
+import AlreadyPublishedDialog from '../AlreadyPublishedDialog'
 
 
 const BG = "#5C8B8E";
@@ -52,8 +53,11 @@ class MenuBarView extends Component {
             description:this.props.description,
             loading:false,
             isUploading: false,
-            showsConclusionDialog: false
+            showsConclusionDialog: false,
+            publishedSubmitted: false,
+            publishAck:true,
       };
+
   }
 
   componentWillReceiveProps(nextProps) {
@@ -154,6 +158,8 @@ class MenuBarView extends Component {
 
   sendToServer(contentId, published, hashtags, description, slides) {
     var username = this.props.authUser.displayName;
+    if(!username)
+      username= "Anonymous"
     var saveEndpoint = 'https://api.joinoasys.org/save/'+username+'/'+contentId;
     var data = {
       "data":slides,
@@ -187,18 +193,25 @@ class MenuBarView extends Component {
 
       console.log(response);
       if (response) {
-        if (this.state.saveAction === 'save') {
+        if(response.alreadyPublished){
+          this.setState({
+            snackBarMessage: 'Content already published, please change title and try again.',
+            isUploading: false
+          })
+        }
+        else if (this.state.saveAction === 'save') {
           this.setState({
             snackBarMessage: 'Saved Draft',
             isUploading: false
           })
         }
 
-        if (this.state.saveAction === 'publish') {
+        else if (this.state.saveAction === 'publish') {
           this.setState({
             snackBarMessage: 'Published',
             isUploading: false,
-            showsConclusionDialog: true
+            showsConclusionDialog: true,
+            publishedSubmitted: true,
           })
         }
       }
@@ -321,7 +334,11 @@ class MenuBarView extends Component {
   }
 
   updateURL(){
-    const allData = 'https://api.joinoasys.org/user/'+this.props.authUser.displayName+'/'+this.props.contentTitle
+    var username=this.props.authUser.displayName;
+    if(!username)
+      username= "Anonymous"
+
+    const allData = 'https://api.joinoasys.org/user/'+username+'/'+this.props.contentTitle
     console.log(allData);
     fetch(allData, {
       method: 'GET',
@@ -362,6 +379,13 @@ class MenuBarView extends Component {
     })
   }
 
+  closeAlreadyPublishedDialog() {
+    this.setState({
+      publishedSubmitted: false,
+      publishAck: false,
+    })
+  }
+
   render() {
     const {
       description,
@@ -369,11 +393,16 @@ class MenuBarView extends Component {
     } = this.state;
     const isInvalid = !description || !hashtags;
 
-    const userName = this.props.authUser? this.props.authUser.displayName : "unknown";
+    const userName = ((this.props.authUser && this.props.authUser.displayName) ? this.props.authUser.displayName : "Anonymous");
     const shareableLink = "https://app.joinoasys.org/user/" + userName +'/'+this.props.contentTitle;
+
+    var published = 0
+    if(this.props.published==1 && this.state.publishAck)
+      published = 1
 
     return (
     	<div>
+      <AlreadyPublishedDialog open={this.state.publishedSubmitted || published} onClose={this.closeAlreadyPublishedDialog.bind(this)} changeTitle={this.props.changeTitle} oldTitle={this.props.contentTitle}/>
       <LoadingDialog open={this.state.isUploading} message='Uploading Content…' />
       <PublishedCheerDialog open={this.state.showsConclusionDialog} sharableLink={shareableLink} onClose={this.closePublishedDialog.bind(this)}/>
       <Toolbar style={{backgroundColor: BG}}>
@@ -408,11 +437,21 @@ class MenuBarView extends Component {
         aria-describedby="alert-dialog-description"
       >        
 
-        <DialogTitle id="alert-dialog-title">{"You are almost done!"}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">{"Great Work!"}</DialogTitle>
         <DialogContent>
-        <DialogContentText id="alert-dialog-description">
-          We need a little more information to properly save your content. 
-          </DialogContentText>
+        {this.state.saveAction==="publish"
+          ? (
+            <DialogContentText id="alert-dialog-description">
+              Once published, you cannot edit this content! Edits to this content will be saved as new content. 
+            </DialogContentText>
+            )
+          :(
+            <DialogContentText id="alert-dialog-description">
+              Providing hashtags and a description helps us get your content to the right people! 
+            </DialogContentText>
+            )
+        }
+
             <TextField
               id="description"
               placeholder="Description"

@@ -63,8 +63,11 @@ class Editor extends Component {
       title: "Untitled",
       description: '',
       tags: '',
+      published: '',
       downloadingContent: shouldDownloadContent,
-      showsSlideSelection: false
+      showsSlideSelection: false,
+      alreadyPublished: '',
+      contentCreator: '',
     };
 
     this.onAddNewSlide = this.onAddNewSlide.bind(this);
@@ -302,7 +305,9 @@ class Editor extends Component {
               title: myJson[0].contentId,
               description: myJson[0].description,
               tags: myJson[0].tags,
-              downloadingContent: false
+              downloadingContent: false,
+              alreadyPublished: myJson[0].published,
+              contentCreator: myJson[0].userId,
             });
           }
         }
@@ -319,6 +324,14 @@ class Editor extends Component {
     })
   }
 
+  changeTitle(newTitle){
+    if(newTitle){
+      this.setState({
+        title: newTitle
+      })
+    }
+  }
+
   showSlideSelection() {
     this.setState({
       showsSlideSelection: true
@@ -331,14 +344,35 @@ class Editor extends Component {
     }); 
   }
 
+  changePublishedState(){
+    this.setState({
+      published: !this.state.published
+    })
+  }
+
   render() {
+    const published = (this.state.alreadyPublished==1)
+            ?(
+              (this.state.contentCreator!="Anonymous")
+                ? (
+                  this.props.authUser
+                    ?(
+                      (this.props.authUser.displayName==this.state.contentCreator)
+                        ?(1)
+                        :(0)
+                      )
+                    :(0)
+                  )
+                :(0)
+              )
+            :(0)
     return (
       <div>
         <SlideTypeSelection open={this.state.showsSlideSelection} onClose={this.hideSlideSelection.bind(this)} onSelect={this.onAddNewSlide.bind(this)}/>
         <LoadingDialog open={this.state.downloadingContent} message='Loading Content…' />
         <Grid container spacing={24}>
         <Grid item xs={12}>
-          <MenuBarView onLoad={this.onLoad.bind(this)} slides={this.state.slides} authUser={this.props.authUser} contentTitle={this.state.title} hashtags={this.state.tags} description={this.state.description}/>
+          <MenuBarView published={published} onLoad={this.onLoad.bind(this)} slides={this.state.slides} authUser={this.props.authUser} contentTitle={this.state.title} hashtags={this.state.tags} description={this.state.description} changeTitle={this.changeTitle.bind(this)}/>
           <TextField
                       id="search"
                       value={this.state.title}
