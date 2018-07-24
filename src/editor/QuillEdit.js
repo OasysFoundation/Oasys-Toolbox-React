@@ -51,7 +51,7 @@ Quill.register(GraphBlot);
 
 
 // see https://devarchy.com/react/library/react-quill
-const CustomToolbar = () => (
+const BigToolbar = () => (
   <div id="toolbar-quill">
     <span className="ql-formats">
       <select className="ql-size">
@@ -108,6 +108,40 @@ const CustomToolbar = () => (
   </div>
 )
 
+const SmallToolbar = () => (
+  <div id="toolbar-quill">
+    <span className="ql-formats">
+      <button className="ql-header" style={{fontSize: '12px', marginTop: '0px', fontFamily: 'serif'}}>T</button>
+      <button className="ql-header" value="1" style={{fontSize: '20px', marginTop: '-6px', fontFamily: 'serif'}}>T</button>
+      <button className="ql-bold"></button>
+      <button className="ql-italic"></button>
+      <button className="ql-blockquote"></button>
+      <select className="ql-background" style={{marginTop: '-2px'}}>
+        <option value="#cccccc" />
+        <option value="#f06666" />
+        <option value="#ffc266" />
+        <option value="#ffff66" />
+        <option value="#66b966" />
+        <option value="#66a3e0" />
+        <option value="#c285ff" />
+        <option value="#ffffff" />
+        <option value="#facccc" />
+        <option value="#ffebcc" />
+        <option value="#ffffcc" />
+        <option value="#cce8cc" />
+        <option value="#cce0f5" />
+        <option value="#ebd6ff" />
+      </select>
+      <button className="ql-list" value="bullet"></button>
+      <button className="ql-link"></button>
+      <button className="ql-image"></button>
+      <button className="ql-video"></button>
+      <button className="ql-formula"></button>
+    </span>
+
+  </div>
+)
+
 function insertGraph () {
   let cursorPosition = this.quill.getSelection()
   if (cursorPosition === null) {
@@ -123,6 +157,11 @@ class QuillEditor extends Component {
   constructor(props) {
     super(props);
     this.onChange = this.props.onChange.bind(this);
+
+    // define custom icons
+    let icons = ReactQuill.Quill.import('ui/icons');
+    icons['header']['1'] = '';
+    console.log(icons)
 
     let font = ReactQuill.Quill.import('formats/font');
     font.whitelist = ['arial', 'bookman', 'courier', 'garamond', 'georgia', 'helvetica', 'palatino', 'times', 'verdana'];
@@ -141,6 +180,8 @@ class QuillEditor extends Component {
     window.katex = katex;
     window.d3 = require('d3')
     
+    // for enabling graphing in quill, uncomment the following
+    /*
     const quill = this.refs.reactQuill.getEditor();
     window.quill = quill;
 
@@ -156,13 +197,14 @@ class QuillEditor extends Component {
           quill.insertEmbed(cursorPosition.index + 1, 'graph', {equation: equation}, Quill.sources.USER);
         }
     });
+    */
   }
 
 	render() {
 		return (
           <Card style={{marginLeft: "2em", marginRight: '2em', padding: '1rem', minHeight: '300px'}}>
             <CardContent id='quill-container'>
-              <CustomToolbar />
+              <SmallToolbar />
               <hr/>
               <ReactQuill
                   value={this.props.slideContent}
