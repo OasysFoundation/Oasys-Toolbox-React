@@ -3,7 +3,7 @@ node_js:
   - "node"
   - "9"
 before_script:
-- npm install
+  - npm install
 script: yarn run build
 deploy:
   provider: firebase
