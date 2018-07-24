@@ -5,7 +5,7 @@ branches:
   only:
     - master
 install:
-  - yarn
+  - yarn build
 deploy:
   provider: firebase
   token:
