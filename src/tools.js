@@ -1,4 +1,10 @@
 import glb from "./globals";
+require('dotenv').config()
+console.log(`process.env.NODE_ENV = ${process.env.NODE_ENV} so I app uses << ${glb.API_DEV} >> to make API CALLS`)
+
+
+//READ if we are in DEV(npm start) or PROD (npm run build) and change the API LOCATION accordingly
+//const BASE_URL = process.env.NODE_ENV === 'development' ? glb.API_DEV : glb.API_PROD;
 
 const BASE_URL = glb.OASYS_API_BASE;
 
@@ -50,6 +56,9 @@ const api = {
         })
     }
 }
+
+
+
 
 const betterFetch = function(url, params = {method: 'GET'}) {
     return fetch(url, params)

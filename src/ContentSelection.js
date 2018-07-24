@@ -17,7 +17,6 @@ import {substringInObjCount} from "./utils";
 import api from './tools'
 import {getTagsForCategory} from "./utils";
 
-
 const Flexer = styled.section`
   display: flex;
   flex-direction: row;
@@ -28,8 +27,6 @@ const Flexer = styled.section`
 class ContentSelection extends Component {
     constructor(props) {
         super();
-        const loadContent = 'https://api.joinoasys.org/GetContentsPreview';
-        const that = this;
         this.state = {
             content: [],
             filteredContent: [],
@@ -73,12 +70,16 @@ class ContentSelection extends Component {
         }
         const keywords = getTagsForCategory(category);
         //confusing naming! tags sounds like array and state.content sounds like obj -- not array
+
+        function stringHasSubstring(str, substr) {
+            return str.toLowerCase().includes(substr.toLowerCase())
+        }
         return this.state.content
-            .filter(content => keywords
+            .filter(content => keywords.filter(kw => stringHasSubstring(content.tags, kw) ).length)
             //filter out when the tags string (??? should be array!) includes the keyword
-                .filter(kw => content.tags.toLowerCase().includes(kw.toLowerCase()))
+
                 //if there is an array with at least 1 match then .length returns true(=> don't filter) else false
-                .length)
+
     }
     render(){
         let searchListContent = (

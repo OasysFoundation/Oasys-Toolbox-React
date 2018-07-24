@@ -1,4 +1,8 @@
+
+
 const globals = {
+	API_DEV: 'http://localhost:8080/',
+	API_PROD: 'https://api.joinoasys.org/',
 	OASYS_API_BASE: 'https://api.joinoasys.org/',
 	OASYS_APP_BASE: 'https://app.joinoasys.org/',
 	// types of editors
