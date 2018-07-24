@@ -1,4 +1,12 @@
 language: node_js
+node_js:
+  - "node"
+  - "9"
 before_script:
-	npm install
-script: yarn run deploy
+- npm install
+script: yarn run build
+deploy:
+  provider: firebase
+  token:
+    secure: "DfY77wb7y4Wb/dL1bMjEqkymwJvi5N+UAsdCaRhCgKvdEQN3LwbNrcDh1tT3ckIQaiiUMCTLQi8XjxelIxLBYuuX6VLcGh8d2V9PxfuQ/UKnJZEjt9B3pZwuXgM+71DGFkd//rYDGgtaX7gkXTSnLkX17U0OgCurDegxS8901NM3NLZ+OFUb9GCb6jG4topDgSvkceoHnGmvS75tCLf1cWULu94Qgt7EAPX8VAOCkTBZCrgc0ok9PxEI2Di+xoOTpRgl3eTIlx8bI42oPuknThisfAgfGX6RnHcn/J5Nj+VH8aLtK7qVrHxv0Yef6VL3qfNJ/x9FxUmHZ4T77ECoTMFK0de0nx7jqW/yB+MP/g1kB9eNfnS241Mzg84wQTT2zshed0rVNxMDDhjfUyIFm9KWtkeaOwwP3sO2BjNNmKj+tGHRmkyEvyQUi1xJKSs1NtnFiyP44xJABRp8hYksGk8kV3f58AwPNoGTshf0enPO43L1aMOqEqPFx16WVT1jBlqchukhBZEh5y9KitfUjRjAIWEFP5eurLAm5q7Hld7356lXprd2g3kOmcOuf9zuKyuUHz5fnfVOTke71aNqeaaFrCpxq3xOF6lcOacS54Um1O4DmR0sWvu9AkjWzCD5F9KGzGHHnOA1A2Nb7IaXpixwmhZQMQuqr1VGqilxgRc="
+  project: "death-joinoasys-org"

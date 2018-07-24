@@ -54,13 +54,32 @@ class Editor extends Component {
         shouldDownloadContent = true;
     }
 
+
+    var slides = [];
+    var selectedSlideIndex = 0;
+    var currSlideType = -1;
+    var title = "Untitled";
+
+    if (window.sessionStorage.tempSlideStorage) {
+      slides = JSON.parse(window.sessionStorage.tempSlideStorage);
+    }
+
+    if (window.sessionStorage.tempSelectedSlideIndex) {
+      selectedSlideIndex = window.sessionStorage.tempSelectedSlideIndex;
+      currSlideType = slides[selectedSlideIndex].type;
+    }
+
+    if (window.sessionStorage.tempTitle) {
+      title = window.sessionStorage.tempTitle;
+    }
+
     this.state = {
-      slides: [],
-      selectedSlideIndex: 0,
-      currSlideType: -1,
+      slides: slides,
+      selectedSlideIndex: selectedSlideIndex,
+      currSlideType: currSlideType,
       contentId: contentIdGenerator(),
       lastCapture: null,
-      title: "Untitled",
+      title: title,
       description: '',
       tags: '',
       published: '',
@@ -107,6 +126,7 @@ class Editor extends Component {
           content = null;
       }
     } 
+
     slides.push(createSlide(type, slideIdGenerator(), content, type));
 
     const currentIndex = this.state.selectedSlideIndex;
@@ -136,11 +156,15 @@ class Editor extends Component {
       selectedSlideIndex: newSlideIndex,
       currSlideType: slideType,
     }
+
+    window.sessionStorage.tempSelectedSlideIndex = this.state.selectedSlideIndex;
+
     this.renderThumbnail(currentIndex, newState);
   }
 
   onEditorChange(content) {
     let slides = this.state.slides.slice();
+    window.sessionStorage.tempSlideStorage = JSON.stringify(slides);
     slides[this.state.selectedSlideIndex].content = content;
 
     if (Date.now() - this.state.lastCapture > 2500) {
@@ -322,6 +346,7 @@ class Editor extends Component {
     this.setState({
       title: event.target.value
     })
+    window.sessionStorage.tempTitle = this.state.title;
   }
 
   changeTitle(newTitle){
@@ -330,6 +355,7 @@ class Editor extends Component {
         title: newTitle
       })
     }
+    window.sessionStorage.tempTitle = this.state.title;
   }
 
   showSlideSelection() {
