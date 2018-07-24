@@ -6,6 +6,7 @@ branches:
     - master
 install:
   - npm install
+build:
   - CI=false yarn build
 deploy:
   provider: firebase
