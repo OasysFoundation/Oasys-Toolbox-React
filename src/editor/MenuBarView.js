@@ -406,14 +406,6 @@ class MenuBarView extends Component {
       <LoadingDialog open={this.state.isUploading} message='Uploading Content…' />
       <PublishedCheerDialog open={this.state.showsConclusionDialog} sharableLink={shareableLink} onClose={this.closePublishedDialog.bind(this)}/>
       <Toolbar style={{backgroundColor: BG, height: '40px', minHeight: '40px'}}>
-
-        <Tooltip enterDelay={500} id="tooltip-bottom" title="Open an existing content" placement="bottom">
-        <Button onClick={this.onOpen} style={{color: 'white'}} >
-          <FolderIcon />
-            Open
-        </Button>
-        </Tooltip>
-
         <Tooltip enterDelay={500} id="tooltip-bottom" title="Save content in your account but don't publish it yet. You can open drafts later again and continue editing." placement="bottom">
       	<Button onClick={this.onSave} style={{color: 'white'}} >
           <SaveIcon />
