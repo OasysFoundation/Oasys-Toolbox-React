@@ -192,11 +192,18 @@ class MenuBarView extends Component {
       });
 
       console.log(response);
+
       if (response) {
         if(response.alreadyPublished){
           this.setState({
             snackBarMessage: 'Content already published, please change title and try again.',
             isUploading: false
+          })
+        }
+        else if(response.hyphen){
+          this.setState({
+              snackBarMessage: 'You cannot include hyphens in title. Please try again.',
+              isUploading: false
           })
         }
         else if (this.state.saveAction === 'save') {
