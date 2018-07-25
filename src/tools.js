@@ -4,8 +4,14 @@ console.log(`process.env.NODE_ENV = ${process.env.NODE_ENV} so I app uses << ${g
 
 
 //READ if we are in DEV(npm start) or PROD (npm run build) and change the API LOCATION accordingly
-//const BASE_URL = process.env.NODE_ENV === 'development' ? glb.API_DEV : glb.API_PROD;
 
+
+const DEV = process.env.NODE_ENV === 'development';
+const USE_REMOTE = true;
+const API = DEV && USE_REMOTE ? glb.API_DEV_REMOTE : (DEV && !USE_REMOTE ? glb.API_DEV_LOCAL : glb.API_PROD);
+
+
+//replace BASE_URL with API when ready
 const BASE_URL = glb.OASYS_API_BASE;
 
 //Markus: I use a Promise instead of a callback so you can chain
