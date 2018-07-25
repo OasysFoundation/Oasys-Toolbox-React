@@ -16,6 +16,7 @@ import Comment from './Comment'
 import {CoolBlueButton} from "./stylings";
 import API from './tools'
 import Media from "react-media";
+import {Unwrap} from "./Unwrap"
 
 
 const buttonStyle = {
@@ -48,8 +49,10 @@ class ContentView extends Component {
 
         const loc = window.location.href;
         const directory = loc.split('/').filter(e => e.length > 0).slice(-2);
-        this.userName = directory[0];
-        this.contentName = directory[1];
+        this.userName = Unwrap(directory[0]);
+        this.contentName = Unwrap(directory[1]);
+
+
 
         // console.log(this.props, "MATCH")
         // const userName = this.props.match.params.username;

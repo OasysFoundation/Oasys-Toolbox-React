@@ -22,6 +22,7 @@ import logo from '../logo.jpg'
 import LoadingDialog from '../LoadingDialog'
 import PublishedCheerDialog from '../PublishedCheerDialog'
 import AlreadyPublishedDialog from '../AlreadyPublishedDialog'
+import {Wrap} from "../Unwrap"
 
 
 const BG = "#00897b";
@@ -401,7 +402,7 @@ class MenuBarView extends Component {
     const isInvalid = !description || !hashtags;
 
     const userName = ((this.props.authUser && this.props.authUser.displayName) ? this.props.authUser.displayName : "Anonymous");
-    const shareableLink = "https://app.joinoasys.org/user/" + userName +'/'+this.props.contentTitle;
+    const shareableLink = "https://app.joinoasys.org/user/" + Wrap(userName) +'/'+ Wrap(this.props.contentTitle);
 
     var published = 0
     if(this.props.published==1 && this.state.publishAck)

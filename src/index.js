@@ -108,8 +108,8 @@ class Index extends Component {
 
 const UserPage = ({ match }) => (
     <div>
-        <h3>Username: {match.params.username}</h3>
-        <UserPublicProjects userId={match.params.username}/>
+        <h3>Username: {match.params.username.replace('-',' ')}</h3>
+        <UserPublicProjects userId={match.params.username.replace('-',' ')}/>
     </div>
 );
 
