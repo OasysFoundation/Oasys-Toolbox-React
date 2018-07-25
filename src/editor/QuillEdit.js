@@ -111,8 +111,8 @@ const BigToolbar = () => (
 const SmallToolbar = () => (
   <div id="toolbar-quill">
     <span className="ql-formats">
-      <button className="ql-header" style={{fontSize: '12px', marginTop: '0px', fontFamily: 'serif'}}>T</button>
-      <button className="ql-header" value="1" style={{fontSize: '20px', marginTop: '-6px', fontFamily: 'serif'}}>T</button>
+      <button className="ql-header" style={{fontSize: '14px', marginTop: '0px'}}>T</button>
+      <button className="ql-header" value="1" style={{fontSize: '20px', marginTop: '-6px'}}>T</button>
       <button className="ql-bold"></button>
       <button className="ql-italic"></button>
       <button className="ql-blockquote"></button>
@@ -168,7 +168,7 @@ class QuillEditor extends Component {
     ReactQuill.Quill.register(font, true);
 
     let fontSize = ReactQuill.Quill.import('attributors/style/size');
-    fontSize.whitelist =  ['12px', '16px', '22px', '30px', 'small', 'normal', 'large', 'huge'];
+    fontSize.whitelist =  ['14px', '16px', '22px', '30px', 'small', 'normal', 'large', 'huge'];
     ReactQuill.Quill.register(fontSize, true);
 
     ReactQuill.Quill.register('modules/imageResize', ImageResize);
