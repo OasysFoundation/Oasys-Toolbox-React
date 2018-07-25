@@ -24,7 +24,7 @@ import PublishedCheerDialog from '../PublishedCheerDialog'
 import AlreadyPublishedDialog from '../AlreadyPublishedDialog'
 
 
-const BG = "#5C8B8E";
+const BG = "#00897b";
 
 const buttonStyle = {
   padding: '0',
@@ -405,28 +405,28 @@ class MenuBarView extends Component {
       <AlreadyPublishedDialog open={this.state.publishedSubmitted || published} onClose={this.closeAlreadyPublishedDialog.bind(this)} changeTitle={this.props.changeTitle} oldTitle={this.props.contentTitle}/>
       <LoadingDialog open={this.state.isUploading} message='Uploading Content…' />
       <PublishedCheerDialog open={this.state.showsConclusionDialog} sharableLink={shareableLink} onClose={this.closePublishedDialog.bind(this)}/>
-      <Toolbar style={{backgroundColor: BG}}>
+      <Toolbar style={{backgroundColor: BG, height: '40px', minHeight: '40px'}}>
 
-      <Tooltip enterDelay={500} id="tooltip-bottom" title="Open an existing content" placement="bottom">
-      <Button onClick={this.onOpen} style={{color: 'white'}} >
-        <FolderIcon />
-          Open
-      </Button>
-      </Tooltip>
+        <Tooltip enterDelay={500} id="tooltip-bottom" title="Open an existing content" placement="bottom">
+        <Button onClick={this.onOpen} style={{color: 'white'}} >
+          <FolderIcon />
+            Open
+        </Button>
+        </Tooltip>
 
-      <Tooltip enterDelay={500} id="tooltip-bottom" title="Save content in your account but don't publish it yet. You can open drafts later again and continue editing." placement="bottom">
-    	<Button onClick={this.onSave} style={{color: 'white'}} >
-        <SaveIcon />
-	        Save Draft
-	    </Button>
-      </Tooltip>
+        <Tooltip enterDelay={500} id="tooltip-bottom" title="Save content in your account but don't publish it yet. You can open drafts later again and continue editing." placement="bottom">
+      	<Button onClick={this.onSave} style={{color: 'white'}} >
+          <SaveIcon />
+  	        Save Draft
+  	    </Button>
+        </Tooltip>
 
-      <Tooltip enterDelay={500} id="tooltip-bottom" title="Publish your content on the Oasys platform. Other users then can explore, use, share, edit, comment, and remix your content." placement="bottom">
-      <Button onClick={this.onPublish.bind(this)} style={{color: 'orange'}} >
-        <PublishIcon />
-          Publish on Oasys
-      </Button>
-      </Tooltip>
+        <Tooltip enterDelay={500} id="tooltip-bottom" title="Publish your content on the Oasys platform. Other users then can explore, use, share, edit, comment, and remix your content." placement="bottom">
+        <Button onClick={this.onPublish.bind(this)} style={{color: '#ffd54f'}} >
+          <PublishIcon />
+            Publish on Oasys
+        </Button>
+        </Tooltip>
 
       </Toolbar>
 

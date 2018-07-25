@@ -52,7 +52,10 @@ function rearrangeData(rawdata) {
         // we have an array of objects, where attrib accessTimes is an array of objects 
         // from which we extract slide number i. Then we take the max across all of these slide numbers.
         let nSlides = Math.max(...rawcontent.map(o=>o.accessTimes).reduce((p,q)=>p.concat(q),[]).map(r=>r.i));
+        let tcontent = rawcontent.filter(content => 'quizzes' in content);
 
+        // needs to be changed
+        let nQuizzes = 100;
         let usersPerSlide = [];
         for (let j=0; j<nSlides+1; j++) { // hack + 1
             usersPerSlide.push({slide: j+1, users: 0, comments: 0});
@@ -60,6 +63,8 @@ function rearrangeData(rawdata) {
 
         let timingTemplate = Array.apply(null, Array(nSlides)).map(Number.prototype.valueOf,0);
         let timings = [];
+        let answerSum = Array.apply(null, Array(nQuizzes)).map(Number.prototype.valueOf,0);
+        let answerN = Array.apply(null, Array(nQuizzes)).map(Number.prototype.valueOf,0);
 
         for (let j=0; j<rawcontent.length; j++) {
             let timing = wrapTiming(rawcontent[j].accessTimes).map(a => a.time);
@@ -69,7 +74,31 @@ function rearrangeData(rawdata) {
             for (let k=0; k<timing.length; k++) {
                 usersPerSlide[k].users++;
             }
+            if ('quizzes' in rawcontent[j]) {
+                // since we do not save any uid for quizzes, we here simply aggregate by order in which quizzes were answered
+                // this needs to be changed !!
+                let done = [];
+                for (let k=0; k<rawcontent[j].quizzes.length; k++) {
+                    if (done.indexOf(rawcontent[j].quizzes[k].i) < 0) {
+                        if (rawcontent[j].quizzes[k].correct) {
+                            answerSum[done.length] += 1;
+                        }
+                        answerN[done.length] += 1;
+                        done.push(rawcontent[j].quizzes[k].i);
+                    }
+                }
+            }
         }
+
+        let questions = answerSum.slice();
+        for (let k=0; k<nQuizzes; k++) {
+            questions[k] = {'question': k+1, 'correct': answerSum[k] / answerN[k]};
+            if (answerN[k] === 0){
+                questions = questions.slice(0, k);
+                break;
+            }
+        }
+        console.log(questions)
 
         for (let k=0; k<nSlides; k++) {
             let slideNum = k + 1;
@@ -88,13 +117,6 @@ function rearrangeData(rawdata) {
         let startTimes = rawcontent.map(a=>Date.parse(a.startTime));
         let commentTimes = rawcomment.map(a=>Date.parse(a.time));
 
-        /*
-        let before = now.getTime() - nWeeks*60*60*24*1000*7;
-        console.log("times:")
-        console.log(before);
-        console.log(now.getTime());
-        console.log(startTimes.map(t=>t.getTime()));
-        */
         for (let j=0; j<nWeeks; j++) {
             let t1 = now.getTime() - (nWeeks-j)*60*60*24*1000*7;
             let t2 = now.getTime() - (nWeeks-j-1)*60*60*24*1000*7;
@@ -107,19 +129,6 @@ function rearrangeData(rawdata) {
         }
 
         let rawrating = rawdata.ratings.filter(rating => rating.contentId===uniqueContentIds[i]);
-
-        /*
-        let answers = Array.apply(null, Array(nQuiz)).map(Number.prototype.valueOf,0);
-        for (let i=0; i<contents.length; i++) {
-            for (let j=0; j<contents[i].quizAnswers.length; j++) {
-                if (contents[i].quizAnswers[j]) {
-                    // TODO: this is inccorectly divided by the number of users that accessed the content.
-                    // instead, it should be divided by the number of users who answered this quiz question.
-                    answers[j] += 1 / contents.length;
-                }
-            }
-        }
-        */
 
         let nUsers = rawcontent.length;
         let nComments = rawcomment.length;
@@ -141,13 +150,13 @@ function rearrangeData(rawdata) {
             nSlides: nSlides,
             usersPerSlide: usersPerSlide, 
             timingsPerSlide: timingsPerSlide,
-            answers: [],
             usersPerWeek: usersPerWeek,
             rewardsPerWeek: rewardsPerWeek,
             commentsPerWeek: commentsPerWeek,
             users: nUsers,
             comments: nComments,
             rating: rating,
+            questions: questions,
         };
         data.contents.push(content);
     }
