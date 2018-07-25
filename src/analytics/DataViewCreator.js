@@ -86,7 +86,7 @@ class DataView extends Component {
             this.safelySetState();
         } else {
             let callback = (statevar, myJson) => {
-                this.rawdata[statevar] = myJson; 
+                this.rawdata[statevar] = myJson;
                 this.countApiCalls++; 
                 // the page can only be safely rendered after a) the component has mounted and 
                 // b) data has been successfully loaded from backend
@@ -297,7 +297,7 @@ class DataView extends Component {
             this.renderUsersPerSlide(this.state.data.contents[i].usersPerSlide, i);
             this.renderUsersPerWeek(this.state.data.contents[i].usersPerWeek, i);
             this.renderRewardsPerWeek(this.state.data.contents[i].rewardsPerWeek, i);
-            this.renderQuizAnswers(this.state.data.contents[i].answers, i);
+            this.renderQuizAnswers(this.state.data.contents[i].questions, i);
         }
     }
 
