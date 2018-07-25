@@ -438,6 +438,8 @@ class MenuBarView extends Component {
       >        
 
         <DialogTitle id="alert-dialog-title">{"Great Work!"}</DialogTitle>
+
+
         <DialogContent>
         {this.state.saveAction==="publish"
           ? (
@@ -480,7 +482,13 @@ class MenuBarView extends Component {
             Cancel
           </Button>
           <Button disabled={isInvalid} onClick={this.onSubmit.bind(this)} color="primary" autoFocus>
-            Submit
+          {
+          this.props.authUser
+          ? this.props.authUser.displayName
+            ? "Submit as " + this.props.authUser.displayName
+            : "Submit as Anonymous"
+          : "Submit as Anonymous"
+        }
           </Button>
         </DialogActions>
       </Dialog>
