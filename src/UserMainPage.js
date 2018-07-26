@@ -122,7 +122,7 @@ class UserMainPage extends Component {
                                                 snackBarControl={this.updateSnackbar.bind(this)}/>
                         <Button color="primary" onClick={function (event) {
                             event.preventDefault();
-                            window.location.href = './wallet/'
+                            window.location.href = '../wallet/'
                         }} style={{margin:'10px'}}>
                             My Wallet
                         </Button>
