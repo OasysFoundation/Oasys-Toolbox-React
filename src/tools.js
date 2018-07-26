@@ -51,7 +51,7 @@ const api = {
     },
     getWalletIdForUser(userName) {
         const url = `${BASE_URL}profile/${userName}`;
-        return betterFetch(url);
+        return get(url);
     },
     postUserContentAccess(interactionData) {
         const url = `${BASE_URL}saveUserContentAccess`
