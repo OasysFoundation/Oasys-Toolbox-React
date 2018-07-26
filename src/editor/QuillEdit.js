@@ -132,7 +132,6 @@ const SmallToolbar = () => (
         <option value="#cce0f5" />
         <option value="#ebd6ff" />
       </select>
-      <button className="ql-list" value="bullet"></button>
       <button className="ql-link"></button>
       <button className="ql-image"></button>
       <button className="ql-video"></button>
