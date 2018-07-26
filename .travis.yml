@@ -6,8 +6,8 @@ branches:
     - master
 install:
   - npm install
-build:
-  - CI=false yarn build
+script:
+  - CI=false npm run build
 deploy:
   provider: firebase
   skip_cleanup: true
