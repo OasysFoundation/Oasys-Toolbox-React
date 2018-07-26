@@ -90,6 +90,7 @@ class DataView extends Component {
                 this.countApiCalls++; 
                 // the page can only be safely rendered after a) the component has mounted and 
                 // b) data has been successfully loaded from backend
+                console.log(this.rawdata)
                 if (this.countApiCalls===3) {
                     this.safelySetState();
                 } 
