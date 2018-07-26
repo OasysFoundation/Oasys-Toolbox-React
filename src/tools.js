@@ -30,7 +30,7 @@ const api = {
         const url = BASE_URL + 'getAllRatings/' + user.displayName;
         return get(url);
     },
-    getContent({userName, contentName}) { //ES6 Object destructuring
+    getContent(userName, contentName) { //ES6 Object destructuring
         const url = `${BASE_URL}user/${userName}/${contentName}`;
         return get(url);
     },

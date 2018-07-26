@@ -6,11 +6,13 @@ import IconAccountCircle from '@material-ui/icons/AccountCircle';
 import Button from '@material-ui/core/Button';
 import logo from './logo.jpg'
 import UploadPicContentDialog from './UploadPicContentDialog'
+import {api} from "./utils"
 //import Name from './Name'
 //import Snackbar from '@material-ui/core/Snackbar';
 
 import {withRouter} from 'react-router-dom';
 import UserProjects from './UserProjects'
+import {api} from './utils'
 
 class UserMainPage extends Component {
     constructor(props) {
@@ -22,11 +24,8 @@ class UserMainPage extends Component {
             snackBarMessage: null,
 
         }
-        const profile = 'https://api.joinoasys.org/profile/' + this.props.authUser.uid
-        fetch(profile, {
-            method: 'GET',
-            ContentType: "application/json"
-        }).then(response => {
+        api.getProfileInfo(this.props.authUser.uid)
+            .then(response => {
             console.log(response)
             return response.json().then(body => {
                 console.log("body: " + body);
@@ -73,10 +72,8 @@ class UserMainPage extends Component {
 
     sendPic() {
 
-        const profile = 'https://api.joinoasys.org/profile/' + this.props.authUser.uid 
-        fetch(profile, {
-            method: 'GET',
-        }).then((response) => {
+        api.getProfileInfo(this.props.authUser.uid)
+            .then((response) => {
             response.json().then((body) => {
                 console.log(body);
                 if (body)

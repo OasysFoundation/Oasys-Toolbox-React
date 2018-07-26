@@ -38,8 +38,6 @@ class UploadPicContentDialog extends Component {
     var uid = this.props.authUser.displayName;
     var contentId = this.props.contentId;
 
-    const spacesEndpoint = 'https://api.joinoasys.org/uploadTitle/'+uid+'/'+contentId
-
     const data = new FormData();
     data.append('upload', this.uploadInput.files[0]);
     data.append('name', uid);

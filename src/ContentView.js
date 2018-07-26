@@ -60,7 +60,7 @@ class ContentView extends Component {
 
         this.whatRenderer = this.whatRenderer.bind(this);
 
-        API.getContent({userName: this.userName, contentName: this.contentName})
+        API.getContent(this.userName, this.contentName)
             .then(content => this.setState({content: content[0], hasLoaded: true}))
 
         this.toggle = this.toggle.bind(this);

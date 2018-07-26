@@ -2,7 +2,7 @@ import React from 'react';
 import {Component} from 'react';
 import SimpleMediaCard from './SimpleMediaCard'
 import styled from "styled-components"
-
+import {api} from './utils'
 
 const Flexer = styled.section`
   display: flex;
@@ -19,18 +19,10 @@ class UserProjects extends Component {
 	    	content: []
 	    };
 
-	    const loadContent = 'https://api.joinoasys.org/GetUserContentsPreview';
-        const that = this;
-
-	    fetch(loadContent, {
-            method: 'GET'
-        }).then(function (response) {
-            return response.json();
-        })
-        .then(function (myJson) {
+	    api.getContentsPreview()
+			.then(function (myJson) {
             console.log(myJson);
             that.setState({content: myJson});
-
         });
 	}
 
