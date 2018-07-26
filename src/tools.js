@@ -12,66 +12,73 @@ const USE_REMOTE = true;
 
 
 //replace BASE_URL with API when ready
-const BASE_URL = glb.OASYS_API_BASE;
+const BASE_URL = glb.API_PROD;
 
 //Markus: I use a Promise instead of a callback so you can chain
 //with .then and .catch (errorhandling) inside the component and
 
 const api = {
-    get: function(url, callback) {
-        console.log(url)
-        fetch(url, {method: 'GET'}).then(function (response) {
-            return response.json();
-        }).then(callback);
-    },
-    post: function(url, callback) {
-        fetch(url, {method: 'POST'}).then(function (response) {
-            return response.json();
-        }).then(callback);
-    },
-
-    getContentsForCreator: function (user, callback) {
+    getContentsForCreator: function (user) {
         const url = BASE_URL + 'getAllContentsForCreator/' + user.displayName;
-        return this.get(url, callback);
+        return get(url);
     },
-    getCommentsForCreator: function (user, callback) {
+    getCommentsForCreator: function (user) {
         const url = BASE_URL + 'getAllComments/' + user.displayName;
-        return this.get(url, callback);
+        return get(url);
     },
-    getRatingsForCreator: function (user, callback) {
+    getRatingsForCreator: function (user) {
         const url = BASE_URL + 'getAllRatings/' + user.displayName;
-        return this.get(url, callback);
+        return get(url);
     },
-    getContent( {userName, contentName} ) { //ES6 Object destructuring
+    getContent({userName, contentName}) { //ES6 Object destructuring
         const url = `${BASE_URL}user/${userName}/${contentName}`;
-        return betterFetch(url);
+        return get(url);
     },
     getContentsPreview() {
         const url = BASE_URL + 'getContentsPreview/';
-        return betterFetch(url)
+        return get(url)
     },
 
     postUserContentAccess(interactionData) {
         const url = `${BASE_URL}saveUserContentAccess`
-        return betterFetch(url, {
-            method: 'POST',
-            body: JSON.stringify(interactionData),
-            headers: new Headers({
-                'Content-Type': 'application/json',
-            })
-        })
+        return post(url, interactionData)
+    },
+    getProfileInfo(authUserID) {
+        const url = `${BASE_URL}profile/${authUserID}`;
+        return get(url)
+    },
+    postRating(contentOwner, contentName, rating, userWhoRates) {
+        const url = `${BASE_URL}rate/${contentOwner}/${contentName}/${rating}/${userWhoRates}`;
+        return post(url)
     }
-}
+};
 
-
-
-
-const betterFetch = function(url, params = {method: 'GET'}) {
-    return fetch(url, params)
+const get = function (url) {
+    return fetch(url, {method: 'GET'})
         .then(function (response) {
             return response.json();
         })
-        .catch(function(err){
+        .catch(function (err) {
+            console.debug(`
+            Content Fetch NO SUCCESS
+            URL = ${url}
+            ERROR = ${err}
+            `)
+        })
+};
+
+const post = function (url, data = {}) {
+    return fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: new Headers({
+            'Content-Type': 'application/json',
+        })
+    })
+        .then(function (response) {
+            return response.json();
+        })
+        .catch(function (err) {
             console.debug(`
             Content Fetch NO SUCCESS
             URL = ${url}
