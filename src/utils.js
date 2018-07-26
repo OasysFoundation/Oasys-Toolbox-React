@@ -1,3 +1,8 @@
+const Unwrap = (str) => str.split('-').join(' ');
+
+const Wrap = (str) => str.split(" ").join('-');
+
+
 const CATEGORIES = {
     computerscience: ['object', 'programming', 'ml', 'swift', 'code'],
     chemistry: ['chemistry', 'atom', 'molecule'],
@@ -41,4 +46,5 @@ function substringInObjCount(obj, substr) {
 
 
 
+export {Unwrap, Wrap};
 export {NUcheck, substringInObjCount, flatten, CATEGORIES, getTagsForCategory}

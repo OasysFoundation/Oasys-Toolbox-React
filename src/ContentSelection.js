@@ -16,7 +16,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import {substringInObjCount} from "./utils";
 import api from './tools'
 import {getTagsForCategory} from "./utils";
-import {Unwrap, Wrap} from "./Unwrap"
+import {Unwrap, Wrap} from "./utils"
 
 const Flexer = styled.section`
   display: flex;

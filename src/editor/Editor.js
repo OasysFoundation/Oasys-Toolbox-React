@@ -17,7 +17,7 @@ import QuizIcon from '../icons/Quiz.png'
 import GameIcon from '../icons/Game.png'
 import HypervideoIcon from '../icons/Hypervideo.png'
 import SystemSimulationIcon from '../icons/SystemSimulation.png'
-import { Unwrap } from '../Unwrap'
+import { Unwrap } from '../utils'
 
 
 
