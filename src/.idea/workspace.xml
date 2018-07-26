@@ -17,8 +17,8 @@
       <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/../../backend/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="156">
-              <caret line="178" column="32" lean-forward="true" selection-start-line="178" selection-start-column="32" selection-end-line="178" selection-end-column="32" />
+            <state relative-caret-position="187">
+              <caret line="181" column="44" selection-start-line="181" selection-start-column="38" selection-end-line="181" selection-end-column="44" />
               <folding>
                 <element signature="e#436#468#0" />
                 <element signature="e#494#765#0" />
@@ -39,20 +39,8 @@
       <file leaf-file-name="processData.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/analytics/processData.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
+            <state relative-caret-position="795">
               <caret line="53" column="48" selection-start-line="53" selection-start-column="48" selection-end-line="53" selection-end-column="48" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserProjects.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/UserProjects.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="275">
-              <caret line="21" column="13" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -60,7 +48,7 @@
       <file leaf-file-name="mongo.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../../backend/mongo.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="148">
+            <state relative-caret-position="1451">
               <caret line="99" column="103" selection-start-line="99" selection-start-column="63" selection-end-line="99" selection-end-column="103" />
             </state>
           </provider>
@@ -69,8 +57,44 @@
       <file leaf-file-name="tools.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tools.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="99" selection-start-line="99" selection-end-line="99" />
+            <state relative-caret-position="368">
+              <caret line="52" column="36" selection-start-line="52" selection-start-column="32" selection-end-line="52" selection-end-column="36" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="globals.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/globals.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="4" column="19" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../backend/package.json">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="300">
+              <caret line="20" column="9" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MenuBarView.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/editor/MenuBarView.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="212">
+              <caret line="208" column="43" selection-start-line="208" selection-start-column="43" selection-end-line="208" selection-end-column="43" />
+              <folding>
+                <element signature="e#0#41#0" expanded="true" />
+                <element signature="e#789#838#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -90,38 +114,11 @@
       <file leaf-file-name="SimpleMediaCard.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SimpleMediaCard.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="365">
-              <caret line="59" column="8" selection-start-line="59" selection-start-column="8" selection-end-line="59" selection-end-column="8" />
+            <state relative-caret-position="184">
+              <caret line="58" column="9" selection-start-line="58" selection-start-column="9" selection-end-line="58" selection-end-column="9" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Rating.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Rating.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="7" selection-start-line="8" selection-start-column="7" selection-end-line="8" selection-end-column="7" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SignupPage.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SignupPage.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="12" column="10" selection-start-line="12" selection-start-column="10" selection-end-line="12" selection-end-column="10" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserPublicProjects.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/UserPublicProjects.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="35">
-              <caret line="4" column="24" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -137,14 +134,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>getuser</find>
-      <find>GetUserContentsPreview</find>
-      <find>getrating</find>
-      <find>writerating</find>
-      <find>wrap</find>
-      <find>&lt;Comment</find>
-      <find>unwrap</find>
-      <find>showcomments</find>
       <find>res.json(res)</find>
       <find>api.joinoasys</find>
       <find>profilepi</find>
@@ -156,17 +145,25 @@
       <find>/rate</find>
       <find>data</find>
       <find>import</find>
-      <find>getProfileInfo</find>
       <find>comment</find>
       <find>got</find>
       <find>rawdata</find>
-      <find>api</find>
       <find>profile info</find>
       <find>profile</find>
-      <find>content</find>
       <find>/user/</find>
-      <find>getcontent</find>
+      <find>saveendpoint</find>
+      <find>fire</find>
+      <find>content</find>
       <find>saveuser</find>
+      <find>saveendpoin</find>
+      <find>api</find>
+      <find>getcontent</find>
+      <find>getProfileInfo</find>
+      <find>save</find>
+      <find>saveend</find>
+      <find>files</find>
+      <find>request</find>
+      <find>newurl</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -202,7 +199,6 @@
         <option value="$PROJECT_DIR$/../../../../ES6+For+Everyone+-+Part+1/es6.io-master/05 - Destructuring/destructuring-WTF.html" />
         <option value="$PROJECT_DIR$/editor/SlidesThumbnailView.js" />
         <option value="$PROJECT_DIR$/codeExamples.js" />
-        <option value="$PROJECT_DIR$/globals.js" />
         <option value="$PROJECT_DIR$/../../backend/utils.js" />
         <option value="$PROJECT_DIR$/../../backend/mongo.js" />
         <option value="$PROJECT_DIR$/ContentSelection.js" />
@@ -212,17 +208,18 @@
         <option value="$PROJECT_DIR$/Comment.js" />
         <option value="$PROJECT_DIR$/Name.js" />
         <option value="$PROJECT_DIR$/analytics/DataViewCreator.js" />
-        <option value="$PROJECT_DIR$/editor/MenuBarView.js" />
         <option value="$PROJECT_DIR$/ContentView.js" />
         <option value="$PROJECT_DIR$/SignupPage.js" />
         <option value="$PROJECT_DIR$/UserPublicProjects.js" />
         <option value="$PROJECT_DIR$/UploadPicContentDialog.js" />
         <option value="$PROJECT_DIR$/UserMainPage.js" />
         <option value="$PROJECT_DIR$/UserProjects.js" />
-        <option value="$PROJECT_DIR$/SimpleMediaCard.js" />
         <option value="$PROJECT_DIR$/Rating.js" />
-        <option value="$PROJECT_DIR$/tools.js" />
         <option value="$PROJECT_DIR$/../../backend/app.js" />
+        <option value="$PROJECT_DIR$/tools.js" />
+        <option value="$PROJECT_DIR$/globals.js" />
+        <option value="$PROJECT_DIR$/SimpleMediaCard.js" />
+        <option value="$PROJECT_DIR$/editor/MenuBarView.js" />
       </list>
     </option>
   </component>
@@ -343,17 +340,17 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="219530000" />
+    <option name="totallyTimeSpent" value="221181000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="797" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26458332" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26458332" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" weight="0.32918397" />
-      <window_info active="true" anchor="bottom" id="Find" order="1" visible="true" weight="0.32780084" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32780084" />
       <window_info anchor="bottom" id="Version Control" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -537,11 +534,6 @@
         <state relative-caret-position="-401" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-12" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../../airyWebApp/webapp/src/client.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="495">
@@ -550,9 +542,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../../../airyWebApp/webapp/package.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../backend/package.json">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/index.css">
@@ -622,28 +611,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/globals.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="42" selection-start-line="3" selection-start-column="20" selection-end-line="3" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/analytics/DataViewUser.js">
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <folding>
             <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/editor/MenuBarView.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="25" column="7" selection-start-line="25" selection-start-column="7" selection-end-line="25" selection-end-column="7" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -696,16 +668,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SimpleMediaCard.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="365">
-          <caret line="59" column="8" selection-start-line="59" selection-start-column="8" selection-end-line="59" selection-end-column="8" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Rating.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -723,17 +685,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/analytics/processData.js">
+    <entry file="file://$PROJECT_DIR$/globals.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="53" column="48" selection-start-line="53" selection-start-column="48" selection-end-line="53" selection-end-column="48" />
+        <state relative-caret-position="60">
+          <caret line="4" column="19" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../backend/package.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="9" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="9" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../../backend/mongo.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
+        <state relative-caret-position="1451">
           <caret line="99" column="103" selection-start-line="99" selection-start-column="63" selection-end-line="99" selection-end-column="103" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/analytics/processData.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="795">
+          <caret line="53" column="48" selection-start-line="53" selection-start-column="48" selection-end-line="53" selection-end-column="48" />
         </state>
       </provider>
     </entry>
@@ -747,17 +726,38 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/SimpleMediaCard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="58" column="9" selection-start-line="58" selection-start-column="9" selection-end-line="58" selection-end-column="9" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/tools.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="99" selection-start-line="99" selection-end-line="99" />
+        <state relative-caret-position="368">
+          <caret line="52" column="36" selection-start-line="52" selection-start-column="32" selection-end-line="52" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/editor/MenuBarView.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="212">
+          <caret line="208" column="43" selection-start-line="208" selection-start-column="43" selection-end-line="208" selection-end-column="43" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+            <element signature="e#789#838#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../../backend/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="178" column="32" lean-forward="true" selection-start-line="178" selection-start-column="32" selection-end-line="178" selection-end-column="32" />
+        <state relative-caret-position="187">
+          <caret line="181" column="44" selection-start-line="181" selection-start-column="38" selection-end-line="181" selection-end-column="44" />
           <folding>
             <element signature="e#436#468#0" />
             <element signature="e#494#765#0" />

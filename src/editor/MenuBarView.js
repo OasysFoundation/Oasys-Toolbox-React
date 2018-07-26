@@ -24,7 +24,7 @@ import PublishedCheerDialog from '../PublishedCheerDialog'
 import AlreadyPublishedDialog from '../AlreadyPublishedDialog'
 import {Wrap} from "../utils"
 import api from "../tools";
-
+import glb from '../globals'
 
 const BG = "#00897b";
 
@@ -116,7 +116,6 @@ class MenuBarView extends Component {
     var semaphore = 0;
     imagesToSave.forEach(function(base64Image) {
     semaphore++;
-      const spacesEndpoint = 'https://api.imgur.com/3/image'
 
       let newBase64Image = base64Image.split(",")[1];
 
@@ -207,7 +206,7 @@ class MenuBarView extends Component {
     var username = this.props.authUser.displayName;
     if(!username)
       username= "Anonymous"
-    var saveEndpoint = 'https://api.joinoasys.org/save/'+username+'/'+contentId;
+    var saveEndpoint = glb.HARDSET_BASE + 'save/'+username+'/'+contentId;
     var data = {
       "data":slides,
       "published":published,

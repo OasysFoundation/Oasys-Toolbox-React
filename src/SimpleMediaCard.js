@@ -57,16 +57,13 @@ class SimpleMediaCard extends Component {
             disabledMessage: "Remix",
             isDisabled: false,
         }
-        const firebaseObj = auth().currentUser;
-        console.log('UID', firebaseObj.uid)
-
-        api.getProfileInfo(firebaseObj.uid)
-            .then(body => {
-                    console.log("body: " + body);
-                    if (body && body.length > 0) {
-                        this.setState({userProfileURL: body[0].PIC});
-                    }
-                })
+        // api.getProfileInfo(firebaseObj.uid)
+        //     .then(body => {
+        //         console.log("body: " + body);
+        //         if (body && body.length > 0) {
+        //             this.setState({userProfileURL: body[0].PIC});
+        //         }
+        //     })
     }
 
     showCardOptions(event) {

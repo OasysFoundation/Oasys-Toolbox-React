@@ -1,7 +1,12 @@
 
 
 const globals = {
-	API_DEV_LOCAL: 'http://localhost:8080/',
+	//change if somebody committed with the wrong setting!!
+	//.env ENV_NODE
+    HARDSET_BASE: "http://localhost:8080/",
+
+
+    API_DEV_LOCAL: 'http://localhost:8080/',
 	API_PROD: 'https://api.joinoasys.org/',
 	API_DEV_REMOTE:'https://death.joinoasys.org/',
 	OASYS_API_BASE: 'https://api.joinoasys.org/',
