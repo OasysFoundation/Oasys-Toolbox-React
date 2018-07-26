@@ -6,13 +6,9 @@ import IconAccountCircle from '@material-ui/icons/AccountCircle';
 import Button from '@material-ui/core/Button';
 import logo from './logo.jpg'
 import UploadPicContentDialog from './UploadPicContentDialog'
-import {api} from "./utils"
-//import Name from './Name'
-//import Snackbar from '@material-ui/core/Snackbar';
-
 import {withRouter} from 'react-router-dom';
 import UserProjects from './UserProjects'
-import {api} from './utils'
+import api from './tools'
 
 class UserMainPage extends Component {
     constructor(props) {

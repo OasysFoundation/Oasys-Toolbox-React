@@ -14,7 +14,7 @@ import GameView from "./GameView"
 import HyperVideoEdit from './editor/HyperVideoEdit';
 import Comment from './Comment'
 import {CoolBlueButton} from "./stylings";
-import API from './tools'
+import api from './tools'
 import Media from "react-media";
 import {Unwrap} from "./utils"
 
@@ -60,7 +60,7 @@ class ContentView extends Component {
 
         this.whatRenderer = this.whatRenderer.bind(this);
 
-        API.getContent(this.userName, this.contentName)
+        api.getContent(this.userName, this.contentName)
             .then(content => this.setState({content: content[0], hasLoaded: true}))
 
         this.toggle = this.toggle.bind(this);
@@ -134,7 +134,7 @@ class ContentView extends Component {
             "accessUserId": this.props.authUser.displayName,
             "contentUserId": this.state.content.userId
         }
-        API.postUserContentAccess(data);
+        api.postUserContentAccess(data);
     }
 
     postQuizData(quizObj) {
@@ -148,7 +148,7 @@ class ContentView extends Component {
             "quizzes" : quizObj.quizzes,
             "type" : "quizUpdate"
         }
-        API.postUserContentAccess(data);
+        api.postUserContentAccess(data);
     }
 
     handleQuizSumbit(isCorrect){

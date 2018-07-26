@@ -2,7 +2,7 @@ import React from 'react';
 import {Component} from 'react';
 import SimpleMediaCard from './SimpleMediaCard'
 import styled from "styled-components"
-import {api} from './utils'
+import api from './tools'
 
 const Flexer = styled.section`
   display: flex;
@@ -20,9 +20,9 @@ class UserProjects extends Component {
 	    };
 
 	    api.getContentsPreview()
-			.then(function (myJson) {
+			.then(myJson => {
             console.log(myJson);
-            that.setState({content: myJson});
+            this.setState({content: myJson});
         });
 	}
 

@@ -5,6 +5,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import FormData from 'form-data';
 import $ from 'jquery';
+import api from './tools'
 
 const imageStyle = {
 	maxWidth: 250,
@@ -47,7 +48,7 @@ class UploadPicContentDialog extends Component {
 	
 
     var that = this;
-    api.postTitlePic(uid, contentId).then((response) => {
+    api.postTitlePic(uid, contentId, data).then((response) => {
       response.json()
       .catch(error => {
       console.error('Error:', error);
@@ -76,7 +77,7 @@ class UploadPicContentDialog extends Component {
     //data.append('filename', 'profile_pic_' + this.props.authUser);
 
     var that = this;
-    api.postProfilePic(uid).then((response) => {
+    api.postProfilePic(uid, data).then((response) => {
       response.json().catch(error => {
       console.error('Error:', error);
       this.props.snackBarControl('Error Uploading Image. If this continues, please contact info@joinoasys.org');

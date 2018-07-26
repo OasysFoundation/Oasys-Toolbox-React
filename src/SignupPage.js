@@ -7,15 +7,10 @@ import Button from '@material-ui/core/Button';
 import logo from './logo.jpg'
 import Typography from '@material-ui/core/Typography';
 import {auth} from './firebase';
-//import Input from "@material-ui/core/Input";
-//import InputLabel from "@material-ui/core/InputLabel";
-//import FormHelperText from "@material-ui/core/FormHelperText";
-//import FormControl from "@material-ui/core/FormControl";
-
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import {withRouter} from 'react-router-dom';
-import {api} from './tools'
+import api from './tools'
 
 
 const INITIAL_STATE = {

@@ -62,7 +62,7 @@ const api = {
         const url = BASE_URL + "newUsername/" + uid + "/" + username;
         return post(url);
     },
-    postTitlePic(uid, contentId) {
+    postTitlePic(uid, contentId, data) {
         const url = BASE_URL + "uploadTitle/" + uid + "/" + contentId;
         return fetch(url, {
             method: 'POST',
@@ -70,7 +70,7 @@ const api = {
             arrayKey: '',
         })
     },
-    postProfilePic(uid) {
+    postProfilePic(uid, data) {
         const url = BASE_URL + "uploadProfilePic/" + uid;
         return fetch(url, {
             method: 'POST',
@@ -96,6 +96,8 @@ const api = {
 const get = function (url) {
     return fetch(url, {method: 'GET'})
         .then(function (response) {
+
+
             return response.json();
         })
         .catch(function (err) {

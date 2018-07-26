@@ -6,10 +6,9 @@ import DoneIcon from '@material-ui/icons/CheckCircle';
 import {CoolPinkButton} from "./stylings";
 import NextIcon from '@material-ui/icons/ArrowForward';
 import {Unwrap} from "./utils"
-var decode = require('urldecode');
-import {api} from './tools'
+import api from './tools'
 
-
+// var decode = require('urldecode');
 
 class Rating extends Component {
     constructor(props) {
@@ -40,7 +39,7 @@ class Rating extends Component {
 
         api.postRating(this.state.username, this.state.contentname, value, this.props.username);
     }
-    
+
     render() {
         return (
             <div>
@@ -74,6 +73,9 @@ class Rating extends Component {
 
 
 }
+
+
+
 
 
 export default Rating;
