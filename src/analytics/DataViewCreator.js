@@ -94,9 +94,10 @@ class DataView extends Component {
                     this.safelySetState();
                 } 
             }
-            api.getContentsForCreator(this.props.authUser, callback.bind(this, 'contents'));
-            api.getCommentsForCreator(this.props.authUser, callback.bind(this, 'comments'));
-            api.getRatingsForCreator(this.props.authUser, callback.bind(this, 'ratings'));
+
+            api.getContentsForCreator(this.props.authUser).then(res => callback('contents', res));
+            api.getCommentsForCreator(this.props.authUser).then(res => callback('comments', res));
+            api.getRatingsForCreator(this.props.authUser).then(res => callback('ratings', res));
         }
     }
 
@@ -165,7 +166,7 @@ class DataView extends Component {
     }
 
     renderQuizAnswers(data, idx) {
-        
+
         if (data===undefined || data===null || data.length===0) {
             return;
         }
