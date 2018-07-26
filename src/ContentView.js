@@ -16,7 +16,7 @@ import Comment from './Comment'
 import {CoolBlueButton} from "./stylings";
 import API from './tools'
 import Media from "react-media";
-import {Unwrap} from "./Unwrap"
+import {Unwrap} from "./utils"
 
 
 const buttonStyle = {
@@ -241,15 +241,15 @@ class ContentView extends Component {
                         (<section key={slide.identifier}>
                             {this.whatRenderer(slide, idx)}
 
-                            <CoolBlueButton size="small" onClick={() => this.toggle('showComments')}>
-                                {this.state.showComments ? "Hide" : "Show"} {" Comments"}
-                            </CoolBlueButton>
+                            {/*<CoolBlueButton size="small" onClick={() => this.toggle('showComments')}>*/}
+                                {/*{this.state.showComments ? "Hide" : "Show"} {" Comments"}*/}
+                            {/*</CoolBlueButton>*/}
 
-                            {this.state.showComments ?
-                                <Comment key={slide.identifier} name={this.authUsername} slideNumber={this.state.slideIdx}
-                                         slideLength={this.contentLength}/>
-                                : null
-                            }
+                            {/*{this.state.showComments ?*/}
+                                {/*<Comment key={slide.identifier} name={this.authUsername} slideNumber={this.state.slideIdx}*/}
+                                         {/*slideLength={this.contentLength}/>*/}
+                                {/*: null*/}
+                            {/*}*/}
                         </section>)
                     )}
                     {this.props.authUser
@@ -281,11 +281,11 @@ class ContentView extends Component {
                                 {this.state.showComments ? "Hide" : "Show"} {" Comments"}
                             </CoolBlueButton>
 
-                            {this.state.showComments ?
-                                <Comment key={slide.identifier} name={this.authUsername} slideNumber={this.state.slideIdx}
-                                         slideLength={this.contentLength}/>
-                                : null
-                            }
+                            {/*{this.state.showComments ?*/}
+                                {/*<Comment key={slide.identifier} name={this.authUsername} slideNumber={this.state.slideIdx}*/}
+                                         {/*slideLength={this.contentLength}/>*/}
+                                {/*: null*/}
+                            {/*}*/}
                         </section>)
                     )}
                     {this.props.authUser

@@ -1,6 +1,5 @@
 import glb from "./globals";
-require('dotenv').config()
-console.log(`process.env.NODE_ENV = ${process.env.NODE_ENV} so I app uses << ${glb.API_DEV} >> to make API CALLS`)
+// require('dotenv').config()
 
 
 //READ if we are in DEV(npm start) or PROD (npm run build) and change the API LOCATION accordingly
@@ -8,7 +7,8 @@ console.log(`process.env.NODE_ENV = ${process.env.NODE_ENV} so I app uses << ${g
 
 const DEV = process.env.NODE_ENV === 'development';
 const USE_REMOTE = true;
-const API = DEV && USE_REMOTE ? glb.API_DEV_REMOTE : (DEV && !USE_REMOTE ? glb.API_DEV_LOCAL : glb.API_PROD);
+// const API = DEV && USE_REMOTE ? glb.API_DEV_REMOTE : (DEV && !USE_REMOTE ? glb.API_DEV_LOCAL : glb.API_PROD);
+// console.log(`process.env.NODE_ENV = ${process.env.NODE_ENV} so I app uses << ${API} >> to make API CALLS`)
 
 
 //replace BASE_URL with API when ready
