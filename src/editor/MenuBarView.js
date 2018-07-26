@@ -157,6 +157,66 @@ class MenuBarView extends Component {
     });    
   }
 
+  performFetch(saveEndpoint,data){
+      fetch(saveEndpoint, {
+        method: 'POST', 
+        body: JSON.stringify(data),
+        headers: new Headers({
+         'Content-Type': 'application/json',
+       })
+      }).then(res => res.json())
+      .catch(error => {
+        console.error('Error:', error);
+        this.setState({
+            snackBarMessage: 'Error Saving. If this continues, please contact info@joinoasys.org',
+            isUploading: false
+        })
+      })
+      .then(response => {
+        this.setState({
+          showsSaveDialog: false
+        });
+
+        console.log(response);
+
+        if (response) {
+          if(response.alreadyPublished){
+            this.setState({
+              snackBarMessage: 'Content already published, please change title and try again.',
+              isUploading: false
+            })
+          }
+          else if(response.hyphen){
+            this.setState({
+                snackBarMessage: 'You cannot include hyphens in title. Please try again.',
+                isUploading: false
+            })
+          }
+          else if(response.notVerified){
+            this.setState({
+                snackBarMessage: 'We ran into a problem. Please re-sign-in and try again.',
+                isUploading: false
+            })
+          }
+          else if (this.state.saveAction === 'save') {
+            this.setState({
+              snackBarMessage: 'Saved Draft',
+              isUploading: false
+            })
+          }
+
+          else if (this.state.saveAction === 'publish') {
+            this.setState({
+              snackBarMessage: 'Published',
+              isUploading: false,
+              showsConclusionDialog: true,
+              publishedSubmitted: true,
+            })
+          }
+        }
+        });
+  }
+
   sendToServer(contentId, published, hashtags, description, slides) {
     var username = this.props.authUser.displayName;
     if(!username)
@@ -171,59 +231,19 @@ class MenuBarView extends Component {
     }
 
     console.log(data);
-
-
-    fetch(saveEndpoint, {
-      method: 'POST', 
-      body: JSON.stringify(data),
-      headers: new Headers({
-       'Content-Type': 'application/json',
-     })
-    }).then(res => res.json())
-    .catch(error => {
-      console.error('Error:', error);
-      this.setState({
-          snackBarMessage: 'Error Saving. If this continues, please contact info@joinoasys.org',
-          isUploading: false
-      })
-    })
-    .then(response => {
-      this.setState({
-        showsSaveDialog: false
-      });
-
-      console.log(response);
-
-      if (response) {
-        if(response.alreadyPublished){
-          this.setState({
-            snackBarMessage: 'Content already published, please change title and try again.',
-            isUploading: false
-          })
-        }
-        else if(response.hyphen){
-          this.setState({
-              snackBarMessage: 'You cannot include hyphens in title. Please try again.',
-              isUploading: false
-          })
-        }
-        else if (this.state.saveAction === 'save') {
-          this.setState({
-            snackBarMessage: 'Saved Draft',
-            isUploading: false
-          })
-        }
-
-        else if (this.state.saveAction === 'publish') {
-          this.setState({
-            snackBarMessage: 'Published',
-            isUploading: false,
-            showsConclusionDialog: true,
-            publishedSubmitted: true,
-          })
-        }
-      }
-      });
+    if(this.props.authUser && this.props.authUser.displayName){
+        var that = this;
+        this.props.authUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+          saveEndpoint= saveEndpoint+ '/' + idToken
+          that.performFetch(saveEndpoint,data);
+        }).catch(function(error) {
+          console.log(error);
+        });
+     }
+     else{
+        saveEndpoint= saveEndpoint+ '/noToken' 
+        this.performFetch(saveEndpoint,data)
+     }
   }
 
   onSubmit() {
