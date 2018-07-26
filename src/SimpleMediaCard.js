@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -20,11 +20,12 @@ import CommentIcon from '@material-ui/icons/ModeComment';
 import Chip from '@material-ui/core/Chip';
 import Media from "react-media";
 import {Wrap} from './utils'
+import {api} from './tools'
 
 const styles = {
     card: {
         maxWidth: 300,
-        minWidth:300,
+        minWidth: 300,
         marginTop: 1 + "rem",
         marginBottom: 1 + "rem",
         marginLeft: 0.5 + "rem",
@@ -32,7 +33,7 @@ const styles = {
     },
     media: {
         maxWidth: 300,
-        minWidth:300,
+        minWidth: 300,
         width: 20 + "vw",
         paddingTop: '56.25%', // 16:9
     },
@@ -46,214 +47,227 @@ const defaultPicture = "https://vignette.wikia.nocookie.net/the-demonic-paradise
 
 
 class SimpleMediaCard extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      anchorEl: null,
-      userProfileURL: null,
-      disabledMessage: "Remix",
-      isDisabled: false,
-    }
+    constructor(props) {
+        super(props);
+        this.state = {
+            anchorEl: null,
+            userProfileURL: null,
+            disabledMessage: "Remix",
+            isDisabled: false,
+        }
 
-    const profile = 'https://api.joinoasys.org/profile/' + this.props.contentData.userId
-        fetch(profile, {
-            method: 'GET',
-            ContentType: "application/json"
-        }).then(response => {
-            return response.json().then(body => {
-                console.log("body: " + body);
-                if (body && body.length>0) {
-                    this.setState({userProfileURL: body[0].PIC});
-                }
+        api.getProfileInfo(this.props.contentData.userId)
+            .then(response => {
+                return response.json().then(body => {
+                    console.log("body: " + body);
+                    if (body && body.length > 0) {
+                        this.setState({userProfileURL: body[0].PIC});
+                    }
+                })
             })
-        })
-
-  }
-
-  showCardOptions(event) {
-    this.setState({
-      anchorEl: event.currentTarget
-    });
-  }
-
-  closeCardOptions() {
-    this.setState({
-      anchorEl: null
-    });
-  }
-
-  render() {
-
-    var disabledMessage = this.state.disabledMessage;
-    var isDisabled = this.state.isDisabled;
-
-
-    if(this.props.onMobile)
-      disabledMessage = "Remix requires Desktop or ipad" 
-
-    if(this.props.onMobile)
-      isDisabled = true; 
-
-    const { classes } = this.props;
-    var {picture, title, description, tags, rating, contentId, numRatings} = this.props.contentData;
-    let {userId} = this.props.contentData;
-
-    userId= Wrap(userId)
-    contentId=Wrap(contentId);
-    title=Wrap(title)
-
-
-    let pic = (picture) ? picture : defaultPicture;
-
-    userId = userId === "undefined" ? "Anonymous" : userId;
-
-    var userUrl = '';
-    if (userId) {
-        userUrl = '/user/'+userId;
-    }
-    var contentUrl = '';
-    if (contentId && userUrl) {
-        contentUrl = userUrl+'/'+contentId;
     }
 
-    var hashtags = tags;
-    if(!Array.isArray(tags)) {
-        hashtags = tags.split(' ');
-        hashtags = hashtags.map(function(element) {
-          element.replace('#','');
-          element.replace(',','');
-          return element;
+    showCardOptions(event) {
+        this.setState({
+            anchorEl: event.currentTarget
         });
     }
-    
-    var ratingString = ""
-    while (ratingString.length < rating) {
-        ratingString += "★";
+
+    closeCardOptions() {
+        this.setState({
+            anchorEl: null
+        });
     }
 
-    while (ratingString.length < 5) {
-        ratingString += "☆";
-    }    
+    render() {
 
-    const userURL = '/user/' + userId;
-    const userLink = <div> Made by <a href={userURL}> {(userId.length < 13 ? userId : (userId.substring(0,13) + '…'))} </a> </div>;
+        var disabledMessage = this.state.disabledMessage;
+        var isDisabled = this.state.isDisabled;
 
-    return (
-        <div>
-            <Card className={classes.card}>
-                  <Popover 
-                      anchorOrigin={{
-                      vertical: 'bottom',
-                      horizontal: 'left',
-                    }}
-                    transformOrigin={{
-                      vertical: 'top',
-                      horizontal: 'center',
-                    }}
-                    open={Boolean(this.state.anchorEl)}
-                    anchorEl={this.state.anchorEl}
-                    onClose={this.closeCardOptions.bind(this)}
-                  >
 
-                  <Media query="(max-width: 768px)">
-                    {matches =>
-                      matches ? (
-                        
-                        <List component="nav">
-                        <ListItem disabled={true} button onClick={function(event) {window.location.replace(`/create/${userId}/${contentId}`)}}>
-                          <ListItemIcon>
-                            <RemixIcon />
-                          </ListItemIcon>
-                          <ListItemText inset primary="Remix requires Desktop or ipad" />
-                        </ListItem>
-                        <ListItem button onClick={function(event) {event.preventDefault(); window.location.href = ('/comments/'+userId+'/'+title) }}>
-                          <ListItemIcon>
-                            <CommentIcon />
-                          </ListItemIcon>                    
-                          <ListItemText inset primary="View Comments" />
-                        </ListItem>
-                      </List>
+        if (this.props.onMobile)
+            disabledMessage = "Remix requires Desktop or ipad"
 
-                      ) : (
+        if (this.props.onMobile)
+            isDisabled = true;
 
-                      <List component="nav">
-                        <ListItem disabled={false} button onClick={function(event) {window.location.replace(`/create/${userId}/${contentId}`)}}>
-                          <ListItemIcon>
-                            <RemixIcon />
-                          </ListItemIcon>
-                          <ListItemText inset primary="Remix" />
-                        </ListItem>
-                        <ListItem button onClick={function(event) {event.preventDefault(); window.location.href = ('/comments/'+userId+'/'+title) }}>
-                          <ListItemIcon>
-                            <CommentIcon />
-                          </ListItemIcon>                    
-                          <ListItemText inset primary="View Comments" />
-                        </ListItem>
-                      </List>
+        const {classes} = this.props;
+        var {picture, title, description, tags, rating, contentId, numRatings} = this.props.contentData;
+        let {userId} = this.props.contentData;
 
-                      )
-                    }
-                  </Media>
+        userId = Wrap(userId)
+        contentId = Wrap(contentId);
+        title = Wrap(title)
 
-                  </Popover>
-                  <CardHeader
-                    avatar={
-                      <Avatar aria-label="Recipe" className={classes.avatar}>
-                        {this.state.userProfileURL? (
-                          <img src={this.state.userProfileURL} style={{width:'auto', height:'auto', 'max-height':'100%', 'max-width':'100%'}} alt=""/>  
-                          )
-                        :
-                        (
-                         userId.substring(0,2).toUpperCase()
-                          )}
-                      </Avatar>
-                    }
-                    action={
-                      <IconButton onClick={this.showCardOptions.bind(this)}>
-                        <MoreVertIcon />
-                      </IconButton>
-                    }
-                    title={title}
-                    subheader= {userLink}
-                    style={{textAlign:'left'}}
-                  />
-                  <ButtonBase
-                      className={classes.cardAction}
-                      onClick={function(event) {event.preventDefault(); window.location.href = contentUrl || "nope"; }}
-                  >
-                  <center>
-                  <div style={{marginLeft:'20px', marginBottom:'20px', textAlign:'left'}}>
-                  {ratingString} 
-                  {numRatings} Reviews
-                  </div>
-                  </center>
-                
-                <CardMedia
-                    className={classes.media}
-                    image={pic}
-                    title={title}
-                />
-                <CardContent>
-                    <Typography component="p" style={{marginBottom:'15px'}}>
-                        {description || "Test"}
-                    </Typography>
-                
-                    <div style={{display: 'flex', justifyContent: 'center', flexWrap: 'wrap'}}>
-                    {hashtags.map(function(element, idx){
-                      return <Chip key={idx} label={element} style={{margin:'3px'}}/> 
-                    })}
-                    </div>
-               </CardContent>
-   
-                </ButtonBase>
-                
-            </Card>
-        </div>
-    );
-  }
+
+        let pic = (picture) ? picture : defaultPicture;
+
+        userId = userId === "undefined" ? "Anonymous" : userId;
+
+        var userUrl = '';
+        if (userId) {
+            userUrl = '/user/' + userId;
+        }
+        var contentUrl = '';
+        if (contentId && userUrl) {
+            contentUrl = userUrl + '/' + contentId;
+        }
+
+        var hashtags = tags;
+        if (!Array.isArray(tags)) {
+            hashtags = tags.split(' ');
+            hashtags = hashtags.map(function (element) {
+                element.replace('#', '');
+                element.replace(',', '');
+                return element;
+            });
+        }
+
+        var ratingString = ""
+        while (ratingString.length < rating) {
+            ratingString += "★";
+        }
+
+        while (ratingString.length < 5) {
+            ratingString += "☆";
+        }
+
+        const userURL = '/user/' + userId;
+        const userLink = <div> Made by <a
+            href={userURL}> {(userId.length < 13 ? userId : (userId.substring(0, 13) + '…'))} </a></div>;
+
+        return (
+            <div>
+                <Card className={classes.card}>
+                    <Popover
+                        anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'left',
+                        }}
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'center',
+                        }}
+                        open={Boolean(this.state.anchorEl)}
+                        anchorEl={this.state.anchorEl}
+                        onClose={this.closeCardOptions.bind(this)}
+                    >
+
+                        <Media query="(max-width: 768px)">
+                            {matches =>
+                                matches ? (
+
+                                    <List component="nav">
+                                        <ListItem disabled={true} button onClick={function (event) {
+                                            window.location.replace(`/create/${userId}/${contentId}`)
+                                        }}>
+                                            <ListItemIcon>
+                                                <RemixIcon/>
+                                            </ListItemIcon>
+                                            <ListItemText inset primary="Remix requires Desktop or ipad"/>
+                                        </ListItem>
+                                        <ListItem button onClick={function (event) {
+                                            event.preventDefault();
+                                            window.location.href = ('/comments/' + userId + '/' + title)
+                                        }}>
+                                            <ListItemIcon>
+                                                <CommentIcon/>
+                                            </ListItemIcon>
+                                            <ListItemText inset primary="View Comments"/>
+                                        </ListItem>
+                                    </List>
+
+                                ) : (
+
+                                    <List component="nav">
+                                        <ListItem disabled={false} button onClick={function (event) {
+                                            window.location.replace(`/create/${userId}/${contentId}`)
+                                        }}>
+                                            <ListItemIcon>
+                                                <RemixIcon/>
+                                            </ListItemIcon>
+                                            <ListItemText inset primary="Remix"/>
+                                        </ListItem>
+                                        <ListItem button onClick={function (event) {
+                                            event.preventDefault();
+                                            window.location.href = ('/comments/' + userId + '/' + title)
+                                        }}>
+                                            <ListItemIcon>
+                                                <CommentIcon/>
+                                            </ListItemIcon>
+                                            <ListItemText inset primary="View Comments"/>
+                                        </ListItem>
+                                    </List>
+
+                                )
+                            }
+                        </Media>
+
+                    </Popover>
+                    <CardHeader
+                        avatar={
+                            <Avatar aria-label="Recipe" className={classes.avatar}>
+                                {this.state.userProfileURL ? (
+                                        <img src={this.state.userProfileURL} style={{
+                                            width: 'auto',
+                                            height: 'auto',
+                                            'max-height': '100%',
+                                            'max-width': '100%'
+                                        }} alt=""/>
+                                    )
+                                    :
+                                    (
+                                        userId.substring(0, 2).toUpperCase()
+                                    )}
+                            </Avatar>
+                        }
+                        action={
+                            <IconButton onClick={this.showCardOptions.bind(this)}>
+                                <MoreVertIcon/>
+                            </IconButton>
+                        }
+                        title={title}
+                        subheader={userLink}
+                        style={{textAlign: 'left'}}
+                    />
+                    <ButtonBase
+                        className={classes.cardAction}
+                        onClick={function (event) {
+                            event.preventDefault();
+                            window.location.href = contentUrl || "nope";
+                        }}
+                    >
+                        <center>
+                            <div style={{marginLeft: '20px', marginBottom: '20px', textAlign: 'left'}}>
+                                {ratingString}
+                                {numRatings} Reviews
+                            </div>
+                        </center>
+
+                        <CardMedia
+                            className={classes.media}
+                            image={pic}
+                            title={title}
+                        />
+                        <CardContent>
+                            <Typography component="p" style={{marginBottom: '15px'}}>
+                                {description || "Test"}
+                            </Typography>
+
+                            <div style={{display: 'flex', justifyContent: 'center', flexWrap: 'wrap'}}>
+                                {hashtags.map(function (element, idx) {
+                                    return <Chip key={idx} label={element} style={{margin: '3px'}}/>
+                                })}
+                            </div>
+                        </CardContent>
+
+                    </ButtonBase>
+
+                </Card>
+            </div>
+        );
+    }
 }
-
-
 
 
 SimpleMediaCard.propTypes = {

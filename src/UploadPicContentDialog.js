@@ -4,7 +4,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import FormData from 'form-data';
-import $ from 'jquery'; 
+import $ from 'jquery';
 
 const imageStyle = {
 	maxWidth: 250,
@@ -37,6 +37,7 @@ class UploadPicContentDialog extends Component {
     ev.preventDefault();
     var uid = this.props.authUser.displayName;
     var contentId = this.props.contentId;
+
     const spacesEndpoint = 'https://api.joinoasys.org/uploadTitle/'+uid+'/'+contentId
 
     const data = new FormData();
@@ -48,11 +49,7 @@ class UploadPicContentDialog extends Component {
 	
 
     var that = this;
-    fetch(spacesEndpoint, {
-      method: 'POST',
-      body: data,
-      arrayKey:'',
-    }).then((response) => {
+    api.postTitlePic(uid, contentId).then((response) => {
       response.json()
       .catch(error => {
       console.error('Error:', error);
@@ -74,7 +71,6 @@ class UploadPicContentDialog extends Component {
   handleUploadProfilePic(ev) {
     ev.preventDefault();
     var uid = this.props.authUser.uid;
-    const spacesEndpoint = 'https://api.joinoasys.org/uploadProfilePic/'+uid
 
     const data = new FormData();
     data.append('upload', this.uploadInput.files[0]);
@@ -82,11 +78,7 @@ class UploadPicContentDialog extends Component {
     //data.append('filename', 'profile_pic_' + this.props.authUser);
 
     var that = this;
-    fetch(spacesEndpoint, {
-      method: 'POST',
-      body: data,
-      arrayKey:'',
-    }).then((response) => {
+    api.postProfilePic(uid).then((response) => {
       response.json().catch(error => {
       console.error('Error:', error);
       this.props.snackBarControl('Error Uploading Image. If this continues, please contact info@joinoasys.org');

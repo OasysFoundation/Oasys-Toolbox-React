@@ -6,7 +6,8 @@ import DoneIcon from '@material-ui/icons/CheckCircle';
 import {CoolPinkButton} from "./stylings";
 import NextIcon from '@material-ui/icons/ArrowForward';
 import {Unwrap} from "./utils"
-var decode = require('urldecode')
+var decode = require('urldecode');
+import {api} from './tools'
 
 
 
@@ -37,17 +38,7 @@ class Rating extends Component {
             rated: true
         });
 
-        const APICALL = `https://api.joinoasys.org/rate/${this.state.username}/${this.state.contentname}/${value}/${this.props.username}`;
-
-        fetch(APICALL, {
-            method: 'POST'
-        }).then(function (response) {
-            console.log(response);
-            return response.json();
-        })
-            .then(function (myJson) {
-                console.log(myJson);
-            });
+        api.postRating(this.state.username, this.state.contentname, value, this.props.username);
     }
     
     render() {

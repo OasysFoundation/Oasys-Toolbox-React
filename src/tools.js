@@ -38,11 +38,6 @@ const api = {
         const url = BASE_URL + 'getContentsPreview/';
         return get(url)
     },
-
-    postUserContentAccess(interactionData) {
-        const url = `${BASE_URL}saveUserContentAccess`
-        return post(url, interactionData)
-    },
     getProfileInfo(authUserID) {
         const url = `${BASE_URL}profile/${authUserID}`;
         return get(url)
@@ -50,8 +45,33 @@ const api = {
     postRating(contentOwner, contentName, rating, userWhoRates) {
         const url = `${BASE_URL}rate/${contentOwner}/${contentName}/${rating}/${userWhoRates}`;
         return post(url)
-    }
-};
+    },
+    postNewUserName(uid, username){
+        const url = BASE_URL + "newUsername/" + uid + "/" + username;
+        return post(url);
+    },
+    postTitlePic(uid, contentId) {
+        const url = BASE_URL + "uploadTitle/" + uid + "/" + contentId;
+        return fetch(url, {
+            method: 'POST',
+            body: data,
+            arrayKey:'',
+        })
+    },
+    postProfilePic(uid){
+        const url = BASE_URL + "uploadProfilePic/" + uid;
+        return fetch(url, {
+            method: 'POST',
+            body: data,
+            arrayKey:'',
+        })
+    },
+    postUserContentAccess(interactionData) {
+        const url = `${BASE_URL}saveUserContentAccess`
+        return post(url, interactionData)
+    },
+
+}
 
 const get = function (url) {
     return fetch(url, {method: 'GET'})
