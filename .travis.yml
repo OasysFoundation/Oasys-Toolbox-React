@@ -6,7 +6,7 @@ branches:
     - master
 install:
   - npm install
-build:
+script:
   - CI=false npm run build
 deploy:
   provider: firebase
