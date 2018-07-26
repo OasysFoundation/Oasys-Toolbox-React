@@ -62,12 +62,12 @@ class Editor extends Component {
 
     if (window.sessionStorage.tempSlideStorage) {
       slides = JSON.parse(window.sessionStorage.tempSlideStorage);
+      if (window.sessionStorage.tempSelectedSlideIndex) {
+        selectedSlideIndex = window.sessionStorage.tempSelectedSlideIndex;
+        currSlideType = slides[selectedSlideIndex].type;
+      }
     }
 
-    if (window.sessionStorage.tempSelectedSlideIndex) {
-      selectedSlideIndex = window.sessionStorage.tempSelectedSlideIndex;
-      currSlideType = slides[selectedSlideIndex].type;
-    }
 
     if (window.sessionStorage.tempTitle) {
       title = window.sessionStorage.tempTitle;
