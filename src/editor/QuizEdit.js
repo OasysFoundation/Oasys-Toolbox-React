@@ -63,9 +63,6 @@ let domStyles = {
       flexDirection: 'row', 
       alignItems: 'center',
     },
-    questionField: {
-      width: 1000
-    },
     answerWrap: {
       display: 'flex',
       flexDirection: 'row', 
@@ -95,6 +92,14 @@ let domStyles = {
       width: '20px',
       height: '20px',
       cursor: 'pointer',
+    },
+    questionField: {
+      width: '800px',
+    },
+    question: {
+      marginTop: '3px',
+      marginRight: '10px',
+      fontSize: '14px',
     }
 }
 
@@ -113,7 +118,8 @@ class Question extends Component {
               style={domStyles.questionField} 
               value={this.props.value} 
               onChange={this.onChange}
-              margin="normal"
+              multiLine={true}
+              rows={2}
             />
     )
   }
@@ -296,22 +302,19 @@ class Quiz extends Component {
           : (
             <div>
               
-              <Typography component="p">
-                  
-              </Typography>
-              <div  id="quizPreview">
+              <div>
               <Card>
                 <CardContent>
-                <Typography style={{marginBottom: 16, fontSize: 14}} color="textSecondary">
-                  Quiz Question {this.props.value.time ? ("at " + Math.round(this.props.value.time) + " seconds") : null}
-                </Typography>
                   <div style={domStyles.questionWrap}>
-                  <Question value={this.props.value.question} 
-                          onChangeQuestion={this.onChangeQuestion}/>
+                    <Typography style={domStyles.question} color="textSecondary">
+                      Question {this.props.value.time ? ("at " + Math.round(this.props.value.time) + " seconds") : null}
+                    </Typography>
+                    <Question value={this.props.value.question} 
+                            onChangeQuestion={this.onChangeQuestion}/>
 
-                  <IconButton aria-label="Help" onClick={this.showHelp.bind(this)}>
-                    <HelpIcon />
-                  </IconButton>
+                    <IconButton aria-label="Help" onClick={this.showHelp.bind(this)}>
+                      <HelpIcon />
+                    </IconButton>
                   </div>
                 </CardContent>
               

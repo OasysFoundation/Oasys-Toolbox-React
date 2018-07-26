@@ -16,10 +16,10 @@ import 'taucharts/dist/plugins/legend';
 
 // import custom modules
 import '../taucharts.min.css'; // we needed to modify this, so it's a custom import
-import {summary, details} from './text'
-import {styles} from './styles'
-import {genSynthData} from './genSyntheticData'
-import {rearrangeData} from './processData'
+import {summary, details} from './text';
+import {styles} from './styles';
+import {genSynthData} from './genSyntheticData';
+import {rearrangeData} from './processData';
 import api from "../tools";
 //import glb from "../globals";
 import {CoolPinkButton} from "../stylings";
@@ -90,13 +90,15 @@ class DataView extends Component {
                 this.countApiCalls++; 
                 // the page can only be safely rendered after a) the component has mounted and 
                 // b) data has been successfully loaded from backend
+                console.log(this.rawdata)
                 if (this.countApiCalls===3) {
                     this.safelySetState();
                 } 
             }
-            api.getContentsForCreator(this.props.authUser, callback.bind(this, 'contents'));
-            api.getCommentsForCreator(this.props.authUser, callback.bind(this, 'comments'));
-            api.getRatingsForCreator(this.props.authUser, callback.bind(this, 'ratings'));
+
+            api.getContentsForCreator(this.props.authUser).then(res => callback('contents', res));
+            api.getCommentsForCreator(this.props.authUser).then(res => callback('comments', res));
+            api.getRatingsForCreator(this.props.authUser).then(res => callback('ratings', res));
         }
     }
 
@@ -165,7 +167,7 @@ class DataView extends Component {
     }
 
     renderQuizAnswers(data, idx) {
-        
+
         if (data===undefined || data===null || data.length===0) {
             return;
         }

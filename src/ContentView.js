@@ -277,9 +277,9 @@ class ContentView extends Component {
                         (<section key={slide.identifier}>
                             {this.whatRenderer(slide, idx)}
 
-                            <CoolBlueButton size="small" onClick={() => this.toggle('showComments')}>
+                            {/*<CoolBlueButton size="small" onClick={() => this.toggle('showComments')}>
                                 {this.state.showComments ? "Hide" : "Show"} {" Comments"}
-                            </CoolBlueButton>
+                            </CoolBlueButton>*/}
 
                             {/*{this.state.showComments ?*/}
                                 {/*<Comment key={slide.identifier} name={this.authUsername} slideNumber={this.state.slideIdx}*/}
