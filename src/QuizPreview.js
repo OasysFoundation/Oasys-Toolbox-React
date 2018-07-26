@@ -8,9 +8,15 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 //import FormHelperText from '@material-ui/core/FormHelperText';
 import Checkbox from '@material-ui/core/Checkbox';
 
+import {CoolPinkButton} from "./stylings";
+
 const styles = {
-    marginTop: {
+    questionPreview: {
         marginTop: '20px',
+        textAlign: 'left',
+    },
+    fontSize21: {
+        fontSize: '21px',
     }
 }
 
@@ -63,14 +69,15 @@ class QuizPreview extends Component {
         const isCorrect = ((this.state.realAnswers[i]=== true && this.state.userAnswers[i] === true) ||(this.state.realAnswers[i]=== false && this.state.userAnswers[i] === "not"));
 
         return (
-            <div key={i + 1}>
-                <FormControlLabel
-                    control={<Checkbox key={i} onChange={(e) => {this.updateUserAnswers(e,i)}} />}
-                    label={answer.option} />
+            <div key={i + 1} style={{paddingLeft: '20px'}}>
+                <div style={{display: 'flex'}}>
+                    <Checkbox key={i}  onChange={(e) => {this.updateUserAnswers(e,i)}} />
+                    <p style={styles.fontSize21}> {answer.option} </p>
+                </div>
                 <section key={i + 2}
                     hidden={!this.state.hasSubmitted}
-                    style={{background: isCorrect ? "lightgreen" : "red"}}>
-                    {"This option was " + (this.state.realAnswers[i] ? " correct" : " wrong")}
+                    style={{background: isCorrect ? "lightgreen" : "red", fontSize: '21px', marginLeft: '50px', paddingLeft: '5px'}}>
+                    {isCorrect ? "You are right with this answer." : "Oops, this not correct."}
                 </section>
             </div>
         )
@@ -78,21 +85,24 @@ class QuizPreview extends Component {
 
     render() {
         return (
-            <div style={styles.marginTop}>
+            <div style={styles.questionPreview}>
                 <FormControl component="fieldset">
                 <FormGroup>
-                <p>{this.props.content.question 
-                    ? (<FormLabel component="legend">{this.props.content.question}</FormLabel>) 
+                <p style={styles.fontSize21}>{this.props.content.question 
+                    ? (<FormLabel component="legend" style={styles.fontSize21}>
+                        {this.props.content.question}
+                        </FormLabel>) 
                     : ("This quiz does not yet have a question.")}</p>
-                {this.props.content.answers.map((answer, i)=>this.renderAnswer(answer,i), this)}
+                <div style={{paddingLeft: '20px'}}>
+                    {this.props.content.answers.map((answer, i)=>this.renderAnswer(answer,i), this)}
+                </div>
                 </FormGroup>
-                <Button size="large"
-                        color="primary"
-                        onClick={() => this.checkAnswers()}
-                        //disabled={this.props.hyperVideoEditing}
-                >
-                    Submit
-                </Button>
+                <div style={{display: 'flex', width: '100%', justifyContent: 'center', marginBottom: '10px'}}>
+                    <CoolPinkButton
+                            onClick={() => this.checkAnswers()}>
+                        Submit
+                    </CoolPinkButton>
+                </div>
                 </FormControl>
             </div>
 
