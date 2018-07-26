@@ -38,7 +38,17 @@ const api = {
         const url = BASE_URL + 'getContentsPreview/';
         return get(url)
     },
-
+    postImage(img) {
+        const url = 'https://api.imgur.com/3/image';
+        return fetch(url, {
+            method: 'POST',
+            body: img,
+            headers: new Headers({
+             'Authorization': 'Client-ID dab43e1ba5b9c27',
+             'Accept': 'application/json'
+            })
+        });
+    },
     postUserContentAccess(interactionData) {
         const url = `${BASE_URL}saveUserContentAccess`
         return post(url, interactionData)
@@ -50,7 +60,16 @@ const api = {
     postRating(contentOwner, contentName, rating, userWhoRates) {
         const url = `${BASE_URL}rate/${contentOwner}/${contentName}/${rating}/${userWhoRates}`;
         return post(url)
-    }
+    },
+    post(url, data = {}) {
+        return fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: new Headers({
+                'Content-Type': 'application/json',
+            })
+        })
+    },
 };
 
 const get = function (url) {

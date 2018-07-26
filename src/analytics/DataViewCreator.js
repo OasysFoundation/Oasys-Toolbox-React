@@ -16,10 +16,10 @@ import 'taucharts/dist/plugins/legend';
 
 // import custom modules
 import '../taucharts.min.css'; // we needed to modify this, so it's a custom import
-import {summary, details} from './text'
-import {styles} from './styles'
-import {genSynthData} from './genSyntheticData'
-import {rearrangeData} from './processData'
+import {summary, details} from './text';
+import {styles} from './styles';
+import {genSynthData} from './genSyntheticData';
+import {rearrangeData} from './processData';
 import api from "../tools";
 //import glb from "../globals";
 import {CoolPinkButton} from "../stylings";
