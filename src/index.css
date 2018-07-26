@@ -1,9 +1,14 @@
+
+@font-face {
+    font-family: 'Kievit'; /*a name to be used later*/
+    src: url('./fonts/kievit_regular.ttf');
+}
+
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: 'Kievit';
 }
-
 
 .textAlignLeft {
 	text-align: left;

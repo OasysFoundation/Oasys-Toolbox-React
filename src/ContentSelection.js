@@ -16,7 +16,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import {substringInObjCount} from "./utils";
 import api from './tools'
 import {getTagsForCategory} from "./utils";
-
+import {Unwrap, Wrap} from "./Unwrap"
 
 const Flexer = styled.section`
   display: flex;
@@ -28,8 +28,6 @@ const Flexer = styled.section`
 class ContentSelection extends Component {
     constructor(props) {
         super();
-        const loadContent = 'https://api.joinoasys.org/GetContentsPreview';
-        const that = this;
         this.state = {
             content: [],
             filteredContent: [],
@@ -73,12 +71,16 @@ class ContentSelection extends Component {
         }
         const keywords = getTagsForCategory(category);
         //confusing naming! tags sounds like array and state.content sounds like obj -- not array
+
+        function stringHasSubstring(str, substr) {
+            return str.toLowerCase().includes(substr.toLowerCase())
+        }
         return this.state.content
-            .filter(content => keywords
+            .filter(content => keywords.filter(kw => stringHasSubstring(content.tags, kw) ).length)
             //filter out when the tags string (??? should be array!) includes the keyword
-                .filter(kw => content.tags.toLowerCase().includes(kw.toLowerCase()))
+
                 //if there is an array with at least 1 match then .length returns true(=> don't filter) else false
-                .length)
+
     }
     render(){
         let searchListContent = (
@@ -89,7 +91,7 @@ class ContentSelection extends Component {
 
         if (this.state.searchResults.length > 0) {
              searchListContent = this.state.searchResults.map(content => (
-                  <ListItem button onClick={function(event) {event.preventDefault(); window.location.href = '/user/' + content.userId + '/' + content.contentId; }} key={content.contentId}>
+                  <ListItem button onClick={function(event) {event.preventDefault(); window.location.href = '/user/' + Wrap(content.userId) + '/' + Wrap(content.contentId); }} key={content.contentId}>
                     <Avatar alt="Remy Sharp" src={content.picture} />
                     <ListItemText primary={content.title} secondary={"Created by " + content.userId}/>
                   </ListItem>

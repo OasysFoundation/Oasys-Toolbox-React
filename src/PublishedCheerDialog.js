@@ -12,6 +12,9 @@ class PublishedCheerDialog extends Component {
     goToContentPage() {
     	window.location.href = this.props.sharableLink;
     }
+    goToHomePage(){
+    	window.location.href = "https://app.joinoasys.org";
+    }
 
 	render() {
 		return (
@@ -28,12 +31,11 @@ class PublishedCheerDialog extends Component {
 		            <a href={this.props.sharableLink}>{this.props.sharableLink}</a>
 		            <br />
 		            <center style={{marginTop:'20px'}}>
-	                  <Button variant="contained" color="secondary" onClick={this.props.onClose}>
-				        Cancel
-				      </Button>
-
 	                  <Button variant="raised" color="secondary" onClick={this.goToContentPage.bind(this)}>
-				        View my Content
+				        View This Content
+				      </Button>
+				      <Button style={{marginLeft:'20px'}} variant="raised" color="secondary" onClick={this.goToHomePage.bind(this)}>
+				        Go Home
 				      </Button>
 				     </center>
 		          </DialogContent>

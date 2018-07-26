@@ -22,9 +22,10 @@ import logo from '../logo.jpg'
 import LoadingDialog from '../LoadingDialog'
 import PublishedCheerDialog from '../PublishedCheerDialog'
 import AlreadyPublishedDialog from '../AlreadyPublishedDialog'
+import {Wrap} from "../Unwrap"
 
 
-const BG = "#5C8B8E";
+const BG = "#00897b";
 
 const buttonStyle = {
   padding: '0',
@@ -156,6 +157,66 @@ class MenuBarView extends Component {
     });    
   }
 
+  performFetch(saveEndpoint,data){
+      fetch(saveEndpoint, {
+        method: 'POST', 
+        body: JSON.stringify(data),
+        headers: new Headers({
+         'Content-Type': 'application/json',
+       })
+      }).then(res => res.json())
+      .catch(error => {
+        console.error('Error:', error);
+        this.setState({
+            snackBarMessage: 'Error Saving. If this continues, please contact info@joinoasys.org',
+            isUploading: false
+        })
+      })
+      .then(response => {
+        this.setState({
+          showsSaveDialog: false
+        });
+
+        console.log(response);
+
+        if (response) {
+          if(response.alreadyPublished){
+            this.setState({
+              snackBarMessage: 'Content already published, please change title and try again.',
+              isUploading: false
+            })
+          }
+          else if(response.hyphen){
+            this.setState({
+                snackBarMessage: 'You cannot include hyphens in title. Please try again.',
+                isUploading: false
+            })
+          }
+          else if(response.notVerified){
+            this.setState({
+                snackBarMessage: 'We ran into a problem. Please re-sign-in and try again.',
+                isUploading: false
+            })
+          }
+          else if (this.state.saveAction === 'save') {
+            this.setState({
+              snackBarMessage: 'Saved Draft',
+              isUploading: false
+            })
+          }
+
+          else if (this.state.saveAction === 'publish') {
+            this.setState({
+              snackBarMessage: 'Published',
+              isUploading: false,
+              showsConclusionDialog: true,
+              publishedSubmitted: true,
+            })
+          }
+        }
+        });
+  }
+
   sendToServer(contentId, published, hashtags, description, slides) {
     var username = this.props.authUser.displayName;
     if(!username)
@@ -170,52 +231,19 @@ class MenuBarView extends Component {
     }
 
     console.log(data);
-
-
-    fetch(saveEndpoint, {
-      method: 'POST', 
-      body: JSON.stringify(data),
-      headers: new Headers({
-       'Content-Type': 'application/json',
-     })
-    }).then(res => res.json())
-    .catch(error => {
-      console.error('Error:', error);
-      this.setState({
-          snackBarMessage: 'Error Saving. If this continues, please contact info@joinoasys.org',
-          isUploading: false
-      })
-    })
-    .then(response => {
-      this.setState({
-        showsSaveDialog: false
-      });
-
-      console.log(response);
-      if (response) {
-        if(response.alreadyPublished){
-          this.setState({
-            snackBarMessage: 'Content already published, please change title and try again.',
-            isUploading: false
-          })
-        }
-        else if (this.state.saveAction === 'save') {
-          this.setState({
-            snackBarMessage: 'Saved Draft',
-            isUploading: false
-          })
-        }
-
-        else if (this.state.saveAction === 'publish') {
-          this.setState({
-            snackBarMessage: 'Published',
-            isUploading: false,
-            showsConclusionDialog: true,
-            publishedSubmitted: true,
-          })
-        }
-      }
-      });
+    if(this.props.authUser && this.props.authUser.displayName){
+        var that = this;
+        this.props.authUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+          saveEndpoint= saveEndpoint+ '/' + idToken
+          that.performFetch(saveEndpoint,data);
+        }).catch(function(error) {
+          console.log(error);
+        });
+     }
+     else{
+        saveEndpoint= saveEndpoint+ '/noToken' 
+        this.performFetch(saveEndpoint,data)
+     }
   }
 
   onSubmit() {
@@ -394,7 +422,7 @@ class MenuBarView extends Component {
     const isInvalid = !description || !hashtags;
 
     const userName = ((this.props.authUser && this.props.authUser.displayName) ? this.props.authUser.displayName : "Anonymous");
-    const shareableLink = "https://app.joinoasys.org/user/" + userName +'/'+this.props.contentTitle;
+    const shareableLink = "https://app.joinoasys.org/user/" + Wrap(userName) +'/'+ Wrap(this.props.contentTitle);
 
     var published = 0
     if(this.props.published==1 && this.state.publishAck)
@@ -405,28 +433,20 @@ class MenuBarView extends Component {
       <AlreadyPublishedDialog open={this.state.publishedSubmitted || published} onClose={this.closeAlreadyPublishedDialog.bind(this)} changeTitle={this.props.changeTitle} oldTitle={this.props.contentTitle}/>
       <LoadingDialog open={this.state.isUploading} message='Uploading Content…' />
       <PublishedCheerDialog open={this.state.showsConclusionDialog} sharableLink={shareableLink} onClose={this.closePublishedDialog.bind(this)}/>
-      <Toolbar style={{backgroundColor: BG}}>
+      <Toolbar style={{backgroundColor: BG, height: '40px', minHeight: '40px'}}>
+        <Tooltip enterDelay={500} id="tooltip-bottom" title="Save content in your account but don't publish it yet. You can open drafts later again and continue editing." placement="bottom">
+      	<Button onClick={this.onSave} style={{color: 'white'}} >
+          <SaveIcon />
+  	        Save Draft
+  	    </Button>
+        </Tooltip>
 
-      <Tooltip enterDelay={500} id="tooltip-bottom" title="Open an existing content" placement="bottom">
-      <Button onClick={this.onOpen} style={{color: 'white'}} >
-        <FolderIcon />
-          Open
-      </Button>
-      </Tooltip>
-
-      <Tooltip enterDelay={500} id="tooltip-bottom" title="Save content in your account but don't publish it yet. You can open drafts later again and continue editing." placement="bottom">
-    	<Button onClick={this.onSave} style={{color: 'white'}} >
-        <SaveIcon />
-	        Save Draft
-	    </Button>
-      </Tooltip>
-
-      <Tooltip enterDelay={500} id="tooltip-bottom" title="Publish your content on the Oasys platform. Other users then can explore, use, share, edit, comment, and remix your content." placement="bottom">
-      <Button onClick={this.onPublish.bind(this)} style={{color: 'orange'}} >
-        <PublishIcon />
-          Publish on Oasys
-      </Button>
-      </Tooltip>
+        <Tooltip enterDelay={500} id="tooltip-bottom" title="Publish your content on the Oasys platform. Other users then can explore, use, share, edit, comment, and remix your content." placement="bottom">
+        <Button onClick={this.onPublish.bind(this)} style={{color: '#ffd54f'}} >
+          <PublishIcon />
+            Publish on Oasys
+        </Button>
+        </Tooltip>
 
       </Toolbar>
 
@@ -438,6 +458,8 @@ class MenuBarView extends Component {
       >        
 
         <DialogTitle id="alert-dialog-title">{"Great Work!"}</DialogTitle>
+
+
         <DialogContent>
         {this.state.saveAction==="publish"
           ? (
@@ -480,7 +502,13 @@ class MenuBarView extends Component {
             Cancel
           </Button>
           <Button disabled={isInvalid} onClick={this.onSubmit.bind(this)} color="primary" autoFocus>
-            Submit
+          {
+          this.props.authUser
+          ? this.props.authUser.displayName
+            ? "Submit as " + this.props.authUser.displayName
+            : "Submit as Anonymous"
+          : "Submit as Anonymous"
+        }
           </Button>
         </DialogActions>
       </Dialog>

@@ -17,6 +17,9 @@ import QuizIcon from '../icons/Quiz.png'
 import GameIcon from '../icons/Game.png'
 import HypervideoIcon from '../icons/Hypervideo.png'
 import SystemSimulationIcon from '../icons/SystemSimulation.png'
+import { Unwrap } from '../Unwrap'
+
+
 
 //import gameMetaData from "../gameMetaData";
 
@@ -49,7 +52,13 @@ class Editor extends Component {
     var shouldDownloadContent = false;
 
     if (props.match) {
-        const link = "user/" + props.match.params.userId + "/" + props.match.params.contentId;
+        console.log(props.match.params.userId);
+        console.log(props.match.params.contentId);
+
+        var paramUserId = Unwrap(props.match.params.userId);
+        var paramContentId = Unwrap(props.match.params.contentId);
+
+        const link = "user/" + paramUserId + "/" + paramContentId;
         this.onLoad(link);  
         shouldDownloadContent = true;
     }

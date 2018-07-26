@@ -19,6 +19,7 @@ import RemixIcon from '@material-ui/icons/MergeType';
 import CommentIcon from '@material-ui/icons/ModeComment';
 import Chip from '@material-ui/core/Chip';
 import Media from "react-media";
+import {Wrap} from './Unwrap'
 
 const styles = {
     card: {
@@ -94,8 +95,13 @@ class SimpleMediaCard extends Component {
       isDisabled = true; 
 
     const { classes } = this.props;
-    const {picture, title, description, tags, rating, contentId, numRatings} = this.props.contentData;
+    var {picture, title, description, tags, rating, contentId, numRatings} = this.props.contentData;
     let {userId} = this.props.contentData;
+
+    userId= Wrap(userId)
+    contentId=Wrap(contentId);
+    title=Wrap(title)
+
 
     let pic = (picture) ? picture : defaultPicture;
 

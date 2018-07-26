@@ -5,6 +5,10 @@ import Comment from './Comment'
 import DoneIcon from '@material-ui/icons/CheckCircle';
 import {CoolPinkButton} from "./stylings";
 import NextIcon from '@material-ui/icons/ArrowForward';
+import {Unwrap} from "./Unwrap"
+var decode = require('urldecode')
+
+
 
 class Rating extends Component {
     constructor(props) {
@@ -12,8 +16,8 @@ class Rating extends Component {
 
         const loc = window.location.href;
         const directory = loc.split('/').filter(e => e.length > 0).slice(-2);
-        const userName = directory[0]
-        const contentName = directory[1]
+        const userName = Unwrap(directory[0])
+        const contentName = Unwrap(directory[1])
 
         this.state = {
             value: props.value || 0,
