@@ -50,6 +50,10 @@ const api = {
         const url = BASE_URL + 'getContentsPreview/';
         return betterFetch(url)
     },
+    getWalletIdForUser(userName) {
+        const url = `${BASE_URL}profile/${userName}`;
+        return betterFetch(url);
+    },
 
     postUserContentAccess(interactionData) {
         const url = `${BASE_URL}saveUserContentAccess`

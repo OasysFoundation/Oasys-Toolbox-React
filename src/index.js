@@ -38,6 +38,8 @@ import Comment from './Comment'
 import Help from './Help'
 import Foxy from './Foxy'
 
+import UserPage from './UserPage'
+
 import 'bootstrap/dist/css/bootstrap.css';
 
 
@@ -104,14 +106,6 @@ class Index extends Component {
         )
     }
 }
-
-
-const UserPage = ({ match }) => (
-    <div>
-        <h3>Username: {match.params.username.replace('-',' ')}</h3>
-        <UserPublicProjects userId={match.params.username.replace('-',' ')}/>
-    </div>
-);
 
 const ContentViewTest = ({ match }) => (
     <div>
