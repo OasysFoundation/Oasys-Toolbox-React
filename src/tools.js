@@ -1,10 +1,7 @@
 import glb from "./globals";
 // require('dotenv').config()
 
-
 //READ if we are in DEV(npm start) or PROD (npm run build) and change the API LOCATION accordingly
-
-
 const DEV = process.env.NODE_ENV === 'development';
 const USE_REMOTE = true;
 // const API = DEV && USE_REMOTE ? glb.API_DEV_REMOTE : (DEV && !USE_REMOTE ? glb.API_DEV_LOCAL : glb.API_PROD);
@@ -12,7 +9,7 @@ const USE_REMOTE = true;
 
 
 //replace BASE_URL with API when ready
-const BASE_URL = glb.API_PROD;
+const BASE_URL = glb.API_DEV_LOCAL;
 
 //Markus: I use a Promise instead of a callback so you can chain
 //with .then and .catch (errorhandling) inside the component and
@@ -38,6 +35,21 @@ const api = {
         const url = BASE_URL + 'getContentsPreview/';
         return get(url)
     },
+    postImage(img) {
+        const url = 'https://api.imgur.com/3/image';
+        return fetch(url, {
+            method: 'POST',
+            body: img,
+            headers: new Headers({
+                'Authorization': 'Client-ID dab43e1ba5b9c27',
+                'Accept': 'application/json'
+            })
+        });
+    },
+    postUserContentAccess(interactionData) {
+        const url = `${BASE_URL}saveUserContentAccess`
+        return post(url, interactionData)
+    },
     getProfileInfo(authUserID) {
         const url = `${BASE_URL}profile/${authUserID}`;
         return get(url)
@@ -46,7 +58,7 @@ const api = {
         const url = `${BASE_URL}rate/${contentOwner}/${contentName}/${rating}/${userWhoRates}`;
         return post(url)
     },
-    postNewUserName(uid, username){
+    postNewUserName(uid, username) {
         const url = BASE_URL + "newUsername/" + uid + "/" + username;
         return post(url);
     },
@@ -55,23 +67,31 @@ const api = {
         return fetch(url, {
             method: 'POST',
             body: data,
-            arrayKey:'',
+            arrayKey: '',
         })
     },
-    postProfilePic(uid){
+    postProfilePic(uid) {
         const url = BASE_URL + "uploadProfilePic/" + uid;
         return fetch(url, {
             method: 'POST',
             body: data,
-            arrayKey:'',
+            arrayKey: '',
         })
     },
     postUserContentAccess(interactionData) {
         const url = `${BASE_URL}saveUserContentAccess`
         return post(url, interactionData)
     },
-
-}
+    post(url, data = {}) {
+        return fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: new Headers({
+                'Content-Type': 'application/json',
+            })
+        })
+    },
+};
 
 const get = function (url) {
     return fetch(url, {method: 'GET'})

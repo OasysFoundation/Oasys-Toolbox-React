@@ -74,7 +74,7 @@ function rearrangeData(rawdata) {
             for (let k=0; k<timing.length; k++) {
                 usersPerSlide[k].users++;
             }
-            if ('quizzes' in rawcontent[j]) {
+            if ('quizzes' in rawcontent[j] && rawcontent[j].quizzes !== null && rawcontent[j].quizzes !== undefined) {
                 // since we do not save any uid for quizzes, we here simply aggregate by order in which quizzes were answered
                 // this needs to be changed !!
                 let done = [];

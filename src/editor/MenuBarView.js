@@ -23,6 +23,7 @@ import LoadingDialog from '../LoadingDialog'
 import PublishedCheerDialog from '../PublishedCheerDialog'
 import AlreadyPublishedDialog from '../AlreadyPublishedDialog'
 import {Wrap} from "../utils"
+import api from "../tools";
 
 
 const BG = "#00897b";
@@ -44,7 +45,6 @@ class MenuBarView extends Component {
     this.state = {
             showsSaveDialog: false,
             saveAction: null,
-            link: null,
             slides: this.props.slides,
             snackBarMessage: null,
             showsOpenDialog: false,
@@ -120,15 +120,7 @@ class MenuBarView extends Component {
 
       let newBase64Image = base64Image.split(",")[1];
 
-      
-      fetch(spacesEndpoint, {
-        method: 'POST',
-        body: newBase64Image,
-        headers: new Headers({
-         'Authorization': 'Client-ID dab43e1ba5b9c27',
-         'Accept': 'application/json'
-        }),
-      }).then((response) => {
+      api.postImage(newBase64Image).then((response) => {
         response.json()
         .catch(error => {
         console.error('Error:', error);
@@ -158,13 +150,7 @@ class MenuBarView extends Component {
   }
 
   performFetch(saveEndpoint,data){
-      fetch(saveEndpoint, {
-        method: 'POST', 
-        body: JSON.stringify(data),
-        headers: new Headers({
-         'Content-Type': 'application/json',
-       })
-      }).then(res => res.json())
+      api.post(saveEndpoint, data).then(res => res.json())
       .catch(error => {
         console.error('Error:', error);
         this.setState({
@@ -262,8 +248,6 @@ class MenuBarView extends Component {
   }
 
   onOpen(event) {
-
-
     this.setState({
       showsOpenDialog: true,
     });
@@ -271,26 +255,13 @@ class MenuBarView extends Component {
 
   onLoad(event) {
     this.setState({
-        snackBarMessage: 'Opening…'
+      snackBarMessage: 'Opening…'
+    });
+    api.getContent(this.contentUserId, this.contentId).then(myJson =>
+      this.setState({
+        slides:myJson[0]
       })
-    var loadContent = this.state.link;
-    loadContent = loadContent.replace("app.joinoasys.org", "api.joinoasys.org");
-
-    console.log(loadContent);
-    var that = this;
-
-    fetch(loadContent, {
-      method: 'GET'
-    }).then(function(response) {
-        console.log(response);
-        return response.json();
-      })
-      .then(function(myJson) {
-        console.log(myJson);
-        that.setState({
-          slides:myJson[0]
-        })
-      });
+    );
 
 
     this.handleClose();
@@ -347,10 +318,10 @@ class MenuBarView extends Component {
   closeOpenDialog(selectedContent) {
     if(selectedContent){
       console.log(selectedContent);
-      const link = "https://app.joinoasys.org/user/"+selectedContent.userId+"/"+selectedContent.contentId;
+      this.contentUserId = selectedContent.userId;
+      this.contentId = selectedContent.contentId;
       this.setState({
         showsOpenDialog: false,
-        link: link
       });
       this.props.onLoad("user/"+selectedContent.userId+"/"+selectedContent.contentId);
     }
@@ -364,23 +335,15 @@ class MenuBarView extends Component {
   updateURL(){
     var username=this.props.authUser.displayName;
     if(!username)
-      username= "Anonymous"
+      username= "Anonymous";
 
-    const allData = 'https://api.joinoasys.org/user/'+username+'/'+this.props.contentTitle
-    console.log(allData);
-    fetch(allData, {
-      method: 'GET',
-    }).then((response) => {
-      console.log(response);
-        response.json().then((body) => {
-          console.log(body);
-          if(body)
-            this.setState({ pictureURL: body[0].picture });
-          else{
-            this.setState({ pictureURL: logo });
-          }
-       });
-        });
+    api.getContent(username, this.props.contentTitle).then((body) => {
+        if(body)
+          this.setState({ pictureURL: body[0].picture });
+        else{
+          this.setState({ pictureURL: logo });
+        }
+     });
   }
 
   onUpload() {
@@ -434,6 +397,12 @@ class MenuBarView extends Component {
       <LoadingDialog open={this.state.isUploading} message='Uploading Content…' />
       <PublishedCheerDialog open={this.state.showsConclusionDialog} sharableLink={shareableLink} onClose={this.closePublishedDialog.bind(this)}/>
       <Toolbar style={{backgroundColor: BG, height: '40px', minHeight: '40px'}}>
+       <Tooltip enterDelay={500} id="tooltip-bottom" title="Open an existing content" placement="bottom">
+          <Button onClick={this.onOpen} style={{color: 'white'}} >
+            <FolderIcon />
+              Open
+          </Button>
+        </Tooltip>
         <Tooltip enterDelay={500} id="tooltip-bottom" title="Save content in your account but don't publish it yet. You can open drafts later again and continue editing." placement="bottom">
       	<Button onClick={this.onSave} style={{color: 'white'}} >
           <SaveIcon />
@@ -516,11 +485,11 @@ class MenuBarView extends Component {
 
 
       <OpenContentDialog userId={
-        this.props.authUser
-        ?this.props.authUser.displayName
-        :null
-      }
-      open={this.state.showsOpenDialog} onClose={this.closeOpenDialog.bind(this)}/>
+          this.props.authUser
+          ?this.props.authUser.displayName
+          :null
+        }
+        open={this.state.showsOpenDialog} onClose={this.closeOpenDialog.bind(this)}/>
 
       <Snackbar
           anchorOrigin={{
