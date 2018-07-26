@@ -16,6 +16,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import {substringInObjCount} from "./utils";
 import api from './tools'
 import {getTagsForCategory} from "./utils";
+import {Unwrap, Wrap} from "./Unwrap"
 
 const Flexer = styled.section`
   display: flex;
@@ -90,7 +91,7 @@ class ContentSelection extends Component {
 
         if (this.state.searchResults.length > 0) {
              searchListContent = this.state.searchResults.map(content => (
-                  <ListItem button onClick={function(event) {event.preventDefault(); window.location.href = '/user/' + content.userId + '/' + content.contentId; }} key={content.contentId}>
+                  <ListItem button onClick={function(event) {event.preventDefault(); window.location.href = '/user/' + Wrap(content.userId) + '/' + Wrap(content.contentId); }} key={content.contentId}>
                     <Avatar alt="Remy Sharp" src={content.picture} />
                     <ListItemText primary={content.title} secondary={"Created by " + content.userId}/>
                   </ListItem>

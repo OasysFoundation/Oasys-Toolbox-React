@@ -10,6 +10,7 @@ build:
   - CI=false yarn build
 deploy:
   provider: firebase
+  skip_cleanup: true
   token:
     secure: "jgkp/pN4QwGSxnGD938f5+1LdZ1iGBJs5y8Pvwty8LHVyESC93W+qzUw6QdFZhG59RGlRZrQXbVR/5tI4GKb0giZcc4eZgYcGXHZFaMgw7CMStGVKy60TBtm32ssb4nwgJdjPq+gj1bFTJuECStNjhXLKBUCx5DhS4vn+9L+gGnYKYK+vd6r5my+uLjgqOqA5yKPGommw054X/Dk2VDtXK5xGsT+I7w2BPQAJydm5vr/HhhcSBbmrZXSQzj44bKx0B3VQVZ11y7Tq+Xms2nOEJJEAK4toQKb7deDVLz2IjVH2wouJf9R1oV0TWFys9nzjnr1Q0JvQlQ9OvhkVht/Rb6jWNjEGwdAgyvDFMuIF3N9narbnc7wgBUGRUeI5GcnYCpaEiSeRpDR0HXQQArz0/axBdbSHvnHubw9fAxxlj/EK3ag+YOx4qQPUloO7a2wbhmtSuxYxEbJCKbo/RI/E1NgUXjFkfbOK+FHtDNKbGdbfBjJxq2Y87HzJGSvHUt9agpL+N0/NabPUVQEHP8S54xR8/Fbi4mRwpFAseY2VcoshSm0p1A/YeH2DfafN8zoH1J2sh8858R1UmnigDmQStdk7YCoXlii5epQuqLiO88HH5u/BHAaPN/tsGjVFJ0awc2NxDRWBvduenHws3Kn75wszaZw76676ntK0LrgoBM="
   project: "death-joinoasys-org"

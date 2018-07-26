@@ -115,8 +115,8 @@ class NavBar extends React.Component {
 
         if (loggedIn) {
             accountMenuItemsNew = (
-                <NavItem style={{display: "flex",alignItems: "center", justifyContent: "center", padding:"8px 10px 8px 10px"}}>
-                    <NavLink href="/user/" style={{paddingLeft:"0px",paddingRight: "0px"}}>
+                <NavItem style={{display: "flex",alignItems: "center", justifyContent: "center", padding:"0px 8px 0px 8px"}}>
+                    <NavLink href="/user/" style={{padding:"0px 0px 0px 0px"}}>
                         <IconAccountCircle style={{color:"white"}}/>
                     </NavLink>
                     <NavLink href="/user/" className={"text-white"} style={{paddingLeft:"2px"}}>{this.props.authUser.displayName}</NavLink>
@@ -155,20 +155,20 @@ class NavBar extends React.Component {
 
         let navBarElementsNew = (
             <Nav className="ml-auto" navbar>
-              <NavItem style={{display: "flex",alignItems: "center", justifyContent: "center"}}>
-                <NavLink href="/explore/" style={{paddingLeft:"0px", padding:"0px 10px 0px 10px"}}>
+              <NavItem style={{display: "flex",alignItems: "center", justifyContent: "center", padding:"0px 8px 0px 8px"}}>
+                <NavLink href="/explore/" style={{padding:"0px 0px 0px 0px"}}>
                     <IconExplore style={{color:"white"}}/>
                 </NavLink>
                 <NavLink href="/explore/" className={"text-white"} style={{paddingLeft:"2px"}}>Explore</NavLink>
               </NavItem>
-              <NavItem hidden={this.state.isHidden} style={{display: "flex",alignItems: "center", justifyContent: "center"}}> 
-                <NavLink href="/create/" style={{paddingLeft:"0px", padding:"0px 10px 0px 10px"}}>
+              <NavItem hidden={this.state.isHidden} style={{display: "flex",alignItems: "center", justifyContent: "center", padding:"0px 8px 0px 8px"}}> 
+                <NavLink href="/create/" style={{padding:"0px 0px 0px 0px"}}>
                     <IconCreate style={{color:"white"}}/>
                 </NavLink>
                 <NavLink href="/create/" className={"text-white"} style={{paddingLeft:"2px"}}>Create</NavLink>
               </NavItem>
-              <NavItem style={{display: "flex",alignItems: "center", justifyContent: "center"}}>
-                <NavLink href="/data/" style={{paddingLeft:"0px", padding:"0px 10px 0px 10px"}}>
+              <NavItem style={{display: "flex",alignItems: "center", justifyContent: "center", padding:"0px 8px 0px 8px"}}>
+                <NavLink href="/data/" style={{padding:"0px 0px 0px 0px"}}>
                     <IconInsertChart style={{color:"white"}}/>
                 </NavLink>
                 <NavLink href="/data/" className={"text-white"} style={{paddingLeft:"2px"}}>Analytics</NavLink>
@@ -176,8 +176,8 @@ class NavBar extends React.Component {
               {accountMenuItemsNew}
               {accountMenuItemsNewSecond}
 
-              <NavItem style={{display: "flex",alignItems: "center", justifyContent: "center"}}>
-                <NavLink href='https://joinoasys.org' className={"text-white"} style={{padding:"0px 10px 0px 10px"}}>About</NavLink>
+              <NavItem style={{display: "flex",alignItems: "center", justifyContent: "center", padding:"0px 8px 0px 8px"}}>
+                <NavLink href='https://joinoasys.org' className={"text-white"} style={{padding:"0px 0px 0px 0px"}}>About</NavLink>
               </NavItem>
             </Nav>
         );

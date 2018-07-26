@@ -44,12 +44,10 @@ class PublishedCheerDialog extends Component {
 		return (
 			<div>
 				<Dialog open={this.props.open} onClose={this.props.onClose}>
-                    <DialogTitle id="simple-dialog-title">Warning: Already Published</DialogTitle>
+                    <DialogTitle id="simple-dialog-title">Welcome back!</DialogTitle>
                     <DialogContent>
 		            <DialogContentText id="alert-dialog-description">
-		              We do not allow creators to edit their published content. But don't worry!
-
-		              If you change the title, you can make all the edits you want! Just remember, this will be saved as a new unique piece of content. Your published content will remain untouched.  
+		              You are remixing your own content, you cannot use same title.
 		            </DialogContentText>
 
 						<TextField

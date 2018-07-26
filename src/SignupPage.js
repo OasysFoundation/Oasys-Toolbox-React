@@ -72,7 +72,9 @@ constructor(props) {
 		      	console.log(body);
 		      	if(body.userNameExists)
 		        	this.setState({ userNameError: true });
-		        else if (!body.userNameExists){
+		        else if(body.hyphen)
+		        	this.setState({ userNameError: true });
+		        else if (!body.userNameExists && !body.hyphen){
 		        	 user.updateProfile({
 					  displayName: username,
 					}).then(function() {
@@ -125,6 +127,8 @@ constructor(props) {
 	      	response.json().then((body) => {
 		      	console.log(body);
 		      	if(body.userNameExists)
+		        	this.setState({ userNameError: true });
+		        else if(body.hyphen)
 		        	this.setState({ userNameError: true });
 		        else if (!body.userNameExists){
 		        	user.updateProfile({

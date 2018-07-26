@@ -3,7 +3,9 @@ import {Button, Comment, Form, Header} from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css';
 import OrganizeComments from './OrganizeComments'
 import {buttonGradientCSS} from "./stylings";
+import { Unwrap } from './Unwrap';
 var decode = require('urldecode')
+
 
 
 class CommentSection extends Component {
@@ -32,11 +34,11 @@ class CommentSection extends Component {
         if (!this.props.match) {
             const loc = window.location.href;
             const directory = loc.split('/').filter(e => e.length > 0).slice(-2);
-            userName = directory[0];
-            contentName = directory[1];
+            userName = Unwrap(directory[0]);
+            contentName = Unwrap(directory[1]);
         } else {
-            contentName = this.props.match.params.contentId;
-            userName = this.props.match.params.userName;
+            contentName = Unwrap(this.props.match.params.contentId);
+            userName = Unwrap(this.props.match.params.userName);
         }
         let loadComments = 'https://api.joinoasys.org/comment/'+userName+'/' + contentName + '/' + this.slideNumber;
         fetch(loadComments, {
@@ -61,12 +63,12 @@ class CommentSection extends Component {
         if (!this.props.match) {
             const loc = window.location.href;
             const directory = loc.split('/').filter(e => e.length > 0).slice(-2);
-            contentName = directory[1];
-            userName = directory[0];
+            contentName = Unwrap(directory[1]);
+            userName = Unwrap(directory[0]);
         }
         else {
-            contentName = this.props.match.params.contentId;
-            userName = this.props.match.params.userId;
+            contentName = Unwrap(this.props.match.params.contentId);
+            userName = Unwrap(this.props.match.params.userId);
         }
 
         let accessUser;
@@ -118,12 +120,12 @@ class CommentSection extends Component {
         if (!this.props.match) {
             const loc = window.location.href;
             const directory = loc.split('/').filter(e => e.length > 0).slice(-2);
-            contentName = directory[1];
-            userName = directory[0];
+            contentName = Unwrap(directory[1]);
+            userName = Unwrap(directory[0]);
         }
         else {
-            contentName = this.props.match.params.contentId;
-            userName = this.props.match.params.userId;
+            contentName = Unwrap(this.props.match.params.contentId);
+            userName = Unwrap(this.props.match.params.userId);
         }
 
 
@@ -225,11 +227,11 @@ class CommentSection extends Component {
         if (!this.props.match || this.props.match===undefined) {
             const loc = window.location.href;
             const directory = loc.split('/').filter(e => e.length > 0).slice(-2);
-            contentName = directory[1];
-            userName = directory[0];
+            contentName = Unwrap(directory[1]);
+            userName = Unwrap(directory[0]);
         } else {
-            contentName = this.props.match.params.contentId;
-            userName = this.props.match.params.userId;
+            contentName = Unwrap(this.props.match.params.contentId);
+            userName = Unwrap(this.props.match.params.userId);
         }
         return {userName: userName, contentName: contentName}
     }

@@ -25,7 +25,7 @@ class SignOutButton extends React.Component {
    render() {
     return (
 
-      <NavItem style={{display: "flex",alignItems: "center", justifyContent: "center", padding:"8px 10px 8px 10px"}}>
+      <NavItem style={{display: "flex",alignItems: "center", justifyContent: "center", padding:"0px 8px 0px 8px"}}>
                     
       <NavLink onClick={this.handleClick.bind(this)} className={"text-white"}>Sign Out</NavLink>
 
