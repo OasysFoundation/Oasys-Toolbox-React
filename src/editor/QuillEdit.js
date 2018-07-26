@@ -111,8 +111,8 @@ const BigToolbar = () => (
 const SmallToolbar = () => (
   <div id="toolbar-quill">
     <span className="ql-formats">
-      <button className="ql-header" style={{fontSize: '14px', marginTop: '0px'}}>T</button>
-      <button className="ql-header" value="1" style={{fontSize: '20px', marginTop: '-6px'}}>T</button>
+      <button className="ql-header" style={{fontSize: '21px', marginTop: '0px'}}>T</button>
+      <button className="ql-header" value="1" style={{fontSize: '30px', marginTop: '-6px'}}>T</button>
       <button className="ql-bold"></button>
       <button className="ql-italic"></button>
       <button className="ql-blockquote"></button>
@@ -132,7 +132,6 @@ const SmallToolbar = () => (
         <option value="#cce0f5" />
         <option value="#ebd6ff" />
       </select>
-      <button className="ql-list" value="bullet"></button>
       <button className="ql-link"></button>
       <button className="ql-image"></button>
       <button className="ql-video"></button>
@@ -164,11 +163,11 @@ class QuillEditor extends Component {
     console.log(icons)
 
     let font = ReactQuill.Quill.import('formats/font');
-    font.whitelist = ['arial', 'bookman', 'courier', 'garamond', 'georgia', 'helvetica', 'palatino', 'times', 'verdana'];
+    font.whitelist = ['kievit'];
     ReactQuill.Quill.register(font, true);
 
     let fontSize = ReactQuill.Quill.import('attributors/style/size');
-    fontSize.whitelist =  ['14px', '16px', '22px', '30px', 'small', 'normal', 'large', 'huge'];
+    fontSize.whitelist =  ['21px', '22px', '30px', 'small', 'normal', 'large', 'huge'];
     ReactQuill.Quill.register(fontSize, true);
 
     ReactQuill.Quill.register('modules/imageResize', ImageResize);

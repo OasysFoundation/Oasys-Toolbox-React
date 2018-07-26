@@ -5,7 +5,7 @@ import Comment from './Comment'
 import DoneIcon from '@material-ui/icons/CheckCircle';
 import {CoolPinkButton} from "./stylings";
 import NextIcon from '@material-ui/icons/ArrowForward';
-import {Unwrap} from "./Unwrap"
+import {Unwrap} from "./utils"
 var decode = require('urldecode')
 
 

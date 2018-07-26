@@ -3,7 +3,7 @@ import {Button, Comment, Form, Header} from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css';
 import OrganizeComments from './OrganizeComments'
 import {buttonGradientCSS} from "./stylings";
-import { Unwrap } from './Unwrap';
+import { Unwrap } from './utils';
 var decode = require('urldecode')
 
 

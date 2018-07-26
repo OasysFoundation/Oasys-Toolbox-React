@@ -17,7 +17,7 @@ import QuizIcon from '../icons/Quiz.png'
 import GameIcon from '../icons/Game.png'
 import HypervideoIcon from '../icons/Hypervideo.png'
 import SystemSimulationIcon from '../icons/SystemSimulation.png'
-import { Unwrap } from '../Unwrap'
+import { Unwrap } from '../utils'
 
 
 
@@ -71,12 +71,12 @@ class Editor extends Component {
 
     if (window.sessionStorage.tempSlideStorage) {
       slides = JSON.parse(window.sessionStorage.tempSlideStorage);
+      if (window.sessionStorage.tempSelectedSlideIndex) {
+        selectedSlideIndex = window.sessionStorage.tempSelectedSlideIndex;
+        currSlideType = slides[selectedSlideIndex].type;
+      }
     }
 
-    if (window.sessionStorage.tempSelectedSlideIndex) {
-      selectedSlideIndex = window.sessionStorage.tempSelectedSlideIndex;
-      currSlideType = slides[selectedSlideIndex].type;
-    }
 
     if (window.sessionStorage.tempTitle) {
       title = window.sessionStorage.tempTitle;

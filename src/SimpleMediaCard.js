@@ -19,7 +19,7 @@ import RemixIcon from '@material-ui/icons/MergeType';
 import CommentIcon from '@material-ui/icons/ModeComment';
 import Chip from '@material-ui/core/Chip';
 import Media from "react-media";
-import {Wrap} from './Unwrap'
+import {Wrap} from './utils'
 
 const styles = {
     card: {

@@ -22,7 +22,7 @@ import logo from '../logo.jpg'
 import LoadingDialog from '../LoadingDialog'
 import PublishedCheerDialog from '../PublishedCheerDialog'
 import AlreadyPublishedDialog from '../AlreadyPublishedDialog'
-import {Wrap} from "../Unwrap"
+import {Wrap} from "../utils"
 
 
 const BG = "#00897b";
