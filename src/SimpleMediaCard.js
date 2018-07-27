@@ -98,6 +98,10 @@ class SimpleMediaCard extends Component {
     var {picture, title, description, tags, rating, contentId, numRatings} = this.props.contentData;
     let {userId} = this.props.contentData;
 
+    if (!numRatings) {
+      numRatings = "No ";
+    }
+
     userId= Wrap(userId)
     contentId=Wrap(contentId);
     title=Wrap(title)
@@ -224,7 +228,7 @@ class SimpleMediaCard extends Component {
                   <center>
                   <div style={{marginLeft:'20px', marginBottom:'20px', textAlign:'left'}}>
                   {ratingString} 
-                  {numRatings} Reviews
+                  {" " + numRatings} {numRatings==1? "Review" : "Reviews"}
                   </div>
                   </center>
                 
