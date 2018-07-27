@@ -120,8 +120,8 @@ class SimpleMediaCard extends Component {
     if(!Array.isArray(tags)) {
         hashtags = tags.split(' ');
         hashtags = hashtags.map(function(element) {
-          element.replace('#','');
-          element.replace(',','');
+          element = element.replace('#','');
+          element = element.replace(',','');
           return element;
         });
     }
