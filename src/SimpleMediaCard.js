@@ -20,6 +20,7 @@ import CommentIcon from '@material-ui/icons/ModeComment';
 import Chip from '@material-ui/core/Chip';
 import Media from "react-media";
 import {Wrap} from './utils'
+import api from './tools'
 
 const styles = {
     card: {
@@ -55,19 +56,15 @@ class SimpleMediaCard extends Component {
       isDisabled: false,
     }
 
-    const profile = 'https://api.joinoasys.org/profile/' + this.props.contentData.userId
-        fetch(profile, {
-            method: 'GET',
-            ContentType: "application/json"
-        }).then(response => {
-            return response.json().then(body => {
-                console.log("body: " + body);
-                if (body && body.length>0) {
-                    this.setState({userProfileURL: body[0].PIC});
-                }
-            })
-        })
-
+    api.getProfileInfo(this.props.contentData.userId).then(res => res.json())
+    .catch(error => {
+      console.error('Error:', error);
+    })
+    .then(response => {
+      response && response.length>0
+        ? this.setState({userProfileURL: response[0].PIC})
+        : null
+    });
   }
 
   showCardOptions(event) {

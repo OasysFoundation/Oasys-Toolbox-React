@@ -149,8 +149,8 @@ class MenuBarView extends Component {
     });    
   }
 
-  performFetch(saveEndpoint,data){
-      api.post(saveEndpoint, data).then(res => res.json())
+  performFetch(username,contentId,data){
+      api.postContent(username, contentId, data).then(res => res.json())
       .catch(error => {
         console.error('Error:', error);
         this.setState({
@@ -207,7 +207,7 @@ class MenuBarView extends Component {
     var username = this.props.authUser.displayName;
     if(!username)
       username= "Anonymous"
-    var saveEndpoint = 'https://api.joinoasys.org/save/'+username+'/'+contentId;
+    //var saveEndpoint = 'https://api.joinoasys.org/save/'+username+'/'+contentId;
     var data = {
       "data":slides,
       "published":published,
@@ -220,15 +220,15 @@ class MenuBarView extends Component {
     if(this.props.authUser && this.props.authUser.displayName){
         var that = this;
         this.props.authUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
-          saveEndpoint= saveEndpoint+ '/' + idToken
-          that.performFetch(saveEndpoint,data);
+          //saveEndpoint= saveEndpoint+ '/' + idToken
+          that.performFetch(username,contentId,data);
         }).catch(function(error) {
           console.log(error);
         });
      }
      else{
-        saveEndpoint= saveEndpoint+ '/noToken' 
-        this.performFetch(saveEndpoint,data)
+        //saveEndpoint= saveEndpoint+ '/noToken' 
+        this.performFetch(username,contentId,data)
      }
   }
 
@@ -397,12 +397,7 @@ class MenuBarView extends Component {
       <LoadingDialog open={this.state.isUploading} message='Uploading Content…' />
       <PublishedCheerDialog open={this.state.showsConclusionDialog} sharableLink={shareableLink} onClose={this.closePublishedDialog.bind(this)}/>
       <Toolbar style={{backgroundColor: BG, height: '40px', minHeight: '40px'}}>
-       <Tooltip enterDelay={500} id="tooltip-bottom" title="Open an existing content" placement="bottom">
-          <Button onClick={this.onOpen} style={{color: 'white'}} >
-            <FolderIcon />
-              Open
-          </Button>
-        </Tooltip>
+
         <Tooltip enterDelay={500} id="tooltip-bottom" title="Save content in your account but don't publish it yet. You can open drafts later again and continue editing." placement="bottom">
       	<Button onClick={this.onSave} style={{color: 'white'}} >
           <SaveIcon />
@@ -481,15 +476,6 @@ class MenuBarView extends Component {
           </Button>
         </DialogActions>
       </Dialog>
-
-
-
-      <OpenContentDialog userId={
-          this.props.authUser
-          ?this.props.authUser.displayName
-          :null
-        }
-        open={this.state.showsOpenDialog} onClose={this.closeOpenDialog.bind(this)}/>
 
       <Snackbar
           anchorOrigin={{

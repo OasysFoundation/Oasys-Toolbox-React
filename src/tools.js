@@ -65,6 +65,17 @@ const api = {
         const url = `${BASE_URL}rate/${contentOwner}/${contentName}/${rating}/${userWhoRates}`;
         return post(url)
     },
+    postContent(userId, contentId, data){
+        const url = `${BASE_URL}save/${userId}/${contentId}`;
+        return fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: new Headers({
+                'Content-Type': 'application/json',
+            })
+        })
+    },
+    // what is this for? @markus
     post(url, data = {}) {
         return fetch(url, {
             method: 'POST',
