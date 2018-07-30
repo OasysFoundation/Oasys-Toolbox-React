@@ -4,6 +4,7 @@ import 'semantic-ui-css/semantic.min.css';
 import OrganizeComments from './OrganizeComments'
 import {buttonGradientCSS} from "./stylings";
 import { Unwrap } from './utils';
+import api from './tools'
 var decode = require('urldecode')
 
 
@@ -40,17 +41,13 @@ class CommentSection extends Component {
             contentName = Unwrap(this.props.match.params.contentId);
             userName = Unwrap(this.props.match.params.userName);
         }
-        let loadComments = 'https://api.joinoasys.org/comment/'+userName+'/' + contentName + '/' + this.slideNumber;
-        fetch(loadComments, {
-            method: 'GET'
-        }).then(function (response) {
-            return response.json();
+        
+        api.getCommentsForContent(userName, contentName, this.slideNumber).then(json => {
+            that.setState({comments:json})
         })
-        .then(function (myJson) {
-            console.log("COMMENTS: " , myJson);
-            that.setState({comments: myJson});
 
-        });
+
+
        
     }
 
@@ -76,7 +73,6 @@ class CommentSection extends Component {
             accessUser = this.props.name.displayName
             : accessUser = null;
 
-        var commentEndpoint = 'https://api.joinoasys.org/comment/' + userName + '/' + contentName;
         var currentTime = Date.now();
         if (typeof(this.slideNumber) === "number")
             this.slideNumber = this.slideNumber.toString()
@@ -90,26 +86,13 @@ class CommentSection extends Component {
             "accessUser" : accessUser,
         }
 
-        fetch(commentEndpoint, {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: new Headers({
-                'Content-Type': 'application/json',
-            })
-        }).then(res => res.json())
-            .catch(error => console.error('Error:', error))
-            .then(response => {
-                console.log("success");
-                this.setState({
-                    currentReply: ''
-                });
-                this.handleChange();
-
+        api.postComment(userName, contentName, data).then(json => {
+            this.setState({
+                currentReply: ''
             });
+            this.handleChange();
+        })
 
-        if (this.props.slideNumber === 'end') {
-            window.location.replace('/')
-        }
     }
 
     onSubmit = (e) => {
@@ -134,7 +117,6 @@ class CommentSection extends Component {
             accessUser = this.props.name.displayName
             : accessUser = null;
 
-        var commentEndpoint = 'https://api.joinoasys.org/comment/' + userName + '/' + contentName;
         var currentTime = Date.now();
         if (typeof(this.slideNumber) === "number")
             this.slideNumber = this.slideNumber.toString()
@@ -147,22 +129,14 @@ class CommentSection extends Component {
             "accessUser": accessUser,
         }
 
-        fetch(commentEndpoint, {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: new Headers({
-                'Content-Type': 'application/json',
-            })
-        }).then(res => res.json())
-            .catch(error => console.error('Error:', error))
-            .then(response => {
-                console.log("success");
-                this.setState({
-                    comment: ''
-                });
-                this.handleChange();
-
+        api.postComment(userName, contentName, data).then(json => {
+            this.setState({
+                comment: ''
             });
+            this.handleChange();
+        })
+
+       
     }
 
     addComment = (event) => {
@@ -238,18 +212,12 @@ class CommentSection extends Component {
 
     handleChange = () => {
         const info = this.getContentInfo();
-        const loadComments = 'https://api.joinoasys.org/comment/'+info.userName+'/' + info.contentName + '/' + this.slideNumber;
         const that = this;
-        fetch(loadComments, {
-            method: 'GET'
-        }).then(function (response) {
-            return response.json();
-        })
-            .then(function (myJson) {
-                console.log("comments ", myJson);
-                that.setState({comments: myJson});
+        const {userName, contentName} = info;
 
-        });
+        api.getCommentsForContent(userName, contentName, this.slideNumber).then(json => {
+            that.setState({comments:json})
+        })
     }
 
     render() {

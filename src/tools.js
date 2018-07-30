@@ -12,7 +12,8 @@ const USE_REMOTE = true;
 
 
 //replace BASE_URL with API when ready
-const BASE_URL = glb.API_PROD;
+//const BASE_URL = glb.API_PROD;
+const BASE_URL = glb.API_DEV_LOCAL;
 
 //Markus: I use a Promise instead of a callback so you can chain
 //with .then and .catch (errorhandling) inside the component and
@@ -32,6 +33,10 @@ const api = {
     },
     getContent({userName, contentName}) { //ES6 Object destructuring
         const url = `${BASE_URL}user/${userName}/${contentName}`;
+        return get(url);
+    },
+    getCommentsForContent(userId, contentId, slideNumber) { 
+        const url = `${BASE_URL}comment/${userId}/${contentId}/${slideNumber}`;
         return get(url);
     },
     getContentsPreview() {
@@ -64,6 +69,10 @@ const api = {
     postRating(contentOwner, contentName, rating, userWhoRates) {
         const url = `${BASE_URL}rate/${contentOwner}/${contentName}/${rating}/${userWhoRates}`;
         return post(url)
+    },
+    postComment(userId, contentId, data) {
+        const url = `${BASE_URL}comment/${userId}/${contentId}`;
+        return post(url, data)
     },
     postContent(userId, contentId, data){
         const url = `${BASE_URL}save/${userId}/${contentId}`;
