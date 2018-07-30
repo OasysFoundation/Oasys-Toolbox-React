@@ -12,8 +12,8 @@ const USE_REMOTE = true;
 
 
 //replace BASE_URL with API when ready
-//const BASE_URL = glb.API_PROD;
-const BASE_URL = glb.API_DEV_LOCAL;
+const BASE_URL = glb.API_PROD;
+//const BASE_URL = glb.API_DEV_LOCAL;
 
 //Markus: I use a Promise instead of a callback so you can chain
 //with .then and .catch (errorhandling) inside the component and
