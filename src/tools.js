@@ -13,6 +13,8 @@ const USE_REMOTE = true;
 //deactivate on of those
 // const BASE_URL = glb.API_PROD;
 const BASE_URL = glb.HARDSET_BASE;
+//const BASE_URL = glb.API_PROD;
+//const BASE_URL = glb.API_DEV_LOCAL;
 
 //Markus: I use a Promise instead of a callback so you can chain
 //with .then and .catch (errorhandling) inside the component and
@@ -32,6 +34,10 @@ const api = {
     },
     getContent(userName, contentName) { //ES6 Object destructuring
         const url = `${BASE_URL}user/${userName}/${contentName}`;
+        return get(url);
+    },
+    getCommentsForContent(userId, contentId, slideNumber) { 
+        const url = `${BASE_URL}comment/${userId}/${contentId}/${slideNumber}`;
         return get(url);
     },
     getContentsPreview() {
@@ -89,6 +95,21 @@ const api = {
         const url = `${BASE_URL}saveUserContentAccess`
         return post(url, interactionData)
     },
+    postComment(userId, contentId, data) {
+        const url = `${BASE_URL}comment/${userId}/${contentId}`;
+        return post(url, data)
+    },
+    postContent(userId, contentId, data){
+        const url = `${BASE_URL}save/${userId}/${contentId}`;
+        return fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: new Headers({
+                'Content-Type': 'application/json',
+            })
+        })
+    },
+    // what is this for? @markus
     post(url, data = {}) {
         return fetch(url, {
             method: 'POST',

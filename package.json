@@ -18,12 +18,9 @@
     "dotenv": "^6.0.0",
     "eslint": "^5.2.0",
     "eslint-plugin-import": "^2.13.0",
-<<<<<<< HEAD
     "firebase": "^5.3.0",
-=======
     "ethjs": "^0.4.0",
     "firebase": "^5.2.0",
->>>>>>> 68dc46e46221066f62a7739bdcd15d41c5a75250
     "function-plot": "^1.18.1",
     "highlight.js": "^9.12.0",
     "html2canvas": "^1.0.0-alpha.12",
@@ -62,8 +59,6 @@
     "react-tooltip": "^3.6.1",
     "semantic-ui-css": "^2.3.2",
     "semantic-ui-react": "^0.81.3",
-    "slate": "^0.33.6",
-    "slate-react": "^0.12.6",
     "styled-components": "^3.3.2",
     "taucharts": "^2.3.2",
     "taucharts-react": "^1.1.0",

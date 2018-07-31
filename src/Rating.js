@@ -8,7 +8,7 @@ import NextIcon from '@material-ui/icons/ArrowForward';
 import {Unwrap} from "./utils"
 import api from './tools'
 
-// var decode = require('urldecode');
+var decode = require('urldecode')
 
 class Rating extends Component {
     constructor(props) {
@@ -37,7 +37,10 @@ class Rating extends Component {
             rated: true
         });
 
-        api.postRating(this.state.username, this.state.contentname, value, this.props.username);
+        const {username, contentname} = this.state;
+        const userWhoRates = this.props.username;
+
+        api.postRating(username/*contentowner*/, contentname, value/*rating*/, userWhoRates)
     }
 
     render() {
@@ -70,12 +73,6 @@ class Rating extends Component {
             </div>
         )
     }
-
-
 }
-
-
-
-
 
 export default Rating;
