@@ -20,18 +20,17 @@ class UserMainPage extends Component {
             snackBarMessage: null,
 
         }
+        
         api.getProfileInfo(this.props.authUser.uid)
-            .then(response => {
-            console.log(response)
-            return response.json().then(body => {
-                console.log("body: " + body);
-                if (body && body.length>0) {
-                    this.setState({imageURL: body[0].PIC});
-                } else {
-                    this.setState({imageURL: logo});
-                }
-            })
+        .then(body => {
+            console.log("body: " + body);
+            if (body && body.length>0) {
+                this.setState({imageURL: body[0].PIC});
+            } else {
+                this.setState({imageURL: logo});
+            }
         })
+        
     }
 
     resetPw = () => {
@@ -69,16 +68,14 @@ class UserMainPage extends Component {
     sendPic() {
 
         api.getProfileInfo(this.props.authUser.uid)
-            .then((response) => {
-            response.json().then((body) => {
-                console.log(body);
-                if (body)
-                    this.setState({imageURL: body[0].PIC});
-                else {
-                    this.setState({imageURL: logo});
-                }
-            });
-        });
+        .then(body => {
+            console.log("body: " + body);
+            if (body && body.length>0) {
+                this.setState({imageURL: body[0].PIC});
+            } else {
+                this.setState({imageURL: logo});
+            }
+        })
     }
 
     render() {

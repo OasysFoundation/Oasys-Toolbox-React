@@ -42,6 +42,10 @@ const api = {
         const url = BASE_URL + 'getContentsPreview/';
         return get(url)
     },
+    getUserContentsPreview(userId) {
+        const url = `${BASE_URL}getUserContentsPreview/${userId}`;
+        return get(url)
+    },
     postImage(img) {
         const url = 'https://api.imgur.com/3/image';
         return fetch(url, {

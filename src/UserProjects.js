@@ -19,7 +19,7 @@ class UserProjects extends Component {
 	    	content: []
 	    };
 
-	    api.getContentsPreview()
+	    api.getUserContentsPreview(this.props.userId)
 			.then(myJson => {
             console.log(myJson);
             this.setState({content: myJson});
