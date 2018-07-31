@@ -19,14 +19,16 @@ class UserProjects extends Component {
         };
 
         console.log("username is: " + this.props.userId);
-        api.getContentsPreview()
+        api.getUserContentsPreview(this.props.userId)
             .then(myJson => {
-                this.setState({content: myJson});
-            });
+            console.log(myJson);
+            this.setState({content: myJson});
+        });
+
     }
 
     render() {
-        const userContents = this.state.content.filter(content => content.userId === this.props.userId);
+        const userContents = this.state.content.filter(content => content.published == 1);
         const contentList = userContents.map((d, i) => <SimpleMediaCard key={i} contentData={d}/>);
 
         return (

@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import UserPublicProjects from './UserPublicProjects';
 import api from './tools'
 import SendTokenDialog from './SendTokenDialog'
+import {Unwrap} from './utils'
 
 var QRCode = require('qrcode.react');
 
@@ -18,7 +19,7 @@ class UserPage extends Component {
     constructor(props) {
         super(props);
 
-        const username = props.match.params.username.toLowerCase();
+        const username = Unwrap(props.match.params.username);
         this.state = {
             userAddress: null,
             userName: username,
@@ -28,9 +29,12 @@ class UserPage extends Component {
         const that = this;
         api.getWalletIdForUser(username).then(function(result) {
             console.log(result);
-            that.setState({
+            result && result.length
+            ? that.setState({
                 userAddress: result[0].walletId
-            });
+              })
+            : (null)
+            
         })
     }
 
