@@ -49,6 +49,10 @@ const api = {
             })
         });
     },
+    getWalletIdForUser(userName) {
+        const url = `${BASE_URL}profile/${userName}`;
+        return get(url);
+    },
     postUserContentAccess(interactionData) {
         const url = `${BASE_URL}saveUserContentAccess`
         return post(url, interactionData)

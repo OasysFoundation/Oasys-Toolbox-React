@@ -23,6 +23,10 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+
 .idea
 /src/.idea
 /
+.iws
+workspace.xml
+tasks.xml

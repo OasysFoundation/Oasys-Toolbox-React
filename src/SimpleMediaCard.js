@@ -66,6 +66,7 @@ class SimpleMediaCard extends Component {
         //     })
     }
 
+<<<<<<< HEAD
     showCardOptions(event) {
         this.setState({
             anchorEl: event.currentTarget
@@ -75,9 +76,84 @@ class SimpleMediaCard extends Component {
     closeCardOptions() {
         this.setState({
             anchorEl: null
+=======
+    const profile = 'https://api.joinoasys.org/profile/' + this.props.contentData.userId
+        fetch(profile, {
+            method: 'GET',
+            ContentType: "application/json"
+        }).then(response => {
+            return response.json().then(body => {
+                console.log("body: " + body);
+                if (body && body.length>0) {
+                    this.setState({userProfileURL: body[0].PIC});
+                }
+            })
+        })
+
+  }
+
+  showCardOptions(event) {
+    this.setState({
+      anchorEl: event.currentTarget
+    });
+  }
+
+  closeCardOptions() {
+    this.setState({
+      anchorEl: null
+    });
+  }
+
+  render() {
+
+    var disabledMessage = this.state.disabledMessage;
+    var isDisabled = this.state.isDisabled;
+
+
+    if(this.props.onMobile)
+      disabledMessage = "Remix requires Desktop or ipad" 
+
+    if(this.props.onMobile)
+      isDisabled = true; 
+
+    const { classes } = this.props;
+    var {picture, title, description, tags, rating, contentId, numRatings} = this.props.contentData;
+    let {userId} = this.props.contentData;
+
+    if (!numRatings) {
+      numRatings = "No ";
+    }
+
+    userId= Wrap(userId)
+    contentId=Wrap(contentId);
+    title=Wrap(title)
+
+
+    let pic = (picture) ? picture : defaultPicture;
+
+    userId = userId === "undefined" ? "Anonymous" : userId;
+
+    var userUrl = '';
+    if (userId) {
+        userUrl = '/user/'+userId;
+    }
+    var contentUrl = '';
+    if (contentId && userUrl) {
+        contentUrl = userUrl+'/'+contentId;
+    }
+
+    var hashtags = tags;
+    if(!Array.isArray(tags)) {
+        hashtags = tags.split(' ');
+        hashtags = hashtags.map(function(element) {
+          element = element.replace('#','');
+          element = element.replace(',','');
+          return element;
+>>>>>>> 68dc46e46221066f62a7739bdcd15d41c5a75250
         });
     }
 
+<<<<<<< HEAD
     render() {
 
         var disabledMessage = this.state.disabledMessage;
@@ -266,6 +342,128 @@ class SimpleMediaCard extends Component {
             </div>
         );
     }
+=======
+    while (ratingString.length < 5) {
+        ratingString += "☆";
+    }    
+
+    const userURL = '/user/' + userId;
+    const userLink = <div> Made by <a href={userURL}> {(userId.length < 13 ? userId : (userId.substring(0,13) + '…'))} </a> </div>;
+
+    return (
+        <div>
+            <Card className={classes.card}>
+                  <Popover 
+                      anchorOrigin={{
+                      vertical: 'bottom',
+                      horizontal: 'left',
+                    }}
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'center',
+                    }}
+                    open={Boolean(this.state.anchorEl)}
+                    anchorEl={this.state.anchorEl}
+                    onClose={this.closeCardOptions.bind(this)}
+                  >
+
+                  <Media query="(max-width: 768px)">
+                    {matches =>
+                      matches ? (
+                        
+                        <List component="nav">
+                        <ListItem disabled={true} button onClick={function(event) {window.location.replace(`/create/${userId}/${contentId}`)}}>
+                          <ListItemIcon>
+                            <RemixIcon />
+                          </ListItemIcon>
+                          <ListItemText inset primary="Remix requires Desktop or ipad" />
+                        </ListItem>
+                        <ListItem button onClick={function(event) {event.preventDefault(); window.location.href = ('/comments/'+userId+'/'+title) }}>
+                          <ListItemIcon>
+                            <CommentIcon />
+                          </ListItemIcon>                    
+                          <ListItemText inset primary="View Comments" />
+                        </ListItem>
+                      </List>
+
+                      ) : (
+
+                      <List component="nav">
+                        <ListItem disabled={false} button onClick={function(event) {window.location.replace(`/create/${userId}/${contentId}`)}}>
+                          <ListItemIcon>
+                            <RemixIcon />
+                          </ListItemIcon>
+                          <ListItemText inset primary="Remix" />
+                        </ListItem>
+                        <ListItem button onClick={function(event) {event.preventDefault(); window.location.href = ('/comments/'+userId+'/'+title) }}>
+                          <ListItemIcon>
+                            <CommentIcon />
+                          </ListItemIcon>                    
+                          <ListItemText inset primary="View Comments" />
+                        </ListItem>
+                      </List>
+
+                      )
+                    }
+                  </Media>
+
+                  </Popover>
+                  <CardHeader
+                    avatar={
+                      <Avatar aria-label="Recipe" className={classes.avatar}>
+                        {this.state.userProfileURL? (
+                          <img src={this.state.userProfileURL} style={{width:'auto', height:'auto', 'max-height':'100%', 'max-width':'100%'}} alt=""/>  
+                          )
+                        :
+                        (
+                         userId.substring(0,2).toUpperCase()
+                          )}
+                      </Avatar>
+                    }
+                    action={
+                      <IconButton onClick={this.showCardOptions.bind(this)}>
+                        <MoreVertIcon />
+                      </IconButton>
+                    }
+                    title={title}
+                    subheader= {userLink}
+                    style={{textAlign:'left'}}
+                  />
+                  <ButtonBase
+                      className={classes.cardAction}
+                      onClick={function(event) {event.preventDefault(); window.location.href = contentUrl || "nope"; }}
+                  >
+                  <center>
+                  <div style={{marginLeft:'20px', marginBottom:'20px', textAlign:'left'}}>
+                  {ratingString} 
+                  {" " + numRatings} {numRatings==1? "Review" : "Reviews"}
+                  </div>
+                  </center>
+                
+                <CardMedia
+                    className={classes.media}
+                    image={pic}
+                    title={title}
+                />
+                <CardContent>
+                    <Typography component="p" style={{marginBottom:'15px'}}>
+                        {description || "Test"}
+                    </Typography>
+                
+                    <div style={{display: 'flex', justifyContent: 'center', flexWrap: 'wrap'}}>
+                    {hashtags.map(function(element, idx){
+                      return <Chip key={idx} label={element} style={{margin:'3px'}}/> 
+                    })}
+                    </div>
+               </CardContent>
+   
+                </ButtonBase>
+                
+            </Card>
+        </div>
+    );
+  }
+>>>>>>> 68dc46e46221066f62a7739bdcd15d41c5a75250
 }
 
 

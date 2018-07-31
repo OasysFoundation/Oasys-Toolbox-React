@@ -14,18 +14,8 @@ import { firebase } from './firebase';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Plyr from 'react-plyr';
+import blockchain from './blockchain'
 const thousands = require('thousands');
-
-
-var Web3 = require('web3');
-var abi = [{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"}],"name":"approve","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"},{"name":"_extraData","type":"bytes"}],"name":"approveAndCall","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transfer","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_from","type":"address"},{"indexed":true,"name":"_to","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_owner","type":"address"},{"indexed":true,"name":"_spender","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Approval","type":"event"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"payable":false,"stateMutability":"nonpayable","type":"fallback"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"constant":true,"inputs":[{"name":"_owner","type":"address"},{"name":"_spender","type":"address"}],"name":"allowance","outputs":[{"name":"remaining","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"}],"name":"balanceOf","outputs":[{"name":"balance","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"version","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"}];
-var web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/C2D8VJd9N6bPvd9mP60M"));
-
-var OASContract = new web3.eth.Contract(abi, '0x559623d3660bbae4ee3c90c6ad600d54a520b792', {
-    from: '0x527CAe7D06376Aa7fd702043b80F30208542Df91', // default from address
-    gasPrice: '20000000000' // default gas price in wei, 20 gwei in this case
-});
-
 
 
 
@@ -44,49 +34,47 @@ class Wallet extends Component {
 			tokenName: null,
 			tokenSymbol: null,
 			userAddress: null,
-			hasMetaMask: (typeof window.web3 !== 'undefined')
 		};
 
-		if (this.state.hasMetaMask) {
+		if (blockchain.hasMetaMask()) {
 			var that = this;
-			OASContract.methods.balanceOf('0x527CAe7D06376Aa7fd702043b80F30208542Df91').call()
-			    .then(function(result){
-			    console.log("token balance: " + result);
+			blockchain.getBalanceForAddress("0x527CAe7D06376Aa7fd702043b80F30208542Df91")
+			    .then(function(result) {
 			    that.setState({
 			    	tokenBalance: result
 			    });
 			});
 
-			OASContract.methods.decimals().call()
-			    .then(function(result){
-			    console.log("decimals: " + result);
+			blockchain.getDecimals()
+				.then(function(result) {
 			    that.setState({
 			    	tokenDecimals: result
 			    });
 			});
 
-			OASContract.methods.name().call()
-			    .then(function(result){
-			    console.log("name: " + result);
+			blockchain.getCurrencyName()
+			    .then(function(result) {
 			    that.setState({
 			    	tokenName: result
 			    });
 			});
 
-			OASContract.methods.symbol().call()
-			    .then(function(result){
-			    console.log("symbol: " + result);
+			blockchain.getCurrencySymbol()
+			    .then(function(result) {
 			    that.setState({
 			    	tokenSymbol: result
 			    });
 			});
 
-			window.web3.eth.getAccounts(function(err, accounts) {
-				console.log("accounts: " + err);
-				console.log(accounts[0]);
-			    that.setState({
-			    	userAddress: accounts[0]
-			    });			
+			blockchain.getLocalUserAddress()
+			.then(function(result) {
+				that.setState({
+			    	userAddress: result
+			    });
+			})
+
+			blockchain.getTotalSupply().then(function(result) {
+				console.log(result);
 			})
 		}
 
@@ -119,12 +107,8 @@ class Wallet extends Component {
 	}
 
 	sendTokens() {
-
-		OASContract.methods.transferFrom(web3.eth.accounts[0], this.state.recipientAddress, this.state.sendingAmount).call()
-		.then(function(result) {
-			console.log("sent OAS: " + result);
-			this.handleClose();
-		});
+		console.log("I want to send");
+		blockchain.sendToken(this.state.userAddress, "0x527cae7d06376aa7fd702043b80f30208542df92", 1000000000000000000);
 	}
 
 	onChangeRecipientAddress(event) {
@@ -145,7 +129,7 @@ class Wallet extends Component {
             qrCode = <QRCode value={this.state.userAddress} />
         }
 
-        if (!this.state.hasMetaMask) {
+        if (!blockchain.hasMetaMask()) {
         	return (
         		<Card style={{maxWidth:'500px', minWidth:'300px', position:'absolute', top: '50%', left: '50%', transform: 'translateX(-50%) translateY(-50%)'}}>
 				<CardContent>
