@@ -67,7 +67,7 @@ class Rating extends Component {
                                 <Rate allowHalf onChange={this.handleChange} value={this.state.value}/>
                             )}
                         </center>
-                        <Comment name={this.props.username} slideNumber="end"/>
+                        {/*<Comment name={this.props.username} slideNumber="end"/>*/}
                     </div>
                 )}
             </div>

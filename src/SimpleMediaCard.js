@@ -49,7 +49,7 @@ const defaultPicture = "https://vignette.wikia.nocookie.net/the-demonic-paradise
 
 
 
-impleMediaCard extends Component {
+class SimpleMediaCard extends Component {
     constructor(props) {
         super(props);
         this.state = {
