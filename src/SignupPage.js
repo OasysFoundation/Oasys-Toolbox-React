@@ -59,9 +59,7 @@ class SignupPage extends Component {
 
                 this.setState({uid: user.uid});
                 api.postNewUserName(user.uid, username)
-                    .then((response, err) => {
-                        if (err) throw err;
-                        response.json().then((body) => {
+                    .then((body) => {
                             console.log(body);
                             if (body.userNameExists)
                                 this.setState({userNameError: true});
@@ -82,7 +80,6 @@ class SignupPage extends Component {
                                     pathname: '/',
                                 })
                             }
-                        });
                     });
 
             })
@@ -111,9 +108,8 @@ class SignupPage extends Component {
         var user = firebase.auth().currentUser;
         var uid = this.state.uid;
         var username = this.state.username;
-        api.postNewUserName(uid, username).then((response, err) => {
+        api.postNewUserName(uid, username).then((body, err) => {
             if (err) throw err;
-            response.json().then((body) => {
                 console.log(body);
                 if (body.userNameExists)
                     this.setState({userNameError: true});
@@ -134,7 +130,6 @@ class SignupPage extends Component {
                         pathname: '/',
                     })
                 }
-            });
         });
 
 
