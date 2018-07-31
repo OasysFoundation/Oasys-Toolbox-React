@@ -22,7 +22,7 @@ class OpenContentDialog extends Component {
 
 		this.didSelectContent.bind(this);
 
-	    const loadContent = glb.OASYS_API_BASE + 'GetUserContentsPreview';
+	    const loadContent = glb.HARDSET_BASE + 'GetUserContentsPreview';
         const that = this;
 
         fetch(loadContent, {

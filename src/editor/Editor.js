@@ -312,7 +312,7 @@ class Editor extends Component {
   onLoad(link) {
 
     //this.show('Opening…');
-    var loadContent = glb.OASYS_API_BASE + link;
+    var loadContent = glb.HARDSET_BASE + link;
     console.log(loadContent);
     var that = this;
     fetch(loadContent, {
