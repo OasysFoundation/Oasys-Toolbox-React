@@ -101,8 +101,8 @@ const api = {
         const url = `${BASE_URL}comment/${userId}/${contentId}`;
         return post(url, data)
     },
-    postContent(userId, contentId, data){
-        const url = `${BASE_URL}save/${userId}/${contentId}`;
+    postContent(userId, contentId, data, token){
+        const url = `${BASE_URL}save/${userId}/${contentId}/${token}`;
         return fetch(url, {
             method: 'POST',
             body: JSON.stringify(data),
