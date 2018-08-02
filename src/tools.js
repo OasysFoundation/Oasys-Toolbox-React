@@ -46,6 +46,14 @@ const api = {
         const url = `${BASE_URL}getUserContentsPreview/${userId}`;
         return get(url)
     },
+    getWalletIdForUser(userName) {
+        const url = `${BASE_URL}profile/${userName}`;
+        return get(url);
+    },
+    getProfileInfo(authUserID) {
+        const url = `${BASE_URL}profile/${authUserID}`;
+        return get(url)
+    },
     postImage(img) {
         const url = 'https://api.imgur.com/3/image';
         return fetch(url, {
@@ -57,57 +65,56 @@ const api = {
             })
         });
     },
-    getWalletIdForUser(userName) {
-        const url = `${BASE_URL}profile/${userName}`;
-        return get(url);
+    postUserContentAccess(interactionData, uid, token) {
+        const url = `${BASE_URL}saveUserContentAccess/${uid}`
+        return post(url, token, interactionData)
     },
-    postUserContentAccess(interactionData) {
-        const url = `${BASE_URL}saveUserContentAccess`
-        return post(url, interactionData)
+    postRating(contentOwner, contentName, rating, userWhoRates, uid, token) {
+        const url = `${BASE_URL}rate/${uid}/${contentOwner}/${contentName}/${rating}/${userWhoRates}`;
+        return post(url,token)
     },
-    getProfileInfo(authUserID) {
-        const url = `${BASE_URL}profile/${authUserID}`;
-        return get(url)
-    },
-    postRating(contentOwner, contentName, rating, userWhoRates) {
-        const url = `${BASE_URL}rate/${contentOwner}/${contentName}/${rating}/${userWhoRates}`;
-        return post(url)
-    },
-    postNewUserName(uid, username) {
+    postNewUserName(uid, username, token) {
         const url = BASE_URL + "newUsername/" + uid + "/" + username;
-        return post(url);
+        return post(url, token);
     },
-    postTitlePic(uid, contentId, data) {
-        const url = BASE_URL + "uploadTitle/" + uid + "/" + contentId;
+    postWalletId(uid, username, walletId, token) {
+        const url = BASE_URL + "postWalletId/" + uid + "/" + username + "/" + walletId;
+        return post(url, token);
+    },
+    postTitlePic(username, contentId, data, uid, token) {
+        const url = BASE_URL + "uploadTitle/" + username + "/" + contentId;
         return fetch(url, {
             method: 'POST',
             body: data,
             arrayKey: '',
+            headers: new Headers({
+                'Authorization': `${token}`,
+            })
         })
     },
-    postProfilePic(uid, data) {
+    postProfilePic(uid, data, token) {
         const url = BASE_URL + "uploadProfilePic/" + uid;
         return fetch(url, {
             method: 'POST',
             body: data,
             arrayKey: '',
+            headers: new Headers({
+                'Authorization': `${token}`,
+            })
         })
     },
-    postUserContentAccess(interactionData) {
-        const url = `${BASE_URL}saveUserContentAccess`
-        return post(url, interactionData)
+    postComment(userId, contentId, data, uid, token) {
+        const url = `${BASE_URL}comment/${uid}/${userId}/${contentId}`;
+        return post(url, token, data)
     },
-    postComment(userId, contentId, data) {
-        const url = `${BASE_URL}comment/${userId}/${contentId}`;
-        return post(url, data)
-    },
-    postContent(userId, contentId, data, token){
-        const url = `${BASE_URL}save/${userId}/${contentId}/${token}`;
+    postContent(userId, contentId, data, uid, token){
+        const url = `${BASE_URL}save/${uid}/${userId}/${contentId}`;
         return fetch(url, {
             method: 'POST',
             body: JSON.stringify(data),
             headers: new Headers({
                 'Content-Type': 'application/json',
+                'Authorization': `${token}`,
             })
         })
     },
@@ -139,12 +146,13 @@ const get = function (url) {
         })
 };
 
-const post = function (url, data = {}) {
+const post = function (url, token, data = {}) {
     return fetch(url, {
         method: 'POST',
         body: JSON.stringify(data),
         headers: new Headers({
             'Content-Type': 'application/json',
+            'Authorization': `${token}`,
         })
     })
         .then(function (response) {
