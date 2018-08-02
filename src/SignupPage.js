@@ -60,8 +60,12 @@ class SignupPage extends Component {
                 this.setState({uid: user.uid});
 
                 var that = this;
+                const userObject = {
+                    "uid": user.uid,
+                    "username": username,
+                }
                 user.getIdToken(/* forceRefresh */ true).then(function(idToken) {
-                  api.postNewUserName(user.uid, username, idToken)
+                  api.postNewUserName(userObject, idToken)
                     .then((body) => {
                             console.log(body);
                             if (body.userNameExists)
@@ -83,7 +87,11 @@ class SignupPage extends Component {
                                     pathname: '/',
                                 })
                             }
-                    });
+                    })
+                    .catch(function(err){
+                        console.log(err);
+                        that.setState({userNameError: true});
+                    })
 
                 }).catch(function(error) {
                   console.log(error);
@@ -116,8 +124,12 @@ class SignupPage extends Component {
         var username = this.state.username;
 
         var that = this;
+        const userObject = {
+            "uid": uid,
+            "username": username
+        }
         user.getIdToken(/* forceRefresh */ true).then(function(idToken) {
-                  api.postNewUserName(uid, username, idToken).then((body, err) => {
+                  api.postNewUserName(userObject, idToken).then((body, err) => {
                     if (err) throw err;
                         console.log(body);
                         if (body.userNameExists)
@@ -139,7 +151,11 @@ class SignupPage extends Component {
                                 pathname: '/',
                             })
                         }
-                });
+                })
+                  .catch(function(err){
+                        console.log(err);
+                        that.setState({userNameError: true});
+                    })
 
                 }).catch(function(error) {
                   console.log(error);

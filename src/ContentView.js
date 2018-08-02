@@ -17,7 +17,9 @@ import {CoolBlueButton} from "./stylings";
 import api from './tools'
 import Media from "react-media";
 import {Unwrap} from "./utils"
-
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 
 const buttonStyle = {
     background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
@@ -43,6 +45,8 @@ class ContentView extends Component {
             endTime: null,
             showComments: false,
             quizzes: [],
+            snackBarMessage:  "",
+            showSnackBar: false,
             
         };
         console.log(match, props, "MAATCH")
@@ -64,6 +68,20 @@ class ContentView extends Component {
             .then(content => this.setState({content: content[0], hasLoaded: true}))
 
         this.toggle = this.toggle.bind(this);
+    }
+
+    closeSnackBar() {
+        this.setState({
+          snackBarMessage: "",
+          showSnackBar: false,
+        });
+    }
+
+    showSnackBarError(msg){
+        this.setState({
+            snackBarMessage: msg,
+            showSnackBar: true,
+        })
     }
 
     toggle(key) {
@@ -132,21 +150,19 @@ class ContentView extends Component {
             "endTime": timeObj.endTime,
             "contentId": this.state.content.contentId,
             "accessUserId": this.props.authUser.displayName,
+            "accessUserUID": this.props.authUser.uid,
             "contentUserId": this.state.content.userId
         }
 
-        let authUser = this.props.authUser;
-
-        if(authUser && authUser.displayName){
-            let that = this;
-            authUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
-               api.postUserContentAccess(data, that.props.authUser.uid ,idToken);
+        if(this.props.authUser && this.props.authUser.displayName){
+            this.props.authUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+               api.postUserContentAccess(data, idToken);
             }).catch(function(error) {
               console.log(error);
             });
         }
         else{
-            api.postUserContentAccess(data, "uid" ,"idToken");
+            api.postUserContentAccess(data, "");
         }
 
     }
@@ -158,23 +174,22 @@ class ContentView extends Component {
             "endTime": quizObj.endTime,
             "contentId": this.state.content.contentId,
             "accessUserId": this.props.authUser.displayName,
+            "accessUserUID": this.props.authUser.uid,
             "contentUserId": this.state.content.userId,
             "quizzes" : quizObj.quizzes,
             "type" : "quizUpdate"
         }
         
-        let authUser = this.props.authUser;
 
-        if(authUser && authUser.displayName){
-            let that = this;
-            authUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
-               api.postUserContentAccess(data, that.props.authUser.uid ,idToken);
+        if(this.props.authUser && this.props.authUser.displayName){
+            this.props.authUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+               api.postUserContentAccess(data,idToken);
             }).catch(function(error) {
               console.log(error);
             });
         }
         else{
-            api.postUserContentAccess(data, "uid" ,"idToken");
+            api.postUserContentAccess(data,"");
         }
     }
 
@@ -248,6 +263,7 @@ class ContentView extends Component {
             fullScreen = (type === globals.EDIT_GAME || type === globals.EDIT_SYSTEM)
         }
         return (
+            <div>
             <center>
 
             <Media query="(max-width: 768px)">
@@ -316,7 +332,7 @@ class ContentView extends Component {
                         </section>)
                     )}
                     {this.props.authUser
-                        ? <Rating user={this.props.authUser}/>
+                        ? <Rating error={this.showSnackBarError.bind(this)} user={this.props.authUser}/>
                         : null
                     }
 
@@ -356,6 +372,30 @@ class ContentView extends Component {
                                }
                 />
             </center>
+            <Snackbar
+                  anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'right',
+                  }}
+                  open={this.state.showSnackBar}
+                  autoHideDuration={6000}
+                  onClose={this.closeSnackBar.bind(this)}
+                  ContentProps={{
+                    'aria-describedby': 'message-id',
+                  }}
+                  message={<span id="message-id">{this.state.snackBarMessage}</span>}
+                  action={[
+                    <IconButton
+                      key="close"
+                      aria-label="Close"
+                      color="inherit"
+                      onClick={this.closeSnackBar.bind(this)}
+                    >
+                      <CloseIcon />
+                    </IconButton>,
+                  ]}
+                />
+                </div>
         )
     }
 }

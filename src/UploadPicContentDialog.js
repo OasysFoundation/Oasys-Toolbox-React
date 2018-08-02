@@ -63,11 +63,15 @@ class UploadPicContentDialog extends Component {
                 }
                 that.props.url();
               });
-            });
-            }).catch(function(error) {
+            })
+            .catch(function(error) {
+              that.props.snackBarControl('Error Uploading Image. If this continues, please contact info@joinoasys.org');
               console.log(error);
             });
-
+          })
+          .catch(function(error) {
+              console.log(error);
+            })
         }
         else{
            api.postTitlePic(uid, contentId, data, "id", "idToken").then((response) => {
@@ -84,6 +88,10 @@ class UploadPicContentDialog extends Component {
                 }
                 that.props.url();
               });
+            })
+           .catch(function(error) {
+              that.props.snackBarControl('Error Uploading Image. If this continues, please contact info@joinoasys.org');
+              console.log(error);
             });
         }
 
@@ -120,6 +128,9 @@ class UploadPicContentDialog extends Component {
                 }
                 that.props.url();
               });
+            }).catch(function(error) {
+              that.props.snackBarControl('Error Uploading Image. If this continues, please contact info@joinoasys.org');
+              console.log(error);
             });
             }).catch(function(error) {
               console.log(error);
@@ -141,6 +152,10 @@ class UploadPicContentDialog extends Component {
                 }
                 that.props.url();
               });
+            })
+            .catch(function(error) {
+              that.props.snackBarControl('Error Uploading Image. If this continues, please contact info@joinoasys.org');
+              console.log(error);
             });
         }
     this.props.onClose(null);

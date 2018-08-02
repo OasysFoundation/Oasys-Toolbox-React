@@ -24,10 +24,14 @@ class Rating extends Component {
             preview: props.preview,
             username: userName,
             contentname: contentName,
-            rated: false
-
+            rated: false,
         };
+
         this.handleChange = this.handleChange.bind(this);
+    }
+
+    snackBar(msg) {
+        this.props.error(msg);
     }
 
     handleChange = (value) => {
@@ -41,48 +45,65 @@ class Rating extends Component {
         const authUserProps = this.props.user
         const userWhoRates = (this.props.user.displayName || "Anonymous");
 
+        const ratingData = {
+            "contentOwner": username,
+            "contentName":contentname,
+            "rating": value,
+            "userWhoRates": userWhoRates,
+            "userWhoRatesUID": authUserProps.uid
+        }
+        var that = this;
 
         if(authUserProps && authUserProps.displayName){
-            let that = this;
             authUserProps.getIdToken(/* forceRefresh */ true).then(function(idToken) {
-                api.postRating(username/*contentowner*/, contentname, value/*rating*/, userWhoRates, authUserProps.uid ,idToken)
+                api.postRating(ratingData ,idToken)
+                .catch(function(error) {
+                  console.log(error);
+                  that.snackBar("Error submitting rating. If this continues, please contact info@joinoasys.org");
+                });
             }).catch(function(error) {
               console.log(error);
             });
         }
         else{
-            api.postRating(username/*contentowner*/, contentname, value/*rating*/, userWhoRates, "authUserProps.uid" ,"idToken")
+            api.postRating(ratingData,"")
+            .catch(function(error) {
+                  console.log(error);
+                  that.snackBar("Error submitting rating. If this continues, please contact info@joinoasys.org");
+
+                });
         }
     }
 
     render() {
         return (
             <div>
-                {this.state.preview ? (
-                    <Rate allowHalf value={this.state.value} disabled/>
-                ) : (
-                    <div style={{marginTop: '20px', textAlign: 'left'}}>
-                        <center style={{marginBottom: '40px'}}>
-                            <DoneIcon color="secondary" style={{fontSize: '100px'}}/>
-                            <h1>Great! You finished learning this lesson successfully.</h1>
-                            <CoolPinkButton onClick={() => window.location.replace('/')}>EXPLORE MORE
-                            <NextIcon />
-                            </CoolPinkButton>
-                        </center>
-                        <div><p> Please take a moment to give <i>{this.state.username}</i> some feedback
-                            for <i>"{this.state.contentname}"</i>.<br/><br/>Tell us more about what you learned, how much
-                            you learned, and how you liked the content you interacted with.</p></div>
-                        <center style={{marginBottom: '40px', marginTop: '30px'}}>
-                            {this.state.rated ? (
-                                <Rate allowHalf value={this.state.value} disabled/>
-                            ) : (
-                                <Rate allowHalf onChange={this.handleChange} value={this.state.value}/>
-                            )}
-                        </center>
-                        {/*<Comment name={this.props.user} slideNumber="end"/>*/}
-                    </div>
-                )}
+                {this.state.preview 
+                    ? <Rate allowHalf value={this.state.value} disabled/>   
+                    : (
+                        <div style={{marginTop: '20px', textAlign: 'left'}}>
+                            <center style={{marginBottom: '40px'}}>
+                                <DoneIcon color="secondary" style={{fontSize: '100px'}}/>
+                                <h1>Great! You finished learning this lesson successfully.</h1>
+                                <CoolPinkButton onClick={() => window.location.replace('/')}>EXPLORE MORE
+                                <NextIcon />
+                                </CoolPinkButton>
+                            </center>
+                            <div><p> Please take a moment to give <i>{this.state.username}</i> some feedback
+                                for <i>"{this.state.contentname}"</i>.<br/><br/>Tell us more about what you learned, how much
+                                you learned, and how you liked the content you interacted with.</p></div>
+                            <center style={{marginBottom: '40px', marginTop: '30px'}}>
+                                {this.state.rated 
+                                    ? <Rate allowHalf value={this.state.value} disabled/>
+                                    : <Rate allowHalf onChange={this.handleChange} value={this.state.value}/>
+                                }
+                            </center>
+                            {/*<Comment name={this.props.user} slideNumber="end"/>*/}
+                        </div>
+                    )
+                }
             </div>
+
         )
     }
 }

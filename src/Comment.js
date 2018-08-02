@@ -5,6 +5,11 @@ import OrganizeComments from './OrganizeComments'
 import {buttonGradientCSS} from "./stylings";
 import { Unwrap } from './utils';
 import api from './tools'
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+
+
 var decode = require('urldecode')
 
 
@@ -20,6 +25,9 @@ class CommentSection extends Component {
             currentReply: '',
             finalComments: [],
             slideLength: this.props.slideLength,
+            snackBarMessage:  "",
+            showSnackBar: false,
+
         }
         this.slideNumber = "end";
 
@@ -49,6 +57,13 @@ class CommentSection extends Component {
 
 
        
+    }
+
+    closeSnackBar() {
+        this.setState({
+          snackBarMessage: "",
+          showSnackBar: false,
+        });
     }
 
     onSubmitReply = (e, id) => {
@@ -86,29 +101,47 @@ class CommentSection extends Component {
             "parent": parent,
             "slideNumber": this.slideNumber,
             "accessUser" : accessUser,
+            "accessUserUID": authUser.uid,
+            "contentName": contentName,
+            "contentUserName": userName,
         }
+        var that = this;
+
 
         if(authUser && authUser.displayName){
 
-            var that = this;
             authUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
-                api.postComment(userName, contentName, data, authUser.uid, idToken).then(json => {
+                api.postComment(data, idToken).then(json => {
                     that.setState({
                         currentReply: ''
                     });
                     that.handleChange();
                     })
+                .catch(function(error) {
+                  console.log(error);
+                  that.setState({
+                    snackBarMessage: 'Error Posting Comment. If this continues, please contact info@joinoasys.org',
+                    showSnackBar: true,
+                  })
+                });
             }).catch(function(error) {
               console.log(error);
             });
         }
         else{
-            api.postComment(userName, contentName, data, "uid", "idToken").then(json => {
+            api.postComment(data, "").then(json => {
                     this.setState({
                         currentReply: ''
                     });
                     this.handleChange();
                     })
+            .catch(function(error) {
+                  console.log(error);
+                  that.setState({
+                    snackBarMessage: 'Error Posting Comment. If this continues, please contact info@joinoasys.org',
+                    showSnackBar: true,
+                  })
+                });
         }
     }
 
@@ -145,28 +178,45 @@ class CommentSection extends Component {
             "comment": this.state.comment,
             "slideNumber": this.slideNumber,
             "accessUser": accessUser,
+            "accessUserUID": authUser.uid,
+            "contentName": contentName,
+            "contentUserName": userName,
         }
+            var that = this;
 
        if(authUser && authUser.displayName){
-            var that = this;
             authUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
-                api.postComment(userName, contentName, data, authUser.uid, idToken).then(json => {
+                api.postComment(data, idToken).then(json => {
                     that.setState({
                         comment: ''
                     });
                     that.handleChange();
                     })
+                .catch(function(error) {
+                  console.log(error);
+                  that.setState({
+                    snackBarMessage: 'Error Posting Comment. If this continues, please contact info@joinoasys.org',
+                    showSnackBar: true,
+                  })
+                });
             }).catch(function(error) {
               console.log(error);
             });
         }
         else{
-            api.postComment(userName, contentName, data, "uid", "idToken").then(json => {
+            api.postComment(data, "").then(json => {
                     this.setState({
                         currentReply: ''
                     });
                     this.handleChange();
                     })
+            .catch(function(error) {
+                  console.log(error);
+                  that.setState({
+                    snackBarMessage: 'Error Posting Comment. If this continues, please contact info@joinoasys.org',
+                    showSnackBar:true,
+                  })
+                });
         }
     }
 
@@ -277,6 +327,29 @@ class CommentSection extends Component {
 
                         
                     </Comment.Group>
+                    <Snackbar
+                      anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'right',
+                      }}
+                      open={this.state.showSnackBar}
+                      autoHideDuration={6000}
+                      onClose={this.closeSnackBar.bind(this)}
+                      ContentProps={{
+                        'aria-describedby': 'message-id',
+                      }}
+                      message={<span id="message-id">{this.state.snackBarMessage}</span>}
+                      action={[
+                        <IconButton
+                          key="close"
+                          aria-label="Close"
+                          color="inherit"
+                          onClick={this.closeSnackBar.bind(this)}
+                        >
+                          <CloseIcon />
+                        </IconButton>,
+                      ]}
+                    />
                 </div>
         )
     }

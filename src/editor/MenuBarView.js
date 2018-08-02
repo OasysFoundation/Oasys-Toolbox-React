@@ -148,8 +148,8 @@ class MenuBarView extends Component {
     });    
   }
 
-  performFetch(username,contentId,data,token){
-      api.postContent(username, contentId, data, token).then(res => res.json())
+  performFetch(data,token){
+      api.postContent(data, token).then(res => res.json())
       .catch(error => {
         console.error('Error:', error);
         this.setState({
@@ -214,6 +214,9 @@ class MenuBarView extends Component {
       "title":contentId,
       "description":description,
       "tags":hashtags,
+      "username": username,
+      "contentId":contentId,
+      "uid": this.props.authUser.uid
     }
 
     console.log(data);
@@ -221,14 +224,14 @@ class MenuBarView extends Component {
         var that = this;
         this.props.authUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
           //saveEndpoint= saveEndpoint+ '/' + idToken
-          that.performFetch(username,contentId,data,idToken);
+          that.performFetch(data,idToken);
         }).catch(function(error) {
           console.log(error);
         });
      }
      else{
         //saveEndpoint= saveEndpoint+ '/noToken' 
-        this.performFetch(username,contentId,data)
+        this.performFetch(data,"")
      }
   }
 
