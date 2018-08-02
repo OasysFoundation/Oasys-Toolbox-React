@@ -1,0 +1,34 @@
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+import EditContext from './EditContext'
+
+class Element extends Component {
+
+    typeToComponent(type) {
+        return <section>A component</section>
+    }
+    onInteractionEvent() {
+
+    }
+
+    render() {
+        return (
+            <EditContext.Consumer>
+                {isEditable => isEditable ? <div>I can EDIT!</div> : <div>NO EDITING!!</div> }
+            <section className="editableBox">
+                <div>
+                    {this.typeToComponent(this.props.type)}
+                </div>
+            </section>
+            </EditContext.Consumer>
+        );
+    }
+}
+
+Element.propTypes = {
+    id: PropTypes.string,
+    type: PropTypes.string,
+    data: PropTypes.object.isRequired
+};
+
+export default Element;
