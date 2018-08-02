@@ -134,7 +134,21 @@ class ContentView extends Component {
             "accessUserId": this.props.authUser.displayName,
             "contentUserId": this.state.content.userId
         }
-        api.postUserContentAccess(data);
+
+        let authUser = this.props.authUser;
+
+        if(authUser && authUser.displayName){
+            let that = this;
+            authUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+               api.postUserContentAccess(data, that.props.authUser.uid ,idToken);
+            }).catch(function(error) {
+              console.log(error);
+            });
+        }
+        else{
+            api.postUserContentAccess(data, "uid" ,"idToken");
+        }
+
     }
 
     postQuizData(quizObj) {
@@ -148,7 +162,20 @@ class ContentView extends Component {
             "quizzes" : quizObj.quizzes,
             "type" : "quizUpdate"
         }
-        api.postUserContentAccess(data);
+        
+        let authUser = this.props.authUser;
+
+        if(authUser && authUser.displayName){
+            let that = this;
+            authUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+               api.postUserContentAccess(data, that.props.authUser.uid ,idToken);
+            }).catch(function(error) {
+              console.log(error);
+            });
+        }
+        else{
+            api.postUserContentAccess(data, "uid" ,"idToken");
+        }
     }
 
     handleQuizSumbit(isCorrect){
@@ -253,7 +280,7 @@ class ContentView extends Component {
                         </section>)
                     )}
                     {this.props.authUser
-                        ? <Rating username={this.props.authUser.displayName}/>
+                        ? <Rating user={this.props.authUser}/>
                         : null
                     }
 
@@ -289,7 +316,7 @@ class ContentView extends Component {
                         </section>)
                     )}
                     {this.props.authUser
-                        ? <Rating username={this.props.authUser.displayName}/>
+                        ? <Rating user={this.props.authUser}/>
                         : null
                     }
 

@@ -56,6 +56,8 @@ class CommentSection extends Component {
         let parent = e;
         let contentName = '';
         let userName='';
+        let authUser = this.props.name;
+
 
         if (!this.props.match) {
             const loc = window.location.href;
@@ -69,8 +71,8 @@ class CommentSection extends Component {
         }
 
         let accessUser;
-        this.props.name ?
-            accessUser = this.props.name.displayName
+        authUser ?
+            accessUser = authUser.displayName
             : accessUser = null;
 
         var currentTime = Date.now();
@@ -86,19 +88,35 @@ class CommentSection extends Component {
             "accessUser" : accessUser,
         }
 
-        api.postComment(userName, contentName, data).then(json => {
-            this.setState({
-                currentReply: ''
-            });
-            this.handleChange();
-        })
+        if(authUser && authUser.displayName){
 
+            var that = this;
+            authUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+                api.postComment(userName, contentName, data, authUser.uid, idToken).then(json => {
+                    that.setState({
+                        currentReply: ''
+                    });
+                    that.handleChange();
+                    })
+            }).catch(function(error) {
+              console.log(error);
+            });
+        }
+        else{
+            api.postComment(userName, contentName, data, "uid", "idToken").then(json => {
+                    this.setState({
+                        currentReply: ''
+                    });
+                    this.handleChange();
+                    })
+        }
     }
 
     onSubmit = (e) => {
 
         var contentName = '';
         var userName='';
+        let authUser = this.props.name;
 
         if (!this.props.match) {
             const loc = window.location.href;
@@ -113,8 +131,8 @@ class CommentSection extends Component {
 
 
         let accessUser;
-        this.props.name ?
-            accessUser = this.props.name.displayName
+        authUser ?
+            accessUser = authUser.displayName
             : accessUser = null;
 
         var currentTime = Date.now();
@@ -129,14 +147,27 @@ class CommentSection extends Component {
             "accessUser": accessUser,
         }
 
-        api.postComment(userName, contentName, data).then(json => {
-            this.setState({
-                comment: ''
+       if(authUser && authUser.displayName){
+            var that = this;
+            authUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+                api.postComment(userName, contentName, data, authUser.uid, idToken).then(json => {
+                    that.setState({
+                        comment: ''
+                    });
+                    that.handleChange();
+                    })
+            }).catch(function(error) {
+              console.log(error);
             });
-            this.handleChange();
-        })
-
-       
+        }
+        else{
+            api.postComment(userName, contentName, data, "uid", "idToken").then(json => {
+                    this.setState({
+                        currentReply: ''
+                    });
+                    this.handleChange();
+                    })
+        }
     }
 
     addComment = (event) => {

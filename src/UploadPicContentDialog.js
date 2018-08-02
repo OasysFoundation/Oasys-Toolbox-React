@@ -43,26 +43,50 @@ class UploadPicContentDialog extends Component {
     data.append('upload', this.uploadInput.files[0]);
     data.append('name', uid);
     //data.append('filename', 'profile_pic_' + this.props.authUser);
+    let that = this;
+    let authUser = this.props.authUser;
 
 
-	
+    if(authUser && authUser.displayName){
+            authUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+            api.postTitlePic(uid, contentId, data, that.props.authUser.uid, idToken).then((response) => {
+              response.json()
+              .catch(error => {
+              console.error('Error:', error);
+              that.props.snackBarControl('Error Uploading Image. If this continues, please contact info@joinoasys.org');
+            }).then((body) => {
+                console.log(body);
+                if(body){
+                  console.log("filename:"+body);
+                  that.props.snackBarControl('Picture Uploaded Successfully');
 
-    var that = this;
-    api.postTitlePic(uid, contentId, data).then((response) => {
-      response.json()
-      .catch(error => {
-      console.error('Error:', error);
-      this.props.snackBarControl('Error Uploading Image. If this continues, please contact info@joinoasys.org');
-    }).then((body) => {
-      	console.log(body);
-      	if(body){
-          console.log("filename:"+body);
-      		this.props.snackBarControl('Picture Uploaded Successfully');
+                }
+                that.props.url();
+              });
+            });
+            }).catch(function(error) {
+              console.log(error);
+            });
 
-      	}
-        that.props.url();
-      });
-    });
+        }
+        else{
+           api.postTitlePic(uid, contentId, data, "id", "idToken").then((response) => {
+              response.json()
+              .catch(error => {
+              console.error('Error:', error);
+              that.props.snackBarControl('Error Uploading Image. If this continues, please contact info@joinoasys.org');
+            }).then((body) => {
+                console.log(body);
+                if(body){
+                  console.log("filename:"+body);
+                  that.props.snackBarControl('Picture Uploaded Successfully');
+
+                }
+                that.props.url();
+              });
+            });
+        }
+
     this.props.onClose(null);
 
   }
@@ -76,20 +100,49 @@ class UploadPicContentDialog extends Component {
     data.append('name', uid);
     //data.append('filename', 'profile_pic_' + this.props.authUser);
 
-    var that = this;
-    api.postProfilePic(uid, data).then((response) => {
-      response.json().catch(error => {
-      console.error('Error:', error);
-      this.props.snackBarControl('Error Uploading Image. If this continues, please contact info@joinoasys.org');
-    }).then((body) => {
-      	console.log(body);
-      	if(body){
-      		this.props.snackBarControl('Picture Uploaded Successfully');
+     let that = this;
+    let authUser = this.props.authUser;
 
-      	}
-        that.props.pic();
-      });
-    });
+
+    if(authUser && authUser.displayName){
+            authUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+            api.postProfilePic(uid, data, idToken).then((response) => {
+              response.json()
+              .catch(error => {
+              console.error('Error:', error);
+              that.props.snackBarControl('Error Uploading Image. If this continues, please contact info@joinoasys.org');
+            }).then((body) => {
+                console.log(body);
+                if(body){
+                  console.log("filename:"+body);
+                  that.props.snackBarControl('Picture Uploaded Successfully');
+
+                }
+                that.props.url();
+              });
+            });
+            }).catch(function(error) {
+              console.log(error);
+            });
+
+        }
+        else{
+           api.postProfilePic(uid, data, "idToken").then((response) => {
+              response.json()
+              .catch(error => {
+              console.error('Error:', error);
+              that.props.snackBarControl('Error Uploading Image. If this continues, please contact info@joinoasys.org');
+            }).then((body) => {
+                console.log(body);
+                if(body){
+                  console.log("filename:"+body);
+                  that.props.snackBarControl('Picture Uploaded Successfully');
+
+                }
+                that.props.url();
+              });
+            });
+        }
     this.props.onClose(null);
 
   }

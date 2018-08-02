@@ -58,13 +58,16 @@ class SignupPage extends Component {
                 }
 
                 this.setState({uid: user.uid});
-                api.postNewUserName(user.uid, username)
+
+                var that = this;
+                user.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+                  api.postNewUserName(user.uid, username, idToken)
                     .then((body) => {
                             console.log(body);
                             if (body.userNameExists)
-                                this.setState({userNameError: true});
+                                that.setState({userNameError: true});
                             else if (body.hyphen)
-                                this.setState({userNameError: true});
+                                that.setState({userNameError: true});
                             else if (!body.userNameExists && !body.hyphen) {
                                 user.updateProfile({
                                     displayName: username,
@@ -75,13 +78,16 @@ class SignupPage extends Component {
                                     console.log("error here");
                                     console.log(error);
                                 });
-                                this.setState(() => ({...INITIAL_STATE}));
+                                that.setState(() => ({...INITIAL_STATE}));
                                 history.push({
                                     pathname: '/',
                                 })
                             }
                     });
 
+                }).catch(function(error) {
+                  console.log(error);
+                });
             })
             .catch(error => {
                 this.setState(byPropKey('error', error));
@@ -108,29 +114,36 @@ class SignupPage extends Component {
         var user = firebase.auth().currentUser;
         var uid = this.state.uid;
         var username = this.state.username;
-        api.postNewUserName(uid, username).then((body, err) => {
-            if (err) throw err;
-                console.log(body);
-                if (body.userNameExists)
-                    this.setState({userNameError: true});
-                else if (body.hyphen)
-                    this.setState({userNameError: true});
-                else if (!body.userNameExists) {
-                    user.updateProfile({
-                        displayName: username,
-                    }).then(function () {
-                        // Update successful.
-                    }).catch(function (error) {
-                        // An error happened.
-                        console.log("error here");
-                        console.log(error);
-                    });
-                    this.setState(() => ({...INITIAL_STATE}));
-                    history.push({
-                        pathname: '/',
-                    })
-                }
-        });
+
+        var that = this;
+        user.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+                  api.postNewUserName(uid, username, idToken).then((body, err) => {
+                    if (err) throw err;
+                        console.log(body);
+                        if (body.userNameExists)
+                            that.setState({userNameError: true});
+                        else if (body.hyphen)
+                            that.setState({userNameError: true});
+                        else if (!body.userNameExists) {
+                            user.updateProfile({
+                                displayName: username,
+                            }).then(function () {
+                                // Update successful.
+                            }).catch(function (error) {
+                                // An error happened.
+                                console.log("error here");
+                                console.log(error);
+                            });
+                            that.setState(() => ({...INITIAL_STATE}));
+                            history.push({
+                                pathname: '/',
+                            })
+                        }
+                });
+
+                }).catch(function(error) {
+                  console.log(error);
+                });
 
 
         event.preventDefault();

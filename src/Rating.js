@@ -38,9 +38,21 @@ class Rating extends Component {
         });
 
         const {username, contentname} = this.state;
-        const userWhoRates = this.props.username;
+        const authUserProps = this.props.user
+        const userWhoRates = (this.props.user.displayName || "Anonymous");
 
-        api.postRating(username/*contentowner*/, contentname, value/*rating*/, userWhoRates)
+
+        if(authUserProps && authUserProps.displayName){
+            let that = this;
+            authUserProps.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+                api.postRating(username/*contentowner*/, contentname, value/*rating*/, userWhoRates, authUserProps.uid ,idToken)
+            }).catch(function(error) {
+              console.log(error);
+            });
+        }
+        else{
+            api.postRating(username/*contentowner*/, contentname, value/*rating*/, userWhoRates, "authUserProps.uid" ,"idToken")
+        }
     }
 
     render() {
@@ -67,7 +79,7 @@ class Rating extends Component {
                                 <Rate allowHalf onChange={this.handleChange} value={this.state.value}/>
                             )}
                         </center>
-                        {/*<Comment name={this.props.username} slideNumber="end"/>*/}
+                        {/*<Comment name={this.props.user} slideNumber="end"/>*/}
                     </div>
                 )}
             </div>
