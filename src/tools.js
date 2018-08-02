@@ -65,22 +65,27 @@ const api = {
             })
         });
     },
-    postUserContentAccess(interactionData, uid, token) {
-        const url = `${BASE_URL}saveUserContentAccess/${uid}`
+    postUserContentAccess(interactionData, token) {
+        const url = `${BASE_URL}saveUserContentAccess/`
+        //uid
         return post(url, token, interactionData)
     },
-    postRating(contentOwner, contentName, rating, userWhoRates, uid, token) {
-        const url = `${BASE_URL}rate/${uid}/${contentOwner}/${contentName}/${rating}/${userWhoRates}`;
-        return post(url,token)
+    postRating(ratingData, token) {
+        //contentOwner, contentName, rating, userWhoRates,
+        const url = `${BASE_URL}rate/`;
+        ///${contentOwner}/${contentName}/${rating}/${userWhoRates}
+        //uid
+        return post(url, token, ratingData)
     },
-    postNewUserName(uid, username, token) {
-        const url = BASE_URL + "newUsername/" + uid + "/" + username;
-        return post(url, token);
+    postNewUserName(userData, token) {
+        const url = BASE_URL + "newUsername/" 
+        return post(url, token, userData);
     },
-    postWalletId(uid, username, walletId, token) {
-        const url = BASE_URL + "postWalletId/" + uid + "/" + username + "/" + walletId;
-        return post(url, token);
+    postWalletId(walletData, token) {
+        const url = BASE_URL + "postWalletId/"
+        return post(url, token, walletData);
     },
+    /*Pass data in URL until we figure out how to refactor this one*/
     postTitlePic(username, contentId, data, uid, token) {
         const url = BASE_URL + "uploadTitle/" + username + "/" + contentId;
         return fetch(url, {
@@ -92,6 +97,7 @@ const api = {
             })
         })
     },
+    /*Pass data in URL until we figure out how to refactor this one*/
     postProfilePic(uid, data, token) {
         const url = BASE_URL + "uploadProfilePic/" + uid;
         return fetch(url, {
@@ -103,15 +109,15 @@ const api = {
             })
         })
     },
-    postComment(userId, contentId, data, uid, token) {
-        const url = `${BASE_URL}comment/${uid}/${userId}/${contentId}`;
-        return post(url, token, data)
+    postComment(commentData, token) {
+        const url = `${BASE_URL}comment/`;
+        return post(url, token, commentData)
     },
-    postContent(userId, contentId, data, uid, token){
-        const url = `${BASE_URL}save/${uid}/${userId}/${contentId}`;
+    postContent(contentData, token){
+        const url = `${BASE_URL}save/`;
         return fetch(url, {
             method: 'POST',
-            body: JSON.stringify(data),
+            body: JSON.stringify(contentData),
             headers: new Headers({
                 'Content-Type': 'application/json',
                 'Authorization': `${token}`,
@@ -164,6 +170,7 @@ const post = function (url, token, data = {}) {
             URL = ${url}
             ERROR = ${err}
             `)
+            throw err
         })
 };
 
