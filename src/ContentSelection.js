@@ -17,6 +17,7 @@ import {substringInObjCount} from "./utils";
 import api from './tools'
 import {getTagsForCategory} from "./utils";
 import {Unwrap, Wrap} from "./utils"
+import ErrorLoadingContentPage from "./ErrorLoadingContentPage"
 
 const Flexer = styled.section`
   display: flex;
@@ -40,7 +41,7 @@ class ContentSelection extends Component {
 
         api.getContentsPreview()
             .then(json => this.setState({
-                content: json},
+                content: json || "errorLoadingContent"},
                 () => this.setState({filteredContent: this.getContentForCategory(this.state.category)})))
 }
 
@@ -162,7 +163,10 @@ class ContentSelection extends Component {
                     </center>
                 </Paper>
                 <Flexer>
-                    {this.state.content.length===0? (
+                    {
+                      this.state.content==="errorLoadingContent"
+                      ? <ErrorLoadingContentPage/>
+                      : this.state.content.length===0? (
                             <CircularProgress style={{ color: 'orange' }} thickness={7} />
                         ) : (
                             this.state.filteredContent.map((d, i) => <SimpleMediaCard key={i} contentData={d}/>)
