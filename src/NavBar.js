@@ -7,10 +7,16 @@ import ToolbarGroup from '@material-ui/core/Toolbar'
 import Button from '@material-ui/core/Button';
 import IconExplore from '@material-ui/icons/Explore';
 import IconCreate from '@material-ui/icons/Create';
+import Search from './images/search_grey_96x96.png';
+import Learn from './images/learn.png'
+import Create from './images/create.png'
+import User from './images/settings.png'
+
 import IconAccountCircle from '@material-ui/icons/AccountCircle';
 import IconInsertChart from '@material-ui/icons/InsertChart';
 import Typography from '@material-ui/core/Typography';
 import SignOutButton from './SignOutButton';
+import Logo_transparent from './oasys_logo_transparent.png'
 
 import 'firebase/auth';
 
@@ -32,7 +38,11 @@ import {
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem } from 'reactstrap';
+  DropdownItem,
+  Form,
+  FormGroup,
+  Label,
+  Input, } from 'reactstrap';
 
 
 const styles = theme => ({
@@ -46,8 +56,23 @@ const styles = theme => ({
 });
 
 const BG = "#00695c";
+const navBarFont = "SF-Pro-Text-Regular";
 
 
+/*
+<NavItem style={{display: "flex",alignItems: "center", justifyContent: "center", padding:"0px 8px 0px 8px"}}>
+                <NavLink href="/data/" style={{padding:"0px 0px 0px 0px"}}>
+                    <IconInsertChart style={{color:"white"}}/>
+                </NavLink>
+                <NavLink href="/data/" className={"text-white"} style={{paddingLeft:"2px"}}>Analytics</NavLink>
+              </NavItem>
+                            {accountMenuItemsNew}
+              {signOut}
+
+              <NavItem style={{display: "flex",alignItems: "center", justifyContent: "center", padding:"0px 8px 0px 8px"}}>
+                <NavLink href='https://joinoasys.org' className={"text-white"} style={{padding:"0px 0px 0px 0px"}}>About</NavLink>
+              </NavItem>
+*/
 class NavBar extends React.Component {
     constructor(props) {
         super(props);
@@ -85,34 +110,12 @@ class NavBar extends React.Component {
     render() {
 
         const loggedIn = this.props.authUser && this.props.authUser !== "loggedOut";
-
-        let accountMenuItems = (
-            <NavItem style={{display: "flex",alignItems: "center", justifyContent: "center"}}>
-                    <NavLink href="/login/" className={"text-white"} style={{flex: 1}}>Sign In</NavLink>
-            </NavItem>
-        );
-
-        let accountMenuItemsNewSecond = (null);
-
+        let signOut = (null);
         let accountMenuItemsNew = (
                 <NavItem style={{display: "flex",alignItems: "center", justifyContent: "center", padding:"8px 10px 8px 10px"}}>
                     <NavLink href="/login/" className={"text-white"} >Sign In</NavLink>
                 </NavItem>
         );
-
-        if (loggedIn) {
-            accountMenuItems = (
-                <div style={{display: 'inline'}}>
-                    <Button href='/user' color="inherit">
-                        <IconAccountCircle/>
-                        {this.props.authUser.displayName}
-                    </Button>
-
-                    <SignOutButton color="inherit" handleClick={this.handleClick.bind(this)}/>
-                </div>
-            )
-        }
-
         if (loggedIn) {
             accountMenuItemsNew = (
                 <NavItem style={{display: "flex",alignItems: "center", justifyContent: "center", padding:"0px 8px 0px 8px"}}>
@@ -122,62 +125,31 @@ class NavBar extends React.Component {
                     <NavLink href="/user/" className={"text-white"} style={{paddingLeft:"2px"}}>{this.props.authUser.displayName}</NavLink>
                 </NavItem>
             );
-            accountMenuItemsNewSecond = (
+            signOut = (
                 <SignOutButton color="inherit" handleClick={this.handleClick.bind(this)}/>
             );
 
         }
 
-
-        let navBarElements = (
-            <div>
-                <Button href='/explore' color="inherit">
-                    <IconExplore style={{marginRight: '7px'}}/>
-                    Explore
-                </Button>
-
-                <Button href='/create' color="inherit">
-                    <IconCreate style={{marginRight: '7px'}}/>
-                    Create
-                </Button>
-
-                <Button href='/data' color="inherit">
-                    <IconInsertChart style={{marginRight: '7px'}}/>
-                    Analytics
-                </Button>
-
-                {accountMenuItems}
-
-                <Button href='https://joinoasys.org' color="inherit">About</Button>
-
-            </div>
-        );
-
         let navBarElementsNew = (
-            <Nav className="ml-auto" navbar>
+            <Nav navbar className="ml-auto" style={{fontFamily: navBarFont}}>
               <NavItem style={{display: "flex",alignItems: "center", justifyContent: "center", padding:"0px 8px 0px 8px"}}>
                 <NavLink href="/explore/" style={{padding:"0px 0px 0px 0px"}}>
-                    <IconExplore style={{color:"white"}}/>
+                    <img src={Learn} style={{height:"20px"}}/>
                 </NavLink>
-                <NavLink href="/explore/" className={"text-white"} style={{paddingLeft:"2px"}}>Explore</NavLink>
+                <NavLink href="/explore/" className={"text-white"} style={{paddingLeft:"2px"}}>Learn</NavLink>
               </NavItem>
               <NavItem hidden={this.state.isHidden} style={{display: "flex",alignItems: "center", justifyContent: "center", padding:"0px 8px 0px 8px"}}> 
                 <NavLink href="/create/" style={{padding:"0px 0px 0px 0px"}}>
-                    <IconCreate style={{color:"white"}}/>
+                    <img src={Create} style={{height:"20px"}}/>
                 </NavLink>
                 <NavLink href="/create/" className={"text-white"} style={{paddingLeft:"2px"}}>Create</NavLink>
               </NavItem>
               <NavItem style={{display: "flex",alignItems: "center", justifyContent: "center", padding:"0px 8px 0px 8px"}}>
-                <NavLink href="/data/" style={{padding:"0px 0px 0px 0px"}}>
-                    <IconInsertChart style={{color:"white"}}/>
+                <NavLink href="/user/" style={{padding:"0px 0px 0px 0px"}}>
+                    <img src={User} style={{height:"20px"}}/>
                 </NavLink>
-                <NavLink href="/data/" className={"text-white"} style={{paddingLeft:"2px"}}>Analytics</NavLink>
-              </NavItem>
-              {accountMenuItemsNew}
-              {accountMenuItemsNewSecond}
-
-              <NavItem style={{display: "flex",alignItems: "center", justifyContent: "center", padding:"0px 8px 0px 8px"}}>
-                <NavLink href='https://joinoasys.org' className={"text-white"} style={{padding:"0px 0px 0px 0px"}}>About</NavLink>
+                <NavLink href="/user/" className={"text-white"} style={{paddingLeft:"2px"}}>My Account</NavLink>
               </NavItem>
             </Nav>
         );
@@ -187,8 +159,19 @@ class NavBar extends React.Component {
         return (
         <div>
 
-        <Navbar inverse style={{backgroundColor: BG, height: '50px'}} expand="md">
-          <NavbarBrand href="/explore" className={"text-white"} style={{padding: "1em"}}>Oasys Education</NavbarBrand>
+        <Navbar inverse style={{backgroundColor: BG, height: '50px'}} expand="lg">
+          <NavbarBrand href="/explore" className={"text-white"} style={{padding: "1em", fontFamily: navBarFont}}>
+          <img src={Logo_transparent} style={{height: '30px'}}/>
+          Oasys Education
+          </NavbarBrand>
+          <Form inline style={{width:"50%"}}>
+            <FormGroup className="mb-2 mr-sm-2 mb-sm-0" style={{width:"100%"}}>
+              <Input type="text" name="search" id="search" placeholder="Search" style={{borderTopRightRadius:0, borderBottomRightRadius:0, width: "80%"}}/>
+              <button type="submit" class="btn btn-default" style={{borderTopLeftRadius:0, borderBottomLeftRadius:0, border:"1px solid #ced4da", borderLeft:"none", backgroundColor:"#f6f6f6"}}>
+                    <img src={Search} style={{height: "20px"}}/>
+                </button>
+            </FormGroup>
+            </Form>
           <NavbarToggler onClick={this.toggle}/>
           <Collapse isOpen={this.state.isOpen} navbar>
             {this.props.authUser
