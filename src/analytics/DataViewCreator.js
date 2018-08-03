@@ -87,7 +87,9 @@ class DataView extends Component {
         } else {
             let callback = (statevar, myJson) => {
                 this.rawdata[statevar] = myJson;
-                this.countApiCalls++; 
+                if (myJson !== undefined) {
+                    this.countApiCalls++;
+                }
                 // the page can only be safely rendered after a) the component has mounted and 
                 // b) data has been successfully loaded from backend
                 console.log(this.rawdata)
