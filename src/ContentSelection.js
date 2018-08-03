@@ -46,11 +46,13 @@ class ContentSelection extends Component {
 }
 
     didChangeSearchText(textfield) {
-        this.setState({
+        this.state.content==="errorLoadingContent"
+        ? null
+        : this.setState({
             searchText: textfield.target.value,
             searchAnchor: textfield.currentTarget,
             searchResults: this.state.content.filter(content => substringInObjCount(content, textfield.target.value) > 0)
-        })
+          })
     }
 
     closeSearchPopup() {
