@@ -57,6 +57,7 @@ class MenuBarView extends Component {
             showsConclusionDialog: false,
             publishedSubmitted: false,
             publishAck:true,
+            uniqueContentId:"",
       };
 
   }
@@ -148,7 +149,7 @@ class MenuBarView extends Component {
     });    
   }
 
-  performFetch(data,token){
+  performFetch(data, token){
       api.postContent(data, token).then(res => res.json())
       .catch(error => {
         console.error('Error:', error);
@@ -184,10 +185,17 @@ class MenuBarView extends Component {
             })
           }
           else if (this.state.saveAction === 'save') {
+            
             this.setState({
               snackBarMessage: 'Saved Draft',
-              isUploading: false
+              isUploading: false,
             })
+            response.id
+            ? this.setState({
+                uniqueContentId: response.id,
+              })
+            : null
+
           }
 
           else if (this.state.saveAction === 'publish') {
@@ -197,6 +205,11 @@ class MenuBarView extends Component {
               showsConclusionDialog: true,
               publishedSubmitted: true,
             })
+            response.id
+            ? this.setState({
+                uniqueContentId: response.id,
+              })
+            : null
           }
         }
         });
@@ -216,7 +229,8 @@ class MenuBarView extends Component {
       "tags":hashtags,
       "username": username,
       "contentId":contentId,
-      "uid": this.props.authUser.uid
+      "uid": this.props.authUser.uid,
+      "uniqueContentId": this.state.uniqueContentId,
     }
 
     console.log(data);
@@ -262,7 +276,8 @@ class MenuBarView extends Component {
     });
     api.getContent(this.contentUserId, this.contentId).then(myJson =>
       this.setState({
-        slides:myJson[0]
+        slides:myJson[0],
+        uniqueContentId:myJson[0].uniqueContentId,
       })
     );
 
