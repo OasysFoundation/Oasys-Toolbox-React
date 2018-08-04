@@ -159,25 +159,25 @@ class NavBar extends React.Component {
         return (
         <div>
 
-        <Navbar inverse style={{backgroundColor: BG, height: '50px'}} expand="lg">
+        <Navbar inverse style={{backgroundColor: BG, height: '50px'}} expand="md">
           <NavbarBrand href="/explore" className={"text-white"} style={{padding: "1em", fontFamily: navBarFont}}>
           <img src={Logo_transparent} style={{height: '30px'}}/>
           Oasys Education
           </NavbarBrand>
+          <NavbarToggler onClick={this.toggle}/>
+          <Collapse isOpen={this.state.isOpen} style={{width:"100%"}} navbar>
+
           <Form inline style={{width:"50%"}}>
             <FormGroup className="mb-2 mr-sm-2 mb-sm-0" style={{width:"100%"}}>
               <Input type="text" name="search" id="search" placeholder="Search" style={{borderTopRightRadius:0, borderBottomRightRadius:0, width: "80%"}}/>
               <button type="submit" class="btn btn-default" style={{borderTopLeftRadius:0, borderBottomLeftRadius:0, border:"1px solid #ced4da", borderLeft:"none", backgroundColor:"#f6f6f6"}}>
                     <img src={Search} style={{height: "20px"}}/>
-                </button>
+              </button>
             </FormGroup>
-            </Form>
-          <NavbarToggler onClick={this.toggle}/>
-          <Collapse isOpen={this.state.isOpen} navbar>
-            {this.props.authUser
-                ? navBarElementsNew
-                : null
-            }
+          </Form>
+                
+          {navBarElementsNew}
+
           </Collapse>
           <Snackbar
                     anchorOrigin={{
