@@ -25,6 +25,8 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import {withStyles} from '@material-ui/core/styles';
 import ButtonBase from '@material-ui/core/ButtonBase';
+import Media from "react-media";
+
 
 //import Navbar from '@coreui/react/lib';
 import {
@@ -122,27 +124,6 @@ class NavBar extends React.Component {
 
     render() {
 
-        const loggedIn = this.props.authUser && this.props.authUser !== "loggedOut";
-        let signOut = (null);
-        let accountMenuItemsNew = (
-                <NavItem style={{display: "flex",alignItems: "center", justifyContent: "center", padding:"8px 10px 8px 10px"}}>
-                    <NavLink href="/login/" className={"text-white"} >Sign In</NavLink>
-                </NavItem>
-        );
-        if (loggedIn) {
-            accountMenuItemsNew = (
-                <NavItem style={{display: "flex",alignItems: "center", justifyContent: "center", padding:"0px 8px 0px 8px"}}>
-                    <NavLink href="/user/" style={{padding:"0px 0px 0px 0px"}}>
-                        <IconAccountCircle style={{color:"white"}}/>
-                    </NavLink>
-                    <NavLink href="/user/" className={"text-white"} style={{paddingLeft:"2px"}}>{this.props.authUser.displayName}</NavLink>
-                </NavItem>
-            );
-            signOut = (
-                <SignOutButton color="inherit" handleClick={this.handleClick.bind(this)}/>
-            );
-
-        }
 
         let navBarElementsNew = (
             <Nav navbar className="ml-auto" style={{fontFamily: navBarFont}}>
@@ -167,60 +148,102 @@ class NavBar extends React.Component {
             </Nav>
         );
 
+        let navBarPC= (
+            <Navbar inverse style={{backgroundColor: BG, height: this.state.height}} expand="sm">
+              <NavbarBrand href="/explore" className={"text-white"} style={{padding: "1em", fontFamily: navBarFont}}>
+              <img src={Logo_transparent} style={{height: '30px'}}/>
+              Oasys Education
+              </NavbarBrand>
+              <NavbarToggler onClick={this.toggle}/>
+              <Collapse isOpen={this.state.isOpen} style={{width:"100%"}} navbar>
+                <Media query="(max-width: 650px)">
+                  {matches =>
+                    matches ? (
+                      null
+                    ) : (
+                      <Form inline hidden={this.state.isHidden} style={{width:"100%"}}>
+                        <FormGroup className="mb-2 mr-sm-2 mb-sm-0" style={{width:"100%"}}>
+                            <Input type="text" name="search" id="search" placeholder="Search" style={{borderTopRightRadius:0, borderBottomRightRadius:0, width: "50%"}}/>
+                            <button type="submit" class="btn btn-default" style={{borderTopLeftRadius:0, borderBottomLeftRadius:0, border:"1px solid #ced4da", borderLeft:"none", backgroundColor:"#f6f6f6"}}>
+                                <img src={Search} style={{height: "20px"}}/>
+                            </button>
+                        </FormGroup>
+                      </Form>
+                    )
+                  }
+                </Media>    
+                {navBarElementsNew}
+
+              </Collapse>
+            </Navbar>
+        );
+
+        let navBarMobile =(
+         <Navbar inverse style={{backgroundColor: BG, height: "100px"}}>
+            <div style={{height:"50%", width:"100%", display:"flex", color:"White", fontFamily:navBarFont}}>
+                <div style={{flex:1, height:"100%",display:"flex", alignItems:"center"}}>
+                <img src={Logo_transparent} style={{height: '70%'}}/>
+                </div>
+                <Form inline style={{flex:6, paddingRight:"1rem"}}>
+                        <FormGroup className="mb-2 mr-sm-2 mb-sm-0" style={{width:"100%", display:"flex", alignItems:"center"}}>
+                            <Input type="text" name="search" id="search" placeholder="Search" style={{borderTopRightRadius:0, borderBottomRightRadius:0, width: "50%", flex:5}}/>
+                            <button type="submit" class="btn btn-default" style={{borderTopLeftRadius:0, borderBottomLeftRadius:0, border:"1px solid #ced4da", borderLeft:"none", backgroundColor:"#f6f6f6", flex:1}}>
+                                <img src={Search} style={{height: "20px"}}/>
+                            </button>
+                        </FormGroup>
+                      </Form>
+            </div>
+            <div style={{height:"50%", width:"100%", display:"flex"}}>
+                <div style={{flex:1, height: '100%', display:"flex", alignItems:"center", justifyContent:"center"}}>
+                    <img src={Learn} style={{height: '65%'}}/>
+                </div>
+                <div style={{flex:1, height: '100%', display:"flex", alignItems:"center", justifyContent:"center"}}>
+                    <img src={Create} style={{height: '65%'}}/>
+                </div>
+                <div style={{flex:1, height: '100%', display:"flex", alignItems:"center", justifyContent:"center"}}>
+                    <img src={User} style={{height: '65%'}}/>
+                </div>
+
+            </div>
+         </Navbar>
+
+        );
+
+        let navbar = '';
+        this.checkMobile()
+        ? navbar = navBarMobile
+        : navbar = navBarPC
 
         const {classes} = this.props;
-        alert(this.checkMobile());
         return (
         <div>
 
-        <Navbar inverse style={{backgroundColor: BG, height: this.state.height}} expand="md">
-          <NavbarBrand href="/explore" className={"text-white"} style={{padding: "1em", fontFamily: navBarFont}}>
-          <img src={Logo_transparent} style={{height: '30px'}}/>
-          Oasys Education
-          </NavbarBrand>
-          <NavbarToggler onClick={this.toggle}/>
-          <Collapse isOpen={this.state.isOpen} style={{width:"100%"}} navbar>
+       {navbar}
 
-          <Form inline hidden={this.state.isHidden} style={{width:"100%"}}>
-            <FormGroup className="mb-2 mr-sm-2 mb-sm-0" style={{width:"100%"}}>
-              <Input type="text" name="search" id="search" placeholder="Search" style={{borderTopRightRadius:0, borderBottomRightRadius:0, width: "50%"}}/>
-              <button type="submit" class="btn btn-default" style={{borderTopLeftRadius:0, borderBottomLeftRadius:0, border:"1px solid #ced4da", borderLeft:"none", backgroundColor:"#f6f6f6"}}>
-                    <img src={Search} style={{height: "20px"}}/>
-              </button>
-            </FormGroup>
-          </Form>
-                
-          {navBarElementsNew}
-
-          </Collapse>
-          <Snackbar
-                    anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'left',
-                    }}
-                    open={this.state.open}
-                    autoHideDuration={3000}
-                    onClose={this.handleClose}
-                    ContentProps={{
-                        'aria-describedby': 'message-id',
-                    }}
-                    message={<span id="message-id">Signed out successful</span>}
-                    action={[
-                        <IconButton
-                            key="close"
-                            aria-label="Close"
-                            color="inherit"
-                            className={classes.close}
-                            onClick={this.handleClose}
-                        >
-                            <CloseIcon/>
-                        </IconButton>,
-                    ]}
-                />
-
-        </Navbar>
-
-            
+        <Snackbar
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                }}
+                open={this.state.open}
+                autoHideDuration={3000}
+                onClose={this.handleClose}
+                ContentProps={{
+                    'aria-describedby': 'message-id',
+                }}
+                message={<span id="message-id">Signed out successful</span>}
+                action={[
+                    <IconButton
+                        key="close"
+                        aria-label="Close"
+                        color="inherit"
+                        className={classes.close}
+                        onClick={this.handleClose}
+                    >
+                        <CloseIcon/>
+                    </IconButton>,
+                ]}
+            />
             </div>
 
         )
