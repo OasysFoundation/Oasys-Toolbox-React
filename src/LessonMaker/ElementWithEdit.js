@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Element from './Element';
+import FadeableCard from './FadeableCard'
+
 
 const styles = {
     normal: {
@@ -51,15 +53,19 @@ class ElementWithEdit extends Component {
         const id = this.props.id;
         return (
             <div>
+
                 <section style={this.state.mode}
                          onMouseEnter={() => this.setState({mode: styles.highlight})}
                          onMouseLeave={() => this.setState({mode: styles.normal})}
                          onClick={() => this.setState({isEditing: true})}
                 >
-                    <Element data={this.props.data} id={id}
-                             isEditable={true}
-                             onProgress={this.saveToSessionStorage}
-                    />
+                    <FadeableCard>
+                        <Element data={this.props.data} id={id}
+                                 isEditable={true}
+                                 onProgress={this.saveToSessionStorage}
+                        />
+                    </FadeableCard>
+
                     {this.state.isEditing ? (<div>
                         <button onClick={() => this.props.onMove(id, -1)}> UP</button>
                         <button onClick={() => this.props.onMove(id, +1)}> Down</button>
