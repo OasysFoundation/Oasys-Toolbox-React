@@ -181,28 +181,28 @@ class NavBar extends React.Component {
         let navBarMobile =(
          <Navbar inverse style={{backgroundColor: BG, height: "100px"}}>
             <div style={{height:"50%", width:"100%", display:"flex", color:"White", fontFamily:navBarFont}}>
-                <div style={{flex:1, height:"100%",display:"flex", alignItems:"center"}}>
-                <img src={Logo_transparent} style={{height: '70%'}}/>
-                </div>
-                <Form inline style={{flex:6, paddingRight:"1rem"}}>
-                        <FormGroup className="mb-2 mr-sm-2 mb-sm-0" style={{width:"100%", display:"flex", alignItems:"center"}}>
-                            <Input type="text" name="search" id="search" placeholder="Search" style={{borderTopRightRadius:0, borderBottomRightRadius:0, width: "50%", flex:5}}/>
-                            <button type="submit" class="btn btn-default" style={{borderTopLeftRadius:0, borderBottomLeftRadius:0, border:"1px solid #ced4da", borderLeft:"none", backgroundColor:"#f6f6f6", flex:1}}>
-                                <img src={Search} style={{height: "20px"}}/>
-                            </button>
-                        </FormGroup>
-                      </Form>
+                <a href="/explore" style={{height:"100%", flex:1, display:"flex", alignItems:"center"}}>
+                    <img src={Logo_transparent} style={{height: '70%'}}/>
+                </a>
+                <Form inline style={{flex:5, paddingRight:"1rem"}}>
+                    <FormGroup className="mb-2 mr-sm-2 mb-sm-0" style={{width:"100%", display:"flex", alignItems:"center"}}>
+                        <Input type="text" name="search" id="search" placeholder="Search" style={{borderTopRightRadius:0, borderBottomRightRadius:0, width: "50%", flex:5}}/>
+                        <button type="submit" class="btn btn-default" style={{borderTopLeftRadius:0, borderBottomLeftRadius:0, border:"1px solid #ced4da", borderLeft:"none", backgroundColor:"#f6f6f6", flex:1}}>
+                            <img src={Search} style={{height: "20px"}}/>
+                        </button>
+                    </FormGroup>
+                </Form>
             </div>
             <div style={{height:"50%", width:"100%", display:"flex"}}>
-                <div style={{flex:1, height: '100%', display:"flex", alignItems:"center", justifyContent:"center"}}>
+                <a href="/explore" style={{height:"100%", flex:1, display:"flex", alignItems:"center", justifyContent:"center"}}>
                     <img src={Learn} style={{height: '65%'}}/>
-                </div>
-                <div style={{flex:1, height: '100%', display:"flex", alignItems:"center", justifyContent:"center"}}>
+                </a>
+                <a href="/create" style={{height:"100%", flex:1, display:"flex", alignItems:"center", justifyContent:"center"}}>
                     <img src={Create} style={{height: '65%'}}/>
-                </div>
-                <div style={{flex:1, height: '100%', display:"flex", alignItems:"center", justifyContent:"center"}}>
+                </a>
+                <a href="/user" style={{height:"100%", flex:1, display:"flex", alignItems:"center", justifyContent:"center"}}>
                     <img src={User} style={{height: '65%'}}/>
-                </div>
+                </a>
 
             </div>
          </Navbar>
