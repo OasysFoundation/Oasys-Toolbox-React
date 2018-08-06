@@ -169,7 +169,6 @@ class NavBar extends React.Component {
 
 
         const {classes} = this.props;
-        alert(this.checkMobile());
         return (
         <div>
 

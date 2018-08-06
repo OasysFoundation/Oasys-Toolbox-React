@@ -38,9 +38,13 @@ import Comment from './Comment'
 import Help from './Help'
 import Foxy from './Foxy'
 
-import UserPage from './UserPage'
+import UserPage from './UserPage';
+import LessonMaker from './LessonMaker/LessonMaker'
 
 import 'bootstrap/dist/css/bootstrap.css';
+import "./scss_coreui/style.css"
+import "simple-line-icons/css/simple-line-icons.css"
+// import "@coreui/icons/"
 
 
 const history = createBrowserHistory();
@@ -72,6 +76,7 @@ class Index extends Component {
                         <NavBar authUser={this.state.authUser}/>
                         <Switch>
                             <Route exact path="/" render={()=><ContentSelection/>} />
+                            <Route path="/maker" render={(props) => <LessonMaker {...props} />} />
                             <Route path="/data" render={(props)=>( this.state.authUser ? <DataViewCreator authUser={this.state.authUser} /> : null)} />
                             <Route path="/data/preview" render={(props)=>( this.state.authUser ? <DataViewCreator authUser={this.state.authUser} /> : null)} />
                             <Route path="/explore" render={(props)=>( this.state.authUser ? <ContentSelection authUser={this.state.authUser} /> : null)} />

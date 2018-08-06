@@ -43,7 +43,7 @@ class ElementWithEdit extends Component {
         //webStorage API only saves strings
         sessionStorage.setItem(
             sessionStorageKey + this.props.id,
-            JSON.stringify({data: value})
+            JSON.stringify({data: value, timestamp: Date.now()})
         )
     }
 
@@ -83,7 +83,6 @@ class ElementWithEdit extends Component {
 }
 
 ElementWithEdit.propTypes = {
-    key: PropTypes.string,
     id: PropTypes.string,
     data: PropTypes.object.isRequired,
     onDelete: PropTypes.func,
