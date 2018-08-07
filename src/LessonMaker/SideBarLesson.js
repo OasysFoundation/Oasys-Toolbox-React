@@ -10,6 +10,8 @@ import {
     AppSidebarNav,
 } from '@coreui/react';
 
+import AppSidebarToc from "./AppSidebarToc";
+
 const navParams =  {
     items: [
         {
@@ -103,6 +105,7 @@ class SideBarLesson extends Component {
                     <AppSidebarHeader/>
                     <AppSidebarForm/>
                     <AppSidebarNav navConfig={navParams} {...this.props}/>
+                    <AppSidebarToc/>
                     <AppSidebarFooter/>
                     <AppSidebarMinimizer/>
                 </AppSidebar>
