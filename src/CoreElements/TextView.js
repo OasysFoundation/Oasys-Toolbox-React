@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import katex from 'katex';
+import QuillEdit from './QuillEdit'
 
 import PropTypes from 'prop-types';
 
@@ -16,21 +17,11 @@ import {textDataQuillExample} from './exampleContents'
 class TextView extends Component {
     constructor(props) {
         super(props);
-        console.log(katex, "KATEX is here")
-        window.katex = katex;
-
-        const font = ReactQuill.Quill.import('formats/font');
-        font.whitelist = ['mirza', 'roboto', 'sofia', 'slabo', 'sailec', 'roboto', 'inconsolata', 'ubuntu'];
-        ReactQuill.Quill.register(font, true);
-
-        const fontSize = ReactQuill.Quill.import('attributors/style/size');
-        fontSize.whitelist =  ['12px', '16px', '22px', '30px', 'small', 'normal', 'large', 'huge'];
-        ReactQuill.Quill.register(fontSize, true);
     }
 
     render(){
         return (
-            <section>COOOL</section>
+            <QuillEdit data={this.props.content}/>
         )
     }
 }

@@ -52,6 +52,7 @@ class Element extends Component {
         console.log("TYPE", type)
         switch (type) {
             case globals.EDIT_QUILL:
+            console.log(this.props.data)
                 render = <TextView content={this.props.data.content}/>
                 break;
 
@@ -72,7 +73,7 @@ class Element extends Component {
     }
 
     render() {
-        const {id, content} = this.props.data;
+        const {id, content, type} = this.props.data;
         return (
             <div>
 
@@ -83,6 +84,7 @@ class Element extends Component {
                     <FadeableCard deleteMe={() => this.props.onDelete(id)}
                                   moveUp={() => this.props.onMove(id, -1)}
                                   moveDown={() => this.props.onMove(id, +1)}>
+                        {this.typeToComponent(type)}
                         <textarea value={this.state.content || content || "NO CONTENT"}
                                   onChange={(ev) => {
                                       this.setState({content: ev.target.value});

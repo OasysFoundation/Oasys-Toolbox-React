@@ -21,7 +21,7 @@ const MockData = {
                     elements: [
                         {
                             id: "asdwasd",
-                            type: "text",
+                            type: 0,
                             content: "oisdhkashdkajsdhasjkdaksdhaskdaskdhaskdhasldlkashdalskdhalskdhasldh" + "asdkhaskldhasldhaskld" + "ASDSASADSaSSD"
                         },
                         {
