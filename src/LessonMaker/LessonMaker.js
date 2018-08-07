@@ -116,7 +116,7 @@ class LessonMaker extends Component {
         const that = this;
         this.autoSaver = setInterval(function () {
             that.saveStatus()
-        }, 15000)
+        }, 20000)
         console.log('autosaver intervall : ', this.autoSaver)
     }
 

@@ -7,8 +7,8 @@ import PropTypes from 'prop-types';
 
 import {textDataQuillExample} from './exampleContents'
 
-import QillEdit from '../editor/QuillEdit'
-import QuillEditor from "../editor/QuillEdit";
+// import QillEdit from '../editor/QuillEdit'
+// import QuillEditor from "../editor/QuillEdit";
 
 
 
@@ -30,17 +30,21 @@ class TextView extends Component {
 
     render(){
         return (
-            <div id={'quill-container'}>
-                <QuillEditor onChange={this.props.onChange} slideContent={this.props.content}/>
-                <ReactQuill value={textDataQuillExample || this.props.content}
-                            // readOnly={this.props.isEditable ||true}
-                            onChange={this.props.onChange}
-                            // ref="reactQuill"
-                            // bounds={'#quill-container'}
-                            modules={TextView.modules}/>
-            </div>)
+            <section>COOOL</section>
+        )
     }
 }
+
+
+{/*<div id={'quill-container'}>*/}
+{/*<QuillEditor onChange={this.props.onChange} slideContent={this.props.content}/>*/}
+{/*<ReactQuill value={textDataQuillExample || this.props.content}*/}
+{/*// readOnly={this.props.isEditable ||true}*/}
+{/*onChange={this.props.onChange}*/}
+{/*// ref="reactQuill"*/}
+{/*// bounds={'#quill-container'}*/}
+{/*modules={TextView.modules}/>*/}
+{/*</div>)*/}
 
 TextView.modules = {
     toolbar: null
