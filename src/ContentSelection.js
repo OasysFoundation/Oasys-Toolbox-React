@@ -19,7 +19,7 @@ import {getTagsForCategory} from "./utils";
 import {Unwrap, Wrap} from "./utils"
 import ErrorLoadingContentPage from "./ErrorLoadingContentPage"
 import HorizontalScroll from './horizontal_scroll/HorizontalScroll'
-import cover from './images/cover2.png'
+import cover from './images/cover3.png'
 
 const Flexer = styled.section`
   display: flex;
@@ -111,8 +111,8 @@ class ContentSelection extends Component {
 
         return (
             <div>
-                <div style={{margin:'16px', padding:'16px', display:"flex", justifyContent:"center"}}>
-                  <img src={cover} style={{width:"80%",height:"100%"}}/>
+                <div style={{marginBottom:'16px', display:"flex", justifyContent:"center"}}>
+                  <img src={cover} style={{width:"100%",height:"100%"}}/>
                 </div>
                 <HorizontalScroll/>
                 <br/>

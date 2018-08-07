@@ -311,7 +311,7 @@ class HorizontalScroll extends Component {
                         <div ref={this.pnProductNavContents} id="pnProductNavContents" className="pn-ProductNav_Contents">
                             <a href="#physics" className="pn-ProductNav_Link" aria-selected="true">Physics</a>
                             <a href="#Chemistry" className="pn-ProductNav_Link">Chemistry</a>
-                            <a href="#Computer Science Fundamentals" className="pn-ProductNav_Link">Computer Science Fundamentals</a>
+                            <a href="#Computer Science" className="pn-ProductNav_Link">Computer Science Fundamentals</a>
                             <a href="#Biology" className="pn-ProductNav_Link">Biology</a>
                             <a href="#Mathematics" className="pn-ProductNav_Link">Mathematics</a>
                             <a href="#Statistics" className="pn-ProductNav_Link">Statistics</a>
