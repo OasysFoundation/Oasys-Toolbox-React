@@ -1,21 +1,48 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import TextView from '../CoreElements/TextView'
+import FadeableCard from './FadeableCard'
 import globals from "../globals";
+import TextView from '../CoreElements/TextView'
 
-const styling = {
-    maxWidth: 700 + 'px',
-    marginTop: 1 + 'rem',
-    minWidth: 500 + 'px',
-    marginBottom: 1 + 'rem',
-    wordBreak: 'break-all' //dafuq was this not a default in HTML
-}
+
+
+const styles = {
+    normal: {
+        cursor: 'pointer',
+        border: `1px solid blue`
+    },
+    highlight: {
+        cursor: 'pointer',
+        background: 'lightyellow',
+        border: `1px solid green`
+
+    },
+    edit: {}
+
+};
+
+
+//TODO
+//put Fade from CoreUI --> Wrap it in component to manage IN/Out state!
+
+const sessionStorageKey = `__OASYS_ID__`;
 
 class Element extends Component {
-
     constructor(props) {
         super(props);
-        // this.state = {content: null}
+        this.saveToSessionStorage = this.saveToSessionStorage.bind(this);
+    }
+
+    state = {
+        mode: styles.normal,
+        isEditing: false
+    };
+
+    onSetCondition() {
+        //save eventId linked with chapterId
+    }
+    onInteractionEvent() {
+
     }
 
     typeToComponent(type) {
@@ -25,64 +52,71 @@ class Element extends Component {
         console.log("TYPE", type)
         switch (type) {
             case globals.EDIT_QUILL:
-                render = <TextView content={this.props.content}/>
+                render = <TextView content={this.props.data.content}/>
                 break;
 
-            // case globals.EDIT_QUIZ:
-            //     render = <QuizPreview content={slide.content} sendAnalyticsToBackend={this.handleQuizSumbit.bind(this)}/>
-            //     break;
-            // case globals.EDIT_GAME:
-            //     render = <GameView url={slide.content.url}/>
-            //     break;
-            // case globals.EDIT_HYPERVIDEO:
-            //     render = <HyperVideoEdit value={slide.content} preview={true}/>
-            //     break;
-            // case globals.EDIT_SYSTEM:
-            //     render = <GameView value={slide.content} preview={true}/>
-            //     break;
             default:
                 return (<div key={"1223"}>not yet implemented ☹️</div>)
         }
         return render;
     }
 
-    onInteractionEvent() {
+    saveToSessionStorage(value) {
+        console.log('props', this.props.data.id)
 
+        //webStorage API only saves strings
+        sessionStorage.setItem(
+            sessionStorageKey + this.props.data.id,
+            JSON.stringify({content: value, timestamp: Date.now()})
+        )
     }
 
-//TODO pass down a save function and call this.props.saveToState function
     render() {
+        const id = this.props.id;
         return (
-            <section>
-                {() => this.typeToComponent(this.props.type)}
-            </section>
+            <div>
+
+                <section style={this.state.mode}
+                         onMouseEnter={() => this.setState({mode: styles.highlight})}
+                         onMouseLeave={() => this.setState({mode: styles.normal})}
+                         onClick={() => this.setState({isEditing: true})}
+                >
+                    <FadeableCard>
+                        <textarea value={this.props.content || "NO CONTENT"}
+                                  onChange={(ev) => {
+                                      this.setState({data: ev.target.value});
+                                      this.saveToSessionStorage(ev.target.value)
+                                  }}>
+                        </textarea>
+                    </FadeableCard>
+
+                    {this.state.isEditing ? (<div>
+                        <button onClick={() => this.props.onMove(id, -1)}> UP</button>
+                        <button onClick={() => this.props.onMove(id, +1)}> Down</button>
+                        <button onClick={() => this.props.onDelete(id)}>DELETE</button>
+                        <button onClick={(ev) => {
+                            //otherwise the parent sets editmode back to true
+                            ev.stopPropagation();
+                            this.setState({isEditing: false})
+                        }
+                        }
+
+                        >DONE
+                        </button>
+                    </div>) : null}
+
+
+                </section>
+            </div>
         );
     }
 }
 
-{/*<textarea*/
-}
-{/*value={this.state.data || this.props.data}*/
-}
-{/*onChange={(ev) => {*/
-}
-{/*console.log(ev.target.value)*/
-}
-{/*this.setState({data: ev.target.value})*/
-}
-{/*this.props.onProgress(ev.target.value)*/
-}
-{/*}}*/
-}
-{/*style={styling}>*/
-}
-{/*</textarea>*/
-}
-
 Element.propTypes = {
     id: PropTypes.string,
-    type: PropTypes.string,
-    data: PropTypes.object.isRequired
+    // content: PropTypes.object.isRequired,
+    onDelete: PropTypes.func,
+    onMove: PropTypes.func
 };
 
 export default Element;

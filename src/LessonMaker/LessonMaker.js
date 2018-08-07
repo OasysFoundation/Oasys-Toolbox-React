@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import SideBarLesson from "./SideBarLesson";
-import ElementWithEdit from "./ElementWithEdit";
-import Element from './Element'
+import Element from "./Element";
 import {moveEntry, withoutEntry, getObjectsByKey} from "./trickBox";
 
 import {Container} from "reactstrap"
@@ -240,7 +239,7 @@ class LessonMaker extends Component {
                     {this.state.isEditMode
                         ? elements.map(el =>
                             <section key={el.id} style={{margin: 1 + 'rem'}}>
-                                <ElementWithEdit
+                                <Element
                                     key={el.id}
                                     id={el.id}
                                     data={el.data}
