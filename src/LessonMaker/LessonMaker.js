@@ -5,6 +5,7 @@ import ElementWithEdit from "./ElementWithEdit";
 import Element from './Element'
 import {moveEntry, withoutEntry, getObjectsByKey} from "./trickBox";
 
+import {Container} from "reactstrap"
 
 //TODO put in Globals
 const oasysSessionKey = `__OASYS_ID__`;
@@ -80,7 +81,6 @@ const styling = {
 }
 
 
-
 class LessonMaker extends Component {
     constructor() {
         super();
@@ -93,8 +93,9 @@ class LessonMaker extends Component {
         //Chapter-wise --> Sidebar
         this.setActiveChapter = this.setActiveChapter.bind(this);
         this.createChapter = this.createChapter.bind(this);
+        this.createElement = this.createElement.bind(this);
 
-        this.inputChapterTitle = "chaptitledefault";
+        this.autoSaveTimer = 15000; //post state to backend every 15 seconds
     }
 
     state = {
@@ -113,10 +114,19 @@ class LessonMaker extends Component {
     componentDidMount() {
         this.inhaleSessionStorage();
         //api.getProjectsForUser().then()
+        const that = this;
+        this.autoSaver = setInterval(function () {
+            that.saveStatus()
+        }, 15000)
+        console.log('autosaver intervall : ', this.autoSaver)
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.autoSaver);
     }
 
     //TODO timestamps for restore / reject
-    inhaleSessionStorage(){
+    inhaleSessionStorage() {
         const proj = JSON.parse(JSON.stringify(this.state.project));
 
         //deep searches data and returns 1D array with objects that have an ID property
@@ -135,7 +145,8 @@ class LessonMaker extends Component {
     toggle(prop) { //used for isEditmode...
         this.setState({[prop]: !this.state[prop]})
     }
-    reverseAction(){ //go back in state versions
+
+    reverseAction() { //go back in state versions
 
     }
 
@@ -149,7 +160,12 @@ class LessonMaker extends Component {
         this.setState({project: proj})
     }
 
+    createElement(typeSelected) {
+        console.log('type::', typeSelected)
+    }
+
     saveStatus() {
+        console.log('saving status....')
         //api.saveContent
     }
 
@@ -167,7 +183,7 @@ class LessonMaker extends Component {
         const proj = JSON.parse(JSON.stringify(this.state.project));
         let chap = proj.chapters[this.state.currChapIdx];
         chap.title = value;
-        this.setState({project : proj})
+        this.setState({project: proj})
     }
 
     createChapter() {
@@ -177,7 +193,8 @@ class LessonMaker extends Component {
             {
                 id: Math.random().toFixed(36), title: this.state.project.title,
                 title: `<<< Chapter Title XYZ >>>`,
-                elements: []
+                elements: [],
+                timestamp: Date.now()
             }
         );
 
@@ -195,23 +212,30 @@ class LessonMaker extends Component {
         const activeChapter = this.state.project.chapters[this.state.currChapIdx];
         const {elements} = activeChapter;
 
+        {/*<section style={styling.all}>*/}
+
         return (
-            <section style={styling.all}>
-                <SideBarLesson onChapterChange={this.setActiveChapter}
-                               onAddChapter={this.createChapter}
-                               chapters={this.state.project.chapters}
-                               style={styling.sidebar}/>
-                <section style={styling.contentView}>
+        <div className="app-body">
+            <SideBarLesson onChapterChange={this.setActiveChapter}
+                           onAddChapter={this.createChapter}
+                           onAddElement={this.createElement}
+                           chapters={this.state.project.chapters}
+                           style={styling.sidebar}
+                           {...this.props} //router fucking needs it for CoreUI React ?>?!?!?>!
+            />
+            <main className="main">
+                <Container fluid>
+
+                    {/*<section style={styling.contentView}>*/}
                     <button
                         onClick={() => this.toggle('isEditMode')}>{this.state.isEditMode ? 'Preview' : 'Edit'}</button>
                     <input type="text"
                            name="Chapter Title"
                            onChange={(ev) => this.changeChapterTitle(ev.target.value)}
-                           // defaultValue={this.state.project.chapters[this.state.currChapIdx].title}
+                        // defaultValue={this.state.project.chapters[this.state.currChapIdx].title}
                            value={this.state.project.chapters[this.state.currChapIdx].title}
 
                     />
-                    <button onClick={() => console.log(this.inputChapterTitle) }>OK</button>
 
                     {this.state.isEditMode
                         ? elements.map(el =>
@@ -236,10 +260,12 @@ class LessonMaker extends Component {
                             </section>
                         )
                     }
-                </section>
-                {/*<Chapter chapter={this.state.activeChapter}/>*/}
-            </section>
-        )
+                    {/*</section>*/}
+                </Container>
+            </main>
+        </div>
+        // </section>
+    )
     }
 }
 
