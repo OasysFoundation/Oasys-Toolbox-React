@@ -201,19 +201,18 @@ class QuillEditor extends Component {
 	render() {
     console.log(this.props.content)
 		return (
-          <Card style={{marginLeft: "2em", marginRight: '2em', padding: '1rem', minHeight: '300px'}}>
-            <CardContent id='quill-container'>
-              <SmallToolbar />
-              <hr/>
-              <ReactQuill
-                  value={this.props.data}
-                  onChange={this.onChange}
-                  ref="reactQuill"
-                  modules={QuillEditor.modules}
-                  bounds={'#quill-container'}
-              /> 
-            </CardContent>
-          </Card>)
+        <div id='quill-container'>
+          <SmallToolbar />
+          <hr/>
+          <ReactQuill
+              value={this.props.data}
+              onChange={this.onChange}
+              ref="reactQuill"
+              modules={QuillEditor.modules}
+              bounds={'#quill-container'}
+          /> 
+        </div>
+    )
 	}
 }
 
