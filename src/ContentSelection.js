@@ -19,7 +19,7 @@ import {getTagsForCategory} from "./utils";
 import {Unwrap, Wrap} from "./utils"
 import ErrorLoadingContentPage from "./ErrorLoadingContentPage"
 import HorizontalScroll from './horizontal_scroll/HorizontalScroll'
-import cover from './images/cover.png'
+import cover from './images/cover2.png'
 
 const Flexer = styled.section`
   display: flex;
