@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './horizontal_scroll.css';
+import Button from '@material-ui/core/Button';
 
 
 class HorizontalScroll extends Component {
@@ -13,6 +14,8 @@ class HorizontalScroll extends Component {
         this.state = {
             firstLoad:true,
         }
+
+
     }
 
     render(){
@@ -302,28 +305,57 @@ class HorizontalScroll extends Component {
                 _window[addEventListener]('load', reset, 0);
             }
 
-      
 
         return(
             <div className="parent">
                 <div className="pn-ProductNav_Wrapper">
                     <nav ref={this.pnProductNav} id="pnProductNav" className="pn-ProductNav">
                         <div ref={this.pnProductNavContents} id="pnProductNavContents" className="pn-ProductNav_Contents">
-                            <a href="#physics" className="pn-ProductNav_Link" aria-selected="true">Physics</a>
-                            <a href="#Chemistry" className="pn-ProductNav_Link">Chemistry</a>
-                            <a href="#Computer Science" className="pn-ProductNav_Link">Computer Science Fundamentals</a>
-                            <a href="#Biology" className="pn-ProductNav_Link">Biology</a>
-                            <a href="#Mathematics" className="pn-ProductNav_Link">Mathematics</a>
-                            <a href="#Statistics" className="pn-ProductNav_Link">Statistics</a>
-                            <a href="#Engineering" className="pn-ProductNav_Link">Engineering</a>
-                            <a href="#Java" className="pn-ProductNav_Link">Java</a>
-                            <a href="#Python" className="pn-ProductNav_Link">Python</a>
-                            <a href="#Machine Learning" className="pn-ProductNav_Link">Machine Learning</a>
-                            <a href="#Anatomy" className="pn-ProductNav_Link">Anatomy</a>
-                            <a href="#iOs" className="pn-ProductNav_Link">iOs</a>  
-                            <a href="#Blockchain" className="pn-ProductNav_Link">Blockchain</a>  
-                            <a href="#Smart Contracts" className="pn-ProductNav_Link">Smart Contracts</a>  
-                            <a href="#Web Dev" className="pn-ProductNav_Link">Web Dev</a>  
+                            <Button size="medium" variant="contained" color="inherit" style={{textTransform: "none", backgroundColor:"#F4EFB6", borderRadius: "12px", margin:"1em 1em 1em 1em"}}>
+                              <a href="#Physics" className="pn-ProductNav_Link" aria-selected="true">Physics</a>
+                            </Button>
+                            <Button size="medium" variant="contained" color="inherit" style={{textTransform: "none", backgroundColor:"#F6F1DE", borderRadius: "12px", margin:"1em 1em 1em 1em"}}>
+                                <a href="#Chemistry" className="pn-ProductNav_Link">Chemistry</a>
+                            </Button>
+                            <Button size="medium" variant="contained" color="inherit" style={{textTransform: "none", backgroundColor:"#F4F4E8", borderRadius: "12px", margin:"1em 1em 1em 1em"}}>
+                                <a href="#Computer Science" className="pn-ProductNav_Link">Computer Science Fundamentals</a>
+                            </Button>
+                            <Button size="medium" variant="contained" color="inherit" style={{textTransform: "none", backgroundColor:"#f4efb6", borderRadius: "12px", margin:"1em 1em 1em 1em"}}>
+                                <a href="#Biology" className="pn-ProductNav_Link">Biology</a>
+                            </Button>
+                            <Button size="medium" variant="contained" color="inherit" style={{textTransform: "none", backgroundColor:"#F4F4E8", borderRadius: "12px", margin:"1em 1em 1em 1em"}}>
+                                <a href="#Mathematics" className="pn-ProductNav_Link">Mathematics</a>
+                            </Button>
+                            <Button size="medium" variant="contained" color="inherit" style={{textTransform: "none", backgroundColor:"#f4efb6", borderRadius: "12px", margin:"1em 1em 1em 1em"}}>
+                                <a href="#Statistics" className="pn-ProductNav_Link">Statistics</a>
+                            </Button>
+                            <Button size="medium" variant="contained" color="inherit" style={{textTransform: "none", backgroundColor:"#f6f1de", borderRadius: "12px", margin:"1em 1em 1em 1em"}}>
+                                <a href="#Engineering" className="pn-ProductNav_Link">Engineering</a>
+                            </Button>
+                            <Button size="medium" variant="contained" color="inherit" style={{textTransform: "none", backgroundColor:"#F4EFB6", borderRadius: "12px", margin:"1em 1em 1em 1em"}}>
+                                <a href="#Java" className="pn-ProductNav_Link">Java</a>
+                            </Button>
+                            <Button size="medium" variant="contained" color="inherit" style={{textTransform: "none", backgroundColor:"#f6f1de", borderRadius: "12px", margin:"1em 1em 1em 1em"}}>
+                                <a href="#Python" className="pn-ProductNav_Link">Python</a>
+                            </Button>
+                            <Button size="medium" variant="contained" color="inherit" style={{textTransform: "none", backgroundColor:"#f4efb6", borderRadius: "12px", margin:"1em 1em 1em 1em"}}>
+                                <a href="#Machine Learning" className="pn-ProductNav_Link">Machine Learning</a>
+                            </Button>
+                            <Button size="medium" variant="contained" color="inherit" style={{textTransform: "none", backgroundColor:"#F4F4E8", borderRadius: "12px", margin:"1em 1em 1em 1em"}}>
+                                <a href="#Anatomy" className="pn-ProductNav_Link">Anatomy</a>
+                            </Button>
+                            <Button size="medium" variant="contained" color="inherit" style={{textTransform: "none", backgroundColor:"#F6F1DE", borderRadius: "12px", margin:"1em 1em 1em 1em"}}>
+                                <a href="#iOs" className="pn-ProductNav_Link">iOs</a>  
+                            </Button>
+                            <Button size="medium" variant="contained" color="inherit" style={{textTransform: "none", backgroundColor:"#f4efb6", borderRadius: "12px", margin:"1em 1em 1em 1em"}}>
+                                <a href="#Blockchain" className="pn-ProductNav_Link">Blockchain</a>  
+                            </Button>
+                            <Button size="medium" variant="contained" color="inherit" style={{textTransform: "none", backgroundColor:"#f6f1de", borderRadius: "12px", margin:"1em 1em 1em 1em"}}>
+                                <a href="#Smart Contracts" className="pn-ProductNav_Link">Smart Contracts</a>  
+                            </Button>
+                            <Button size="medium" variant="contained" color="inherit" style={{textTransform: "none", backgroundColor:"#F4EFB6", borderRadius: "12px", margin:"1em 1em 1em 1em"}}>
+                                <a href="#Web Dev" className="pn-ProductNav_Link">Web Dev</a>  
+                            </Button>
                         <span ref={this.pnIndicator} id="pnIndicator" className="pn-ProductNav_Indicator"></span>
                         </div>
                     </nav>
