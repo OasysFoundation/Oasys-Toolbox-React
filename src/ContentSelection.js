@@ -18,6 +18,8 @@ import api from './tools'
 import {getTagsForCategory} from "./utils";
 import {Unwrap, Wrap} from "./utils"
 import ErrorLoadingContentPage from "./ErrorLoadingContentPage"
+import HorizontalScroll from './horizontal_scroll/HorizontalScroll'
+import cover from './images/cover.png'
 
 const Flexer = styled.section`
   display: flex;
@@ -109,61 +111,12 @@ class ContentSelection extends Component {
 
         return (
             <div>
-                <Paper style={{margin:'16px', padding:'16px'}}>
+                <div style={{margin:'16px', padding:'16px', display:"flex", justifyContent:"center"}}>
+                  <img src={cover} style={{width:"80%",height:"100%"}}/>
+                </div>
+                <HorizontalScroll/>
+                <br/>
 
-
-                    <center>
-                    <h2> Welcome to Oasys! </h2>
-                    <p style={{maxWidth:'450px'}}>
-                    Start your educational journey here. Search for topics you're interested in or select one of the personally curated contents below.
-                    </p>
-
-                    <FormControl style={{position:'absoulte', top:'0', left:'0', width:'15rem', padding:"0px 10px 0px 10px"}}>
-                      <Select
-                        onChange={this.handleCategoryChange.bind(this)}
-                        displayEmpty
-                        value={this.state.category}
-                      >
-                        <MenuItem value="Featured">
-                          <em>Featured Content</em>
-                        </MenuItem>
-                        <MenuItem value="Recently Added">Recently Added</MenuItem>
-                        <MenuItem value="Physics">Physics</MenuItem>
-                        <MenuItem value="Chemistry">Chemistry</MenuItem>
-                        <MenuItem value="Computer Science">Computer Science</MenuItem>
-                      </Select>
-                    </FormControl>
-
-                    <TextField
-                      id="search"
-                      label="Search…"
-                      style={{width:'15rem'}} 
-                      type="text"
-                      margin="normal"
-                      onChange={this.didChangeSearchText.bind(this)}
-                      fullWidth
-                    />
-                    <Popover
-                      open={this.state.searchText.length>0}
-                      anchorEl={this.state.searchAnchor}
-                      onClose={this.closeSearchPopup.bind(this)}
-                      disableAutoFocus={true}
-                      anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'center',
-                      }}
-                      transformOrigin={{
-                        vertical: 'top',
-                        horizontal: 'center',
-                      }}
-                    >
-                    <List>
-                    {searchListContent}
-                    </List>
-                    </Popover>
-
-                    </center>
-                </Paper>
                 <Flexer>
                     {
                       this.state.content==="errorLoadingContent"
