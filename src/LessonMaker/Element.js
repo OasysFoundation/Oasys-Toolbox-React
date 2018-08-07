@@ -2,8 +2,9 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import FadeableCard from './FadeableCard'
 import globals from "../globals";
-import TextView from '../CoreElements/TextView'
+import QuillEdit from './QuillEdit'
 
+import 'react-quill/dist/quill.snow.css';
 
 
 const styles = {
@@ -46,14 +47,12 @@ class Element extends Component {
     }
 
     typeToComponent(type) {
-
+        const {content} = this.props.data
         let render = <div>NO ELEMENT TYPE YET HERE</div>;
 
-        console.log("TYPE", type)
         switch (type) {
             case globals.EDIT_QUILL:
-            console.log(this.props.data)
-                render = <TextView content={this.props.data.content}/>
+                render = <QuillEdit data={content}/>
                 break;
 
             default:
@@ -63,8 +62,6 @@ class Element extends Component {
     }
 
     saveToSessionStorage(value) {
-        console.log('props', this.props.data.id)
-
         //webStorage API only saves strings
         sessionStorage.setItem(
             sessionStorageKey + this.props.data.id,

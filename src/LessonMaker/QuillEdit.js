@@ -2,17 +2,14 @@ import React, { Component } from 'react';
 import ReactQuill from 'react-quill';
 import Quill from 'quill';
 import PropTypes from 'prop-types';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import katex from 'katex';
-//import {ImageDrop} from 'quill-image-drop-module'
 import ImageResize from 'quill-image-resize-module-react';
 
 import 'katex/dist/katex.min.css';
 import "highlight.js/styles/atom-one-light.css";
 
 import '../styles/QuillEdit.css';
-import graphIcon from '../icons/graph.jpg';
+import graphIcon from '../assets/icons/graph.jpg';
 
 let Embed = Quill.import('blots/embed');
 
@@ -159,7 +156,6 @@ class QuillEditor extends Component {
     // define custom icons
     let icons = ReactQuill.Quill.import('ui/icons');
     icons['header']['1'] = '';
-    console.log(icons)
 
     let font = ReactQuill.Quill.import('formats/font');
     font.whitelist = ['kievit'];
@@ -199,7 +195,6 @@ class QuillEditor extends Component {
   }
 
 	render() {
-    console.log(this.props.content)
 		return (
         <div id='quill-container'>
           <SmallToolbar />

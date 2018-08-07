@@ -5,7 +5,6 @@ import './styles/index.css';
 import registerServiceWorker from './registerServiceWorker';
 import {Router, Route, Switch} from 'react-router-dom';
 import createBrowserHistory from 'history/createBrowserHistory';
-import { firebase } from './firebase';
 
 import { withRouter } from 'react-router'
 import LessonMaker from './LessonMaker/LessonMaker'
@@ -17,26 +16,8 @@ import "simple-line-icons/css/simple-line-icons.css"
 
 const history = createBrowserHistory();
 
-
-
 class Index extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            authUser: null,
-        };
-        firebase.auth.onAuthStateChanged(authUser => {
-            authUser
-            ? this.setState(() => ({ authUser }))
-            : this.setState(() => ({ authUser: "loggedOut" }));
-        });
-    }
-    componentDidMount() {
-        
-    }
-
     render() {
-        console.log("Index has run");
         return (
             <div>
                 <Router history={history}>

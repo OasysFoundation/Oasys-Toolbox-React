@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import SideBarLesson from "./SideBarLesson";
 import Element from "./Element";
-import {moveEntry, withoutEntry, getObjectsByKey} from "./trickBox";
+import {moveEntry, withoutEntry, getObjectsByKey} from "../utils/trickBox";
 
 import {Container} from "reactstrap"
 
@@ -22,7 +22,7 @@ const MockData = {
                         {
                             id: "asdwasd",
                             type: 0,
-                            content: "oisdhkashdkajsdhasjkdaksdhaskdaskdhaskdhasldlkashdalskdhalskdhasldh" + "asdkhaskldhasldhaskld" + "ASDSASADSaSSD"
+                            content: "oisdhkashdkajsdhasjkdaksdhaskdaskdhaskdhasldlkashdalskdhalskdhasldhasdkhaskldhasldhaskldASDSASADSaSSD"
                         },
                         {
                             id: "eewqqw",
@@ -117,7 +117,6 @@ class LessonMaker extends Component {
         this.autoSaver = setInterval(function () {
             that.saveStatus()
         }, 20000)
-        console.log('autosaver intervall : ', this.autoSaver)
     }
 
     componentWillUnmount() {
@@ -134,9 +133,7 @@ class LessonMaker extends Component {
         //get
         const sessionKeys = Object.keys(sessionStorage).filter(key => key.includes(oasysSessionKey))
         sessionKeys.forEach(key => {
-            console.log('found', allWithID.find(el => oasysSessionKey + el['id'] === key))
             allWithID.find(el => oasysSessionKey + el['id'] === key).content = JSON.parse(sessionStorage.getItem(key)).content;
-            console.log('storage', JSON.parse(sessionStorage.getItem(key)));
         })
         this.setState({project: proj});
     }
@@ -154,7 +151,6 @@ class LessonMaker extends Component {
         let elements = proj.chapters[this.state.currChapIdx].elements;
         const entryIdx = elements.findIndex(el => el.id === id);
 
-        console.log("entryIdx", entryIdx, id)
 
         proj.chapters[this.state.currChapIdx].elements = withoutEntry(elements, entryIdx);
 
@@ -199,8 +195,6 @@ class LessonMaker extends Component {
             }
         );
 
-        console.log(proj, "project")
-
         this.setState({project: proj})
     }
 
@@ -209,7 +203,6 @@ class LessonMaker extends Component {
     }
 
     render() {
-        console.log('render')
         const activeChapter = this.state.project.chapters[this.state.currChapIdx];
         const {elements} = activeChapter;
 

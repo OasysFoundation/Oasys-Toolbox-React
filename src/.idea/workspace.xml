@@ -17,8 +17,8 @@
       <file leaf-file-name="globals.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/globals.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" column="29" selection-start-line="6" selection-start-column="29" selection-end-line="6" selection-end-column="29" />
+            <state relative-caret-position="60">
+              <caret line="4" column="29" selection-start-line="4" selection-start-column="29" selection-end-line="4" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -26,8 +26,8 @@
       <file leaf-file-name="LessonMaker.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/LessonMaker/LessonMaker.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1680">
-              <caret line="118" column="16" selection-start-line="118" selection-start-column="16" selection-end-line="118" selection-end-column="16" />
+            <state relative-caret-position="343">
+              <caret line="24" column="126" selection-start-line="24" selection-start-column="126" selection-end-line="24" selection-end-column="126" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -35,11 +35,26 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FadeableCard.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/LessonMaker/FadeableCard.js">
+      <file leaf-file-name="trickBox.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/utils/trickBox.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="675">
-              <caret line="55" column="77" selection-start-line="55" selection-start-column="77" selection-end-line="55" selection-end-column="77" />
+            <state relative-caret-position="290">
+              <caret line="91" column="20" selection-start-line="91" selection-start-column="20" selection-end-line="91" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="api.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/api.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-2024" />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="codeExamples.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/codeExamples.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -47,20 +62,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../package.json">
+      <file leaf-file-name="Element.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/LessonMaker/Element.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="646">
-              <caret line="46" column="20" selection-start-line="46" selection-start-column="20" selection-end-line="46" selection-end-column="20" />
+            <state relative-caret-position="712">
+              <caret line="88" column="35" selection-start-line="88" selection-start-column="35" selection-end-line="88" selection-end-column="35" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="TextView.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CoreElements/TextView.js">
+        <entry file="file://$PROJECT_DIR$/LessonMaker/TextView.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="406">
-              <caret line="33" column="9" selection-start-line="33" selection-start-column="9" selection-end-line="33" selection-end-column="9" />
+            <state relative-caret-position="195">
+              <caret line="13" column="50" lean-forward="true" selection-start-line="13" selection-start-column="12" selection-end-line="13" selection-end-column="50" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -68,36 +86,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/index.js">
+      <file leaf-file-name="SideBarLesson.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/LessonMaker/SideBarLesson.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="915">
-              <caret line="61" column="47" selection-start-line="61" selection-start-column="47" selection-end-line="61" selection-end-column="47" />
+            <state relative-caret-position="204">
+              <caret line="111" lean-forward="true" selection-start-line="111" selection-end-line="125" selection-end-column="12" />
               <folding>
-                <element signature="e#0#32#0" expanded="true" />
+                <element signature="e#0#39#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.css" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/styles/index.css">
+      <file leaf-file-name="QuillEdit.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/LessonMaker/QuillEdit.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="28" column="16" selection-start-line="28" selection-start-column="16" selection-end-line="28" selection-end-column="16" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="horizontal_helpers.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/horizontal_scroll/horizontal_helpers.js">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file leaf-file-name="HorizontalScroll.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/horizontal_scroll/HorizontalScroll.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="685">
+              <caret line="177" column="6" lean-forward="true" selection-start-line="177" selection-start-column="6" selection-end-line="177" selection-end-column="6" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -116,11 +121,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>sass</find>
-      <find>key</find>
-      <find>nav-ti</find>
-      <find>app</find>
-      <find>nav-title</find>
       <find>icon-pen</find>
       <find>fade</find>
       <find>preview</find>
@@ -146,16 +146,16 @@
       <find>withoutentry</find>
       <find>index.css</find>
       <find>fonts</find>
+      <find>graphblot</find>
+      <find>babel</find>
+      <find>consol</find>
+      <find>flatten</find>
+      <find>console.log</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/QuizPreview.js" />
-        <option value="$PROJECT_DIR$/editor/QuillEdit.js" />
-        <option value="$PROJECT_DIR$/editor/QuizEdit.js" />
-        <option value="$PROJECT_DIR$/Foxy.js" />
-        <option value="$PROJECT_DIR$/stylings.js" />
         <option value="$PROJECT_DIR$/test.js" />
         <option value="$PROJECT_DIR$/../../../rererere/node_modules/fbjs/node_modules/core-js/library/es6/math.js" />
         <option value="$PROJECT_DIR$/../../scraps.js" />
@@ -190,18 +190,23 @@
         <option value="$PROJECT_DIR$/LessonMaker/ElementWithEdit.js" />
         <option value="$PROJECT_DIR$/../../../simpleoas/src/maker/LessonMaker.js" />
         <option value="$PROJECT_DIR$/LessonMaker/trickBox.js" />
-        <option value="$PROJECT_DIR$/LessonMaker/Element.js" />
         <option value="$PROJECT_DIR$/tools.js" />
-        <option value="$PROJECT_DIR$/globals.js" />
         <option value="$PROJECT_DIR$/LessonMaker/FadeableCard.js" />
         <option value="$PROJECT_DIR$/ContentView.js" />
         <option value="$PROJECT_DIR$/Rating.js" />
-        <option value="$PROJECT_DIR$/LessonMaker/LessonMaker.js" />
         <option value="$PROJECT_DIR$/../package.json" />
-        <option value="$PROJECT_DIR$/CoreElements/TextView.js" />
         <option value="$PROJECT_DIR$/NavBar.js" />
-        <option value="$PROJECT_DIR$/index.js" />
+        <option value="$PROJECT_DIR$/utils/tools.js" />
+        <option value="$PROJECT_DIR$/globals.js" />
         <option value="$PROJECT_DIR$/styles/index.css" />
+        <option value="$PROJECT_DIR$/index.js" />
+        <option value="$PROJECT_DIR$/CoreElements/TextView.js" />
+        <option value="$PROJECT_DIR$/CoreElements/QuillEdit.js" />
+        <option value="$PROJECT_DIR$/LessonMaker/LessonMaker.js" />
+        <option value="$PROJECT_DIR$/LessonMaker/exampleContents.js" />
+        <option value="$PROJECT_DIR$/utils/trickBox.js" />
+        <option value="$PROJECT_DIR$/LessonMaker/TextView.js" />
+        <option value="$PROJECT_DIR$/LessonMaker/Element.js" />
       </list>
     </option>
   </component>
@@ -246,12 +251,17 @@
             <path>
               <item name="src" type="b2602c69:ProjectViewProjectNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="CoreElements" type="462c0819:PsiDirectoryNode" />
+              <item name="LessonMaker" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="src" type="b2602c69:ProjectViewProjectNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="styles" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="src" type="b2602c69:ProjectViewProjectNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -267,6 +277,12 @@
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="Settings.JavaScript" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/utils" />
+      <recent name="$PROJECT_DIR$/LessonMaker" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -331,12 +347,12 @@
       <workItem from="1533203076458" duration="1154000" />
       <workItem from="1533566796950" duration="487000" />
       <workItem from="1533567320908" duration="21147000" />
-      <workItem from="1533651586302" duration="751000" />
+      <workItem from="1533651586302" duration="3708000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="250427000" />
+    <option name="totallyTimeSpent" value="253384000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="797" extended-state="6" />
@@ -373,45 +389,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/UserProjects.js" />
-    <entry file="file://$PROJECT_DIR$/analytics/processData.js" />
-    <entry file="file://$PROJECT_DIR$/editor/MenuBarView.js" />
-    <entry file="file://$PROJECT_DIR$/../../backend/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" column="24" selection-start-line="24" selection-start-column="4" selection-end-line="24" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../backend/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1875">
-          <caret line="125" column="25" selection-start-line="125" selection-start-column="14" selection-end-line="125" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../backend/mongo.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" selection-start-line="11" selection-end-line="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../../simpleoas/src/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="27" selection-start-line="3" selection-start-column="27" selection-end-line="3" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SimpleMediaCard.js" />
-    <entry file="file://$PROJECT_DIR$/../../../Coreui-Toolbox/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="735">
-          <caret line="49" column="53" selection-start-line="48" selection-start-column="2" selection-end-line="49" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/styles/coreui-standalone.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="10670">
@@ -423,13 +400,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret column="7" selection-start-column="7" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LessonMaker/SideBarLesson.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-179">
-          <caret line="1" column="35" selection-start-line="1" selection-start-column="35" selection-end-line="1" selection-end-column="35" />
         </state>
       </provider>
     </entry>
@@ -474,13 +444,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/editor/GameEdit.js" />
     <entry file="file://$PROJECT_DIR$/editor/HorizontalSlidePicker.js" />
-    <entry file="file://$PROJECT_DIR$/CoreElements/exampleContents.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="9" column="28" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Preview.js" />
     <entry file="file://$PROJECT_DIR$/editor/SlideEdit.js" />
     <entry file="file://$PROJECT_DIR$/editor/QuillEdit.js" />
@@ -527,30 +490,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LessonMaker/Element.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="91" column="35" selection-start-line="91" selection-start-column="35" selection-end-line="91" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LessonMaker/trickBox.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="585">
-          <caret line="39" selection-start-line="39" selection-end-line="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/globals.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="29" selection-start-line="6" selection-start-column="29" selection-end-line="6" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/horizontal_scroll/horizontal_helpers.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -566,7 +505,7 @@
     <entry file="file://$PROJECT_DIR$/LessonMaker/FadeableCard.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="675">
-          <caret line="55" column="77" selection-start-line="55" selection-start-column="77" selection-end-line="55" selection-end-column="77" />
+          <caret line="54" column="77" selection-start-line="54" selection-start-column="77" selection-end-line="54" selection-end-column="77" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
@@ -578,31 +517,11 @@
     <entry file="file://$PROJECT_DIR$/test.js" />
     <entry file="file://$PROJECT_DIR$/taucharts.min.css" />
     <entry file="file://$PROJECT_DIR$/stylings.js" />
-    <entry file="file://$PROJECT_DIR$/LessonMaker/LessonMaker.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1680">
-          <caret line="118" column="16" selection-start-line="118" selection-start-column="16" selection-end-line="118" selection-end-column="16" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/index.css" />
     <entry file="file://$PROJECT_DIR$/../package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="646">
           <caret line="46" column="20" selection-start-line="46" selection-start-column="20" selection-end-line="46" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CoreElements/TextView.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="406">
-          <caret line="33" column="9" selection-start-line="33" selection-start-column="9" selection-end-line="33" selection-end-column="9" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -613,20 +532,130 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.js">
+    <entry file="file://$PROJECT_DIR$/utils/tree.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="915">
-          <caret line="61" column="47" selection-start-line="61" selection-start-column="47" selection-end-line="61" selection-end-column="47" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
+        <state relative-caret-position="-494" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/horizontal_scroll/horizontal_scroll.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1559" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/styles/index.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
-          <caret line="28" column="16" selection-start-line="28" selection-start-column="16" selection-end-line="28" selection-end-column="16" />
+          <caret line="28" column="23" selection-start-line="28" selection-start-column="23" selection-end-line="28" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../masterOas/Oasys-Toolbox-React/config/webpack.config.dev.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3374" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../masterOas/Oasys-Toolbox-React/config/env.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../masterOas/Oasys-Toolbox-React/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="50" column="16" selection-start-line="50" selection-start-column="14" selection-end-line="50" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="25" selection-start-line="13" selection-start-column="25" selection-end-line="13" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LessonMaker/SideBarLesson.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="111" lean-forward="true" selection-start-line="111" selection-end-line="125" selection-end-column="12" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LessonMaker/QuillEdit.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="685">
+          <caret line="177" column="6" lean-forward="true" selection-start-line="177" selection-start-column="6" selection-end-line="177" selection-end-column="6" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LessonMaker/LessonMaker.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="343">
+          <caret line="24" column="126" selection-start-line="24" selection-start-column="126" selection-end-line="24" selection-end-column="126" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/tools.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="780">
+          <caret line="52" column="23" lean-forward="true" selection-end-line="52" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2024" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/globals.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="29" selection-start-line="4" selection-start-column="29" selection-end-line="4" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LessonMaker/exampleContents.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/codeExamples.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/trickBox.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="91" column="20" selection-start-line="91" selection-start-column="20" selection-end-line="91" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LessonMaker/TextView.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="50" lean-forward="true" selection-start-line="13" selection-start-column="12" selection-end-line="13" selection-end-column="50" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LessonMaker/Element.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="712">
+          <caret line="88" column="35" selection-start-line="88" selection-start-column="35" selection-end-line="88" selection-end-column="35" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

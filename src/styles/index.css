@@ -1,32 +1,32 @@
 
 @font-face {
     font-family: 'Kievit'; /*a name to be used later*/
-    src: url('../fonts/kievit_regular.ttf');
+    src: url('../assets/fonts/kievit_regular.ttf');
 }
 
 @font-face {
     font-family: 'HelveticaNeue_Light'; /*a name to be used later*/
-    src: url('../fonts/HelveticaNeue_Light.ttf');
+    src: url('../assets/fonts/HelveticaNeue_Light.ttf');
 }
 
 @font-face {
     font-family: 'SF-Pro-Display-Medium'; /*a name to be used later*/
-    src: url('../fonts/SF-Pro-Display-Medium.otf') format("opentype");
+    src: url('../assets/fonts/SF-Pro-Display-Medium.otf') format("opentype");
 }
 
 @font-face {
     font-family: 'SF-Pro-Display-Regular'; /*a name to be used later*/
-    src: url('../fonts/SF-Pro-Display-Regular.otf') format("opentype");
+    src: url('../assets/fonts/SF-Pro-Display-Regular.otf') format("opentype");
 }
 
 @font-face {
     font-family: 'SF-Pro-Text-Medium'; /*a name to be used later*/
-    src: url('../fonts/SF-Pro-Text-Medium.otf') format("opentype");
+    src: url('../assets/fonts/SF-Pro-Text-Medium.otf') format("opentype");
 }
 
 @font-face {
     font-family: 'SF-Pro-Text-Regular'; /*a name to be used later*/
-    src: url('../fonts/SF-Pro-Text-Regular.otf') format("opentype");
+    src: url('../assets/fonts/SF-Pro-Text-Regular.otf') format("opentype");
 }
 
 body {

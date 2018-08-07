@@ -1,4 +1,4 @@
-import {isEmpty} from './trickBox'
+import {isEmpty} from '../utils/trickBox'
 
 const withLoader = (propName) => (WrappedComponent) => {
     class withLoading extends Component {
