@@ -44,14 +44,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Element.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Element.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/LessonMaker/Element.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="529">
+            <state relative-caret-position="361">
               <caret line="91" column="35" selection-start-line="91" selection-start-column="35" selection-end-line="91" selection-end-column="35" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tools.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/tools.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="28" selection-start-column="28" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -114,18 +123,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Editor.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/editor/Editor.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="212">
-              <caret line="112" column="27" selection-start-line="112" selection-start-column="27" selection-end-line="112" selection-end-column="27" />
-              <folding>
-                <element signature="e#0#41#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -137,7 +134,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>coreui</find>
       <find>reactst</find>
       <find>nav-item</find>
       <find>scss</find>
@@ -167,6 +163,7 @@
       <find>card-header-</find>
       <find>card-header-action</find>
       <find>btn-setting</find>
+      <find>config</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -204,7 +201,6 @@
         <option value="$PROJECT_DIR$/UserProjects.js" />
         <option value="$PROJECT_DIR$/Rating.js" />
         <option value="$PROJECT_DIR$/../../backend/app.js" />
-        <option value="$PROJECT_DIR$/tools.js" />
         <option value="$PROJECT_DIR$/globals.js" />
         <option value="$PROJECT_DIR$/SimpleMediaCard.js" />
         <option value="$PROJECT_DIR$/editor/MenuBarView.js" />
@@ -223,6 +219,7 @@
         <option value="$PROJECT_DIR$/LessonMaker/LessonMaker.js" />
         <option value="$PROJECT_DIR$/LessonMaker/FadeableCard.js" />
         <option value="$PROJECT_DIR$/LessonMaker/Element.js" />
+        <option value="$PROJECT_DIR$/tools.js" />
       </list>
     </option>
   </component>
@@ -246,11 +243,10 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="1473" />
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="y" value="23" />
-    <option name="width" value="1741" />
-    <option name="height" value="965" />
+    <option name="width" value="1440" />
+    <option name="height" value="797" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -373,18 +369,18 @@
       <workItem from="1533199512445" duration="527000" />
       <workItem from="1533203076458" duration="1154000" />
       <workItem from="1533566796950" duration="487000" />
-      <workItem from="1533567320908" duration="16032000" />
+      <workItem from="1533567320908" duration="16370000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="244561000" />
+    <option name="totallyTimeSpent" value="244899000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1473" y="23" width="1741" height="965" extended-state="0" />
+    <frame x="0" y="23" width="1440" height="797" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18150488" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21944444" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" weight="0.32918397" />
@@ -491,13 +487,6 @@
             <element signature="e#0#41#0" expanded="true" />
             <element signature="e#789#838#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tools.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="975">
-          <caret line="66" column="6" selection-start-line="66" selection-start-column="6" selection-end-line="66" selection-end-column="6" />
         </state>
       </provider>
     </entry>
@@ -800,11 +789,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/LessonMaker/Element.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="529">
+        <state relative-caret-position="361">
           <caret line="91" column="35" selection-start-line="91" selection-start-column="35" selection-end-line="91" selection-end-column="35" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tools.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="28" selection-start-column="28" selection-end-column="28" />
         </state>
       </provider>
     </entry>
