@@ -35,7 +35,10 @@ class FadeableCard extends Component {
                             </a>
                             <a
                                 className="card-header-action btn btn-close"
-                                onClick={() => this.toggle('shouldFade')}>
+                                onClick={() => {
+                                    this.toggle('shouldFade')
+                                    this.props.deleteMe() //id is alrea
+                                }}>
                                 <i className="icon-close"></i>
                             </a>
                         </div>

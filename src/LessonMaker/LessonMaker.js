@@ -22,17 +22,17 @@ const MockData = {
                         {
                             id: "asdwasd",
                             type: "text",
-                            data: "oisdhkashdkajsdhasjkdaksdhaskdaskdhaskdhasldlkashdalskdhalskdhasldh" + "asdkhaskldhasldhaskld" + "ASDSASADSaSSD"
+                            content: "oisdhkashdkajsdhasjkdaksdhaskdaskdhaskdhasldlkashdalskdhalskdhasldh" + "asdkhaskldhasldhaskld" + "ASDSASADSaSSD"
                         },
                         {
                             id: "eewqqw",
                             type: "text",
-                            data: "YODL DI DUDLE \"YODL DI DUDLE\"YODL DI DUDLE\"YODL DI DUDLE\"YODL DI DUDLE"
+                            content: "YODL DI DUDLE \"YODL DI DUDLE\"YODL DI DUDLE\"YODL DI DUDLE\"YODL DI DUDLE"
                         },
                         {
                             id: "hibsas",
                             type: "text",
-                            data: "Wutschdi Wuuuu BABABAA BAAEMM JAYJAY WOOOHIIII Wutschdi Wuuuu BABABAA BAAEMM JAYJAY WOOOHIIIIWutschdi Wuuuu BABABAA BAAEMM JAYJAY WOOOHIIII"
+                            content: "Wutschdi Wuuuu BABABAA BAAEMM JAYJAY WOOOHIIII Wutschdi Wuuuu BABABAA BAAEMM JAYJAY WOOOHIIIIWutschdi Wuuuu BABABAA BAAEMM JAYJAY WOOOHIIII"
                         }
                     ]
 
@@ -44,7 +44,7 @@ const MockData = {
                         {
                             id: "OPPOK",
                             type: "text",
-                            data: "YOLO DOLO JOIHSADIOHOAISDHO SAIOHDOIAHSDOI ASHDOIAHD  BAAEMM JAYJAY WOOOHIIII"
+                            content: "YOLO DOLO JOIHSADIOHOAISDHO SAIOHDOIAHSDOI ASHDOIAHD  BAAEMM JAYJAY WOOOHIIII"
                         }
                     ]
 
@@ -135,7 +135,7 @@ class LessonMaker extends Component {
         const sessionKeys = Object.keys(sessionStorage).filter(key => key.includes(oasysSessionKey))
         sessionKeys.forEach(key => {
             console.log('found', allWithID.find(el => oasysSessionKey + el['id'] === key))
-            allWithID.find(el => oasysSessionKey + el['id'] === key).data = JSON.parse(sessionStorage.getItem(key)).data;
+            allWithID.find(el => oasysSessionKey + el['id'] === key).content = JSON.parse(sessionStorage.getItem(key)).content;
             console.log('storage', JSON.parse(sessionStorage.getItem(key)));
         })
         this.setState({project: proj});
@@ -153,6 +153,8 @@ class LessonMaker extends Component {
         const proj = JSON.parse(JSON.stringify(this.state.project));
         let elements = proj.chapters[this.state.currChapIdx].elements;
         const entryIdx = elements.findIndex(el => el.id === id);
+
+        console.log("entryIdx", entryIdx, id)
 
         proj.chapters[this.state.currChapIdx].elements = withoutEntry(elements, entryIdx);
 
@@ -211,60 +213,43 @@ class LessonMaker extends Component {
         const activeChapter = this.state.project.chapters[this.state.currChapIdx];
         const {elements} = activeChapter;
 
-        {/*<section style={styling.all}>*/}
+        {/*<section style={styling.all}>*/
+        }
 
         return (
-        <div className="app-body">
-            <SideBarLesson onChapterChange={this.setActiveChapter}
-                           onAddChapter={this.createChapter}
-                           onAddElement={this.createElement}
-                           chapters={this.state.project.chapters}
-                           style={styling.sidebar}
-                           {...this.props} //router fucking needs it for CoreUI React ?>?!?!?>!
-            />
-            <main className="main">
-                <Container fluid>
+            <div className="app-body">
+                <SideBarLesson onChapterChange={this.setActiveChapter}
+                               onAddChapter={this.createChapter}
+                               onAddElement={this.createElement}
+                               chapters={this.state.project.chapters}
+                               style={styling.sidebar}
+                               {...this.props} //router fucking needs it for CoreUI React ?>?!?!?>!
+                />
+                <main className="main">
+                    <Container fluid>
 
-                    {/*<section style={styling.contentView}>*/}
-                    <button
-                        onClick={() => this.toggle('isEditMode')}>{this.state.isEditMode ? 'Preview' : 'Edit'}</button>
-                    <input type="text"
-                           name="Chapter Title"
-                           onChange={(ev) => this.changeChapterTitle(ev.target.value)}
-                        // defaultValue={this.state.project.chapters[this.state.currChapIdx].title}
-                           value={this.state.project.chapters[this.state.currChapIdx].title}
+                        <button
+                            onClick={() => this.toggle('isEditMode')}>{this.state.isEditMode ? 'Preview' : 'Edit'}</button>
+                        <input type="text"
+                               name="Chapter Title"
+                               onChange={(ev) => this.changeChapterTitle(ev.target.value)}
+                            // defaultValue={this.state.project.chapters[this.state.currChapIdx].title}
+                               value={this.state.project.chapters[this.state.currChapIdx].title}
 
-                    />
-
-                    {this.state.isEditMode
-                        ? elements.map(el =>
-                            <section key={el.id} style={{margin: 1 + 'rem'}}>
-                                <Element
-                                    key={el.id}
-                                    id={el.id}
-                                    data={el.data}
-                                    onDelete={this.deleteElement}
-                                    onMove={this.moveElement}
-                                    // onSave={}
-                                />
-                            </section>
-                        )
-                        : elements.map(el =>
-                            <section key={el.id} style={{margin: 1 + 'rem'}}>
-                                <Element
-                                    id={el.id}
-                                    key={el.id}
-                                    data={el.data}
-                                />
-                            </section>
-                        )
-                    }
-                    {/*</section>*/}
-                </Container>
-            </main>
-        </div>
-        // </section>
-    )
+                        />
+                        {elements.map(el =>
+                            <Element
+                                key={el.id}
+                                id={el.id}
+                                data={el}
+                                onDelete={this.deleteElement}
+                                onMove={this.moveElement}
+                            />
+                        )}
+                    </Container>
+                </main>
+            </div>
+        )
     }
 }
 

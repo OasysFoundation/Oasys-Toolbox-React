@@ -37,10 +37,7 @@ const moveEntry = function (array, entryIndex, change) {
 function getObjectsByKey(arr, key) {
     return arr.reduce((prev, curr) => {
         const keys = Object.keys(curr);
-        console.info(`BB keys of obj`, curr, `
-            KEYS ::: ${keys}`)
         keys.forEach(k => {
-            console.log('SS key', k)
             if (Array.isArray(curr[k])) prev = prev.concat(getObjectsByKey(curr[k], key));
             if (k === key) prev = prev.concat(curr);
         });

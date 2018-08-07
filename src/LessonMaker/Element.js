@@ -72,7 +72,7 @@ class Element extends Component {
     }
 
     render() {
-        const id = this.props.id;
+        const {id, content} = this.props.data;
         return (
             <div>
 
@@ -81,10 +81,10 @@ class Element extends Component {
                          onMouseLeave={() => this.setState({mode: styles.normal})}
                          onClick={() => this.setState({isEditing: true})}
                 >
-                    <FadeableCard>
-                        <textarea value={this.props.content || "NO CONTENT"}
+                    <FadeableCard deleteMe={() => this.props.onDelete(id)}>
+                        <textarea value={this.state.content || content || "NO CONTENT"}
                                   onChange={(ev) => {
-                                      this.setState({data: ev.target.value});
+                                      this.setState({content: ev.target.value});
                                       this.saveToSessionStorage(ev.target.value)
                                   }}>
                         </textarea>
