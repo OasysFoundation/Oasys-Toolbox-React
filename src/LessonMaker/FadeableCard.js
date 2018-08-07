@@ -11,10 +11,11 @@ import {
 } from 'reactstrap';
 
 class FadeableCard extends Component {
-    state= {
+    state = {
         isOpen: true,
         shouldFade: true
     }
+
     toggle(prop) { //used for isEditmode...
         this.setState({[prop]: !this.state[prop]})
     }
@@ -26,11 +27,22 @@ class FadeableCard extends Component {
                     <CardHeader>
                         Card actions
                         <div className="card-header-actions">
-                            <a href="#" className="card-header-action btn btn-setting"><i className="icon-settings"></i></a>
+
+                            <a href="#" className="card-header-action btn btn-setting"
+                               onClick={this.props.moveUp}
+                            >
+                                <i className="icon-arrow-up-circle"></i>
+                            </a>
+
+                            <a href="#" className="card-header-action btn btn-setting"
+                               onClick={this.props.moveDown}>
+
+                                <i className="icon-arrow-down-circle"></i>
+                            </a>
                             <a
                                 className="card-header-action btn btn-minimize"
                                 data-target="#collapseExample"
-                                onClick={() =>this.toggle('isOpen')}>
+                                onClick={() => this.toggle('isOpen')}>
                                 <i className="icon-arrow-up"></i>
                             </a>
                             <a
@@ -45,7 +57,9 @@ class FadeableCard extends Component {
                     </CardHeader>
                     <Collapse isOpen={this.state.isOpen} id="collapseExample">
                         <CardBody>
+                            {/*  !! This passes the Content in between here !! */}
                             {this.props.children}
+
                         </CardBody>
                     </Collapse>
                 </Card>

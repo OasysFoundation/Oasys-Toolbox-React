@@ -35,7 +35,7 @@ class Element extends Component {
 
     state = {
         mode: styles.normal,
-        isEditing: false
+        isFocus: false
     };
 
     onSetCondition() {
@@ -79,9 +79,10 @@ class Element extends Component {
                 <section style={this.state.mode}
                          onMouseEnter={() => this.setState({mode: styles.highlight})}
                          onMouseLeave={() => this.setState({mode: styles.normal})}
-                         onClick={() => this.setState({isEditing: true})}
-                >
-                    <FadeableCard deleteMe={() => this.props.onDelete(id)}>
+                         onClick={() => this.setState({isFocus: true})}>
+                    <FadeableCard deleteMe={() => this.props.onDelete(id)}
+                                  moveUp={() => this.props.onMove(id, -1)}
+                                  moveDown={() => this.props.onMove(id, +1)}>
                         <textarea value={this.state.content || content || "NO CONTENT"}
                                   onChange={(ev) => {
                                       this.setState({content: ev.target.value});
@@ -89,23 +90,6 @@ class Element extends Component {
                                   }}>
                         </textarea>
                     </FadeableCard>
-
-                    {this.state.isEditing ? (<div>
-                        <button onClick={() => this.props.onMove(id, -1)}> UP</button>
-                        <button onClick={() => this.props.onMove(id, +1)}> Down</button>
-                        <button onClick={() => this.props.onDelete(id)}>DELETE</button>
-                        <button onClick={(ev) => {
-                            //otherwise the parent sets editmode back to true
-                            ev.stopPropagation();
-                            this.setState({isEditing: false})
-                        }
-                        }
-
-                        >DONE
-                        </button>
-                    </div>) : null}
-
-
                 </section>
             </div>
         );
