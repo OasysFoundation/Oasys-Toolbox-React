@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-
+import globals from '../globals'
 
 import {
     Card,
@@ -9,6 +9,13 @@ import {
     Collapse,
     Fade
 } from 'reactstrap';
+
+
+// console.log(globals.ICON_FONTSIZE_MIDDLE, 'fontsize')
+const ICON = function(className, fontSize=globals.ICON_FONTSIZE_MIDDLE) {
+    return <i style={{fontSize:fontSize}} className={className}> </i>;
+}
+
 
 class FadeableCard extends Component {
     state = {
@@ -31,27 +38,27 @@ class FadeableCard extends Component {
                             <a href="#" className="card-header-action btn btn-setting"
                                onClick={this.props.moveUp}
                             >
-                                <i className="icon-arrow-up-circle"></i>
+                                {ICON("icon-arrow-up-circle")}
                             </a>
 
                             <a href="#" className="card-header-action btn btn-setting"
                                onClick={this.props.moveDown}>
-
-                                <i className="icon-arrow-down-circle"></i>
+                                {ICON("icon-arrow-down-circle")}
                             </a>
                             <a
-                                className="card-header-action btn btn-minimize"
+                                className="card-header-action btn btn-setting"
                                 data-target="#collapseExample"
                                 onClick={() => this.toggle('isOpen')}>
-                                <i className="icon-arrow-up"></i>
+                                {/*minize*/}
+                                {ICON("icon-minus")}
                             </a>
                             <a
-                                className="card-header-action btn btn-close"
+                                className="card-header-action btn btn-setting"
                                 onClick={() => {
                                     this.toggle('shouldFade')
                                     this.props.deleteMe() //id is alrea
                                 }}>
-                                <i className="icon-close"></i>
+                                {ICON("icon-close")}
                             </a>
                         </div>
                     </CardHeader>
