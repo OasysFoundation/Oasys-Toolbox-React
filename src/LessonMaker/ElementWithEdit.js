@@ -45,7 +45,7 @@ class ElementWithEdit extends Component {
         //webStorage API only saves strings
         sessionStorage.setItem(
             sessionStorageKey + this.props.id,
-            JSON.stringify({data: value, timestamp: Date.now()})
+            JSON.stringify({content: value, timestamp: Date.now()})
         )
     }
 
@@ -60,7 +60,9 @@ class ElementWithEdit extends Component {
                          onClick={() => this.setState({isEditing: true})}
                 >
                     <FadeableCard>
-                        <Element data={this.props.data} id={id}
+                        <Element content={this.props.content}
+                                 type={0}
+                                 id={id}
                                  isEditable={true}
                                  onProgress={this.saveToSessionStorage}
                         />
@@ -90,7 +92,7 @@ class ElementWithEdit extends Component {
 
 ElementWithEdit.propTypes = {
     id: PropTypes.string,
-    data: PropTypes.object.isRequired,
+    // content: PropTypes.object.isRequired,
     onDelete: PropTypes.func,
     onMove: PropTypes.func
 };
