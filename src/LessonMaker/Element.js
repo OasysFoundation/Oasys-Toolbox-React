@@ -36,23 +36,34 @@ class Element extends Component {
 
     state = {
         mode: styles.normal,
+        tempContent: "",
         isFocus: false
     };
 
     onSetCondition() {
         //save eventId linked with chapterId
     }
+
+    // componentDidMount() {
+    //     this.setState({tempContent: })
+    // }
     onInteractionEvent() {
 
     }
+    //glue function between LessonMaker and Quill to add ID
+    handleChange = (value) => {
+        this.props.onChange(this.props.data.id, value);
+        this.saveToSessionStorage(value)
+    }
+
 
     typeToComponent(type) {
-        const {content} = this.props.data
+        const {content, id} = this.props.data
         let render = <div>NO ELEMENT TYPE YET HERE</div>;
 
         switch (type) {
             case globals.EDIT_QUILL:
-                render = <QuillEdit data={content}/>
+                render = <QuillEdit key={id} onChange={this.handleChange}  data={content}/>
                 break;
 
             default:
@@ -82,12 +93,6 @@ class Element extends Component {
                                   moveUp={() => this.props.onMove(id, -1)}
                                   moveDown={() => this.props.onMove(id, +1)}>
                         {this.typeToComponent(type)}
-                        <textarea value={this.state.content || content || "NO CONTENT"}
-                                  onChange={(ev) => {
-                                      this.setState({content: ev.target.value});
-                                      this.saveToSessionStorage(ev.target.value)
-                                  }}>
-                        </textarea>
                     </FadeableCard>
                 </section>
             </div>
