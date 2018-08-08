@@ -216,11 +216,25 @@ export function drawConnections(tocInfo, opt){
                 y2 -= 1;
             }
             drawArrow(x,y1,y2,opt);
+            let level1 = Math.min(tocInfo[i].level,elem.level);
+            let level2 = Math.max(tocInfo[i].level,elem.level);
+            for (let k=1; k<level2-level1; k++) {
+                drawTunnel(level1+k,x,opt);
+            }
         }
     }
 }
 
-export function svgBezier(x1,x2,y1,y2,opt) {
+export function drawTunnel(level,x,opt) {
+    let y1 = level * (opt.rectHeight + opt.gapy);
+    let y2 = y1 + opt.rectHeight;
+    console.log(y1)
+    console.log(y2)
+    document.getElementById(opt.tocId).appendChild(svgBezier(x-5,x+5,y1-6,y1+1,opt.arrowColor));
+    document.getElementById(opt.tocId).appendChild(svgBezier(x-5,x+5,y2-6,y2+1,opt.backgroundColor));
+}
+
+export function svgBezier(x1,x2,y1,y2,color) {
     // play with beziers: http://blogs.sitepointstatic.com/examples/tech/svg-curves/cubic-curve.html
     // the path command consists of the starting point specified by M followed by x and y coords
     // the C starts a bezier curve, which consists of three additional points (and their respective x and y coords): 
@@ -230,8 +244,8 @@ export function svgBezier(x1,x2,y1,y2,opt) {
     //poly.setAttribute('fill', opt.arrowColor);
     //poly.setAttribute('points', `${x1},${y1} ${x},${y2}, ${x2},${y1}`);
     let elem = document.createElementNS(NS, 'path');
-    elem.setAttribute('d', `M${x1},${y1} C${x1},${y2} ${x2},${y2} ${x2},${y1}`);
-    elem.setAttribute('fill', opt.arrowColor);
+    elem.setAttribute('d', `M${x1},${y2} C${x1},${y1} ${x2},${y1} ${x2},${y2}`);
+    elem.setAttribute('fill', color);
     return elem;
 }
 
