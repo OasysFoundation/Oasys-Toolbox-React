@@ -12,7 +12,10 @@ class AppSidebarToc extends Component {
             gapx: 5,
             gapy: 10,
             arrowOffset: 0.04, // in percent of total width
-            arrowColor: '#F8F8F4',
+            //arrowColor: '#F8F8F4',
+            arrowColor: '#aa0000',
+            arrowStroke: 4,
+            backgroundColor: '#ffffff',
             rectColorStart: '#3f51d5',
             rectColorEnd: '#3f51d5',
             rectColorDefaultFill: '#30444D',
@@ -50,7 +53,7 @@ class AppSidebarToc extends Component {
         console.log(tocInfo);
 
         tocjs.drawChapters(tocInfo, chapters, opt);
-        tocjs.drawConnections1(tocInfo, opt);
+        tocjs.drawConnections(tocInfo, opt);
     }
 
     render() {
