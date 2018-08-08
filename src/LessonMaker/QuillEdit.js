@@ -3,7 +3,7 @@ import ReactQuill from 'react-quill';
 import Quill from 'quill';
 import PropTypes from 'prop-types';
 import katex from 'katex';
-import ImageResize from 'quill-image-resize-module-react';
+//import ImageResize from 'quill-image-resize-module-react';
 
 import 'katex/dist/katex.min.css';
 import "highlight.js/styles/atom-one-light.css";
@@ -165,7 +165,7 @@ class QuillEditor extends Component {
     fontSize.whitelist =  ['21px', '22px', '30px', 'small', 'normal', 'large', 'huge'];
     ReactQuill.Quill.register(fontSize, true);
 
-    ReactQuill.Quill.register('modules/imageResize', ImageResize);
+    //ReactQuill.Quill.register('modules/imageResize', ImageResize);
     //ReactQuill.Quill.register('modules/imageDrop', ImageDrop)
 
   }
@@ -218,10 +218,10 @@ QuillEditor.modules = {
       }
     },
     //imageDrop: true,
-    imageResize: {
-      parchment: Quill.import('parchment'),
-      modules: [ 'Resize', 'DisplaySize', 'Toolbar' ]
-    }
+    //imageResize: {
+    //  parchment: Quill.import('parchment'),
+    //  modules: [ 'Resize', 'DisplaySize', 'Toolbar' ]
+    //}
   }
 
 QuillEditor.propTypes = {
