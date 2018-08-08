@@ -50,7 +50,7 @@ export function sortIntoTocLevels(tocInfo, chapters, mainPath) {
         // find element pointing to this one
         let chaps = chapters.filter(e=>e.links.indexOf(idx)>=0);
         if (chaps.length===0) {
-            throw("While building TOC, a chapter was discovered that is disconnected (" + chapters[todo[i]].title + ")")
+            throw new Error("While building TOC, a chapter was discovered that is disconnected (" + chapters[todo[i]].title + ")")
         }
         let prevElem = Math.max(0,...chaps.map(e=>e.idx).filter(e=>e<idx));
         // find first element this one points to
@@ -61,7 +61,7 @@ export function sortIntoTocLevels(tocInfo, chapters, mainPath) {
         // console.log(idx + ": " + prevElem + " - " + nextElem + " --> " + poslevs);
         // for now, always take the first possible level. Can there be none?
         if (poslevs.length===0) {
-            throw("TOC: Cannot find placement for all elements off the longest path.")
+            throw new Error("TOC: Cannot find placement for all elements off the longest path.")
         }
         addTocInfo.push({
             idx: idx,
@@ -76,7 +76,7 @@ export function sortIntoTocLevels(tocInfo, chapters, mainPath) {
     // find final element and make sure it is at the highest level
     let fin = tocInfo.filter(e=>e.links.length===0);
     if (fin.length===0 || fin.length>1) {
-        throw("While building TOC, more then one final chapter was discovered.");
+        throw new Error("While building TOC, more then one final chapter was discovered.");
     }
     fin = fin[0]
     let levels = tocInfo.map(e=>e.level);
@@ -101,17 +101,16 @@ export function reorderX(tocInfo) {
         tocInfo[i].x = allonlvl.indexOf(tocInfo[i].idx);
     }
     // set x positions of chapters
-    let allidx = tocInfo.map(e=>e.idx);
     let done = [];
     for (let i=1; i<=maxPrio; i++) {
-        let ti = tocInfo.filter(e=>e.prio == i);
+        let ti = tocInfo.filter(e=>e.prio === i);
         for (let j=0; j<ti.length; j++) {
             if (done.indexOf(ti[j].level) >= 0) {
                 continue;
             }
             done.push(ti[j].level);
             let allonlvl = tocInfo.filter(e=>e.level===ti[j].level);
-            let myx = allonlvl.map(e => e.x);
+            // let myx = allonlvl.map(e => e.x);
             for (let k=0; k<allonlvl.length; k++) {
                 let elem = allonlvl[k];
                 let otherElems = tocInfo.filter(e => e.links.indexOf(elem.idx) >= 0);
@@ -234,9 +233,9 @@ export function drawConnections2(tocInfo, opt){
             let x = Math.round(opt.totalWidth*tocInfo[i].xarrow[j]);
             let colorFill = opt.arrowColor;
             let colorStroke = opt.arrowColor;
-            let flipped = false;
+            // let flipped = false;
             if (y2<y1) {
-                flipped = true;
+                // flipped = true;
                 y2 += opt.rectHeight;
             } else {
                 y1 += opt.rectHeight;
