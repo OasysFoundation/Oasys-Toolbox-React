@@ -18,7 +18,14 @@ class HorizontalScrollButtonMaker extends Component{
 		let hashLink, aTag = "";
 
 		// for other types
-		let title,author,rating,numRatings,uniqueId,returnUrl, stars = "";
+		let title="",
+			author="",
+			rating="",
+			numRatings="",
+			uniqueId="",
+			returnUrl="",
+			stars="",
+			userLink = "";
 
 		if(this.props.type==="Tiles"){
 			hashLink="#"+this.props.data.name
@@ -28,6 +35,7 @@ class HorizontalScrollButtonMaker extends Component{
 		}
 		else{
 			title= this.props.data.title;
+			userLink = `/user/${this.props.data.userId}/${this.props.data.contentId}`
 			returnUrl = "/user/"+this.props.data.userId;
 			let rating = this.props.data.rating;
 			console.log(rating);
@@ -40,8 +48,9 @@ class HorizontalScrollButtonMaker extends Component{
 					else
 						stars += whiteStar 
 				}
-				stars+=" (12 Reviews)"
+				stars+=" (12)"
 			}
+
 		}
 
 
@@ -56,7 +65,8 @@ class HorizontalScrollButtonMaker extends Component{
             )
             : (
             	<div className="pn-ProductNav_Link" aria-selected="true">
-			      <Card backgroundColor="black" style={{whiteSpace: "initial", width:"225px", height:"250px", backgroundColor: '#F6F1DE', borderColor:"#F6F1DE", color: "#F6F1DE", maxHeight:"300px"}}>
+			      <Card backgroundColor="black" style={{whiteSpace: "initial", fontSize:"1vw", width:"175px", height:"250px", backgroundColor: '#F6F1DE', borderColor:"#F6F1DE", color: "#F6F1DE", maxHeight:"300px"}}>
+			        <a href="?ha" style={{textDecoration:"none", height:"100%"}}>
 			        <CardBody style={{width:"100%"}}>
 			          <CardTitle style={{width:"100%", color:"#C6361D",fontWeight: "bold", wordWrap: "break-word"}}>{this.props.data.title}</CardTitle>
 			          <CardSubtitle>
@@ -65,16 +75,17 @@ class HorizontalScrollButtonMaker extends Component{
 			        </CardBody>
 			        <section style={{display: "flex", justifyContent: "center", flexWrap: "wrap"}}>
 				 	<div style={{minWidth: 0, marginBottom: "5px"}}>
-	                  <img src={globe} style={{width: "auto%", maxWidth: "100%", maxHeight: "100px"}}/>
+	                  <img src={globe} style={{width: "auto%", maxWidth: "100%", maxHeight: "75px"}}/>
 	                </div>
                 	</section>
 
 
-			        <CardBody>
+			        <CardBody style={{height:"100%"}}>
 			        <CardText style={{color:"#C6361D"}}>
 			          {stars}
 			         </CardText>
 			        </CardBody>
+			        </a>
 			      </Card>
 			    </div>
             )

@@ -86,7 +86,9 @@ class HorizontalScroll extends Component {
             pnProductNav.setAttribute("data-overflowing", determineOverflow(pnProductNavContents, pnProductNav));
 
             // Set the indicator
-            moveIndicator(pnProductNav.querySelector("[aria-selected=\"true\"]"), colours[0]);
+            this.props.type=="Tiles"
+            ? moveIndicator(pnProductNav.querySelector("[aria-selected=\"true\"]"), colours[0])
+            : null
 
             // Handle the scroll of the horizontal container
             var last_known_scroll_position = 0;
