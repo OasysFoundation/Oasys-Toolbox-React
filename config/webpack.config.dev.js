@@ -262,4 +262,10 @@ module.exports = {
     performance: {
         hints: false,
     },
+    loaders: [
+        {
+            test: /\.scss$/,
+            loaders: ['style', 'css', 'sass']
+        }
+    ]
 };

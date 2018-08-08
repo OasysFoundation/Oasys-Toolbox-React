@@ -343,4 +343,11 @@ module.exports = {
         tls: 'empty',
         child_process: 'empty',
     },
+    loaders: [
+        {
+            test: /\.scss$/,
+            loaders: ['style', 'css', 'sass']
+        }
+    ]
+
 };

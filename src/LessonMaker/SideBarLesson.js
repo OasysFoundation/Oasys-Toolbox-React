@@ -69,29 +69,6 @@ const navParams =  {
             url: '/explore/coding',
             icon: 'icon-pencil',
         },
-        {
-            title: true,
-            name: 'University',
-            wrapper: {
-                element: '',
-                attributes: {},
-            },
-        },
-        {
-            name: 'Mechanical engineering',
-            url: '/explore/mechineering',
-            icon: 'icon-pencil',
-        },
-        {
-            name: 'Nanomaterials',
-            url: '/explore/nano',
-            icon: 'icon-pencil',
-        },
-        {
-            name: 'Medicine',
-            url: '/explore/medicine',
-            icon: 'icon-pencil',
-        },
     ],
 };
 
@@ -101,10 +78,10 @@ class SideBarLesson extends Component {
     render() {
         return (
 
-            <AppSidebar fixed display="lg">
+            <AppSidebar fixed display="lg" style={{width: '300px'}}>
                     <AppSidebarHeader/>
                     <AppSidebarForm/>
-                    <AppSidebarNav navConfig={navParams} {...this.props}/>
+                    <AppSidebarNav navConfig={navParams} {...this.props} style={{flex: "0 0", height: ""}}/>
                     <AppSidebarToc/>
                     <AppSidebarFooter/>
                     <AppSidebarMinimizer/>

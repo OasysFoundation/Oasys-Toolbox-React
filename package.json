@@ -54,5 +54,9 @@
     "eject": "react-scripts eject",
     "deploy": "npm run build && firebase deploy"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "css-loader": "^1.0.0",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.22.0"
+  }
 }
