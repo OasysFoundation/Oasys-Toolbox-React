@@ -200,7 +200,7 @@ export function drawChapters(tocInfo, chapters, opt) {
     }
 }
 
-export function drawConnections1(tocInfo, opt){
+export function drawConnections(tocInfo, opt){
     for (let i=0; i<tocInfo.length; i++) {
         let links = tocInfo[i].links;
         for (let j=0; j<links.length; j++) {
@@ -211,59 +211,35 @@ export function drawConnections1(tocInfo, opt){
             if (y2<y1) {
                 y1 -= 1;
                 y2 += opt.rectHeight + 1;
-                document.getElementById(opt.tocId).appendChild(svgArrow(x, y1, y2, opt.arrowColor));
             } else {
                 y1 += opt.rectHeight + 1;
                 y2 -= 1;
-                document.getElementById(opt.tocId).appendChild(svgArrow(x, y2, y1, opt.arrowColor));
             }
-            document.getElementById(opt.tocId).appendChild(svgCircle(x, y1, opt.arrowColor, opt.arrowColor));
-            document.getElementById(opt.tocId).appendChild(svgCircle(x, y2, opt.arrowColor, opt.arrowColor));
+            drawArrow(x,y1,y2,opt);
         }
     }
 }
 
-export function drawConnections2(tocInfo, opt){
-    for (let i=0; i<tocInfo.length; i++) {
-        let links = tocInfo[i].links;
-        for (let j=0; j<links.length; j++) {
-            let elem = tocInfo.filter(e=>e.idx === links[j])[0];
-            let y1 = tocInfo[i].level * (opt.gapy + opt.rectHeight);
-            let y2 = elem.level * (opt.gapy + opt.rectHeight);
-            let x = Math.round(opt.totalWidth*tocInfo[i].xarrow[j]);
-            let colorFill = opt.arrowColor;
-            let colorStroke = opt.arrowColor;
-            // let flipped = false;
-            if (y2<y1) {
-                // flipped = true;
-                y2 += opt.rectHeight;
-            } else {
-                y1 += opt.rectHeight;
-            }
-            // if (Math.abs(tocInfo[i].level-elem.level)>1) { colorStroke = opt.myOrange; }
-
-            document.getElementById(opt.tocId).appendChild(svgPoly(x,y1,colorFill,colorStroke));
-            document.getElementById(opt.tocId).appendChild(svgPoly(x,y2,'#eeeeee',colorStroke));
-        }
-    }
-}
-
-export function svgPoly(x,y,color,flipped,colorStroke) {
+export function svgBezier(x1,x2,y1,y2,opt) {
+    // play with beziers: http://blogs.sitepointstatic.com/examples/tech/svg-curves/cubic-curve.html
+    // the path command consists of the starting point specified by M followed by x and y coords
+    // the C starts a bezier curve, which consists of three additional points (and their respective x and y coords): 
+    // bezier 1, bezier 2, and end point. Have a lok at the example to understand the bezier points.
+    // <path d="M100,250 C100,100 400,100 400,250" />
     let poly = document.createElementNS(NS, 'polygon');
-    let xoff = 6;
-    let yoff = 7;
-    let ytip = y+yoff;
-    if (flipped) {
-        ytip = y-yoff;
-    }
-    poly.setAttribute('fill', color);
-    poly.setAttribute('points', `${x-xoff},${y} ${x},${ytip}, ${x+xoff},${y}`);
-    if (colorStroke!==undefined) {
-        poly.setAttribute('stroke-dasharray', 2*Math.sqrt(xoff*xoff+yoff*yoff));
-        poly.setAttribute('stroke', colorStroke);
-        poly.setAttribute('stroke-width', 2);
-    }
+    //poly.setAttribute('fill', opt.arrowColor);
+    //poly.setAttribute('points', `${x1},${y1} ${x},${y2}, ${x2},${y1}`);
     return poly;
+}
+
+export function drawArrow(x,y1,y2,opt) {
+    if (y1<y2) {
+        document.getElementById(opt.tocId).appendChild(svgArrow(x, y1-5, y2, opt));
+        document.getElementById(opt.tocId).appendChild(svgBezier(x-5, x+5, y2-3, y2+8, opt));
+    } else {
+        document.getElementById(opt.tocId).appendChild(svgArrow(x, y2-5, y1, opt));
+        document.getElementById(opt.tocId).appendChild(svgBezier(x-5, x+5, y1-3, y1+8, opt));
+    }
 }
 
 export function svgRect(obj){
@@ -296,14 +272,16 @@ export function svgText(obj) {
     return txt;
 }
 
-export function svgArrow(x,y1,y2,color) {
+export function svgArrow(x,y1,y2,opt) {
     let line = document.createElementNS(NS, 'line');
     line.setAttribute('x1',x);
     line.setAttribute('x2',x);
-    line.setAttribute('y1',y1-2);
-    line.setAttribute('y2',y2+2);
-    line.setAttribute('stroke',color);
-    line.setAttribute('stroke-width',2);
+    line.setAttribute('y1',y1);
+    line.setAttribute('y2',y2);
+    line.setAttribute('stroke',opt.arrowColor);
+    line.setAttribute('stroke-width',opt.arrowStroke);
+    line.setAttribute('stroke-dasharray', '10 35');
+    // poly.setAttribute('stroke', colorStroke);
     return line;
 }
 
