@@ -18,8 +18,8 @@ import api from './tools'
 import {getTagsForCategory} from "./utils";
 import {Unwrap, Wrap} from "./utils"
 import ErrorLoadingContentPage from "./ErrorLoadingContentPage"
-import HorizontalScroll from './horizontal_scroll/HorizontalScroll'
 import cover from './images/cover3.png'
+import LandingPageHorizontalSection from './landingPage/LandingPageHorizontalSection'
 
 const Flexer = styled.section`
   display: flex;
@@ -114,7 +114,7 @@ class ContentSelection extends Component {
                 <div style={{marginBottom:'16px', display:"flex", justifyContent:"center"}}>
                   <img src={cover} style={{width:"100%",height:"100%"}}/>
                 </div>
-                <HorizontalScroll/>
+                <LandingPageHorizontalSection/>
                 <br/>
 
                 <Flexer>

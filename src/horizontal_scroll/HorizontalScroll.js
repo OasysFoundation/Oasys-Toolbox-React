@@ -1,11 +1,19 @@
 import React, { Component } from 'react';
 import './horizontal_scroll.css';
 import Button from '@material-ui/core/Button';
+import HorizontalScrollButtonMaker from './HorizontalScrollButtonMaker'
 
 
 class HorizontalScroll extends Component {
     constructor(props) {
         super(props);
+
+        let pnProductNav = "pnProductNav" + this.props.id;
+        let pnProductNavContents = "pnProductNavContents" + this.props.id;
+        let pnIndicator = "pnIndicator" + this.props.id;
+        let pnAdvancerLeft = "pnAdvancerLeft" + this.props.id;
+        let pnAdvancerRight = "pnAdvancerRight" + this.props.id;
+
         this.pnProductNav = React.createRef();
         this.pnProductNavContents = React.createRef();
         this.pnIndicator = React.createRef();
@@ -64,7 +72,7 @@ class HorizontalScroll extends Component {
         var pnProductNav = this.pnProductNav.current;
         var pnProductNavContents = this.pnProductNavContents.current;
 
-        if(pnAdvancerLeft && pnAdvancerRight && pnIndicator && pnProductNav && pnProductNavContents && this.state.firstLoad ){
+        if(pnAdvancerLeft && pnAdvancerRight && pnIndicator && pnProductNav && pnProductNavContents && this.state.firstLoad){
             loaded=true;
             this.setState({
                 firstLoad:false,
@@ -305,57 +313,15 @@ class HorizontalScroll extends Component {
                 _window[addEventListener]('load', reset, 0);
             }
 
-
         return(
             <div className="parent">
                 <div className="pn-ProductNav_Wrapper">
-                    <nav ref={this.pnProductNav} id="pnProductNav" className="pn-ProductNav">
+                    <nav ref={this.pnProductNav} id="pnProductNav" className="pn-ProductNav">    
                         <div ref={this.pnProductNavContents} id="pnProductNavContents" className="pn-ProductNav_Contents">
-                            <Button size="medium" variant="contained" color="inherit" style={{textTransform: "none", backgroundColor:"#F4EFB6", borderRadius: "12px", margin:"1em 1em 1em 1em"}}>
-                              <a href="#Physics" className="pn-ProductNav_Link" aria-selected="true">Physics</a>
-                            </Button>
-                            <Button size="medium" variant="contained" color="inherit" style={{textTransform: "none", backgroundColor:"#F6F1DE", borderRadius: "12px", margin:"1em 1em 1em 1em"}}>
-                                <a href="#Chemistry" className="pn-ProductNav_Link">Chemistry</a>
-                            </Button>
-                            <Button size="medium" variant="contained" color="inherit" style={{textTransform: "none", backgroundColor:"#F4F4E8", borderRadius: "12px", margin:"1em 1em 1em 1em"}}>
-                                <a href="#Computer Science" className="pn-ProductNav_Link">Computer Science Fundamentals</a>
-                            </Button>
-                            <Button size="medium" variant="contained" color="inherit" style={{textTransform: "none", backgroundColor:"#f4efb6", borderRadius: "12px", margin:"1em 1em 1em 1em"}}>
-                                <a href="#Biology" className="pn-ProductNav_Link">Biology</a>
-                            </Button>
-                            <Button size="medium" variant="contained" color="inherit" style={{textTransform: "none", backgroundColor:"#F4F4E8", borderRadius: "12px", margin:"1em 1em 1em 1em"}}>
-                                <a href="#Mathematics" className="pn-ProductNav_Link">Mathematics</a>
-                            </Button>
-                            <Button size="medium" variant="contained" color="inherit" style={{textTransform: "none", backgroundColor:"#f4efb6", borderRadius: "12px", margin:"1em 1em 1em 1em"}}>
-                                <a href="#Statistics" className="pn-ProductNav_Link">Statistics</a>
-                            </Button>
-                            <Button size="medium" variant="contained" color="inherit" style={{textTransform: "none", backgroundColor:"#f6f1de", borderRadius: "12px", margin:"1em 1em 1em 1em"}}>
-                                <a href="#Engineering" className="pn-ProductNav_Link">Engineering</a>
-                            </Button>
-                            <Button size="medium" variant="contained" color="inherit" style={{textTransform: "none", backgroundColor:"#F4EFB6", borderRadius: "12px", margin:"1em 1em 1em 1em"}}>
-                                <a href="#Java" className="pn-ProductNav_Link">Java</a>
-                            </Button>
-                            <Button size="medium" variant="contained" color="inherit" style={{textTransform: "none", backgroundColor:"#f6f1de", borderRadius: "12px", margin:"1em 1em 1em 1em"}}>
-                                <a href="#Python" className="pn-ProductNav_Link">Python</a>
-                            </Button>
-                            <Button size="medium" variant="contained" color="inherit" style={{textTransform: "none", backgroundColor:"#f4efb6", borderRadius: "12px", margin:"1em 1em 1em 1em"}}>
-                                <a href="#Machine Learning" className="pn-ProductNav_Link">Machine Learning</a>
-                            </Button>
-                            <Button size="medium" variant="contained" color="inherit" style={{textTransform: "none", backgroundColor:"#F4F4E8", borderRadius: "12px", margin:"1em 1em 1em 1em"}}>
-                                <a href="#Anatomy" className="pn-ProductNav_Link">Anatomy</a>
-                            </Button>
-                            <Button size="medium" variant="contained" color="inherit" style={{textTransform: "none", backgroundColor:"#F6F1DE", borderRadius: "12px", margin:"1em 1em 1em 1em"}}>
-                                <a href="#iOs" className="pn-ProductNav_Link">iOs</a>  
-                            </Button>
-                            <Button size="medium" variant="contained" color="inherit" style={{textTransform: "none", backgroundColor:"#f4efb6", borderRadius: "12px", margin:"1em 1em 1em 1em"}}>
-                                <a href="#Blockchain" className="pn-ProductNav_Link">Blockchain</a>  
-                            </Button>
-                            <Button size="medium" variant="contained" color="inherit" style={{textTransform: "none", backgroundColor:"#f6f1de", borderRadius: "12px", margin:"1em 1em 1em 1em"}}>
-                                <a href="#Smart Contracts" className="pn-ProductNav_Link">Smart Contracts</a>  
-                            </Button>
-                            <Button size="medium" variant="contained" color="inherit" style={{textTransform: "none", backgroundColor:"#F4EFB6", borderRadius: "12px", margin:"1em 1em 1em 1em"}}>
-                                <a href="#Web Dev" className="pn-ProductNav_Link">Web Dev</a>  
-                            </Button>
+                            {this.props.data.map((myData)=>{
+                                    return (<HorizontalScrollButtonMaker data={myData} type={this.props.type}/>)
+                                })}
+                                
                         <span ref={this.pnIndicator} id="pnIndicator" className="pn-ProductNav_Indicator"></span>
                         </div>
                     </nav>
