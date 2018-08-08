@@ -2,13 +2,13 @@ import React, {Component} from 'react';
 
 import * as tocjs from '../assets/scripts/toc.js'
 
-class AppSidebarToc extends Component {
+class SidebarToc extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             height: 500,
-            width: 300,
+            width: 200,
         };
     }
 
@@ -23,7 +23,7 @@ class AppSidebarToc extends Component {
             rectHeight: 35,
             gapx: 5,
             gapy: 15,
-            arrowOffset: 0.04, // in percent of total width
+            arrowOffset: 0.05, // in percent of total width
             arrowColor: '#C3C8D4',
             arrowLongColor: '#F4EFB6',
             arrowColorReverse: '#A47D90',
@@ -79,4 +79,4 @@ class AppSidebarToc extends Component {
     }
 }
 
-export default AppSidebarToc;
+export default SidebarToc;

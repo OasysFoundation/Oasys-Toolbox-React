@@ -82,10 +82,11 @@ Kievit is a former Medium sans-serif font
 
 
 
-body {
+html, body, div, svg, text {
   margin: 0;
   padding: 0;
   font-family: 'JafBernino-Regular';
+  font-size: 0.95rem;
 }
 
 .textAlignLeft {
@@ -101,6 +102,10 @@ body {
 .oasys .card-header {
     margin: 0;
     padding: 0.25rem 0.25rem;
+}
+
+@media (min-width: 992px) {
+   
 }
 
 .oasys .sidebar .sidebar-nav {

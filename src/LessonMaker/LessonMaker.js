@@ -78,7 +78,7 @@ const styling = {
         // minWidth: 33 + '%',
         // maxWidth: 200 + 'px',
         border: `1px solid black`,
-        maxWidth: 270 + 'px',
+        //maxWidth: 270 + 'px',
         height: 100 + 'vh'
     },
     contentView: {
@@ -240,7 +240,6 @@ class LessonMaker extends Component {
                                onAddChapter={this.createChapter}
                                onAddElement={this.createElement}
                                chapters={this.state.project.chapters}
-                               style={styling.sidebar}
                                {...this.props} //router fucking needs it for CoreUI React ?>?!?!?>!
                 />
                 <main className="main">
