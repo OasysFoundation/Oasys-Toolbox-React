@@ -54,19 +54,19 @@ const api = {
     },
     getGifsForSearch(searchString) {
 
-        const promise = new Promise();
+        const promise = new Promise(function(resolve, reject) {
+            const apiKey = "eSrUzEyD4PP4I0gv7jFebYv5x7iW24kN";
+            const url = "//api.giphy.com/v1/gifs/search?q=" + searchString + "&api_key=" + apiKey;
+            
+            get(url).then(function(result) {
 
-        const apiKey = "eSrUzEyD4PP4I0gv7jFebYv5x7iW24kN";
-        const url = "//api.giphy.com/v1/gifs/search?q=" + searchString + "&api_key=" + apiKey;
-        
-        get(url).then(function(result) {
+                const gifs = result["data"].map(function(element) {
+                    return element["images"]["original"]["url"];
+                })
 
-            const gifs = result["data"].map(function(element) {
-                return element["images"]["original"]["url"];
+                resolve(gifs);
             })
-
-            promise.resolve(gifs);
-        })
+        });
 
         return promise;
     },
