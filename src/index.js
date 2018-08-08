@@ -1,7 +1,6 @@
 import {Component} from 'react';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './styles/index.css';
 import registerServiceWorker from './registerServiceWorker';
 import {Router, Route, Switch} from 'react-router-dom';
 import createBrowserHistory from 'history/createBrowserHistory';
@@ -9,9 +8,21 @@ import createBrowserHistory from 'history/createBrowserHistory';
 import { withRouter } from 'react-router'
 import LessonMaker from './LessonMaker/LessonMaker'
 
-import 'bootstrap/dist/css/bootstrap.css';
-import "./styles/scss_coreui/style.css"
 import "simple-line-icons/css/simple-line-icons.css"
+
+// these are now being loaded though style.scss
+// import './styles/index.css';
+// import 'bootstrap/dist/css/bootstrap.css';
+// import "./styles/coreui/coreui.css"
+
+// in the coreui template, the following four 4 lines are imported globally in App.js
+// import '@coreui/icons/css/coreui-icons.min.css';
+// import 'flag-icon-css/css/flag-icon.min.css';
+// import 'font-awesome/css/font-awesome.min.css';
+// import 'simple-line-icons/css/simple-line-icons.css';
+
+// Import Main styles for this application
+import './styles/style.scss'
 
 
 const history = createBrowserHistory();

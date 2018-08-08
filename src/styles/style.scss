@@ -1,0 +1,16 @@
+// If you want to override variables do it here
+//@import "variables";
+
+html {
+	background-color: #000000;
+}
+
+// Import styles
+//@import "bootstrap/dist/css/bootstrap.css";
+@import "coreui/coreui";
+
+// If you want to add something do it here
+//@import "./index.css";
+
+// ie fixes
+//@import "./coreui/ie-fix.css";
