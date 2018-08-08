@@ -223,9 +223,6 @@ class LessonMaker extends Component {
         const activeChapter = this.state.project.chapters[this.state.currChapIdx];
         const {elements} = activeChapter;
 
-        {/*<section style={styling.all}>*/
-        }
-
         return (
             <div className="app-body">
                 <SideBarLesson onChapterChange={this.setActiveChapter}
@@ -262,8 +259,5 @@ class LessonMaker extends Component {
         )
     }
 }
-
-
-LessonMaker.propTypes = {}
 
 export default LessonMaker;

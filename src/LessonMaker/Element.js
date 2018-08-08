@@ -36,7 +36,6 @@ class Element extends Component {
 
     state = {
         mode: styles.normal,
-        tempContent: "",
         isFocus: false
     };
 
