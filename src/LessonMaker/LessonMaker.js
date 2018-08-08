@@ -36,8 +36,8 @@ const MockData = {
                             content: "YODL DI DUDLE \"YODL DI DUDLE\"YODL DI DUDLE\"YODL DI DUDLE\"YODL DI DUDLE"
                         },
                         {
-                            id: "hibsas",
-                            type: "text",
+                            id: "KKOOS",
+                            type: 0,
                             content: "Wutschdi Wuuuu BABABAA BAAEMM JAYJAY WOOOHIIII Wutschdi Wuuuu BABABAA BAAEMM JAYJAY WOOOHIIIIWutschdi Wuuuu BABABAA BAAEMM JAYJAY WOOOHIIII"
                         }
                     ]
@@ -48,7 +48,7 @@ const MockData = {
                     id: "chapter_99852",
                     elements: [
                         {
-                            id: "OPPOK",
+                            id: 0,
                             type: "text",
                             content: "YOLO DOLO JOIHSADIOHOAISDHO SAIOHDOIAHSDOI ASHDOIAHD  BAAEMM JAYJAY WOOOHIIII"
                         }
@@ -99,6 +99,7 @@ class LessonMaker extends Component {
         this.setActiveChapter = this.setActiveChapter.bind(this);
         this.createChapter = this.createChapter.bind(this);
         this.createElement = this.createElement.bind(this);
+        this.onChangeContent = this.onChangeContent.bind(this);
 
         this.autoSaveTimer = 15000; //post state to backend every 15 seconds
     }
@@ -155,7 +156,7 @@ class LessonMaker extends Component {
     deleteElement(id) {
         const proj = JSON.parse(JSON.stringify(this.state.project));
         let elements = proj.chapters[this.state.currChapIdx].elements;
-        const entryIdx = elements.findIndex(el => el.id === id);
+        const entryIdx = elements.findIndex(el => el.id === id.toString());
 
 
         proj.chapters[this.state.currChapIdx].elements = withoutEntry(elements, entryIdx);
@@ -165,6 +166,22 @@ class LessonMaker extends Component {
 
     createElement(typeSelected) {
         console.log('type::', typeSelected)
+    }
+
+
+
+    onChangeContent(id, value) {
+
+        const proj = JSON.parse(JSON.stringify(this.state.project));
+        let elements = proj.chapters[this.state.currChapIdx].elements;
+
+        const elem = elements.find(el => el.id === id);
+        elem.content = value;
+        elem.timestamp = Date.now();
+
+        proj.chapters[this.state.currChapIdx].elements = elements;
+
+        this.setState({project: proj})
     }
 
     saveStatus() {
@@ -194,8 +211,8 @@ class LessonMaker extends Component {
 
         proj.chapters.push(
             {
-                id: Math.random().toFixed(36), title: this.state.project.title,
-                title: `<<< Chapter Title XYZ >>>`,
+                id: Math.random().toFixed(36),
+                title: this.state.project.title || `<<< Chapter Title XYZ >>>`,
                 elements: [],
                 timestamp: Date.now()
             }
@@ -211,9 +228,6 @@ class LessonMaker extends Component {
     render() {
         const activeChapter = this.state.project.chapters[this.state.currChapIdx];
         const {elements} = activeChapter;
-
-        {/*<section style={styling.all}>*/
-        }
 
         return (
             <div className="app-body">
@@ -239,10 +253,10 @@ class LessonMaker extends Component {
                         {elements.map(el =>
                             <Element
                                 key={el.id}
-                                id={el.id}
                                 data={el}
                                 onDelete={this.deleteElement}
                                 onMove={this.moveElement}
+                                onChange={this.onChangeContent}
                             />
                         )}
                     </Container>
@@ -251,8 +265,5 @@ class LessonMaker extends Component {
         )
     }
 }
-
-
-LessonMaker.propTypes = {}
 
 export default LessonMaker;

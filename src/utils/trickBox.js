@@ -15,8 +15,7 @@ const withoutEntry = function (arr, entryIndex) {
 const isEmpty = function(value) {
     return (
         value === undefined || value===null ||
-        (value.hasOwnProperty('length') && value.length === 0)
-        || value.constructor === Object && Object.keys(value).length === 0
+        (value.hasOwnProperty('length') && value.length === 0) || (value.constructor === Object && Object.keys(value).length === 0)
     );
 }
 
@@ -100,6 +99,8 @@ function substringInObjCount(obj, substr) {
         .filter(s => s.toLowerCase().includes(substr.trim().toLowerCase()))
         .length
 }
+
+
 
 
 

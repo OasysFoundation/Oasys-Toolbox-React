@@ -43,17 +43,27 @@ class Element extends Component {
     onSetCondition() {
         //save eventId linked with chapterId
     }
+
+    // componentDidMount() {
+    //     this.setState({tempContent: })
+    // }
     onInteractionEvent() {
 
     }
+    //glue function between LessonMaker and Quill to add ID
+    handleChange = (value) => {
+        this.props.onChange(this.props.data.id, value);
+        this.saveToSessionStorage(value)
+    }
+
 
     typeToComponent(type) {
-        const {content} = this.props.data;
+        const {content, id} = this.props.data
         let render = <div>NO ELEMENT TYPE YET HERE</div>;
 
         switch (type) {
             case globals.EDIT_QUILL:
-                render = <QuillEdit data={content}/>
+                render = <QuillEdit key={id} onChange={this.handleChange}  data={content}/>
                 break;
             case globals.EDIT_IMAGE:
                 render = <ImageEdit data={content}/>
