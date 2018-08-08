@@ -18,6 +18,7 @@ const globals = {
 	EDIT_HYPERVIDEO: 3,
 	EDIT_SYSTEM: 4,
 	EDIT_IMAGE: 5,
+	EDIT_FORMULA: 6,
 	// for module editor
 	IF_START : 0, // for module component logic: immediately after if command
 	IF_COND  : 1, // for module component logic: inside if condition (but not immediately after if command)
