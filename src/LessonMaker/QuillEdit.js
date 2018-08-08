@@ -200,7 +200,7 @@ class QuillEditor extends Component {
           <SmallToolbar />
           <hr/>
           <ReactQuill
-              onChange={this.onChange}
+              onChange={this.props.onChange}
               ref="reactQuill"
               modules={QuillEditor.modules}
               bounds={'#quill-container'}
