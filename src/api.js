@@ -53,7 +53,9 @@ const api = {
         return get(url)
     },
     getGifsForSearch(searchString) {
-        console.log("loading gifs for" + searchString);
+
+        const promise = new Promise();
+
         const apiKey = "eSrUzEyD4PP4I0gv7jFebYv5x7iW24kN";
         const url = "//api.giphy.com/v1/gifs/search?q=" + searchString + "&api_key=" + apiKey;
         
@@ -63,8 +65,10 @@ const api = {
                 return element["images"]["original"]["url"];
             })
 
-            console.log(gifs);
+            promise.resolve(gifs);
         })
+
+        return promise;
     },
     postImage(img) {
         const url = 'https://api.imgur.com/3/image';
