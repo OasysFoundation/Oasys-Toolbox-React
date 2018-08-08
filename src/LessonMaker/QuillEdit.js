@@ -164,7 +164,6 @@ class QuillEditor extends Component {
     fontSize.whitelist =  ['21px', '22px', '30px', 'small', 'normal', 'large', 'huge'];
     ReactQuill.Quill.register(fontSize, true);
 
-
   }
 
   componentDidMount() {
@@ -219,6 +218,11 @@ QuillEditor.modules = {
     //   parchment: Quill.import('parchment'),
     //   modules: [ 'Resize', 'DisplaySize', 'Toolbar' ]
     // }
+    //imageDrop: true,
+    //imageResize: {
+    //  parchment: Quill.import('parchment'),
+    //  modules: [ 'Resize', 'DisplaySize', 'Toolbar' ]
+    //}
   }
 
 QuillEditor.propTypes = {
