@@ -52,6 +52,20 @@ const api = {
         const url = `${BASE_URL}profile/${authUserID}`;
         return get(url)
     },
+    getGifsForSearch(searchString) {
+        console.log("loading gifs for" + searchString);
+        const apiKey = "eSrUzEyD4PP4I0gv7jFebYv5x7iW24kN";
+        const url = "//api.giphy.com/v1/gifs/search?q=" + searchString + "&api_key=" + apiKey;
+        
+        get(url).then(function(result) {
+
+            const gifs = result["data"].map(function(element) {
+                return element["images"]["original"]["url"];
+            })
+
+            console.log(gifs);
+        })
+    },
     postImage(img) {
         const url = 'https://api.imgur.com/3/image';
         return fetch(url, {
