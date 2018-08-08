@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import FadeableCard from './FadeableCard'
 import globals from "../globals";
 import QuillEdit from './QuillEdit'
+import ImageEdit from './ImageEdit'
 
 import 'react-quill/dist/quill.snow.css';
 
@@ -64,6 +65,9 @@ class Element extends Component {
             case globals.EDIT_QUILL:
                 render = <QuillEdit key={id} onChange={this.handleChange}  data={content}/>
                 break;
+            case globals.EDIT_IMAGE:
+                render = <ImageEdit data={content}/>
+                break;
 
             default:
                 return (<div key={"1223"}>not yet implemented ☹️</div>)
@@ -101,7 +105,7 @@ class Element extends Component {
 
 Element.propTypes = {
     id: PropTypes.string,
-    // content: PropTypes.object.isRequired,
+    //data: PropTypes.object.isRequired,
     onDelete: PropTypes.func,
     onMove: PropTypes.func
 };
