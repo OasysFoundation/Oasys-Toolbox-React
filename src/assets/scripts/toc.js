@@ -47,19 +47,22 @@ export function sortIntoTocLevels(tocInfo, chapters, mainPath) {
     let todo = Array.from(Array(chapters.length).keys()).filter(e => mainPath.indexOf(e) < 0);
     for (let i=0;i<todo.length;i++) {
         let idx = chapters[todo[i]].idx;
-        // what is the last element pointing to this one? what if it is not in the longest path?
+        // find element pointing to this one
         let chaps = chapters.filter(e=>e.links.indexOf(idx)>=0);
         if (chaps.length===0) {
             throw("While building TOC, a chapter was discovered that is disconnected (" + chapters[todo[i]].title + ")")
         }
         let prevElem = Math.max(0,...chaps.map(e=>e.idx).filter(e=>e<idx));
-        // what is the first element this one points to? what if it is not in the longest path?
+        // find first element this one points to
         let nextElem = Math.min(...chapters[idx].links.filter(e=>e>idx));
         // how many possible levels?
         let posrefs = tocInfo.map(e=>e.idx).filter(e=>e>prevElem&&e<nextElem);
         let poslevs = tocInfo.filter(e=>posrefs.indexOf(e.idx) >= 0).map(e=>e.level);
         // console.log(idx + ": " + prevElem + " - " + nextElem + " --> " + poslevs);
-        // for now, always take the first level. But what if there is none?
+        // for now, always take the first possible level. Can there be none?
+        if (poslevs.length===0) {
+            throw("TOC: Cannot find placement for all elements off the longest path.")
+        }
         addTocInfo.push({
             idx: idx,
             level: poslevs[0],
@@ -135,7 +138,7 @@ export function reorderX(tocInfo) {
     return tocInfo;
 }
 
-export function insertArrowLocs(tocInfo) {
+export function insertArrowLocs(tocInfo, opt) {
     let maxLvl = Math.max(...tocInfo.map(e=>e.level));
     let tocIdx = tocInfo.map(e=>e.idx);
     let arrowLocs = new Array(maxLvl);
@@ -151,7 +154,7 @@ export function insertArrowLocs(tocInfo) {
                 if (arrowLocs[k] === undefined) {
                     arrowLocs[k] = [loc];
                 } else {
-                    let offset = 0.04;
+                    let offset = opt.arrowOffset;
                     let sign = true;
                     let newLoc = loc;
                     while (arrowLocs[k].indexOf(newLoc) >= 0) {
@@ -159,7 +162,7 @@ export function insertArrowLocs(tocInfo) {
                         sign ? newLoc = loc + offset : newLoc = loc - offset;
                         sign = !sign;
                         if (sign) {
-                            offset += 0.04;
+                            offset += opt.arrowOffset;
                         }
                     }
                     loc = newLoc;
@@ -173,6 +176,31 @@ export function insertArrowLocs(tocInfo) {
     return tocInfo;
 }
 
+export function drawChapters(tocInfo, chapters, opt) {
+    let maxLevel = Math.max(...tocInfo.map(e=>e.level));
+    let offy = 0;
+    for (let i=0; i<=maxLevel; i++) {
+        let offx = 0;
+        let elems = tocInfo.filter(e=>e.level === i);
+        if (elems.length === 1) {
+            let myrect = {x: offx, y: offy, height: opt.rectHeight, width: opt.totalWidth, colorFill: opt.rectColorDefaultFill, colorStroke: opt.rectColorDefaultStroke};
+            document.getElementById(opt.tocId).appendChild(svgRect(myrect));
+            let mytext = {x: offx+10, y: offy+23, text: chapters[elems[0].idx].title, color: opt.textColor};
+            document.getElementById(opt.tocId).appendChild(svgText(mytext));
+        } else {
+            let rectWidth = Math.floor((opt.totalWidth - (elems.length - 1) * opt.gapx) / elems.length);
+            for (let j=0; j<elems.length; j++) {
+                let myrect = {x: offx, y: offy, height: opt.rectHeight, width: rectWidth, colorFill: opt.rectColorDefaultFill, colorStroke: opt.rectColorDefaultStroke};
+                let mytext = {x: offx+10, y: offy+23, text: chapters[elems[j].idx].title, color: opt.textColor};
+                document.getElementById(opt.tocId).appendChild(svgRect(myrect));
+                document.getElementById(opt.tocId).appendChild(svgText(mytext));
+                offx = offx + rectWidth + opt.gapx;
+            }
+        }
+        offy = offy + opt.gapy + opt.rectHeight;
+    }
+}
+
 export function drawConnections1(tocInfo, opt){
     for (let i=0; i<tocInfo.length; i++) {
         let links = tocInfo[i].links;
@@ -181,25 +209,22 @@ export function drawConnections1(tocInfo, opt){
             let y1 = tocInfo[i].level * (opt.gapy + opt.rectHeight);
             let y2 = elem.level * (opt.gapy + opt.rectHeight);
             let x = Math.round(opt.totalWidth*tocInfo[i].xarrow[j]);
-            let color = '#008800';
             if (y2<y1) {
-                color = '#880000';
                 y1 -= 1;
                 y2 += opt.rectHeight + 1;
-                document.getElementById(opt.tocId).appendChild(svgArrow(x, y1, y2, color));
+                document.getElementById(opt.tocId).appendChild(svgArrow(x, y1, y2, opt.arrowColor));
             } else {
                 y1 += opt.rectHeight + 1;
                 y2 -= 1;
-                document.getElementById(opt.tocId).appendChild(svgArrow(x, y2, y1, color));
+                document.getElementById(opt.tocId).appendChild(svgArrow(x, y2, y1, opt.arrowColor));
             }
-            document.getElementById(opt.tocId).appendChild(svgCircle(x, y1, false, color));
-            document.getElementById(opt.tocId).appendChild(svgCircle(x, y2, true, color));
+            document.getElementById(opt.tocId).appendChild(svgCircle(x, y1, opt.arrowColor, opt.arrowColor));
+            document.getElementById(opt.tocId).appendChild(svgCircle(x, y2, opt.arrowColor, opt.arrowColor));
         }
     }
 }
 
 export function drawConnections2(tocInfo, opt){
-    let count = 0;
     for (let i=0; i<tocInfo.length; i++) {
         let links = tocInfo[i].links;
         for (let j=0; j<links.length; j++) {
@@ -207,30 +232,8 @@ export function drawConnections2(tocInfo, opt){
             let y1 = tocInfo[i].level * (opt.gapy + opt.rectHeight);
             let y2 = elem.level * (opt.gapy + opt.rectHeight);
             let x = Math.round(opt.totalWidth*tocInfo[i].xarrow[j]);
-            let color = '#' + opt.allColors[count];
-            if (y2<y1) {
-                y1 -= 1;
-                y2 += opt.rectHeight + 1;
-            } else {
-                y1 += opt.rectHeight + 1;
-                y2 -= 1;
-            }
-            document.getElementById(opt.tocId).appendChild(svgCircle(x, y1, false, color));
-            document.getElementById(opt.tocId).appendChild(svgCircle(x, y2, true, color));
-            count++;
-        }
-    }
-}
-
-export function drawConnections3(tocInfo, opt){
-    for (let i=0; i<tocInfo.length; i++) {
-        let links = tocInfo[i].links;
-        for (let j=0; j<links.length; j++) {
-            let elem = tocInfo.filter(e=>e.idx === links[j])[0];
-            let y1 = tocInfo[i].level * (opt.gapy + opt.rectHeight);
-            let y2 = elem.level * (opt.gapy + opt.rectHeight);
-            let x = Math.round(opt.totalWidth*tocInfo[i].xarrow[j]);
-            let colorFill = opt.rectColorDefault;
+            let colorFill = opt.arrowColor;
+            let colorStroke = opt.arrowColor;
             let flipped = false;
             if (y2<y1) {
                 flipped = true;
@@ -238,13 +241,10 @@ export function drawConnections3(tocInfo, opt){
             } else {
                 y1 += opt.rectHeight;
             }
-            let colorStroke = undefined;
-            if (Math.abs(tocInfo[i].level-elem.level)>1) {
-                colorStroke = opt.myOrange;
-            }
+            // if (Math.abs(tocInfo[i].level-elem.level)>1) { colorStroke = opt.myOrange; }
 
-            document.getElementById(opt.tocId).appendChild(svgPoly(x,y1,colorFill,flipped,colorStroke));
-            document.getElementById(opt.tocId).appendChild(svgPoly(x,y2,'#eeeeee',flipped,colorStroke));
+            document.getElementById(opt.tocId).appendChild(svgPoly(x,y1,colorFill,colorStroke));
+            document.getElementById(opt.tocId).appendChild(svgPoly(x,y2,'#eeeeee',colorStroke));
         }
     }
 }
@@ -267,14 +267,15 @@ export function svgPoly(x,y,color,flipped,colorStroke) {
     return poly;
 }
 
-export function svgRect(x,y,h,w,idx,opt){
+export function svgRect(obj){
     let svg = document.createElementNS(NS,"rect");
-    svg.width.baseVal.value=w;
-    svg.height.baseVal.value=h;
-    svg.setAttribute("x", x);
-    svg.setAttribute("y", y);
+    svg.width.baseVal.value=obj.width;
+    svg.height.baseVal.value=obj.height;
+    svg.setAttribute("x", obj.x);
+    svg.setAttribute("y", obj.y);
     svg.setAttribute("opacity", 1.0);
-    svg.style.fill=opt.rectColorDefault;
+    svg.style.fill=obj.colorFill;
+    svg.style.stroke=obj.colorStroke;
     /*if (idx===0) {
         svg.style.fill=opt.rectColorStart;
     } else if (idx===chapters.length-1) {
@@ -285,14 +286,14 @@ export function svgRect(x,y,h,w,idx,opt){
     return svg;
 }
 
-export function svgText(x,y,text,color) {
+export function svgText(obj) {
     let txt = document.createElementNS(NS, 'text');
-    txt.setAttribute('x', x);
-    txt.setAttribute('y', y);
-    txt.setAttribute('fill', color);
+    txt.setAttribute('x', obj.x);
+    txt.setAttribute('y', obj.y);
+    txt.setAttribute('fill', obj.color);
     txt.setAttribute('font-family', 'Arial');
     txt.setAttribute('font-size', '16');
-    txt.textContent = text;
+    txt.textContent = obj.text;
     return txt;
 }
 
@@ -307,19 +308,12 @@ export function svgArrow(x,y1,y2,color) {
     return line;
 }
 
-export function svgCircle(x,y,fill,colorStroke, colorFill) {
-    if (colorFill===undefined) {
-        colorFill = colorStroke;
-    }
+export function svgCircle(x,y,colorStroke,colorFill) {
     let circle = document.createElementNS(NS, 'circle');
     circle.setAttribute('cx',x);
     circle.setAttribute('cy',y);
     circle.setAttribute('r','3');
     circle.setAttribute('stroke',colorStroke);
-    if (fill) {
-        circle.setAttribute('fill',colorFill);
-    } else {
-        circle.setAttribute('fill-opacity', 0.0);
-    }
+    circle.setAttribute('fill',colorFill);
     return circle;
 }

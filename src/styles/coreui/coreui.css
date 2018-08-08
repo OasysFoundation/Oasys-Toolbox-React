@@ -9869,8 +9869,11 @@ body {
 .app-header .navbar-nav .dropdown-menu-right {
   right: auto; }
 
+
+/* custom styles */
+
 .sidebar {
-  background: #004d40; }
+  background: #27363E; }
 
 .sidebar .nav-link.active {
   background: #00695c; }
