@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import FadeableCard from './FadeableCard'
 import globals from "../globals";
 import QuillEdit from './QuillEdit'
+import ImageEdit from './ImageEdit'
 
 import 'react-quill/dist/quill.snow.css';
 
@@ -47,12 +48,15 @@ class Element extends Component {
     }
 
     typeToComponent(type) {
-        const {content} = this.props.data
+        const {content} = this.props.data;
         let render = <div>NO ELEMENT TYPE YET HERE</div>;
 
         switch (type) {
             case globals.EDIT_QUILL:
                 render = <QuillEdit data={content}/>
+                break;
+            case globals.EDIT_IMAGE:
+                render = <ImageEdit data={content}/>
                 break;
 
             default:
@@ -82,12 +86,6 @@ class Element extends Component {
                                   moveUp={() => this.props.onMove(id, -1)}
                                   moveDown={() => this.props.onMove(id, +1)}>
                         {this.typeToComponent(type)}
-                        <textarea value={this.state.content || content || "NO CONTENT"}
-                                  onChange={(ev) => {
-                                      this.setState({content: ev.target.value});
-                                      this.saveToSessionStorage(ev.target.value)
-                                  }}>
-                        </textarea>
                     </FadeableCard>
                 </section>
             </div>
@@ -97,7 +95,7 @@ class Element extends Component {
 
 Element.propTypes = {
     id: PropTypes.string,
-    // content: PropTypes.object.isRequired,
+    //data: PropTypes.object.isRequired,
     onDelete: PropTypes.func,
     onMove: PropTypes.func
 };

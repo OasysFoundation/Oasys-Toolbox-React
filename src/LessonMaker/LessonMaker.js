@@ -25,6 +25,12 @@ const MockData = {
                             content: "oisdhkashdkajsdhasjkdaksdhaskdaskdhaskdhasldlkashdalskdhalskdhasldhasdkhaskldhasldhaskldASDSASADSaSSD"
                         },
                         {
+                            id: "asdwasd2",
+                            type: 5,
+                            content: "https://media0.giphy.com/media/l0NwFIAW8xo5VmDQc/giphy.gif"
+                        },
+                        
+                        {
                             id: "eewqqw",
                             type: "text",
                             content: "YODL DI DUDLE \"YODL DI DUDLE\"YODL DI DUDLE\"YODL DI DUDLE\"YODL DI DUDLE"
