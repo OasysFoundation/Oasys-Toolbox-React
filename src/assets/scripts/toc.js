@@ -226,19 +226,29 @@ export function svgBezier(x1,x2,y1,y2,opt) {
     // the C starts a bezier curve, which consists of three additional points (and their respective x and y coords): 
     // bezier 1, bezier 2, and end point. Have a lok at the example to understand the bezier points.
     // <path d="M100,250 C100,100 400,100 400,250" />
-    let poly = document.createElementNS(NS, 'polygon');
+    //let poly = document.createElementNS(NS, 'polygon');
     //poly.setAttribute('fill', opt.arrowColor);
     //poly.setAttribute('points', `${x1},${y1} ${x},${y2}, ${x2},${y1}`);
+    let elem = document.createElementNS(NS, 'path');
+    elem.setAttribute('d', `M${x1},${y1} C${x1},${y2} ${x2},${y2} ${x2},${y1}`);
+    elem.setAttribute('fill', opt.arrowColor);
+    return elem;
+}
+
+export function svgPoly(x,y1,y2,opt) {
+    let poly = document.createElementNS(NS, 'polygon');
+    poly.setAttribute('fill', opt.arrowColor);
+    poly.setAttribute('points', `${x-5},${y1} ${x},${y2}, ${x+5},${y1}`);
     return poly;
 }
 
 export function drawArrow(x,y1,y2,opt) {
     if (y1<y2) {
         document.getElementById(opt.tocId).appendChild(svgArrow(x, y1-5, y2, opt));
-        document.getElementById(opt.tocId).appendChild(svgBezier(x-5, x+5, y2-3, y2+8, opt));
+        document.getElementById(opt.tocId).appendChild(svgPoly(x, y2-3, y2+8, opt));
     } else {
         document.getElementById(opt.tocId).appendChild(svgArrow(x, y2-5, y1, opt));
-        document.getElementById(opt.tocId).appendChild(svgBezier(x-5, x+5, y1-3, y1+8, opt));
+        document.getElementById(opt.tocId).appendChild(svgPoly(x, y1-3, y1+8, opt));
     }
 }
 
