@@ -1,6 +1,0 @@
-Instead of Quill:
-https://github.com/ianstormtaylor/slate
-https://github.com/nikgraf/awesome-draft-js
-
-List of projects that can be used to display presentations:
-https://github.com/astefanutti/decktape
