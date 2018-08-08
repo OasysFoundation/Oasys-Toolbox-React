@@ -96,9 +96,17 @@ body {
   z-index: 9999 !important;
 }
 
-/* W CAN DEFINE CUSTOM STYLES BY PREPENDING THE CLASS SELECTION WITH ".oasys" */
+/* WE CAN DEFINE CUSTOM STYLES BY PREPENDING THE CLASS SELECTION WITH ".oasys" */
 
 .oasys .card-header {
     margin: 0;
     padding: 0.25rem 0.25rem;
+}
+
+.oasys .sidebar .sidebar-nav {
+    flex: 0 0 auto;
+}
+
+.oasys .scrollbar-container {
+    height: auto;
 }
