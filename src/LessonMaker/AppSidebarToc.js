@@ -11,9 +11,12 @@ class AppSidebarToc extends Component {
             rectHeight: 35,
             gapx: 5,
             gapy: 10,
+            arrowOffset: 0.04, // in percent of total width
+            arrowColor: '#F8F8F4',
             rectColorStart: '#3f51d5',
             rectColorEnd: '#3f51d5',
-            rectColorDefault: '#3f51d5',
+            rectColorDefaultFill: '#30444D',
+            rectColorDefaultStroke: '#626970',
             textColor: '#eeeeee',
             myOrange: '#C85C0D',
         }
@@ -42,36 +45,12 @@ class AppSidebarToc extends Component {
         let tocInfo = tocjs.prepareToc(mainPath, chapters);
         tocInfo = tocjs.sortIntoTocLevels(tocInfo, chapters, mainPath);
         tocInfo = tocjs.reorderX(tocInfo);
-        tocInfo = tocjs.insertArrowLocs(tocInfo);
+        tocInfo = tocjs.insertArrowLocs(tocInfo, opt);
 
         console.log(tocInfo);
 
-        // draw TOC
-        let maxLevel = Math.max(...tocInfo.map(e=>e.level));
-
-        // draw chapters
-        let offy = 0;
-        for (let i=0; i<=maxLevel; i++) {
-            let offx = 0;
-            let elems = tocInfo.filter(e=>e.level === i);
-            if (elems.length === 1) {
-                document.getElementById(opt.tocId).appendChild(tocjs.svgRect(offx, offy, opt.rectHeight, opt.totalWidth, chapters[elems[0].idx].idx,opt));
-                document.getElementById(opt.tocId).appendChild(tocjs.svgText(offx+10, offy+23, chapters[elems[0].idx].title, opt.textColor));
-            } else {
-                let rectWidth = Math.floor((opt.totalWidth - (elems.length - 1) * opt.gapx) / elems.length);
-                for (let j=0; j<elems.length; j++) {
-                    let a = tocjs.svgRect(offx, offy, opt.rectHeight, rectWidth, chapters[elems[j].idx].idx,opt);
-                    let b = tocjs.svgText(offx+10, offy+23, chapters[elems[j].idx].title, opt.textColor);
-                    document.getElementById(opt.tocId).appendChild(a);
-                    document.getElementById(opt.tocId).appendChild(b);
-                    offx = offx + opt.rectWidth + opt.gapx;
-                }
-            }
-            offy = offy + opt.gapy + opt.rectHeight;
-        }
-
-        // draw connections
-        tocjs.drawConnections3(tocInfo, opt);
+        tocjs.drawChapters(tocInfo, chapters, opt);
+        tocjs.drawConnections1(tocInfo, opt);
     }
 
     render() {
