@@ -1,0 +1,151 @@
+
+/* Set dropdown font-sizes */
+#toolbar-quill .ql-size span[data-label="Small"]::before {
+  font-size: 14px;
+}
+#toolbar-quill .ql-size span[data-label="Normal"]::before {
+  font-size: 16px;
+}
+#toolbar-quill .ql-size span[data-label="Large"]::before {
+  font-size: 22px;
+}
+#toolbar-quill .ql-size span[data-label="Huge"]::before {
+  font-size: 30px;
+}
+
+/* Set content font-sizes */
+.ql-font-small {
+  font-size: 14px;
+}
+.ql-font-normal {
+  font-size: 16px;
+}
+.ql-font-large {
+  font-size: 22px;
+}
+.ql-font-huge {
+  font-size: 30px;
+}
+
+
+/* Set dropdown font-families */
+#toolbar-quill .ql-font span[data-label="Arial"]::before {
+  font-family: "Arial";
+}
+#toolbar-quill .ql-font span[data-label="Bookman"]::before {
+  font-family: "Bookman";
+}
+#toolbar-quill .ql-font span[data-label="Courier"]::before {
+  font-family: "Courier";
+}
+#toolbar-quill .ql-font span[data-label="Garamond"]::before {
+  font-family: "Garamond";
+}
+#toolbar-quill .ql-font span[data-label="Georgia"]::before {
+  font-family: "Georgia";
+}
+#toolbar-quill .ql-font span[data-label="Helvetica"]::before {
+  font-family: "Helvetica";
+}
+#toolbar-quill .ql-font span[data-label="Palatino"]::before {
+  font-family: "Palatino";
+}
+#toolbar-quill .ql-font span[data-label="Times"]::before {
+  font-family: "Times";
+}
+#toolbar-quill .ql-font span[data-label="Verdana"]::before {
+  font-family: "Verdana";
+}
+
+
+/* Set content font-families */
+.ql-font-arial {
+  font-family: "Arial";
+}
+.ql-font-bookman {
+  font-family: "Bookman";
+}
+.ql-font-courier {
+  font-family: "Courier";
+}
+.ql-font-garamand {
+  font-family: "Garamond";
+}
+.ql-font-georgia {
+  font-family: "Georgia";
+}
+.ql-font-helvetica {
+  font-family: "Helvetica";
+}
+.ql-font-palatino {
+  font-family: "Palatino";
+}
+.ql-font-times {
+  font-family: "Times";
+}
+.ql-font-verdana {
+  font-family: "Verdana";
+}
+
+
+/* set quill video embed size */
+
+
+.ql-editor {
+  height: '60vh';
+}
+
+.ql-editor h1 {
+  margin-bottom: 15px;
+}
+.ql-editor p {
+  margin-bottom: 10px;
+}
+
+.ql-editor blockquote {
+  background: #f9f9f9;
+  border-left: 10px solid #ccc;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+  quotes: "\201C""\201D""\2018""\2019";
+}
+.ql-editor blockquote:before {
+  color: #ccc;
+  content: open-quote;
+  font-size: 4em;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.4em;
+}
+.ql-editor blockquote p {
+  display: inline;
+}
+
+.ql-editor img {
+  padding: 30px 0px 30px 0px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+.ql-video {
+   padding: 30px 0px 30px 0px;
+   height: 300px;
+   width: 400px;
+   display: block;
+   margin-left: auto;
+   margin-right: auto;
+}
+
+.ql-toolbar.ql-snow,
+.ql-container.ql-snow {
+  border: none;
+}
+
+.ql-container.ql-snow {
+  height: '70vh';
+  max-width: '400px';
+  font-family: "Charter-Regular"; /* default font */
+  font-size: 21px;
+}

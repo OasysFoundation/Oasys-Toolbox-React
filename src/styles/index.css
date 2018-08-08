@@ -1,0 +1,101 @@
+
+.card-header {
+    background: red;
+}
+
+@font-face {
+    font-family: 'Charter-Regular'; /* current Medium serif font */
+    src: url('../assets/fonts/Charter-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Charter-Bold'; /* current Medium serif font */
+    src: url('../assets/fonts/Charter-Bold.ttf');
+}
+
+@font-face {
+    font-family: 'Charter-Italic'; /* current Medium serif font */
+    src: url('../assets/fonts/Charter-Italic.ttf');
+}
+
+@font-face {
+    font-family: 'JafBernino-Regular'; /* current Medium sans-serif font */
+    src: url('../assets/fonts/JafBernino-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'JafBernino-Light'; /* current Medium sans-serif font */
+    src: url('../assets/fonts/JafBernino-Light.ttf');
+}
+
+@font-face {
+    font-family: 'HelveticaNeue-Light'; 
+    src: url('../assets/fonts/HelveticaNeue-Light.ttf');
+}
+
+/*
+RobotoSlab is a very popular and well design serif font
+FreightText is a former Medium serif font
+Kievit is a former Medium sans-serif font 
+
+@font-face {
+    font-family: 'RobotoSlab-Medium';  
+    src: url('../assets/fonts/RobotoSlab-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'RobotoSlab-Light';
+    src: url('../assets/fonts/RobotoSlab-Light.ttf');
+}
+
+@font-face {
+    font-family: 'FreightText-Regular'; 
+    src: url('../assets/fonts/FreightText-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'FreightText-Bold'; 
+    src: url('../assets/fonts/FreightText-Bold.ttf');
+}
+
+@font-face {
+    font-family: 'Kievit';
+    src: url('../assets/fonts/Kievit-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'SF-Pro-Display-Medium'; 
+    src: url('../assets/fonts/SF-Pro-Display-Medium.otf') format("opentype");
+}
+
+@font-face {
+    font-family: 'SF-Pro-Display-Regular';
+    src: url('../assets/fonts/SF-Pro-Display-Regular.otf') format("opentype");
+}
+
+@font-face {
+    font-family: 'SF-Pro-Text-Medium';
+    src: url('../assets/fonts/SF-Pro-Text-Medium.otf') format("opentype");
+}
+
+@font-face {
+    font-family: 'SF-Pro-Text-Regular'; 
+    src: url('../assets/fonts/SF-Pro-Text-Regular.otf') format("opentype");
+}
+*/
+
+
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'JafBernino-Regular';
+}
+
+.textAlignLeft {
+	text-align: left;
+}
+
+.ql-picker-options {
+  z-index: 9999 !important;
+}
