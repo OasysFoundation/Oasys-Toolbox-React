@@ -95,3 +95,10 @@ body {
 .ql-picker-options {
   z-index: 9999 !important;
 }
+
+/* W CAN DEFINE CUSTOM STYLES BY PREPENDING THE CLASS SELECTION WITH ".oasys" */
+
+.oasys .card-header {
+    margin: 0;
+    padding: 0.25rem 0.25rem;
+}

@@ -11,9 +11,10 @@ import LessonMaker from './LessonMaker/LessonMaker'
 import "simple-line-icons/css/simple-line-icons.css"
 
 // these are now being loaded though style.scss
-// import './styles/index.css';
+
 // import 'bootstrap/dist/css/bootstrap.css';
-// import "./styles/coreui/coreui.css"
+import "./styles/coreui/coreui.css"
+import './styles/index.css';
 
 // in the coreui template, the following four 4 lines are imported globally in App.js
 // import '@coreui/icons/css/coreui-icons.min.css';
@@ -22,7 +23,7 @@ import "simple-line-icons/css/simple-line-icons.css"
 // import 'simple-line-icons/css/simple-line-icons.css';
 
 // Import Main styles for this application
-import './styles/style.scss'
+//import './styles/style.scss'
 
 
 const history = createBrowserHistory();
@@ -30,7 +31,7 @@ const history = createBrowserHistory();
 class Index extends Component {
     render() {
         return (
-            <div>
+            <div className="oasys">
                 <Router history={history}>
                     <div>
                         {/*<NavBar authUser={this.state.authUser}/>*/}
