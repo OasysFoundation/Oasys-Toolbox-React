@@ -132,3 +132,7 @@ html, body, div, svg, text {
 .oasys .sidebar .sidebar-minimizer {
     flex: 1 0 50px;
 }
+
+.sidebar-minimized.sidebar-fixed .sidebar .svgTocWrap{
+    display: none;
+}

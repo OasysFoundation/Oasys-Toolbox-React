@@ -1,10 +1,13 @@
 import React, {Component} from 'react';
+import {Container, FormGroup, Label, Input} from "reactstrap"
+
+import {moveEntry, withoutEntry, getObjectsByKey} from "../utils/trickBox";
 import SideBarLesson from "./SideBarLesson";
 import Element from "./Element";
+import ElementAdder from './ElementAdder'
 import {moveEntry, withoutEntry, getObjectsByKey} from "../utils/trickBox";
 import {Container, FormGroup, Label, Input} from "reactstrap"
 import globals from '../globals'
-import ElementAdder from './ElementAdder'
 
 //TODO put in Globals
 const oasysSessionKey = `__OASYS_ID__`;
@@ -34,7 +37,31 @@ const MockData = {
                         {
                             id: "aaaaaa2222222",
                             type: globals.EDIT_QUIZ,
-                            content: "TBD"
+                            content: {
+                                question: "how you do i asked???",
+                                answers: [
+                                    {
+                                        "title": "1 dudeldi dumm da da",
+                                        "image": "",
+                                        "correct": false
+                                    },
+                                    {
+                                        "title": "2 ladi do dari",
+                                        "image": "",
+                                        "correct": false
+                                    },
+                                    {
+                                        "title": "3 schub di dubidu",
+                                        "image": "",
+                                        "correct": false
+                                    },
+                                    {
+                                        "title": "4 nudelholz – Dies ist die Geschichte von Albrecht, dem kleinen Gecko.",
+                                        "image": "",
+                                        "correct": false
+                                    }
+                                ]
+                            }
                         },
                         {
                             id: "aaaaaa222",

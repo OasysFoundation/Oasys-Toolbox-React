@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+//import rangesliderJs from 'rangeslider-js'
 
 import api from '../api'
 
@@ -10,6 +11,7 @@ import "nouislider/distribute/nouislider.css";
 class VideoEdit extends Component {
 
     componentDidMount(){
+        //rangesliderJs.create(document.querySelectorAll('input[type="range"]'));
     }
 
     onSlide(render, handle, value, un, percent){

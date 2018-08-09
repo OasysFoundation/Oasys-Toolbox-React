@@ -30,7 +30,7 @@ class FormulaEdit extends Component {
         return (
             <div>
             	<InputGroup>
-			        <InputGroupAddon addonType="prepend">@</InputGroupAddon>
+			        <InputGroupAddon addonType="prepend">🏎</InputGroupAddon>
 			        <Input placeholder="formula" onChange={this.onChangedSearchTerm.bind(this)}/>
 		        </InputGroup>
             	<center>

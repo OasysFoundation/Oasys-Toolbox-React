@@ -6,8 +6,12 @@ import { Button } from 'reactstrap';
 
 import PropTypes from 'prop-types';
 import api from '../api'
+import globals from '../globals'
 
 
+const ICON = function(className, fontSize=globals.ICON_FONTSIZE_MIDDLE) {
+    return <i style={{fontSize:fontSize}} className={className}> </i>;
+}
 
 //this is the new "Preview" Component
 class ImageEdit extends Component {
@@ -46,7 +50,7 @@ class ImageEdit extends Component {
         return (
             <div>
             	<InputGroup>
-			        <InputGroupAddon addonType="prepend">@</InputGroupAddon>
+			        <InputGroupAddon addonType="prepend">🖼</InputGroupAddon>
 			        <Input placeholder="search term" onChange={this.onChangedSearchTerm.bind(this)}/>
 		        </InputGroup>
 		        <Button color="primary" onClick={this.onClickButton.bind(this)}>Search GIFs</Button>
