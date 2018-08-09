@@ -181,18 +181,28 @@ export function drawChapters(tocInfo, chapters, opt) {
     for (let i=0; i<=maxLevel; i++) {
         let offx = 0;
         let elems = tocInfo.filter(e=>e.level === i);
+        let info = {
+            x: offx, 
+            y: offy,  
+            width: opt.totalWidth, 
+            text: chapters[elems[0].idx].title,
+        };
         if (elems.length === 1) {
-            let myrect = {x: offx, y: offy, height: opt.rectHeight, width: opt.totalWidth, colorFill: opt.rectColorDefaultFill, colorStroke: opt.rectColorDefaultStroke};
-            document.getElementById(opt.tocId).appendChild(svgRect(myrect,elems[0].idx,opt.handler));
-            let mytext = {x: offx+10, y: offy+23, text: chapters[elems[0].idx].title, color: opt.textColor};
-            document.getElementById(opt.tocId).appendChild(svgText(mytext,elems[0].idx,opt.handler));
+            info.x = offx;
+            info.y = offy;
+            info.width = opt.totalWidth;
+            info.text = chapters[elems[0].idx].title;
+            document.getElementById(opt.tocId).appendChild(svgRect(info,elems[0].idx,opt));
+            document.getElementById(opt.tocId).appendChild(svgText(info,elems[0].idx,opt));
         } else {
             let rectWidth = Math.floor((opt.totalWidth - (elems.length - 1) * opt.gapx) / elems.length);
             for (let j=0; j<elems.length; j++) {
-                let myrect = {x: offx, y: offy, height: opt.rectHeight, width: rectWidth, colorFill: opt.rectColorDefaultFill, colorStroke: opt.rectColorDefaultStroke};
-                let mytext = {x: offx+10, y: offy+23, text: chapters[elems[j].idx].title, color: opt.textColor};
-                document.getElementById(opt.tocId).appendChild(svgRect(myrect,elems[j].idx,opt.handler));
-                document.getElementById(opt.tocId).appendChild(svgText(mytext,elems[0].idx,opt.handler));
+                info.x = offx;
+                info.y = offy;
+                info.width = rectWidth;
+                info.text = chapters[elems[j].idx].title;
+                document.getElementById(opt.tocId).appendChild(svgRect(info,elems[j].idx,opt));
+                document.getElementById(opt.tocId).appendChild(svgText(info,elems[0].idx,opt));
                 offx = offx + rectWidth + opt.gapx;
             }
         }
@@ -271,16 +281,16 @@ export function drawArrow(x,y1,y2,opt) {
     }
 }
 
-export function svgRect(obj,idx,handler){
+export function svgRect(obj,idx,opt){
     let svg = document.createElementNS(NS,"rect");
     svg.width.baseVal.value=obj.width;
-    svg.height.baseVal.value=obj.height;
+    svg.height.baseVal.value=opt.rectHeight;
     svg.setAttribute("x", obj.x);
     svg.setAttribute("y", obj.y);
     svg.setAttribute("opacity", 1.0);
-    svg.addEventListener("click", function(){handler(idx)}, false);
-    svg.style.fill = obj.colorFill;
-    svg.style.stroke = obj.colorStroke;
+    svg.addEventListener("click", function(){opt.handler(idx)}, false);
+    svg.style.fill = opt.rectColorDefaultFill;
+    svg.style.stroke = opt.rectColorDefaultStroke;
     svg.style.cursor = 'pointer';
     /*if (idx===0) {
         svg.style.fill=opt.rectColorStart;
@@ -292,17 +302,23 @@ export function svgRect(obj,idx,handler){
     return svg;
 }
 
-export function svgText(obj,idx,handler) {
+export function svgText(obj,idx,opt) {
+    let svg = document.createElementNS(NS, 'svg');
+    svg.setAttribute('x', obj.x);
+    svg.setAttribute('y', obj.y);
+    svg.setAttribute('width', obj.width - opt.textpadx);
+    svg.setAttribute('height', opt.rectHeight);
+
     let txt = document.createElementNS(NS, 'text');
-    txt.setAttribute('x', obj.x);
-    txt.setAttribute('y', obj.y);
-    txt.setAttribute('fill', obj.color);
-    txt.setAttribute('font-family', 'Arial');
-    txt.setAttribute('font-size', '16');
-    txt.addEventListener("click", function(){handler(idx)}, false);
+    txt.setAttribute('x', opt.textpadx);
+    txt.setAttribute('y', opt.textpady+15);
+    txt.setAttribute('fill', opt.textColor);
+    txt.addEventListener("click", function(){opt.handler(idx)}, false);
     txt.style.cursor = 'pointer';
     txt.textContent = obj.text;
-    return txt;
+
+    svg.appendChild(txt);
+    return svg;
 }
 
 export function svgPoly(x,y1,y2,color,reverse,opt) {

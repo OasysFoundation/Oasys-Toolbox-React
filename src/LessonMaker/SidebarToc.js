@@ -20,9 +20,11 @@ class SidebarToc extends Component {
         const opt = {
             tocId: 'toc',
             totalWidth: this.state.width,
-            rectHeight: 35,
+            rectHeight: 31,
             gapx: 5,
             gapy: 15,
+            textpadx: 10,
+            textpady: 5,
             arrowOffset: 0.05, // in percent of total width
             arrowColor: '#C3C8D4',
             arrowLongColor: '#F4EFB6',
