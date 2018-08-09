@@ -18,7 +18,7 @@ import "simple-line-icons/css/simple-line-icons.css"
 import "./styles/coreui/coreui.css"
 import './styles/index.css';
 
-import Header from './Header';
+// import Header from './Header';
 
 // in the coreui template, the following four 4 lines are imported globally in App.js
 // import '@coreui/icons/css/coreui-icons.min.css';
@@ -34,7 +34,7 @@ class Index extends Component {
         return (
             <div className="oasys app">
                 <AppHeader fixed>
-                  <Header />
+                  {/*<Header />*/}
                 </AppHeader>
                     <Router history={history}>
                         <div>

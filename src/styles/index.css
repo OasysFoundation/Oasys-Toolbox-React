@@ -104,6 +104,14 @@ html, body, div, svg, text {
     padding: 0.25rem 0.25rem;
 }
 
+.oasys .card {
+    margin-bottom: 0;
+}
+
+/*doesn't work here*/
+.oasys .quill-container ql-snow{
+    border: 0px;
+}
 @media (min-width: 992px) {
    
 }

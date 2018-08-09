@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import SideBarLesson from "./SideBarLesson";
 import Element from "./Element";
 import {moveEntry, withoutEntry, getObjectsByKey} from "../utils/trickBox";
@@ -37,7 +36,7 @@ const MockData = {
                         
                         {
                             id: "eewqqw",
-                            type: "text",
+                            type: 0,
                             content: "YODL DI DUDLE \"YODL DI DUDLE\"YODL DI DUDLE\"YODL DI DUDLE\"YODL DI DUDLE"
                         },
                         {
@@ -65,45 +64,19 @@ const MockData = {
     ]
 }
 
-const styling = {
-    all: {
-        display: 'flex',
-        flexGrow: 1,
-        // flexDirection: 'row',
-        // flexBasis: 0,
-        // width: 100 + 'vw',
-    },
-    sidebar: {
-        flexGrow: 0.8,
-        // minWidth: 33 + '%',
-        // maxWidth: 200 + 'px',
-        border: `1px solid black`,
-        //maxWidth: 270 + 'px',
-        height: 100 + 'vh'
-    },
-    contentView: {
-        flexGrow: 0, //this makes the element stay at 700px ==> so preview and edit are continous
-        //otherwise it will fill everything except the sidebar space
-        border: `1px solid red`,
-        display: 'flex',
-        flexDirection: 'column',
-    }
-}
-
-
 class LessonMaker extends Component {
     constructor() {
         super();
 
         //@operations
         //Element-wise --> ElementWEdit
-        this.deleteElement = this.deleteElement.bind(this);
-        this.moveElement = this.moveElement.bind(this);
+        this.onDeleteElement = this.onDeleteElement.bind(this);
+        this.onMoveElement = this.onMoveElement.bind(this);
 
         //Chapter-wise --> Sidebar
         this.setActiveChapter = this.setActiveChapter.bind(this);
-        this.createChapter = this.createChapter.bind(this);
-        this.createElement = this.createElement.bind(this);
+        this.onAddChapter = this.onAddChapter.bind(this);
+        this.onAddElement = this.onAddElement.bind(this);
         this.onChangeContent = this.onChangeContent.bind(this);
 
         this.autoSaveTimer = 15000; //post state to backend every 15 seconds
@@ -158,7 +131,7 @@ class LessonMaker extends Component {
 
     }
 
-    deleteElement(id) {
+    onDeleteElement(id) {
         const proj = JSON.parse(JSON.stringify(this.state.project));
         let elements = proj.chapters[this.state.currChapIdx].elements;
         const entryIdx = elements.findIndex(el => el.id === id.toString());
@@ -169,7 +142,7 @@ class LessonMaker extends Component {
         this.setState({project: proj})
     }
 
-    createElement(typeSelected) {
+    onAddElement(typeSelected) {
         console.log('type::', typeSelected)
     }
 
@@ -194,7 +167,7 @@ class LessonMaker extends Component {
         //api.saveContent
     }
 
-    moveElement(id, direction) {
+    onMoveElement(id, direction) {
         const proj = JSON.parse(JSON.stringify(this.state.project));
         let elements = proj.chapters[this.state.currChapIdx].elements;
         const entryIdx = elements.findIndex(el => el.id === id);
@@ -204,14 +177,14 @@ class LessonMaker extends Component {
         this.setState({project: proj})
     }
 
-    changeChapterTitle(value) {
+    onChangeChapterTitle(value) {
         const proj = JSON.parse(JSON.stringify(this.state.project));
         let chap = proj.chapters[this.state.currChapIdx];
         chap.title = value;
         this.setState({project: proj})
     }
 
-    createChapter() {
+    onAddChapter() {
         const proj = JSON.parse(JSON.stringify(this.state.project));
 
         proj.chapters.push(
@@ -237,8 +210,8 @@ class LessonMaker extends Component {
         return (
             <div className="app-body">
                 <SideBarLesson onChapterChange={this.setActiveChapter}
-                               onAddChapter={this.createChapter}
-                               onAddElement={this.createElement}
+                               onAddChapter={this.onAddChapter}
+                               onAddElement={this.onAddElement}
                                chapters={this.state.project.chapters}
                                {...this.props} //router fucking needs it for CoreUI React ?>?!?!?>!
                 />
@@ -249,7 +222,7 @@ class LessonMaker extends Component {
                             onClick={() => this.toggle('isEditMode')}>{this.state.isEditMode ? 'Preview' : 'Edit'}</button>
                         <input type="text"
                                name="Chapter Title"
-                               onChange={(ev) => this.changeChapterTitle(ev.target.value)}
+                               onChange={(ev) => this.onChangeChapterTitle(ev.target.value)}
                             // defaultValue={this.state.project.chapters[this.state.currChapIdx].title}
                                value={this.state.project.chapters[this.state.currChapIdx].title}
 
@@ -258,8 +231,8 @@ class LessonMaker extends Component {
                             <Element
                                 key={el.id}
                                 data={el}
-                                onDelete={this.deleteElement}
-                                onMove={this.moveElement}
+                                onDelete={this.onDeleteElement}
+                                onMove={this.onMoveElement}
                                 onChange={this.onChangeContent}
                             />
                         )}

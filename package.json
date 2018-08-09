@@ -4,10 +4,13 @@
   "version": "1.2.0",
   "private": true,
   "dependencies": {
+    "@coreui/coreui": "^2.0.4",
     "@coreui/react": "^2.0.5",
+    "ajv": "^6.5.2",
     "d3": "^3.5.17",
     "firebase": "^5.2.0",
     "function-plot": "^1.18.1",
+    "jquery": "^3.3.1",
     "katex": "^0.10.0-beta",
     "node-sass": "^4.9.2",
     "prop-types": "^15.6.2",
@@ -21,7 +24,7 @@
     "reactstrap": "^6.3.1",
     "sass-loader": "^7.1.0",
     "simple-line-icons": "^2.4.1",
-    "taucharts": "^2.3.2",
+    "taucharts": "^0.9.4",
     "taucharts-react": "^1.1.0",
     "yarn": "^1.7.0"
   },

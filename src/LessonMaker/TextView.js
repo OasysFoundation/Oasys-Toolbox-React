@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import 'react-quill/dist/quill.snow.css';
-import QuillEdit from './QuillEdit'
+import QuillEdit from './QuillEditor'
 
 import PropTypes from 'prop-types';
 
