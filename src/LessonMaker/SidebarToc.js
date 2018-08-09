@@ -7,7 +7,7 @@ class SidebarToc extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            height: 500,
+            height: 330,
             width: 200,
         };
     }

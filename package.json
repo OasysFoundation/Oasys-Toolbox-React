@@ -21,6 +21,7 @@
     "react-quill": "^1.2.7",
     "react-router-dom": "^4.3.1",
     "react-scripts": "^1.1.4",
+    "reactrangeslider": "^3.0.6",
     "reactstrap": "^6.3.1",
     "sass-loader": "^7.1.0",
     "simple-line-icons": "^2.4.1",
