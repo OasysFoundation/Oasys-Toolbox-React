@@ -8,6 +8,15 @@ const colors = {
 	GREEN: "#​​​​​​​2FC46D",
 	BLUESTEEL: "#​​​​​​​27363E",
 	PURPLE: "#​​​​​​​A34079",
+	BROWN: "#B48652",
+	RUST: "#​​​​​​​9F5032",
+	TURQUOISE: "#28CCB4",
+	MOUNTBATTEN: "#A47D90",
+	DARKGREY: "#3E4B54",
+	GREY: "#626970​​​​​​​",
+	GULLGREY: "#A2ABB8",
+	GHOST: "#C3C8D4",
+	SPANISHWHITE: "#F6F1DE"
 };
 
 export default colors;
