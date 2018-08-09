@@ -10,12 +10,28 @@ import {
     Fade
 } from 'reactstrap';
 
+import ToolbarQuill from './ToolbarQuill'
 
 // console.log(globals.ICON_FONTSIZE_MIDDLE, 'fontsize')
-const ICON = function(className, fontSize=globals.ICON_FONTSIZE_MIDDLE) {
-    return <i style={{fontSize:fontSize}} className={className}> </i>;
+const ICON = function (className, fontSize = globals.ICON_FONTSIZE_MIDDLE) {
+    return <i style={{fontSize: fontSize}} className={className}> </i>;
 }
 
+
+const styling = {
+    cardHeader: {
+        display: 'flex',
+        flexGrow: 0,
+        flexDirection: "row",
+        justifyContent: 'space-between'
+    },
+    toolbars: {
+
+    },
+    cardActions: {
+        alignSelf: 'center'
+    }
+}
 
 class FadeableCard extends Component {
     state = {
@@ -28,37 +44,49 @@ class FadeableCard extends Component {
     }
 
     render() {
+        const {type, id, isEditMode} = this.props;
+        // isEditMode = true; //for debugging
         return (
             <Fade timeout={300} in={this.state.shouldFade}>
                 <Card className="card-accent-warning">
                     <CardHeader>
-                        <div hidden={ ! this.props.isEditMode } className="card-header-actions">
-                            <a className="card-header-action btn btn-setting"
-                               onClick={this.props.onMoveUp}
-                            >
-                                {ICON("icon-arrow-up-circle")}
-                            </a>
+                        <section style={styling.cardHeader}>
+                            <section style={styling.toolbars}>
+                                {/*Quill has to render but is hidden if not Quill, bc QUILL is hacky and searches for a toolbar ID*/}
+                                {ToolbarQuill(id, type === globals.EDIT_QUILL && isEditMode)}
+                            </section>
 
-                            <a className="card-header-action btn btn-setting"
-                               onClick={this.props.onMoveDown}>
-                                {ICON("icon-arrow-down-circle")}
-                            </a>
-                            <a
-                                className="card-header-action btn btn-setting"
-                                data-target="#collapseExample"
-                                onClick={() => this.toggle('isOpen')}>
-                                {/*minize*/}
-                                {ICON("icon-minus")}
-                            </a>
-                            <a
-                                className="card-header-action btn btn-setting"
-                                onClick={() => {
-                                    this.toggle('shouldFade')
-                                    this.props.onDelete() //id is alrea
-                                }}>
-                                {ICON("icon-close")}
-                            </a>
-                        </div>
+                            <section style={styling.cardActions}>
+                                <div hidden={!isEditMode} className="card-header-actions">
+                                    <a className="card-header-action btn btn-setting"
+                                       onClick={this.props.onMoveUp}
+                                    >
+                                        {ICON("icon-arrow-up-circle")}
+                                    </a>
+
+                                    <a className="card-header-action btn btn-setting"
+                                       onClick={this.props.onMoveDown}>
+                                        {ICON("icon-arrow-down-circle")}
+                                    </a>
+                                    <a
+                                        className="card-header-action btn btn-setting"
+                                        data-target="#collapseExample"
+                                        onClick={() => this.toggle('isOpen')}>
+                                        {/*minize*/}
+                                        {ICON("icon-minus")}
+                                    </a>
+                                    <a
+                                        className="card-header-action btn btn-setting"
+                                        onClick={() => {
+                                            this.toggle('shouldFade')
+                                            this.props.onDelete() //id is alrea
+                                        }}>
+                                        {ICON("icon-close")}
+                                    </a>
+                                </div>
+                            </section>
+                        </section>
+
                     </CardHeader>
                     <Collapse isOpen={this.state.isOpen} id="collapseExample">
                         <CardBody>
@@ -75,7 +103,9 @@ class FadeableCard extends Component {
 }
 
 FadeableCard.propTypes = {
-    isFocus: PropTypes.bool,
+    type: PropTypes.number,
+    id: PropTypes.string,
+    isEditMode: PropTypes.bool,
     onDelete: PropTypes.func,
     onMoveUp: PropTypes.func,
     onMoveDown: PropTypes.func,

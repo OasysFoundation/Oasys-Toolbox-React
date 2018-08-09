@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import SideBarLesson from "./SideBarLesson";
 import Element from "./Element";
+import ElementAdder from './ElementAdder'
 import {moveEntry, withoutEntry, getObjectsByKey} from "../utils/trickBox";
-
-import {Container} from "reactstrap"
+import {Container, FormGroup, Label, Input} from "reactstrap"
+import globals from '../globals'
 
 //TODO put in Globals
 const oasysSessionKey = `__OASYS_ID__`;
@@ -17,15 +18,22 @@ const MockData = {
                 {
                     title: "Heat and Motion",
                     id: "chapter_124552",
+                    linkIdx: ["chapter_99852"],
                     elements: [
+                        
+                        {
+                            id: "schnuckeldi",
+                            type: globals.EDIT_VIDEO,
+                            content: ""
+                        },
                         {
                             id: "asdwasd",
-                            type: 0,
+                            type: globals.EDIT_QUILL,
                             content: "oisdhkashdkajsdhasjkdaksdhaskdaskdhaskdhasldlkashdalskdhalskdhasldhasdkhaskldhasldhaskldASDSASADSaSSD"
                         },
                         {
                             id: "aaaaaa2222222",
-                            type: 1,
+                            type: globals.EDIT_QUIZ,
                             content: {
                                 question: "how you do i asked???",
                                 answers: [
@@ -62,17 +70,6 @@ const MockData = {
                             type: 5,
                             content: "https://media0.giphy.com/media/l0NwFIAW8xo5VmDQc/giphy.gif"
                         },
-                        
-                        {
-                            id: "eewqqw",
-                            type: 0,
-                            content: "YODL DI DUDLE \"YODL DI DUDLE\"YODL DI DUDLE\"YODL DI DUDLE\"YODL DI DUDLE"
-                        },
-                        {
-                            id: "KKOOS",
-                            type: 0,
-                            content: "Wutschdi Wuuuu BABABAA BAAEMM JAYJAY WOOOHIIII Wutschdi Wuuuu BABABAA BAAEMM JAYJAY WOOOHIIIIWutschdi Wuuuu BABABAA BAAEMM JAYJAY WOOOHIIII"
-                        }
                     ]
 
                 },
@@ -106,7 +103,7 @@ class LessonMaker extends Component {
         this.setActiveChapter = this.setActiveChapter.bind(this);
         this.onAddChapter = this.onAddChapter.bind(this);
         this.onAddElement = this.onAddElement.bind(this);
-        this.onChangeContent = this.onChangeContent.bind(this);
+        // this.onChangeContent = this.onChangeContent.bind(this);
 
         this.autoSaveTimer = 15000; //post state to backend every 15 seconds
     }
@@ -175,21 +172,19 @@ class LessonMaker extends Component {
         console.log('type::', typeSelected)
     }
 
-
-
-    onChangeContent(id, value) {
-
-        const proj = JSON.parse(JSON.stringify(this.state.project));
-        let elements = proj.chapters[this.state.currChapIdx].elements;
-
-        const elem = elements.find(el => el.id === id);
-        elem.content = value;
-        elem.timestamp = Date.now();
-
-        proj.chapters[this.state.currChapIdx].elements = elements;
-
-        this.setState({project: proj})
-    }
+    // onChangeContent(id, value) {
+    //
+    //     const proj = JSON.parse(JSON.stringify(this.state.project));
+    //     let elements = proj.chapters[this.state.currChapIdx].elements;
+    //
+    //     const elem = elements.find(el => el.id === id);
+    //     elem.content = value;
+    //     elem.timestamp = Date.now();
+    //
+    //     proj.chapters[this.state.currChapIdx].elements = elements;
+    //
+    //     this.setState({project: proj})
+    // }
 
     saveStatus() {
         console.log('saving status....')
@@ -249,6 +244,11 @@ class LessonMaker extends Component {
 
                         <button
                             onClick={() => this.toggle('isEditMode')}>{this.state.isEditMode ? 'Preview' : 'Edit'}</button>
+
+                        {/*<FormGroup>*/}
+                            {/*<Label for="exampleEmail">Email</Label>*/}
+                            {/*<Input type="email" name="email" id="exampleEmail" placeholder="with a placeholder" />*/}
+                        {/*</FormGroup>*/}
                         <input type="text"
                                name="Chapter Title"
                                onChange={(ev) => this.onChangeChapterTitle(ev.target.value)}
@@ -257,13 +257,17 @@ class LessonMaker extends Component {
 
                         />
                         {elements.map(el =>
+                            <div>
                             <Element
                                 key={el.id}
+                                isPreview={! this.state.isEditMode}
                                 data={el}
                                 onDelete={this.onDeleteElement}
                                 onMove={this.onMoveElement}
-                                onChange={this.onChangeContent}
+                                // onChange={this.onChangeContent}
                             />
+                            <ElementAdder />
+                            </div>
                         )}
                     </Container>
                 </main>

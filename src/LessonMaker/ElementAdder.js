@@ -12,7 +12,7 @@ class ElementAdder extends Component {
 
     render() {
         return (
-            <section id={'elementAdd'}
+            <section className={'card-header'} id={'elementAdd'}
                      onMouseEnter={() => this.setState({isHovered: true})}
                      onMouseLeave={() => this.setState({isHovered: false})}
             >

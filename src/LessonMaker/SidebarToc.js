@@ -6,20 +6,12 @@ class SidebarToc extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            height: 500,
-            width: 200,
-        };
-    }
 
-    handleChangeChapter(num){
-        console.log("change to chapter " + num);
-    }
+        let width = 200;
 
-    componentDidMount(){
-        const opt = {
+        this.opt = {
             tocId: 'toc',
-            totalWidth: this.state.width,
+            totalWidth: width,
             rectHeight: 31,
             gapx: 5,
             gapy: 15,
@@ -41,7 +33,7 @@ class SidebarToc extends Component {
             handler: this.handleChangeChapter,
         }
 
-        let chapters = [
+        this.chapters = [
             {idx: 0, title: 'Chapter 1: Wow me introduction', linkIdx: [1,3]},
             {idx: 1, title: 'Chapter 2: How to Wow', linkIdx: [2,3]},
             {idx: 2, title: 'Chapter 3a: Text', linkIdx: [4]},
@@ -56,19 +48,31 @@ class SidebarToc extends Component {
             {idx: 11, title: 'Final test', linkIdx: []},
         ];
 
-        // let nColors = chapters.map(e=>e.links.length).reduce((a,c)=>a+c);
-        // let allColors = palette('tol-rainbow', nColors);
+        this.updateToc();
+        let nLevels = 1 + Math.max(...this.tocInfo.map(e=>e.level))
+        let height = nLevels * this.opt.rectHeight + (nLevels-1) * this.opt.gapy;
 
-        let mainPath = tocjs.longestPath(chapters);
-        let tocInfo = tocjs.prepareToc(mainPath, chapters);
-        tocInfo = tocjs.sortIntoTocLevels(tocInfo, chapters, mainPath);
+        this.state = {
+            height: height,
+            width: width,
+        };
+    }
+
+    updateToc(){
+        let mainPath = tocjs.longestPath(this.chapters);
+        let tocInfo = tocjs.prepareToc(mainPath, this.chapters);
+        tocInfo = tocjs.sortIntoTocLevels(tocInfo, this.chapters, mainPath);
         tocInfo = tocjs.reorderX(tocInfo);
-        tocInfo = tocjs.insertArrowLocs(tocInfo, opt);
+        this.tocInfo = tocjs.insertArrowLocs(tocInfo, this.opt);
+    }
 
-        console.log(tocInfo);
+    handleChangeChapter(num){
+        console.log("change to chapter " + num);
+    }
 
-        tocjs.drawChapters(tocInfo, chapters, opt);
-        tocjs.drawConnections(tocInfo, opt);
+    componentDidMount(){
+        tocjs.drawChapters(this.tocInfo, this.chapters, this.opt);
+        tocjs.drawConnections(this.tocInfo, this.opt);
     }
 
     render() {

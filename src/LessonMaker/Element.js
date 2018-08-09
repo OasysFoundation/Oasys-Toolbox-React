@@ -6,6 +6,7 @@ import QuillEdit from './QuillEdit'
 import ImageEdit from './ImageEdit'
 import FormulaEdit from './FormulaEdit'
 import QuizzEdit from './QuizzEdit'
+import VideoEdit from './VideoEdit'
 
 import 'react-quill/dist/quill.snow.css';
 
@@ -40,7 +41,8 @@ class Element extends Component {
     state = {
         mode: styles.normal,
         isHovered: false,
-        // isClicked: false
+        isClicked: false,
+        tempContent: this.props.data.content
     };
 
     onSetCondition() {
@@ -56,8 +58,8 @@ class Element extends Component {
 
     //glue function between LessonMaker and Quill to add ID
     handleChange = (value) => {
-        this.props.onChange(this.props.data.id, value);
-        this.saveToSessionStorage(value)
+        this.setState({tempContent: value}); //for Quill
+        this.saveToSessionStorage(value) //for switching chapters
     }
 
 
@@ -68,8 +70,8 @@ class Element extends Component {
         // Q: Why is QuillEdit receiving the key prop, but ImageEdit and FormulaEdit not?
         switch (type) {
             case globals.EDIT_QUILL:
-                render = <QuillEdit key={id} id={id} isEditMode={this.state.isHovered} onChange={this.handleChange}
-                                    data={content}/>
+                render = <QuillEdit key={id} id={id} isEditMode={this.state.isHovered || this.state.isClicked} onChange={this.handleChange}
+                                    data={this.state.tempContent}/>
                 break;
             case globals.EDIT_IMAGE:
                 render = <ImageEdit key={id} data={content}/>
@@ -79,6 +81,9 @@ class Element extends Component {
                 break;
             case globals.EDIT_QUIZ:
                 render = <QuizzEdit key={id} data={content}/>
+                break;
+            case globals.EDIT_VIDEO:
+                render = <VideoEdit data={content}/>
                 break;
 
             default:
@@ -104,13 +109,15 @@ class Element extends Component {
                 <section style={this.state.mode}
                          onMouseEnter={() => this.setState({isHovered: true})}
                          onMouseLeave={() => this.setState({isHovered: false})}
-                         // onClick={() => this.setState({isClicked: true})}
+                         onClick={() => this.setState({isClicked: true})}
                 >
                     <FadeableCard
+                        id={id}
+                        type={type}
                         onDelete={() => this.props.onDelete(id)}
                         onMoveUp={() => this.props.onMove(id, -1)}
                         onMoveDown={() => this.props.onMove(id, +1)}
-                        isEditMode={this.state.isHovered}
+                        isEditMode={!this.props.isPreview && this.state.isHovered}
                     >
                         {this.typeToComponent(type)}
                     </FadeableCard>
