@@ -4,6 +4,7 @@ import Element from "./Element";
 import {moveEntry, withoutEntry, getObjectsByKey} from "../utils/trickBox";
 
 import {Container, FormGroup, Label, Input} from "reactstrap"
+import ElementAdder from "./ElementAdder";
 
 //TODO put in Globals
 const oasysSessionKey = `__OASYS_ID__`;
@@ -17,6 +18,7 @@ const MockData = {
                 {
                     title: "Heat and Motion",
                     id: "chapter_124552",
+                    linkIdx: ["chapter_99852"],
                     elements: [
                         {
                             id: "asdwasd",
@@ -236,6 +238,7 @@ class LessonMaker extends Component {
 
                         />
                         {elements.map(el =>
+                            <div>
                             <Element
                                 key={el.id}
                                 isPreview={! this.state.isEditMode}
@@ -244,6 +247,8 @@ class LessonMaker extends Component {
                                 onMove={this.onMoveElement}
                                 // onChange={this.onChangeContent}
                             />
+                            <ElementAdder />
+                            </div>
                         )}
                     </Container>
                 </main>
