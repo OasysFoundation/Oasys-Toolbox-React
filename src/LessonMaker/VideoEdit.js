@@ -6,6 +6,7 @@ import api from '../api'
 import colors from '../colors'
 
 import Nouislider from "nouislider-react";
+import "nouislider/distribute/nouislider.css";
 
 class VideoEdit extends Component {
 
@@ -27,8 +28,8 @@ class VideoEdit extends Component {
                     behaviour="tap"
                     range={{
                         min: [0],
-                        "10%": [500, 500],
-                        "50%": [4000, 1000],
+                        // "10%": [500, 500],
+                        // "50%": [4000, 1000],
                         max: [10000]
                     }}
                     onSlide={this.onSlide}
