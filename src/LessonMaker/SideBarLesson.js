@@ -10,7 +10,7 @@ import {
     AppSidebarNav,
 } from '@coreui/react';
 
-import AppSidebarToc from "./AppSidebarToc";
+import SidebarToc from "./SidebarToc";
 
 const navParams =  {
     items: [
@@ -78,11 +78,11 @@ class SideBarLesson extends Component {
     render() {
         return (
 
-            <AppSidebar fixed display="lg" style={{width: '300px'}}>
+            <AppSidebar fixed display="lg">
                     <AppSidebarHeader/>
                     <AppSidebarForm/>
                     <AppSidebarNav navConfig={navParams} {...this.props} style={{flex: "0 0", height: ""}}/>
-                    <AppSidebarToc/>
+                    <SidebarToc/>
                     <AppSidebarFooter/>
                     <AppSidebarMinimizer/>
                 </AppSidebar>

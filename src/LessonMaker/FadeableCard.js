@@ -31,7 +31,7 @@ class FadeableCard extends Component {
         return (
             <Fade timeout={300} in={this.state.shouldFade}>
                 <Card className="card-accent-warning">
-                    <CardHeader style={{padding: '0.25rem 0.25rem'}}>
+                    <CardHeader>
                         <div className="card-header-actions">
 
                             <a href="#" className="card-header-action btn btn-setting"

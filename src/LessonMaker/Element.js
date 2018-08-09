@@ -63,9 +63,10 @@ class Element extends Component {
         const {content, id} = this.props.data
         let render = <div>NO ELEMENT TYPE YET HERE</div>;
 
+        // Q: Why is QuillEdit receiving the key prop, but ImageEdit and FormulaEdit not?
         switch (type) {
             case globals.EDIT_QUILL:
-                render = <QuillEdit key={id} onChange={this.handleChange}  data={content}/>
+                render = <QuillEdit key={id} id={id} onChange={this.handleChange}  data={content}/>
                 break;
             case globals.EDIT_IMAGE:
                 render = <ImageEdit data={content}/>
