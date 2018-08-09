@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import katex from 'katex';
 
 import 'katex/dist/katex.min.css';
-// import "highlight.js/styles/atom-one-light.css";
 
 import '../styles/QuillEdit.css';
 import graphIcon from '../assets/icons/graph.jpg';
@@ -69,7 +68,6 @@ class QuillEdit extends Component {
     super(props);
     // define custom icons
     let icons = ReactQuill.Quill.import('ui/icons');
-    console.log(icons)
     icons['header']['1'] = '';
     icons['bold'] = '<img src="'+textBoldIcon+'"/>';
     icons['italic'] = '<img src="'+textItalicIcon+'"/>';

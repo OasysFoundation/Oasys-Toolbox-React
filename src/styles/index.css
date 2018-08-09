@@ -128,3 +128,7 @@ html, body, div, svg, text {
 .oasys .scrollbar-container {
     height: auto;
 }
+
+.oasys .sidebar .sidebar-minimizer {
+    flex: 1 0 50px;
+}
