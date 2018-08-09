@@ -39,7 +39,7 @@ class Element extends Component {
     state = {
         mode: styles.normal,
         isHovered: false,
-        // isClicked: false
+        isClicked: false
     };
 
     onSetCondition() {
@@ -67,7 +67,7 @@ class Element extends Component {
         // Q: Why is QuillEdit receiving the key prop, but ImageEdit and FormulaEdit not?
         switch (type) {
             case globals.EDIT_QUILL:
-                render = <QuillEdit key={id} id={id} isEditMode={this.state.isHovered} onChange={this.handleChange}
+                render = <QuillEdit key={id} id={id} isEditMode={this.state.isHovered || this.state.isClicked} onChange={this.handleChange}
                                     data={content}/>
                 break;
             case globals.EDIT_IMAGE:
@@ -100,13 +100,15 @@ class Element extends Component {
                 <section style={this.state.mode}
                          onMouseEnter={() => this.setState({isHovered: true})}
                          onMouseLeave={() => this.setState({isHovered: false})}
-                         // onClick={() => this.setState({isClicked: true})}
+                         onClick={() => this.setState({isClicked: true})}
                 >
                     <FadeableCard
+                        id={id}
+                        type={type}
                         onDelete={() => this.props.onDelete(id)}
                         onMoveUp={() => this.props.onMove(id, -1)}
                         onMoveDown={() => this.props.onMove(id, +1)}
-                        isEditMode={this.state.isHovered}
+                        isEditMode={!this.props.isPreview && this.state.isHovered}
                     >
                         {this.typeToComponent(type)}
                     </FadeableCard>

@@ -230,6 +230,7 @@ class LessonMaker extends Component {
                         {elements.map(el =>
                             <Element
                                 key={el.id}
+                                isPreview={! this.state.isEditMode}
                                 data={el}
                                 onDelete={this.onDeleteElement}
                                 onMove={this.onMoveElement}
