@@ -40,7 +40,8 @@ class Element extends Component {
     state = {
         mode: styles.normal,
         isHovered: false,
-        isClicked: false
+        isClicked: false,
+        tempContent: this.props.data.content
     };
 
     onSetCondition() {
@@ -56,8 +57,8 @@ class Element extends Component {
 
     //glue function between LessonMaker and Quill to add ID
     handleChange = (value) => {
-        this.props.onChange(this.props.data.id, value);
-        this.saveToSessionStorage(value)
+        this.setState({tempContent: value}); //for Quill
+        this.saveToSessionStorage(value) //for switching chapters
     }
 
 
@@ -69,7 +70,7 @@ class Element extends Component {
         switch (type) {
             case globals.EDIT_QUILL:
                 render = <QuillEdit key={id} id={id} isEditMode={this.state.isHovered || this.state.isClicked} onChange={this.handleChange}
-                                    data={content}/>
+                                    data={this.state.tempContent}/>
                 break;
             case globals.EDIT_IMAGE:
                 render = <ImageEdit key={id} data={content}/>

@@ -82,7 +82,7 @@ class LessonMaker extends Component {
         this.setActiveChapter = this.setActiveChapter.bind(this);
         this.onAddChapter = this.onAddChapter.bind(this);
         this.onAddElement = this.onAddElement.bind(this);
-        this.onChangeContent = this.onChangeContent.bind(this);
+        // this.onChangeContent = this.onChangeContent.bind(this);
 
         this.autoSaveTimer = 15000; //post state to backend every 15 seconds
     }
@@ -151,21 +151,19 @@ class LessonMaker extends Component {
         console.log('type::', typeSelected)
     }
 
-
-
-    onChangeContent(id, value) {
-
-        const proj = JSON.parse(JSON.stringify(this.state.project));
-        let elements = proj.chapters[this.state.currChapIdx].elements;
-
-        const elem = elements.find(el => el.id === id);
-        elem.content = value;
-        elem.timestamp = Date.now();
-
-        proj.chapters[this.state.currChapIdx].elements = elements;
-
-        this.setState({project: proj})
-    }
+    // onChangeContent(id, value) {
+    //
+    //     const proj = JSON.parse(JSON.stringify(this.state.project));
+    //     let elements = proj.chapters[this.state.currChapIdx].elements;
+    //
+    //     const elem = elements.find(el => el.id === id);
+    //     elem.content = value;
+    //     elem.timestamp = Date.now();
+    //
+    //     proj.chapters[this.state.currChapIdx].elements = elements;
+    //
+    //     this.setState({project: proj})
+    // }
 
     saveStatus() {
         console.log('saving status....')
@@ -239,7 +237,7 @@ class LessonMaker extends Component {
                                 data={el}
                                 onDelete={this.onDeleteElement}
                                 onMove={this.onMoveElement}
-                                onChange={this.onChangeContent}
+                                // onChange={this.onChangeContent}
                             />
                         )}
                     </Container>
