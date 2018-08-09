@@ -92,7 +92,7 @@ class FormulaEdit extends Component {
         let flexDirection = 'row';
         let flexWrap = 'nowrap';
         let elementWidth = "25%";
-        let elementHeight = "50px";
+        let elementHeight = "auto";
 
 
         const containsLongAnswerText = this.state.answers.reduce(function(result, answer) {
@@ -113,7 +113,8 @@ class FormulaEdit extends Component {
 
         if (containsAtLeastOneImage) {
             flexWrap = 'wrap';
-            elementWidth = "40%";
+            elementWidth = "50%";
+            elementHeight = "200px";
         }
 
         const containerStyle = {
@@ -135,27 +136,28 @@ class FormulaEdit extends Component {
                     const quizAnswerOptionStyle = {
                         boxShadow: "1px 1px #AAAAAA",
                         borderRadius: "6px 6px 6px 6px",
-                        margin: '2px',
+                        padding: '4px',
                         textAlign: "center",
                         alignSelf: "center",
-                        display: "flex",
                         flexDirection: "column",
                         justifyContent: "center",
                         alignItems: "center",
                         width: elementWidth,
-                        minHeight: elementHeight,
-                        backgroundColor: that.quizColors[index % that.quizColors.length]
+                        height: elementHeight,
+                        backgroundColor: that.quizColors[index % that.quizColors.length],
+                        overflow: "hidden",
+                        position: "relative",
+                        display: "table-row",
                     };
                     return (
                         <div style={quizAnswerOptionStyle} onClick={that.onSelectAnswer.bind(that)}>
-                        <div>{answer.title}</div>
-                        <div>
+                        <div style={{alignSelf: "center", "max-height": "100%"}}>{answer.title}</div>
                         {answer.image!=""? (
-                                <center>
-                                    <img src={answer.image} width="100%" style={{onerror: 'this.style.display = "none"', padding:'10px'}}/>
-                                </center>
+                                
+                                    <img src={answer.image} style={{"max-width":"100%", "max-height": "100%", padding:'10px'}}/>
+                                
                                 ) : null}
-                        </div></div>
+                        </div>
                         );
                    })}
             	</div>
