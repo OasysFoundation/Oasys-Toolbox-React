@@ -21,6 +21,16 @@ const MockData = {
                 {
                     title: "Heat and Motion",
                     id: "chapter_124552",
+                    links: [
+                        {
+                            eventId: "ASDASDAS",
+                            chapterId: "woeoeoeoXX"
+                        },
+                        {
+                            eventId: "ppXxxasdsa",
+                            chapterId: "chapter_99852\""
+                        },
+                    ],
                     // linkIdx: ["chapter_99852"],
                     elements: [
                         
