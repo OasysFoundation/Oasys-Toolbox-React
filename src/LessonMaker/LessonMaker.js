@@ -4,6 +4,7 @@ import Element from "./Element";
 import {moveEntry, withoutEntry, getObjectsByKey} from "../utils/trickBox";
 import {Container, FormGroup, Label, Input} from "reactstrap"
 import globals from '../globals'
+import ElementAdder from './ElementAdder'
 
 //TODO put in Globals
 const oasysSessionKey = `__OASYS_ID__`;
@@ -17,7 +18,7 @@ const MockData = {
                 {
                     title: "Heat and Motion",
                     id: "chapter_124552",
-                    linkIdx: ["chapter_99852"],
+                    // linkIdx: ["chapter_99852"],
                     elements: [
                         
                         {
@@ -111,15 +112,20 @@ class LessonMaker extends Component {
 
     //TODO timestamps for restore / reject
     inhaleSessionStorage() {
+
         const proj = JSON.parse(JSON.stringify(this.state.project));
 
         //deep searches data and returns 1D array with objects that have an ID property
         //by reference!
         const allWithID = getObjectsByKey([proj], 'id');
-        //get
         const sessionKeys = Object.keys(sessionStorage).filter(key => key.includes(oasysSessionKey))
+        //get
+        console.log("OBJS", allWithID, sessionKeys)
         sessionKeys.forEach(key => {
-            allWithID.find(el => oasysSessionKey + el['id'] === key).content = JSON.parse(sessionStorage.getItem(key)).content;
+            const match = allWithID.find(el => oasysSessionKey + el['id'] === key)
+            if (match) {
+                match.content = JSON.parse(sessionStorage.getItem(key)).content;
+            }
         })
         this.setState({project: proj});
     }

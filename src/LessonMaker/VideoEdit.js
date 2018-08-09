@@ -1,20 +1,36 @@
 import React, { Component } from 'react';
-import rangesliderJs from 'rangeslider-js'
 
 import api from '../api'
 
 import colors from '../colors'
 
+import Nouislider from "nouislider-react";
+
 class VideoEdit extends Component {
 
     componentDidMount(){
-        rangesliderJs.create(document.querySelectorAll('input[type="range"]'));
+    }
+
+    onSlide(render, handle, value, un, percent){
+        console.log("SLIDE", render, handle, value, un, percent)
     }
 
     render(){
         return (
             <div>
-                <input id="slider" type="range" min="0" max="5" value="1" step="1" />
+                {/*<input id="slider" type="range" min="0" max="5" value="1" step="1" />*/}
+                <Nouislider
+                    connect
+                    start={[500, 4000]}
+                    behaviour="tap"
+                    range={{
+                        min: [0],
+                        "10%": [500, 500],
+                        "50%": [4000, 1000],
+                        max: [10000]
+                    }}
+                    onSlide={this.onSlide}
+                />
             </div>
         )
     }
