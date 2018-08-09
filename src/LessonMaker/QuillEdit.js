@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import katex from 'katex';
 
 import 'katex/dist/katex.min.css';
-// import "highlight.js/styles/atom-one-light.css";
 
 import '../styles/QuillEdit.css';
 import graphIcon from '../assets/icons/graph.jpg';
