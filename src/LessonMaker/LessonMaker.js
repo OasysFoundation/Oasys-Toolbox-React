@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
 import {Container, FormGroup, Label, Input} from "reactstrap"
+import uuidv4 from "uuid/v4"
 
 import {moveEntry, withoutEntry, getObjectsByKey} from "../utils/trickBox";
 import SideBarLesson from "./SideBarLesson";
 import Element from "./Element";
 import ElementAdder from './ElementAdder'
-import {moveEntry, withoutEntry, getObjectsByKey} from "../utils/trickBox";
-import {Container, FormGroup, Label, Input} from "reactstrap"
 import globals from '../globals'
 
 //TODO put in Globals
@@ -30,7 +29,7 @@ const MockData = {
                             content: ""
                         },
                         {
-                            id: "asdwasd",
+                            id: "d6363cb1-a398-4637-8528-5b28bf88c5a2",
                             type: globals.EDIT_QUILL,
                             content: "oisdhkashdkajsdhasjkdaksdhaskdaskdhaskdhasldlkashdalskdhalskdhasldhasdkhaskldhasldhaskldASDSASADSaSSD"
                         },
@@ -176,8 +175,25 @@ class LessonMaker extends Component {
         this.setState({project: proj})
     }
 
-    onAddElement(typeSelected) {
-        console.log('type::', typeSelected)
+    onAddElement(typeSelected, atIdx) {
+        console.log('type::', typeSelected, atIdx);
+        const proj = JSON.parse(JSON.stringify(this.state.project));
+        let elements = proj.chapters[this.state.currChapIdx].elements;
+        const newElem = {
+            id: uuidv4(),
+            type: typeSelected,
+            content: "",
+            timestamp: Date.now()
+        };
+
+        console.log(elements);
+        proj.chapters[this.state.currChapIdx].elements = [
+            ...elements.slice(0, atIdx+1),
+            newElem,
+            ...elements.slice(atIdx+1)
+        ];
+        console.log("ELEME" , proj.chapters[this.state.currChapIdx].elements)
+        this.setState({project: proj})
     }
 
     // onChangeContent(id, value) {
@@ -264,8 +280,8 @@ class LessonMaker extends Component {
                                value={this.state.project.chapters[this.state.currChapIdx].title}
 
                         />
-                        {elements.map(el =>
-                            <div>
+                        {elements.map((el,idx) =>
+                            <div key={el.id + "X"}>
                             <Element
                                 key={el.id}
                                 isPreview={! this.state.isEditMode}
@@ -274,7 +290,10 @@ class LessonMaker extends Component {
                                 onMove={this.onMoveElement}
                                 // onChange={this.onChangeContent}
                             />
-                            <ElementAdder />
+                            <ElementAdder
+                                key={el.id + 1}
+                                onAddElement={this.onAddElement}
+                                idx={idx} />
                             </div>
                         )}
                     </Container>

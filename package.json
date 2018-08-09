@@ -28,6 +28,7 @@
     "simple-line-icons": "^2.4.1",
     "taucharts": "^0.9.4",
     "taucharts-react": "^1.1.0",
+    "uuid": "^3.3.2",
     "yarn": "^1.7.0"
   },
   "scripts": {

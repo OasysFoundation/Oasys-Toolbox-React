@@ -1,32 +1,52 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import {typeToIcon} from "../utils/trickBox";
+import globals from '../globals'
+
+const styling = {
+    all: {
+        display: 'flex',
+        flexGrow: 0,
+        flexDirection: "row",
+        justifyContent: "center",
+    },
+    image: {
+        height: 2.5 + "rem",
+        objectFit: "cover",
+        cursor: 'pointer'
+    }
+};
+
+const {EDIT_QUILL, EDIT_QUIZ, EDIT_SYSTEM, EDIT_GAME} = globals;
+
+const types = [
+    EDIT_QUILL,
+    EDIT_QUIZ,
+    EDIT_GAME,
+    EDIT_SYSTEM
+]
+
 
 class ElementAdder extends Component {
 
     state = {
         isHovered: false
     }
-    handleClick(selected) {
-        this.props.onAddElement(selected);
-    }
 
     render() {
+        const that = this;
         return (
-            <section className={'card-header'} id={'elementAdd'}
+            <section style={styling.all} className={'card-header'}
                      onMouseEnter={() => this.setState({isHovered: true})}
                      onMouseLeave={() => this.setState({isHovered: false})}
             >
-                <button>
-                    +++
-                </button>
-                {this.state.isHovered ? <div>
+                {types.map(type =>
+                    <img style={styling.image}
+                         key={Math.random()}
+                         src={typeToIcon(type)}
+                         onClick={() => that.props.onAddElement(type, that.props.idx)}
+                    />)}
 
-                    <button onClick={() => this.handleClick('text')}>T</button>
-                    <button onClick={() => this.handleClick('image')}>I</button>
-                    <button onClick={() => this.handleClick('video')}>V</button>
-                    <button onClick={() => this.handleClick('formula')}>F</button>
-
-                </div> : null}
             </section>
 
         );
@@ -34,7 +54,7 @@ class ElementAdder extends Component {
 }
 
 ElementAdder.propTypes = {
-    onSelect: PropTypes.func.isRequired
+    onAddElement: PropTypes.func.isRequired
 };
 
 export default ElementAdder;
