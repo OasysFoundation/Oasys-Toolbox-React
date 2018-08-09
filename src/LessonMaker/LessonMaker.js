@@ -37,7 +37,7 @@ const MockData = {
                         
                         {
                             id: "eewqqw",
-                            type: "text",
+                            type: 0,
                             content: "YODL DI DUDLE \"YODL DI DUDLE\"YODL DI DUDLE\"YODL DI DUDLE\"YODL DI DUDLE"
                         },
                         {
