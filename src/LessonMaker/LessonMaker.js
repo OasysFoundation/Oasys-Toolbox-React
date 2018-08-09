@@ -4,6 +4,7 @@ import Element from "./Element";
 import {moveEntry, withoutEntry, getObjectsByKey} from "../utils/trickBox";
 
 import {Container} from "reactstrap"
+import globals from '../globals'
 
 //TODO put in Globals
 const oasysSessionKey = `__OASYS_ID__`;
@@ -18,14 +19,20 @@ const MockData = {
                     title: "Heat and Motion",
                     id: "chapter_124552",
                     elements: [
+                        
+                        {
+                            id: "schnuckeldi",
+                            type: globals.EDIT_VIDEO,
+                            content: ""
+                        },
                         {
                             id: "asdwasd",
-                            type: 0,
+                            type: globals.EDIT_QUILL,
                             content: "oisdhkashdkajsdhasjkdaksdhaskdaskdhaskdhasldlkashdalskdhalskdhasldhasdkhaskldhasldhaskldASDSASADSaSSD"
                         },
                         {
                             id: "aaaaaa2222222",
-                            type: 1,
+                            type: globals.EDIT_QUIZ,
                             content: "TBD"
                         },
                         {
@@ -38,17 +45,6 @@ const MockData = {
                             type: 5,
                             content: "https://media0.giphy.com/media/l0NwFIAW8xo5VmDQc/giphy.gif"
                         },
-                        
-                        {
-                            id: "eewqqw",
-                            type: 0,
-                            content: "YODL DI DUDLE \"YODL DI DUDLE\"YODL DI DUDLE\"YODL DI DUDLE\"YODL DI DUDLE"
-                        },
-                        {
-                            id: "KKOOS",
-                            type: 0,
-                            content: "Wutschdi Wuuuu BABABAA BAAEMM JAYJAY WOOOHIIII Wutschdi Wuuuu BABABAA BAAEMM JAYJAY WOOOHIIIIWutschdi Wuuuu BABABAA BAAEMM JAYJAY WOOOHIIII"
-                        }
                     ]
 
                 },
