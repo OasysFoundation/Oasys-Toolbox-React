@@ -5,6 +5,7 @@ import globals from "../globals";
 import QuillEdit from './QuillEdit'
 import ImageEdit from './ImageEdit'
 import FormulaEdit from './FormulaEdit'
+import QuizzEdit from './QuizzEdit'
 
 import 'react-quill/dist/quill.snow.css';
 
@@ -75,6 +76,9 @@ class Element extends Component {
                 break;
             case globals.EDIT_FORMULA:
                 render = <FormulaEdit key={id} data={content}/>
+                break;
+            case globals.EDIT_QUIZ:
+                render = <QuizzEdit data={content}/>
                 break;
 
             default:
