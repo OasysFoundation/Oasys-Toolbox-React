@@ -20,7 +20,7 @@ const ICON = function(className, fontSize=globals.ICON_FONTSIZE_NORMAL) {
 }
 
 //this is the new "Preview" Component
-class FormulaEdit extends Component {
+class QuizzEdit extends Component {
 
     quizColors = [colors.WINTERSUN, colors.LOCHINVAR, colors.VELVET, colors.GREEN]
 
@@ -214,12 +214,17 @@ class FormulaEdit extends Component {
     }
 }
 
-FormulaEdit.modules = {
+QuizzEdit.modules = {
     toolbar: null
 }
 
-FormulaEdit.propTypes = {
+QuizzEdit.propTypes = {
     isEditable: PropTypes.bool
 }
 
-export default FormulaEdit;
+QuizzEdit.defaultProps = {
+    answers: [],
+    question: ""
+}
+
+export default QuizzEdit;
