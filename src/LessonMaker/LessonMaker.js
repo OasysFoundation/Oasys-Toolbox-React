@@ -2,8 +2,7 @@ import React, {Component} from 'react';
 import SideBarLesson from "./SideBarLesson";
 import Element from "./Element";
 import {moveEntry, withoutEntry, getObjectsByKey} from "../utils/trickBox";
-
-import {Container} from "reactstrap"
+import {Container, FormGroup, Label, Input} from "reactstrap"
 import globals from '../globals'
 
 //TODO put in Globals
@@ -18,6 +17,7 @@ const MockData = {
                 {
                     title: "Heat and Motion",
                     id: "chapter_124552",
+                    linkIdx: ["chapter_99852"],
                     elements: [
                         
                         {
@@ -219,6 +219,11 @@ class LessonMaker extends Component {
 
                         <button
                             onClick={() => this.toggle('isEditMode')}>{this.state.isEditMode ? 'Preview' : 'Edit'}</button>
+
+                        {/*<FormGroup>*/}
+                            {/*<Label for="exampleEmail">Email</Label>*/}
+                            {/*<Input type="email" name="email" id="exampleEmail" placeholder="with a placeholder" />*/}
+                        {/*</FormGroup>*/}
                         <input type="text"
                                name="Chapter Title"
                                onChange={(ev) => this.onChangeChapterTitle(ev.target.value)}
@@ -227,6 +232,7 @@ class LessonMaker extends Component {
 
                         />
                         {elements.map(el =>
+                            <div>
                             <Element
                                 key={el.id}
                                 isPreview={! this.state.isEditMode}
@@ -235,6 +241,8 @@ class LessonMaker extends Component {
                                 onMove={this.onMoveElement}
                                 // onChange={this.onChangeContent}
                             />
+                            <ElementAdder />
+                            </div>
                         )}
                     </Container>
                 </main>

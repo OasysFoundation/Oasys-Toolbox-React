@@ -102,14 +102,19 @@ html, body, div, svg, text {
 .oasys .card-header {
     margin: 0;
     padding: 0.25rem 0.25rem;
+    height: 3rem;
 }
 
 .oasys .card {
     margin-bottom: 0;
 }
 
+.oasys .ql-editor {
+    padding: 0;
+}
+
 /*doesn't work here*/
-.oasys .quill-container ql-snow{
+.oasys .ql-container.ql-snow{
     border: 0px;
 }
 @media (min-width: 992px) {
