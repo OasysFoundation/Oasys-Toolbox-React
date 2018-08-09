@@ -20,7 +20,7 @@ const ICON = function(className, fontSize=globals.ICON_FONTSIZE_NORMAL) {
 }
 
 //this is the new "Preview" Component
-class FormulaEdit extends Component {
+class QuizzEdit extends Component {
 
     quizColors = [colors.WINTERSUN, colors.LOCHINVAR, colors.VELVET, colors.GREEN]
 
@@ -92,7 +92,7 @@ class FormulaEdit extends Component {
         let flexDirection = 'row';
         let flexWrap = 'nowrap';
         let elementWidth = "25%";
-        let elementHeight = "auto";
+        let elementHeight = "50px";
 
 
         const containsLongAnswerText = this.state.answers.reduce(function(result, answer) {
@@ -114,7 +114,6 @@ class FormulaEdit extends Component {
         if (containsAtLeastOneImage) {
             flexWrap = 'wrap';
             elementWidth = "50%";
-            elementHeight = "200px";
         }
 
         const containerStyle = {
@@ -136,28 +135,27 @@ class FormulaEdit extends Component {
                     const quizAnswerOptionStyle = {
                         boxShadow: "1px 1px #AAAAAA",
                         borderRadius: "6px 6px 6px 6px",
-                        padding: '4px',
+                        padding: '2px',
                         textAlign: "center",
                         alignSelf: "center",
+                        display: "flex",
                         flexDirection: "column",
                         justifyContent: "center",
                         alignItems: "center",
                         width: elementWidth,
-                        height: elementHeight,
-                        backgroundColor: that.quizColors[index % that.quizColors.length],
-                        overflow: "hidden",
-                        position: "relative",
-                        display: "table-row",
+                        minHeight: elementHeight,
+                        backgroundColor: that.quizColors[index % that.quizColors.length]
                     };
                     return (
                         <div style={quizAnswerOptionStyle} onClick={that.onSelectAnswer.bind(that)}>
-                        <div style={{alignSelf: "center", "max-height": "100%"}}>{answer.title}</div>
+                        <div>{answer.title}</div>
+                        <div>
                         {answer.image!=""? (
-                                
-                                    <img src={answer.image} style={{"max-width":"100%", "max-height": "100%", padding:'10px'}}/>
-                                
+                                <center>
+                                    <img src={answer.image} width="100%" style={{onerror: 'this.style.display = "none"', padding:'10px'}}/>
+                                </center>
                                 ) : null}
-                        </div>
+                        </div></div>
                         );
                    })}
             	</div>
@@ -216,12 +214,17 @@ class FormulaEdit extends Component {
     }
 }
 
-FormulaEdit.modules = {
+QuizzEdit.modules = {
     toolbar: null
 }
 
-FormulaEdit.propTypes = {
+QuizzEdit.propTypes = {
     isEditable: PropTypes.bool
 }
 
-export default FormulaEdit;
+QuizzEdit.defaultProps = {
+    answers: [],
+    question: ""
+}
+
+export default QuizzEdit;
