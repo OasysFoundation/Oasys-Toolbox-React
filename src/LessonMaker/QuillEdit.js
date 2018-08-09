@@ -132,7 +132,6 @@ class QuillEdit extends Component {
 		return (
         <div id={'quill-container-'+this.props.id}>
           {/*{this.renderToolbar()}*/}
-          <hr/>
             <ReactQuill
                 // readOnly={this.props.readOnly}
                 value={this.props.data}

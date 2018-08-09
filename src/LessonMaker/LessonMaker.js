@@ -3,7 +3,7 @@ import SideBarLesson from "./SideBarLesson";
 import Element from "./Element";
 import {moveEntry, withoutEntry, getObjectsByKey} from "../utils/trickBox";
 
-import {Container} from "reactstrap"
+import {Container, FormGroup, Label, Input} from "reactstrap"
 
 //TODO put in Globals
 const oasysSessionKey = `__OASYS_ID__`;
@@ -223,6 +223,11 @@ class LessonMaker extends Component {
 
                         <button
                             onClick={() => this.toggle('isEditMode')}>{this.state.isEditMode ? 'Preview' : 'Edit'}</button>
+
+                        {/*<FormGroup>*/}
+                            {/*<Label for="exampleEmail">Email</Label>*/}
+                            {/*<Input type="email" name="email" id="exampleEmail" placeholder="with a placeholder" />*/}
+                        {/*</FormGroup>*/}
                         <input type="text"
                                name="Chapter Title"
                                onChange={(ev) => this.onChangeChapterTitle(ev.target.value)}
