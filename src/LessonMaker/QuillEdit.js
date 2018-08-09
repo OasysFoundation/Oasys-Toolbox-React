@@ -121,7 +121,7 @@ function insertGraph () {
   this.quill.setSelection(cursorPosition.index + 1)
 }
 
-class QuillEditor extends Component {
+class QuillEdit extends Component {
 
   constructor(props) {
     super(props);
@@ -250,8 +250,8 @@ class QuillEditor extends Component {
 	}
 }
 
-QuillEditor.propTypes = {
+QuillEdit.propTypes = {
   placeholder: PropTypes.string,
 }
 
-export default QuillEditor;
+export default QuillEdit;
