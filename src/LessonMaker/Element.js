@@ -83,7 +83,7 @@ class Element extends Component {
                 render = <QuizzEdit data={content}/>
                 break;
             case globals.EDIT_VIDEO:
-                // render = <VideoEdit data={content}/>
+                render = <VideoEdit data={content}/>
                 break;
 
             default:
