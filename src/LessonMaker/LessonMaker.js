@@ -1,12 +1,10 @@
 import React, {Component} from 'react';
 import {Container, FormGroup, Label, Input} from "reactstrap"
 
-import {moveEntry, withoutEntry, getObjectsByKey} from "../utils/trickBox";
 import SideBarLesson from "./SideBarLesson";
 import Element from "./Element";
 import ElementAdder from './ElementAdder'
 import {moveEntry, withoutEntry, getObjectsByKey} from "../utils/trickBox";
-import {Container, FormGroup, Label, Input} from "reactstrap"
 import globals from '../globals'
 
 //TODO put in Globals
