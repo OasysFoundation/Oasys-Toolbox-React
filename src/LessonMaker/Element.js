@@ -39,7 +39,8 @@ class Element extends Component {
 
     state = {
         mode: styles.normal,
-        isFocus: false
+        isHovered: false,
+        // isClicked: false
     };
 
     onSetCondition() {
@@ -52,6 +53,7 @@ class Element extends Component {
     onInteractionEvent() {
 
     }
+
     //glue function between LessonMaker and Quill to add ID
     handleChange = (value) => {
         this.props.onChange(this.props.data.id, value);
@@ -66,20 +68,21 @@ class Element extends Component {
         // Q: Why is QuillEdit receiving the key prop, but ImageEdit and FormulaEdit not?
         switch (type) {
             case globals.EDIT_QUILL:
-                render = <QuillEdit key={id} id={id} onChange={this.handleChange}  data={content}/>
+                render = <QuillEdit key={id} id={id} isEditMode={this.state.isHovered} onChange={this.handleChange}
+                                    data={content}/>
                 break;
             case globals.EDIT_IMAGE:
-                render = <ImageEdit data={content}/>
+                render = <ImageEdit key={id} data={content}/>
                 break;
             case globals.EDIT_FORMULA:
-                render = <FormulaEdit data={content}/>
+                render = <FormulaEdit key={id} data={content}/>
                 break;
             case globals.EDIT_QUIZ:
                 render = <QuizzEdit data={content}/>
                 break;
 
             default:
-                return (<div key={"1223"}>not yet implemented ☹️</div>)
+                return (<div key={"1223"}>not yet implemented</div>)
         }
         return render;
     }
@@ -92,18 +95,23 @@ class Element extends Component {
         )
     }
 
+    //onClick={() => this.setState({isHovered: true})}
     render() {
-        const {id, content, type} = this.props.data;
+        const {id, type} = this.props.data;
         return (
             <div>
 
                 <section style={this.state.mode}
-                         onMouseEnter={() => this.setState({mode: styles.highlight})}
-                         onMouseLeave={() => this.setState({mode: styles.normal})}
-                         onClick={() => this.setState({isFocus: true})}>
-                    <FadeableCard deleteMe={() => this.props.onDelete(id)}
-                                  moveUp={() => this.props.onMove(id, -1)}
-                                  moveDown={() => this.props.onMove(id, +1)}>
+                         onMouseEnter={() => this.setState({isHovered: true})}
+                         onMouseLeave={() => this.setState({isHovered: false})}
+                         // onClick={() => this.setState({isClicked: true})}
+                >
+                    <FadeableCard
+                        onDelete={() => this.props.onDelete(id)}
+                        onMoveUp={() => this.props.onMove(id, -1)}
+                        onMoveDown={() => this.props.onMove(id, +1)}
+                        isEditMode={this.state.isHovered}
+                    >
                         {this.typeToComponent(type)}
                     </FadeableCard>
                 </section>
@@ -111,6 +119,7 @@ class Element extends Component {
         );
     }
 }
+
 
 Element.propTypes = {
     id: PropTypes.string,

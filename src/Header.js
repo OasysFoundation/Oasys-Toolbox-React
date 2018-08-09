@@ -7,10 +7,10 @@ import { AppAsideToggler, AppHeaderDropdown, AppNavbarBrand, AppSidebarToggler }
 import logo from './assets/images/brand/oasys_logo_big.png'
 import logoSmall from './assets/images/brand/oasys_logo_small.png'
 
-import IconExplore from '@material-ui/icons/Explore';
-import IconCreate from '@material-ui/icons/Create';
-import IconInsertChart from '@material-ui/icons/InsertChart';
-import IconFormatQuote from '@material-ui/icons/FormatQuote';
+//import IconExplore from '@material-ui/icons/Explore';
+//import IconCreate from '@material-ui/icons/Create';
+//import IconInsertChart from '@material-ui/icons/InsertChart';
+//import IconFormatQuote from '@material-ui/icons/FormatQuote';
 
 const propTypes = {
   children: PropTypes.node,
@@ -36,25 +36,21 @@ class Header extends Component {
         <Nav className="d-md-down-none" navbar>
           <NavItem className="px-3">
             <NavLink href="#">
-              <IconExplore style={{marginRight: '7px'}}/>
               Explore
             </NavLink>
           </NavItem>
           <NavItem className="px-3">
             <NavLink href="#">
-              <IconCreate style={{marginRight: '7px'}}/>
               Create
             </NavLink>
           </NavItem>
           <NavItem className="px-3">
             <NavLink href="#">
-              <IconInsertChart style={{marginRight: '7px'}}/>
               Analytics
             </NavLink>
           </NavItem>
           <NavItem className="px-3">
             <NavLink href="#">
-              <IconFormatQuote style={{marginRight: '7px'}}/>
               Blog
             </NavLink>
           </NavItem>
