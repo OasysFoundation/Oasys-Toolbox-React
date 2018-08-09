@@ -64,8 +64,8 @@
         .pn-ProductNav_Link {
           text-decoration: none!important;
           color: black;
-          font-size: 1.2rem;
-          font-family: -apple-system, sans-serif;
+          font-size: 1rem;
+          font-family: HelveticaNeue_Bold,-apple-system, sans-serif;
           display: -webkit-inline-box;
           display: -ms-inline-flexbox;
           display: inline-flex;
@@ -144,4 +144,11 @@
           transition: background-color .2s ease-in-out, -webkit-transform .2s ease-in-out;
           transition: transform .2s ease-in-out, background-color .2s ease-in-out;
           transition: transform .2s ease-in-out, background-color .2s ease-in-out, -webkit-transform .2s ease-in-out;
+        }
+
+        .ellipseWebkit{
+        	 display: -webkit-box;
+			  -webkit-line-clamp: 3;
+			  -webkit-box-orient: vertical;  
+			  overflow: hidden;
         }

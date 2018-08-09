@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import LandingPageHorizontalSection from './LandingPageHorizontalSection'
-import cover from '../images/cover4.png'
+import cover from '../images/coverRAZ.png'
 import './landingPage.css'
 import api from '../tools'
 import {getTagsForCategory} from "../utils";
@@ -106,6 +106,9 @@ class LandingPageController extends Component{
                 //if there is an array with at least 1 match then .length returns true(=> don't filter) else false
 
     }
+    correctCategory(category){
+    	return this.getContentForCategory(category);
+    }
 
 	render(){
 		// <LandingPageHorizontalSection title={"Physics"} data={this.state.filteredContent} />
@@ -121,6 +124,7 @@ class LandingPageController extends Component{
 
                 <section style={{display:"flex", justifyContent:"center"}}>
 					<div  style={{width:"100%", maxWidth:"900px"}}>
+						<br/>
 						<LandingPageHorizontalSection title={"Tiles"} data={tiles} id={sectionIds[0]}/>
 						<LandingPageHorizontalSection title={"Featured"} data={this.state.filteredContent} id={sectionIds[1]}/>
 						<LandingPageHorizontalSection title={"Physics"} data={this.state.filteredContent} id={sectionIds[2]}/>

@@ -9,19 +9,21 @@ class LandingPageHorizontalSection extends Component{
 
 	render(){
 		return(
-			<div>
+			<div style={{padding:"10px 10px 10px 10px"}}>
 				<div>
-					<h1 style={{fontSize:"1.5rem"}}> 
+					<h1 style={{fontSize:"1.3rem",fontFamily: "SF-Pro-Display-Medium, HelveticaNeue_Bold,-apple-system, sans-serif"}}> 
 					{
 						this.props.title && this.props.title=="Tiles"
-						? "Filter by Tag"
+						? "Filter"
 						: this.props.title
 
 					}
 					</h1>
-					<hr/>
+					<hr color="black" style={{height:"1px", border: "none", marginTop:"0"}}/>
 				</div>
 				<HorizontalScroll data={this.props.data} type={this.props.title} id={this.props.id}/>
+				<br/>
+				<br/>
 			</div>
 			)
 	}
