@@ -78,7 +78,7 @@ class Element extends Component {
                 render = <FormulaEdit key={id} data={content}/>
                 break;
             case globals.EDIT_QUIZ:
-                render = <QuizzEdit data={content}/>
+                render = <QuizzEdit key={id} data={content}/>
                 break;
 
             default:
