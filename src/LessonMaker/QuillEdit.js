@@ -45,7 +45,7 @@ GraphBlot.className = 'graph';
 
 Quill.register(GraphBlot);
 
-
+// this is an example for a highly customized toolbar
 // see https://devarchy.com/react/library/react-quill
 const BigToolbar = () => (
   <div id="toolbar-quill">
@@ -151,7 +151,6 @@ class QuillEditor extends Component {
 
   constructor(props) {
     super(props);
-
     // define custom icons
     let icons = ReactQuill.Quill.import('ui/icons');
     icons['header']['1'] = '';
@@ -190,43 +189,77 @@ class QuillEditor extends Component {
     */
   }
 
+  renderToolbar(){
+    return (
+      <div id={'toolbar-quill-'+this.props.id}>
+        <span className="ql-formats">
+          <button className="ql-header" style={{fontSize: '21px', marginTop: '0px'}}>T</button>
+          <button className="ql-header" value="1" style={{fontSize: '30px', marginTop: '-6px'}}>T</button>
+          <button className="ql-bold"></button>
+          <button className="ql-italic"></button>
+          <button className="ql-blockquote"></button>
+          <select className="ql-background" style={{marginTop: '-2px'}}>
+            <option value="#cccccc" />
+            <option value="#f06666" />
+            <option value="#ffc266" />
+            <option value="#ffff66" />
+            <option value="#66b966" />
+            <option value="#66a3e0" />
+            <option value="#c285ff" />
+            <option value="#ffffff" />
+            <option value="#facccc" />
+            <option value="#ffebcc" />
+            <option value="#ffffcc" />
+            <option value="#cce8cc" />
+            <option value="#cce0f5" />
+            <option value="#ebd6ff" />
+          </select>
+          <button className="ql-link"></button>
+          <button className="ql-image"></button>
+          <button className="ql-video"></button>
+          <button className="ql-formula"></button>
+        </span>
+
+      </div>
+    )
+  }
+
 	render() {
+    let modules = {
+      toolbar: {
+        container: '#toolbar-quill-'+this.props.id,
+        handlers: { "insertGraph": insertGraph,
+        }
+      },
+      // //imageDrop: true,
+      // imageResize: {
+      //   parchment: Quill.import('parchment'),
+      //   modules: [ 'Resize', 'DisplaySize', 'Toolbar' ]
+      // }
+      //imageDrop: true,
+      //imageResize: {
+      //  parchment: Quill.import('parchment'),
+      //  modules: [ 'Resize', 'DisplaySize', 'Toolbar' ]
+      //}
+    }
+
 		return (
-        <div id='quill-container'>
-          <SmallToolbar />
+        <div id={'quill-container-'+this.props.id}>
+          {this.renderToolbar()}
           <hr/>
           <ReactQuill
               onChange={this.props.onChange}
               ref="reactQuill"
-              modules={QuillEditor.modules}
-              bounds={'#quill-container'}
+              modules={modules}
+              bounds={'quill-container-'+this.props.id}
           /> 
         </div>
     )
 	}
 }
 
-// this needs to be defined after the QuillEditor Component
-QuillEditor.modules = {
-    toolbar: {
-      container: "#toolbar-quill",
-      handlers: { "insertGraph": insertGraph,
-      }
-    },
-    // //imageDrop: true,
-    // imageResize: {
-    //   parchment: Quill.import('parchment'),
-    //   modules: [ 'Resize', 'DisplaySize', 'Toolbar' ]
-    // }
-    //imageDrop: true,
-    //imageResize: {
-    //  parchment: Quill.import('parchment'),
-    //  modules: [ 'Resize', 'DisplaySize', 'Toolbar' ]
-    //}
-  }
-
 QuillEditor.propTypes = {
-    placeholder: PropTypes.string,
-  }
+  placeholder: PropTypes.string,
+}
 
 export default QuillEditor;
