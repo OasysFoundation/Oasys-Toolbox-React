@@ -104,39 +104,6 @@ const BigToolbar = () => (
   </div>
 )
 
-const SmallToolbar = () => (
-  <div id="toolbar-quill">
-    <span className="ql-formats">
-      <button className="ql-header" style={{fontSize: '21px', marginTop: '0px'}}>T</button>
-      <button className="ql-header" value="1" style={{fontSize: '30px', marginTop: '-6px'}}>T</button>
-      <button className="ql-bold"></button>
-      <button className="ql-italic"></button>
-      <button className="ql-blockquote"></button>
-      <select className="ql-background" style={{marginTop: '-2px'}}>
-        <option value="#cccccc" />
-        <option value="#f06666" />
-        <option value="#ffc266" />
-        <option value="#ffff66" />
-        <option value="#66b966" />
-        <option value="#66a3e0" />
-        <option value="#c285ff" />
-        <option value="#ffffff" />
-        <option value="#facccc" />
-        <option value="#ffebcc" />
-        <option value="#ffffcc" />
-        <option value="#cce8cc" />
-        <option value="#cce0f5" />
-        <option value="#ebd6ff" />
-      </select>
-      <button className="ql-link"></button>
-      <button className="ql-image"></button>
-      <button className="ql-video"></button>
-      <button className="ql-formula"></button>
-    </span>
-
-  </div>
-)
-
 function insertGraph () {
   let cursorPosition = this.quill.getSelection()
   if (cursorPosition === null) {
@@ -170,11 +137,11 @@ class QuillEditor extends Component {
     window.d3 = require('d3')
     
     // for enabling graphing in quill, uncomment the following
-    /*
+    
     const quill = this.refs.reactQuill.getEditor();
     window.quill = quill;
 
-    window.document.getElementById('graph-button').addEventListener('click', function(e) {
+    window.document.getElementById('graph-button-'+this.props.id).addEventListener('click', function(e) {
         var equation = prompt("Enter equation","x^3");
         
         if (equation != null) {
@@ -186,7 +153,7 @@ class QuillEditor extends Component {
           quill.insertEmbed(cursorPosition.index + 1, 'graph', {equation: equation}, Quill.sources.USER);
         }
     });
-    */
+    
   }
 
   renderToolbar(){
@@ -218,6 +185,9 @@ class QuillEditor extends Component {
           <button className="ql-image"></button>
           <button className="ql-video"></button>
           <button className="ql-formula"></button>
+          <button className="ui button" id={'graph-button-'+this.props.id} style={{padding: '0px'}}>
+            <img src={graphIcon} width={16} height={16} alt="" />
+          </button>
         </span>
 
       </div>
