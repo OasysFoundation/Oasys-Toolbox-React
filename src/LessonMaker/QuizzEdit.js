@@ -113,7 +113,7 @@ class FormulaEdit extends Component {
 
         if (containsAtLeastOneImage) {
             flexWrap = 'wrap';
-            elementWidth = "40%";
+            elementWidth = "50%";
         }
 
         const containerStyle = {
@@ -135,7 +135,7 @@ class FormulaEdit extends Component {
                     const quizAnswerOptionStyle = {
                         boxShadow: "1px 1px #AAAAAA",
                         borderRadius: "6px 6px 6px 6px",
-                        margin: '2px',
+                        padding: '2px',
                         textAlign: "center",
                         alignSelf: "center",
                         display: "flex",
