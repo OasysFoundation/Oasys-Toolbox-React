@@ -4,7 +4,9 @@ import {Container, FormGroup, Label, Input} from "reactstrap"
 import {moveEntry, withoutEntry, getObjectsByKey} from "../utils/trickBox";
 import SideBarLesson from "./SideBarLesson";
 import Element from "./Element";
-import ElementAdder from "./ElementAdder";
+import ElementAdder from './ElementAdder'
+import {moveEntry, withoutEntry, getObjectsByKey} from "../utils/trickBox";
+import {Container, FormGroup, Label, Input} from "reactstrap"
 import globals from '../globals'
 
 //TODO put in Globals
@@ -19,7 +21,7 @@ const MockData = {
                 {
                     title: "Heat and Motion",
                     id: "chapter_124552",
-                    linkIdx: ["chapter_99852"],
+                    // linkIdx: ["chapter_99852"],
                     elements: [
                         
                         {
@@ -35,7 +37,31 @@ const MockData = {
                         {
                             id: "aaaaaa2222222",
                             type: globals.EDIT_QUIZ,
-                            content: "TBD"
+                            content: {
+                                question: "how you do i asked???",
+                                answers: [
+                                    {
+                                        "title": "1 dudeldi dumm da da",
+                                        "image": "",
+                                        "correct": false
+                                    },
+                                    {
+                                        "title": "2 ladi do dari",
+                                        "image": "",
+                                        "correct": false
+                                    },
+                                    {
+                                        "title": "3 schub di dubidu",
+                                        "image": "",
+                                        "correct": false
+                                    },
+                                    {
+                                        "title": "4 nudelholz – Dies ist die Geschichte von Albrecht, dem kleinen Gecko.",
+                                        "image": "",
+                                        "correct": false
+                                    }
+                                ]
+                            }
                         },
                         {
                             id: "aaaaaa222",
@@ -113,15 +139,20 @@ class LessonMaker extends Component {
 
     //TODO timestamps for restore / reject
     inhaleSessionStorage() {
+
         const proj = JSON.parse(JSON.stringify(this.state.project));
 
         //deep searches data and returns 1D array with objects that have an ID property
         //by reference!
         const allWithID = getObjectsByKey([proj], 'id');
-        //get
         const sessionKeys = Object.keys(sessionStorage).filter(key => key.includes(oasysSessionKey))
+        //get
+        console.log("OBJS", allWithID, sessionKeys)
         sessionKeys.forEach(key => {
-            allWithID.find(el => oasysSessionKey + el['id'] === key).content = JSON.parse(sessionStorage.getItem(key)).content;
+            const match = allWithID.find(el => oasysSessionKey + el['id'] === key)
+            if (match) {
+                match.content = JSON.parse(sessionStorage.getItem(key)).content;
+            }
         })
         this.setState({project: proj});
     }
