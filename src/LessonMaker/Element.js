@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import FadeableCard from './FadeableCard'
 import globals from "../globals";
-import QuillEdit from './QuillEditor'
+import QuillEdit from './QuillEdit'
 import ImageEdit from './ImageEdit'
 import FormulaEdit from './FormulaEdit'
 

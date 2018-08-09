@@ -1,16 +1,27 @@
-import graphIcon from '../assets/icons/graph.jpg';
+// import graphIcon from '../assets/icons/graph.jpg';
 import React from 'react'
+import textBiggerIcon from '../assets/icons/quillTextBigIcon.png';
+import textSmallerIcon from '../assets/icons/quillTextSmallIcon.png';
 
 export default function ToolBarQuill(id, isShown = true) {
     return (
-        <div hidden={! isShown} id={'toolbar-quill-' + id}>
-        <span className="ql-formats">
-          <button className="ql-header" style={{fontSize: '21px', marginTop: '0px'}}>T</button>
-          <button className="ql-header" value="1" style={{fontSize: '30px', marginTop: '-6px'}}>T</button>
+        <div hidden={!isShown} id={'toolbar-quill-' + id}>
+         <span className="ql-formats">
           <button className="ql-bold"></button>
           <button className="ql-italic"></button>
+          <button className="ql-link"></button>
+        </span>
+            <span className="ql-formats">
+          <button className="ql-header ql-smaller">
+            <img src={textSmallerIcon} alt=""/>
+          </button>
+          <button className="ql-header ql-bigger" value="1">
+            <img src={textBiggerIcon} alt=""/>
+          </button>
+        </span>
+            <span className="ql-formats">
           <button className="ql-blockquote"></button>
-          <select className="ql-background" style={{marginTop: '-2px'}}>
+          <select className="ql-background">
             <option value="#cccccc"/>
             <option value="#f06666"/>
             <option value="#ffc266"/>
@@ -26,15 +37,23 @@ export default function ToolBarQuill(id, isShown = true) {
             <option value="#cce0f5"/>
             <option value="#ebd6ff"/>
           </select>
-          <button className="ql-link"></button>
+                {/*
           <button className="ql-image"></button>
           <button className="ql-video"></button>
           <button className="ql-formula"></button>
+          <button className="ui button" id={'graph-button-'+this.props.id} style={{padding: '0px'}}>
+            <img src={graphIcon} width={16} height={16} alt="" />
+          </button>
+          */}
         </span>
         </div>
+
     )
 }
 //
+
+// this is an example for a highly customized toolbar
+// see https://devarchy.com/react/library/react-quill
 // const BigToolbar = () => (
 //     <div id="toolbar-quill">
 //     <span className="ql-formats">
