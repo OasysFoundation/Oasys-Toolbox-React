@@ -9,6 +9,13 @@ import 'katex/dist/katex.min.css';
 
 import '../styles/QuillEdit.css';
 import graphIcon from '../assets/icons/graph.jpg';
+import textBiggerIcon from '../assets/icons/quillTextBigIcon.png';
+import textSmallerIcon from '../assets/icons/quillTextSmallIcon.png';
+import textBoldIcon from '../assets/icons/quillBoldIcon.png';
+import textItalicIcon from '../assets/icons/quillItalicIcon.png';
+import textLinkIcon from '../assets/icons/quillLinkIcon.png';
+import textQuoteIcon from '../assets/icons/quillQuoteIcon.png';
+import textColorIcon from '../assets/icons/quillColorIcon.png';
 
 let Embed = Quill.import('blots/embed');
 
@@ -120,7 +127,13 @@ class QuillEditor extends Component {
     super(props);
     // define custom icons
     let icons = ReactQuill.Quill.import('ui/icons');
+    console.log(icons)
     icons['header']['1'] = '';
+    icons['bold'] = '<img src="'+textBoldIcon+'"/>';
+    icons['italic'] = '<img src="'+textItalicIcon+'"/>';
+    icons['blockquote'] = '<img src="'+textQuoteIcon+'"/>';
+    icons['background'] = '<img src="'+textColorIcon+'"/>';
+    icons['link'] = '<img src="'+textLinkIcon+'"/>';
 
     let font = ReactQuill.Quill.import('formats/font');
     font.whitelist = ['kievit'];
@@ -129,7 +142,6 @@ class QuillEditor extends Component {
     let fontSize = ReactQuill.Quill.import('attributors/style/size');
     fontSize.whitelist =  ['21px', '22px', '30px', 'small', 'normal', 'large', 'huge'];
     ReactQuill.Quill.register(fontSize, true);
-
   }
 
   componentDidMount() {
@@ -137,7 +149,7 @@ class QuillEditor extends Component {
     window.d3 = require('d3')
     
     // for enabling graphing in quill, uncomment the following
-    
+    /*
     const quill = this.refs.reactQuill.getEditor();
     window.quill = quill;
 
@@ -153,19 +165,28 @@ class QuillEditor extends Component {
           quill.insertEmbed(cursorPosition.index + 1, 'graph', {equation: equation}, Quill.sources.USER);
         }
     });
-    
+    */
   }
 
   renderToolbar(){
     return (
       <div id={'toolbar-quill-'+this.props.id}>
         <span className="ql-formats">
-          <button className="ql-header" style={{fontSize: '21px', marginTop: '0px'}}>T</button>
-          <button className="ql-header" value="1" style={{fontSize: '30px', marginTop: '-6px'}}>T</button>
           <button className="ql-bold"></button>
           <button className="ql-italic"></button>
+          <button className="ql-link"></button>
+        </span>
+        <span className="ql-formats">
+          <button className="ql-header ql-smaller">
+            <img src={textSmallerIcon} alt="" />
+          </button>
+          <button className="ql-header ql-bigger" value="1">
+            <img src={textBiggerIcon} alt="" />
+          </button>
+        </span>
+        <span className="ql-formats">
           <button className="ql-blockquote"></button>
-          <select className="ql-background" style={{marginTop: '-2px'}}>
+          <select className="ql-background">
             <option value="#cccccc" />
             <option value="#f06666" />
             <option value="#ffc266" />
@@ -181,13 +202,14 @@ class QuillEditor extends Component {
             <option value="#cce0f5" />
             <option value="#ebd6ff" />
           </select>
-          <button className="ql-link"></button>
+          {/*
           <button className="ql-image"></button>
           <button className="ql-video"></button>
           <button className="ql-formula"></button>
           <button className="ui button" id={'graph-button-'+this.props.id} style={{padding: '0px'}}>
             <img src={graphIcon} width={16} height={16} alt="" />
           </button>
+          */}
         </span>
 
       </div>
