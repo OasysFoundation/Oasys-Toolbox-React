@@ -7,9 +7,9 @@ import katex from 'katex';
 import 'katex/dist/katex.min.css';
 
 import '../styles/QuillEdit.css';
-import graphIcon from '../assets/icons/graph.jpg';
-import textBiggerIcon from '../assets/icons/quillTextBigIcon.png';
-import textSmallerIcon from '../assets/icons/quillTextSmallIcon.png';
+// import graphIcon from '../assets/icons/graph.jpg';
+// import textBiggerIcon from '../assets/icons/quillTextBigIcon.png';
+// import textSmallerIcon from '../assets/icons/quillTextSmallIcon.png';
 import textBoldIcon from '../assets/icons/quillBoldIcon.png';
 import textItalicIcon from '../assets/icons/quillItalicIcon.png';
 import textLinkIcon from '../assets/icons/quillLinkIcon.png';

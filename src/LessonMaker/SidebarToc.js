@@ -83,6 +83,14 @@ class SidebarToc extends Component {
         }
     }
 
+    componentWillReceiveProps(){
+        // TODO: check if this is fired if incoming chapters props changed
+    }
+
+    shouldComponentUpdate(){
+        // TODO: check if this is fired if incoming chapters props changed
+    }
+
     render() {
         return (
             <div>

@@ -6,6 +6,7 @@ import {
     Card,
     CardBody,
     CardHeader,
+    CardFooter,
     Collapse,
     Fade
 } from 'reactstrap';
@@ -25,8 +26,11 @@ const styling = {
         flexDirection: "row",
         justifyContent: 'space-between'
     },
+    cardFooter: {
+        margin: 'auto',
+    },
     toolbars: {
-
+        margin: 'auto',
     },
     cardActions: {
         alignSelf: 'center'
@@ -95,6 +99,11 @@ class FadeableCard extends Component {
 
                         </CardBody>
                     </Collapse>
+                    <CardFooter style={styling.cardFooter}>
+                        <button>
+                            +++
+                        </button>
+                    </CardFooter>
                 </Card>
             </Fade>
 

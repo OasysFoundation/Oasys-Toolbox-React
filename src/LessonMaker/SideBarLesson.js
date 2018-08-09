@@ -4,15 +4,12 @@ import PropTypes from 'prop-types';
 import {
     AppSidebar,
     AppSidebarFooter,
-    AppSidebarForm,
-    AppSidebarHeader,
     AppSidebarMinimizer,
-    AppSidebarNav,
 } from '@coreui/react';
 
 import SidebarToc from "./SidebarToc";
 
-const navParams = {
+/* const navParams = {
     items: [
         {
             name: 'Dashboard',
@@ -34,7 +31,7 @@ const navParams = {
             icon: 'icon-speedometer',
         },
     ],
-};
+}; */
 
 class SideBarLesson extends Component {
     //title, tags
