@@ -32,16 +32,15 @@ class FadeableCard extends Component {
             <Fade timeout={300} in={this.state.shouldFade}>
                 <Card className="card-accent-warning">
                     <CardHeader>
-                        <div className="card-header-actions">
-
-                            <a href="#" className="card-header-action btn btn-setting"
-                               onClick={this.props.moveUp}
+                        <div hidden={ ! this.props.isEditMode } className="card-header-actions">
+                            <a className="card-header-action btn btn-setting"
+                               onClick={this.props.onMoveUp}
                             >
                                 {ICON("icon-arrow-up-circle")}
                             </a>
 
-                            <a href="#" className="card-header-action btn btn-setting"
-                               onClick={this.props.moveDown}>
+                            <a className="card-header-action btn btn-setting"
+                               onClick={this.props.onMoveDown}>
                                 {ICON("icon-arrow-down-circle")}
                             </a>
                             <a
@@ -55,7 +54,7 @@ class FadeableCard extends Component {
                                 className="card-header-action btn btn-setting"
                                 onClick={() => {
                                     this.toggle('shouldFade')
-                                    this.props.deleteMe() //id is alrea
+                                    this.props.onDelete() //id is alrea
                                 }}>
                                 {ICON("icon-close")}
                             </a>
@@ -75,6 +74,11 @@ class FadeableCard extends Component {
     }
 }
 
-FadeableCard.propTypes = {};
+FadeableCard.propTypes = {
+    isFocus: PropTypes.bool,
+    onDelete: PropTypes.func,
+    onMoveUp: PropTypes.func,
+    onMoveDown: PropTypes.func,
+};
 
 export default FadeableCard;
