@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import ReactTooltip from "react-tooltip"
+import ReactDOM from 'react-dom';
 
 import * as tocjs from '../assets/scripts/toc.js'
 
@@ -30,7 +32,8 @@ class SidebarToc extends Component {
             rectColorDefaultStroke: '#626970',
             textColor: '#eeeeee',
             myOrange: '#C85C0D',
-            handler: this.handleChangeChapter,
+            handleClick: this.handleChangeChapter,
+            handleHover: this.handleMouserOver,
         }
 
         this.chapters = [
@@ -73,25 +76,38 @@ class SidebarToc extends Component {
     componentDidMount(){
         tocjs.drawChapters(this.tocInfo, this.chapters, this.opt);
         tocjs.drawConnections(this.tocInfo, this.opt);
+        for (let i=0;i<this.chapters.length;i++) {
+            let idx = this.chapters[i].idx;
+            let elem = <ReactTooltip id={'toc-'+idx}> {this.chapters[i].title} </ReactTooltip>
+            ReactDOM.render(elem, document.getElementById("tooltip-"+idx));
+        }
     }
 
     render() {
         return (
-            <svg 
-                className ="svgTocWrap"
-                xmlns="http://www.w3.org/2000/svg" 
-                width={this.state.width} 
-                height={this.state.height} 
-                viewBox={"0 0 this.state.width this.state.height"}
-            >
+            <div>
                 <svg 
-                    id="toc" 
+                    className ="svgTocWrap"
+                    xmlns="http://www.w3.org/2000/svg" 
                     width={this.state.width} 
                     height={this.state.height} 
                     viewBox={"0 0 this.state.width this.state.height"}
                 >
+                    <svg 
+                        id="toc" 
+                        width={this.state.width} 
+                        height={this.state.height} 
+                        viewBox={"0 0 this.state.width this.state.height"}
+                    >
+                    </svg>
                 </svg>
-            </svg>
+
+                {this.chapters.map(e=>
+                    <div id={"tooltip-"+e.idx}> </div>
+                )}
+                
+
+            </div>
         );
     }
 }

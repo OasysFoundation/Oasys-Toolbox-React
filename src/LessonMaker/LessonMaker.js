@@ -6,6 +6,7 @@ import {moveEntry, withoutEntry, getObjectsByKey} from "../utils/trickBox";
 import SideBarLesson from "./SideBarLesson";
 import Element from "./Element";
 import ElementAdder from './ElementAdder'
+
 import globals from '../globals'
 
 //TODO put in Globals
@@ -146,7 +147,6 @@ class LessonMaker extends Component {
         const allWithID = getObjectsByKey([proj], 'id');
         const sessionKeys = Object.keys(sessionStorage).filter(key => key.includes(oasysSessionKey))
         //get
-        console.log("OBJS", allWithID, sessionKeys)
         sessionKeys.forEach(key => {
             const match = allWithID.find(el => oasysSessionKey + el['id'] === key)
             if (match) {
@@ -176,7 +176,6 @@ class LessonMaker extends Component {
     }
 
     onAddElement(typeSelected, atIdx) {
-        console.log('type::', typeSelected, atIdx);
         const proj = JSON.parse(JSON.stringify(this.state.project));
         let elements = proj.chapters[this.state.currChapIdx].elements;
         const newElem = {
@@ -186,7 +185,6 @@ class LessonMaker extends Component {
             timestamp: Date.now()
         };
 
-        console.log(elements);
         proj.chapters[this.state.currChapIdx].elements = [
             ...elements.slice(0, atIdx+1),
             newElem,

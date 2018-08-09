@@ -192,6 +192,7 @@ export function drawChapters(tocInfo, chapters, opt) {
             info.y = offy;
             info.width = opt.totalWidth;
             info.text = chapters[elems[0].idx].title;
+            info.idx = chapters[elems[0].idx].idx;
             document.getElementById(opt.tocId).appendChild(svgRect(info,elems[0].idx,opt));
             document.getElementById(opt.tocId).appendChild(svgText(info,elems[0].idx,opt));
         } else {
@@ -201,6 +202,7 @@ export function drawChapters(tocInfo, chapters, opt) {
                 info.y = offy;
                 info.width = rectWidth;
                 info.text = chapters[elems[j].idx].title;
+                info.idx = chapters[elems[j].idx].idx;
                 document.getElementById(opt.tocId).appendChild(svgRect(info,elems[j].idx,opt));
                 document.getElementById(opt.tocId).appendChild(svgText(info,elems[0].idx,opt));
                 offx = offx + rectWidth + opt.gapx;
@@ -288,7 +290,7 @@ export function svgRect(obj,idx,opt){
     svg.setAttribute("x", obj.x);
     svg.setAttribute("y", obj.y);
     svg.setAttribute("opacity", 1.0);
-    svg.addEventListener("click", function(){opt.handler(idx)}, false);
+    svg.addEventListener("click", function(){opt.handleClick(idx)}, false);
     svg.style.fill = opt.rectColorDefaultFill;
     svg.style.stroke = opt.rectColorDefaultStroke;
     svg.style.cursor = 'pointer';
@@ -308,14 +310,17 @@ export function svgText(obj,idx,opt) {
     svg.setAttribute('y', obj.y);
     svg.setAttribute('width', obj.width - opt.textpadx);
     svg.setAttribute('height', opt.rectHeight);
+    svg.setAttribute('data-tip', 'tooltip');
+    svg.setAttribute('data-for', 'toc-'+obj.idx);
 
     let txt = document.createElementNS(NS, 'text');
     txt.setAttribute('x', opt.textpadx);
     txt.setAttribute('y', opt.textpady+15);
     txt.setAttribute('fill', opt.textColor);
-    txt.addEventListener("click", function(){opt.handler(idx)}, false);
     txt.style.cursor = 'pointer';
     txt.textContent = obj.text;
+
+    svg.addEventListener("click", function(){opt.handleClick(idx)}, false);
 
     svg.appendChild(txt);
     return svg;
