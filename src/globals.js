@@ -28,4 +28,6 @@ const globals = {
 	BOOL_ENABLED : 1, // for module component logic
 };
 
+
+
 export default globals;

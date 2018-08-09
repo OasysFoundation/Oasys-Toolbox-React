@@ -1,4 +1,34 @@
-// ([1,2,3,4], 2) ===> [1,2,4]
+import globals from "../globals"
+import React from 'react';
+
+import GameIcon from "../assets/icons/Game.png"
+import TextIcon from "../assets/icons/Text.png"
+import VideoIcon from "../assets/icons/Hypervideo.png"
+import SysIcon from "../assets/icons/SystemSimulation.png"
+import QuizIcon from "../assets/icons/Quiz.png"
+// import ImageIcon from "../assets/icons/.png"
+// import FormulaIcon from "../assets/icons/F.png"
+
+const typeToIcon = (type) => {
+    switch (type) {
+        case globals.EDIT_QUILL:
+            return TextIcon
+            break;
+        case globals.EDIT_GAME:
+            return GameIcon
+            break;
+        case globals.EDIT_SYSTEM:
+            return SysIcon
+            break;
+        case globals.EDIT_QUIZ:
+            return QuizIcon
+            break;
+        default:
+            return <div>ICON or TYPE NOT FOUND</div>
+    }
+}
+
+
 
 const Unwrap = (str) => str.split('-').join(' ');
 
@@ -107,5 +137,5 @@ function substringInObjCount(obj, substr) {
 export {Unwrap, Wrap,
     NUcheck, substringInObjCount,
     flatten, CATEGORIES,
-    getTagsForCategory,
+    getTagsForCategory, typeToIcon,
     withoutEntry, isEmpty, getObjectsByKey, moveEntry}
