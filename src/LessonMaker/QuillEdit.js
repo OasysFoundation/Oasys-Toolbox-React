@@ -68,7 +68,6 @@ class QuillEdit extends Component {
     super(props);
     // define custom icons
     let icons = ReactQuill.Quill.import('ui/icons');
-    console.log(icons)
     icons['header']['1'] = '';
     icons['bold'] = '<img src="'+textBoldIcon+'"/>';
     icons['italic'] = '<img src="'+textItalicIcon+'"/>';
