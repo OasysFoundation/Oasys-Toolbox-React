@@ -109,14 +109,26 @@ class FormulaEdit extends Component {
 
 
 
-                <Modal isOpen={this.state.isInEditMode} toggle={this.onClose.bind(this)}>
-                  <ModalHeader toggle={this.onClose.bind(this)}>Edit Quiz Lalalala</ModalHeader>
+                <Modal isOpen={this.state.isInEditMode} toggle={this.onClose.bind(this)} backdrop={true}>
+                  <ModalHeader toggle={this.onClose.bind(this)}>Edit Quiz???????</ModalHeader>
                   <ModalBody>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                <InputGroup>
+                    <InputGroupAddon addonType="prepend">?</InputGroupAddon>
+                    <Input placeholder="i haz asked you what the quesion is?" value={this.state.question} />
+                </InputGroup>
+                    {this.state.answers.map(function(answer, index) {
+                        return (
+                            <InputGroup>
+                                <InputGroupAddon addonType="prepend">✓</InputGroupAddon>
+                                <Input placeholder="answer text" value={answer.title} />
+                                <Button color="primary">🖼</Button>
+                            </InputGroup>
+                            )
+                    })}
                   </ModalBody>
                   <ModalFooter>
-                    <Button color="primary" onClick={this.onClose.bind(this)}>Do Something</Button>{' '}
                     <Button color="secondary" onClick={this.onClose.bind(this)}>Cancel</Button>
+                    <Button color="primary" onClick={this.onClose.bind(this)}>Save</Button>
                   </ModalFooter>
                 </Modal>
 
