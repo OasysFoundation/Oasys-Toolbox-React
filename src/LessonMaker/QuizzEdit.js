@@ -29,8 +29,8 @@ class QuizzEdit extends Component {
         super(props);
         this.state = {
             isInEditMode: false,
-        	question: props.data.question,
-            answers: props.data.answers,
+        	question: props.data.question? props.data.question : "",
+            answers: props.data.answers? props.data.answers : [],
             showsPageSelectionDropDown: false,
             selectingImageForIndex: 0
         }
@@ -85,6 +85,40 @@ class QuizzEdit extends Component {
         reader.readAsDataURL(file);
     }
 
+    onAddNewAnswerOption() {
+        var currentAnswers = this.state.answers;
+        currentAnswers.push({
+            "title": "",
+            "image": "",
+            "correct": false
+        });
+        this.setState({
+            answers: currentAnswers
+        })
+    }
+
+    onRemoveAnswer(index) {
+        var currentAnswers = this.state.answers;
+        currentAnswers.splice(index, 1)
+        this.setState({
+            answers: currentAnswers
+        })
+    }
+
+    onChangeAnswer(newText, index) {
+        var currentAnswers = this.state.answers;
+        currentAnswers[index].title = newText;
+        this.setState({
+            answers: currentAnswers
+        })
+    }
+
+    onChangeQuestion(newText) {
+        this.setState({
+            question: newText
+        })
+    }
+
 
 	
     render() {
@@ -132,6 +166,7 @@ class QuizzEdit extends Component {
             	<div style={containerStyle}>
                    
             	   {this.state.answers.map(function(answer, index) {
+                    
                     const quizAnswerOptionStyle = {
                         boxShadow: "1px 1px #AAAAAA",
                         borderRadius: "6px 6px 6px 6px",
@@ -146,6 +181,7 @@ class QuizzEdit extends Component {
                         minHeight: elementHeight,
                         backgroundColor: that.quizColors[index % that.quizColors.length]
                     };
+
                     return (
                         <div style={quizAnswerOptionStyle} onClick={that.onSelectAnswer.bind(that)}>
                         <div>{answer.title}</div>
@@ -169,7 +205,7 @@ class QuizzEdit extends Component {
                   <ModalBody>
                 <InputGroup style={{marginBottom: '20px'}}>
                     <InputGroupAddon addonType="prepend">?</InputGroupAddon>
-                    <Input placeholder="i haz asked you what the quesion is?" value={this.state.question} />
+                    <Input placeholder="i haz asked you what the quesion is?" value={this.state.question} onChange={function(element) { that.onChangeQuestion(element.target.value) }}/>
                     <InputGroupAddon addonType="append"><Button color="secondary" onClick={that.onShowImageSelectionDialog.bind(that)}>{ICON("icon-camera")}</Button></InputGroupAddon>
                 </InputGroup>
                     {this.state.answers.map(function(answer, index) {
@@ -182,7 +218,7 @@ class QuizzEdit extends Component {
                                     <Input addon type="radio" name="radio1"/>
                                   </InputGroupText>
                                 </InputGroupAddon>
-                                <Input placeholder="entr you answer" value={answer.title} />
+                                <Input placeholder="entr you answer" value={answer.title} onChange={function(element) { that.onChangeAnswer(element.target.value, index) }} />
                                 <InputGroupAddon addonType="append">
                                     <Button color="secondary" onClick={function() { that.onShowImageSelectionDialog(index) }}>
                                     {ICON("icon-camera")}
@@ -190,6 +226,12 @@ class QuizzEdit extends Component {
                                 </InputGroupAddon>
                                 
                                 <SelectionDropdown onSelect={that.onSelectAction.bind(that)} default={"No Action"} options={["Go to Chatper 1", "Go to Chapter 2", "Go to Chapter 3"]}/>
+
+                                <InputGroupAddon addonType="append">
+                                    <Button color="secondary" onClick={function() { that.onRemoveAnswer(index) }}>
+                                    {ICON("icon-trash")}
+                                    </Button>
+                                </InputGroupAddon>
 
                             </InputGroup>
                             {answer.image!=""? (
@@ -202,6 +244,9 @@ class QuizzEdit extends Component {
                             </div>
                             )
                     })}
+                    <center>
+                            <Button color="secondary" onClick={this.onAddNewAnswerOption.bind(this)}>Add new Answer Option</Button>
+                    </center>
                   </ModalBody>
                   <ModalFooter>
                     <Button color="secondary" onClick={this.onClose.bind(this)}>Cancel</Button>
