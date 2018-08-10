@@ -75,11 +75,19 @@ class QuizzEdit extends Component {
 
         reader.onload = (e) => {
 
-            const answers = this.state.answers;
-            answers[this.state.selectingImageForIndex].image = reader.result;
-            this.setState({ 
-                answers: answers
-            }); 
+            if (this.state.selectingImageForIndex == "question") {
+                const question = this.state.question;
+                question.image = reader.result;
+                this.setState({
+                    question: question
+                })
+            } else {
+                const answers = this.state.answers;
+                answers[this.state.selectingImageForIndex].image = reader.result;
+                this.setState({ 
+                    answers: answers
+                }); 
+            }
         }
 
         reader.readAsDataURL(file);
@@ -114,8 +122,10 @@ class QuizzEdit extends Component {
     }
 
     onChangeQuestion(newText) {
+        const question = this.state.question;
+        question.title = newText;
         this.setState({
-            question: newText
+            question: question
         })
     }
 
@@ -161,7 +171,8 @@ class QuizzEdit extends Component {
         return (
             <div>
                 <Button color="primary" onClick={this.onClickButton.bind(this)}>Edit Quiz</Button>
-                {this.state.question}
+                {this.state.question.title}
+                <img src={this.state.question.image} />
                 <center>
             	<div style={containerStyle}>
                    
@@ -203,11 +214,12 @@ class QuizzEdit extends Component {
                 <Modal isOpen={this.state.isInEditMode} toggle={this.onClose.bind(this)} backdrop={true}>
                   <ModalHeader toggle={this.onClose.bind(this)}>Edit Quiz??????? Gellooo? – Single Choice with Action Option</ModalHeader>
                   <ModalBody>
-                <InputGroup style={{marginBottom: '20px'}}>
+                <InputGroup>
                     <InputGroupAddon addonType="prepend">?</InputGroupAddon>
-                    <Input placeholder="i haz asked you what the quesion is?" value={this.state.question} onChange={function(element) { that.onChangeQuestion(element.target.value) }}/>
-                    <InputGroupAddon addonType="append"><Button color="secondary" onClick={that.onShowImageSelectionDialog.bind(that)}>{ICON("icon-camera")}</Button></InputGroupAddon>
+                    <Input placeholder="i haz asked you what the quesion is?" value={this.state.question.title} onChange={function(element) { that.onChangeQuestion(element.target.value) }}/>
+                    <InputGroupAddon addonType="append"><Button color="secondary" onClick={function() { that.onShowImageSelectionDialog("question") }}>{ICON("icon-camera")}</Button></InputGroupAddon>
                 </InputGroup>
+                <img src={this.state.question.image} style={{maxWidth:'200px', marginBottom:"20px"}} />
                     {this.state.answers.map(function(answer, index) {
                         return (
                             <div style={{marginBottom: '20px'}}>

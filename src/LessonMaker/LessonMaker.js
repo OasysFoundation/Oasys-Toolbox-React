@@ -44,7 +44,10 @@ const MockData = {
                             id: "aaaaaa2222222",
                             type: globals.EDIT_QUIZ,
                             content: {
-                                question: "how you do i asked???",
+                                question: {
+                                    "title": "how you do i asked???",
+                                    "image": ""
+                                },
                                 answers: [
                                     {
                                         "title": "1 dudeldi dumm da da",
