@@ -65,7 +65,6 @@ function insertGraph() {
 
 class QuillEdit extends Component {
 
-<<<<<<< HEAD
     constructor(props) {
         super(props);
         // define custom icons
@@ -144,100 +143,6 @@ class QuillEdit extends Component {
             </div>
         )
     }
-=======
-  constructor(props) {
-    super(props);
-    this.mounted = false;
-    // define custom icons
-    let icons = ReactQuill.Quill.import('ui/icons');
-    icons['header']['1'] = '';
-    icons['bold'] = '<img src="'+textBoldIcon+'"/>';
-    icons['italic'] = '<img src="'+textItalicIcon+'"/>';
-    icons['blockquote'] = '<img src="'+textQuoteIcon+'"/>';
-    icons['background'] = '<img src="'+textColorIcon+'"/>';
-    icons['link'] = '<img src="'+textLinkIcon+'"/>';
-
-    let font = ReactQuill.Quill.import('formats/font');
-    font.whitelist = ['kievit'];
-    ReactQuill.Quill.register(font, true);
-
-    let fontSize = ReactQuill.Quill.import('attributors/style/size');
-    fontSize.whitelist =  ['21px', '22px', '30px', 'small', 'normal', 'large', 'huge'];
-    ReactQuill.Quill.register(fontSize, true);
-  }
-
-  componentWillReceiveProps(){
-    if (this.mounted) {
-      if (this.props.isEditMode) {
-        this.refs.reactQuill.getEditor().enable();
-      } else {
-        this.refs.reactQuill.getEditor().disable();
-      }
-    }
-    return true;
-  }
-
-  componentDidMount() {
-    window.katex = katex;
-    window.d3 = require('d3');
-    this.mounted = true;
-
-    this.refs.reactQuill.getEditor().disable();
-    this.refs.reactQuill.getEditor().enable();
-    
-    // for enabling graphing in quill, uncomment the following
-    /*
-    const quill = this.refs.reactQuill.getEditor();
-    window.quill = quill;
-
-    window.document.getElementById('graph-button-'+this.props.id).addEventListener('click', function(e) {
-        var equation = prompt("Enter equation","x^3");
-        
-        if (equation != null) {
-          let cursorPosition = quill.getSelection();
-          if (cursorPosition === null) {
-            cursorPosition = { index: 0, length: 0 };
-            quill.setSelection(cursorPosition);
-          }
-          quill.insertEmbed(cursorPosition.index + 1, 'graph', {equation: equation}, Quill.sources.USER);
-        }
-    });
-    */
-  }
-
-	render() {
-    let modules = {
-      toolbar: {
-        container: '#toolbar-quill-'+this.props.id,
-        handlers: { "insertGraph": insertGraph,
-        }
-      },
-      // //imageDrop: true,
-      // imageResize: {
-      //   parchment: Quill.import('parchment'),
-      //   modules: [ 'Resize', 'DisplaySize', 'Toolbar' ]
-      // }
-      //imageDrop: true,
-      //imageResize: {
-      //  parchment: Quill.import('parchment'),
-      //  modules: [ 'Resize', 'DisplaySize', 'Toolbar' ]
-      //}
-    }
-
-		return (
-        <div id={'quill-container-'+this.props.id}>
-          {/*{this.renderToolbar()}*/}
-            <ReactQuill
-                value={this.props.data}
-                onChange={this.props.onChange}
-                ref="reactQuill"
-                modules={modules}
-                bounds={'quill-container-' + this.props.id}
-            />
-        </div>
-    )
-	}
->>>>>>> 47823da2d55c26a689dc15fe6e9a570773ce2592
 }
 
 QuillEdit.propTypes = {

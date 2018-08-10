@@ -16,6 +16,8 @@ import globals from '../globals'
 import SelectionDropdown from './SelectionDropdown'
 import QuizzEditModal from './QuizzEditModal'
 
+import {saveToSessionStorage} from '../utils/trickBox'
+
 const ICON = function(className, fontSize=globals.ICON_FONTSIZE_NORMAL) {
     return <i style={{fontSize:fontSize}} className={className}> </i>;
 }
@@ -32,8 +34,9 @@ class QuizzEdit extends Component {
             isInEditMode: false,
         	question: props.data.question? props.data.question : "",
             answers: props.data.answers? props.data.answers : [],
+            quizType: props.data.quizType? props.data.quizType : "single-choice",
             showsPageSelectionDropDown: false,
-            selectingImageForIndex: 0
+            selectingImageForIndex: 0,
         }
     }
 
@@ -42,7 +45,16 @@ class QuizzEdit extends Component {
         this.setState({
             question: data.question,
             answers: data.answers
+        }, function() {
+            saveToSessionStorage(this.props.id, {
+                question: this.state.question,
+                answers: this.state.answers,
+                quizType: this.state.quizType
+            })
         });
+
+        
+
     }
 
     onClickButton() {
