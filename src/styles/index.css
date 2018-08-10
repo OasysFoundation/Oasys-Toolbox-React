@@ -97,13 +97,21 @@ html, body, div, svg, text {
   z-index: 9999 !important;
 }
 
+.oasys .main {
+    background: #f0f3f5;
+}
+
+.oasys .input-group mb-3 {
+    margin:0 !important;
+}
+
 /* WE CAN DEFINE CUSTOM STYLES BY PREPENDING THE CLASS SELECTION WITH ".oasys" */
 
 .oasys .card-header {
     margin: 0;
     padding: 0.25rem 0.25rem;
-    height: 2.0rem;
-    background-color: #fff0f0;
+    height: 3.0rem;
+    /*background-color: #ffffff;*/
     border: none;
 }
 
@@ -111,7 +119,7 @@ html, body, div, svg, text {
     margin: 0;
     padding: 0.25rem 0.25rem;
     height: 1.0rem;
-    background-color: #f0f0ff;
+    background-color: #ffffff;
     border: none;
 }
 

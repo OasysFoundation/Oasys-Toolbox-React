@@ -23,8 +23,9 @@ const styling = {
     cardHeader: {
         display: 'flex',
         flexGrow: 0,
-        flexDirection: "row",
-        justifyContent: 'space-between'
+        // flexDirection: "row",
+        justifyContent: 'space-between',
+        alignItems: 'center',
     },
     cardFooter: {
         margin: 'auto',
@@ -33,6 +34,7 @@ const styling = {
         margin: 'auto',
     },
     cardActions: {
+        flex:1,
         alignSelf: 'center'
     }
 }
@@ -52,7 +54,7 @@ class FadeableCard extends Component {
         // isEditMode = true; //for debugging
         return (
             <Fade timeout={300} in={this.state.shouldFade}>
-                <Card className="card-accent-warning">
+                <Card /*className="card-accent-warning"*/>
                     <CardHeader>
                         <section style={styling.cardHeader}>
                             <section style={styling.toolbars}>
@@ -99,11 +101,11 @@ class FadeableCard extends Component {
 
                         </CardBody>
                     </Collapse>
-                    <CardFooter style={styling.cardFooter}>
-                        <button>
-                            +++
-                        </button>
-                    </CardFooter>
+                    {/*<CardFooter style={styling.cardFooter}>*/}
+                        {/*<button>*/}
+                            {/*+++*/}
+                        {/*</button>*/}
+                    {/*</CardFooter>*/}
                 </Card>
             </Fade>
 

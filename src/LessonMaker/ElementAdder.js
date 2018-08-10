@@ -9,11 +9,15 @@ const styling = {
         flexGrow: 0,
         flexDirection: "row",
         justifyContent: "center",
+        height: 4 + 'rem',
     },
     image: {
         height: 2.5 + "rem",
         objectFit: "cover",
-        cursor: 'pointer'
+        cursor: 'pointer',
+        borderRadius: 8+ "px",
+        margin: 0.5 + 'rem',
+        opacity: 0.85
     }
 };
 
@@ -40,13 +44,15 @@ class ElementAdder extends Component {
                      onMouseEnter={() => this.setState({isHovered: true})}
                      onMouseLeave={() => this.setState({isHovered: false})}
             >
-                {types.map(type =>
-                    <img style={styling.image}
-                         key={Math.random()}
-                         src={typeToIcon(type)}
-                         onClick={() => that.props.onAddElement(type, that.props.idx)}
-                    />)}
-
+                <section hidden={!this.state.isHovered}>
+                    {types.map(type =>
+                        <img style={styling.image}
+                             key={Math.random()}
+                             src={typeToIcon(type)}
+                             onClick={() => that.props.onAddElement(type, that.props.idx)}
+                        />)}
+                </section>
+                <section style={{color: "darkgrey", fontSize:40+'px', fontWeight: 'bold', alignSelf:"center"}} hidden={this.state.isHovered}> + </section>
             </section>
 
         );

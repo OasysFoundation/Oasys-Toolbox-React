@@ -45,7 +45,10 @@ class SideBarLesson extends Component {
                 {/*<AppSidebarNav navConfig={navParams} {...this.props} style={{flex: "0 0", height: ""}}/>*/}
                 <div>SETTINGS </div>
                 <hr />
-                <SidebarToc/>
+                <SidebarToc 
+                    chapters={this.props.chapters} 
+                    currChapIdx={this.props.currChapIdx}
+                />
                 <AppSidebarFooter/>
                 <AppSidebarMinimizer/>
             </AppSidebar>

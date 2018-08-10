@@ -24,16 +24,12 @@ const MockData = {
                     links: [
                         {
                             eventId: "ASDASDAS",
-                            chapterId: "woeoeoeoXX"
-                        },
-                        {
-                            eventId: "ppXxxasdsa",
-                            chapterId: "chapter_99852\""
+                            chapterId: "chapter_99852"
                         },
                     ],
                     // linkIdx: ["chapter_99852"],
                     elements: [
-                        
+
                         {
                             id: "schnuckeldi",
                             type: globals.EDIT_VIDEO,
@@ -95,8 +91,8 @@ const MockData = {
                             type: "text",
                             content: "YOLO DOLO JOIHSADIOHOAISDHO SAIOHDOIAHSDOI ASHDOIAHD  BAAEMM JAYJAY WOOOHIIII"
                         }
-                    ]
-
+                    ],
+                    links: []
                 }
             ]
         }
@@ -196,11 +192,11 @@ class LessonMaker extends Component {
         };
 
         proj.chapters[this.state.currChapIdx].elements = [
-            ...elements.slice(0, atIdx+1),
+            ...elements.slice(0, atIdx + 1),
             newElem,
-            ...elements.slice(atIdx+1)
+            ...elements.slice(atIdx + 1)
         ];
-        console.log("ELEME" , proj.chapters[this.state.currChapIdx].elements)
+        console.log("ELEME", proj.chapters[this.state.currChapIdx].elements)
         this.setState({project: proj})
     }
 
@@ -269,39 +265,44 @@ class LessonMaker extends Component {
                                onAddChapter={this.onAddChapter}
                                onAddElement={this.onAddElement}
                                chapters={this.state.project.chapters}
+                               currChapIdx={this.state.currChapIdx}
                                {...this.props} //router fucking needs it for CoreUI React ?>?!?!?>!
                 />
                 <main className="main">
                     <Container fluid>
-
-                        <button
-                            onClick={() => this.toggle('isEditMode')}>{this.state.isEditMode ? 'Preview' : 'Edit'}</button>
-
-                        {/*<FormGroup>*/}
-                            {/*<Label for="exampleEmail">Email</Label>*/}
-                            {/*<Input type="email" name="email" id="exampleEmail" placeholder="with a placeholder" />*/}
-                        {/*</FormGroup>*/}
-                        <input type="text"
-                               name="Chapter Title"
-                               onChange={(ev) => this.onChangeChapterTitle(ev.target.value)}
-                            // defaultValue={this.state.project.chapters[this.state.currChapIdx].title}
-                               value={this.state.project.chapters[this.state.currChapIdx].title}
-
-                        />
-                        {elements.map((el,idx) =>
+                        <section style={{display: 'flex', margin: '1rem', flex: 1, flexDirection: 'row'}}>
+                            {/*<div style={{marginBottom: 0}} className="input-group mb-3">*/}
+                            <div className="input-group-prepend">
+                                <span className="input-group-text" id="basic-addon1">Chapter Title</span>
+                            </div>
+                            <input type="text" className="form-control" placeholder="Name your Chapter"
+                                   aria-label="Name this Chapter"
+                                   value={this.state.project.chapters[this.state.currChapIdx].title}
+                                   onChange={(ev) => this.onChangeChapterTitle(ev.target.value)}
+                                   aria-describedby="basic-addon1"/>
+                            <button type="button"
+                                    className={this.state.isEditMode ? "btn btn-dark" : "btn btn-light"}
+                                    style={{minWidth: '15vw', marginLeft: '3vw'}}
+                                    onClick={() => this.toggle('isEditMode')}>
+                                <span className={this.state.isEditMode ? "icon-grid" : "icon-layers"}></span>
+                                {"  "}
+                                {this.state.isEditMode ? 'Preview' : '  Edit  '}
+                            </button>
+                        </section>
+                        {elements.map((el, idx) =>
                             <div key={el.id + "X"}>
-                            <Element
-                                key={el.id}
-                                isPreview={! this.state.isEditMode}
-                                data={el}
-                                onDelete={this.onDeleteElement}
-                                onMove={this.onMoveElement}
-                                // onChange={this.onChangeContent}
-                            />
-                            <ElementAdder
-                                key={el.id + 1}
-                                onAddElement={this.onAddElement}
-                                idx={idx} />
+                                <Element
+                                    key={el.id}
+                                    isPreview={!this.state.isEditMode}
+                                    data={el}
+                                    onDelete={this.onDeleteElement}
+                                    onMove={this.onMoveElement}
+                                    // onChange={this.onChangeContent}
+                                />
+                                <ElementAdder
+                                    key={el.id + 1}
+                                    onAddElement={this.onAddElement}
+                                    idx={idx}/>
                             </div>
                         )}
                     </Container>

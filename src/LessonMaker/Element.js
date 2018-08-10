@@ -14,12 +14,12 @@ import 'react-quill/dist/quill.snow.css';
 const styles = {
     normal: {
         cursor: 'pointer',
-        border: `1px solid blue`
+        // border: `1px solid blue`
     },
     highlight: {
         cursor: 'pointer',
         background: 'lightyellow',
-        border: `1px solid green`
+        // border: `1px solid green`
 
     },
     edit: {}

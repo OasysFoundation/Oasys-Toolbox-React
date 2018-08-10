@@ -171,7 +171,6 @@ export function insertArrowLocs(tocInfo, opt) {
             elem.xarrow.push(loc);
         }
     }
-    console.log(arrowLocs)
     return tocInfo;
 }
 
@@ -181,28 +180,26 @@ export function drawChapters(tocInfo, chapters, opt) {
     for (let i=0; i<=maxLevel; i++) {
         let offx = 0;
         let elems = tocInfo.filter(e=>e.level === i);
-        let info = {
-            x: offx, 
-            y: offy,  
-            width: opt.totalWidth, 
-            text: chapters[elems[0].idx].title,
-        };
         if (elems.length === 1) {
-            info.x = offx;
-            info.y = offy;
-            info.width = opt.totalWidth;
-            info.text = chapters[elems[0].idx].title;
-            info.idx = chapters[elems[0].idx].idx;
+            let info = {
+                x: offx, 
+                y: offy,  
+                width: opt.totalWidth, 
+                text: chapters[elems[0].idx].title,
+                active: chapters[elems[0].idx].active,
+            };
             document.getElementById(opt.tocId).appendChild(svgRect(info,elems[0].idx,opt));
             document.getElementById(opt.tocId).appendChild(svgText(info,elems[0].idx,opt));
         } else {
             let rectWidth = Math.floor((opt.totalWidth - (elems.length - 1) * opt.gapx) / elems.length);
             for (let j=0; j<elems.length; j++) {
-                info.x = offx;
-                info.y = offy;
-                info.width = rectWidth;
-                info.text = chapters[elems[j].idx].title;
-                info.idx = chapters[elems[j].idx].idx;
+                let info = {
+                    x: offx, 
+                    y: offy,  
+                    width: rectWidth, 
+                    text: chapters[elems[j].idx].title,
+                    active: chapters[elems[j].idx].active,
+                };
                 document.getElementById(opt.tocId).appendChild(svgRect(info,elems[j].idx,opt));
                 document.getElementById(opt.tocId).appendChild(svgText(info,elems[0].idx,opt));
                 offx = offx + rectWidth + opt.gapx;
@@ -291,7 +288,11 @@ export function svgRect(obj,idx,opt){
     svg.setAttribute("y", obj.y);
     svg.setAttribute("opacity", 1.0);
     svg.addEventListener("click", function(){opt.handleClick(idx)}, false);
-    svg.style.fill = opt.rectColorDefaultFill;
+    if (obj.active) {
+        svg.style.fill = opt.rectColorActiveFill;
+    } else {
+        svg.style.fill = opt.rectColorDefaultFill;
+    }
     svg.style.stroke = opt.rectColorDefaultStroke;
     svg.style.cursor = 'pointer';
     /*if (idx===0) {
