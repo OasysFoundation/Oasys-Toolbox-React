@@ -111,6 +111,7 @@ class SidebarToc extends Component {
     componentWillReceiveProps(){
         console.log('receive');
         //this.updateToc();
+        return true
     }
 
     shouldComponentUpdate(){

@@ -101,6 +101,10 @@ html, body, div, svg, text {
     background: #f0f3f5;
 }
 
+.oasys .input-group mb-3 {
+    margin:0 !important;
+}
+
 /* WE CAN DEFINE CUSTOM STYLES BY PREPENDING THE CLASS SELECTION WITH ".oasys" */
 
 .oasys .card-header {

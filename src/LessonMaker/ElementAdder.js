@@ -52,6 +52,7 @@ class ElementAdder extends Component {
                              onClick={() => that.props.onAddElement(type, that.props.idx)}
                         />)}
                 </section>
+                <section style={{color: "darkgrey", fontSize:40+'px', fontWeight: 'bold', alignSelf:"center"}} hidden={this.state.isHovered}> + </section>
             </section>
 
         );
