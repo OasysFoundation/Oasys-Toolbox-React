@@ -129,7 +129,7 @@ class QuizzEdit extends Component {
                         <div>
                         {answer.image!=""? (
                                 <center>
-                                    <img src={answer.image} width="100%" style={{onerror: 'this.style.display = "none"', padding:'10px'}}/>
+                                    <img src={answer.image} width="100%" style={{padding:'10px'}}/>
                                 </center>
                                 ) : null}
                         </div></div>
