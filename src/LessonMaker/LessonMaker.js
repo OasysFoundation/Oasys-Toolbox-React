@@ -24,11 +24,7 @@ const MockData = {
                     links: [
                         {
                             eventId: "ASDASDAS",
-                            chapterId: "woeoeoeoXX"
-                        },
-                        {
-                            eventId: "ppXxxasdsa",
-                            chapterId: "chapter_99852\""
+                            chapterId: "chapter_99852"
                         },
                     ],
                     // linkIdx: ["chapter_99852"],

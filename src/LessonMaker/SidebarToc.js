@@ -28,6 +28,7 @@ class SidebarToc extends Component {
             backgroundColor: '#2f353a',
             rectColorStart: '#3f51d5',
             rectColorEnd: '#3f51d5',
+            rectColorActiveFill: '#626970',
             rectColorDefaultFill: '#30444D',
             rectColorDefaultStroke: '#626970',
             textColor: '#eeeeee',
@@ -36,19 +37,21 @@ class SidebarToc extends Component {
             handleHover: this.handleMouserOver,
         }
 
+        console.log(this.props.chapters)
+
         this.chapters = [
-            {idx: 0, title: 'Chapter 1: Wow me introduction', linkIdx: [1,3]},
-            {idx: 1, title: 'Chapter 2: How to Wow', linkIdx: [2,3]},
-            {idx: 2, title: 'Chapter 3a: Text', linkIdx: [4]},
-            {idx: 3, title: 'Chapter 3b: Sim', linkIdx: [4,0]},
-            {idx: 4, title: 'Chapter 4: Interlude', linkIdx: [5]},
-            {idx: 5, title: 'Chapter 5: In depth wowing', linkIdx: [4,6,7,8,9,10,11]},
-            {idx: 6, title: 'Chapter6a', linkIdx: [11]},
-            {idx: 7, title: 'Chapter6b', linkIdx: [11]},
-            {idx: 8, title: 'Chapter6c', linkIdx: [11]},
-            {idx: 9, title: 'Chapter6e', linkIdx: [11]},
-            {idx: 10, title: 'Chapter6f', linkIdx: [11]},
-            {idx: 11, title: 'Final test', linkIdx: []},
+            {idx: 0, title: 'Chapter 1: Wow me introduction', linkIdx: [1,3], 'active': true},
+            {idx: 1, title: 'Chapter 2: How to Wow', linkIdx: [2,3], 'active': false},
+            {idx: 2, title: 'Chapter 3a: Text', linkIdx: [4], 'active': false},
+            {idx: 3, title: 'Chapter 3b: Sim', linkIdx: [4,0], 'active': false},
+            {idx: 4, title: 'Chapter 4: Interlude', linkIdx: [5], 'active': false},
+            {idx: 5, title: 'Chapter 5: In depth wowing', linkIdx: [4,6,7,8,9,10,11], 'active': false},
+            {idx: 6, title: 'Chapter6a', linkIdx: [11], 'active': false},
+            {idx: 7, title: 'Chapter6b', linkIdx: [11], 'active': false},
+            {idx: 8, title: 'Chapter6c', linkIdx: [11], 'active': false},
+            {idx: 9, title: 'Chapter6e', linkIdx: [11], 'active': false},
+            {idx: 10, title: 'Chapter6f', linkIdx: [11], 'active': false},
+            {idx: 11, title: 'Final test', linkIdx: [], 'active': false},
         ];
 
         this.updateToc();
