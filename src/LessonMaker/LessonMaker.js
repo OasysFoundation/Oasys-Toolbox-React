@@ -297,6 +297,7 @@ class LessonMaker extends Component {
                                     data={el}
                                     onDelete={this.onDeleteElement}
                                     onMove={this.onMoveElement}
+                                    chaptersLight={this.state.project.chapters.map(c => ({title:c.title, id: c.id}) )}
                                     // onChange={this.onChangeContent}
                                 />
                                 <ElementAdder

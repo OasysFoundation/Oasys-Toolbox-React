@@ -80,7 +80,7 @@ class Element extends Component {
                 render = <FormulaEdit key={id} data={content}/>
                 break;
             case globals.EDIT_QUIZ:
-                render = <QuizzEdit key={id} data={content}/>
+                render = <QuizzEdit key={id} data={content} chapters={this.props.chaptersLight}/>
                 break;
             case globals.EDIT_VIDEO:
                 render = <VideoEdit data={content}/>
