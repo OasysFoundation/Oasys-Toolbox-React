@@ -9,6 +9,8 @@ import ElementAdder from './ElementAdder'
 
 import globals from '../globals'
 
+import posed, {PoseGroup} from 'react-pose';
+
 //TODO put in Globals
 
 const MockData = {
@@ -108,6 +110,9 @@ const MockData = {
         }
     ]
 }
+
+
+const Item = posed.div();
 
 class LessonMaker extends Component {
     constructor() {
@@ -298,23 +303,26 @@ class LessonMaker extends Component {
                                 {this.state.isEditMode ? 'Preview' : '  Edit  '}
                             </button>
                         </section>
-                        {elements.map((el, idx) =>
-                            <div key={el.id + "X"}>
-                                <Element
-                                    key={el.id}
-                                    isPreview={!this.state.isEditMode}
-                                    data={el}
-                                    onDelete={this.onDeleteElement}
-                                    onMove={this.onMoveElement}
-                                    chaptersLight={this.state.project.chapters.map(c => ({title:c.title, id: c.id}) )}
-                                    // onChange={this.onChangeContent}
-                                />
-                                <ElementAdder
-                                    key={el.id + 1}
-                                    onAddElement={this.onAddElement}
-                                    idx={idx}/>
-                            </div>
-                        )}
+                            <PoseGroup>
+                                {elements.map((el, idx) =>
+                                    <Item key={el.id}>
+                                    <Element
+                                            key={el.id}
+                                            isPreview={!this.state.isEditMode}
+                                            data={el}
+                                            onDelete={this.onDeleteElement}
+                                            onMove={this.onMoveElement}
+                                            chaptersLight={this.state.project.chapters.map(c => ({title:c.title, id: c.id}) )}
+                                            // onChange={this.onChangeContent}
+                                        />
+                                        <ElementAdder
+                                            key={el.id + 1}
+                                            onAddElement={this.onAddElement}
+                                            idx={idx}/>
+                                    </Item>
+                                )}
+                            </PoseGroup>
+
                     </Container>
                 </main>
             </div>
