@@ -44,27 +44,38 @@ const MockData = {
                             id: "aaaaaa2222222",
                             type: globals.EDIT_QUIZ,
                             content: {
-                                question: "how you do i asked???",
+                                question: {
+                                    "title": "how you do i asked???",
+                                    "image": ""
+                                },
                                 answers: [
                                     {
                                         "title": "1 dudeldi dumm da da",
                                         "image": "",
-                                        "correct": false
+                                        "correct": false,
+                                        "feedback": "wrong, sorry try again",
+                                        "action": null
                                     },
                                     {
                                         "title": "2 ladi do dari",
                                         "image": "",
-                                        "correct": false
+                                        "correct": false,
+                                        "feedback": "wrong, sorry try again",
+                                        "action": null
                                     },
                                     {
                                         "title": "3 schub di dubidu",
                                         "image": "",
-                                        "correct": false
+                                        "correct": false,
+                                        "feedback": "wrong, sorry try again",
+                                        "action": null
                                     },
                                     {
                                         "title": "4 nudelholz – Dies ist die Geschichte von Albrecht, dem kleinen Gecko.",
                                         "image": "",
-                                        "correct": false
+                                        "correct": false,
+                                        "feedback": "wrong, sorry try again",
+                                        "action": null
                                     }
                                 ]
                             }
