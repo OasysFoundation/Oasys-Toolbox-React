@@ -281,8 +281,7 @@ class LessonMaker extends Component {
                                    onChange={(ev) => this.onChangeChapterTitle(ev.target.value)}
                                    aria-describedby="basic-addon1"/>
                             <button type="button"
-                                    className={this.state.isEditMode ? "btn btn-dark" : "btn btn-light"}
-                                    style={{minWidth: '15vw', marginLeft: '3vw'}}
+                                    className={this.state.isEditMode ? "btn btn-dark preview-btn" : "btn btn-light preview-btn"}
                                     onClick={() => this.toggle('isEditMode')}>
                                 <span className={this.state.isEditMode ? "icon-grid" : "icon-layers"}></span>
                                 {"  "}
