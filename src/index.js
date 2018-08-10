@@ -16,6 +16,7 @@ import "simple-line-icons/css/simple-line-icons.css"
 
 // import 'bootstrap/dist/css/bootstrap.css';
 import "./styles/coreui/coreui.css"
+import "@coreui/icons/css/coreui-icons.css"
 import './styles/index.css';
 
 import Header from './Header';
@@ -24,7 +25,6 @@ import Header from './Header';
 // import '@coreui/icons/css/coreui-icons.min.css';
 // import 'flag-icon-css/css/flag-icon.min.css';
 // import 'font-awesome/css/font-awesome.min.css';
-// import 'simple-line-icons/css/simple-line-icons.css';
 
 
 const history = createBrowserHistory();
