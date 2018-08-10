@@ -52,8 +52,13 @@ class QuizzEdit extends Component {
         console.log({element});
     }
 
-    onSelectAction(action) {
+    onSelectAction(answerIndex, chapterIndex) {
+        const answers = this.state.answers;
+        answers[answerIndex].action = this.props.chapters[chapterIndex].id;
 
+        this.setState({
+            answers: answers
+        });
     }
 
     onShowImageSelectionDialog(index) {
@@ -75,11 +80,19 @@ class QuizzEdit extends Component {
 
         reader.onload = (e) => {
 
-            const answers = this.state.answers;
-            answers[this.state.selectingImageForIndex].image = reader.result;
-            this.setState({ 
-                answers: answers
-            }); 
+            if (this.state.selectingImageForIndex == "question") {
+                const question = this.state.question;
+                question.image = reader.result;
+                this.setState({
+                    question: question
+                })
+            } else {
+                const answers = this.state.answers;
+                answers[this.state.selectingImageForIndex].image = reader.result;
+                this.setState({ 
+                    answers: answers
+                }); 
+            }
         }
 
         reader.readAsDataURL(file);
@@ -113,9 +126,19 @@ class QuizzEdit extends Component {
         })
     }
 
-    onChangeQuestion(newText) {
+    onChangeFeedbackHint(newText, index) {
+        var currentAnswers = this.state.answers;
+        currentAnswers[index].feedback = newText;
         this.setState({
-            question: newText
+            answers: currentAnswers
+        })
+    }
+
+    onChangeQuestion(newText) {
+        const question = this.state.question;
+        question.title = newText;
+        this.setState({
+            question: question
         })
     }
 
@@ -161,7 +184,8 @@ class QuizzEdit extends Component {
         return (
             <div>
                 <Button color="primary" onClick={this.onClickButton.bind(this)}>Edit Quiz</Button>
-                {this.state.question}
+                {this.state.question.title}
+                <img src={this.state.question.image} />
                 <center>
             	<div style={containerStyle}>
                    
@@ -203,11 +227,14 @@ class QuizzEdit extends Component {
                 <Modal isOpen={this.state.isInEditMode} toggle={this.onClose.bind(this)} backdrop={true}>
                   <ModalHeader toggle={this.onClose.bind(this)}>Edit Quiz??????? Gellooo? – Single Choice with Action Option</ModalHeader>
                   <ModalBody>
-                <InputGroup style={{marginBottom: '20px'}}>
+                <InputGroup>
                     <InputGroupAddon addonType="prepend">?</InputGroupAddon>
-                    <Input placeholder="i haz asked you what the quesion is?" value={this.state.question} onChange={function(element) { that.onChangeQuestion(element.target.value) }}/>
-                    <InputGroupAddon addonType="append"><Button color="secondary" onClick={that.onShowImageSelectionDialog.bind(that)}>{ICON("icon-camera")}</Button></InputGroupAddon>
+                    <Input placeholder="i haz asked you what the quesion is?" value={this.state.question.title} onChange={function(element) { that.onChangeQuestion(element.target.value) }}/>
+                    <InputGroupAddon addonType="append"><Button color="secondary" onClick={function() { that.onShowImageSelectionDialog("question") }}>{ICON("icon-camera")}</Button></InputGroupAddon>
                 </InputGroup>
+                <center>
+                <img src={this.state.question.image} style={{maxWidth:'200px', marginBottom:"20px"}} />
+                </center>
                     {this.state.answers.map(function(answer, index) {
                         return (
                             <div style={{marginBottom: '20px'}}>
@@ -215,7 +242,7 @@ class QuizzEdit extends Component {
                             <InputGroup>
                                 <InputGroupAddon addonType="prepend">
                                   <InputGroupText>
-                                    <Input addon type="radio" name="radio1"/>
+                                    <Input addon type="radio" name="radio1" onChange={function(radio) { that.onUpdateCorrectAnswer(radio.target.value, index) } } />
                                   </InputGroupText>
                                 </InputGroupAddon>
                                 <Input placeholder="entr you answer" value={answer.title} onChange={function(element) { that.onChangeAnswer(element.target.value, index) }} />
@@ -225,7 +252,12 @@ class QuizzEdit extends Component {
                                     </Button>
                                 </InputGroupAddon>
                                 
-                                <SelectionDropdown onSelect={that.onSelectAction.bind(that)} default={"No Action"} options={that.props.chapters.map(function(element) { return "Go to " + element.title + "…"})}/>
+                                <SelectionDropdown onSelect={that.onSelectAction.bind(that)} identifier={index} default={answer.action!=null? that.props.chapters.reduce(function(result, currentChapter) { 
+                                    if(currentChapter.id == answer.action) {
+                                        return currentChapter;
+                                    }
+                                    return result; 
+                                } ).title : "No Action"} options={that.props.chapters.map(function(element) { return "Go to " + element.title + "…"})}/>
 
                                 <InputGroupAddon addonType="append">
                                     <Button color="secondary" onClick={function() { that.onRemoveAnswer(index) }}>
@@ -240,7 +272,7 @@ class QuizzEdit extends Component {
                                 </center>
                                 ) : null}
                             
-                            <Input placeholder="Answer feedback or hint (optional)." value={answer.hint} />
+                            <Input placeholder="Answer feedback or hint (optional)." value={answer.feedback} onChange={function(element) { that.onChangeFeedbackHint(element.target.value, index) }} />
                             </div>
                             )
                     })}

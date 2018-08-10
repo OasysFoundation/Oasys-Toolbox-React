@@ -4,6 +4,7 @@ const globals = {
     // HARDSET_BASE: "http://localhost:8080/",
     ICON_FONTSIZE_MIDDLE: "22px",
     ICON_FONTSIZE_NORMAL: "18px",
+    SESSIONSTORAGE_KEY: `__OASYS_ID__`
 
 	HARDSET_BASE: "https://api.joinoasys.org/",
 
@@ -20,6 +21,7 @@ const globals = {
 	EDIT_SYSTEM: 4,
 	EDIT_IMAGE: 5,
 	EDIT_FORMULA: 6,
+	EDIT_QUIZ_MULTIPLE_CHOICE: 7,
 	// for module editor
 	IF_START : 0, // for module component logic: immediately after if command
 	IF_COND  : 1, // for module component logic: inside if condition (but not immediately after if command)

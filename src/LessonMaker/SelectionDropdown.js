@@ -14,9 +14,6 @@ class SelectionDropdown extends Component {
 	constructor(props) {
         super(props);
         this.state = {
-            default: props.default,
-            options: props.options,
-            onSelect: props.onSelect,
             isOpen: false
         }
     }
@@ -27,15 +24,20 @@ class SelectionDropdown extends Component {
     	});
     }
 
+    onSelectItem(index) {
+    	this.props.onSelect(this.props.identifier, index);
+    }
+
     render() {
+    	var that = this;
     	return (
 	        <InputGroupButtonDropdown addonType="append" isOpen={this.state.isOpen} toggle={this.toggleDropDown.bind(this)}>
 	            <DropdownToggle caret color="secondary">
-	              {this.state.default}
+	              {this.props.default}
 	            </DropdownToggle>
 	            <DropdownMenu>
-		            {this.state.options.map(function(option) {
-		            	return <DropdownItem>{option}</DropdownItem>
+		            {this.props.options.map(function(option, index) {
+		            	return <DropdownItem onClick={function() { that.onSelectItem(index); }}>{option}</DropdownItem>
 		            })}
 	            </DropdownMenu>
 	        </InputGroupButtonDropdown>

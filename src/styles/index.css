@@ -115,6 +115,16 @@ html, body, div, svg, text {
     border: none;
 }
 
+.oasys .card-fancy {
+    position: relative;
+}
+
+.has-shadow {
+    -webkit-box-shadow: 0 10px 6px -6px #777;
+    -moz-box-shadow: 0 10px 6px -6px #777;
+    box-shadow: 0 9px 6px -6px #777;
+}
+
 .oasys .card-footer {
     margin: 0;
     padding: 0.25rem 0.25rem;
@@ -130,6 +140,11 @@ html, body, div, svg, text {
 /* ------------------ quill ----------------- */
 .oasys .ql-editor {
     padding: 0;
+}
+
+.preview-btn {
+    minWidth: 15vw;
+    marginLeft: 3vw
 }
 
 /*doesn't work here*/
