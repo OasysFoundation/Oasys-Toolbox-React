@@ -6,9 +6,13 @@
   "dependencies": {
     "@coreui/coreui": "^2.0.4",
     "@coreui/react": "^2.0.5",
+    "@fortawesome/fontawesome-svg-core": "^1.2.2",
+    "@fortawesome/free-solid-svg-icons": "^5.2.0",
+    "@fortawesome/react-fontawesome": "^0.1.1",
     "ajv": "^6.5.2",
     "d3": "^3.5.17",
     "firebase": "^5.2.0",
+    "font-awesome": "^4.7.0",
     "function-plot": "^1.18.1",
     "jquery": "^3.3.1",
     "katex": "^0.10.0-beta",
@@ -38,5 +42,8 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "deploy": "npm run build && firebase deploy"
+  },
+  "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.2.0"
   }
 }

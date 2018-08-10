@@ -66,6 +66,7 @@ class QuillEdit extends Component {
 
   constructor(props) {
     super(props);
+    this.mounted = false;
     // define custom icons
     let icons = ReactQuill.Quill.import('ui/icons');
     icons['header']['1'] = '';
@@ -84,9 +85,24 @@ class QuillEdit extends Component {
     ReactQuill.Quill.register(fontSize, true);
   }
 
+  componentWillReceiveProps(){
+    if (this.mounted) {
+      if (this.props.isEditMode) {
+        this.refs.reactQuill.getEditor().enable();
+      } else {
+        this.refs.reactQuill.getEditor().disable();
+      }
+    }
+    return true;
+  }
+
   componentDidMount() {
     window.katex = katex;
-    window.d3 = require('d3')
+    window.d3 = require('d3');
+    this.mounted = true;
+
+    this.refs.reactQuill.getEditor().disable();
+    this.refs.reactQuill.getEditor().enable();
     
     // for enabling graphing in quill, uncomment the following
     /*
@@ -131,7 +147,6 @@ class QuillEdit extends Component {
         <div id={'quill-container-'+this.props.id}>
           {/*{this.renderToolbar()}*/}
             <ReactQuill
-                // readOnly={this.props.readOnly}
                 value={this.props.data}
                 onChange={this.props.onChange}
                 ref="reactQuill"

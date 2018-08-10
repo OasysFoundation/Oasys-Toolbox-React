@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-//import rangesliderJs from 'rangeslider-js'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faMapMarker } from '@fortawesome/free-solid-svg-icons'
 
 import api from '../api'
-
 import colors from '../colors'
-
 import Nouislider from "nouislider-react";
 import "nouislider/distribute/nouislider.css";
+
+library.add(faMapMarker)
 
 class VideoEdit extends Component {
 
@@ -21,6 +23,7 @@ class VideoEdit extends Component {
     render(){
         return (
             <div>
+                Favorite Food: <FontAwesomeIcon icon="map-marker" />
                 {/*<input id="slider" type="range" min="0" max="5" value="1" step="1" />*/}
                 <Nouislider
                     connect
