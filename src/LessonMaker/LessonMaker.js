@@ -277,6 +277,8 @@ class LessonMaker extends Component {
                             </div>
                             <input type="text" className="form-control" placeholder="Name your Chapter"
                                    aria-label="Name this Chapter"
+                                   value={this.state.project.chapters[this.state.currChapIdx].title}
+                                   onChange={(ev) => this.onChangeChapterTitle(ev.target.value)}
                                    aria-describedby="basic-addon1"/>
                             <button type="button"
                                     className={this.state.isEditMode ? "btn btn-dark" : "btn btn-light"}
