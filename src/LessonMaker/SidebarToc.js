@@ -56,6 +56,7 @@ class SidebarToc extends Component {
         this.updateToc();
         let nLevels = 1 + Math.max(...this.tocInfo.map(e=>e.level))
         let height = nLevels * this.opt.rectHeight + (nLevels-1) * this.opt.gapy;
+        this.mounted = false;
 
         this.state = {
             height: height,
@@ -89,7 +90,7 @@ class SidebarToc extends Component {
         console.log("change to chapter " + num);
     }
 
-    componentDidMount(){
+    drawToc(){
         tocjs.drawChapters(this.tocInfo, this.chaptersExt, this.opt);
         tocjs.drawConnections(this.tocInfo, this.opt);
         for (let i=0;i<this.chaptersExt.length;i++) {
@@ -99,18 +100,28 @@ class SidebarToc extends Component {
         }
     }
 
+    componentDidMount(){
+        this.drawToc();
+        this.mounted = true;
+    }
+
     // TODO: it appears that both componentWillReceiveProps and shouldComponentUpdate are fired if
     // the incoming props change. However, here we should not have to react to changes within one
     // chapter! Thus, we want to receive only part of the LessonMaker's state as the prop.
     componentWillReceiveProps(){
         console.log('receive');
-        this.updateToc();
+        //this.updateToc();
     }
 
     shouldComponentUpdate(){
         // TODO: check if this is fired if incoming chapters props changed
         console.log('update');
         this.updateToc();
+        if (this.mounted) {
+            console.log('draw');
+            this.drawToc();
+        }
+        return true;
     }
 
     render() {
