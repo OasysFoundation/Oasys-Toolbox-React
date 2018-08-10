@@ -8,6 +8,8 @@ import FormulaEdit from './FormulaEdit'
 import QuizzEdit from './QuizzEdit'
 import VideoEdit from './VideoEdit'
 
+import {saveToSessionStorage} from "../utils/trickBox";
+
 import 'react-quill/dist/quill.snow.css';
 
 
@@ -30,12 +32,9 @@ const styles = {
 //TODO
 //put Fade from CoreUI --> Wrap it in component to manage IN/Out state!
 
-const sessionStorageKey = `__OASYS_ID__`;
-
 class Element extends Component {
     constructor(props) {
         super(props);
-        this.saveToSessionStorage = this.saveToSessionStorage.bind(this);
     }
 
     state = {
@@ -59,7 +58,7 @@ class Element extends Component {
     //glue function between LessonMaker and Quill to add ID
     handleChange = (value) => {
         this.setState({tempContent: value}); //for Quill
-        this.saveToSessionStorage(value) //for switching chapters
+        saveToSessionStorage(this.props.data.id, value) //for switching chapters
     }
 
 
@@ -92,13 +91,7 @@ class Element extends Component {
         return render;
     }
 
-    saveToSessionStorage(value) {
-        //webStorage API only saves strings
-        sessionStorage.setItem(
-            sessionStorageKey + this.props.data.id,
-            JSON.stringify({content: value, timestamp: Date.now()})
-        )
-    }
+
 
     //onClick={() => this.setState({isHovered: true})}
     render() {

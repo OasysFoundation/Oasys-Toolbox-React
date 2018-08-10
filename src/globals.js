@@ -4,6 +4,7 @@ const globals = {
     // HARDSET_BASE: "http://localhost:8080/",
     ICON_FONTSIZE_MIDDLE: "22px",
     ICON_FONTSIZE_NORMAL: "18px",
+    SESSIONSTORAGE_KEY: `__OASYS_ID__`
 
 	HARDSET_BASE: "https://api.joinoasys.org/",
 
