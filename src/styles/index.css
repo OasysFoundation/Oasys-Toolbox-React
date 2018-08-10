@@ -137,6 +137,7 @@ html, body, div, svg, text {
     margin-bottom: 0;
 }
 
+/* ------------------ quill ----------------- */
 .oasys .ql-editor {
     padding: 0;
 }
@@ -154,6 +155,7 @@ html, body, div, svg, text {
    
 }
 
+/* ------------------ sidebar ----------------- */
 .oasys .sidebar .sidebar-nav {
     flex: 0 0 auto;
 }
@@ -168,4 +170,14 @@ html, body, div, svg, text {
 
 .sidebar-minimized.sidebar-fixed .sidebar .svgTocWrap{
     display: none;
+}
+
+/* ------------------ video edit ----------------- */
+.oasys .noUi-handle {
+    background-color: #F95032;
+    border: 1px solid #C6361D;
+}
+
+.oasys .noUi-connect {
+    background-color: #A47D90;
 }
