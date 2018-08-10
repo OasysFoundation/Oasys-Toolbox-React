@@ -225,7 +225,7 @@ class QuizzEdit extends Component {
                                     </Button>
                                 </InputGroupAddon>
                                 
-                                <SelectionDropdown onSelect={that.onSelectAction.bind(that)} default={"No Action"} options={["Go to Chatper 1", "Go to Chapter 2", "Go to Chapter 3"]}/>
+                                <SelectionDropdown onSelect={that.onSelectAction.bind(that)} default={"No Action"} options={that.props.chapters.map(function(element) { return "Go to " + element.title + "…"})}/>
 
                                 <InputGroupAddon addonType="append">
                                     <Button color="secondary" onClick={function() { that.onRemoveAnswer(index) }}>
