@@ -23,8 +23,9 @@ const styling = {
     cardHeader: {
         display: 'flex',
         flexGrow: 0,
-        flexDirection: "row",
-        justifyContent: 'space-between'
+        // flexDirection: "row",
+        justifyContent: 'space-between',
+        alignItems: 'center',
     },
     cardFooter: {
         margin: 'auto',
@@ -33,6 +34,7 @@ const styling = {
         margin: 'auto',
     },
     cardActions: {
+        flex:1,
         alignSelf: 'center'
     }
 }
@@ -99,11 +101,11 @@ class FadeableCard extends Component {
 
                         </CardBody>
                     </Collapse>
-                    <CardFooter style={styling.cardFooter}>
-                        <button>
-                            +++
-                        </button>
-                    </CardFooter>
+                    {/*<CardFooter style={styling.cardFooter}>*/}
+                        {/*<button>*/}
+                            {/*+++*/}
+                        {/*</button>*/}
+                    {/*</CardFooter>*/}
                 </Card>
             </Fade>
 
