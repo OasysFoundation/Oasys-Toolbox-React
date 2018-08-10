@@ -6,14 +6,15 @@ import * as tocjs from '../assets/scripts/toc.js'
 
 class SidebarToc extends Component {
 
+    /*
+    We expect the props chapters and currChapIdx here.
+    */
     constructor(props) {
         super(props);
 
-        const width = 200;
-
         this.opt = {
             tocId: 'toc',
-            totalWidth: width,
+            totalWidth: 200,
             rectHeight: 31,
             gapx: 5,
             gapy: 15,
@@ -37,8 +38,6 @@ class SidebarToc extends Component {
             handleHover: this.handleMouserOver,
         }
 
-        console.log(this.props.chapters)
-
         this.chapters = [
             {idx: 0, title: 'Chapter 1: Wow me introduction', linkIdx: [1,3], 'active': true},
             {idx: 1, title: 'Chapter 2: How to Wow', linkIdx: [2,3], 'active': false},
@@ -60,14 +59,28 @@ class SidebarToc extends Component {
 
         this.state = {
             height: height,
-            width: width,
+            width: this.opt.width,
         };
     }
 
     updateToc(){
-        let mainPath = tocjs.longestPath(this.chapters);
-        let tocInfo = tocjs.prepareToc(mainPath, this.chapters);
-        tocInfo = tocjs.sortIntoTocLevels(tocInfo, this.chapters, mainPath);
+        // is it safe to manipulate the prop directly here?
+        this.chaptersExt = this.props.chapters;
+        let idobj = {};
+        this.chaptersExt.map((e,i) => idobj[e.id] = i);
+        this.chaptersExt.forEach( (e,i) => {
+            e.idx = i;
+            this.props.currChapIdx===i ? e.active = true : e.active = false;
+            if (e.links===undefined) {
+                throw new Error('Chapter object must have links array as property (can be empty)!');
+            }
+            e.linkIdx = [];
+            e.links.map(f=>e.linkIdx.push(idobj[f.chapterId]))
+        })
+        console.log(this.chaptersExt)
+        let mainPath = tocjs.longestPath(this.chaptersExt);
+        let tocInfo = tocjs.prepareToc(mainPath, this.chaptersExt);
+        tocInfo = tocjs.sortIntoTocLevels(tocInfo, this.chaptersExt, mainPath);
         tocInfo = tocjs.reorderX(tocInfo);
         this.tocInfo = tocjs.insertArrowLocs(tocInfo, this.opt);
     }
@@ -77,21 +90,27 @@ class SidebarToc extends Component {
     }
 
     componentDidMount(){
-        tocjs.drawChapters(this.tocInfo, this.chapters, this.opt);
+        tocjs.drawChapters(this.tocInfo, this.chaptersExt, this.opt);
         tocjs.drawConnections(this.tocInfo, this.opt);
-        for (let i=0;i<this.chapters.length;i++) {
-            let idx = this.chapters[i].idx;
-            let elem = <ReactTooltip id={'toc-'+idx}> {this.chapters[i].title} </ReactTooltip>
+        for (let i=0;i<this.chaptersExt.length;i++) {
+            let idx = this.chaptersExt[i].idx;
+            let elem = <ReactTooltip id={'toc-'+idx}> {this.chaptersExt[i].title} </ReactTooltip>
             ReactDOM.render(elem, document.getElementById("tooltip-"+idx));
         }
     }
 
+    // TODO: it appears that both componentWillReceiveProps and shouldComponentUpdate are fired if
+    // the incoming props change. However, here we should not have to react to changes within one
+    // chapter! Thus, we want to receive only part of the LessonMaker's state as the prop.
     componentWillReceiveProps(){
-        // TODO: check if this is fired if incoming chapters props changed
+        console.log('receive');
+        this.updateToc();
     }
 
     shouldComponentUpdate(){
         // TODO: check if this is fired if incoming chapters props changed
+        console.log('update');
+        this.updateToc();
     }
 
     render() {
