@@ -66,20 +66,21 @@ class Element extends Component {
         const {content, id} = this.props.data
         let render = <div>NO ELEMENT TYPE YET HERE</div>;
 
+        const isEditMode = this.state.isHovered || this.state.isClicked;
         // Q: Why is QuillEdit receiving the key prop, but ImageEdit and FormulaEdit not?
         switch (type) {
             case globals.EDIT_QUILL:
-                render = <QuillEdit key={id} id={id} isEditMode={this.state.isHovered || this.state.isClicked} onChange={this.handleChange}
+                render = <QuillEdit key={id} id={id} isEditMode={isEditMode} onChange={this.handleChange}
                                     data={this.state.tempContent}/>
                 break;
             case globals.EDIT_IMAGE:
-                render = <ImageEdit key={id} data={content}/>
+                render = <ImageEdit key={id} id={id} data={content} isEditMode={isEditMode} />
                 break;
             case globals.EDIT_FORMULA:
-                render = <FormulaEdit key={id} data={content}/>
+                render = <FormulaEdit key={id} id={id} data={content} isEditMode={isEditMode} />
                 break;
             case globals.EDIT_QUIZ:
-                render = <QuizzEdit key={id} data={content} chapters={this.props.chaptersLight}/>
+                render = <QuizzEdit key={id} id={id} data={content} chapters={this.props.chaptersLight} isEditMode={isEditMode} />
                 break;
             case globals.EDIT_VIDEO:
                 render = <VideoEdit data={content}/>

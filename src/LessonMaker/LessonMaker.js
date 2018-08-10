@@ -49,6 +49,7 @@ const MockData = {
                                     "title": "how you do i asked???",
                                     "image": ""
                                 },
+                                quizType: "single-choice",
                                 answers: [
                                     {
                                         "title": "1 dudeldi dumm da da",
