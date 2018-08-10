@@ -152,7 +152,7 @@ class QuizzEdit extends Component {
                 </center>
 
 
-                <QuizzEditModal question={this.state.question} answers={this.state.answers} onChange={this.onChangeData.bind(this)} onClose={this.onClose.bind(this)} chapters={this.props.chapters} isInEditMode={this.state.isInEditMode} />
+                <QuizzEditModal question={this.state.question} answers={this.state.answers} quizType={this.state.quizType} onChange={this.onChangeData.bind(this)} onClose={this.onClose.bind(this)} chapters={this.props.chapters} isInEditMode={this.state.isInEditMode} />
 
             </div>
         )

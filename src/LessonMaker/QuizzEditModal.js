@@ -5,7 +5,9 @@ import { InputGroup, InputGroupAddon, Input, InputGroupText, InputGroupButtonDro
 import { Button } from 'reactstrap';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
+import { Nav, NavItem, NavLink } from 'reactstrap';
 
+import classnames from 'classnames';
 
 import PropTypes from 'prop-types';
 import api from '../api'
@@ -29,7 +31,8 @@ class QuizzEditModal extends Component {
         	question: props.question? props.question : "",
             answers: props.answers? props.answers : [],
             showsPageSelectionDropDown: false,
-            selectingImageForIndex: 0
+            selectingImageForIndex: 0,
+            quizType: props.quizType? props.quizType : "single-choice"
         }
     }
 
@@ -157,14 +160,41 @@ class QuizzEditModal extends Component {
     }
 
 
+    onChangeQuizType(newQuizType) {
+        this.setState({
+            quizType: newQuizType
+        });
+    }
+
 	
     render() {
         const that = this; 
         return (
             <div>
+
                 <input style={{display: "none"}} type="file" accept="image/*" onChange={that.onSelectImage.bind(that)} ref="fileUploader" />
 
                 <Modal isOpen={this.props.isInEditMode} toggle={this.onClose.bind(this)} backdrop={true}>
+                
+                    <Nav tabs>
+                      <NavItem>
+                        <NavLink
+                          className={classnames({ active: this.state.quizType === 'single-choice' })}
+                          onClick={() => { this.onChangeQuizType('single-choice'); }}
+                        >
+                          Single Choice Quiz
+                        </NavLink>
+                      </NavItem>
+                      <NavItem>
+                        <NavLink
+                          className={classnames({ active: this.state.quizType === 'multiple-choice' })}
+                          onClick={() => { this.onChangeQuizType('multiple-choice'); }}
+                        >
+                          Multiple Choice Quiz
+                        </NavLink>
+                      </NavItem>
+                    </Nav>
+
                   <ModalHeader toggle={this.onClose.bind(this)}>Edit Quiz??????? Gellooo? – Single Choice with Action Option</ModalHeader>
                   <ModalBody>
                 <InputGroup>
