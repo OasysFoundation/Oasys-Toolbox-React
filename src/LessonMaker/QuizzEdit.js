@@ -52,8 +52,13 @@ class QuizzEdit extends Component {
         console.log({element});
     }
 
-    onSelectAction(action) {
+    onSelectAction(answerIndex, chapterIndex) {
+        const answers = this.state.answers;
+        answers[answerIndex].action = this.props.chapters[chapterIndex].id;
 
+        this.setState({
+            answers: answers
+        });
     }
 
     onShowImageSelectionDialog(index) {
@@ -116,6 +121,14 @@ class QuizzEdit extends Component {
     onChangeAnswer(newText, index) {
         var currentAnswers = this.state.answers;
         currentAnswers[index].title = newText;
+        this.setState({
+            answers: currentAnswers
+        })
+    }
+
+    onChangeFeedbackHint(newText, index) {
+        var currentAnswers = this.state.answers;
+        currentAnswers[index].feedback = newText;
         this.setState({
             answers: currentAnswers
         })
@@ -219,7 +232,9 @@ class QuizzEdit extends Component {
                     <Input placeholder="i haz asked you what the quesion is?" value={this.state.question.title} onChange={function(element) { that.onChangeQuestion(element.target.value) }}/>
                     <InputGroupAddon addonType="append"><Button color="secondary" onClick={function() { that.onShowImageSelectionDialog("question") }}>{ICON("icon-camera")}</Button></InputGroupAddon>
                 </InputGroup>
+                <center>
                 <img src={this.state.question.image} style={{maxWidth:'200px', marginBottom:"20px"}} />
+                </center>
                     {this.state.answers.map(function(answer, index) {
                         return (
                             <div style={{marginBottom: '20px'}}>
@@ -227,7 +242,7 @@ class QuizzEdit extends Component {
                             <InputGroup>
                                 <InputGroupAddon addonType="prepend">
                                   <InputGroupText>
-                                    <Input addon type="radio" name="radio1"/>
+                                    <Input addon type="radio" name="radio1" onChange={function(radio) { that.onUpdateCorrectAnswer(radio.target.value, index) } } />
                                   </InputGroupText>
                                 </InputGroupAddon>
                                 <Input placeholder="entr you answer" value={answer.title} onChange={function(element) { that.onChangeAnswer(element.target.value, index) }} />
@@ -237,7 +252,12 @@ class QuizzEdit extends Component {
                                     </Button>
                                 </InputGroupAddon>
                                 
-                                <SelectionDropdown onSelect={that.onSelectAction.bind(that)} default={"No Action"} options={that.props.chapters.map(function(element) { return "Go to " + element.title + "…"})}/>
+                                <SelectionDropdown onSelect={that.onSelectAction.bind(that)} identifier={index} default={answer.action!=null? that.props.chapters.reduce(function(result, currentChapter) { 
+                                    if(currentChapter.id == answer.action) {
+                                        return currentChapter;
+                                    }
+                                    return result; 
+                                } ).title : "No Action"} options={that.props.chapters.map(function(element) { return "Go to " + element.title + "…"})}/>
 
                                 <InputGroupAddon addonType="append">
                                     <Button color="secondary" onClick={function() { that.onRemoveAnswer(index) }}>
@@ -252,7 +272,7 @@ class QuizzEdit extends Component {
                                 </center>
                                 ) : null}
                             
-                            <Input placeholder="Answer feedback or hint (optional)." value={answer.hint} />
+                            <Input placeholder="Answer feedback or hint (optional)." value={answer.feedback} onChange={function(element) { that.onChangeFeedbackHint(element.target.value, index) }} />
                             </div>
                             )
                     })}
