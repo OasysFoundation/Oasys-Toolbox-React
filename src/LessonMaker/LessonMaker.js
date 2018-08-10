@@ -10,7 +10,6 @@ import ElementAdder from './ElementAdder'
 import globals from '../globals'
 
 //TODO put in Globals
-const oasysSessionKey = `__OASYS_ID__`;
 
 const MockData = {
     projects: [
@@ -163,10 +162,10 @@ class LessonMaker extends Component {
         //deep searches data and returns 1D array with objects that have an ID property
         //by reference!
         const allWithID = getObjectsByKey([proj], 'id');
-        const sessionKeys = Object.keys(sessionStorage).filter(key => key.includes(oasysSessionKey))
+        const sessionKeys = Object.keys(sessionStorage).filter(key => key.includes(globals.SESSIONSTORAGE_KEY))
         //get
         sessionKeys.forEach(key => {
-            const match = allWithID.find(el => oasysSessionKey + el['id'] === key)
+            const match = allWithID.find(el => globals.SESSIONSTORAGE_KEY + el['id'] === key)
             if (match) {
                 match.content = JSON.parse(sessionStorage.getItem(key)).content;
             }
@@ -293,8 +292,7 @@ class LessonMaker extends Component {
                                    onChange={(ev) => this.onChangeChapterTitle(ev.target.value)}
                                    aria-describedby="basic-addon1"/>
                             <button type="button"
-                                    className={this.state.isEditMode ? "btn btn-dark" : "btn btn-light"}
-                                    style={{minWidth: '15vw', marginLeft: '3vw'}}
+                                    className={this.state.isEditMode ? "btn btn-dark preview-btn" : "btn btn-light preview-btn"}
                                     onClick={() => this.toggle('isEditMode')}>
                                 <span className={this.state.isEditMode ? "icon-grid" : "icon-layers"}></span>
                                 {"  "}

@@ -9,6 +9,14 @@ import QuizIcon from "../assets/icons/Quiz.png"
 // import ImageIcon from "../assets/icons/.png"
 // import FormulaIcon from "../assets/icons/F.png"
 
+const saveToSessionStorage = function(id, value) {
+    //webStorage API only saves strings
+    sessionStorage.setItem(
+        globals.SESSIONSTORAGE_KEY + id,
+        JSON.stringify({content: value, timestamp: Date.now()})
+    )
+}
+
 const typeToIcon = (type) => {
     switch (type) {
         case globals.EDIT_QUILL:
@@ -135,7 +143,7 @@ function substringInObjCount(obj, substr) {
 
 
 export {Unwrap, Wrap,
-    NUcheck, substringInObjCount,
+    NUcheck, substringInObjCount, saveToSessionStorage,
     flatten, CATEGORIES,
     getTagsForCategory, typeToIcon,
     withoutEntry, isEmpty, getObjectsByKey, moveEntry}
