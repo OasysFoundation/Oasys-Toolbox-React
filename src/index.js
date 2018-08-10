@@ -27,6 +27,12 @@ import Header from './Header';
 // import 'font-awesome/css/font-awesome.min.css';
 
 
+//logs unnecessary rerenders in the console
+// if (process.env.NODE_ENV !== 'production') {
+//     const {whyDidYouUpdate} = require('why-did-you-update');
+//     whyDidYouUpdate(React);
+// }
+
 const history = createBrowserHistory();
 
 class Index extends Component {
