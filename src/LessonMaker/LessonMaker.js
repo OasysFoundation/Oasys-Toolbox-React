@@ -91,8 +91,8 @@ const MockData = {
                             type: "text",
                             content: "YOLO DOLO JOIHSADIOHOAISDHO SAIOHDOIAHSDOI ASHDOIAHD  BAAEMM JAYJAY WOOOHIIII"
                         }
-                    ]
-
+                    ],
+                    links: []
                 }
             ]
         }
@@ -265,6 +265,7 @@ class LessonMaker extends Component {
                                onAddChapter={this.onAddChapter}
                                onAddElement={this.onAddElement}
                                chapters={this.state.project.chapters}
+                               currChapIdx={this.state.currChapIdx}
                                {...this.props} //router fucking needs it for CoreUI React ?>?!?!?>!
                 />
                 <main className="main">
