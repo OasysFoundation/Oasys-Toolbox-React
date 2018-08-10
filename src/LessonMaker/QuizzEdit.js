@@ -38,6 +38,7 @@ class QuizzEdit extends Component {
     }
 
     onChangeData(data) {
+        console.log(data);
         this.setState({
             question: data.question,
             answers: data.answers

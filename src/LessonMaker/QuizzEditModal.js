@@ -62,6 +62,26 @@ class QuizzEditModal extends Component {
         this.refs.fileUploader.click();
     }
 
+    onUpdateCorrectAnswer(value, index) {
+
+        const answers = this.state.answers;
+
+        if (value == "on") {
+            answers.map(function(answer, answerIndex) {
+                if (answerIndex == index) {
+                    answer.correct = true;
+                } else {
+                    answer.correct = false;
+                }
+                return answer;
+            });
+
+            this.setState({
+                answers: answers
+            })
+        }
+    }
+
     onSelectImage(e, file) {
         var file = file || e.target.files[0],
             pattern = /image-*/,
@@ -161,11 +181,11 @@ class QuizzEditModal extends Component {
 
                             <InputGroup>
                                 <InputGroupAddon addonType="prepend">
-                                  <InputGroupText>
-                                    <Input addon type="radio" name="radio1" onChange={function(radio) { that.onUpdateCorrectAnswer(radio.target.value, index) } } />
+                                  <InputGroupText style={{'backgroundColor': answer.correct? colors.TURQUOISE : null}}>
+                                    <Input addon checked={answer.correct? "checked" : null} type="radio" name="radio1" onChange={function(radio) { that.onUpdateCorrectAnswer(radio.target.value, index) } } />
                                   </InputGroupText>
                                 </InputGroupAddon>
-                                <Input placeholder="entr you answer" value={answer.title} onChange={function(element) { that.onChangeAnswer(element.target.value, index) }} />
+                                <Input style={{'backgroundColor': answer.correct? colors.TURQUOISE : null}} placeholder="entr you answer" value={answer.title} onChange={function(element) { that.onChangeAnswer(element.target.value, index) }} />
                                 <InputGroupAddon addonType="append">
                                     <Button color="secondary" onClick={function() { that.onShowImageSelectionDialog(index) }}>
                                     {ICON("icon-camera")}
