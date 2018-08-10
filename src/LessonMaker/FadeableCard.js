@@ -54,7 +54,7 @@ class FadeableCard extends Component {
         // isEditMode = true; //for debugging
         return (
             <Fade timeout={300} in={this.state.shouldFade}>
-                <Card className="card-accent-warning">
+                <Card /*className="card-accent-warning"*/>
                     <CardHeader>
                         <section style={styling.cardHeader}>
                             <section style={styling.toolbars}>

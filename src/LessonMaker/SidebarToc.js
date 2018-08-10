@@ -105,12 +105,14 @@ class SidebarToc extends Component {
     componentWillReceiveProps(){
         console.log('receive');
         this.updateToc();
+        return true
     }
 
     shouldComponentUpdate(){
         // TODO: check if this is fired if incoming chapters props changed
         console.log('update');
         this.updateToc();
+        return true
     }
 
     render() {
