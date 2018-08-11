@@ -110,6 +110,7 @@ class SidebarToc extends Component {
     // chapter! Thus, we want to receive only part of the LessonMaker's state as the prop.
     componentWillReceiveProps(){
         console.log('receive');
+        console.log(this.title);
         //this.updateToc();
         return true
     }
@@ -117,6 +118,7 @@ class SidebarToc extends Component {
     shouldComponentUpdate(){
         // TODO: check if this is fired if incoming chapters props changed
         console.log('update');
+        console.log(this.title);
         this.updateToc();
         if (this.mounted) {
             console.log('draw');
@@ -128,6 +130,7 @@ class SidebarToc extends Component {
     render() {
         return (
             <div>
+                {this.title = this.props.chapters[0].title}
                 <svg 
                     className ="svgTocWrap"
                     xmlns="http://www.w3.org/2000/svg" 

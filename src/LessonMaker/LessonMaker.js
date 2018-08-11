@@ -280,7 +280,7 @@ class LessonMaker extends Component {
                 <SideBarLesson onChapterChange={this.setActiveChapter}
                                onAddChapter={this.onAddChapter}
                                onAddElement={this.onAddElement}
-                               chapters={this.state.project.chapters}
+                               chapters={this.state.project.chapters.map(c => ({title:c.title, id: c.id, links: c.links}) )}
                                currChapIdx={this.state.currChapIdx}
                                {...this.props} //router fucking needs it for CoreUI React ?>?!?!?>!
                 />
