@@ -14,7 +14,7 @@ class SidebarToc extends Component {
 
         this.opt = {
             tocId: 'toc',
-            totalWidth: 200,
+            totalWidth: 199,
             rectHeight: 31,
             gapx: 5,
             gapy: 15,
@@ -38,21 +38,6 @@ class SidebarToc extends Component {
             handleHover: this.handleMouserOver,
         }
 
-        this.chapters = [
-            {idx: 0, title: 'Chapter 1: Wow me introduction', linkIdx: [1,3], 'active': true},
-            {idx: 1, title: 'Chapter 2: How to Wow', linkIdx: [2,3], 'active': false},
-            {idx: 2, title: 'Chapter 3a: Text', linkIdx: [4], 'active': false},
-            {idx: 3, title: 'Chapter 3b: Sim', linkIdx: [4,0], 'active': false},
-            {idx: 4, title: 'Chapter 4: Interlude', linkIdx: [5], 'active': false},
-            {idx: 5, title: 'Chapter 5: In depth wowing', linkIdx: [4,6,7,8,9,10,11], 'active': false},
-            {idx: 6, title: 'Chapter6a', linkIdx: [11], 'active': false},
-            {idx: 7, title: 'Chapter6b', linkIdx: [11], 'active': false},
-            {idx: 8, title: 'Chapter6c', linkIdx: [11], 'active': false},
-            {idx: 9, title: 'Chapter6e', linkIdx: [11], 'active': false},
-            {idx: 10, title: 'Chapter6f', linkIdx: [11], 'active': false},
-            {idx: 11, title: 'Final test', linkIdx: [], 'active': false},
-        ];
-
         this.updateToc();
         let nLevels = 1 + Math.max(...this.tocInfo.map(e=>e.level))
         let height = nLevels * this.opt.rectHeight + (nLevels-1) * this.opt.gapy;
@@ -65,7 +50,6 @@ class SidebarToc extends Component {
     }
 
     updateToc(){
-        // is it safe to manipulate the prop directly here?
         this.chaptersExt = this.props.chapters;
         let idobj = {};
         this.chaptersExt.map((e,i) => idobj[e.id] = i);
@@ -130,7 +114,6 @@ class SidebarToc extends Component {
     render() {
         return (
             <div>
-                {this.title = this.props.chapters[0].title}
                 <svg 
                     className ="svgTocWrap"
                     xmlns="http://www.w3.org/2000/svg" 
@@ -147,7 +130,7 @@ class SidebarToc extends Component {
                     </svg>
                 </svg>
 
-                {this.chapters.map(e=>
+                {this.props.chapters.map(e=>
                     <div id={"tooltip-"+e.idx}> </div>
                 )}
                 

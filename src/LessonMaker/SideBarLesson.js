@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import { Button } from 'reactstrap';
 
 import {
     AppSidebar,
@@ -38,12 +39,23 @@ class SideBarLesson extends Component {
     // {...this.props}
     render() {
         return (
-
             <AppSidebar fixed display="lg">
                 {/*<AppSidebarHeader/>*/}
                 {/*<AppSidebarForm/>*/}
                 {/*<AppSidebarNav navConfig={navParams} {...this.props} style={{flex: "0 0", height: ""}}/>*/}
-                <div>SETTINGS </div>
+                <Button className='sidebar-button'>
+                    <div>Lesson title</div>
+                    <i class="fas fa-align-right fa-lg fa-cog"></i> 
+                </Button>
+                <Button className='sidebar-button'>
+                    <div>Save draft</div>
+                    
+                    <i class="fas fa-align-right fa-lg fa-save"></i> 
+                </Button>
+                <Button className='sidebar-button publish'>
+                    <div>Publish</div>
+                    <i class="fas fa-align-right fa-lg fa-globe-americas"></i> 
+                </Button>
                 <hr />
                 <SidebarToc 
                     chapters={this.props.chapters} 

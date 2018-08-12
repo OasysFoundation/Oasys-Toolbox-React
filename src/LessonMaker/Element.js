@@ -98,7 +98,7 @@ class Element extends Component {
     render() {
         const {id, type} = this.props.data;
         return (
-            <div>
+            <div className='mainWidth'>
 
                 <section style={this.state.mode}
                          onMouseEnter={() => this.setState({isHovered: true})}

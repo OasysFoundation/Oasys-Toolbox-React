@@ -286,6 +286,8 @@ export function svgRect(obj,idx,opt){
     svg.height.baseVal.value=opt.rectHeight;
     svg.setAttribute("x", obj.x);
     svg.setAttribute("y", obj.y);
+    svg.setAttribute("rx", '0.25rem'); // corner radius horizontal
+    svg.setAttribute("ry", '0.25rem'); // corner radius vertical
     svg.setAttribute("opacity", 1.0);
     svg.addEventListener("click", function(){opt.handleClick(idx)}, false);
     if (obj.active) {

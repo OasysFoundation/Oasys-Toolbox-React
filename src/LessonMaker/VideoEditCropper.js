@@ -45,6 +45,7 @@ class VideoEditCropper extends Component {
     	this.cropStart = time;
         document.getElementById('video-slider'+this.props.elementId).noUiSlider.set([this.cropStart, this.cropEnd]);
     	this.refs.inputStart.value = this.formatTime(time);
+    	this.props.onChangeCrop(this.cropStart, this.cropEnd);
     }
 
     onSetEnd(){
@@ -53,6 +54,7 @@ class VideoEditCropper extends Component {
         this.cropEnd = time;
         document.getElementById('video-slider'+this.props.elementId).noUiSlider.set([this.cropStart, this.cropEnd]);
     	this.refs.inputEnd.value = this.formatTime(time);
+    	this.props.onChangeCrop(this.cropStart, this.cropEnd);
     }
 
     // this is not being used when input fields are disabled (default)
@@ -79,7 +81,8 @@ class VideoEditCropper extends Component {
     onPlayerReady() {
     	this.max = this.refs.video.getDuration();
     	this.cropEnd = this.max;
-    	this.refs.inputEnd.value = this.max;
+    	this.refs.inputStart.value = this.formatTime(this.min);
+    	this.refs.inputEnd.value = this.formatTime(this.max);
 
     	ReactDOM.render(
     		<Nouislider
@@ -141,12 +144,12 @@ class VideoEditCropper extends Component {
 	                        placeholder='0'
 	                        ref='inputStart'
 	                    />
-	                    <Button style={{marginRight: 'auto'}} color='secondary' onClick={this.onSetStart.bind(this)}>
+	                    <Button className='bgprimary' style={{marginRight: 'auto'}} onClick={this.onSetStart.bind(this)}>
 	                    	<i class="fas fa-arrow-left" style={{marginRight: '5px'}}></i> 
 	                    	set to current time
 	                    </Button>
 
-	                    <Button color="secondary" onClick={this.onSetEnd.bind(this)}>
+	                    <Button className='bgprimary' color="#28CCB4" onClick={this.onSetEnd.bind(this)}>
 	                    	set to current time
 	                    	<i class="fas fa-arrow-right" style={{marginLeft: '5px'}}></i> 
 	                    </Button>

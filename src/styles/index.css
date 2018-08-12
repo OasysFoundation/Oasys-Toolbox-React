@@ -133,6 +133,12 @@ html, body, div, svg, text {
     border: none;
 }
 
+.oasys .mainWidth {
+    max-width: 750px;
+    min-width: 750px;
+    width: 750px;
+}
+
 .oasys .card {
     margin-bottom: 0;
 }
@@ -141,6 +147,15 @@ html, body, div, svg, text {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.oasys .form-control.header {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.oasys .bgprimary {
+    background-color: #28CCB4;
 }
 
 /* ------------------ quill ----------------- */
@@ -172,8 +187,24 @@ html, body, div, svg, text {
     flex: 1 0 50px;
 }
 
-.sidebar-minimized.sidebar-fixed .sidebar .svgTocWrap{
+.oasys .sidebar-minimized.sidebar-fixed .sidebar .svgTocWrap{
     display: none;
+}
+
+.oasys .sidebar-button {
+    margin-top: 10px;
+    border-radius: 0.25rem;
+    background-color: #30444D;
+    color: #eeeeee;
+    /* border: 1px solid #626970; */
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.oasys .sidebar-button.publish {
+    background-color: #2FC46D;
 }
 
 /* ------------------ video edit ----------------- */

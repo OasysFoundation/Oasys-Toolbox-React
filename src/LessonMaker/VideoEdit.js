@@ -8,9 +8,7 @@ class VideoEdit extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            url: 'https://www.youtube.com/watch?v=gcS04BI2sbk&modestbranding=1&showinfo=0',
-        }
+
     }
 
     isValidYouTubeUrl(url) {
@@ -28,17 +26,27 @@ class VideoEdit extends Component {
     onChangeUrl(e) {
         const url = e.target.value;
         if (this.isValidYouTubeUrl(url)) {
-            console.log(url)
-            this.setState({url: url});
+            // TODO: report url change to Lessonmaker
+            //this.props.url = url;
         }
+    }
+
+    onChangeCrop(startTime, endTime){
+        // TODO: report startTime, endTime to Lessonmaker
+        console.log(startTime);
+        console.log(endTime);
     }
 
     render(){
         return (
             <div className='video-embed'>
-                {this.state.url ? 
+                {this.props.data.url ? 
                     (
-                    <VideoEditCropper url={this.state.url} elementId={this.props.id} />
+                    <VideoEditCropper 
+                        url={this.props.data.url} 
+                        elementId={this.props.id} 
+                        onChangeCrop={this.onChangeCrop.bind(this)}
+                    />
                     )
                     :
                     (
