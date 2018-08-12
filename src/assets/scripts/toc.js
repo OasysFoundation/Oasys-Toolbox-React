@@ -289,6 +289,8 @@ export function svgRect(obj,idx,opt){
     svg.setAttribute("rx", '0.25rem'); // corner radius horizontal
     svg.setAttribute("ry", '0.25rem'); // corner radius vertical
     svg.setAttribute("opacity", 1.0);
+    svg.setAttribute('data-tip', 'tooltip');
+    svg.setAttribute('data-for', 'toc-'+idx);
     svg.addEventListener("click", function(){opt.handleClick(idx)}, false);
     if (obj.active) {
         svg.style.fill = opt.rectColorActiveFill;
@@ -320,6 +322,8 @@ export function svgText(obj,idx,opt) {
     txt.setAttribute('x', opt.textpadx);
     txt.setAttribute('y', opt.textpady+15);
     txt.setAttribute('fill', opt.textColor);
+    svg.setAttribute('data-tip', 'tooltip');
+    svg.setAttribute('data-for', 'toc-'+idx);
     txt.style.cursor = 'pointer';
     txt.textContent = obj.text;
 

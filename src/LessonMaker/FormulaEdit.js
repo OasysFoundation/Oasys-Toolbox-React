@@ -34,7 +34,19 @@ class FormulaEdit extends Component {
 			        <Input placeholder="formula" onChange={this.onChangedSearchTerm.bind(this)}/>
 		        </InputGroup>
             	<center>
-            	{this.state.formula? <InlineMath math={this.state.formula}/> : <img src="https://media0.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" />}
+            	{this.state.formula
+                ? <div className='math-renderview'>
+                    <BlockMath 
+                        math={this.state.formula}
+                        renderError={(error) => {
+                          return <b>Fail: {error.name}</b>
+                        }}
+                    />
+                  </div> 
+                : <div className='math-preview'>
+                    Formula preview
+                  </div>
+                }
             	
             	</center>
             </div>

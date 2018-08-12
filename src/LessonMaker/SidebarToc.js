@@ -39,12 +39,9 @@ class SidebarToc extends Component {
         }
 
         this.updateToc();
-        let nLevels = 1 + Math.max(...this.tocInfo.map(e=>e.level))
-        let height = nLevels * this.opt.rectHeight + (nLevels-1) * this.opt.gapy;
         this.mounted = false;
 
         this.state = {
-            height: height,
             width: this.opt.width,
         };
     }
@@ -62,12 +59,13 @@ class SidebarToc extends Component {
             e.linkIdx = [];
             e.links.map(f=>e.linkIdx.push(idobj[f.chapterId]))
         })
-        console.log(this.chaptersExt)
         let mainPath = tocjs.longestPath(this.chaptersExt);
         let tocInfo = tocjs.prepareToc(mainPath, this.chaptersExt);
         tocInfo = tocjs.sortIntoTocLevels(tocInfo, this.chaptersExt, mainPath);
         tocInfo = tocjs.reorderX(tocInfo);
         this.tocInfo = tocjs.insertArrowLocs(tocInfo, this.opt);
+        let nLevels = 1 + Math.max(...this.tocInfo.map(e=>e.level))
+        this.height = nLevels * this.opt.rectHeight + (nLevels-1) * this.opt.gapy;
     }
 
     handleChangeChapter(num){
@@ -75,12 +73,13 @@ class SidebarToc extends Component {
     }
 
     drawToc(){
+        let svg = document.getElementById(this.opt.tocId);
+        svg.parentNode.replaceChild(svg.cloneNode(false), svg);
         tocjs.drawChapters(this.tocInfo, this.chaptersExt, this.opt);
         tocjs.drawConnections(this.tocInfo, this.opt);
         for (let i=0;i<this.chaptersExt.length;i++) {
             let idx = this.chaptersExt[i].idx;
             let elem = <ReactTooltip id={'toc-'+idx}> {this.chaptersExt[i].title} </ReactTooltip>
-            console.log(idx)
             ReactDOM.render(elem, document.getElementById("tooltip-"+idx));
         }
     }
@@ -94,19 +93,16 @@ class SidebarToc extends Component {
     // the incoming props change. However, here we should not have to react to changes within one
     // chapter! Thus, we want to receive only part of the LessonMaker's state as the prop.
     componentWillReceiveProps(){
-        console.log('receive');
-        console.log(this.title);
+        //console.log('receive');
+        //console.log(this.title);
         //this.updateToc();
         return true
     }
 
     shouldComponentUpdate(){
         // TODO: check if this is fired if incoming chapters props changed
-        console.log('update');
-        console.log(this.title);
         this.updateToc();
         if (this.mounted) {
-            console.log('draw');
             this.drawToc();
         }
         return true;
@@ -119,14 +115,14 @@ class SidebarToc extends Component {
                     className ="svgTocWrap"
                     xmlns="http://www.w3.org/2000/svg" 
                     width={this.state.width} 
-                    height={this.state.height} 
-                    viewBox={"0 0 this.state.width this.state.height"}
+                    height={this.height} 
+                    viewBox={"0 0 "+this.state.width+" "+this.state.height}
                 >
                     <svg 
                         id="toc" 
                         width={this.state.width} 
-                        height={this.state.height} 
-                        viewBox={"0 0 this.state.width this.state.height"}
+                        height={this.height} 
+                        viewBox={"0 0 "+this.state.width+" "+this.state.height}
                     >
                     </svg>
                 </svg>

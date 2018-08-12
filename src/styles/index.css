@@ -257,3 +257,24 @@ html, body, svg, text {
     justify-content: center;
     margin-bottom: 20px;
 }
+
+/* ------------------ formula edit ----------------- */
+
+.oasys .katex-display {
+    margin: 0;
+}
+
+.oasys .math-renderview {
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #626970;
+    border-radius: 0.25rem;
+}
+
+.oasys .math-preview {
+    color: #626970;
+    border: 1px solid #626970;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 0.25rem;
+}
