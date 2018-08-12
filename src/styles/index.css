@@ -82,11 +82,15 @@ Kievit is a former Medium sans-serif font
 
 
 
-html, body, div, svg, text {
+html, body, svg, text {
   margin: 0;
   padding: 0;
   font-family: 'JafBernino-Regular';
   font-size: 0.95rem;
+}
+
+.oasys .ql-container.ql-snow {
+    font-family: 'Charter-Regular';
 }
 
 .textAlignLeft {
@@ -125,6 +129,10 @@ html, body, div, svg, text {
     box-shadow: 0 9px 6px -6px #777;
 }
 
+.oasys .card-body {
+    padding: 0rem 1.25rem 1.25rem 1.25rem;
+}
+
 .oasys .card-footer {
     margin: 0;
     padding: 0.25rem 0.25rem;
@@ -150,29 +158,12 @@ html, body, div, svg, text {
 }
 
 .oasys .form-control.header {
-    font-size: 1.2rem;
     font-weight: bold;
 }
 
 .oasys .bgprimary {
     background-color: #28CCB4;
 }
-
-/* ------------------ quill ----------------- */
-.oasys .ql-editor {
-    padding: 0;
-}
-
-.preview-btn {
-    minWidth: 15vw;
-    marginLeft: 3vw
-}
-
-/*doesn't work here*/
-.oasys .ql-container.ql-snow{
-    border: 0px;
-}
-
 
 /* ------------------ sidebar ----------------- */
 .oasys .sidebar .sidebar-nav {
@@ -206,6 +197,11 @@ html, body, div, svg, text {
 .oasys .sidebar-button.publish {
     background-color: #2FC46D;
 }
+
+.oasys .sidebar-button.title {
+    font-weight: bold;
+}
+
 
 /* ------------------ video edit ----------------- */
 .oasys .video-embed .noUi-handle {

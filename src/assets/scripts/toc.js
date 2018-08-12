@@ -201,7 +201,7 @@ export function drawChapters(tocInfo, chapters, opt) {
                     active: chapters[elems[j].idx].active,
                 };
                 document.getElementById(opt.tocId).appendChild(svgRect(info,elems[j].idx,opt));
-                document.getElementById(opt.tocId).appendChild(svgText(info,elems[0].idx,opt));
+                document.getElementById(opt.tocId).appendChild(svgText(info,elems[j].idx,opt));
                 offx = offx + rectWidth + opt.gapx;
             }
         }
@@ -314,7 +314,7 @@ export function svgText(obj,idx,opt) {
     svg.setAttribute('width', obj.width - opt.textpadx);
     svg.setAttribute('height', opt.rectHeight);
     svg.setAttribute('data-tip', 'tooltip');
-    svg.setAttribute('data-for', 'toc-'+obj.idx);
+    svg.setAttribute('data-for', 'toc-'+idx);
 
     let txt = document.createElementNS(NS, 'text');
     txt.setAttribute('x', opt.textpadx);

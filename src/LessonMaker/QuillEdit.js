@@ -77,7 +77,7 @@ class QuillEdit extends Component {
         icons['link'] = '<img src="' + textLinkIcon + '"/>';
 
         let font = ReactQuill.Quill.import('formats/font');
-        font.whitelist = ['kievit'];
+        font.whitelist = ['Charter-Regular'];
         ReactQuill.Quill.register(font, true);
 
         let fontSize = ReactQuill.Quill.import('attributors/style/size');

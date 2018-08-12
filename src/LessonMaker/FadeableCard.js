@@ -15,7 +15,7 @@ import ToolbarQuill from './ToolbarQuill'
 
 // console.log(globals.ICON_FONTSIZE_MIDDLE, 'fontsize')
 const ICON = function (className, fontSize = globals.ICON_FONTSIZE_MIDDLE) {
-    return <i style={{fontSize: fontSize}} className={className}> </i>;
+    return <i style={{fontSize: fontSize, color: '#626970'}} className={className}> </i>;
 }
 
 
@@ -23,14 +23,15 @@ const styling = {
     toolbar: {
         display: `flex`,
         position: `relative`,
-        height: 1.5 + `rem`,
+        height: 0.9 + `rem`,
         zIndex: 2,
         justifyContent: 'center'
     },
     card: {},
     cardActions: {
         display: 'flex',
-        justifyContent: 'flex-end'
+        justifyContent: 'flex-end',
+        padding: '0.5rem 0.2rem',
     }
 }
 
@@ -59,15 +60,7 @@ class FadeableCard extends Component {
                     <Card className="card-fancy has-shadow">
                         {/*<CardHeader>*/}
 
-
-                        {/*</CardHeader>*/}
-                        <Collapse isOpen={this.state.isOpen} id="collapseExample">
-                            <CardBody>
-
-                                {/*  !! This passes the Content in between here !! */}
-                                {this.props.children}
-
-                                <section style={styling.cardActions} >
+                            <section style={styling.cardActions} >
                                     <div hidden={!isEditMode} >
                                         <a className="card-header-action btn btn-setting"
                                            onClick={this.props.onMoveUp}
@@ -96,6 +89,13 @@ class FadeableCard extends Component {
                                         </a>
                                     </div>
                                 </section>
+
+                        {/*</CardHeader>*/}
+                        <Collapse isOpen={this.state.isOpen} id="collapseExample">
+                            <CardBody>
+                                {/*  !! This passes the Content in between here !! */}
+                                {this.props.children}
+
                             </CardBody>
                         </Collapse>
                         {/*<CardFooter style={styling.cardFooter}>*/}

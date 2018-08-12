@@ -80,6 +80,7 @@ class SidebarToc extends Component {
         for (let i=0;i<this.chaptersExt.length;i++) {
             let idx = this.chaptersExt[i].idx;
             let elem = <ReactTooltip id={'toc-'+idx}> {this.chaptersExt[i].title} </ReactTooltip>
+            console.log(idx)
             ReactDOM.render(elem, document.getElementById("tooltip-"+idx));
         }
     }
@@ -130,7 +131,7 @@ class SidebarToc extends Component {
                     </svg>
                 </svg>
 
-                {this.props.chapters.map(e=>
+                {this.chaptersExt.map(e=>
                     <div id={"tooltip-"+e.idx}> </div>
                 )}
                 
