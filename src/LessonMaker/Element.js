@@ -98,25 +98,26 @@ class Element extends Component {
     render() {
         const {id, type} = this.props.data;
         return (
-            <div className='mainWidth'>
-
-                <section style={this.state.mode}
-                         onMouseEnter={() => this.setState({isHovered: true})}
-                         onMouseLeave={() => this.setState({isHovered: false})}
-                         onClick={() => this.setState({isClicked: true})}
-                >
-                    <FadeableCard
-                        id={id}
-                        type={type}
-                        onDelete={() => this.props.onDelete(id)}
-                        onMoveUp={() => this.props.onMove(id, -1)}
-                        onMoveDown={() => this.props.onMove(id, +1)}
-                        isEditMode={!this.props.isPreview && this.state.isHovered}
+            <center>
+                <div className='mainWidth'>
+                    <section style={this.state.mode}
+                             onMouseEnter={() => this.setState({isHovered: true})}
+                             onMouseLeave={() => this.setState({isHovered: false})}
+                             onClick={() => this.setState({isClicked: true})}
                     >
-                        {this.typeToComponent(type)}
-                    </FadeableCard>
-                </section>
-            </div>
+                        <FadeableCard
+                            id={id}
+                            type={type}
+                            onDelete={() => this.props.onDelete(id)}
+                            onMoveUp={() => this.props.onMove(id, -1)}
+                            onMoveDown={() => this.props.onMove(id, +1)}
+                            isEditMode={!this.props.isPreview && this.state.isHovered}
+                        >
+                            {this.typeToComponent(type)}
+                        </FadeableCard>
+                    </section>
+                </div>
+            </center>
         );
     }
 }

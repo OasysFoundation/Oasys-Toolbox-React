@@ -290,51 +290,52 @@ class LessonMaker extends Component {
                 />
                 <main className="main">
                     <Container fluid>
-                        <section className='mainWidth' style={{display: 'flex', marginTop: '1rem', marginBottom: '1rem', flex: 1, flexDirection: 'row'}}>
-                            {/*<div style={{marginBottom: 0}} className="input-group mb-3">*/}
-                            <div className="input-group-prepend">
-                                <span className="input-group-text" id="basic-addon1">Chapter Title</span>
-                            </div>
-                            <input 
-                                type="text" 
-                                className="form-control header" 
-                                placeholder="Name your Chapter"
-                                aria-label="Name this Chapter"
-                                value={this.state.project.chapters[this.state.currChapIdx].title}
-                                onChange={(ev) => this.onChangeChapterTitle(ev.target.value)}
-                                aria-describedby="basic-addon1"
-                                style={{marginRight: '10px'}}
-                            />
-                            <button 
-                                type="button"
-                                className={this.state.isEditMode ? "btn btn-dark preview-btn" : "btn btn-light preview-btn"}
-                                onClick={() => this.toggle('isEditMode')}
-                            >
-                                <span className={this.state.isEditMode ? "icon-grid" : "icon-layers"}></span>
-                                {"  "}
-                                {this.state.isEditMode ? 'Preview' : '  Edit  '}
-                            </button>
-                        </section>
-                            <PoseGroup>
-                                {elements.map((el, idx) =>
-                                    <Item key={el.id}>
-                                    <Element
-                                            key={el.id}
-                                            isPreview={!this.state.isEditMode}
-                                            data={el}
-                                            onDelete={this.onDeleteElement}
-                                            onMove={this.onMoveElement}
-                                            chaptersLight={this.state.project.chapters.map(c => ({title:c.title, id: c.id}) )}
-                                            // onChange={this.onChangeContent}
-                                        />
-                                        <ElementAdder
-                                            key={el.id + 1}
-                                            onAddElement={this.onAddElement}
-                                            idx={idx}/>
-                                    </Item>
-                                )}
-                            </PoseGroup>
-
+                        <center>
+                            <section className='mainWidth' style={{display: 'flex', marginTop: '1rem', marginBottom: '1rem', flex: 1, flexDirection: 'row'}}>
+                                {/*<div style={{marginBottom: 0}} className="input-group mb-3">*/}
+                                <div className="input-group-prepend">
+                                    <span className="input-group-text" id="basic-addon1">Chapter Title</span>
+                                </div>
+                                <input 
+                                    type="text" 
+                                    className="form-control header" 
+                                    placeholder="Name your Chapter"
+                                    aria-label="Name this Chapter"
+                                    value={this.state.project.chapters[this.state.currChapIdx].title}
+                                    onChange={(ev) => this.onChangeChapterTitle(ev.target.value)}
+                                    aria-describedby="basic-addon1"
+                                    style={{marginRight: '10px'}}
+                                />
+                                <button 
+                                    type="button"
+                                    className={this.state.isEditMode ? "btn btn-dark preview-btn" : "btn btn-light preview-btn"}
+                                    onClick={() => this.toggle('isEditMode')}
+                                >
+                                    <span className={this.state.isEditMode ? "icon-grid" : "icon-layers"}></span>
+                                    {"  "}
+                                    {this.state.isEditMode ? 'Preview' : '  Edit  '}
+                                </button>
+                            </section>
+                        </center>
+                        <PoseGroup>
+                            {elements.map((el, idx) =>
+                                <Item key={el.id}>
+                                <Element
+                                        key={el.id}
+                                        isPreview={!this.state.isEditMode}
+                                        data={el}
+                                        onDelete={this.onDeleteElement}
+                                        onMove={this.onMoveElement}
+                                        chaptersLight={this.state.project.chapters.map(c => ({title:c.title, id: c.id}) )}
+                                        // onChange={this.onChangeContent}
+                                    />
+                                    <ElementAdder
+                                        key={el.id + 1}
+                                        onAddElement={this.onAddElement}
+                                        idx={idx}/>
+                                </Item>
+                            )}
+                        </PoseGroup>
                     </Container>
                 </main>
             </div>
