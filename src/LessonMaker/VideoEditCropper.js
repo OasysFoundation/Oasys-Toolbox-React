@@ -6,7 +6,6 @@ import Nouislider from "nouislider-react";
 import ReactPlayer from 'react-player'
 
 import 'nouislider/distribute/nouislider.css';
-import '../styles/plyr.css';
 
 const playerWidth = '640px';
 const playerHeight = '360px';
