@@ -83,7 +83,7 @@ class Element extends Component {
                 render = <QuizzEdit key={id} id={id} data={content} chapters={this.props.chaptersLight} isEditMode={isEditMode} />
                 break;
             case globals.EDIT_VIDEO:
-                render = <VideoEdit data={content}/>
+                render = <VideoEdit key={id} id={id}  data={content}/>
                 break;
 
             default:

@@ -119,7 +119,7 @@ html, body, div, svg, text {
     position: relative;
 }
 
-.has-shadow {
+.oasys .has-shadow {
     -webkit-box-shadow: 0 10px 6px -6px #777;
     -moz-box-shadow: 0 10px 6px -6px #777;
     box-shadow: 0 9px 6px -6px #777;
@@ -137,6 +137,12 @@ html, body, div, svg, text {
     margin-bottom: 0;
 }
 
+.oasys .flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* ------------------ quill ----------------- */
 .oasys .ql-editor {
     padding: 0;
@@ -151,9 +157,7 @@ html, body, div, svg, text {
 .oasys .ql-container.ql-snow{
     border: 0px;
 }
-@media (min-width: 992px) {
-   
-}
+
 
 /* ------------------ sidebar ----------------- */
 .oasys .sidebar .sidebar-nav {
@@ -173,11 +177,41 @@ html, body, div, svg, text {
 }
 
 /* ------------------ video edit ----------------- */
-.oasys .noUi-handle {
-    background-color: #F95032;
-    border: 1px solid #C6361D;
+.oasys .video-embed .noUi-handle {
+    /*background-color: #F95032;
+    border: 1px solid #C6361D;*/
+    background-color: #A2ABB8;
+    border: 1px solid #626970;
 }
 
-.oasys .noUi-connect {
-    background-color: #A47D90;
+.oasys .video-embed .noUi-connect {
+    /*background-color: #A47D90;*/
+    background-color: #626970;
+}
+
+.oasys .video-embed .video-controls {
+    display:flex;
+}
+
+.oasys .video-embed .form-control {
+    width: 70px;
+}
+
+.oasys .video-embed .noUi-handle {
+    cursor: pointer;
+}
+
+.oasys .video-embed .url-input {
+    width: 300px;
+}
+
+.oasys .video-embed .fa-youtube {
+    color: #3e4b54;
+}
+
+.oasys .videoEditWrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
 }

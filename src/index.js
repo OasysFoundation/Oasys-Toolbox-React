@@ -11,10 +11,7 @@ import LessonMaker from './LessonMaker/LessonMaker'
 import { AppHeader } from '@coreui/react';
 
 import "simple-line-icons/css/simple-line-icons.css"
-
-// these are now being loaded though style.scss
-
-// import 'bootstrap/dist/css/bootstrap.css';
+import "./assets/fontAwesome/css/all.min.css"
 import "./styles/coreui/coreui.css"
 import "@coreui/icons/css/coreui-icons.css"
 import './styles/index.css';
