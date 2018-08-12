@@ -119,6 +119,11 @@ html, body, svg, text {
     border: none;
 }
 
+.oasys .card-hint {
+    padding-left: 10px;
+    color: #626970;
+}
+
 .oasys .card-fancy {
     position: relative;
 }

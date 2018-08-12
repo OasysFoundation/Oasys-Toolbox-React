@@ -290,7 +290,7 @@ class LessonMaker extends Component {
                 />
                 <main className="main">
                     <Container fluid>
-                        <section className='mainWidth' style={{display: 'flex', marginTop: '1rem', flex: 1, flexDirection: 'row'}}>
+                        <section className='mainWidth' style={{display: 'flex', marginTop: '1rem', marginBottom: '1rem', flex: 1, flexDirection: 'row'}}>
                             {/*<div style={{marginBottom: 0}} className="input-group mb-3">*/}
                             <div className="input-group-prepend">
                                 <span className="input-group-text" id="basic-addon1">Chapter Title</span>
