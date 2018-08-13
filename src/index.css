@@ -35,11 +35,6 @@
     src: url('./fonts/SF-Pro-Text-Regular.otf') format("opentype");
 }
 
-@font-face {
-    font-family: 'Arimo-Regular'; /*a name to be used later*/
-    src: url('./fonts/Arimo-Regular.ttf')
-}
-
 body {
   margin: 0;
   padding: 0;
