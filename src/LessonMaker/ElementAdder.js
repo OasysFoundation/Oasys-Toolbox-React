@@ -53,7 +53,9 @@ class ElementAdder extends Component {
                              alt=""
                         />)}
                 </section>
-                <section style={{color: "darkgrey", fontSize:40+'px', fontWeight: 'bold', alignSelf:"center"}} hidden={this.state.isHovered}> + </section>
+                <section style={{fontSize:30+'px', alignSelf:"center"}} hidden={this.state.isHovered}>
+                    <i style={{color: '#626970'}} className='icon-plus'> </i>
+                </section>
             </section>
 
         );
