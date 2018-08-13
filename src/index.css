@@ -9,6 +9,12 @@
     src: url('./fonts/HelveticaNeue_Light.ttf');
 }
 
+@font-face{
+  font-family: 'helveticaneue';
+  src: url('./fonts/helveticaneue.woff2');
+  src: url('./fonts/helveticaneue.woff');
+}
+
 @font-face {
     font-family: 'SF-Pro-Display-Medium'; /*a name to be used later*/
     src: url('./fonts/SF-Pro-Display-Medium.otf') format("opentype");
