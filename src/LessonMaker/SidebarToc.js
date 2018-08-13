@@ -30,7 +30,7 @@ class SidebarToc extends Component {
             rectColorStart: '#3f51d5',
             rectColorEnd: '#3f51d5',
             rectColorActiveFill: '#626970',
-            rectColorDefaultFill: '#30444D',
+            rectColorDefaultFill: '#3E4B54',
             rectColorDefaultStroke: '#626970',
             textColor: '#eeeeee',
             myOrange: '#C85C0D',

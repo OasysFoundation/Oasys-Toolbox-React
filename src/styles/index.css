@@ -200,7 +200,7 @@ html, body, svg, text {
 .oasys .sidebar-button {
     margin-top: 10px;
     border-radius: 0.25rem;
-    background-color: #30444D;
+    background-color: #3E4B54;
     color: #eeeeee;
     /* border: 1px solid #626970; */
     border: none;
@@ -209,8 +209,16 @@ html, body, svg, text {
     justify-content: space-between;
 }
 
+.oasys .sidebar-button:hover {
+    background-color: #30444D;
+}
+
 .oasys .sidebar-button.publish {
-    background-color: #2FC46D;
+    background-color: #2A9699;
+}
+
+.oasys .sidebar-button.publish:hover {
+    background-color: #28CCB4;
 }
 
 .oasys .sidebar-button.title {
