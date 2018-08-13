@@ -87,7 +87,6 @@ class QuizzEditModal extends Component {
 
     onUpdateCorrectAnswer(value, index) {
 
-        console.log(value);
         const answers = this.state.answers;
 
         if (this.state.quizType == 'single-choice') {
@@ -106,13 +105,7 @@ class QuizzEditModal extends Component {
                 });
             }
         } else {
-            
-            if (value=="on") {
-                answers[index].correct = true;
-            } else {
-                answers[index].correct = false;
-            }
-
+            answers[index].correct = !answers[index].correct;
             this.setState({
                     answers: answers
             });
@@ -262,7 +255,7 @@ class QuizzEditModal extends Component {
                                     {that.state.quizType==='single-choice'?
                                         <Input addon checked={answer.correct? "checked" : null} type="radio" name="radio1" onChange={function(radio) { that.onUpdateCorrectAnswer(radio.target.value, index) } } />
                                         :
-                                        <Input addon checked={answer.correct? "checked" : null} type="checkbox" onChange={function(radio) { that.onUpdateCorrectAnswer(radio.checked, index) } } />
+                                        <Input addon checked={answer.correct? "checked" : null} type="checkbox" onClick={function(checkbox) { that.onUpdateCorrectAnswer(null, index) } } />
                                     }
                                   </InputGroupText>
                                 </InputGroupAddon>
