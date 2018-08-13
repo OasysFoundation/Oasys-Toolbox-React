@@ -39,14 +39,14 @@ class FormulaEdit extends Component {
                     <BlockMath 
                         math={this.state.formula}
                         renderError={(error) => {
-                          return <b>Fail: {error.name}</b>
+                          return <b>Incorrect Input: {error.name}</b>
                         }}
                     />
                   </div> 
                 : <div className='math-preview help-text'>
-                    Formula preview <br/>
+                    Formula Preview <br/>
                     <small>
-                        (You can type any <a href='https://en.wikibooks.org/wiki/LaTeX/Mathematics' target='_blank' rel="noopener noreferrer">latex math expression</a> here)
+                        You can type any <a target="_blank" rel="noopener noreferrer" href='https://en.wikibooks.org/wiki/LaTeX/Mathematics'>latex math expression</a> above.
                     </small>
                   </div>
                 }
