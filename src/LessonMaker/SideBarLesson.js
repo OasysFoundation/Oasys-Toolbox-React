@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'reactstrap';
-import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Input, FormText, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 import {
     AppSidebar,
@@ -40,6 +40,9 @@ class SideBarLesson extends Component {
     }
 
     render() {
+        let tags = '';
+        let description = '';
+        let category = '';
         return (
             <div>
                 <Modal isOpen={this.state.showSettingsDialog} toggle={this.onSettingsClose.bind(this)} backdrop={true}>
@@ -47,6 +50,30 @@ class SideBarLesson extends Component {
                     Settings
                 </ModalHeader>
                   <ModalBody>
+                    <Input 
+                        placeholder="Title" 
+                        value={this.props.title} 
+                        onChange={this.onChangeTitle.bind(this)}
+                    />
+                    <FormText color="muted">
+                        The title for this lesson may have 40 characters at most.
+                    </FormText>
+                    <Input 
+                        placeholder="Description" 
+                        value={tags} 
+                        onChange={function(){}} 
+                    />
+                    <FormText color="muted">
+                        Your description will be shown before the lesson starts. It should be concise and expressive.
+                    </FormText>
+                    <Input 
+                        placeholder="Tags" 
+                        value={tags} 
+                        onChange={function(){}} 
+                    />
+                    <FormText color="muted">
+                        Tags are being used to inform the learner about the context. For example, you can use tags like 'physics', or 'mathematics'.
+                    </FormText>
                   </ModalBody>
                   <ModalFooter>
                     <Button color="secondary" onClick={this.onSettingsClose.bind(this)}>Cancel</Button>
