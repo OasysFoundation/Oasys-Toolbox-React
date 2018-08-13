@@ -8,6 +8,7 @@ import Element from "./Element";
 import ElementAdder from './ElementAdder'
 
 import globals from '../globals'
+import tools from '../tools'
 
 import posed, {PoseGroup} from 'react-pose';
 
@@ -36,8 +37,8 @@ const MockData = {
                             type: globals.EDIT_VIDEO,
                             content: {
                                 url: 'https://www.youtube.com/watch?v=gcS04BI2sbk',
-                                start: 0.0,
-                                stop: 100.0,
+                                cropStart: 0.0,
+                                cropEnd: 0.0,
                             }
                         },
                         {
@@ -210,7 +211,7 @@ class LessonMaker extends Component {
         const newElem = {
             id: uuidv4(),
             type: typeSelected,
-            content: "",
+            content: tools.initContent(typeSelected),
             timestamp: Date.now()
         };
 
@@ -300,6 +301,7 @@ class LessonMaker extends Component {
                                onAddElement={this.onAddElement}
                                chapters={this.state.project.chapters.map(c => ({title:c.title, id: c.id, links: c.links}) )}
                                currChapIdx={this.state.currChapIdx}
+                               title={this.state.project.title}
                                {...this.props} //router fucking needs it for CoreUI React ?>?!?!?>!
                 />
                 <main className="main">

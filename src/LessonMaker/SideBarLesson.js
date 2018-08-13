@@ -44,7 +44,7 @@ class SideBarLesson extends Component {
                 {/*<AppSidebarForm/>*/}
                 {/*<AppSidebarNav navConfig={navParams} {...this.props} style={{flex: "0 0", height: ""}}/>*/}
                 <Button className='sidebar-button title '>
-                    <input className='form-control' defaultValue='Untitled lesson' />
+                    <input className='form-control' defaultValue='Untitled lesson' value={this.props.title} onChange='' />
                     <i class="fas fa-align-right fa-lg fa-cog"></i> 
                 </Button>
                 <Button className='sidebar-button'>
