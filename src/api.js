@@ -70,6 +70,10 @@ const api = {
 
         return promise;
     },
+    getImagesForSearch(searchString) {
+        const apiKey = "9813357-8b0c5da381a974994abb6a8c9";
+        const url = "//pixabay.com/api/?q=" + searchString + "&key=" + apiKey;
+    },
     postImage(img) {
         const url = 'https://api.imgur.com/3/image';
         return fetch(url, {

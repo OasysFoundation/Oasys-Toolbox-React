@@ -31,7 +31,7 @@ class CreateNewChapterModal extends Component {
 	render() {
 		return (
 			<Modal isOpen={this.props.isOpen} toggle={this.toggle.bind(this)} backdrop={true}>
-	          <ModalHeader toggle={this.toggle}>Thank you for deciding to create a new chapter.</ModalHeader>
+	          <ModalHeader toggle={this.toggle.bind(this)}>Thank you for deciding to create a new chapter.</ModalHeader>
 	          <ModalBody>
 	          	<InputGroup>
                     <Input placeholder="new name of the kategor" value={this.state.newCategoryName} onChange={this.onChangeText.bind(this)} />

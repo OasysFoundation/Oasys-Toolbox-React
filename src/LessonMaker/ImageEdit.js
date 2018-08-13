@@ -6,13 +6,12 @@ import { Button } from 'reactstrap';
 
 import PropTypes from 'prop-types';
 import api from '../api'
-// import globals from '../globals'
 
-/*
-const ICON = function(className, fontSize=globals.ICON_FONTSIZE_MIDDLE) {
-    return <i style={{fontSize:fontSize}} className={className}> </i>;
-}
-*/
+import ImageSelectionModal from './ImageSelectionModal'
+
+import { GridLoader } from 'react-spinners';
+
+import {saveToSessionStorage} from '../utils/trickBox'
 
 //this is the new "Preview" Component
 class ImageEdit extends Component {
@@ -20,8 +19,17 @@ class ImageEdit extends Component {
     constructor(props) {
         super(props);
         this.state = {
-        	imageUrl: null
+        	imageUrl: this.props.content,
+            showsImageSelectionPopover: false,
+            images: [],
+            didStartSearch: false
         }
+    }
+
+    saveCurrentState() {
+        saveToSessionStorage(this.props.id, {
+            content: this.state.imageUrl
+        });
     }
 
     searchTerm = null;
@@ -32,11 +40,13 @@ class ImageEdit extends Component {
 		const that = this;
 
 		this.setState({
-				imageUrl: null
+				imageUrl: null,
+                didStartSearch: true
 		}, function() {
-			api.getGifsForSearch(this.searchTerm).then(function(result) {
+			api.getGifsForSearch(this.searchTerm).then(function(images) {
 				that.setState({
-					imageUrl: result[0]
+					images: images,
+                    showsImageSelectionPopover: true
 				});
 			});
 		});
@@ -46,6 +56,19 @@ class ImageEdit extends Component {
 		this.searchTerm = element.target.value;
 	}
 	
+    closeModalImgageSelection() {
+        this.setState({
+            showsImageSelectionPopover: false
+        });
+    }
+
+    onSelectImageAtIndex(index) {
+        this.setState({
+            imageUrl: this.state.images[index],
+            didStartSearch: false
+        });
+    }
+
     render() {
     	
         return (
@@ -53,12 +76,20 @@ class ImageEdit extends Component {
             	<InputGroup>
 			        <InputGroupAddon addonType="prepend">🖼</InputGroupAddon>
 			        <Input placeholder="search term" onChange={this.onChangedSearchTerm.bind(this)}/>
+                   <InputGroupAddon addonType="append">
+                        <Button color="secondary" onClick={this.onClickButton.bind(this)} >
+                        Search
+                        </Button>
+                    </InputGroupAddon>
 		        </InputGroup>
-		        <Button color="primary" onClick={this.onClickButton.bind(this)}>Search GIFs</Button>
-            	<center>
-            	{this.state.imageUrl? <img src={this.state.imageUrl} alt=""/> : <img src="https://media0.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" alt=""/>}
             	
+                <center style={{marginTop:'20px'}}>
+
+            	{this.state.imageUrl? <img src={this.state.imageUrl} alt="Image or GIF"/> : <p>Search for GIFs and imgages above.</p>}
+                {this.state.didStartSearch? <GridLoader size={30} /> : null}
             	</center>
+
+                <ImageSelectionModal isOpen={this.state.showsImageSelectionPopover} images={this.state.images} onClose={this.closeModalImgageSelection.bind(this)} onSelect={this.onSelectImageAtIndex.bind(this)} />
             </div>
         )
     }
