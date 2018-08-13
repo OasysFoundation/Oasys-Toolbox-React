@@ -204,6 +204,24 @@ class QuizzEditModal extends Component {
 
 
     onChangeQuizType(newQuizType) {
+
+        // ensure that only one answer is marked as corect for single choice (simply the first one)
+        if (newQuizType == 'single-choice') {
+            const answers = this.state.answers;
+            var hasFoundCorrectAnswer = false;
+            answers.map(function(answer) {
+                if (answer.correct && !hasFoundCorrectAnswer) {
+                    hasFoundCorrectAnswer = true;
+                } else {
+                    answer.correct = false;
+                }
+            })
+
+            this.setState({
+                answers: answers
+            });
+        }
+
         this.setState({
             quizType: newQuizType
         });
