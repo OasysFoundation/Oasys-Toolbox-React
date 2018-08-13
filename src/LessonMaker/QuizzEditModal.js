@@ -15,6 +15,8 @@ import api from '../api'
 import colors from '../colors'
 import globals from '../globals'
 
+import uuidv4 from "uuid/v4"
+
 import SelectionDropdown from './SelectionDropdown'
 
 const ICON = function(className, fontSize=globals.ICON_FONTSIZE_NORMAL) {
@@ -54,6 +56,15 @@ class QuizzEditModal extends Component {
     }
 
     onSelectAction(identifier, chapterIndex) {
+
+        if (chapterIndex >= this.props.chapters.length) {
+            console.log("create new chapter!");
+            const that = this;
+            this.createNewChapter().then(function() {
+                that.onSelectAction(identifier, chapterIndex);
+            });
+            return;
+        }
 
         if (identifier == 'action-correct') {
             this.setState({
@@ -206,6 +217,27 @@ class QuizzEditModal extends Component {
         }).title;
     }
 
+    getActionMenuItems() {
+        var menuItems = this.props.chapters.map(function(element) { return "Go to " + element.title + "…"});
+        menuItems.push("Create new Chapter…");
+        return menuItems;
+    }
+
+
+    createNewChapter() {
+        const newUuid = uuidv4();
+        const that = this;
+        return new Promise(function(resolve, reject) {
+
+            that.props.onAddChapter("HAHAH", newUuid);
+
+            resolve({
+                title: "HAHAH",
+                identifier: newUuid
+            });
+        })
+    }
+
 	
     render() {
         const that = this; 
@@ -268,7 +300,7 @@ class QuizzEditModal extends Component {
                                 
                                 {
                                     that.state.quizType==='single-choice'?
-                                    (<SelectionDropdown onSelect={that.onSelectAction.bind(that)} identifier={index} default={answer.action!=null? that.chapterTitleForIdentifier(answer.action) : "No Action"} options={that.props.chapters.map(function(element) { return "Go to " + element.title + "…"})}/>)
+                                    (<SelectionDropdown onSelect={that.onSelectAction.bind(that)} identifier={index} default={answer.action!=null? that.chapterTitleForIdentifier(answer.action) : "No Action"} options={that.getActionMenuItems()}/>)
                                 :
                                     null
                                 }
@@ -293,16 +325,15 @@ class QuizzEditModal extends Component {
                     })}
                     <center>
                             
-                        <Button color="secondary" onClick={this.onAddNewAnswerOption.bind(this)}>Add new Answer Option</Button>
-                    
-
+                    <Button color="secondary" onClick={this.onAddNewAnswerOption.bind(this)}>Add new Answer Option</Button>
                     {
-                        that.state.quizType==='multiple-choice'?
+                        
+                        this.state.quizType==='multiple-choice'?
                         (   
                             <div style={{marginTop:'20px'}}>
-                                <SelectionDropdown onSelect={this.onSelectAction.bind(that)} identifier={"action-correct"} default={this.state.actionCorrect? "When correct: " + this.chapterTitleForIdentifier(this.state.actionCorrect) : "When answered correctly…"} options={this.props.chapters.map(function(element) { return "Go to " + element.title + "…"})}/>
+                                <SelectionDropdown onSelect={this.onSelectAction.bind(that)} identifier={"action-correct"} default={this.state.actionCorrect? "When correct: " + this.chapterTitleForIdentifier(this.state.actionCorrect) : "When answered correctly…"} options={this.getActionMenuItems()}/>
                                 <br />
-                                <SelectionDropdown onSelect={this.onSelectAction.bind(that)} identifier={"action-wrong"} default={this.state.actionWrong? "When wrong: " + this.chapterTitleForIdentifier(this.state.actionWrong) : "When answered wrong…"} options={this.props.chapters.map(function(element) { return "Go to " + element.title + "…"})} />
+                                <SelectionDropdown onSelect={this.onSelectAction.bind(that)} identifier={"action-wrong"} default={this.state.actionWrong? "When wrong: " + this.chapterTitleForIdentifier(this.state.actionWrong) : "When answered wrong…"} options={this.getActionMenuItems()} />
                             </div>
                         )
                     :

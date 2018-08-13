@@ -134,7 +134,6 @@ class LessonMaker extends Component {
 
         //Chapter-wise --> Sidebar
         this.setActiveChapter = this.setActiveChapter.bind(this);
-        this.onAddChapter = this.onAddChapter.bind(this);
         this.onAddElement = this.onAddElement.bind(this);
         this.onChangeContent = this.onChangeContent.bind(this);
 
@@ -259,20 +258,32 @@ class LessonMaker extends Component {
         this.setState({project: proj})
     }
 
-    onAddChapter() {
+    onAddChapter(newTitle, newUuid) {
         const proj = JSON.parse(JSON.stringify(this.state.project));
+      
+        const activeChapter = proj.chapters[this.state.currChapIdx];
+        activeChapter.links.push({
+            eventId: uuidv4(),
+            chapterId: newUuid
+        });
+        proj.chapters[this.state.currChapIdx] = activeChapter;
+
 
         proj.chapters.push(
             {
-                id: Math.random().toFixed(36),
-                title: this.state.project.title || `<<< Chapter Title XYZ >>>`,
+                id: newUuid,
+                title: newTitle,
                 elements: [],
-                timestamp: Date.now()
+                timestamp: Date.now(),
+                links: []
             }
         );
 
+
+
         this.setState({project: proj})
     }
+
 
     handleInteractionEvent(eventId) {
         //eventId => chapterId => setState(activeChapter)
@@ -332,6 +343,7 @@ class LessonMaker extends Component {
                                         onMove={this.onMoveElement}
                                         chaptersLight={this.state.project.chapters.map(c => ({title:c.title, id: c.id}) )}
                                         onChange={this.onChangeContent}
+                                        onAddChapter={this.onAddChapter.bind(this)}
                                     />
                                     <ElementAdder
                                         key={el.id + 1}
