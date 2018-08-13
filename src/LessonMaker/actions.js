@@ -1,7 +1,7 @@
 //TODO use my mongo functions to do upsert, insert, find for STATE etc
 //use immutable
 import update from 'immutability-helper'
-import {withoutEntry} from "../utils/trickBox";
+import {moveEntry, withoutEntry} from "../utils/trickBox";
 import tools from "../tools";
 import uuidv4 from 'uuid/v4'
 
@@ -37,6 +37,17 @@ const actions = function (store) { //store for async stuff
             );
 
             return clone
+        },
+
+        onMoveElement(state, id, direction) {
+            const clone = JSON.parse(JSON.stringify(state));
+            let elements = clone.chapters[state.activeChapterIndex].elements;
+            const entryIdx = elements.findIndex(el => el.id === id);
+
+            console.log(clone, 'state', state, state.activeChapterIndex, clone.activeChapterIndex)
+            clone.chapters[clone.activeChapterIndex].elements = moveEntry(elements, entryIdx, direction)
+
+            return clone;
         },
 
         onDeleteElement(state, id = "yolooooID") {

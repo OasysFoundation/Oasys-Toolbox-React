@@ -292,11 +292,11 @@ class LessonMaker extends Component {
         return (
             <div className="app-body">
                 <SideBarLesson onChapterChange={this.props.onChangeActiveChapter}
-                               onAddChapter={this.onAddChapter}
-                               onAddElement={this.onAddElement}
-                               chapters={this.state.project.chapters.map(c => ({title:c.title, id: c.id, links: c.links}) )}
-                               currChapIdx={this.state.currChapIdx}
-                               title={this.state.project.title}
+                               onAddChapter={this.props.onAddChapter}
+                               onAddElement={this.props.onAddElement}
+                               chapters={this.props.project.chapters.map(c => ({title:c.title, id: c.id, links: c.links}) )}
+                               currChapIdx={this.props.activeChapterIndex}
+                               title={this.props.project.title}
                                {...this.props} //router fucking needs it for CoreUI React ?>?!?!?>!
                 />
                 <main className="main">
@@ -334,12 +334,12 @@ class LessonMaker extends Component {
                                 <Item key={el.id}>
                                 <Element
                                         key={el.id}
-                                        isPreview={!this.state.isEditMode}
+                                        // isPreview={!this.state.isEditMode}
                                         data={el}
-                                        onDelete={this.onDeleteElement}
-                                        onMove={this.onMoveElement}
-                                        chaptersLight={this.state.project.chapters.map(c => ({title:c.title, id: c.id}) )}
-                                        onChange={this.onChangeContent}
+                                        // onDelete={this.props.onDeleteElement}
+                                        // onMove={this.props.onMoveElement}
+                                        // chaptersLight={this.state.project.chapters.map(c => ({title:c.title, id: c.id}) )}
+                                        // onChange={this.onChangeContent}
                                     />
                                     <ElementAdder
                                         key={el.id + 1}
@@ -364,6 +364,8 @@ class LessonMaker extends Component {
 //     return { test: store.title}
 // };
 
+
+//IMPORTANT!! the project data is in the project obj, the rest of the store (action functions) is just flat there
 const mapToProps = (store) => ({project: store});
 
 // export default connect(mapToProps, actions)( ({projects}) => React.createElement(LessonMaker, {project: projects[0]}) );
