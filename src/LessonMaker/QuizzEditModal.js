@@ -15,7 +15,10 @@ import api from '../api'
 import colors from '../colors'
 import globals from '../globals'
 
+import uuidv4 from "uuid/v4"
+
 import SelectionDropdown from './SelectionDropdown'
+import CreateNewChapterModal from './CreateNewChapterModal'
 
 const ICON = function(className, fontSize=globals.ICON_FONTSIZE_NORMAL) {
     return <i style={{fontSize:fontSize}} className={className}> </i>;
@@ -33,7 +36,9 @@ class QuizzEditModal extends Component {
             selectingImageForIndex: 0,
             quizType: props.quizType? props.quizType : "single-choice",
             actionCorrect: props.actionCorrect? props.actionCorrect : null,
-            actionWrong: props.actionWrong? props.actionWrong : null
+            actionWrong: props.actionWrong? props.actionWrong : null,
+            showsCreateNewChapterDialog: false,
+            newChapterCreatedResolver: null
         }
     }
 
@@ -54,6 +59,15 @@ class QuizzEditModal extends Component {
     }
 
     onSelectAction(identifier, chapterIndex) {
+
+        if (chapterIndex >= this.props.chapters.length) {
+            console.log("create new chapter!");
+            const that = this;
+            this.createNewChapter().then(function() {
+                that.onSelectAction(identifier, chapterIndex);
+            });
+            return;
+        }
 
         if (identifier == 'action-correct') {
             this.setState({
@@ -190,6 +204,24 @@ class QuizzEditModal extends Component {
 
 
     onChangeQuizType(newQuizType) {
+
+        // ensure that only one answer is marked as corect for single choice (simply the first one)
+        if (newQuizType == 'single-choice') {
+            const answers = this.state.answers;
+            var hasFoundCorrectAnswer = false;
+            answers.map(function(answer) {
+                if (answer.correct && !hasFoundCorrectAnswer) {
+                    hasFoundCorrectAnswer = true;
+                } else {
+                    answer.correct = false;
+                }
+            })
+
+            this.setState({
+                answers: answers
+            });
+        }
+
         this.setState({
             quizType: newQuizType
         });
@@ -204,6 +236,40 @@ class QuizzEditModal extends Component {
             }
             return result; 
         }).title;
+    }
+
+    getActionMenuItems() {
+        var menuItems = this.props.chapters.map(function(element) { return "Go to " + element.title + "…"});
+        menuItems.push("Create new Chapter…");
+        return menuItems;
+    }
+
+
+    createNewChapter() {
+        this.setState({
+            showsCreateNewChapterDialog: true
+        });
+        const that = this;
+        return new Promise(function(resolve, reject) {
+            that.setState({
+                newChapterCreatedResolver: resolve
+            });
+        })
+    }
+
+    onCloseNewChapterCreationDialog() {
+        this.setState({
+            showsCreateNewChapterDialog: false
+        });
+    }
+
+    onCreateNewChapter(newChapterName) {
+        const newUuid = uuidv4();
+        this.props.onAddChapter(newChapterName, newUuid);
+        this.state.newChapterCreatedResolver({
+                title: newChapterName,
+                identifier: newUuid
+        });
     }
 
 	
@@ -268,7 +334,7 @@ class QuizzEditModal extends Component {
                                 
                                 {
                                     that.state.quizType==='single-choice'?
-                                    (<SelectionDropdown onSelect={that.onSelectAction.bind(that)} identifier={index} default={answer.action!=null? that.chapterTitleForIdentifier(answer.action) : "No Action"} options={that.props.chapters.map(function(element) { return "Go to " + element.title + "…"})}/>)
+                                    (<SelectionDropdown onSelect={that.onSelectAction.bind(that)} identifier={index} default={answer.action!=null? that.chapterTitleForIdentifier(answer.action) : "No Action"} options={that.getActionMenuItems()}/>)
                                 :
                                     null
                                 }
@@ -293,16 +359,15 @@ class QuizzEditModal extends Component {
                     })}
                     <center>
                             
-                        <Button color="secondary" onClick={this.onAddNewAnswerOption.bind(this)}>Add new Answer Option</Button>
-                    
-
+                    <Button color="secondary" onClick={this.onAddNewAnswerOption.bind(this)}>Add new Answer Option</Button>
                     {
-                        that.state.quizType==='multiple-choice'?
+                        
+                        this.state.quizType==='multiple-choice'?
                         (   
                             <div style={{marginTop:'20px'}}>
-                                <SelectionDropdown onSelect={this.onSelectAction.bind(that)} identifier={"action-correct"} default={this.state.actionCorrect? "When correct: " + this.chapterTitleForIdentifier(this.state.actionCorrect) : "When answered correctly…"} options={this.props.chapters.map(function(element) { return "Go to " + element.title + "…"})}/>
+                                <SelectionDropdown onSelect={this.onSelectAction.bind(that)} identifier={"action-correct"} default={this.state.actionCorrect? "When correct: " + this.chapterTitleForIdentifier(this.state.actionCorrect) : "When answered correctly…"} options={this.getActionMenuItems()}/>
                                 <br />
-                                <SelectionDropdown onSelect={this.onSelectAction.bind(that)} identifier={"action-wrong"} default={this.state.actionWrong? "When wrong: " + this.chapterTitleForIdentifier(this.state.actionWrong) : "When answered wrong…"} options={this.props.chapters.map(function(element) { return "Go to " + element.title + "…"})} />
+                                <SelectionDropdown onSelect={this.onSelectAction.bind(that)} identifier={"action-wrong"} default={this.state.actionWrong? "When wrong: " + this.chapterTitleForIdentifier(this.state.actionWrong) : "When answered wrong…"} options={this.getActionMenuItems()} />
                             </div>
                         )
                     :
@@ -318,6 +383,7 @@ class QuizzEditModal extends Component {
                   </ModalFooter>
                 </Modal>
 
+                <CreateNewChapterModal isOpen={this.state.showsCreateNewChapterDialog} onClose={this.onCloseNewChapterCreationDialog.bind(this)} onCreateNewChapter={this.onCreateNewChapter.bind(this)} />
             </div>
         )
     }

@@ -52,17 +52,18 @@ class QuizzEdit extends Component {
                 question: this.state.question,
                 answers: this.state.answers,
                 quizType: this.state.quizType
-            })
+            });
         });
-
-        
-
     }
 
-    onClickButton() {
+    onClickEditButton() {
         this.setState({
             showsModalEditor: true
         })
+    }
+
+    onClickSubmitButton() {
+
     }
 
     onClose() {
@@ -114,7 +115,7 @@ class QuizzEdit extends Component {
         const that = this; 
         return (
             <div>
-                {this.props.isEditMode? <Button color="primary" onClick={this.onClickButton.bind(this)}>Edit Quiz</Button> : null}
+                {this.props.isEditMode? <Button color="primary" onClick={this.onClickEditButton.bind(this)}>Edit Quiz</Button> : null}
 
                 <h1>{this.state.question.title}</h1>
                 <img src={this.state.question.image} />
@@ -128,9 +129,10 @@ class QuizzEdit extends Component {
                    })}
 
             	</div>
+                {this.state.quizType == 'multiple-choice'? <Button color="primary" onClick={this.onClickSubmitButton.bind(this)}>Submit</Button> : null}
                 </center>
 
-                <QuizzEditModal question={this.state.question} answers={this.state.answers} quizType={this.state.quizType} onChange={this.onChangeData.bind(this)} onClose={this.onClose.bind(this)} chapters={this.props.chapters} isOpen={this.state.showsModalEditor} />
+                <QuizzEditModal question={this.state.question} onAddChapter={this.props.onAddChapter} answers={this.state.answers} quizType={this.state.quizType} onChange={this.onChangeData.bind(this)} onClose={this.onClose.bind(this)} chapters={this.props.chapters} isOpen={this.state.showsModalEditor} />
             </div>
         )
     }

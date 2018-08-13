@@ -177,18 +177,20 @@ class LessonMaker extends Component {
         //api.saveContent
     }
 
+
     render() {
         const activeChapter = this.props.project.chapters[this.props.project.activeChapterIndex];
         const {elements} = activeChapter;
 
         return (
             <div className="app-body">
-                <SideBarLesson onChapterChange={this.props.onChangeActiveChapter}
-                               onAddChapter={this.props.onAddChapter}
-                               onAddElement={this.props.onAddElement}
-                               chapters={this.props.project.chapters.map(c => ({title:c.title, id: c.id, links: c.links}) )}
-                               currChapIdx={this.props.activeChapterIndex}
-                               title={this.props.project.title}
+                <SideBarLesson onChapterChange={this.setActiveChapter}
+                               onAddChapter={this.onAddChapter}
+                               onAddElement={this.onAddElement}
+                               onTitleChange={this.onTitleChange}
+                               chapters={this.state.project.chapters.map(c => ({title:c.title, id: c.id, links: c.links}) )}
+                               currChapIdx={this.state.currChapIdx}
+                               title={this.state.project.title}
                                {...this.props} //router fucking needs it for CoreUI React ?>?!?!?>!
                 />
                 <main className="main">
