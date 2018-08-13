@@ -31,14 +31,19 @@ class QuizzEditModal extends Component {
             answers: props.answers? props.answers : [],
             showsPageSelectionDropDown: false,
             selectingImageForIndex: 0,
-            quizType: props.quizType? props.quizType : "single-choice"
+            quizType: props.quizType? props.quizType : "single-choice",
+            actionCorrect: props.actionCorrect? props.actionCorrect : null,
+            actionWrong: props.actionWrong? props.actionWrong : null
         }
     }
 
     onSave() {
         this.props.onChange({
             question: this.state.question,
-            answers: this.state.answers
+            answers: this.state.answers,
+            quizType: this.state.quizType,
+            actionCorrect: this.state.actionCorrect,
+            actionWrong: this.state.actionWrong
         });
 
         this.props.onClose();
@@ -48,9 +53,25 @@ class QuizzEditModal extends Component {
         this.props.onClose();
     }
 
-    onSelectAction(answerIndex, chapterIndex) {
+    onSelectAction(identifier, chapterIndex) {
+
+        if (identifier == 'action-correct') {
+            this.setState({
+                actionCorrect: this.props.chapters[chapterIndex].id
+            });
+            return;
+        }
+
+        if (identifier == 'action-wrong') {
+            this.setState({
+                actionWrong: this.props.chapters[chapterIndex].id
+            });
+            return;
+        }
+
+
         const answers = this.state.answers;
-        answers[answerIndex].action = this.props.chapters[chapterIndex].id;
+        answers[identifier].action = this.props.chapters[chapterIndex].id;
 
         this.setState({
             answers: answers
@@ -66,22 +87,37 @@ class QuizzEditModal extends Component {
 
     onUpdateCorrectAnswer(value, index) {
 
+        console.log(value);
         const answers = this.state.answers;
 
-        if (value == "on") {
-            answers.map(function(answer, answerIndex) {
-                if (answerIndex == index) {
-                    answer.correct = true;
-                } else {
-                    answer.correct = false;
-                }
-                return answer;
-            });
+        if (this.state.quizType == 'single-choice') {
+            if (value == "on") {
+                answers.map(function(answer, answerIndex) {
+                    if (answerIndex == index) {
+                        answer.correct = true;
+                    } else {
+                        answer.correct = false;
+                    }
+                    return answer;
+                });
+
+                this.setState({
+                    answers: answers
+                });
+            }
+        } else {
+            
+            if (value=="on") {
+                answers[index].correct = true;
+            } else {
+                answers[index].correct = false;
+            }
 
             this.setState({
-                answers: answers
-            })
+                    answers: answers
+            });
         }
+        
     }
 
     onSelectImage(e, file) {
@@ -166,6 +202,17 @@ class QuizzEditModal extends Component {
         });
     }
 
+    chapterTitleForIdentifier(identifier) {
+        console.log(identifier);
+
+        return this.props.chapters.reduce(function(result, currentChapter) { 
+            if (currentChapter.id == identifier) {
+                return currentChapter;
+            }
+            return result; 
+        }).title;
+    }
+
 	
     render() {
         const that = this; 
@@ -195,7 +242,7 @@ class QuizzEditModal extends Component {
                       </NavItem>
                     </Nav>
 
-                  <ModalHeader toggle={this.onClose.bind(this)}>Edit Quiz??????? Gellooo? – Single Choice with Action Option</ModalHeader>
+                  <ModalHeader toggle={this.onClose.bind(this)}>Edit Quiz – {this.state.quizType==='single-choice'? "Single Choice with Selection Options" : "Multiple Choice with Actions"}</ModalHeader>
                   <ModalBody>
                 <InputGroup>
                     <InputGroupAddon addonType="prepend">?</InputGroupAddon>
@@ -212,7 +259,11 @@ class QuizzEditModal extends Component {
                             <InputGroup>
                                 <InputGroupAddon addonType="prepend">
                                   <InputGroupText style={{'backgroundColor': answer.correct? colors.TURQUOISE : null}}>
-                                    <Input addon checked={answer.correct? "checked" : null} type="radio" name="radio1" onChange={function(radio) { that.onUpdateCorrectAnswer(radio.target.value, index) } } />
+                                    {that.state.quizType==='single-choice'?
+                                        <Input addon checked={answer.correct? "checked" : null} type="radio" name="radio1" onChange={function(radio) { that.onUpdateCorrectAnswer(radio.target.value, index) } } />
+                                        :
+                                        <Input addon checked={answer.correct? "checked" : null} type="checkbox" onChange={function(radio) { that.onUpdateCorrectAnswer(radio.checked, index) } } />
+                                    }
                                   </InputGroupText>
                                 </InputGroupAddon>
                                 <Input style={{'backgroundColor': answer.correct? colors.TURQUOISE : null}} placeholder="entr you answer" value={answer.title} onChange={function(element) { that.onChangeAnswer(element.target.value, index) }} />
@@ -222,12 +273,13 @@ class QuizzEditModal extends Component {
                                     </Button>
                                 </InputGroupAddon>
                                 
-                                <SelectionDropdown onSelect={that.onSelectAction.bind(that)} identifier={index} default={answer.action!=null? that.props.chapters.reduce(function(result, currentChapter) { 
-                                    if(currentChapter.id == answer.action) {
-                                        return currentChapter;
-                                    }
-                                    return result; 
-                                } ).title : "No Action"} options={that.props.chapters.map(function(element) { return "Go to " + element.title + "…"})}/>
+                                {
+                                    that.state.quizType==='single-choice'?
+                                    (<SelectionDropdown onSelect={that.onSelectAction.bind(that)} identifier={index} default={answer.action!=null? that.chapterTitleForIdentifier(answer.action) : "No Action"} options={that.props.chapters.map(function(element) { return "Go to " + element.title + "…"})}/>)
+                                :
+                                    null
+                                }
+                                
 
                                 <InputGroupAddon addonType="append">
                                     <Button color="secondary" onClick={function() { that.onRemoveAnswer(index) }}>
@@ -247,8 +299,25 @@ class QuizzEditModal extends Component {
                             )
                     })}
                     <center>
-                            <Button color="secondary" onClick={this.onAddNewAnswerOption.bind(this)}>Add new Answer Option</Button>
+                            
+                        <Button color="secondary" onClick={this.onAddNewAnswerOption.bind(this)}>Add new Answer Option</Button>
+                    
+
+                    {
+                        that.state.quizType==='multiple-choice'?
+                        (   
+                            <div style={{marginTop:'20px'}}>
+                                <SelectionDropdown onSelect={this.onSelectAction.bind(that)} identifier={"action-correct"} default={this.state.actionCorrect? "When correct: " + this.chapterTitleForIdentifier(this.state.actionCorrect) : "When answered correctly…"} options={this.props.chapters.map(function(element) { return "Go to " + element.title + "…"})}/>
+                                <br />
+                                <SelectionDropdown onSelect={this.onSelectAction.bind(that)} identifier={"action-wrong"} default={this.state.actionWrong? "When wrong: " + this.chapterTitleForIdentifier(this.state.actionWrong) : "When answered wrong…"} options={this.props.chapters.map(function(element) { return "Go to " + element.title + "…"})} />
+                            </div>
+                        )
+                    :
+                        null
+                    }
+
                     </center>
+
                   </ModalBody>
                   <ModalFooter>
                     <Button color="secondary" onClick={this.onClose.bind(this)}>Cancel</Button>
