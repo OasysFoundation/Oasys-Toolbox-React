@@ -340,29 +340,33 @@ class NavBar extends React.Component {
       }
 
       getPCVersion(){
+
         const navbarRightElements = (
-    <Nav navbar style={styles.navbarNavs}>
-      <NavItem style={styles.navbarNavItem}>
-        <NavLink href="/explore/" style={styles.navbarNavLinkForImage}>
-            <img src={Learn} style={styles.navbarNavImage}/>
-        </NavLink>
-        <NavLink href="/explore/" style={styles.navbarNewColor}>Learn</NavLink>
-      </NavItem>
-      <NavItem style={styles.navbarNavItem}> 
-        <NavLink href="/create/" style={styles.navbarNavLinkForImage}>
-            <img src={Create} style={styles.navbarNavImage}/>
-        </NavLink>
-        <NavLink href="/create/" style={styles.navbarNewColor}>Create</NavLink>
-      </NavItem>
-      <NavItem style={styles.navbarNavItem}>
-        <NavLink href="/user/" style={styles.navbarNavLinkForImage}>
-            <img src={User} style={styles.navbarNavImage}/>
-        </NavLink>
-        <NavLink href="/user/" style={styles.navbarNewColor}>Profile</NavLink>
-      </NavItem>
-    </Nav>
-);
+            <Nav navbar style={styles.navbarNavs}>
+              <NavItem style={styles.navbarNavItem}>
+                <NavLink href="/explore/" style={styles.navbarNavLinkForImage}>
+                    <img src={Learn} style={styles.navbarNavImage}/>
+                </NavLink>
+                <NavLink href="/explore/" style={styles.navbarLinks}>Learn</NavLink>
+              </NavItem>
+              <NavItem style={styles.navbarNavItem}> 
+                <NavLink href="/create/" style={styles.navbarNavLinkForImage}>
+                    <img src={Create} style={styles.navbarNavImage}/>
+                </NavLink>
+                <NavLink href="/create/" style={styles.navbarLinks}>Create</NavLink>
+              </NavItem>
+              <NavItem style={styles.navbarNavItem}>
+                <NavLink href="/user/" style={styles.navbarNavLinkForImage}>
+                    <img src={User} style={styles.navbarNavImage}/>
+                </NavLink>
+                <NavLink href="/user/" style={styles.navbarLinks}>Profile</NavLink>
+              </NavItem>
+            </Nav>
+        );
+
+        //required for Searchbar
         const { selectedOption } = this.state;
+        
         let groupedOptions = [
           {
             label: 'Categories',

@@ -9,6 +9,11 @@
     src: url('./fonts/HelveticaNeue_Light.ttf');
 }
 
+@font-face {
+    font-family: 'NeueHelveticaBQ-Black'; /*a name to be used later*/
+    src: url('./fonts/NeueHelveticaBQ-Black.otf') format("opentype");
+}
+
 @font-face{
   font-family: 'helveticaneue';
   src: url('./fonts/helveticaneue.woff2');

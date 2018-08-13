@@ -3,7 +3,7 @@
 const globals = {
 	//change if somebody committed with the wrong setting!!
 	//.env ENV_NODE
-    // HARDSET_BASE: "http://localhost:8080/",
+    //HARDSET_BASE: "http://localhost:8080/",
     ICON_FONTSIZE_MIDDLE: "20px",
 
 	HARDSET_BASE: "https://api.joinoasys.org/",
