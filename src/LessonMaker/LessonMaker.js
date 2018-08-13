@@ -13,7 +13,8 @@ import tools from '../tools'
 import posed, {PoseGroup} from 'react-pose';
 
 import { connect } from "redux-zero/react";
-import actions from "./actions";
+import actions from "../store/actions";
+import mapStoreToProps from '../store/mapStoreToProps'
 
 
 //TODO put in Globals
@@ -127,7 +128,7 @@ const MockData = {
 
 
 const Item = posed.div();
-
+@connect(mapStoreToProps, actions)
 class LessonMaker extends Component {
     constructor(props) {
         super();
@@ -334,12 +335,12 @@ class LessonMaker extends Component {
                                 <Item key={el.id}>
                                 <Element
                                         key={el.id}
-                                        // isPreview={!this.state.isEditMode}
+                                        isPreview={!this.state.isEditMode}
                                         data={el}
                                         // onDelete={this.props.onDeleteElement}
                                         // onMove={this.props.onMoveElement}
-                                        // chaptersLight={this.state.project.chapters.map(c => ({title:c.title, id: c.id}) )}
-                                        // onChange={this.onChangeContent}
+                                        chaptersLight={this.state.project.chapters.map(c => ({title:c.title, id: c.id}) )}
+                                        onChange={this.onChangeContent}
                                     />
                                     <ElementAdder
                                         key={el.id + 1}
@@ -366,10 +367,9 @@ class LessonMaker extends Component {
 
 
 //IMPORTANT!! the project data is in the project obj, the rest of the store (action functions) is just flat there
-const mapToProps = (store) => ({project: store});
 
 // export default connect(mapToProps, actions)( ({projects}) => React.createElement(LessonMaker, {project: projects[0]}) );
-export default connect(mapToProps, actions)(LessonMaker);
+export default LessonMaker;
 // export default connect(mapToProps, actions)((propsFromStore) => {
 //     console.log(propsFromStore);
 //         const {projects} = propsFromStore;

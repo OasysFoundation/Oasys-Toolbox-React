@@ -11,6 +11,9 @@ import VideoEdit from './VideoEdit'
 import {saveToSessionStorage} from "../utils/trickBox";
 
 import 'react-quill/dist/quill.snow.css';
+import actions from "../store/actions";
+import mapStoreToProps from "../store/mapStoreToProps";
+import { connect } from "redux-zero/react";
 
 
 const styles = {
@@ -104,9 +107,9 @@ class Element extends Component {
                         <FadeableCard
                             id={id}
                             type={type}
-                            onDelete={() => this.props.onDelete(id)}
-                            onMoveUp={() => this.props.onMove(id, -1)}
-                            onMoveDown={() => this.props.onMove(id, +1)}
+                            onDelete={() => this.props.onDeleteElement(id)}
+                            onMoveUp={() => this.props.onMoveElement(id, -1)}
+                            onMoveDown={() => this.props.onMoveElement(id, +1)}
                             isEditMode={!this.props.isPreview && this.state.isHovered}
                         >
                             {this.typeToComponent(type)}
@@ -126,4 +129,14 @@ Element.propTypes = {
     onMove: PropTypes.func
 };
 
-export default Element;
+//IMPORTANT!! the project data is in the project obj, the rest of the store (action functions) is just flat there
+
+// export default connect(mapToProps, actions)( ({projects}) => React.createElement(LessonMaker, {project: projects[0]}) );
+export default connect(mapStoreToProps, actions)(Element);
+// export default connect(mapToProps, actions)((propsFromStore) => {
+//     console.log(propsFromStore);
+//         const {projects} = propsFromStore;
+//         return React.createElement(LessonMaker, {project: projects[0]});
+//         // return (<LessonMaker people={people} setFirstName={setFirstName}/>)
+//     });
+

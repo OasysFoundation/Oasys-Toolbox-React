@@ -9,6 +9,18 @@ const actions = function (store) { //store for async stuff
     return {
         //state variable gets inject into the action functions somehow through the connect(maptoprops, action)
 
+        onChangeContent(state, id, value) {
+            const clone = JSON.parse(JSON.stringify(state));
+            let elements = clone.chapters[state.activeChapterIndex].elements;
+
+            const elem = elements.find(el => el.id === id);
+            elem.content = value;
+            elem.timestamp = Date.now();
+
+            clone.chapters[state.activeChapterIndex].elements = elements;
+
+            return clone
+        },
         onChangeActiveChapter(state, id) {
             console.log(state, "STAATE on active")
             const index = state.chapters.findIndex(chapter => chapter.id.toString() === id.toString());

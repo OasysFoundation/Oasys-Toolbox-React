@@ -25,7 +25,7 @@ import Header from './Header';
 import { Provider } from "redux-zero/react";
 
 
-import store from "./LessonMaker/store";
+import store from "./store/store";
 
 // in the coreui template, the following four 4 lines are imported globally in App.js
 // import '@coreui/icons/css/coreui-icons.min.css';
