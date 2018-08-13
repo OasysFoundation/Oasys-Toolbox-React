@@ -332,7 +332,8 @@ class LessonMaker extends Component {
                                     <ElementAdder
                                         key={el.id + 1}
                                         onAddElement={this.onAddElement}
-                                        idx={idx}/>
+                                        idx={idx}
+                                        nElems={this.state.project.chapters[this.state.currChapIdx].elements.length} />
                                 </Item>
                             )}
                         </PoseGroup>
