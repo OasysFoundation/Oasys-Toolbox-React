@@ -18,6 +18,7 @@ import globals from '../globals'
 import uuidv4 from "uuid/v4"
 
 import SelectionDropdown from './SelectionDropdown'
+import CreateNewChapterModal from './CreateNewChapterModal'
 
 const ICON = function(className, fontSize=globals.ICON_FONTSIZE_NORMAL) {
     return <i style={{fontSize:fontSize}} className={className}> </i>;
@@ -35,7 +36,9 @@ class QuizzEditModal extends Component {
             selectingImageForIndex: 0,
             quizType: props.quizType? props.quizType : "single-choice",
             actionCorrect: props.actionCorrect? props.actionCorrect : null,
-            actionWrong: props.actionWrong? props.actionWrong : null
+            actionWrong: props.actionWrong? props.actionWrong : null,
+            showsCreateNewChapterDialog: false,
+            newChapterCreatedResolver: null
         }
     }
 
@@ -225,17 +228,30 @@ class QuizzEditModal extends Component {
 
 
     createNewChapter() {
-        const newUuid = uuidv4();
+        this.setState({
+            showsCreateNewChapterDialog: true
+        });
         const that = this;
         return new Promise(function(resolve, reject) {
-
-            that.props.onAddChapter("HAHAH", newUuid);
-
-            resolve({
-                title: "HAHAH",
-                identifier: newUuid
+            that.setState({
+                newChapterCreatedResolver: resolve
             });
         })
+    }
+
+    onCloseNewChapterCreationDialog() {
+        this.setState({
+            showsCreateNewChapterDialog: false
+        });
+    }
+
+    onCreateNewChapter(newChapterName) {
+        const newUuid = uuidv4();
+        this.props.onAddChapter(newChapterName, newUuid);
+        this.state.newChapterCreatedResolver({
+                title: newChapterName,
+                identifier: newUuid
+        });
     }
 
 	
@@ -349,6 +365,7 @@ class QuizzEditModal extends Component {
                   </ModalFooter>
                 </Modal>
 
+                <CreateNewChapterModal isOpen={this.state.showsCreateNewChapterDialog} onClose={this.onCloseNewChapterCreationDialog.bind(this)} onCreateNewChapter={this.onCreateNewChapter.bind(this)} />
             </div>
         )
     }
