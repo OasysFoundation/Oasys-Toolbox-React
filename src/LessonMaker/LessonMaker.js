@@ -8,6 +8,7 @@ import Element from "./Element";
 import ElementAdder from './ElementAdder'
 
 import globals from '../globals'
+import tools from '../tools'
 
 import posed, {PoseGroup} from 'react-pose';
 
@@ -40,8 +41,8 @@ const MockData = {
                             type: globals.EDIT_VIDEO,
                             content: {
                                 url: 'https://www.youtube.com/watch?v=gcS04BI2sbk',
-                                start: 0.0,
-                                stop: 100.0,
+                                cropStart: 0.0,
+                                cropEnd: 0.0,
                             }
                         },
                         {
@@ -64,28 +65,32 @@ const MockData = {
                                         "image": "",
                                         "correct": false,
                                         "feedback": "wrong, sorry try again",
-                                        "action": null
+                                        "action": null,
+                                        "isSelected": false
                                     },
                                     {
                                         "title": "2 ladi do dari",
                                         "image": "",
                                         "correct": false,
                                         "feedback": "wrong, sorry try again",
-                                        "action": null
+                                        "action": null,
+                                        "isSelected": false
                                     },
                                     {
                                         "title": "3 schub di dubidu",
                                         "image": "",
                                         "correct": false,
                                         "feedback": "wrong, sorry try again",
-                                        "action": null
+                                        "action": null,
+                                        "isSelected": false
                                     },
                                     {
                                         "title": "4 nudelholz – Dies ist die Geschichte von Albrecht, dem kleinen Gecko.",
                                         "image": "",
                                         "correct": false,
                                         "feedback": "wrong, sorry try again",
-                                        "action": null
+                                        "action": null,
+                                        "isSelected": false
                                     }
                                 ]
                             }
@@ -136,7 +141,7 @@ class LessonMaker extends Component {
         this.setActiveChapter = this.setActiveChapter.bind(this);
         this.onAddChapter = this.onAddChapter.bind(this);
         this.onAddElement = this.onAddElement.bind(this);
-        // this.onChangeContent = this.onChangeContent.bind(this);
+        this.onChangeContent = this.onChangeContent.bind(this);
 
         this.autoSaveTimer = 15000; //post state to backend every 15 seconds
 
@@ -214,7 +219,7 @@ class LessonMaker extends Component {
         const newElem = {
             id: uuidv4(),
             type: typeSelected,
-            content: "",
+            content: tools.initContent(typeSelected),
             timestamp: Date.now()
         };
 
@@ -227,19 +232,18 @@ class LessonMaker extends Component {
         this.setState({project: proj})
     }
 
-    // onChangeContent(id, value) {
-    //
-    //     const proj = JSON.parse(JSON.stringify(this.state.project));
-    //     let elements = proj.chapters[this.state.currChapIdx].elements;
-    //
-    //     const elem = elements.find(el => el.id === id);
-    //     elem.content = value;
-    //     elem.timestamp = Date.now();
-    //
-    //     proj.chapters[this.state.currChapIdx].elements = elements;
-    //
-    //     this.setState({project: proj})
-    // }
+    onChangeContent(id, value) {
+         const proj = JSON.parse(JSON.stringify(this.state.project));
+         let elements = proj.chapters[this.state.currChapIdx].elements;
+    
+         const elem = elements.find(el => el.id === id);
+         elem.content = value;
+         elem.timestamp = Date.now();
+    
+         proj.chapters[this.state.currChapIdx].elements = elements;
+    
+         this.setState({project: proj})
+     }
 
     saveStatus() {
         console.log('saving status....')
@@ -293,6 +297,7 @@ class LessonMaker extends Component {
                                onAddElement={this.onAddElement}
                                chapters={this.state.project.chapters.map(c => ({title:c.title, id: c.id, links: c.links}) )}
                                currChapIdx={this.state.currChapIdx}
+                               title={this.state.project.title}
                                {...this.props} //router fucking needs it for CoreUI React ?>?!?!?>!
                 />
                 <main className="main">
@@ -316,6 +321,7 @@ class LessonMaker extends Component {
                                 <button 
                                     type="button"
                                     className={this.state.isEditMode ? "btn btn-dark preview-btn" : "btn btn-light preview-btn"}
+                                    style={{width: '150px'}}
                                     onClick={() => this.toggle('isEditMode')}
                                 >
                                     <span className={this.state.isEditMode ? "icon-grid" : "icon-layers"}></span>
@@ -334,12 +340,13 @@ class LessonMaker extends Component {
                                         onDelete={this.onDeleteElement}
                                         onMove={this.onMoveElement}
                                         chaptersLight={this.state.project.chapters.map(c => ({title:c.title, id: c.id}) )}
-                                        // onChange={this.onChangeContent}
+                                        onChange={this.onChangeContent}
                                     />
                                     <ElementAdder
                                         key={el.id + 1}
                                         onAddElement={this.onAddElement}
-                                        idx={idx}/>
+                                        idx={idx}
+                                        nElems={this.state.project.chapters[this.state.currChapIdx].elements.length} />
                                 </Item>
                             )}
                         </PoseGroup>

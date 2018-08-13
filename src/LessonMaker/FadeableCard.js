@@ -25,7 +25,8 @@ const styling = {
         position: `relative`,
         height: 0.9 + `rem`,
         zIndex: 2,
-        justifyContent: 'center'
+        justifyContent: 'center',
+        cursor: 'default',
     },
     card: {},
     cardActions: {

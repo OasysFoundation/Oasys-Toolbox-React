@@ -180,6 +180,10 @@ html, body, svg, text {
     margin-right: 5px;
 }
 
+.oasys .help-text {
+    font-style: italic;
+}
+
 /* ------------------ sidebar ----------------- */
 .oasys .sidebar .sidebar-nav {
     flex: 0 0 auto;
@@ -200,7 +204,7 @@ html, body, svg, text {
 .oasys .sidebar-button {
     margin-top: 10px;
     border-radius: 0.25rem;
-    background-color: #30444D;
+    background-color: #3E4B54;
     color: #eeeeee;
     /* border: 1px solid #626970; */
     border: none;
@@ -209,14 +213,35 @@ html, body, svg, text {
     justify-content: space-between;
 }
 
+.oasys .sidebar-button:hover {
+    background-color: #30444D;
+}
+
 .oasys .sidebar-button.publish {
-    background-color: #2FC46D;
+    background-color: #2A9699;
 }
 
-.oasys .sidebar-button.title {
+.oasys .sidebar-button.publish:hover {
+    background-color: #28CCB4;
+}
+
+.sidebar-minimized .oasys .sidebar-button {
+    margin-left: -150px;
+}
+
+.sidebar-minimized .oasys svg {
+    margin-left: -150px;
+}
+
+.oasys .sidebar-button.title input {
     font-weight: bold;
+    background-color: #30444D;
+    border-color: #30444D;
+    color: #eeeeee;
+    margin-left: -5px;
+    margin-right: 5px;
+    padding: 3px;
 }
-
 
 /* ------------------ video edit ----------------- */
 .oasys .video-embed .noUi-handle {

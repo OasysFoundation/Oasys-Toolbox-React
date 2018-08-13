@@ -11,6 +11,7 @@ class SidebarToc extends Component {
     */
     constructor(props) {
         super(props);
+        this.handleChangeChapter = this.handleChangeChapter.bind(this);
 
         this.opt = {
             tocId: 'toc',
@@ -30,7 +31,7 @@ class SidebarToc extends Component {
             rectColorStart: '#3f51d5',
             rectColorEnd: '#3f51d5',
             rectColorActiveFill: '#626970',
-            rectColorDefaultFill: '#30444D',
+            rectColorDefaultFill: '#3E4B54',
             rectColorDefaultStroke: '#626970',
             textColor: '#eeeeee',
             myOrange: '#C85C0D',
@@ -68,8 +69,8 @@ class SidebarToc extends Component {
         this.height = nLevels * this.opt.rectHeight + (nLevels-1) * this.opt.gapy;
     }
 
-    handleChangeChapter(num){
-        console.log("change to chapter " + num);
+    handleChangeChapter(id){
+        this.props.onChapterChange(id);
     }
 
     drawToc(){
@@ -77,10 +78,14 @@ class SidebarToc extends Component {
         svg.parentNode.replaceChild(svg.cloneNode(false), svg);
         tocjs.drawChapters(this.tocInfo, this.chaptersExt, this.opt);
         tocjs.drawConnections(this.tocInfo, this.opt);
+        this.refs.tooltipWrapper.innerHTML = "";
         for (let i=0;i<this.chaptersExt.length;i++) {
-            let idx = this.chaptersExt[i].idx;
-            let elem = <ReactTooltip id={'toc-'+idx}> {this.chaptersExt[i].title} </ReactTooltip>
-            ReactDOM.render(elem, document.getElementById("tooltip-"+idx));
+            const div = document.createElement("div");
+            const id = this.chaptersExt[i].id;
+            div.id = "tooltip-"+id;
+            this.refs.tooltipWrapper.appendChild(div)
+            let elem = <ReactTooltip id={'toc-'+id}> {this.chaptersExt[i].title} </ReactTooltip>
+            ReactDOM.render(elem, document.getElementById("tooltip-"+id));
         }
     }
 
@@ -126,12 +131,7 @@ class SidebarToc extends Component {
                     >
                     </svg>
                 </svg>
-
-                {this.chaptersExt.map(e=>
-                    <div id={"tooltip-"+e.idx}> </div>
-                )}
-                
-
+                <div ref='tooltipWrapper'/>
             </div>
         );
     }

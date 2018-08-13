@@ -14,16 +14,10 @@ class VideoEditCropper extends Component {
 
 	constructor(props){
 		super(props);
-        this.min = 0.0;
-        this.max = 0.0;
-        this.cropStart = this.min;
-        this.cropEnd = this.max;
 	}
 
     onSlide(render, handle, value, un, percent){
-        this.cropStart = value[0];
-        this.cropEnd = value[1];
-        //console.log("SLIDE", render, handle, value, un, percent)
+        this.onChangeCrop(value[0], value[1]);
     }
 
     formatTime(time) {
@@ -41,65 +35,68 @@ class VideoEditCropper extends Component {
 
     onSetStart(){
     	let time = this.refs.video.getCurrentTime();
-        if (time===undefined || time===null || time>this.cropEnd) { time = this.cropEnd; }
-    	this.cropStart = time;
-        document.getElementById('video-slider'+this.props.elementId).noUiSlider.set([this.cropStart, this.cropEnd]);
+        if (time===undefined || time===null || time>this.props.data.cropEnd) { time = this.props.data.cropEnd; }
+        document.getElementById('video-slider'+this.props.elementId).noUiSlider.set([time, this.props.data.cropEnd]);
     	this.refs.inputStart.value = this.formatTime(time);
-    	this.props.onChangeCrop(this.cropStart, this.cropEnd);
+    	this.props.onChangeCrop(time, this.props.data.cropEnd);
     }
 
     onSetEnd(){
     	let time = this.refs.video.getCurrentTime();
-        if (time===undefined || time===null || time<this.cropStart) { time = this.cropStart; }
-        this.cropEnd = time;
-        document.getElementById('video-slider'+this.props.elementId).noUiSlider.set([this.cropStart, this.cropEnd]);
+        if (time===undefined || time===null || time<this.cropStart) { time = this.props.data.cropStart; }
+        document.getElementById('video-slider'+this.props.elementId).noUiSlider.set([this.props.data.cropStart, time]);
     	this.refs.inputEnd.value = this.formatTime(time);
-    	this.props.onChangeCrop(this.cropStart, this.cropEnd);
+    	this.props.onChangeCrop(this.props.data.cropStart, time);
     }
 
     // this is not being used when input fields are disabled (default)
     updateStart(e) {
         let time = parseFloat(e.target.value);
         if (time===undefined || isNaN(time)) { time = this.min; }
-        if (time>this.cropEnd) { time = this.cropEnd; }
+        if (time>this.props.data.cropEnd) { time = this.props.data.cropEnd; }
         this.cropStart = time;
         this.refs.video.seekTo(time);
         this.refs.video.getInternalPlayer().pauseVideo();
-        document.getElementById('video-slider'+this.props.elementId).noUiSlider.set([time, this.cropEnd]);
+        document.getElementById('video-slider'+this.props.elementId).noUiSlider.set([time, this.props.data.cropEnd]);
     }
 
     updateEnd(e) {
         let time = parseFloat(e.target.value);
         if (time===undefined || isNaN(time)) { time = this.max; }
         if (time<this.cropStart) { time = this.cropStart; }
-        this.cropEnd = time;
         this.refs.video.seekTo(time);
         this.refs.video.getInternalPlayer().pauseVideo();
-        document.getElementById('video-slider'+this.props.elementId).noUiSlider.set([this.cropStart, time]);
+        document.getElementById('video-slider'+this.props.elementId).noUiSlider.set([this.props.data.cropStart, time]);
+    }
+
+    onChangeCrop(cropStart, cropEnd){
+        this.props.onChangeCrop(cropStart, cropEnd);
     }
 
     onPlayerReady() {
-    	this.max = this.refs.video.getDuration();
-    	this.cropEnd = this.max;
-    	this.refs.inputStart.value = this.formatTime(this.min);
-    	this.refs.inputEnd.value = this.formatTime(this.max);
+    	let max = this.refs.video.getDuration();
+        if (this.props.data.cropEnd===0.0) {
+            this.onChangeCrop(0.0, max);
+        }
+    	this.refs.inputStart.value = this.formatTime(0.0);
+    	this.refs.inputEnd.value = this.formatTime(max);
 
     	ReactDOM.render(
     		<Nouislider
                 connect
                 disabled={true}
-                start={[this.cropStart, this.cropEnd]}
+                start={[this.props.data.cropStart, this.props.data.cropEnd]}
                 behaviour="tap"
                 id={"video-slider"+this.props.elementId}
                 range={{
-                    min: [this.min],
-                    max: [this.max]
+                    min: [this.props.data.cropStart],
+                    max: [max]
                 }}
                 onSlide={this.onSlide.bind(this)}
             />
     	, this.refs.sliderWrapper);
 
-        document.getElementById('video-slider'+this.props.elementId).noUiSlider.set([this.min, this.max]);
+        document.getElementById('video-slider'+this.props.elementId).noUiSlider.set([this.props.data.cropStart, this.props.data.cropEnd]);
     }
 
 	render(){
@@ -120,7 +117,7 @@ class VideoEditCropper extends Component {
 			<div>
 				<div className='videoEditWrapper'>
 	                <ReactPlayer
-	                  url={this.props.url}
+	                  url={this.props.data.url}
 	                  config={{youtube: youtubeConfig}}
 	                  ref='video'
 	                  playing={false}
@@ -130,7 +127,7 @@ class VideoEditCropper extends Component {
 	                />
                 </div>
                 <center>
-                	<p> If you only want to show part of the video, you can seek to the start/end of the part
+                	<p className='help-text'> If you only want to show part of the video, you can seek to the start/end of the part
                 		that you want to show and then click on the 'set to current time' buttons below.</p>
                 	<div ref='sliderWrapper' className='slider-wrapper' style={{width: playerWidth}} />
                 </center>
@@ -156,7 +153,7 @@ class VideoEditCropper extends Component {
 	                    <input 
 	                    	readonly='readonly'
 	                        onInput={this.updateEnd.bind(this)} 
-	                        defaultValue={Number.parseFloat(this.cropEnd).toFixed(1)} 
+	                        defaultValue={Number.parseFloat(this.props.data.cropEnd).toFixed(1)} 
 	                        className='form-control'
 	                        placeholder='0'
 	                        ref='inputEnd'

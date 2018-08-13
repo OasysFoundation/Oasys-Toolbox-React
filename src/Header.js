@@ -32,25 +32,31 @@ class Header extends Component {
         </Nav>
         <Nav className="ml-auto" navbar>
           <NavItem className="px-3">
-            <NavLink href="#">
+            <NavLink href="/learn">
               <i class="fas fa-align-right fa-lg fa-compass margin-right5"></i> 
               Learn
             </NavLink>
           </NavItem>
           <NavItem className="px-3">
-            <NavLink href="#">
+            <NavLink href="/create">
               <i class="fas fa-align-right fa-lg fa-pencil-alt margin-right5"></i> 
               Create
             </NavLink>
           </NavItem>
           <NavItem className="px-3">
-            <NavLink href="#">
+            <NavLink href="/data">
+              <i class="fas fa-align-right fa-lg fa-chart-bar margin-right5"></i> 
+              Analytics
+            </NavLink>
+          </NavItem>
+          <NavItem className="px-3">
+            <NavLink href="/about">
               <i class="fas fa-align-right fa-lg fa-info-circle margin-right5"></i> 
               About
             </NavLink>
           </NavItem>
           <NavItem className="px-3">
-            <NavLink href="#">
+            <NavLink href="/account">
               <i class="fas fa-align-right fa-lg fa-user margin-right5"></i> 
               My Account
             </NavLink>
