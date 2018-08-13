@@ -3,6 +3,10 @@ import ReactTooltip from "react-tooltip"
 import ReactDOM from 'react-dom';
 
 import * as tocjs from '../assets/scripts/toc.js'
+import mapStoreToProps from "../store/mapStoreToProps";
+import actions from "../store/actions";
+import { connect } from "redux-zero/react";
+
 
 class SidebarToc extends Component {
 
@@ -137,4 +141,10 @@ class SidebarToc extends Component {
     }
 }
 
-export default SidebarToc;
+export default connect(mapStoreToProps, actions)(SidebarToc);
+export default connect(mapToProps, actions)((propsFromStore) => {
+//     console.log(propsFromStore);
+//         const {projects} = propsFromStore;
+//         return React.createElement(LessonMaker, {project: projects[0]});
+//         // return (<LessonMaker people={people} setFirstName={setFirstName}/>)
+//     });

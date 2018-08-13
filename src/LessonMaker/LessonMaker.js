@@ -184,13 +184,13 @@ class LessonMaker extends Component {
 
         return (
             <div className="app-body">
-                <SideBarLesson onChapterChange={this.setActiveChapter}
-                               onAddChapter={this.onAddChapter}
-                               onAddElement={this.onAddElement}
-                               onTitleChange={this.onTitleChange}
-                               chapters={this.state.project.chapters.map(c => ({title:c.title, id: c.id, links: c.links}) )}
-                               currChapIdx={this.state.currChapIdx}
-                               title={this.state.project.title}
+                <SideBarLesson onChapterChange={this.props.onChangeActiveChapter}
+                               onAddChapter={this.props.onAddChapter}
+                               onAddElement={this.props.onAddElement}
+                               onTitleChange={this.props.onChangeChapterTitle}
+                               chapters={this.props.project.chapters.map(c => ({title:c.title, id: c.id, links: c.links}) )}
+                               currChapIdx={this.props.activeChapterIndex}
+                               title={this.props.project.title}
                                {...this.props} //router fucking needs it for CoreUI React ?>?!?!?>!
                 />
                 <main className="main">
@@ -206,8 +206,8 @@ class LessonMaker extends Component {
                                     className="form-control header" 
                                     placeholder="Name your Chapter"
                                     aria-label="Name this Chapter"
-                                    value={this.state.project.chapters[this.state.currChapIdx].title}
-                                    onChange={(ev) => this.onChangeChapterTitle(ev.target.value)}
+                                    value={activeChapter.title}
+                                    onChange={(ev) => this.props.onChangeChapterTitle(ev.target.value)}
                                     aria-describedby="basic-addon1"
                                     style={{marginRight: '10px'}}
                                 />

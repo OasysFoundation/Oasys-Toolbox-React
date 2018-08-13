@@ -28,7 +28,7 @@ const actions = function (store) { //store for async stuff
             return update(state, {activeChapterIndex: {$set: index}})
         },
 
-        onChangeChapterTitle(state, id, value) {
+        onChangeChapterTitle(state, value, id) {
             const clone = JSON.parse(JSON.stringify(state));
             let chap = clone.chapters[state.activeChapterIndex];
             chap.title = value;
