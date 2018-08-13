@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
 
-import api from '../api';
-import colors from '../colors';
+// import api from '../api';
+// import colors from '../colors';
 import VideoEditCropper from './VideoEditCropper';
 
 class VideoEdit extends Component {
-
-    constructor(props) {
-        super(props);
-
-    }
-
+    
     isValidYouTubeUrl(url) {
         if (url !== undefined || url !== '') {
             var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=|\?v=)([^#&?]*).*/;

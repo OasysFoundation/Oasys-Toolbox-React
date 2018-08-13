@@ -6,12 +6,13 @@ import { Button } from 'reactstrap';
 
 import PropTypes from 'prop-types';
 import api from '../api'
-import globals from '../globals'
+// import globals from '../globals'
 
-
+/*
 const ICON = function(className, fontSize=globals.ICON_FONTSIZE_MIDDLE) {
     return <i style={{fontSize:fontSize}} className={className}> </i>;
 }
+*/
 
 //this is the new "Preview" Component
 class ImageEdit extends Component {
@@ -55,7 +56,7 @@ class ImageEdit extends Component {
 		        </InputGroup>
 		        <Button color="primary" onClick={this.onClickButton.bind(this)}>Search GIFs</Button>
             	<center>
-            	{this.state.imageUrl? <img src={this.state.imageUrl} /> : <img src="https://media0.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" />}
+            	{this.state.imageUrl? <img src={this.state.imageUrl} alt=""/> : <img src="https://media0.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" alt=""/>}
             	
             	</center>
             </div>

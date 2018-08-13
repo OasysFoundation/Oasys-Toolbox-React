@@ -5,8 +5,8 @@ import globals from '../globals'
 import {
     Card,
     CardBody,
-    CardHeader,
-    CardFooter,
+//    CardHeader,
+//    CardFooter,
     Collapse,
     Fade
 } from 'reactstrap';

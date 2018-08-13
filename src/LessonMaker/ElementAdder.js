@@ -50,6 +50,7 @@ class ElementAdder extends Component {
                              key={Math.random()}
                              src={typeToIcon(type)}
                              onClick={() => that.props.onAddElement(type, that.props.idx)}
+                             alt=""
                         />)}
                 </section>
                 <section style={{color: "darkgrey", fontSize:40+'px', fontWeight: 'bold', alignSelf:"center"}} hidden={this.state.isHovered}> + </section>

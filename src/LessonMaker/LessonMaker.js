@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Container, FormGroup, Label, Input} from "reactstrap"
+import {Container} from "reactstrap"
 import uuidv4 from "uuid/v4"
 
 import {moveEntry, withoutEntry, getObjectsByKey} from "../utils/trickBox";

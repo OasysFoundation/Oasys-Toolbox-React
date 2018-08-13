@@ -33,10 +33,7 @@ const styles = {
 //put Fade from CoreUI --> Wrap it in component to manage IN/Out state!
 
 class Element extends Component {
-    constructor(props) {
-        super(props);
-    }
-
+    
     state = {
         mode: styles.normal,
         isHovered: false,
