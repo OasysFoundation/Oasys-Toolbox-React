@@ -56,28 +56,32 @@ const MockData = {
                                         "image": "",
                                         "correct": false,
                                         "feedback": "wrong, sorry try again",
-                                        "action": null
+                                        "action": null,
+                                        "isSelected": false
                                     },
                                     {
                                         "title": "2 ladi do dari",
                                         "image": "",
                                         "correct": false,
                                         "feedback": "wrong, sorry try again",
-                                        "action": null
+                                        "action": null,
+                                        "isSelected": false
                                     },
                                     {
                                         "title": "3 schub di dubidu",
                                         "image": "",
                                         "correct": false,
                                         "feedback": "wrong, sorry try again",
-                                        "action": null
+                                        "action": null,
+                                        "isSelected": false
                                     },
                                     {
                                         "title": "4 nudelholz – Dies ist die Geschichte von Albrecht, dem kleinen Gecko.",
                                         "image": "",
                                         "correct": false,
                                         "feedback": "wrong, sorry try again",
-                                        "action": null
+                                        "action": null,
+                                        "isSelected": false
                                     }
                                 ]
                             }

@@ -15,6 +15,7 @@ import globals from '../globals'
 
 import SelectionDropdown from './SelectionDropdown'
 import QuizzEditModal from './QuizzEditModal'
+import QuizzButton from './QuizzButton'
 
 import {saveToSessionStorage} from '../utils/trickBox'
 
@@ -31,7 +32,7 @@ class QuizzEdit extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isInEditMode: false,
+            showsModalEditor: false,
         	question: props.data.question? props.data.question : "",
             answers: props.data.answers? props.data.answers : [],
             quizType: props.data.quizType? props.data.quizType : "single-choice",
@@ -59,13 +60,13 @@ class QuizzEdit extends Component {
 
     onClickButton() {
         this.setState({
-            isInEditMode: true
+            showsModalEditor: true
         })
     }
 
     onClose() {
         this.setState({
-            isInEditMode: false
+            showsModalEditor: false
         })
     }
 
@@ -109,51 +110,26 @@ class QuizzEdit extends Component {
             flexWrap: flexWrap
         }
 
-
         const that = this; 
         return (
             <div>
-                <Button color="primary" onClick={this.onClickButton.bind(this)}>Edit Quiz</Button>
-                {this.state.question.title}
+                {this.props.isEditMode? <Button color="primary" onClick={this.onClickButton.bind(this)}>Edit Quiz</Button> : null}
+
+                <h1>{this.state.question.title}</h1>
                 <img src={this.state.question.image} />
                 <center>
             	<div style={containerStyle}>
                    
             	   {this.state.answers.map(function(answer, index) {
                     
-                    const quizAnswerOptionStyle = {
-                        boxShadow: "1px 1px #AAAAAA",
-                        borderRadius: "6px 6px 6px 6px",
-                        padding: '2px',
-                        textAlign: "center",
-                        alignSelf: "center",
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        width: elementWidth,
-                        minHeight: elementHeight,
-                        backgroundColor: that.quizColors[index % that.quizColors.length]
-                    };
-
-                    return (
-                        <div style={quizAnswerOptionStyle} onClick={that.onSelectAnswer.bind(that)}>
-                        <div>{answer.title}</div>
-                        <div>
-                        {answer.image!=""? (
-                                <center>
-                                    <img src={answer.image} width="100%" style={{padding:'10px'}}/>
-                                </center>
-                                ) : null}
-                        </div></div>
-                        );
+                    return <QuizzButton answer={answer} showsSelectionIndicator={that.state.quizType=='multiple-choice'} isSelected={answer.isSelected} index={index} onSelect={that.onSelectAnswer.bind(that)} width={elementWidth} height={elementHeight} color={that.quizColors[index % that.quizColors.length]} />
+                   
                    })}
+
             	</div>
                 </center>
 
-
-                <QuizzEditModal question={this.state.question} answers={this.state.answers} quizType={this.state.quizType} onChange={this.onChangeData.bind(this)} onClose={this.onClose.bind(this)} chapters={this.props.chapters} isInEditMode={this.state.isInEditMode} />
-
+                <QuizzEditModal question={this.state.question} answers={this.state.answers} quizType={this.state.quizType} onChange={this.onChangeData.bind(this)} onClose={this.onClose.bind(this)} chapters={this.props.chapters} isOpen={this.state.showsModalEditor} />
             </div>
         )
     }

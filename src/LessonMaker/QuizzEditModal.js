@@ -27,7 +27,6 @@ class QuizzEditModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isInEditMode: false,
         	question: props.question? props.question : "",
             answers: props.answers? props.answers : [],
             showsPageSelectionDropDown: false,
@@ -120,7 +119,8 @@ class QuizzEditModal extends Component {
         currentAnswers.push({
             "title": "",
             "image": "",
-            "correct": false
+            "correct": false,
+            "isSelected": false
         });
         this.setState({
             answers: currentAnswers
@@ -174,7 +174,7 @@ class QuizzEditModal extends Component {
 
                 <input style={{display: "none"}} type="file" accept="image/*" onChange={that.onSelectImage.bind(that)} ref="fileUploader" />
 
-                <Modal isOpen={this.props.isInEditMode} toggle={this.onClose.bind(this)} backdrop={true}>
+                <Modal isOpen={this.props.isOpen} toggle={this.onClose.bind(this)} backdrop={true}>
                 
                     <Nav tabs>
                       <NavItem>
