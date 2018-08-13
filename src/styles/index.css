@@ -221,6 +221,13 @@ html, body, svg, text {
     background-color: #28CCB4;
 }
 
+.sidebar-minimized .oasys .sidebar-button {
+    margin-left: -150px;
+}
+
+.sidebar-minimized .oasys svg {
+    margin-left: -150px;
+}
 .oasys .sidebar-button.title {
     font-weight: bold;
 }
