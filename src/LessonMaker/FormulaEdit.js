@@ -43,7 +43,7 @@ class FormulaEdit extends Component {
                         }}
                     />
                   </div> 
-                : <div className='math-preview'>
+                : <div className='math-preview help-text'>
                     Formula preview <br/>
                     <small>
                         (You can type any <a href='https://en.wikibooks.org/wiki/LaTeX/Mathematics' target='_blank' rel="noopener noreferrer">latex math expression</a> here)

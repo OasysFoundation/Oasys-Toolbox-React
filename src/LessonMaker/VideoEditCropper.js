@@ -130,7 +130,7 @@ class VideoEditCropper extends Component {
 	                />
                 </div>
                 <center>
-                	<p> If you only want to show part of the video, you can seek to the start/end of the part
+                	<p className='help-text'> If you only want to show part of the video, you can seek to the start/end of the part
                 		that you want to show and then click on the 'set to current time' buttons below.</p>
                 	<div ref='sliderWrapper' className='slider-wrapper' style={{width: playerWidth}} />
                 </center>

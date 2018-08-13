@@ -180,6 +180,10 @@ html, body, svg, text {
     margin-right: 5px;
 }
 
+.oasys .help-text {
+    font-style: italic;
+}
+
 /* ------------------ sidebar ----------------- */
 .oasys .sidebar .sidebar-nav {
     flex: 0 0 auto;
@@ -228,10 +232,16 @@ html, body, svg, text {
 .sidebar-minimized .oasys svg {
     margin-left: -150px;
 }
-.oasys .sidebar-button.title {
-    font-weight: bold;
-}
 
+.oasys .sidebar-button.title input {
+    font-weight: bold;
+    background-color: #30444D;
+    border-color: #30444D;
+    color: #eeeeee;
+    margin-left: -5px;
+    margin-right: 5px;
+    padding: 3px;
+}
 
 /* ------------------ video edit ----------------- */
 .oasys .video-embed .noUi-handle {
