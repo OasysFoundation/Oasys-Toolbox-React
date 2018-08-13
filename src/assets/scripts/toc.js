@@ -76,8 +76,8 @@ export function sortIntoTocLevels(tocInfo, chapters, mainPath) {
     tocInfo.push(...addTocInfo);
     // find final element and make sure it is at the highest level
     let fin = tocInfo.filter(e=>e.linkIdx.length===0);
-    if (fin.length===0 || fin.length>1) {
-        throw new Error("While building TOC, more then one final chapter was discovered.");
+    if (fin.length===0) {
+        throw new Error("No final chapter! (The final chapter cannot have any links.");
     }
     fin = fin[0]
     let levels = tocInfo.map(e=>e.level);

@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import VideoEditCropper from './VideoEditCropper';
 
 class VideoEdit extends Component {
-    
+
     isValidYouTubeUrl(url) {
         if (url !== undefined || url !== '') {
             var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=|\?v=)([^#&?]*).*/;
@@ -21,15 +21,17 @@ class VideoEdit extends Component {
     onChangeUrl(e) {
         const url = e.target.value;
         if (this.isValidYouTubeUrl(url)) {
-            // TODO: report url change to Lessonmaker
-            //this.props.url = url;
+            let data = this.props.data;
+            data.url = url;
+            this.props.onChange(data);
         }
     }
 
-    onChangeCrop(startTime, endTime){
-        // TODO: report startTime, endTime to Lessonmaker
-        console.log(startTime);
-        console.log(endTime);
+    onChangeCrop(cropStart, cropEnd) {
+        let data = this.props.data;
+        data.cropStart = cropStart;
+        data.cropEnd = cropEnd;
+        this.props.onChange(data);
     }
 
     render(){
@@ -38,7 +40,7 @@ class VideoEdit extends Component {
                 {this.props.data.url ? 
                     (
                     <VideoEditCropper 
-                        url={this.props.data.url} 
+                        data={this.props.data} 
                         elementId={this.props.id} 
                         onChangeCrop={this.onChangeCrop.bind(this)}
                     />
