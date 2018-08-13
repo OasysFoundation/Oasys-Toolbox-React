@@ -5,8 +5,8 @@ import globals from '../globals'
 import {
     Card,
     CardBody,
-    CardHeader,
-    CardFooter,
+//    CardHeader,
+//    CardFooter,
     Collapse,
     Fade
 } from 'reactstrap';
@@ -15,7 +15,7 @@ import ToolbarQuill from './ToolbarQuill'
 
 // console.log(globals.ICON_FONTSIZE_MIDDLE, 'fontsize')
 const ICON = function (className, fontSize = globals.ICON_FONTSIZE_MIDDLE) {
-    return <i style={{fontSize: fontSize}} className={className}> </i>;
+    return <i style={{fontSize: fontSize, color: '#626970'}} className={className}> </i>;
 }
 
 
@@ -23,15 +23,28 @@ const styling = {
     toolbar: {
         display: `flex`,
         position: `relative`,
-        height: 1.5 + `rem`,
+        height: 0.9 + `rem`,
         zIndex: 2,
-        justifyContent: 'center'
+        justifyContent: 'center',
+        cursor: 'default',
     },
     card: {},
     cardActions: {
         display: 'flex',
-        justifyContent: 'flex-end'
+        justifyContent: 'space-between',
+        padding: '0.5rem 0.2rem',
     }
+}
+
+function typeToString(type) {
+    const dict = {};
+    dict[globals.EDIT_QUILL] = 'Text';
+    dict[globals.EDIT_QUIZ] = 'Quiz';
+    dict[globals.EDIT_GAME] = 'Game';
+    dict[globals.EDIT_VIDEO] = 'Video';
+    dict[globals.EDIT_IMAGE] = 'Image';
+    dict[globals.EDIT_FORMULA] = 'Formula';
+    return dict[type];
 }
 
 class FadeableCard extends Component {
@@ -58,44 +71,45 @@ class FadeableCard extends Component {
                 <Fade timeout={300} in={this.state.shouldFade}>
                     <Card className="card-fancy has-shadow">
                         {/*<CardHeader>*/}
+                            <section style={styling.cardActions} >
+                                <div className='card-hint'>
+                                    {this.state.isOpen ? null : typeToString(type) }
+                                </div>
+                                <div hidden={!isEditMode} >
+                                    <a className="card-header-action btn btn-setting"
+                                       onClick={this.props.onMoveUp}
+                                    >
+                                        {ICON("icon-arrow-up-circle")}
+                                    </a>
 
+                                    <a className="card-header-action btn btn-setting"
+                                       onClick={this.props.onMoveDown}>
+                                        {ICON("icon-arrow-down-circle")}
+                                    </a>
+                                    <a
+                                        className="card-header-action btn btn-setting"
+                                        data-target="#collapseExample"
+                                        onClick={() => this.toggle('isOpen')}>
+                                        {/*minize*/}
+                                        {ICON("icon-minus")}
+                                    </a>
+                                    <a
+                                        className="card-header-action btn btn-setting"
+                                        onClick={() => {
+                                            this.toggle('shouldFade')
+                                            this.props.onDelete() //id is alrea
+                                        }}>
+                                        {ICON("icon-close")}
+                                    </a>
+                                </div>
+                            </section>
 
                         {/*</CardHeader>*/}
                         <Collapse isOpen={this.state.isOpen} id="collapseExample">
                             <CardBody>
-
                                 {/*  !! This passes the Content in between here !! */}
                                 {this.props.children}
 
-                                <section style={styling.cardActions} >
-                                    <div hidden={!isEditMode} >
-                                        <a className="card-header-action btn btn-setting"
-                                           onClick={this.props.onMoveUp}
-                                        >
-                                            {ICON("icon-arrow-up-circle")}
-                                        </a>
-
-                                        <a className="card-header-action btn btn-setting"
-                                           onClick={this.props.onMoveDown}>
-                                            {ICON("icon-arrow-down-circle")}
-                                        </a>
-                                        <a
-                                            className="card-header-action btn btn-setting"
-                                            data-target="#collapseExample"
-                                            onClick={() => this.toggle('isOpen')}>
-                                            {/*minize*/}
-                                            {ICON("icon-minus")}
-                                        </a>
-                                        <a
-                                            className="card-header-action btn btn-setting"
-                                            onClick={() => {
-                                                this.toggle('shouldFade')
-                                                this.props.onDelete() //id is alrea
-                                            }}>
-                                            {ICON("icon-close")}
-                                        </a>
-                                    </div>
-                                </section>
                             </CardBody>
                         </Collapse>
                         {/*<CardFooter style={styling.cardFooter}>*/}

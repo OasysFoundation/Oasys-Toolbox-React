@@ -24,6 +24,7 @@
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "react-katex": "^2.0.2",
+    "react-player": "^1.6.4",
     "react-pose": "^2.2.0",
     "react-quill": "^1.2.7",
     "react-router-dom": "^4.3.1",

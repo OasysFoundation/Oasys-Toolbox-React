@@ -82,11 +82,15 @@ Kievit is a former Medium sans-serif font
 
 
 
-html, body, div, svg, text {
+html, body, svg, text {
   margin: 0;
   padding: 0;
   font-family: 'JafBernino-Regular';
   font-size: 0.95rem;
+}
+
+.oasys .ql-container.ql-snow {
+    font-family: 'Charter-Regular';
 }
 
 .textAlignLeft {
@@ -99,10 +103,16 @@ html, body, div, svg, text {
 
 .oasys .main {
     background: #f0f3f5;
+    display: flex;
+    align-items: center;
 }
 
 .oasys .input-group mb-3 {
     margin:0 !important;
+}
+
+.oasys .app-header .navbar-brand {
+    left: 15%;
 }
 
 /* WE CAN DEFINE CUSTOM STYLES BY PREPENDING THE CLASS SELECTION WITH ".oasys" */
@@ -115,14 +125,23 @@ html, body, div, svg, text {
     border: none;
 }
 
+.oasys .card-hint {
+    padding-left: 10px;
+    color: #626970;
+}
+
 .oasys .card-fancy {
     position: relative;
 }
 
-.has-shadow {
+.oasys .has-shadow {
     -webkit-box-shadow: 0 10px 6px -6px #777;
     -moz-box-shadow: 0 10px 6px -6px #777;
     box-shadow: 0 9px 6px -6px #777;
+}
+
+.oasys .card-body {
+    padding: 0rem 1.25rem 1.25rem 1.25rem;
 }
 
 .oasys .card-footer {
@@ -133,26 +152,36 @@ html, body, div, svg, text {
     border: none;
 }
 
+.oasys .mainWidth {
+    max-width: 750px;
+    min-width: 750px;
+    width: 750px;
+}
+
 .oasys .card {
     margin-bottom: 0;
 }
 
-/* ------------------ quill ----------------- */
-.oasys .ql-editor {
-    padding: 0;
+.oasys .flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.preview-btn {
-    minWidth: 15vw;
-    marginLeft: 3vw
+.oasys .form-control.header {
+    font-weight: bold;
 }
 
-/*doesn't work here*/
-.oasys .ql-container.ql-snow{
-    border: 0px;
+.oasys .bgprimary {
+    background-color: #28CCB4;
 }
-@media (min-width: 992px) {
-   
+
+.oasys .margin-right5 {
+    margin-right: 5px;
+}
+
+.oasys .help-text {
+    font-style: italic;
 }
 
 /* ------------------ sidebar ----------------- */
@@ -168,16 +197,109 @@ html, body, div, svg, text {
     flex: 1 0 50px;
 }
 
-.sidebar-minimized.sidebar-fixed .sidebar .svgTocWrap{
+.oasys .sidebar-minimized.sidebar-fixed .sidebar .svgTocWrap{
     display: none;
 }
 
-/* ------------------ video edit ----------------- */
-.oasys .noUi-handle {
-    background-color: #F95032;
-    border: 1px solid #C6361D;
+.oasys .sidebar-button {
+    margin-top: 10px;
+    border-radius: 0.25rem;
+    background-color: #3E4B54;
+    color: #eeeeee;
+    /* border: 1px solid #626970; */
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.oasys .noUi-connect {
-    background-color: #A47D90;
+.oasys .sidebar-button:hover {
+    background-color: #30444D;
+}
+
+.oasys .sidebar-button.publish {
+    background-color: #2A9699;
+}
+
+.oasys .sidebar-button.publish:hover {
+    background-color: #28CCB4;
+}
+
+.sidebar-minimized .oasys .sidebar-button {
+    margin-left: -150px;
+}
+
+.sidebar-minimized .oasys svg {
+    margin-left: -150px;
+}
+
+.oasys .sidebar-button.title input {
+    font-weight: bold;
+    background-color: #30444D;
+    border-color: #30444D;
+    color: #eeeeee;
+    margin-left: -5px;
+    margin-right: 5px;
+    padding: 3px;
+}
+
+/* ------------------ video edit ----------------- */
+.oasys .video-embed .noUi-handle {
+    /*background-color: #F95032;
+    border: 1px solid #C6361D;*/
+    background-color: #A2ABB8;
+    border: 1px solid #626970;
+}
+
+.oasys .video-embed .noUi-connect {
+    /*background-color: #A47D90;*/
+    background-color: #626970;
+}
+
+.oasys .video-embed .video-controls {
+    display:flex;
+}
+
+.oasys .video-embed .form-control {
+    width: 70px;
+}
+
+.oasys .video-embed .noUi-handle {
+    cursor: pointer;
+}
+
+.oasys .video-embed .url-input {
+    width: 300px;
+}
+
+.oasys .video-embed .fa-youtube {
+    color: #3e4b54;
+}
+
+.oasys .videoEditWrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+/* ------------------ formula edit ----------------- */
+
+.oasys .katex-display {
+    margin: 0;
+}
+
+.oasys .math-renderview {
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #626970;
+    border-radius: 0.25rem;
+}
+
+.oasys .math-preview {
+    color: #626970;
+    border: 1px solid #626970;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 0.25rem;
 }
