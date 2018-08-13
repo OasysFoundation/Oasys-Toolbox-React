@@ -12,6 +12,11 @@ import tools from '../tools'
 
 import posed, {PoseGroup} from 'react-pose';
 
+import { connect } from "redux-zero/react";
+import actions from "../store/actions";
+import mapStoreToProps from '../store/mapStoreToProps'
+
+
 //TODO put in Globals
 
 const MockData = {
@@ -125,35 +130,11 @@ const MockData = {
 const Item = posed.div();
 
 class LessonMaker extends Component {
-    constructor() {
-        super();
-
-        //@operations
-        //Element-wise --> ElementWEdit
-        this.onDeleteElement = this.onDeleteElement.bind(this);
-        this.onMoveElement = this.onMoveElement.bind(this);
-
-        //Chapter-wise --> Sidebar
-        this.setActiveChapter = this.setActiveChapter.bind(this);
-        this.onAddElement = this.onAddElement.bind(this);
-        this.onChangeContent = this.onChangeContent.bind(this);
-        this.onTitleChange = this.onTitleChange.bind(this);
-
-        this.autoSaveTimer = 15000; //post state to backend every 15 seconds
-    }
-
     state = {
         project: MockData.projects[0],
         currChapIdx: 0,
         isEditMode: true,
     };
-
-    setActiveChapter(id) {
-        const idx = this.state.project.chapters.findIndex(chap => chap.id === id)
-        this.setState({currChapIdx: idx})
-
-        this.inhaleSessionStorage();
-    }
 
     componentDidMount() {
         this.inhaleSessionStorage();
@@ -191,124 +172,25 @@ class LessonMaker extends Component {
         this.setState({[prop]: !this.state[prop]})
     }
 
-    reverseAction() { //go back in state versions
-
-    }
-
-    onDeleteElement(id) {
-        const proj = JSON.parse(JSON.stringify(this.state.project));
-        let elements = proj.chapters[this.state.currChapIdx].elements;
-        const entryIdx = elements.findIndex(el => el.id === id.toString());
-
-
-        proj.chapters[this.state.currChapIdx].elements = withoutEntry(elements, entryIdx);
-
-        this.setState({project: proj})
-    }
-
-    onAddElement(typeSelected, atIdx) {
-        const proj = JSON.parse(JSON.stringify(this.state.project));
-        let elements = proj.chapters[this.state.currChapIdx].elements;
-        const newElem = {
-            id: uuidv4(),
-            type: typeSelected,
-            content: tools.initContent(typeSelected),
-            timestamp: Date.now()
-        };
-
-        proj.chapters[this.state.currChapIdx].elements = [
-            ...elements.slice(0, atIdx + 1),
-            newElem,
-            ...elements.slice(atIdx + 1)
-        ];
-        console.log("ELEME", proj.chapters[this.state.currChapIdx].elements)
-        this.setState({project: proj})
-    }
-
-    onChangeContent(id, value) {
-         const proj = JSON.parse(JSON.stringify(this.state.project));
-         let elements = proj.chapters[this.state.currChapIdx].elements;
-    
-         const elem = elements.find(el => el.id === id);
-         elem.content = value;
-         elem.timestamp = Date.now();
-    
-         proj.chapters[this.state.currChapIdx].elements = elements;
-    
-         this.setState({project: proj})
-     }
-
     saveStatus() {
         console.log('saving status....')
         //api.saveContent
     }
 
-    onMoveElement(id, direction) {
-        const proj = JSON.parse(JSON.stringify(this.state.project));
-        let elements = proj.chapters[this.state.currChapIdx].elements;
-        const entryIdx = elements.findIndex(el => el.id === id);
-
-        proj.chapters[this.state.currChapIdx].elements = moveEntry(elements, entryIdx, direction)
-
-        this.setState({project: proj})
-    }
-
-    onChangeChapterTitle(value) {
-        const proj = JSON.parse(JSON.stringify(this.state.project));
-        let chap = proj.chapters[this.state.currChapIdx];
-        chap.title = value;
-        this.setState({project: proj})
-    }
-
-    onAddChapter(newTitle, newUuid) {
-        const proj = JSON.parse(JSON.stringify(this.state.project));
-      
-        const activeChapter = proj.chapters[this.state.currChapIdx];
-        activeChapter.links.push({
-            eventId: uuidv4(),
-            chapterId: newUuid
-        });
-        proj.chapters[this.state.currChapIdx] = activeChapter;
-
-
-        proj.chapters.push(
-            {
-                id: newUuid,
-                title: newTitle,
-                elements: [],
-                timestamp: Date.now(),
-                links: []
-            }
-        );
-
-
-
-        this.setState({project: proj})
-    }
-
-    onTitleChange(text) {
-        let proj = JSON.parse(JSON.stringify(this.state.project));
-        proj.title = text;
-        this.setState({project: proj});
-    }
-
-    handleInteractionEvent(eventId) {
-        //eventId => chapterId => setState(activeChapter)
-    }
 
     render() {
-        const activeChapter = this.state.project.chapters[this.state.currChapIdx];
+        const activeChapter = this.props.project.chapters[this.props.project.activeChapterIndex];
         const {elements} = activeChapter;
 
         return (
             <div className="app-body">
-                <SideBarLesson onChapterChange={this.setActiveChapter}
-                               onAddChapter={this.onAddChapter}
-                               onAddElement={this.onAddElement}
-                               onTitleChange={this.onTitleChange}
-                               chapters={this.state.project.chapters.map(c => ({title:c.title, id: c.id, links: c.links}) )}
-                               currChapIdx={this.state.currChapIdx}
-                               title={this.state.project.title}
+                <SideBarLesson onChapterChange={this.props.onChangeActiveChapter}
+                               onAddChapter={this.props.onAddChapter}
+                               onAddElement={this.props.onAddElement}
+                               onTitleChange={this.props.onChangeChapterTitle}
+                               chapters={this.props.project.chapters.map(c => ({title:c.title, id: c.id, links: c.links}) )}
+                               currChapIdx={this.props.activeChapterIndex}
+                               title={this.props.project.title}
                                {...this.props} //router fucking needs it for CoreUI React ?>?!?!?>!
                 />
                 <main className="main">
@@ -324,8 +206,8 @@ class LessonMaker extends Component {
                                     className="form-control header" 
                                     placeholder="Name your Chapter"
                                     aria-label="Name this Chapter"
-                                    value={this.state.project.chapters[this.state.currChapIdx].title}
-                                    onChange={(ev) => this.onChangeChapterTitle(ev.target.value)}
+                                    value={activeChapter.title}
+                                    onChange={(ev) => this.props.onChangeChapterTitle(ev.target.value)}
                                     aria-describedby="basic-addon1"
                                     style={{marginRight: '10px'}}
                                 />
@@ -348,17 +230,13 @@ class LessonMaker extends Component {
                                         key={el.id}
                                         isPreview={!this.state.isEditMode}
                                         data={el}
-                                        onDelete={this.onDeleteElement}
-                                        onMove={this.onMoveElement}
                                         chaptersLight={this.state.project.chapters.map(c => ({title:c.title, id: c.id}) )}
-                                        onChange={this.onChangeContent}
-                                        onAddChapter={this.onAddChapter.bind(this)}
                                     />
                                     <ElementAdder
                                         key={el.id + 1}
                                         onAddElement={this.onAddElement}
                                         idx={idx}
-                                        nElems={this.state.project.chapters[this.state.currChapIdx].elements.length} />
+                                        nElems={activeChapter.elements.length} />
                                 </Item>
                             )}
                         </PoseGroup>
@@ -369,4 +247,22 @@ class LessonMaker extends Component {
     }
 }
 
-export default LessonMaker;
+// const mapToProps = function(store) {
+//     console.log(store, "maptoPropsInput")
+//     // console.log({currentPerson, people}, "return of map to props")
+//
+//     console.log(Object.entries(store), 'entries')
+//     return { test: store.title}
+// };
+
+
+//IMPORTANT!! the project data is in the project obj, the rest of the store (action functions) is just flat there
+
+// export default connect(mapToProps, actions)( ({projects}) => React.createElement(LessonMaker, {project: projects[0]}) );
+export default connect(mapStoreToProps, actions)(LessonMaker);
+// export default connect(mapToProps, actions)((propsFromStore) => {
+//     console.log(propsFromStore);
+//         const {projects} = propsFromStore;
+//         return React.createElement(LessonMaker, {project: projects[0]});
+//         // return (<LessonMaker people={people} setFirstName={setFirstName}/>)
+//     });
