@@ -1,22 +1,77 @@
 //TODO use my mongo functions to do upsert, insert, find for STATE etc
+//use immutable
+import update from 'immutability-helper'
+import {withoutEntry} from "../utils/trickBox";
+import tools from "../tools";
+import uuidv4 from 'uuid/v4'
 
-
-export const actions = function (store) { //store for async stuff
+const actions = function (store) { //store for async stuff
     return {
         //state variable gets inject into the action functions somehow through the connect(maptoprops, action)
-        setFirstName(state, value){
-            console.log('setFirstName state', state, "spread", {...state.currentPerson, firstName:value});
-            const newCurrentPerson = {...state.currentPerson, firstName: value};
-            return {currentPerson :newCurrentPerson};
+
+        onChangeActiveChapter(state, id) {
+            console.log(state, "STAATE on active")
+            const index = state.chapters.findIndex(chapter => chapter.id.toString() === id.toString());
+            console.log("new active chapter idx:  ", index)
+            return update(state, {activeChapterIndex: {$set: index}})
         },
-        setLastName: (state, event) => ({
-            currentPerson: {...state.currentPerson, lastName: event.target.value}
-        }),
-        asyncTest: async () => {
-            // const people = await api.getPeople(5);
-            // store.setState({ people });
+
+        onChangeChapterTitle(state, id, value) {
+            const clone = JSON.parse(JSON.stringify(state));
+            let chap = clone.chapters[state.activeChapterIndex];
+            chap.title = value;
+            chap.timestamp = Date.now();
+            return clone
+        },
+
+        onAddChapter(state) {
+            const clone = JSON.parse(JSON.stringify(state));
+
+            clone.chapters.push(
+                {
+                    id: uuidv4(),
+                    title: `|| Untitled Chapter ||`,
+                    elements: [],
+                    timestamp: Date.now()
+                }
+            );
+
+            return clone
+        },
+
+        onDeleteElement(state, id = "yolooooID") {
+            const clone = JSON.parse(JSON.stringify(state));
+            let elements = clone.chapters[state.activeChapterIndex].elements;
+            const entryIdx = elements.findIndex(el => el.id === id.toString());
+
+            if (entryIdx < 0) {
+                console.log("NO ID FOUND @ DELETE")
+                return state
+            }
+            clone.chapters[state.activeChapterIndex].elements = withoutEntry(elements, entryIdx);
+
+            return clone
+        },
+
+        onAddElement(state, typeSelected, atIdx) {
+            const clone = JSON.parse(JSON.stringify(state));
+            let elements = clone.chapters[state.activeChapterIndex].elements;
+            const newElem = {
+                id: uuidv4(),
+                type: typeSelected,
+                content: tools.initContent(typeSelected),
+                timestamp: Date.now()
+            };
+
+            clone.chapters[state.activeChapterIndex].elements = [
+                ...elements.slice(0, atIdx + 1),
+                newElem,
+                ...elements.slice(atIdx + 1)
+            ];
+            console.log("ELEME", clone.chapters[state.activeChapterIndex].elements)
+            return clone
         }
     }
-};
+}
 
-export default actions;
+export default actions

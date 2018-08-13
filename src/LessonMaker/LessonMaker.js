@@ -129,7 +129,7 @@ const MockData = {
 const Item = posed.div();
 
 class LessonMaker extends Component {
-    constructor({people, setFirstName}) {
+    constructor(props) {
         super();
 
         //@operations
@@ -144,9 +144,8 @@ class LessonMaker extends Component {
         this.onChangeContent = this.onChangeContent.bind(this);
 
         this.autoSaveTimer = 15000; //post state to backend every 15 seconds
-
-        setFirstName("jopp")
-
+        // props.setChapterTitle("teee", "yololo")
+        // props.deleteElement();
     }
 
     state = {
@@ -287,12 +286,12 @@ class LessonMaker extends Component {
     }
 
     render() {
-        const activeChapter = this.state.project.chapters[this.state.currChapIdx];
+        const activeChapter = this.props.project.chapters[this.props.project.activeChapterIndex];
         const {elements} = activeChapter;
 
         return (
             <div className="app-body">
-                <SideBarLesson onChapterChange={this.setActiveChapter}
+                <SideBarLesson onChapterChange={this.props.onChangeActiveChapter}
                                onAddChapter={this.onAddChapter}
                                onAddElement={this.onAddElement}
                                chapters={this.state.project.chapters.map(c => ({title:c.title, id: c.id, links: c.links}) )}
@@ -357,18 +356,21 @@ class LessonMaker extends Component {
     }
 }
 
-const mapToProps = function(store) {
-    console.log(store, "maptoPropsInput")
-    // console.log({currentPerson, people}, "return of map to props")
+// const mapToProps = function(store) {
+//     console.log(store, "maptoPropsInput")
+//     // console.log({currentPerson, people}, "return of map to props")
+//
+//     console.log(Object.entries(store), 'entries')
+//     return { test: store.title}
+// };
 
-    return { currentPerson: store.currentPerson, people:store.people }
-};
+const mapToProps = (store) => ({project: store});
 
-// const mapToProps = ({ currentPerson, people }) => ({ currentPerson, people });
-
-export default connect(mapToProps, actions)( ({people, currentPerson, setFirstName}) => React.createElement(LessonMaker, {currentPerson, people, setFirstName}) );
+// export default connect(mapToProps, actions)( ({projects}) => React.createElement(LessonMaker, {project: projects[0]}) );
+export default connect(mapToProps, actions)(LessonMaker);
 // export default connect(mapToProps, actions)((propsFromStore) => {
-//         const {people, setFirstName} = propsFromStore;
-//         return React.createElement(LessonMaker, {people});
+//     console.log(propsFromStore);
+//         const {projects} = propsFromStore;
+//         return React.createElement(LessonMaker, {project: projects[0]});
 //         // return (<LessonMaker people={people} setFirstName={setFirstName}/>)
 //     });
