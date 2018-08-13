@@ -8,6 +8,7 @@ import createBrowserHistory from 'history/createBrowserHistory';
 import { withRouter } from 'react-router'
 import LessonMaker from './LessonMaker/LessonMaker'
 import ContentSelection from './ContentSelection'
+import DataViewCreator from './DataViewCreator'
 import AboutPage from './AboutPage'
 import Account from './Account'
 
@@ -44,6 +45,7 @@ class Index extends Component {
                                 <Route exact path="/" render={(props) => <LessonMaker {...props} />} />
                                 <Route exact path="/learn" render={(props) => <ContentSelection {...props} />} />
                                 <Route exact path="/create" render={(props) => <LessonMaker {...props} />} />
+                                <Route exact path="/data" render={(props) => <DataViewCreator {...props} />} />
                                 <Route exact path="/about" render={(props) => <AboutPage {...props} />} />
                                 <Route exact path="/account" render={(props) => <Account {...props} />} />
                                 {/*<Route path="/data" render={(props)=>( this.state.authUser ? <DataViewCreator authUser={this.state.authUser} /> : null)} />*/}

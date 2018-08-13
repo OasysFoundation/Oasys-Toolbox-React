@@ -60,6 +60,7 @@ class SideBarLesson extends Component {
                 <SidebarToc 
                     chapters={this.props.chapters} 
                     currChapIdx={this.props.currChapIdx}
+                    onChapterChange={this.props.onChapterChange}
                 />
                 <AppSidebarFooter/>
                 <AppSidebarMinimizer/>

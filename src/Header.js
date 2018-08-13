@@ -44,6 +44,12 @@ class Header extends Component {
             </NavLink>
           </NavItem>
           <NavItem className="px-3">
+            <NavLink href="/data">
+              <i class="fas fa-align-right fa-lg fa-chart-bar margin-right5"></i> 
+              Analytics
+            </NavLink>
+          </NavItem>
+          <NavItem className="px-3">
             <NavLink href="/about">
               <i class="fas fa-align-right fa-lg fa-info-circle margin-right5"></i> 
               About

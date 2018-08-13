@@ -9,7 +9,7 @@ const styling = {
         flexGrow: 0,
         flexDirection: "row",
         justifyContent: "center",
-        height: 4 + 'rem',
+        height: 3 + 'rem',
     },
     image: {
         height: 2.5 + "rem",

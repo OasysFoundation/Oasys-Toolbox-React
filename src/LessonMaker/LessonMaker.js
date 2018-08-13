@@ -132,7 +132,7 @@ class LessonMaker extends Component {
         this.setActiveChapter = this.setActiveChapter.bind(this);
         this.onAddChapter = this.onAddChapter.bind(this);
         this.onAddElement = this.onAddElement.bind(this);
-        // this.onChangeContent = this.onChangeContent.bind(this);
+        this.onChangeContent = this.onChangeContent.bind(this);
 
         this.autoSaveTimer = 15000; //post state to backend every 15 seconds
     }
@@ -220,19 +220,18 @@ class LessonMaker extends Component {
         this.setState({project: proj})
     }
 
-    // onChangeContent(id, value) {
-    //
-    //     const proj = JSON.parse(JSON.stringify(this.state.project));
-    //     let elements = proj.chapters[this.state.currChapIdx].elements;
-    //
-    //     const elem = elements.find(el => el.id === id);
-    //     elem.content = value;
-    //     elem.timestamp = Date.now();
-    //
-    //     proj.chapters[this.state.currChapIdx].elements = elements;
-    //
-    //     this.setState({project: proj})
-    // }
+    onChangeContent(id, value) {
+         const proj = JSON.parse(JSON.stringify(this.state.project));
+         let elements = proj.chapters[this.state.currChapIdx].elements;
+    
+         const elem = elements.find(el => el.id === id);
+         elem.content = value;
+         elem.timestamp = Date.now();
+    
+         proj.chapters[this.state.currChapIdx].elements = elements;
+    
+         this.setState({project: proj})
+     }
 
     saveStatus() {
         console.log('saving status....')
@@ -309,6 +308,7 @@ class LessonMaker extends Component {
                                 <button 
                                     type="button"
                                     className={this.state.isEditMode ? "btn btn-dark preview-btn" : "btn btn-light preview-btn"}
+                                    style={{width: '150px'}}
                                     onClick={() => this.toggle('isEditMode')}
                                 >
                                     <span className={this.state.isEditMode ? "icon-grid" : "icon-layers"}></span>
@@ -327,7 +327,7 @@ class LessonMaker extends Component {
                                         onDelete={this.onDeleteElement}
                                         onMove={this.onMoveElement}
                                         chaptersLight={this.state.project.chapters.map(c => ({title:c.title, id: c.id}) )}
-                                        // onChange={this.onChangeContent}
+                                        onChange={this.onChangeContent}
                                     />
                                     <ElementAdder
                                         key={el.id + 1}

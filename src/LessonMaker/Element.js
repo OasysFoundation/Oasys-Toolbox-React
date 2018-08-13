@@ -55,7 +55,7 @@ class Element extends Component {
     //glue function between LessonMaker and Quill to add ID
     handleChange = (value) => {
         this.setState({tempContent: value}); //for Quill
-        saveToSessionStorage(this.props.data.id, value) //for switching chapters
+        saveToSessionStorage(this.props.data.id, value) //for s{this.typeToComponent(type)}witching chapters
     }
 
 
@@ -67,20 +67,19 @@ class Element extends Component {
         // Q: Why is QuillEdit receiving the key prop, but ImageEdit and FormulaEdit not?
         switch (type) {
             case globals.EDIT_QUILL:
-                render = <QuillEdit key={id} id={id} isEditMode={isEditMode} onChange={this.handleChange}
-                                    data={this.state.tempContent}/>
+                render = <QuillEdit key={id} id={id} isPreview={this.props.isPreview} isEditMode={isEditMode} onChange={this.handleChange} data={this.state.tempContent}/>
                 break;
             case globals.EDIT_IMAGE:
-                render = <ImageEdit key={id} id={id} data={content} isEditMode={isEditMode} />
+                render = <ImageEdit key={id} id={id} data={content} isPreview={this.props.isPreview} isEditMode={isEditMode} onChange={this.handleChange} />
                 break;
             case globals.EDIT_FORMULA:
-                render = <FormulaEdit key={id} id={id} data={content} isEditMode={isEditMode} />
+                render = <FormulaEdit key={id} id={id} data={content} isPreview={this.props.isPreview} isEditMode={isEditMode} onChange={this.handleChange} />
                 break;
             case globals.EDIT_QUIZ:
-                render = <QuizzEdit key={id} id={id} data={content} chapters={this.props.chaptersLight} isEditMode={isEditMode} />
+                render = <QuizzEdit key={id} id={id} data={content} chapters={this.props.chaptersLight} isEditMode={isEditMode} isPreview={this.props.isPreview} onChange={this.handleChange} />
                 break;
             case globals.EDIT_VIDEO:
-                render = <VideoEdit key={id} id={id}  data={content}/>
+                render = <VideoEdit key={id} id={id}  data={content} isPreview={this.props.isPreview} isEditMode={isEditMode} onChange={this.handleChange}/>
                 break;
 
             default:

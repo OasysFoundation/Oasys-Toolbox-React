@@ -31,6 +31,7 @@ export function prepareToc(mainPath, chapters) {
     for (let i=0;i<=mainPath.length-1;i++) {
         tocInfo.push({
             idx: mainPath[i],
+            id: chapters[mainPath[i]].id,
             level: i,
             next: chapters[mainPath[i]].linkIdx.filter(e=>e>=mainPath[i]),
             prev: chapters[mainPath[i]].linkIdx.filter(e=>e<mainPath[i]),
@@ -188,8 +189,8 @@ export function drawChapters(tocInfo, chapters, opt) {
                 text: chapters[elems[0].idx].title,
                 active: chapters[elems[0].idx].active,
             };
-            document.getElementById(opt.tocId).appendChild(svgRect(info,elems[0].idx,opt));
-            document.getElementById(opt.tocId).appendChild(svgText(info,elems[0].idx,opt));
+            document.getElementById(opt.tocId).appendChild(svgRect(info,elems[0].id,opt));
+            document.getElementById(opt.tocId).appendChild(svgText(info,elems[0].id,opt));
         } else {
             let rectWidth = Math.floor((opt.totalWidth - (elems.length - 1) * opt.gapx) / elems.length);
             for (let j=0; j<elems.length; j++) {
@@ -200,8 +201,8 @@ export function drawChapters(tocInfo, chapters, opt) {
                     text: chapters[elems[j].idx].title,
                     active: chapters[elems[j].idx].active,
                 };
-                document.getElementById(opt.tocId).appendChild(svgRect(info,elems[j].idx,opt));
-                document.getElementById(opt.tocId).appendChild(svgText(info,elems[j].idx,opt));
+                document.getElementById(opt.tocId).appendChild(svgRect(info,elems[j].id,opt));
+                document.getElementById(opt.tocId).appendChild(svgText(info,elems[j].id,opt));
                 offx = offx + rectWidth + opt.gapx;
             }
         }
