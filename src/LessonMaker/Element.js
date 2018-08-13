@@ -44,17 +44,6 @@ class Element extends Component {
         tempContent: this.props.data.content
     };
 
-    onSetCondition() {
-        //save eventId linked with chapterId
-    }
-
-    // componentDidMount() {
-    //     this.setState({tempContent: })
-    // }
-    onInteractionEvent() {
-
-    }
-
     //glue function between LessonMaker and Quill to add ID
     handleChange = (value) => {
         this.setState({tempContent: value}); //for Quill
@@ -76,10 +65,12 @@ class Element extends Component {
                 render = <ImageEdit key={id} id={id} data={content} isPreview={this.props.isPreview} isEditMode={isEditMode} onChange={this.handleChange} />
                 break;
             case globals.EDIT_FORMULA:
-                render = <FormulaEdit key={id} id={id} data={content} isPreview={this.props.isPreview} isEditMode={isEditMode} onChange={this.handleChange} />
+                render = <FormulaEdit key={id} id={id} data={content} isPreview={this.props.isPreview} isEditMode={isEditMode}
+                                      onChange={this.handleChange} />
                 break;
             case globals.EDIT_QUIZ:
-                render = <QuizzEdit key={id} id={id} data={content} chapters={this.props.chaptersLight} isEditMode={isEditMode} isPreview={this.props.isPreview} onChange={this.handleChange} />
+                render = <QuizzEdit key={id} id={id} data={content} chapters={this.props.chaptersLight} isEditMode={isEditMode}
+                                    isPreview={this.props.isPreview} onChange={this.handleChange} />
                 break;
             case globals.EDIT_VIDEO:
                 render = <VideoEdit key={id} id={id}  data={content} isPreview={this.props.isPreview} isEditMode={isEditMode} onChange={this.handleChange}/>

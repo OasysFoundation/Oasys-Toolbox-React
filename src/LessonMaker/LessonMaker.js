@@ -128,39 +128,13 @@ const MockData = {
 
 
 const Item = posed.div();
-@connect(mapStoreToProps, actions)
+
 class LessonMaker extends Component {
-    constructor(props) {
-        super();
-
-        //@operations
-        //Element-wise --> ElementWEdit
-        this.onDeleteElement = this.onDeleteElement.bind(this);
-        this.onMoveElement = this.onMoveElement.bind(this);
-
-        //Chapter-wise --> Sidebar
-        this.setActiveChapter = this.setActiveChapter.bind(this);
-        this.onAddChapter = this.onAddChapter.bind(this);
-        this.onAddElement = this.onAddElement.bind(this);
-        this.onChangeContent = this.onChangeContent.bind(this);
-
-        this.autoSaveTimer = 15000; //post state to backend every 15 seconds
-        // props.setChapterTitle("teee", "yololo")
-        // props.deleteElement();
-    }
-
     state = {
         project: MockData.projects[0],
         currChapIdx: 0,
         isEditMode: true,
     };
-
-    setActiveChapter(id) {
-        const idx = this.state.project.chapters.findIndex(chap => chap.id === id)
-        this.setState({currChapIdx: idx})
-
-        this.inhaleSessionStorage();
-    }
 
     componentDidMount() {
         this.inhaleSessionStorage();
@@ -198,92 +172,9 @@ class LessonMaker extends Component {
         this.setState({[prop]: !this.state[prop]})
     }
 
-    reverseAction() { //go back in state versions
-
-    }
-
-    onDeleteElement(id) {
-        const proj = JSON.parse(JSON.stringify(this.state.project));
-        let elements = proj.chapters[this.state.currChapIdx].elements;
-        const entryIdx = elements.findIndex(el => el.id === id.toString());
-
-
-        proj.chapters[this.state.currChapIdx].elements = withoutEntry(elements, entryIdx);
-
-        this.setState({project: proj})
-    }
-
-    onAddElement(typeSelected, atIdx) {
-        const proj = JSON.parse(JSON.stringify(this.state.project));
-        let elements = proj.chapters[this.state.currChapIdx].elements;
-        const newElem = {
-            id: uuidv4(),
-            type: typeSelected,
-            content: tools.initContent(typeSelected),
-            timestamp: Date.now()
-        };
-
-        proj.chapters[this.state.currChapIdx].elements = [
-            ...elements.slice(0, atIdx + 1),
-            newElem,
-            ...elements.slice(atIdx + 1)
-        ];
-        console.log("ELEME", proj.chapters[this.state.currChapIdx].elements)
-        this.setState({project: proj})
-    }
-
-    onChangeContent(id, value) {
-         const proj = JSON.parse(JSON.stringify(this.state.project));
-         let elements = proj.chapters[this.state.currChapIdx].elements;
-    
-         const elem = elements.find(el => el.id === id);
-         elem.content = value;
-         elem.timestamp = Date.now();
-    
-         proj.chapters[this.state.currChapIdx].elements = elements;
-    
-         this.setState({project: proj})
-     }
-
     saveStatus() {
         console.log('saving status....')
         //api.saveContent
-    }
-
-    onMoveElement(id, direction) {
-        const proj = JSON.parse(JSON.stringify(this.state.project));
-        let elements = proj.chapters[this.state.currChapIdx].elements;
-        const entryIdx = elements.findIndex(el => el.id === id);
-
-        proj.chapters[this.state.currChapIdx].elements = moveEntry(elements, entryIdx, direction)
-
-        this.setState({project: proj})
-    }
-
-    onChangeChapterTitle(value) {
-        const proj = JSON.parse(JSON.stringify(this.state.project));
-        let chap = proj.chapters[this.state.currChapIdx];
-        chap.title = value;
-        this.setState({project: proj})
-    }
-
-    onAddChapter() {
-        const proj = JSON.parse(JSON.stringify(this.state.project));
-
-        proj.chapters.push(
-            {
-                id: Math.random().toFixed(36),
-                title: this.state.project.title || `<<< Chapter Title XYZ >>>`,
-                elements: [],
-                timestamp: Date.now()
-            }
-        );
-
-        this.setState({project: proj})
-    }
-
-    handleInteractionEvent(eventId) {
-        //eventId => chapterId => setState(activeChapter)
     }
 
     render() {
@@ -337,10 +228,7 @@ class LessonMaker extends Component {
                                         key={el.id}
                                         isPreview={!this.state.isEditMode}
                                         data={el}
-                                        // onDelete={this.props.onDeleteElement}
-                                        // onMove={this.props.onMoveElement}
                                         chaptersLight={this.state.project.chapters.map(c => ({title:c.title, id: c.id}) )}
-                                        onChange={this.onChangeContent}
                                     />
                                     <ElementAdder
                                         key={el.id + 1}
@@ -369,7 +257,7 @@ class LessonMaker extends Component {
 //IMPORTANT!! the project data is in the project obj, the rest of the store (action functions) is just flat there
 
 // export default connect(mapToProps, actions)( ({projects}) => React.createElement(LessonMaker, {project: projects[0]}) );
-export default LessonMaker;
+export default connect(mapStoreToProps, actions)(LessonMaker);
 // export default connect(mapToProps, actions)((propsFromStore) => {
 //     console.log(propsFromStore);
 //         const {projects} = propsFromStore;
