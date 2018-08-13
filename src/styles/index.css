@@ -264,8 +264,21 @@ html, body, svg, text {
     width: 70px;
 }
 
-.oasys .video-embed .noUi-handle {
+.oasys .video-embed .noUi-horizontal .noUi-handle {
     cursor: pointer;
+    width: 15px;
+    overflow: hidden;
+    right: -5px;
+}
+
+.oasys .video-embed .noUi-handle-lower {
+    background-image: url('../assets/icons/arrowRight.png');
+    background-size: 12px 25px;
+}
+
+.oasys .video-embed .noUi-handle-upper {
+    background-image: url('../assets/icons/arrowLeft.png');
+    background-size: 12px 25px;
 }
 
 .oasys .video-embed .url-input {
