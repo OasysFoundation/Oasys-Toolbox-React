@@ -18,6 +18,11 @@ import './styles/index.css';
 
 import Header from './Header';
 
+import { Provider } from "redux-zero/react";
+
+
+import store from "./LessonMaker/store";
+
 // in the coreui template, the following four 4 lines are imported globally in App.js
 // import '@coreui/icons/css/coreui-icons.min.css';
 // import 'flag-icon-css/css/flag-icon.min.css';
@@ -39,6 +44,7 @@ class Index extends Component {
                 <AppHeader fixed>
                   {<Header />}
                 </AppHeader>
+                <Provider store={store}>
                     <Router history={history}>
                         <div>
                             {/*<NavBar authUser={this.state.authUser}/>*/}
@@ -75,6 +81,7 @@ class Index extends Component {
 
                         </div>
                     </Router>
+                </Provider>
             </div>
         )
     }

@@ -11,6 +11,10 @@ import globals from '../globals'
 
 import posed, {PoseGroup} from 'react-pose';
 
+import { connect } from "redux-zero/react";
+import actions from "./actions";
+
+
 //TODO put in Globals
 
 const MockData = {
@@ -120,7 +124,7 @@ const MockData = {
 const Item = posed.div();
 
 class LessonMaker extends Component {
-    constructor() {
+    constructor({people, setFirstName}) {
         super();
 
         //@operations
@@ -135,6 +139,9 @@ class LessonMaker extends Component {
         // this.onChangeContent = this.onChangeContent.bind(this);
 
         this.autoSaveTimer = 15000; //post state to backend every 15 seconds
+
+        setFirstName("jopp")
+
     }
 
     state = {
@@ -343,4 +350,18 @@ class LessonMaker extends Component {
     }
 }
 
-export default LessonMaker;
+const mapToProps = function(store) {
+    console.log(store, "maptoPropsInput")
+    // console.log({currentPerson, people}, "return of map to props")
+
+    return { currentPerson: store.currentPerson, people:store.people }
+};
+
+// const mapToProps = ({ currentPerson, people }) => ({ currentPerson, people });
+
+export default connect(mapToProps, actions)( ({people, currentPerson, setFirstName}) => React.createElement(LessonMaker, {currentPerson, people, setFirstName}) );
+// export default connect(mapToProps, actions)((propsFromStore) => {
+//         const {people, setFirstName} = propsFromStore;
+//         return React.createElement(LessonMaker, {people});
+//         // return (<LessonMaker people={people} setFirstName={setFirstName}/>)
+//     });
