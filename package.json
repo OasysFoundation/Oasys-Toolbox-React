@@ -5,8 +5,8 @@
   "private": true,
   "dependencies": {
     "@coreui/react": "^2.0.5",
-    "@fortawesome/fontawesome-svg-core": "^1.2.0-14",
-    "@fortawesome/free-solid-svg-icons": "^5.1.0-11",
+    "@fortawesome/fontawesome-svg-core": "^1.2.2",
+    "@fortawesome/free-solid-svg-icons": "^5.2.0",
     "@fortawesome/react-fontawesome": "0.1.0-11",
     "@material-ui/core": "^1.1.0",
     "@material-ui/icons": "^1.1.0",
