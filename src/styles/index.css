@@ -184,6 +184,16 @@ html, body, svg, text {
     font-style: italic;
 }
 
+.oasys .paddingTop20 {
+    margin-top: 20px;
+}
+
+.oasys .cell-center {
+    text-align: center;
+    display:table-cell;
+    vertical-align:middle;
+}
+
 /* ------------------ sidebar ----------------- */
 .oasys .sidebar .sidebar-nav {
     flex: 0 0 auto;
@@ -316,3 +326,32 @@ html, body, svg, text {
     padding: 10px;
     border-radius: 0.25rem;
 }
+
+/* ------------------- data view ------------------- */
+
+.oasys .dataview .card-fancy {
+    background-color: #F4F4E8;
+    margin-bottom: 20px;
+    width: auto;
+}
+
+.oasys .dataview .border-right {
+    border-right: 2px solid #A2ABB8 !important;
+}
+
+.oasys .dataview .card-section {
+    padding: 0px 15px 0px 15px;
+}
+
+.oasys .dataview .card-body {
+    padding: 15px 0px 15px 0px;
+}
+
+.oasys .dataview .font-big {
+    font-size: 1.5rem;
+}
+
+.oasys .dataview .card-body p {
+    margin-bottom: 0px;
+}
+

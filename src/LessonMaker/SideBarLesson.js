@@ -40,7 +40,6 @@ class SideBarLesson extends Component {
     }
 
     render() {
-        let title = '';
         let tags = '';
         let description = '';
         let category = '';
@@ -53,8 +52,8 @@ class SideBarLesson extends Component {
                   <ModalBody>
                     <Input 
                         placeholder="Title" 
-                        value={title} 
-                        onChange={function(){}} 
+                        value={this.props.title} 
+                        onChange={this.onChangeTitle.bind(this)}
                     />
                     <FormText color="muted">
                         The title for this lesson may have 40 characters at most.
