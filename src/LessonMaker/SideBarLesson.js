@@ -73,9 +73,9 @@ class SideBarLesson extends Component {
                     </Button>
                     <hr />
                     <SidebarToc 
-                        chapters={this.props.chapters} 
-                        currChapIdx={this.props.currChapIdx}
-                        onChapterChange={this.props.onChapterChange}
+                        // chapters={this.props.chapters}
+                        // currChapIdx={this.props.currChapIdx}
+                        // onChapterChange={this.props.onChapterChange}
                     />
                     <AppSidebarFooter/>
                     <AppSidebarMinimizer/>
@@ -87,7 +87,7 @@ class SideBarLesson extends Component {
 
 
 SideBarLesson.propTypes = {
-    onChapterChange: PropTypes.func.isRequired,
+    onChangeActiveChapter: PropTypes.func.isRequired,
     onAddChapter: PropTypes.func.isRequired,
     chapters: PropTypes.array
 };
