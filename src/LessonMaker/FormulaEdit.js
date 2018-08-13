@@ -46,7 +46,7 @@ class FormulaEdit extends Component {
                 : <div className='math-preview help-text'>
                     Formula Preview <br/>
                     <small>
-                        (You can type any <a target="_blank" rel="noopener noreferrer" href='https://en.wikibooks.org/wiki/LaTeX/Mathematics'>latex math expression</a> above.)
+                        You can type any <a target="_blank" rel="noopener noreferrer" href='https://en.wikibooks.org/wiki/LaTeX/Mathematics'>latex math expression</a> above.
                     </small>
                   </div>
                 }
