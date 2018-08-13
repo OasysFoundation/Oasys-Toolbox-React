@@ -47,6 +47,24 @@ import "./scss_coreui/style.css"
 import "simple-line-icons/css/simple-line-icons.css"
 // import "@coreui/icons/"
 
+//fontAwesome icons
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
+import { faPencilAlt } from '@fortawesome/free-solid-svg-icons'
+import {faFlag} from '@fortawesome/free-solid-svg-icons'
+import {faComment} from '@fortawesome/free-solid-svg-icons'
+import {faObjectGroup} from '@fortawesome/free-solid-svg-icons'
+import {faUser} from '@fortawesome/free-solid-svg-icons'
+
+
+library.add(faEllipsisV)
+library.add(faPencilAlt)
+library.add(faFlag)
+library.add(faComment)
+library.add(faObjectGroup)
+library.add(faUser)
+
 
 const history = createBrowserHistory();
 
@@ -57,6 +75,7 @@ class Index extends Component {
         super(props);
         this.state = {
             authUser: null,
+            category: "",
         };
         firebase.auth.onAuthStateChanged(authUser => {
             authUser
@@ -68,15 +87,19 @@ class Index extends Component {
         
     }
 
+    handleChangeSearchBar(newVal){
+        this.setState({category:newVal})
+    }
+
     render() {
         console.log("Index has run");
         return (
             <div>
                 <Router history={history}>
                     <div>
-                        <NavBar authUser={this.state.authUser}/>
+                        <NavBar authUser={this.state.authUser} onChange={this.handleChangeSearchBar.bind(this)}/>
                         <Switch>
-                            <Route exact path="/" render={()=><LandingPageController/>} />
+                            <Route exact path="/" render={(props)=><LandingPageController category={this.state.category}/>} />
                             <Route path="/maker" render={(props) => <LessonMaker {...props} />} />
                             <Route path="/data" render={(props)=>( this.state.authUser ? <DataViewCreator authUser={this.state.authUser} /> : null)} />
                             <Route path="/data/preview" render={(props)=>( this.state.authUser ? <DataViewCreator authUser={this.state.authUser} /> : null)} />
