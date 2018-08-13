@@ -9,7 +9,8 @@ import Search from './images/search_grey_96x96.png';
 import Learn from './images/learn.png'
 import Create from './images/create.png'
 import User from './images/settings.png'
-import Logo_transparent from './oasys_logo_transparent.png'
+import Logo from './images/oasys_logo_big.png'
+import Logo_Small from './images/oasys_logo_small.png'
 
 // Styling
 import {
@@ -37,16 +38,13 @@ import {
 } from '@material-ui/core'
 import CloseIcon from '@material-ui/icons/Close'
 
-type State = {
-  inputValue: string,
-};
-
 const styles = {
     navbarNavItem:{
-         display: "flex",
+        display: "flex",
         alignItems: "center", 
         justifyContent: "center", 
         padding:"0px 8px 0px 8px",
+        color:"​​​​​​​#3E4B54",
     },
     navbarNavLinkForImage:{
         padding:"0px 0px 0px 0px",
@@ -54,9 +52,9 @@ const styles = {
     navbarNavImage:{
         height:"20px",
     },
-    navbarLink:{
-        paddingLeft:"2px",
-        color:"white"
+    navbarLinks:{
+        padding:"2px",
+        color:"#27363E"
     },
     navbarNavs: {
         fontFamily: "helveticaneue",
@@ -64,7 +62,6 @@ const styles = {
         marginLeft: "auto",
     },
     navBarBrand: {
-        color:"white",
         padding: "1em",
         fontFamily: "helveticaneue",
     },
@@ -99,8 +96,9 @@ const styles = {
         borderBottomRightRadius: ".25rem",
     },
     navbarMobile:{
-        backgroundColor: "#00695c", 
+        backgroundColor: "#F8F8F4", 
         height: "100px",
+        borderBottom: "1px solid #27363E",
     },
     navbarMobileTopRow:{
         height:"50%", 
@@ -168,9 +166,8 @@ const styles = {
     },
     navbarMobileSelectDiv: {
       width:"85%",
-      color:"black"
+      color:"black",
     }   
-
 };
 
 const selectOptions = [{
@@ -231,31 +228,6 @@ const formatGroupLabel = data => (
   </div>
 );
 
-
-
-const navbarRightElements = (
-    <Nav navbar style={styles.navbarNavs}>
-      <NavItem style={styles.navbarNavItem}>
-        <NavLink href="/explore/" style={styles.navbarNavLinkForImage}>
-            <img src={Learn} style={styles.navbarNavImage}/>
-        </NavLink>
-        <NavLink href="/explore/" style={styles.navbarLink}>Learn</NavLink>
-      </NavItem>
-      <NavItem style={styles.navbarNavItem}> 
-        <NavLink href="/create/" style={styles.navbarNavLinkForImage}>
-            <img src={Create} style={styles.navbarNavImage}/>
-        </NavLink>
-        <NavLink href="/create/" style={styles.navbarLink}>Create</NavLink>
-      </NavItem>
-      <NavItem style={styles.navbarNavItem}>
-        <NavLink href="/user/" style={styles.navbarNavLinkForImage}>
-            <img src={User} style={styles.navbarNavImage}/>
-        </NavLink>
-        <NavLink href="/user/" style={styles.navbarLink}>Profile</NavLink>
-      </NavItem>
-    </Nav>
-);
-
 class NavBar extends React.Component {
     constructor(props) {
         super(props);
@@ -273,7 +245,7 @@ class NavBar extends React.Component {
                     let titles = json.map(obj => obj.title);
                     let userIds = json.map(obj => obj.userId);
                     let contentTitles = [];
-                    for (let i = 0; i < titles.length; i++) {
+                    for (let i = 0; i < titles.length && i<userIds.length; i++) {
                         let newUrl = "/user/"+userIds[i]+"/"+titles[i]
                         contentTitles.push({"label":titles[i],"value":titles[i], "url":newUrl})
                     }
@@ -284,6 +256,7 @@ class NavBar extends React.Component {
             });
     }
 
+    //Search bar functions
     handleChange = (selectedOption) => {
         if(selectedOption.url)
             window.location.href=selectedOption.url;
@@ -291,9 +264,6 @@ class NavBar extends React.Component {
             this.props.onChange(selectedOption.label);
         }
     }
-    handleClick = () => {
-        this.setState({open: true});
-    };
 
     handleClose = (event, reason) => {
         if (reason === 'clickaway') {
@@ -324,6 +294,7 @@ class NavBar extends React.Component {
       }
 
       getMobileVersion(){
+        //required for search bar
         const { selectedOption } = this.state;
 
         let groupedOptions = [
@@ -340,7 +311,7 @@ class NavBar extends React.Component {
          <Navbar inverse style={styles.navbarMobile}>
             <div style={styles.navbarMobileTopRow}>
                 <a href="/explore" style={styles.navbarBrandMobile}>
-                    <img src={Logo_transparent} style={styles.navbarBrandMobileImage}/>
+                    <img src={Logo_Small} style={styles.navbarBrandMobileImage}/>
                 </a>
                 <div style={styles.navbarMobileSelectDiv}>
                     <Select
@@ -369,6 +340,28 @@ class NavBar extends React.Component {
       }
 
       getPCVersion(){
+        const navbarRightElements = (
+    <Nav navbar style={styles.navbarNavs}>
+      <NavItem style={styles.navbarNavItem}>
+        <NavLink href="/explore/" style={styles.navbarNavLinkForImage}>
+            <img src={Learn} style={styles.navbarNavImage}/>
+        </NavLink>
+        <NavLink href="/explore/" style={styles.navbarNewColor}>Learn</NavLink>
+      </NavItem>
+      <NavItem style={styles.navbarNavItem}> 
+        <NavLink href="/create/" style={styles.navbarNavLinkForImage}>
+            <img src={Create} style={styles.navbarNavImage}/>
+        </NavLink>
+        <NavLink href="/create/" style={styles.navbarNewColor}>Create</NavLink>
+      </NavItem>
+      <NavItem style={styles.navbarNavItem}>
+        <NavLink href="/user/" style={styles.navbarNavLinkForImage}>
+            <img src={User} style={styles.navbarNavImage}/>
+        </NavLink>
+        <NavLink href="/user/" style={styles.navbarNewColor}>Profile</NavLink>
+      </NavItem>
+    </Nav>
+);
         const { selectedOption } = this.state;
         let groupedOptions = [
           {
@@ -382,10 +375,9 @@ class NavBar extends React.Component {
         ];
 
         return(
-            <Navbar inverse expand="sm" style={{height:this.state.height, backgroundColor:"#00695c"}}>
+            <Navbar inverse expand="sm" style={{height:this.state.height, backgroundColor:"#F8F8F4", borderBottom: "1px solid #27363E"}}>
               <NavbarBrand href="/explore" style={styles.navBarBrand}>
-                  <img src={Logo_transparent} style={styles.navbarBrandImage}/>
-                  Oasys Education
+                  <img src={Logo} style={styles.navbarBrandImage}/>
               </NavbarBrand>
               <NavbarToggler onClick={this.toggle}/>
               <Collapse isOpen={this.state.isOpen} style={styles.navbarCollapse} navbar>
