@@ -28,6 +28,7 @@
     "imgur": "^0.2.1",
     "immutable": "^3.8.2",
     "katex": "^0.10.0-beta",
+    "material-ui": "^0.20.2",
     "material-ui-chip-input": "^1.0.0-beta.5",
     "material-ui-icons": "^1.0.0-beta.36",
     "material-ui-responsive-menu": "^1.19.3",
