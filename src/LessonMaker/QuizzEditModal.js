@@ -19,7 +19,9 @@ import uuidv4 from "uuid/v4"
 
 import SelectionDropdown from './SelectionDropdown'
 import CreateNewChapterModal from './CreateNewChapterModal'
-
+import mapStoreToProps from "../store/mapStoreToProps";
+import actions from "../store/actions";
+import {connect} from "redux-zero/react";
 const ICON = function(className, fontSize=globals.ICON_FONTSIZE_NORMAL) {
     return <i style={{fontSize:fontSize}} className={className}> </i>;
 }
@@ -389,5 +391,9 @@ class QuizzEditModal extends Component {
     }
 }
 
-
-export default QuizzEditModal;
+//only take what you need
+export default connect(mapStoreToProps, actions)((propsFromStore) => {
+    const {onAddChapter} = propsFromStore;
+    return React.createElement(QuizzEditModal, {onAddChapter});
+    // return (<LessonMaker people={people} setFirstName={setFirstName}/>)
+});

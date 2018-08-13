@@ -69,7 +69,7 @@ class Element extends Component {
                                       onChange={this.handleChange} />
                 break;
             case globals.EDIT_QUIZ:
-                render = <QuizzEdit key={id} id={id} data={content} chapters={this.props.chaptersLight} isEditMode={isEditMode} isPreview={this.props.isPreview} onChange={this.handleChange} onAddChapter={this.props.onAddChapter} />
+                render = <QuizzEdit key={id} id={id} data={content} chapters={this.props.chaptersLight} isEditMode={isEditMode} isPreview={this.props.isPreview} onChange={this.handleChange} />
                 break;
             case globals.EDIT_VIDEO:
                 render = <VideoEdit key={id} id={id}  data={content} isPreview={this.props.isPreview} isEditMode={isEditMode} onChange={this.handleChange}/>

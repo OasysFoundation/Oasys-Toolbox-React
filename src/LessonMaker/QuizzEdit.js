@@ -131,7 +131,8 @@ class QuizzEdit extends Component {
                 {this.state.quizType == 'multiple-choice'? <Button color="primary" onClick={this.onClickSubmitButton.bind(this)}>Submit</Button> : null}
                 </center>
 
-                <QuizzEditModal question={this.state.question} onAddChapter={this.props.onAddChapter} answers={this.state.answers} quizType={this.state.quizType} onChange={this.onChangeData.bind(this)} onClose={this.onClose.bind(this)} chapters={this.props.chapters} isOpen={this.state.showsModalEditor} />
+                <QuizzEditModal question={this.state.question} answers={this.state.answers} quizType={this.state.quizType} 
+                onChange={this.onChangeData.bind(this)} onClose={this.onClose.bind(this)} chapters={this.props.chapters} isOpen={this.state.showsModalEditor} />
             </div>
         )
     }

@@ -36,13 +36,13 @@ const actions = function (store) { //store for async stuff
             return clone
         },
 
-        onAddChapter(state) {
+        onAddChapter(state, uid, title) {
             const clone = JSON.parse(JSON.stringify(state));
 
             clone.chapters.push(
                 {
-                    id: uuidv4(),
-                    title: `|| Untitled Chapter ||`,
+                    id: uid,
+                    title: title || `|| Untitled Chapter ||`,
                     elements: [],
                     timestamp: Date.now()
                 }
