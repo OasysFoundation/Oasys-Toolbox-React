@@ -29,20 +29,8 @@ const tiles = [{
 		name: "Mathematics", 
 		color: tileColors.dark,
 	},{
-		name: "Statistics", 
-		color: tileColors.light,
-	},{
-		name: "Engineering", 
-		color: tileColors.dark,
-	},{
-		name: "Java", 
-		color: tileColors.medium,
-	},{
 		name: "Machine Learning", 
 		color: tileColors.dark,
-	},{
-		name: "Anatomy", 
-		color: tileColors.light,
 	},{
 		name: "iOs", 
 		color: tileColors.medium,
@@ -72,14 +60,73 @@ class LandingPageController extends Component{
 			filteredContent:[{
 				title:"Loading"
 			}],
-			category: 'Featured'
+			category: 'Featured',
+			pageData:[],
+			previousState:'',
 
 		}
 
 		api.getContentsPreview()
-            .then(json => this.setState({
-                content: json || "errorLoadingContent"},
-                () => this.setState({filteredContent: this.getContentForCategory(this.state.category)})))
+            .then(json => 
+            	this.setState({
+                	content: json || "errorLoadingContent"},
+                	() => this.setState({filteredContent: this.getContentForCategory(this.state.category)},
+                	() => this.setState({
+						pageData : [
+						{
+							title:"Featured",
+							data:this.state.filteredContent,
+							id: sectionIds[1]
+						},
+						{
+							title:"Physics",
+							data:this.state.filteredContent.filter(this.correctCategory("Physics")),
+							id: sectionIds[2]
+						},
+						{
+							title:"Chemistry",
+							data:this.state.filteredContent.filter(this.correctCategory("Chemistry")),
+							id: sectionIds[3]
+						},
+						{
+							title:"Computer Science Fundamentals",
+							data:this.state.filteredContent.filter(this.correctCategory("Computer Science Fundamentals")),
+							id: sectionIds[4]
+						},
+						{
+							title:"Mathematics",
+							data:this.state.filteredContent.filter(this.correctCategory("Mathematics")),
+							id: sectionIds[4]
+						},
+						{
+							title:"Machine Learning",
+							data:this.state.filteredContent.filter(this.correctCategory("Machine Learning")),
+							id: sectionIds[4]
+						},
+						{
+							title:"iOs",
+							data:this.state.filteredContent.filter(this.correctCategory("iOs")),
+							id: sectionIds[4]
+						},
+						{
+							title:"Blockchain",
+							data:this.state.filteredContent.filter(this.correctCategory("Blockchain")),
+							id: sectionIds[4]
+						},
+						{
+							title:"Smart Contracts",
+							data:this.state.filteredContent.filter(this.correctCategory("Smart Contracts")),
+							id: sectionIds[4]
+						},
+						{
+							title:"Web Dev",
+							data:this.state.filteredContent.filter(this.correctCategory("Web Dev")),
+							id: sectionIds[4]
+						},
+					]
+				}))
+            ))
+
 	}
 
 	handleCategoryChange(event) {
@@ -106,14 +153,63 @@ class LandingPageController extends Component{
                 //if there is an array with at least 1 match then .length returns true(=> don't filter) else false
 
     }
+
+    filterContentByCategory(content, category) {
+        
+        const keywords = getTagsForCategory(category);
+        //confusing naming! tags sounds like array and state.content sounds like obj -- not array
+
+        function stringHasSubstring(str, substr) {
+            return str.toLowerCase().includes(substr.toLowerCase())
+        }
+        return this.state.content
+            .filter(content => keywords.filter(kw => stringHasSubstring(content.tags, kw) ).length)
+            //filter out when the tags string (??? should be array!) includes the keyword
+
+                //if there is an array with at least 1 match then .length returns true(=> don't filter) else false
+
+    }
+
+    //function in function to pass extra argument to filter function
     correctCategory(category){
-    	return this.getContentForCategory(category);
+    	function stringHasSubstring(str, substr) {
+    		if(!str||!substr)
+    			return
+            return str.toLowerCase().includes(substr.toLowerCase())
+        }
+    	return function(element){
+    		const keywords = getTagsForCategory(category);
+    		return keywords.filter(kw => stringHasSubstring(element.tags, kw) ).length ? element : null
+    	}
+
+    }
+
+    changeSectionOrder(category){
+    	let pageDataUpdate = this.state.pageData;
+
+    	pageDataUpdate.unshift(                     	// add to the front of the array
+		  pageDataUpdate.splice(                    	// the result of deleting items
+		    pageDataUpdate.findIndex(               	// starting with the index where
+		      elt => elt.title === category), 	// the title is category
+		  1)[0]                             	// and continuing for one item
+		)
+
+		this.setState({
+			pageData:pageDataUpdate,
+		})
+
+    }
+    componentDidUpdate(){
+		if(this.props.category && this.props.category.length && this.props.category!=this.state.previousState){
+			this.setState({previousState:this.props.category})
+			this.changeSectionOrder(this.props.category);
+		}
     }
 
 	render(){
-		// <LandingPageHorizontalSection title={"Physics"} data={this.state.filteredContent} />
-		// <LandingPageHorizontalSection title={"Chemistry"} data={this.state.filteredContent} />
-		// <LandingPageHorizontalSection title={"Computer Science"} data={this.state.filteredContent} />
+
+		
+
 		return(
 			<div>
 				<section style={{display: "flex", justifyContent: "center", flexWrap: "wrap"}}>
@@ -125,11 +221,12 @@ class LandingPageController extends Component{
                 <section style={{display:"flex", justifyContent:"center"}}>
 					<div  style={{width:"100%", maxWidth:"900px"}}>
 						<br/>
-						<LandingPageHorizontalSection title={"Tiles"} data={tiles} id={sectionIds[0]}/>
-						<LandingPageHorizontalSection title={"Featured"} data={this.state.filteredContent} id={sectionIds[1]}/>
-						<LandingPageHorizontalSection title={"Physics"} data={this.state.filteredContent} id={sectionIds[2]}/>
-						<LandingPageHorizontalSection title={"Chemistry"} data={this.state.filteredContent} id={sectionIds[3]}/>
-						<LandingPageHorizontalSection title={"Computer Science"} data={this.state.filteredContent} id={sectionIds[4]}/>
+						<LandingPageHorizontalSection title={"Tiles"} data={tiles} id={sectionIds[0]} positionChange={this.changeSectionOrder.bind(this)}/>
+						
+						{this.state.pageData.map(dataObj=>
+								<LandingPageHorizontalSection title={dataObj.title} data={dataObj.data} id={dataObj.id}/>
+						)}
+
 					</div>
 				</section>
 			</div>

@@ -21,7 +21,7 @@ class LandingPageHorizontalSection extends Component{
 					</h1>
 					<hr color="black" style={{height:"1px", border: "none", marginTop:"0"}}/>
 				</div>
-				<HorizontalScroll data={this.props.data} type={this.props.title} id={this.props.id}/>
+				<HorizontalScroll data={this.props.data} type={this.props.title} id={this.props.id} positionChange={this.props.positionChange}/>
 				<br/>
 				<br/>
 			</div>

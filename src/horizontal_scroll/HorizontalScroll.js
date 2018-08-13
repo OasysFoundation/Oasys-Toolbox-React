@@ -321,7 +321,7 @@ class HorizontalScroll extends Component {
                     <nav ref={this.pnProductNav} id="pnProductNav" className="pn-ProductNav">    
                         <div ref={this.pnProductNavContents} id="pnProductNavContents" className="pn-ProductNav_Contents">
                             {this.props.data.map((myData)=>{
-                                    return (<HorizontalScrollButtonMaker data={myData} type={this.props.type}/>)
+                                    return (<HorizontalScrollButtonMaker data={myData} type={this.props.type} positionChange={this.props.positionChange}/>)
                                 })}
                                 
                         <span ref={this.pnIndicator} id="pnIndicator" className="pn-ProductNav_Indicator"></span>
