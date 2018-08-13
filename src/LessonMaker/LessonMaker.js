@@ -137,6 +137,7 @@ class LessonMaker extends Component {
         this.setActiveChapter = this.setActiveChapter.bind(this);
         this.onAddElement = this.onAddElement.bind(this);
         this.onChangeContent = this.onChangeContent.bind(this);
+        this.onTitleChange = this.onTitleChange.bind(this);
 
         this.autoSaveTimer = 15000; //post state to backend every 15 seconds
     }
@@ -285,6 +286,11 @@ class LessonMaker extends Component {
         this.setState({project: proj})
     }
 
+    onTitleChange(text) {
+        let proj = JSON.parse(JSON.stringify(this.state.project));
+        proj.title = text;
+        this.setState({project: proj});
+    }
 
     handleInteractionEvent(eventId) {
         //eventId => chapterId => setState(activeChapter)
@@ -299,6 +305,7 @@ class LessonMaker extends Component {
                 <SideBarLesson onChapterChange={this.setActiveChapter}
                                onAddChapter={this.onAddChapter}
                                onAddElement={this.onAddElement}
+                               onTitleChange={this.onTitleChange}
                                chapters={this.state.project.chapters.map(c => ({title:c.title, id: c.id, links: c.links}) )}
                                currChapIdx={this.state.currChapIdx}
                                title={this.state.project.title}

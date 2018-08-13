@@ -10,33 +10,14 @@ import {
 
 import SidebarToc from "./SidebarToc";
 
-/* const navParams = {
-    items: [
-        {
-            name: 'Dashboard',
-            url: '/dashboard',
-            icon: 'icon-speedometer',
-            badge: {
-                variant: 'info',
-                text: 'NEW',
-            },
-        },
-        {
-            // title: true,
-            name: 'K-12',
-            wrapper: {            // optional wrapper object
-                element: '',        // required valid HTML5 element tag
-                attributes: {}        // optional valid JS object with JS API naming ex: { className: "my-class", style: { fontFamily: "Verdana" }, id: "my-id"}
-            },
-            class: '',           // optional class names space delimited list for title item ex: "text-center"
-            icon: 'icon-speedometer',
-        },
-    ],
-}; */
-
 class SideBarLesson extends Component {
     //title, tags
     // {...this.props}
+
+    onChangeTitle(e) {
+        this.props.onTitleChange(e.target.value);
+    }
+
     render() {
         return (
             <AppSidebar fixed display="lg">
@@ -44,7 +25,7 @@ class SideBarLesson extends Component {
                 {/*<AppSidebarForm/>*/}
                 {/*<AppSidebarNav navConfig={navParams} {...this.props} style={{flex: "0 0", height: ""}}/>*/}
                 <Button className='sidebar-button title '>
-                    <input className='form-control' defaultValue='Untitled lesson' value={this.props.title} onChange='' />
+                    <input className='form-control' defaultValue='Untitled lesson' value={this.props.title} onChange={this.onChangeTitle.bind(this)} />
                     <i class="fas fa-align-right fa-lg fa-cog"></i> 
                 </Button>
                 <Button className='sidebar-button'>
