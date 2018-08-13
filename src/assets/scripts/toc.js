@@ -201,7 +201,7 @@ export function drawChapters(tocInfo, chapters, opt) {
                     active: chapters[elems[j].idx].active,
                 };
                 document.getElementById(opt.tocId).appendChild(svgRect(info,elems[j].idx,opt));
-                document.getElementById(opt.tocId).appendChild(svgText(info,elems[0].idx,opt));
+                document.getElementById(opt.tocId).appendChild(svgText(info,elems[j].idx,opt));
                 offx = offx + rectWidth + opt.gapx;
             }
         }
@@ -286,7 +286,11 @@ export function svgRect(obj,idx,opt){
     svg.height.baseVal.value=opt.rectHeight;
     svg.setAttribute("x", obj.x);
     svg.setAttribute("y", obj.y);
+    svg.setAttribute("rx", '0.25rem'); // corner radius horizontal
+    svg.setAttribute("ry", '0.25rem'); // corner radius vertical
     svg.setAttribute("opacity", 1.0);
+    svg.setAttribute('data-tip', 'tooltip');
+    svg.setAttribute('data-for', 'toc-'+idx);
     svg.addEventListener("click", function(){opt.handleClick(idx)}, false);
     if (obj.active) {
         svg.style.fill = opt.rectColorActiveFill;
@@ -312,12 +316,14 @@ export function svgText(obj,idx,opt) {
     svg.setAttribute('width', obj.width - opt.textpadx);
     svg.setAttribute('height', opt.rectHeight);
     svg.setAttribute('data-tip', 'tooltip');
-    svg.setAttribute('data-for', 'toc-'+obj.idx);
+    svg.setAttribute('data-for', 'toc-'+idx);
 
     let txt = document.createElementNS(NS, 'text');
     txt.setAttribute('x', opt.textpadx);
     txt.setAttribute('y', opt.textpady+15);
     txt.setAttribute('fill', opt.textColor);
+    svg.setAttribute('data-tip', 'tooltip');
+    svg.setAttribute('data-for', 'toc-'+idx);
     txt.style.cursor = 'pointer';
     txt.textContent = obj.text;
 

@@ -3,10 +3,10 @@ import React, { Component } from 'react';
 
 import { InputGroup, InputGroupAddon, Input } from 'reactstrap';
 
-import { InlineMath, BlockMath } from 'react-katex';
+import { BlockMath } from 'react-katex';
 
 import PropTypes from 'prop-types';
-import api from '../api'
+// import api from '../api'
 
 
 
@@ -34,7 +34,22 @@ class FormulaEdit extends Component {
 			        <Input placeholder="formula" onChange={this.onChangedSearchTerm.bind(this)}/>
 		        </InputGroup>
             	<center>
-            	{this.state.formula? <InlineMath math={this.state.formula}/> : <img src="https://media0.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" />}
+            	{this.state.formula
+                ? <div className='math-renderview'>
+                    <BlockMath 
+                        math={this.state.formula}
+                        renderError={(error) => {
+                          return <b>Fail: {error.name}</b>
+                        }}
+                    />
+                  </div> 
+                : <div className='math-preview'>
+                    Formula preview <br/>
+                    <small>
+                        (You can type any <a href='https://en.wikibooks.org/wiki/LaTeX/Mathematics' target='_blank' rel="noopener noreferrer">latex math expression</a> here)
+                    </small>
+                  </div>
+                }
             	
             	</center>
             </div>

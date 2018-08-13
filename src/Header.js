@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
-import { Badge, DropdownItem, DropdownMenu, DropdownToggle, Nav, NavItem, NavLink } from 'reactstrap';
+import { Nav, NavItem, NavLink } from 'reactstrap';
 import PropTypes from 'prop-types';
 
-import { AppAsideToggler, AppHeaderDropdown, AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
+import { AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
 
 import logo from './assets/images/brand/oasys_logo_big.png'
 import logoSmall from './assets/images/brand/oasys_logo_small.png'
-
-//import IconExplore from '@material-ui/icons/Explore';
-//import IconCreate from '@material-ui/icons/Create';
-//import IconInsertChart from '@material-ui/icons/InsertChart';
-//import IconFormatQuote from '@material-ui/icons/FormatQuote';
 
 const propTypes = {
   children: PropTypes.node,
@@ -34,29 +29,35 @@ class Header extends Component {
         <AppSidebarToggler className="d-md-down-none" display="lg" />
 
         <Nav className="d-md-down-none" navbar>
+        </Nav>
+        <Nav className="ml-auto" navbar>
           <NavItem className="px-3">
             <NavLink href="#">
-              Explore
+              <i class="fas fa-align-right fa-lg fa-compass margin-right5"></i> 
+              Learn
             </NavLink>
           </NavItem>
           <NavItem className="px-3">
             <NavLink href="#">
+              <i class="fas fa-align-right fa-lg fa-pencil-alt margin-right5"></i> 
               Create
             </NavLink>
           </NavItem>
           <NavItem className="px-3">
             <NavLink href="#">
-              Analytics
+              <i class="fas fa-align-right fa-lg fa-info-circle margin-right5"></i> 
+              About
             </NavLink>
           </NavItem>
           <NavItem className="px-3">
             <NavLink href="#">
-              Blog
+              <i class="fas fa-align-right fa-lg fa-user margin-right5"></i> 
+              My Account
             </NavLink>
           </NavItem>
         </Nav>
+        {/*
         <Nav className="ml-auto" navbar>
-          {/*
             <NavItem className="d-md-down-none">
               <NavLink href="#"><i className="icon-bell"></i><Badge pill color="danger">5</Badge></NavLink>
             </NavItem>
@@ -66,7 +67,6 @@ class Header extends Component {
             <NavItem className="d-md-down-none">
               <NavLink href="#"><i className="icon-location-pin"></i></NavLink>
             </NavItem>
-          */}
           <AppHeaderDropdown direction="down">
             <DropdownToggle nav>
               Avatar
@@ -88,8 +88,8 @@ class Header extends Component {
             </DropdownMenu>
           </AppHeaderDropdown>
         </Nav>
-        {/*<AppAsideToggler className="d-md-down-none" />*/}
-        {/*<AppAsideToggler className="d-lg-none" mobile />*/}
+        <AppAsideToggler className="d-md-down-none" />
+        <AppAsideToggler className="d-lg-none" mobile />*/}
       </React.Fragment>
     );
   }

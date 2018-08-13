@@ -33,10 +33,7 @@ const styles = {
 //put Fade from CoreUI --> Wrap it in component to manage IN/Out state!
 
 class Element extends Component {
-    constructor(props) {
-        super(props);
-    }
-
+    
     state = {
         mode: styles.normal,
         isHovered: false,
@@ -83,7 +80,7 @@ class Element extends Component {
                 render = <QuizzEdit key={id} id={id} data={content} chapters={this.props.chaptersLight} isEditMode={isEditMode} />
                 break;
             case globals.EDIT_VIDEO:
-                render = <VideoEdit data={content}/>
+                render = <VideoEdit key={id} id={id}  data={content}/>
                 break;
 
             default:
@@ -98,25 +95,26 @@ class Element extends Component {
     render() {
         const {id, type} = this.props.data;
         return (
-            <div>
-
-                <section style={this.state.mode}
-                         onMouseEnter={() => this.setState({isHovered: true})}
-                         onMouseLeave={() => this.setState({isHovered: false})}
-                         onClick={() => this.setState({isClicked: true})}
-                >
-                    <FadeableCard
-                        id={id}
-                        type={type}
-                        onDelete={() => this.props.onDelete(id)}
-                        onMoveUp={() => this.props.onMove(id, -1)}
-                        onMoveDown={() => this.props.onMove(id, +1)}
-                        isEditMode={!this.props.isPreview && this.state.isHovered}
+            <center>
+                <div className='mainWidth'>
+                    <section style={this.state.mode}
+                             onMouseEnter={() => this.setState({isHovered: true})}
+                             onMouseLeave={() => this.setState({isHovered: false})}
+                             onClick={() => this.setState({isClicked: true})}
                     >
-                        {this.typeToComponent(type)}
-                    </FadeableCard>
-                </section>
-            </div>
+                        <FadeableCard
+                            id={id}
+                            type={type}
+                            onDelete={() => this.props.onDelete(id)}
+                            onMoveUp={() => this.props.onMove(id, -1)}
+                            onMoveDown={() => this.props.onMove(id, +1)}
+                            isEditMode={!this.props.isPreview && this.state.isHovered}
+                        >
+                            {this.typeToComponent(type)}
+                        </FadeableCard>
+                    </section>
+                </div>
+            </center>
         );
     }
 }

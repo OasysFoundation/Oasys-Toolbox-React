@@ -87,12 +87,9 @@
   font-family: "Verdana";
 }
 
-
-/* set quill video embed size */
-
-
-.ql-editor {
-  height: '60vh';
+.oasys .ql-container.ql-snow {
+  padding: 0;
+  border: 0;
 }
 
 .ql-editor h1 {
@@ -146,7 +143,6 @@
 .ql-container.ql-snow {
   height: '70vh';
   max-width: '400px';
-  font-family: "Charter-Regular"; /* default font */
   font-size: 21px;
 }
 
