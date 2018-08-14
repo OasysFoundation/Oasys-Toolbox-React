@@ -17,7 +17,8 @@ const styles= {
 		borderColor:"#F6F1DE", 
 		color: "#F6F1DE", 
 		maxHeight:"300px", 
-		fontFamily:"HelveticaNeue_Bold,-apple-system, sans-serif"
+		fontFamily:"HelveticaNeue_Bold,-apple-system, sans-serif",
+		margin:"0 5px"
 	},
 	cardBody:{
 		width:"100%", 
@@ -160,7 +161,7 @@ class HorizontalScrollButtonMaker extends Component{
 		return(
 			this.props.type==="Tiles"
 			? (
-				<Button variant="contained" size="small" color="inherit" style={{textTransform: "none", backgroundColor:this.props.data.color, borderRadius: "12px", margin:".3em .5em .3em .5em", boxShadow: "1px 1px 5px #888888"}}>
+				<Button variant="contained" size="small" color="inherit" style={{textTransform: "none", backgroundColor:this.props.data.color, borderRadius: "12px", margin:".3em .3em .3em .3em", boxShadow: "1px 1px 5px #888888"}}>
             		{aTag}
             	</Button>
             )
@@ -170,7 +171,7 @@ class HorizontalScrollButtonMaker extends Component{
 			        <CardBody style={styles.cardBody}>
 			          <div style={styles.titleAndSubtitle}>
 					          <CardTitle style={styles.cardTitle}>
-					          	<a href="/" style={styles.cardTitleLink}>
+					          	<a href={userLink} style={styles.cardTitleLink}>
 					          	 {this.props.data.title}
 					          	</a>
 					          </CardTitle>
@@ -210,7 +211,7 @@ class HorizontalScrollButtonMaker extends Component{
 	                  </ModalBody>
 	                </Modal>
 			        </CardBody>
-			        <a href="/" style={styles.cardImageOuterLink}>
+			        <a href={userLink} style={styles.cardImageOuterLink}>
 				        <section style={styles.cardImageSection}>
 						 	<div style={styles.cardImageDiv}>
 			                  <img src={globe} style={styles.cardImage}/>

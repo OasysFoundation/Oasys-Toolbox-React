@@ -21,7 +21,7 @@
           max-width: 900px;
           width: 100%;
           position: relative;
-          padding: 0 2rem;
+          padding: 0 1.4rem;
         }
 
         .pn-ProductNav {
@@ -72,9 +72,9 @@
           -webkit-box-align: center;
               -ms-flex-align: center;
                   align-items: center;
-          min-height: 44px;
+          min-height: 30px;
           border: 1px solid transparent;
-          padding: 0 11px;
+          padding: 0 0px;
         }
 
         .pn-ProductNav_Link:hover {

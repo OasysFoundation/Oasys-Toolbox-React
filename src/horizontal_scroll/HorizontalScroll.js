@@ -368,16 +368,19 @@ class HorizontalScroll extends Component {
                     <hr color="black" style={styles.HRDividingLine}/>
                 </div>
                 {this.getHorizontalScrollers()}
-                {this.props.type==="mobile"
+                {this.props.title!="Tiles"
                     ? (
-                        <br/>
+                        this.props.type==="mobile"
+                            ? <br/>
+                            : (
+                                <div>
+                                    <br/>
+                                    <br/>
+                                </div>
+                            )
                     )
-                    :(
-                        <div>
-                            <br/>
-                            <br/>
-                        </div>
-                    )
+                    : <br/>
+                    
                 }
             </div>
             )

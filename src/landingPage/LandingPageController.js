@@ -85,7 +85,7 @@ class LandingPageController extends Component{
                 	() => this.setState({
 						pageData : [
 						{
-							title:"Featured",
+							title:"Featured Experiences",
 							data:this.state.filteredContent,
 							id: sectionIds[1]
 						},
@@ -208,6 +208,7 @@ class LandingPageController extends Component{
 		this.setState({
 			pageData:pageDataUpdate,
 		})
+		window.location.href="#searchResults"
 
     }
     componentDidUpdate(){
@@ -237,10 +238,12 @@ class LandingPageController extends Component{
 								<div  style={styles.HorizontalScrollContainer}>
 									<br/>
 									<ScrollableAnchor id={'searchResults'}>
+									<div>
 									<HorizontalScroll title={"Tiles"} data={tiles} id={sectionIds[0]} positionChange={this.changeSectionOrder.bind(this)} type="mobile"/>
 									{this.state.pageData.map(dataObj=>
 											<HorizontalScroll title={dataObj.title} data={dataObj.data} id={dataObj.id} type="mobile"/>
 									)}
+									</div>
 									</ScrollableAnchor>
 
 								</div>
@@ -251,7 +254,7 @@ class LandingPageController extends Component{
 						<div>
 							<HeaderImage type="PC"/>
 							<section style={styles.HorizontalScrollOuterCenterContainer}>
-								<div  style={styles.HorizontalScrollContainer}>
+								<div style={styles.HorizontalScrollContainer}>
 									<br/>
 									<ScrollableAnchor id={'searchResults'}>
 							        <div>

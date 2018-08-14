@@ -73,6 +73,10 @@ class HeaderImage extends Component{
     	});
   	}
 
+  	openCreate(){
+  		window.location.href="/create"
+  	}
+
 	getPCScreenImage(value){
 		let myFontSizeTitle="3.5vw";
 		let myFontSizeSubTitle="2vw";
@@ -112,7 +116,7 @@ class HeaderImage extends Component{
 				      		</div>
 				      	</div>
 				      	<div style={styles.bottomButtonDiv}>
-				      		<Button size="lg" color="light"> Create Your Own Content!</Button>
+				      		<Button size="lg" color="light" onClick={this.openCreate}> Create Your Own Content!</Button>
 				      	</div>
 				    </div>
 			  	)
