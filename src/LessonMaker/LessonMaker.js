@@ -80,9 +80,9 @@ class LessonMaker extends Component {
                                {...this.props} //router fucking needs it for CoreUI React ?>?!?!?>!
                 />
                 <main className="main">
-                    <Container fluid>
+                    <Container fluid className='main-width'>
                         <center>
-                            <section className='main-width' style={{display: 'flex', marginTop: '1rem', marginBottom: '1rem', flex: 1, flexDirection: 'row'}}>
+                            <section style={{display: 'flex', marginTop: '1rem', marginBottom: '1rem', flex: 1, flexDirection: 'row'}}>
                                 {/*<div style={{marginBottom: 0}} className="input-group mb-3">*/}
                                 <div className="input-group-prepend">
                                     <span className="input-group-text" id="basic-addon1">Chapter Title</span>

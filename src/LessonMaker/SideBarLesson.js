@@ -20,6 +20,8 @@ class SideBarLesson extends Component {
         this.state = {
             showSettingsDialog:false,
         }
+        this.title = null;
+        this.tags = null;
     }
 
     onSettingsShow(){
@@ -35,7 +37,15 @@ class SideBarLesson extends Component {
     }
 
     onSettingsSave(){
-
+        if (this.tags!=null) {
+            this.props.onChangeProjectTags(this.tags);
+        }
+        if (this.title!=null) {
+            this.props.onChangeProjectTitle(this.title);
+        }
+        this.setState({
+            showSettingsDialog: false,
+        });
     }
 
     render() {
@@ -49,17 +59,15 @@ class SideBarLesson extends Component {
                 </ModalHeader>
                   <ModalBody>
                     <Input 
-                        placeholder="Title" 
-                        value={this.props.title} 
-                        onChange={e=>this.props.onChangeProjectTitle(e.target.value)}
+                        defaultValue={this.props.title} 
+                        onChange={e=>this.title=e.target.value}
                     />
                     <FormText color="muted">
                         The title for this lesson may have 40 characters at most.
                     </FormText>
                     <Input 
-                        placeholder="Tags" 
-                        value={tags} 
-                        onChange={e=>this.props.onChangeProjectTags(e.target.value)} 
+                        defaultValue={tags} 
+                        onChange={e=>this.tags=e.target.value}
                     />
                     <FormText color="muted">
                         Tags are being used to inform the learner about the context. For example, you can use tags like 'physics', or 'mathematics'.
