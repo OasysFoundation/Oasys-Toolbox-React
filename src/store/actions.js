@@ -62,7 +62,7 @@ const actions = function (store) { //store for async stuff
             return clone;
         },
 
-        onDeleteElement(state, id = "yolooooID") {
+        onDeleteElement(state, id) {
             const clone = JSON.parse(JSON.stringify(state));
             let elements = clone.chapters[state.activeChapterIndex].elements;
             const entryIdx = elements.findIndex(el => el.id === id.toString());
