@@ -39,12 +39,20 @@ const actions = function (store) { //store for async stuff
         onAddChapter(state, uid, title) {
             const clone = JSON.parse(JSON.stringify(state));
 
+            const activeChapter = clone.chapters[state.activeChapterIndex];
+            activeChapter.links.push({
+                eventId: uuidv4(),
+                chapterId: uid
+            });
+            clone.chapters[state.activeChapterIndex] = activeChapter;
+
             clone.chapters.push(
                 {
                     id: uid,
                     title: title || `|| Untitled Chapter ||`,
                     elements: [],
-                    timestamp: Date.now()
+                    timestamp: Date.now(),
+                    links: []
                 }
             );
 

@@ -392,8 +392,4 @@ class QuizzEditModal extends Component {
 }
 
 //only take what you need
-export default connect(mapStoreToProps, actions)((propsFromStore) => {
-    const {onAddChapter} = propsFromStore;
-    return React.createElement(QuizzEditModal, {onAddChapter});
-    // return (<LessonMaker people={people} setFirstName={setFirstName}/>)
-});
+export default connect(mapStoreToProps, actions)(QuizzEditModal);
