@@ -89,7 +89,9 @@ const project = {
                 {
                     id: "asdwasd2",
                     type: 5,
-                    content: "https://media0.giphy.com/media/l0NwFIAW8xo5VmDQc/giphy.gif"
+                    content: {
+                        imageUrl: "https://media0.giphy.com/media/l0NwFIAW8xo5VmDQc/giphy.gif"
+                    }
                 },
             ]
 
