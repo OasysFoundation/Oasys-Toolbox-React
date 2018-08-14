@@ -29,9 +29,9 @@ class Element extends Component {
     //glue function between LessonMaker and Quill to add ID
     handleChange = (value) => {
         this.setState({tempContent: value}); //for Quill
-        saveToSessionStorage(this.props.data.id, value) //for s{this.typeToComponent(type)}witching chapters
+        this.props.onChangeContent(this.props.data.id, value)
+        // saveToSessionStorage(this.props.data.id, value) //for s{this.typeToComponent(type)}witching chapters
     }
-
 
     typeToComponent(type) {
         const {content, id} = this.props.data
@@ -112,7 +112,10 @@ Element.propTypes = {
 const mapStoreToProps = ({chapters, isEditMode}) => ({chapters, isEditMode});
 
 //don't need anything!
-const neededActions = (store) => ({});
+const neededActions = (store) => {
+    const {onChangeContent} = actions();
+    return {onChangeContent}
+};
 
 //IMPORTANT!! the project data is in the project obj, the rest of the store (action functions) is just flat there
 export default connect(mapStoreToProps, neededActions)(Element);
