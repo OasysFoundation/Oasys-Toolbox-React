@@ -1,7 +1,17 @@
 import React, {Component} from 'react';
-import {Card, CardBody, Container} from 'reactstrap';
+import { Card, CardBody, Container } from 'reactstrap';
+import DataOverview from './DataOverview'
+import DataDetails from './DataDetails'
 
 class DataViewCreator extends Component {
+
+	constructor(props) {
+		super(props);
+		this.state = {
+			contentTitle: 'Bullshit detector'
+		}
+	}
+
 	render(){
 		let summaryStats = [
 			{'label': 'Average rating', 'value': 'N/A'},
@@ -12,23 +22,17 @@ class DataViewCreator extends Component {
 		return ( 
 			<div className="app-body">
                 <main className="main dataview">
-                    <Container fluid className='paddingTop20'>
+                    <Container fluid className='paddingTop20 paddingBottom20 main-width'>
 						<h3 style={{marginBottom: '0px'}}>Overview</h3>
 						<hr style={{marginTop: '0px'}}/>
 						<center>
 							<Card className="card-fancy has-shadow" style={{width: '500px'}}>
 								<CardBody className='flex-center'>
 								{summaryStats.map((elem,idx) =>
-									(idx<summaryStats.length-1)
-									?(<div className='cell-center card-section border-right'>
+									<div className={(idx<summaryStats.length-1) ? 'cell-center card-section border-right' : 'cell-center card-section'}>
 										<p>{elem.label}</p>
 										<p className='font-big'>{elem.value}</p>
-									  </div>
-									):(
-									<div className='cell-center card-section'>
-										<p>{elem.label}</p>
-										<p className='font-big'>{elem.value}</p>
-									</div>)
+								    </div>
 								)}
 								</CardBody>
 							</Card>
@@ -37,8 +41,15 @@ class DataViewCreator extends Component {
 						<h3 style={{marginBottom: '0px'}}>Summary</h3>
 						<hr style={{marginTop: '0px'}}/>
 
-						<h3 style={{marginBottom: '0px'}}>Details</h3>
+						<DataOverview/>
+
+						<h3 style={{marginBottom: '0px', marginTop: '30px'}}>
+							Details for lesson {this.state.contentTitle}
+						</h3>
 						<hr style={{marginTop: '0px'}}/>
+
+						<DataDetails contentTitle={this.state.contentTitle}/>
+
 					</Container>
 				</main>
 			</div>
