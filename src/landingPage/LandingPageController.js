@@ -7,6 +7,8 @@ import {Unwrap, Wrap} from "../utils"
 import ErrorLoadingContentPage from "../ErrorLoadingContentPage"
 
 import HeaderImage from './HeaderImage'
+import ScrollableAnchor from 'react-scrollable-anchor'
+
 
 const styles={
 	HorizontalScrollOuterCenterContainer:{
@@ -234,10 +236,12 @@ class LandingPageController extends Component{
 							<section style={styles.HorizontalScrollOuterCenterContainer}>
 								<div  style={styles.HorizontalScrollContainer}>
 									<br/>
+									<ScrollableAnchor id={'searchResults'}>
 									<HorizontalScroll title={"Tiles"} data={tiles} id={sectionIds[0]} positionChange={this.changeSectionOrder.bind(this)} type="mobile"/>
 									{this.state.pageData.map(dataObj=>
 											<HorizontalScroll title={dataObj.title} data={dataObj.data} id={dataObj.id} type="mobile"/>
 									)}
+									</ScrollableAnchor>
 
 								</div>
 							</section>
@@ -249,10 +253,14 @@ class LandingPageController extends Component{
 							<section style={styles.HorizontalScrollOuterCenterContainer}>
 								<div  style={styles.HorizontalScrollContainer}>
 									<br/>
+									<ScrollableAnchor id={'searchResults'}>
+							        <div>
 									<HorizontalScroll title={"Tiles"} data={tiles} id={sectionIds[0]} positionChange={this.changeSectionOrder.bind(this)}/>
 									{this.state.pageData.map(dataObj=>
 											<HorizontalScroll title={dataObj.title} data={dataObj.data} id={dataObj.id}/>
 									)}
+									</div>
+									</ScrollableAnchor>
 
 								</div>
 							</section>

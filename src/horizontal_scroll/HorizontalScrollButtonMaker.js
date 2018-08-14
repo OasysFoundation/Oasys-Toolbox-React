@@ -8,7 +8,90 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Modal, ModalBody, ModalFooter, ModalHeader, Row } from 'reactstrap';
 
 
+const styles= {
+	cardStyle:{
+		boxShadow: "3px 3px 5px #888888", 
+		width:"175px", 
+		height:"250px", 
+		backgroundColor: '#F6F1DE', 
+		borderColor:"#F6F1DE", 
+		color: "#F6F1DE", 
+		maxHeight:"300px", 
+		fontFamily:"HelveticaNeue_Bold,-apple-system, sans-serif"
+	},
+	cardBody:{
+		width:"100%", 
+		height:"160px", 
+		display:"flex", 
+		padding:"1em",
+	},
+	titleAndSubtitle:{
+		flex:5, 
+		height:"100%",
+	},
+	cardTitle:{
+		textDecoration:"none", 
+		width:"100%",
+	},
+	cardTitleLink:{
+		textDecoration:"none", 
+		height:"100%",
+		color:"#C6361D",
+		fontWeight: "bold",
+		whiteSpace:"initial",
+	},
+	cardSubtitle:{
+		color:"#C6361D",
+	},
+	verticalEllipsesOuterDiv:{
+		flex:"1", 
+		height:"100%",
+	},
+	ellipsisIcon:{
+		flex:"1", 
+		float:"right", 
+		color:"#C3C8D4",
+	},
+	modalOuterDiv:{
+		fontFamily:"HelveticaNeue_Light",
+	},
+	modalHeader:{
+		fontSize:"2.5em"
+	},
+	modalBody:{
+		display: "flex",
+		flexDirection: "column", 
+		fontSize:"1.5em",
+	},
+	modalButton:{
+		display:"flex", 
+		padding:"1em",
+	},
+	cardImageOuterLink:{
+		textDecoration:"none", 
+		height:"100%",
+	},
+	cardImageSection:{
+		display: "flex", 
+		justifyContent: "center", 
+		flexWrap: "wrap",
+	},
+	cardImageDiv:{
+		minWidth: 0, 
+		marginBottom: "5px",
+	},
+	cardImage:{
+		width: "auto%", 
+		maxWidth: "100%", 
+		maxHeight: "85px",
+	},
+	cardRatingsOuterDiv:{
+		color:"#C6361D", 
+		display:"flex", 
+		justifyContent:"center",
+	}
 
+}
 
 class HorizontalScrollButtonMaker extends Component{
 	constructor(props){
@@ -77,49 +160,49 @@ class HorizontalScrollButtonMaker extends Component{
 		return(
 			this.props.type==="Tiles"
 			? (
-				<Button variant="contained" size="small" color="inherit" style={{textTransform: "none", backgroundColor:this.props.data.color, borderRadius: "12px", margin:".5em .5em .5em .5em", boxShadow: "1px 1px 5px #888888"}}>
+				<Button variant="contained" size="small" color="inherit" style={{textTransform: "none", backgroundColor:this.props.data.color, borderRadius: "12px", margin:".3em .5em .3em .5em", boxShadow: "1px 1px 5px #888888"}}>
             		{aTag}
             	</Button>
             )
             : (
             	<div className="pn-ProductNav_Link" aria-selected="true">
-			      <Card backgroundColor="black" style={{boxShadow: "3px 3px 5px #888888", width:"175px", height:"250px", backgroundColor: '#F6F1DE', borderColor:"#F6F1DE", color: "#F6F1DE", maxHeight:"300px", fontFamily:"HelveticaNeue_Bold,-apple-system, sans-serif"}}>
-			        <CardBody style={{width:"100%", height:"160px", display:"flex", padding:"1em"}}>
-			          <div style={{flex:5, height:"100%"}}>
-					          <CardTitle style={{textDecoration:"none", width:"100%"}}>
-					          	<a href="/" style={{textDecoration:"none", height:"100%",color:"#C6361D",fontWeight: "bold",whiteSpace:"initial"}}>
+			      <Card backgroundColor="black" style={styles.cardStyle}>
+			        <CardBody style={styles.cardBody}>
+			          <div style={styles.titleAndSubtitle}>
+					          <CardTitle style={styles.cardTitle}>
+					          	<a href="/" style={styles.cardTitleLink}>
 					          	 {this.props.data.title}
 					          	</a>
 					          </CardTitle>
 					          <CardSubtitle>
-					          <a href={returnUrl} style={{color:"#C6361D"}}>By {this.props.data.userId}</a>
+					          <a href={returnUrl} style={styles.cardSubtitle}>By {this.props.data.userId}</a>
 					          </CardSubtitle>
 				      </div>
 
-			          <div style={{flex:"1", height:"100%"}}>
-			          	<a onClick={this.toggleSmall.bind(this,this.props.data)}><FontAwesomeIcon icon="ellipsis-v" style={{flex:"1", float:"right", color:"#C3C8D4"}}/></a>
+			          <div style={styles.verticalEllipsesOuterDiv}>
+			          	<a onClick={this.toggleSmall.bind(this,this.props.data)}><FontAwesomeIcon icon="ellipsis-v" style={styles.ellipsisIcon}/></a>
 			          </div>
 			          <Modal isOpen={this.state.small} toggle={this.toggleSmall}
-	                       className={'modal-sm ' + this.props.className} style={{fontFamily:"HelveticaNeue_Light"}}>
-	                  <ModalHeader toggle={this.toggleSmall} style={{fontSize:"2.5em"}}>{this.state.currentTitle}</ModalHeader>
-	                  <ModalBody style={{display: "flex",flexDirection: "column", fontSize:"1.5em"}}>
-	                      <Button block color="light" style={{display:"flex", padding:"1em"}}>
+	                       className={'modal-sm ' + this.props.className} style={styles.modalOuterDiv}>
+	                  <ModalHeader toggle={this.toggleSmall} style={styles.modalHeader}>{this.state.currentTitle}</ModalHeader>
+	                  <ModalBody style={styles.modalBody}>
+	                      <Button block color="light" style={styles.modalButton}>
 	                      	<div style={{flex:1}}><FontAwesomeIcon icon="pencil-alt"/></div>
 	                      	<div style={{flex:3, textAlign:"left"}}>Remix</div>
 	                      </Button>
-						  <Button block color="light" style={{display:"flex", padding:"1em"}}>
+						  <Button block color="light" style={styles.modalButton}>
 						  	<div style={{flex:1}}><FontAwesomeIcon icon="comment"/></div>
 	                      	<div style={{flex:3, textAlign:"left"}}>View Comments</div>
 						  </Button>
-						  <Button block color="light" style={{display:"flex", padding:"1em"}}>
+						  <Button block color="light" style={styles.modalButton}>
 						  	<div style={{flex:1}}><FontAwesomeIcon icon="user"/></div>
 	                      	<div style={{flex:3, textAlign:"left"}}>{"Go To " + this.state.currentUsername + "'s Page"}</div>
 						  </Button>
-						  <Button block color="light" style={{display:"flex", padding:"1em"}}>
+						  <Button block color="light" style={styles.modalButton}>
 						  	<div style={{flex:1}}><FontAwesomeIcon icon="object-group"/></div>
 	                      	<div style={{flex:3, textAlign:"left"}}>Create New Collection</div>
 						  </Button>
-						  <Button block color="light" style={{display:"flex", padding:"1em"}}>
+						  <Button block color="light" style={styles.modalButton}>
 						  	<div style={{flex:1}}><FontAwesomeIcon icon="flag"/></div>
 	                      	<div style={{flex:3, textAlign:"left"}}>Flag as Inappropriate</div>
 						  </Button>
@@ -127,14 +210,14 @@ class HorizontalScrollButtonMaker extends Component{
 	                  </ModalBody>
 	                </Modal>
 			        </CardBody>
-			        <a href="/" style={{textDecoration:"none", height:"100%"}}>
-				        <section style={{display: "flex", justifyContent: "center", flexWrap: "wrap"}}>
-					 	<div style={{minWidth: 0, marginBottom: "5px"}}>
-		                  <img src={globe} style={{width: "auto%", maxWidth: "100%", maxHeight: "85px"}}/>
-		                </div>
+			        <a href="/" style={styles.cardImageOuterLink}>
+				        <section style={styles.cardImageSection}>
+						 	<div style={styles.cardImageDiv}>
+			                  <img src={globe} style={styles.cardImage}/>
+			                </div>
 	                	</section>
 				        <CardBody>
-				        <CardText style={{color:"#C6361D", display:"flex", justifyContent:"center"}}>
+				        <CardText style={styles.cardRatingsOuterDiv}>
 				          {stars}
 				         </CardText>
 				        </CardBody>

@@ -12,6 +12,7 @@ import User from './images/settings.png'
 import Logo from './images/oasys_logo_big.png'
 import Logo_Small from './images/oasys_logo_small.png'
 
+
 // Styling
 import {
   Collapse,
@@ -261,6 +262,7 @@ class NavBar extends React.Component {
         if(selectedOption.url)
             window.location.href=selectedOption.url;
         else{
+            window.location.href="#searchResults";
             this.props.onChange(selectedOption.label);
         }
     }
@@ -299,7 +301,7 @@ class NavBar extends React.Component {
 
         let groupedOptions = [
           {
-            label: 'Categories',
+            label: 'Topics',
             options: selectOptions,
           },
           {
