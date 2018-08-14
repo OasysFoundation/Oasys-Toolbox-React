@@ -80,24 +80,22 @@ class Element extends Component {
         const that = this;
         return (
             <center>
-                <div className='mainWidth'>
-                    <section onMouseEnter={() => this.setState({isHovered: true})}
-                             onMouseLeave={() => this.setState({isHovered: false})}
-                             onClick={() => this.setState({isClicked: true})}
-                    >
-                        {this.props.isEditMode
-                            ? (<FadeableCard
-                                id={id}
-                                type={type}
-                                isEditMode={!this.props.isEditMode && this.state.isHovered}
-                                >
-                                {this.typeToComponent(type)}
-                            </FadeableCard>)
-                            : (<React.Fragment>{this.typeToComponent(type)}</React.Fragment>)
-                        }
+                <section onMouseEnter={() => this.setState({isHovered: true})}
+                         onMouseLeave={() => this.setState({isHovered: false})}
+                         onClick={() => this.setState({isClicked: true})}
+                >
+                    {this.props.isEditMode
+                        ? (<FadeableCard
+                            id={id}
+                            type={type}
+                            isEditMode={!this.props.isEditMode && this.state.isHovered}
+                            >
+                            {this.typeToComponent(type)}
+                        </FadeableCard>)
+                        : (<React.Fragment>{this.typeToComponent(type)}</React.Fragment>)
+                    }
 
-                    </section>
-                </div>
+                </section>
             </center>
         );
     }

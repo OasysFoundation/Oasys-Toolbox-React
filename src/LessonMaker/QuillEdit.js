@@ -87,10 +87,10 @@ class QuillEdit extends Component {
 
     componentWillReceiveProps() {
         if (this.mounted) {
-            if (this.props.isPreview) {
-                this.refs.reactQuill.getEditor().disable();
-            } else {
+            if (this.props.isEditMode) {
                 this.refs.reactQuill.getEditor().enable();
+            } else {
+                this.refs.reactQuill.getEditor().disable();
             }
         }
         return true;

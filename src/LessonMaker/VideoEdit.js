@@ -36,7 +36,7 @@ class VideoEdit extends Component {
 
     renderVideo(){
         return (<div>
-            {this.props.isPreview
+            {!this.props.isEditMode
                 ? (<VideoPreview data={this.props.data} />)
                 : (<VideoEditCropper 
                     data={this.props.data} 
@@ -68,3 +68,5 @@ class VideoEdit extends Component {
         )
     }
 }
+
+export default VideoEdit;
