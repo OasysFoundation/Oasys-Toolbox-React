@@ -230,7 +230,6 @@ class QuizzEditModal extends Component {
     }
 
     chapterTitleForIdentifier(identifier) {
-        console.log(identifier);
 
         return this.props.chapters.reduce(function(result, currentChapter) { 
             if (currentChapter.id == identifier) {
