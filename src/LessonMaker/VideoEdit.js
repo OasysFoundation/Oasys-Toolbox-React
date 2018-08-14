@@ -68,3 +68,5 @@ class VideoEdit extends Component {
         )
     }
 }
+
+export default VideoEdit;
