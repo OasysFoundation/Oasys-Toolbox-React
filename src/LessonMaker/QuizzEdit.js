@@ -5,6 +5,7 @@ import { InputGroup, InputGroupAddon, Input, InputGroupText, InputGroupButtonDro
 import { Button } from 'reactstrap';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
+import { Popover, PopoverHeader, PopoverBody } from 'reactstrap';
 
 
 import PropTypes from 'prop-types';
@@ -38,6 +39,8 @@ class QuizzEdit extends Component {
             quizType: props.data.quizType? props.data.quizType : "single-choice",
             showsPageSelectionDropDown: false,
             selectingImageForIndex: 0,
+            showsFeedbackPopover: false,
+            selectedAnswerIndex: 0
         }
     }
 
@@ -71,8 +74,21 @@ class QuizzEdit extends Component {
         })
     }
 
-    onSelectAnswer(element) {
-        console.log({element});
+    onSelectAnswer(index) {
+        this.setState({
+            showsFeedbackPopover: false
+        }, function() {
+            this.setState({
+                selectedAnswerIndex: index,
+                showsFeedbackPopover: true
+            })
+        });
+    }
+
+    onCloseFeedbackPopover() {
+        this.setState({
+            showsFeedbackPopover: false
+        });   
     }
 
 	
@@ -111,6 +127,9 @@ class QuizzEdit extends Component {
             flexWrap: flexWrap
         }
 
+        const selectedAnswer = this.state.answers? this.state.answers[this.state.selectedAnswerIndex] : null;
+        const feedbackTitle = selectedAnswer? (selectedAnswer.correct ? "You are amazing! This is correct." : "Schade Schokolade. This is wrong.") : null;
+
         const that = this; 
         return (
             <div>
@@ -122,14 +141,18 @@ class QuizzEdit extends Component {
             	<div style={containerStyle}>
                    
             	   {this.state.answers.map(function(answer, index) {
-                    
-                    return <QuizzButton answer={answer} showsSelectionIndicator={that.state.quizType=='multiple-choice'} isSelected={answer.isSelected} index={index} onSelect={that.onSelectAnswer.bind(that)} width={elementWidth} height={elementHeight} color={that.quizColors[index % that.quizColors.length]} />
-                   
+                    return <QuizzButton answer={answer} id={"answer-id-" + index} showsSelectionIndicator={that.state.quizType=='multiple-choice'} isSelected={answer.isSelected} index={index} onSelect={that.onSelectAnswer.bind(that)} width={elementWidth} height={elementHeight} color={that.quizColors[index % that.quizColors.length]} />
                    })}
 
             	</div>
                 {this.state.quizType == 'multiple-choice'? <Button color="primary" onClick={this.onClickSubmitButton.bind(this)}>Submit</Button> : null}
                 </center>
+
+
+                <Popover placement="top" isOpen={this.state.showsFeedbackPopover} target={'answer-id-' + this.state.selectedAnswerIndex} toggle={this.onCloseFeedbackPopover.bind(this)}>
+                  <PopoverHeader>{ feedbackTitle }</PopoverHeader>
+                  <PopoverBody>{this.state.answers[this.state.selectedAnswerIndex].feedback}</PopoverBody>
+                </Popover>
 
                 <QuizzEditModal question={this.state.question} answers={this.state.answers} quizType={this.state.quizType} 
                 onChange={this.onChangeData.bind(this)} onClose={this.onClose.bind(this)} chapters={this.props.chapters} isOpen={this.state.showsModalEditor} />
