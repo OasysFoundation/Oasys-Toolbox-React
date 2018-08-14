@@ -141,7 +141,7 @@ class QuizzEdit extends Component {
             	<div style={containerStyle}>
                    
             	   {this.state.answers.map(function(answer, index) {
-                    return <QuizzButton answer={answer} id={"answer-id-" + index} showsSelectionIndicator={that.state.quizType=='multiple-choice'} isSelected={answer.isSelected} index={index} onSelect={that.onSelectAnswer.bind(that)} width={elementWidth} height={elementHeight} color={that.quizColors[index % that.quizColors.length]} />
+                    return <QuizzButton answer={answer} key={"answer-id-" + index} id={"answer-id-" + index} showsSelectionIndicator={that.state.quizType=='multiple-choice'} isSelected={answer.isSelected} index={index} onSelect={that.onSelectAnswer.bind(that)} width={elementWidth} height={elementHeight} color={that.quizColors[index % that.quizColors.length]} />
                    })}
 
             	</div>
