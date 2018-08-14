@@ -230,7 +230,6 @@ class QuizzEditModal extends Component {
     }
 
     chapterTitleForIdentifier(identifier) {
-        console.log(identifier);
 
         return this.props.chapters.reduce(function(result, currentChapter) { 
             if (currentChapter.id == identifier) {
@@ -355,7 +354,7 @@ class QuizzEditModal extends Component {
                                 </center>
                                 ) : null}
                             
-                            <Input placeholder="Answer feedback or hint (optional)." value={answer.feedback} onChange={function(element) { that.onChangeFeedbackHint(element.target.value, index) }} />
+                            <Input placeholder="Answer feedback or hint (optional). Motivate and help your student." value={answer.feedback} onChange={function(element) { that.onChangeFeedbackHint(element.target.value, index) }} />
                             </div>
                             )
                     })}
