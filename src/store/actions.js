@@ -15,7 +15,7 @@ const actions = function (store) { //store for async stuff
 
         onChangeProjectTags(state, value) {
             const tags = value.split(" ");
-            return update(state, {project: {tags: {push: [...tags]}}})
+            return update(state, {project: {tags: {$set: tags}}})
         },
         onChangeContent(state, id, value) {
             const clone = JSON.parse(JSON.stringify(state));
