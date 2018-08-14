@@ -61,7 +61,7 @@ class SidebarToc extends Component {
                 throw new Error('Chapter object must have links array as property (can be empty)!');
             }
             e.linkIdx = [];
-            e.links.map(f => e.linkIdx.push(idobj[f.chapterId]))
+            e.links.map(f => e.linkIdx.push(idobj[f.chapterId]));
         })
         let mainPath = tocjs.longestPath(this.chaptersExt);
         let tocInfo = tocjs.prepareToc(mainPath, this.chaptersExt);
@@ -97,26 +97,11 @@ class SidebarToc extends Component {
         this.mounted = true;
     }
 
-    // TODO: it appears that both componentWillReceiveProps and shouldComponentUpdate are fired if
-    // the incoming props change. However, here we should not have to react to changes within one
-    // chapter! Thus, we want to receive only part of the LessonMaker's state as the prop.
-    componentWillReceiveProps() {
-        //console.log('receive');
-        //console.log(this.title);
-        //this.updateToc();
-        return true
-    }
-
-    shouldComponentUpdate() {
-        // TODO: check if this is fired if incoming chapters props changed
+    render() {
         this.updateToc();
         if (this.mounted) {
             this.drawToc();
         }
-        return true;
-    }
-
-    render() {
         return (
             <div>
                 <svg
@@ -126,18 +111,18 @@ class SidebarToc extends Component {
                     height={this.height}
                     viewBox={"0 0 " + this.state.width + " " + this.state.height}
                 >
-                    <svg
-                        id="toc"
-                        width={this.state.width}
-                        height={this.height}
-                        viewBox={"0 0 " + this.state.width + " " + this.state.height}
-                    >
-                    </svg>
+                <svg
+                    id="toc"
+                    width={this.state.width}
+                    height={this.height}
+                    viewBox={"0 0 " + this.state.width + " " + this.state.height}
+                >
+                </svg>
                 </svg>
                 <div ref='tooltipWrapper'/>
             </div>
         );
-    }
+    } 
 }
 
 // export default connect(mapStoreToProps, actions)(SidebarToc);
@@ -148,9 +133,12 @@ SidebarToc.propTypes = {
     activeChapterIndex: PropTypes.number.isRequired
 };
 
-//only take what you need
 export default connect(mapStoreToProps, actions)((propsFromStore) => {
     const {onChangeActiveChapter, project} = propsFromStore;
     const {chapters, activeChapterIndex} = project;
-    return React.createElement(SidebarToc, {onChangeActiveChapter, chapters, activeChapterIndex});
+    return React.createElement(SidebarToc, {
+        onChangeActiveChapter, 
+        chapters: chapters.map(c => ({title:c.title, id: c.id, links: c.links})), 
+        activeChapterIndex
+    });
 });

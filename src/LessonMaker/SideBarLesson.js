@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'reactstrap';
 import { Input, FormText, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import {connect} from "redux-zero/react";
 
 import {
     AppSidebar,
@@ -9,6 +10,8 @@ import {
     AppSidebarMinimizer,
 } from '@coreui/react';
 
+import mapStoreToProps from "../store/mapStoreToProps";
+import actions from "../store/actions";
 import SidebarToc from "./SidebarToc";
 
 class SideBarLesson extends Component {
@@ -17,10 +20,6 @@ class SideBarLesson extends Component {
         this.state = {
             showSettingsDialog:false,
         }
-    }
-
-    onChangeTitle(e) {
-        this.props.onTitleChange(e.target.value);
     }
 
     onSettingsShow(){
@@ -42,7 +41,6 @@ class SideBarLesson extends Component {
     render() {
         let tags = '';
         let description = '';
-        let category = '';
         return (
             <div>
                 <Modal isOpen={this.state.showSettingsDialog} toggle={this.onSettingsClose.bind(this)} backdrop={true}>
@@ -53,23 +51,15 @@ class SideBarLesson extends Component {
                     <Input 
                         placeholder="Title" 
                         value={this.props.title} 
-                        onChange={this.onChangeTitle.bind(this)}
+                        onChange={e=>this.props.onChangeProjectTitle(e.target.value)}
                     />
                     <FormText color="muted">
                         The title for this lesson may have 40 characters at most.
                     </FormText>
                     <Input 
-                        placeholder="Description" 
-                        value={tags} 
-                        onChange={function(){}} 
-                    />
-                    <FormText color="muted">
-                        Your description will be shown before the lesson starts. It should be concise and expressive.
-                    </FormText>
-                    <Input 
                         placeholder="Tags" 
                         value={tags} 
-                        onChange={function(){}} 
+                        onChange={e=>this.props.onChangeProjectTags(e.target.value)} 
                     />
                     <FormText color="muted">
                         Tags are being used to inform the learner about the context. For example, you can use tags like 'physics', or 'mathematics'.
@@ -86,7 +76,12 @@ class SideBarLesson extends Component {
                     {/*<AppSidebarForm/>*/}
                     {/*<AppSidebarNav navConfig={navParams} {...this.props} style={{flex: "0 0", height: ""}}/>*/}
                     <Button className='sidebar-button title '>
-                        <input className='form-control' defaultValue='Untitled lesson' value={this.props.title} onChange={this.onChangeTitle.bind(this)} />
+                        <input 
+                            className='form-control' 
+                            defaultValue='Untitled lesson' 
+                            value={this.props.title} 
+                            onChange={e=>this.props.onChangeProjectTitle(e.target.value)}
+                        />
                         <i class="fas fa-align-right fa-lg fa-cog" onClick={this.onSettingsShow.bind(this)}></i> 
                     </Button>
                     <Button className='sidebar-button'>
@@ -99,11 +94,7 @@ class SideBarLesson extends Component {
                         <i class="fas fa-align-right fa-lg fa-globe-americas"></i> 
                     </Button>
                     <hr />
-                    <SidebarToc 
-                        // chapters={this.props.chapters}
-                        // currChapIdx={this.props.currChapIdx}
-                        // onChapterChange={this.props.onChapterChange}
-                    />
+                    <SidebarToc />
                     <AppSidebarFooter/>
                     <AppSidebarMinimizer/>
                 </AppSidebar>
@@ -114,9 +105,13 @@ class SideBarLesson extends Component {
 
 
 SideBarLesson.propTypes = {
-    onChangeActiveChapter: PropTypes.func.isRequired,
     onAddChapter: PropTypes.func.isRequired,
     chapters: PropTypes.array
 };
 
-export default SideBarLesson;
+// only take what you need
+export default connect(mapStoreToProps, actions)((propsFromStore) => {
+    const {project, onChangeProjectTitle, onChangeProjectTags} = propsFromStore;
+    const {title, tags} = project;
+    return React.createElement(SideBarLesson, {title, tags, onChangeProjectTitle, onChangeProjectTags});
+});

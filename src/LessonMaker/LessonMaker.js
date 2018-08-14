@@ -73,13 +73,9 @@ class LessonMaker extends Component {
 
         return (
             <div className="app-body">
-                {/*{this.props.onAddChapter()}*/}
-                <SideBarLesson onChapterChange={this.props.onChangeActiveChapter}
-                               onAddChapter={this.props.onAddChapter}
+                <SideBarLesson onAddChapter={this.props.onAddChapter}
                                onAddElement={this.props.onAddElement}
                                onTitleChange={this.props.onChangeChapterTitle}
-                               chapters={this.props.project.chapters.map(c => ({title:c.title, id: c.id, links: c.links}) )}
-                               currChapIdx={this.props.activeChapterIndex}
                                title={this.props.project.title}
                                {...this.props} //router fucking needs it for CoreUI React ?>?!?!?>!
                 />
@@ -156,5 +152,5 @@ export default connect(mapStoreToProps, actions)(LessonMaker);
 //     console.log(propsFromStore);
 //         const {projects} = propsFromStore;
 //         return React.createElement(LessonMaker, {project: projects[0]});
-//         // return (<LessonMaker people={people} setFirstName={setFirstName}/>)
+//          return (<LessonMaker people={people} setFirstName={setFirstName}/>)
 //     });
