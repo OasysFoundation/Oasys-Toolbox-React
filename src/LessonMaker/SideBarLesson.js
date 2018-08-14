@@ -38,7 +38,7 @@ class SideBarLesson extends Component {
 
     onSettingsSave(){
         if (this.tags!=null) {
-            this.props.onChangeProjectTags(this.tags);
+            this.props.onChangeProjectTags(this.tags.split(" "));
         }
         if (this.title!=null) {
             this.props.onChangeProjectTitle(this.title);
@@ -49,8 +49,6 @@ class SideBarLesson extends Component {
     }
 
     render() {
-        let tags = '';
-        let description = '';
         return (
             <div>
                 <Modal isOpen={this.state.showSettingsDialog} toggle={this.onSettingsClose.bind(this)} backdrop={true}>
@@ -66,7 +64,7 @@ class SideBarLesson extends Component {
                         The title for this lesson may have 40 characters at most.
                     </FormText>
                     <Input 
-                        defaultValue={tags} 
+                        defaultValue={this.props.tags.join(" ")} 
                         onChange={e=>this.tags=e.target.value}
                     />
                     <FormText color="muted">
