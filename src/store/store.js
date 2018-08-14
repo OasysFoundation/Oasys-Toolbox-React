@@ -3,7 +3,7 @@ import globals from "../globals";
 // import DEFAULT from "state";
 
 
-const project = {
+const data = {
     title: "Physics101",
     id: 'project_1245',
     description: 'LASDIADALAIDA',
@@ -109,6 +109,6 @@ const project = {
     ]
 }
 
-const store = createStore(project);
+const store = createStore(data);
 
 export default store;
