@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 import { Table } from 'reactstrap';
 import { Nav, NavItem, NavLink } from 'reactstrap';
 import classnames from 'classnames';
@@ -29,7 +29,7 @@ class ImageSelectionModal extends Component {
 	}
 
 	imageListForCurrentTab() {
-		if (this.state.currentTab == 'imageSelection') {
+		if (this.state.currentTab === 'imageSelection') {
 			return this.props.images;
 		}
 		return this.props.gifs;
@@ -68,7 +68,7 @@ class ImageSelectionModal extends Component {
 			        			return (<tr>
 						            <td><center>
 						            <ProgressiveImage src={image} placeholder='https://media3.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy-downsized.gif' style={{maxWidth:'350px'}} onClick={function() { that.onSelect(image) }} >
-									  {(src) => <img src={src} alt='an image' style={{maxWidth:'350px'}} onClick={function() { that.onSelect(image) }} />}
+									  {(src) => <img src={src} alt='' style={{maxWidth:'350px'}} onClick={function() { that.onSelect(image) }} />}
 									</ProgressiveImage>
 						            </center></td>
 						        </tr>)

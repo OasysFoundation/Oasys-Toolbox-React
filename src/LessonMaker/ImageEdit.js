@@ -97,7 +97,7 @@ class ImageEdit extends Component {
             	{this.state.imageUrl? 
                     (
                         <ProgressiveImage src={this.state.imageUrl} placeholder='https://media3.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy-downsized.gif' style={{maxWidth:'550px'}} >
-                             {(src) => <img src={src} alt='an image' style={{maxWidth:'550px'}} />}
+                             {(src) => <img src={src} alt='' style={{maxWidth:'550px'}} />}
                         </ProgressiveImage>
                     ) : <p>Search for GIFs and imgages above.</p>}
                 {this.state.didStartSearch? <GridLoader size={30} /> : null}
