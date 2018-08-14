@@ -306,7 +306,7 @@ class QuizzEditModal extends Component {
                   <ModalBody>
                 <InputGroup>
                     <InputGroupAddon addonType="prepend">?</InputGroupAddon>
-                    <Input placeholder="i haz asked you what the quesion is?" value={this.state.question.title} onChange={function(element) { that.onChangeQuestion(element.target.value) }}/>
+                    <Input placeholder="Add your Question…" value={this.state.question.title} onChange={function(element) { that.onChangeQuestion(element.target.value) }}/>
                     <InputGroupAddon addonType="append"><Button color="secondary" onClick={function() { that.onShowImageSelectionDialog("question") }}>{ICON("icon-camera")}</Button></InputGroupAddon>
                 </InputGroup>
                 <center>
@@ -326,7 +326,7 @@ class QuizzEditModal extends Component {
                                     }
                                   </InputGroupText>
                                 </InputGroupAddon>
-                                <Input style={{'backgroundColor': answer.correct? colors.TURQUOISE : null}} placeholder="entr you answer" value={answer.title} onChange={function(element) { that.onChangeAnswer(element.target.value, index) }} />
+                                <Input style={{'backgroundColor': answer.correct? colors.TURQUOISE : null}} placeholder={"Answer Option " + (index+1)} value={answer.title} onChange={function(element) { that.onChangeAnswer(element.target.value, index) }} />
                                 <InputGroupAddon addonType="append">
                                     <Button color="secondary" onClick={function() { that.onShowImageSelectionDialog(index) }}>
                                     {ICON("icon-camera")}
