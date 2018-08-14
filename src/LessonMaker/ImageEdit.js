@@ -13,22 +13,25 @@ import { GridLoader } from 'react-spinners';
 
 import {saveToSessionStorage} from '../utils/trickBox'
 
+import ProgressiveImage from 'react-progressive-image';
+
 //this is the new "Preview" Component
 class ImageEdit extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-        	imageUrl: this.props.content,
+        	imageUrl: this.props.data.imageUrl,
             showsImageSelectionPopover: false,
             images: [],
+            gifs: [],
             didStartSearch: false
         }
     }
 
     saveCurrentState() {
         saveToSessionStorage(this.props.id, {
-            content: this.state.imageUrl
+            imageUrl: this.state.imageUrl
         });
     }
 
@@ -36,19 +39,25 @@ class ImageEdit extends Component {
 
 	onClickButton() {
 
-
 		const that = this;
 
 		this.setState({
 				imageUrl: null,
-                didStartSearch: true
+                didStartSearch: true,
+                showsImageSelectionPopover: true
 		}, function() {
-			api.getGifsForSearch(this.searchTerm).then(function(images) {
-				that.setState({
-					images: images,
-                    showsImageSelectionPopover: true
-				});
-			});
+			
+            const imageCallback = api.getImagesForSearch(this.searchTerm);
+
+            const gifCallback = api.getGifsForSearch(this.searchTerm);
+
+            Promise.all([imageCallback, gifCallback]).then(function(images) {
+                that.setState({
+                    images: images[0],
+                    gifs: images[1]
+                });
+            });
+
 		});
 	}
 
@@ -62,9 +71,9 @@ class ImageEdit extends Component {
         });
     }
 
-    onSelectImageAtIndex(index) {
+    onSelectImage(image) {
         this.setState({
-            imageUrl: this.state.images[index],
+            imageUrl: image,
             didStartSearch: false
         });
     }
@@ -85,11 +94,16 @@ class ImageEdit extends Component {
             	
                 <center style={{marginTop:'20px'}}>
 
-            	{this.state.imageUrl? <img src={this.state.imageUrl} alt="Image or GIF"/> : <p>Search for GIFs and imgages above.</p>}
+            	{this.state.imageUrl? 
+                    (
+                        <ProgressiveImage src={this.state.imageUrl} placeholder='https://media3.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy-downsized.gif' style={{maxWidth:'550px'}} >
+                             {(src) => <img src={src} alt='an image' style={{maxWidth:'550px'}} />}
+                        </ProgressiveImage>
+                    ) : <p>Search for GIFs and imgages above.</p>}
                 {this.state.didStartSearch? <GridLoader size={30} /> : null}
             	</center>
 
-                <ImageSelectionModal isOpen={this.state.showsImageSelectionPopover} images={this.state.images} onClose={this.closeModalImgageSelection.bind(this)} onSelect={this.onSelectImageAtIndex.bind(this)} />
+                <ImageSelectionModal isOpen={this.state.showsImageSelectionPopover} images={this.state.images} gifs={this.state.gifs} onClose={this.closeModalImgageSelection.bind(this)} onSelect={this.onSelectImage.bind(this)} />
             </div>
         )
     }

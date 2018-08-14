@@ -54,25 +54,29 @@ const api = {
     },
     getGifsForSearch(searchString) {
 
-        const promise = new Promise(function(resolve, reject) {
+        return new Promise(function(resolve, reject) {
             const apiKey = "eSrUzEyD4PP4I0gv7jFebYv5x7iW24kN";
             const url = "//api.giphy.com/v1/gifs/search?q=" + searchString + "&api_key=" + apiKey;
-            
             get(url).then(function(result) {
-
                 const gifs = result["data"].map(function(element) {
-                    return element["images"]["original"]["url"];
-                })
-
+                    return element["images"]["downsized"]["url"];
+                });
                 resolve(gifs);
-            })
+            });
         });
-
-        return promise;
     },
     getImagesForSearch(searchString) {
-        const apiKey = "9813357-8b0c5da381a974994abb6a8c9";
-        const url = "//pixabay.com/api/?q=" + searchString + "&key=" + apiKey;
+        searchString = searchString.split(' ').join("+");
+        return new Promise(function(resolve, reject) {
+            const apiKey = "9813357-8b0c5da381a974994abb6a8c9";
+            const url = "https://pixabay.com/api/?key=" + apiKey + "&q=" + searchString;
+            get(url).then(function(result) {
+                const imageUrls = result["hits"].map(function(element) {
+                    return element["webformatURL"];
+                });
+                resolve(imageUrls);
+            });
+        });
     },
     postImage(img) {
         const url = 'https://api.imgur.com/3/image';
