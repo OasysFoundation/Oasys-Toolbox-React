@@ -35,8 +35,17 @@ class ImageSelectionModal extends Component {
 		return this.props.gifs;
 	}
 
+	imageSourceDescription() {
+		if (this.state.currentTab === 'imageSelection') {
+			return "Images from pixabay";
+		}
+		return "GIFs from GIPHY";
+	}
+
 	render() {
 		const that = this;
+
+
 		return (
 			<Modal isOpen={this.props.isOpen} toggle={this.toggle.bind(this)} backdrop={true}>
             <Nav tabs>
@@ -59,6 +68,7 @@ class ImageSelectionModal extends Component {
             </Nav>
 			<ModalHeader toggle={this.toggle.bind(this)}>Select one of thos amazin image.</ModalHeader>
 	          <ModalBody>
+	          	{this.imageSourceDescription()}
 				<Table>
 			        <tbody>
 			        	{
