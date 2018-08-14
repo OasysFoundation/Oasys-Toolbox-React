@@ -51,7 +51,7 @@ class SideBarLesson extends Component {
                     <Input 
                         placeholder="Title" 
                         value={this.props.title} 
-                        onChange={function(e){this.props.onChangeProjectTitle(e.target.value)}}
+                        onChange={e=>this.props.onChangeProjectTitle(e.target.value)}
                     />
                     <FormText color="muted">
                         The title for this lesson may have 40 characters at most.
@@ -59,7 +59,7 @@ class SideBarLesson extends Component {
                     <Input 
                         placeholder="Tags" 
                         value={tags} 
-                        onChange={function(e){this.props.onChangeProjectTags(e.target.value)}} 
+                        onChange={e=>this.props.onChangeProjectTags(e.target.value)} 
                     />
                     <FormText color="muted">
                         Tags are being used to inform the learner about the context. For example, you can use tags like 'physics', or 'mathematics'.
@@ -80,7 +80,7 @@ class SideBarLesson extends Component {
                             className='form-control' 
                             defaultValue='Untitled lesson' 
                             value={this.props.title} 
-                            onChange={function(e){this.props.onChangeProjectTitle(e.target.value)}}
+                            onChange={e=>this.props.onChangeProjectTitle(e.target.value)}
                         />
                         <i class="fas fa-align-right fa-lg fa-cog" onClick={this.onSettingsShow.bind(this)}></i> 
                     </Button>

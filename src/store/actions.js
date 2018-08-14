@@ -10,12 +10,12 @@ const actions = function (store) { //store for async stuff
         //state variable gets inject into the action functions somehow through the connect(maptoprops, action)
 
         onChangeProjectTitle(state, value) {
-          return update(state, {project: {title: {$set: value}}})
+          return update(state, {title: {$set: value}})
         },
 
         onChangeProjectTags(state, value) {
             const tags = value.split(" ");
-            return update(state, {project: {tags: {$set: tags}}})
+            return update(state, {tags: {$set: tags}})
         },
         onChangeContent(state, id, value) {
             const clone = JSON.parse(JSON.stringify(state));
