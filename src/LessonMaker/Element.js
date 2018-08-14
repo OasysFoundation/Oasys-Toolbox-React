@@ -12,33 +12,15 @@ import {saveToSessionStorage} from "../utils/trickBox";
 
 import 'react-quill/dist/quill.snow.css';
 import actions from "../store/actions";
-import mapStoreToProps from "../store/mapStoreToProps";
-import { connect } from "redux-zero/react";
-
-
-const styles = {
-    normal: {
-        // cursor: 'pointer',
-        // border: `1px solid blue`
-    },
-    highlight: {
-        // cursor: 'pointer',
-        background: 'lightyellow',
-        // border: `1px solid green`
-
-    },
-    edit: {}
-
-};
+import {connect} from "redux-zero/react";
 
 
 //TODO
 //put Fade from CoreUI --> Wrap it in component to manage IN/Out state!
 
 class Element extends Component {
-    
+
     state = {
-        mode: styles.normal,
         isHovered: false,
         isClicked: false,
         tempContent: this.props.data.content
@@ -55,22 +37,21 @@ class Element extends Component {
         const {content, id} = this.props.data
         let render = <div>NO ELEMENT TYPE YET HERE</div>;
 
-        const isEditMode = this.state.isHovered || this.state.isClicked;
+        const isFocus = this.state.isHovered || this.state.isClicked;
 
         const params = {
             key: id,
-            id:id,
+            id: id,
             test: "XXX",
             data: content,
-            isEditMode,
-            isPreview: this.props.isPreview,
+            isFocus,
+            isEditMode: isFocus, //phase out editMode to not confuse
+            // isPreview: this.props.isPreview,
             onChange: this.handleChange
         }
-        // Q: Why is QuillEdit receiving the key prop, but ImageEdit and FormulaEdit not?
         switch (type) {
             case globals.EDIT_QUILL:
                 render = <QuillEdit {...params} data={this.state.tempContent}/>
-                //render = <QuillEdit key={id} id={id} isPreview={this.props.isPreview} isEditMode={isEditMode} onChange={this.handleChange} data={this.state.tempContent}/>
                 break;
             case globals.EDIT_IMAGE:
                 render = <ImageEdit {...params} />
@@ -79,7 +60,8 @@ class Element extends Component {
                 render = <FormulaEdit {...params} />
                 break;
             case globals.EDIT_QUIZ:
-                render = <QuizzEdit {...params} chapters={this.props.chaptersLight} onAddChapter={this.props.onAddChapter} />
+                render = <QuizzEdit {...params} chapters={this.props.chapters.map(c => ({title: c.title, id: c.id}))}
+                                    onAddChapter={this.props.onAddChapter}/>
                 break;
             case globals.EDIT_VIDEO:
                 render = <VideoEdit {...params}/>
@@ -92,25 +74,28 @@ class Element extends Component {
     }
 
 
-
     //onClick={() => this.setState({isHovered: true})}
     render() {
         const {id, type} = this.props.data;
+        const that = this;
         return (
             <center>
                 <div className='mainWidth'>
-                    <section style={this.state.mode}
-                             onMouseEnter={() => this.setState({isHovered: true})}
+                    <section onMouseEnter={() => this.setState({isHovered: true})}
                              onMouseLeave={() => this.setState({isHovered: false})}
                              onClick={() => this.setState({isClicked: true})}
                     >
-                        <FadeableCard
-                            id={id}
-                            type={type}
-                            isEditMode={!this.props.isPreview && this.state.isHovered}
-                        >
-                            {this.typeToComponent(type)}
-                        </FadeableCard>
+                        {this.props.isEditMode
+                            ? (<FadeableCard
+                                id={id}
+                                type={type}
+                                isEditMode={!this.props.isEditMode && this.state.isHovered}
+                                >
+                                {this.typeToComponent(type)}
+                            </FadeableCard>)
+                            : (<React.Fragment>{this.typeToComponent(type)}</React.Fragment>)
+                        }
+
                     </section>
                 </div>
             </center>
@@ -122,9 +107,12 @@ class Element extends Component {
 Element.propTypes = {
     id: PropTypes.string,
     data: PropTypes.object.isRequired,
-    onDelete: PropTypes.func,
-    onMove: PropTypes.func
 };
 
+const mapStoreToProps = ({chapters, isEditMode}) => ({chapters, isEditMode});
+
+//don't need anything!
+const neededActions = (store) => ({});
+
 //IMPORTANT!! the project data is in the project obj, the rest of the store (action functions) is just flat there
-export default connect(mapStoreToProps, actions)(Element);
+export default connect(mapStoreToProps, neededActions)(Element);

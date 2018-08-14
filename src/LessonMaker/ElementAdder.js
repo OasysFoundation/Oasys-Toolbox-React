@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {typeToIcon} from "../utils/trickBox";
 import globals from '../globals'
+import {connect} from "redux-zero/react";
+import actions from "../store/actions";
 
 const styling = {
     all: {
@@ -29,6 +31,7 @@ const types = [
     EDIT_GAME,
     EDIT_SYSTEM
 ]
+
 
 
 class ElementAdder extends Component {
@@ -68,8 +71,17 @@ class ElementAdder extends Component {
     }
 }
 
+
 ElementAdder.propTypes = {
     onAddElement: PropTypes.func.isRequired
 };
 
-export default ElementAdder;
+//check lessonmaker if you don't get the syntax here
+const mapStoreToProps = ({chapters, activeChapterIndex}) => ({nElems: chapters[activeChapterIndex].elements.length})
+//neededActions === function
+const neededActions = (store) => {
+    const {onAddElement} = actions();
+    return {onAddElement}
+};
+
+export default connect(mapStoreToProps, neededActions)(ElementAdder);

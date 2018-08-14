@@ -88,17 +88,22 @@ class ImageEdit extends Component {
     	
         return (
             <div>
-            	<InputGroup>
-			        <InputGroupAddon addonType="prepend">🖼</InputGroupAddon>
-			        <Input placeholder="search term" onChange={this.onChangedSearchTerm.bind(this)} onKeyPress={this.onKeyPress.bind(this)} />
-                   <InputGroupAddon addonType="append">
-                        <Button color="secondary" onClick={this.onClickButton.bind(this)} >
-                        Search
-                        </Button>
-                    </InputGroupAddon>
-		        </InputGroup>
+
+                {this.props.isEditMode? (
+                	<InputGroup style={{marginBottom:'20px'}}>
+    			        <InputGroupAddon addonType="prepend">🖼</InputGroupAddon>
+    			        <Input placeholder="search term" onChange={this.onChangedSearchTerm.bind(this)} onKeyPress={this.onKeyPress.bind(this)} />
+                       <InputGroupAddon addonType="append">
+                            <Button color="secondary" onClick={this.onClickButton.bind(this)} >
+                            Search
+                            </Button>
+                        </InputGroupAddon>
+    		        </InputGroup> )
+                    :
+                    null
+                }
             	
-                <center style={{marginTop:'20px'}}>
+                <center>
 
             	{this.state.imageUrl? 
                     (

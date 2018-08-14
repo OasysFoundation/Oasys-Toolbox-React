@@ -5,14 +5,11 @@ import globals from '../globals'
 import {
     Card,
     CardBody,
-//    CardHeader,
-//    CardFooter,
     Collapse,
     Fade
 } from 'reactstrap';
 
 import ToolbarQuill from './ToolbarQuill'
-import mapStoreToProps from "../store/mapStoreToProps";
 import actions from "../store/actions";
 import { connect } from "redux-zero/react";
 
@@ -63,7 +60,7 @@ class FadeableCard extends Component {
 
     render() {
         let {type, id, isEditMode} = this.props;
-        isEditMode = true; //for debugging
+        //for debugging
         return (
             <div>
                 <section style={styling.toolbar}>
@@ -126,19 +123,24 @@ class FadeableCard extends Component {
 }
 
 FadeableCard.propTypes = {
-    type: PropTypes.number,
-    id: PropTypes.string,
-    isEditMode: PropTypes.bool,
-    onDelete: PropTypes.func,
-    onMoveUp: PropTypes.func,
-    onMoveDown: PropTypes.func,
+    type: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
+    isEditMode: PropTypes.bool.isRequired,
+    onDeleteElement: PropTypes.func.isRequired
 };
 
 
 // const takeFromStore = ({onMoveElement, onDeleteElement, onChangeContent}) =>  //needs nothing from store because it's passed from parent
 
 //actions is a function that returns on object of functions!
-export default connect(mapStoreToProps, actions)(FadeableCard);
+const mapStoreToProps = (store) => ({});
+
+//don't need anything!
+const neededActions = (store) => {
+    const {onDeleteElement, onMoveElement} = actions();
+    return {onDeleteElement, onMoveElement}
+};
+export default connect(mapStoreToProps, neededActions)(FadeableCard);
 
 
 // export default connect(mapStoreToProps, actions)((propsFromStore) => {
