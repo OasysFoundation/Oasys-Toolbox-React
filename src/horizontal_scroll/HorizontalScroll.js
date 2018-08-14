@@ -4,37 +4,22 @@ import Button from '@material-ui/core/Button';
 import HorizontalScrollButtonMaker from './HorizontalScrollButtonMaker'
 
 
-class HorizontalScroll extends Component {
-    constructor(props) {
-        super(props);
-
-        let pnProductNav = "pnProductNav" + this.props.id;
-        let pnProductNavContents = "pnProductNavContents" + this.props.id;
-        let pnIndicator = "pnIndicator" + this.props.id;
-        let pnAdvancerLeft = "pnAdvancerLeft" + this.props.id;
-        let pnAdvancerRight = "pnAdvancerRight" + this.props.id;
-
-        this.pnProductNav = React.createRef();
-        this.pnProductNavContents = React.createRef();
-        this.pnIndicator = React.createRef();
-        this.pnAdvancerLeft = React.createRef();
-        this.pnAdvancerRight = React.createRef();
-        this.state = {
-            firstLoad:true,
-        }
-
-
+const styles={
+    HorizontalScrollContainer:{
+        padding:"10px 10px 10px 10px",
+    },
+    HorizontalScrollTitle:{
+        fontSize:"1.3rem",
+        fontFamily: "helveticaneue,-apple-system, sans-serif",
+    },
+    HRDividingLine:{
+        height:"1px", 
+        border: "none", 
+        marginTop:"0",
     }
+}
 
-    render(){
-
-        var SETTINGS = {
-            navBarTravelling: false,
-            navBarTravelDirection: "",
-            navBarTravelDistance: 150
-        }
-
-        var colours = {
+const underlineOnSelectionColours = {
             0: "#B9D912",
             1: "#253A93",
             2: "#125FB9",
@@ -57,20 +42,49 @@ class HorizontalScroll extends Component {
             19: "#125FB9",
         }
 
+class HorizontalScroll extends Component {
+    constructor(props) {
+        super(props);
+
+        //Create Unique Ids for each core element in horizontal scroller
+        let pnProductNav = "pnProductNav" + this.props.id;
+        let pnProductNavContents = "pnProductNavContents" + this.props.id;
+        let pnIndicator = "pnIndicator" + this.props.id;
+        let pnAdvancerLeft = "pnAdvancerLeft" + this.props.id;
+        let pnAdvancerRight = "pnAdvancerRight" + this.props.id;
+
+        //Create a Ref to the core elements so we can access DOM node
+        this.pnProductNav = React.createRef();
+        this.pnProductNavContents = React.createRef();
+        this.pnIndicator = React.createRef();
+        this.pnAdvancerLeft = React.createRef();
+        this.pnAdvancerRight = React.createRef();
+
+        this.state = {
+            firstLoad:true,
+        }
+    }
+
+    componentDidMount(){
+        let SETTINGS = {
+            navBarTravelling: false,
+            navBarTravelDirection: "",
+            navBarTravelDistance: 150,
+        }
+
         let loaded = false;
         let needRefresh = false;
 
+        //Remove the underlying default scroller
         document.documentElement.classList.remove("no-js");
         document.documentElement.classList.add("js");
 
-        // Out advancer buttons
-        var pnAdvancerLeft = this.pnAdvancerLeft.current;
-        var pnAdvancerRight = this.pnAdvancerRight.current;
-        // the indicator
-        var pnIndicator = this.pnIndicator.current;
-
-        var pnProductNav = this.pnProductNav.current;
-        var pnProductNavContents = this.pnProductNavContents.current;
+        // get React Refs
+        let pnAdvancerLeft = this.pnAdvancerLeft.current;
+        let pnAdvancerRight = this.pnAdvancerRight.current;
+        let pnIndicator = this.pnIndicator.current;
+        let pnProductNav = this.pnProductNav.current;
+        let pnProductNavContents = this.pnProductNavContents.current;
 
         if(pnAdvancerLeft && pnAdvancerRight && pnIndicator && pnProductNav && pnProductNavContents && this.state.firstLoad){
             loaded=true;
@@ -86,8 +100,8 @@ class HorizontalScroll extends Component {
             pnProductNav.setAttribute("data-overflowing", determineOverflow(pnProductNavContents, pnProductNav));
 
             // Set the indicator
-            this.props.type=="Tiles"
-            ? moveIndicator(pnProductNav.querySelector("[aria-selected=\"true\"]"), colours[0])
+            this.props.title=="Tiles"
+            ? moveIndicator(pnProductNav.querySelector("[aria-selected=\"true\"]"), underlineOnSelectionColours[0])
             : null
 
             // Handle the scroll of the horizontal container
@@ -198,7 +212,7 @@ class HorizontalScroll extends Component {
                 })
                 e.target.setAttribute("aria-selected", "true");
                 // Pass the clicked item and it's colour to the move indicator function
-                moveIndicator(e.target, colours[links.indexOf(e.target)]);
+                moveIndicator(e.target, underlineOnSelectionColours[links.indexOf(e.target)]);
             });
 
         // var count = 0;
@@ -314,30 +328,51 @@ class HorizontalScroll extends Component {
             } else {
                 _window[addEventListener]('load', reset, 0);
             }
+    }
 
+    getHorizontalScrollers(){
+        //Using External CSS stylesheet
         return(
             <div className="parent">
                 <div className="pn-ProductNav_Wrapper">
                     <nav ref={this.pnProductNav} id="pnProductNav" className="pn-ProductNav">    
                         <div ref={this.pnProductNavContents} id="pnProductNavContents" className="pn-ProductNav_Contents">
                             {this.props.data.map((myData)=>{
-                                    return (<HorizontalScrollButtonMaker data={myData} type={this.props.type} positionChange={this.props.positionChange}/>)
+                                    return (<HorizontalScrollButtonMaker data={myData} type={this.props.title} positionChange={this.props.positionChange}/>)
                                 })}
                                 
-                        <span ref={this.pnIndicator} id="pnIndicator" className="pn-ProductNav_Indicator"></span>
+                            <span ref={this.pnIndicator} id="pnIndicator" className="pn-ProductNav_Indicator"></span>
                         </div>
                     </nav>
-                        <button ref={this.pnAdvancerLeft} id="pnAdvancerLeft" className="pn-Advancer pn-Advancer_Left" type="button">
-                            <svg className="pn-Advancer_Icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 551 1024"><path d="M445.44 38.183L-2.53 512l447.97 473.817 85.857-81.173-409.6-433.23v81.172l409.6-433.23L445.44 38.18z"/></svg>
-                        </button>
-                        <button ref={this.pnAdvancerRight} id="pnAdvancerRight" className="pn-Advancer pn-Advancer_Right" type="button">
-                            <svg className="pn-Advancer_Icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 551 1024"><path d="M105.56 985.817L553.53 512 105.56 38.183l-85.857 81.173 409.6 433.23v-81.172l-409.6 433.23 85.856 81.174z"/></svg>
-                        </button>
+                    <button ref={this.pnAdvancerLeft} id="pnAdvancerLeft" className="pn-Advancer pn-Advancer_Left" type="button">
+                        <svg className="pn-Advancer_Icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 551 1024"><path d="M445.44 38.183L-2.53 512l447.97 473.817 85.857-81.173-409.6-433.23v81.172l409.6-433.23L445.44 38.18z"/></svg>
+                    </button>
+                    <button ref={this.pnAdvancerRight} id="pnAdvancerRight" className="pn-Advancer pn-Advancer_Right" type="button">
+                        <svg className="pn-Advancer_Icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 551 1024"><path d="M105.56 985.817L553.53 512 105.56 38.183l-85.857 81.173 409.6 433.23v-81.172l-409.6 433.23 85.856 81.174z"/></svg>
+                    </button>
                 </div>
+            </div>
+        )
+    }
+
+    render(){
+        return(
+            <div style={styles.HorizontalScrollContainer}>
+                <div style={styles.HorizontalScrollTitle}>
+                    {
+                        this.props.title && this.props.title=="Tiles"
+                        ? "Filter"
+                        : this.props.title
+
+                    }
+                    <hr color="black" style={styles.HRDividingLine}/>
+                </div>
+                {this.getHorizontalScrollers()}
+                <br/>
+                <br/>
             </div>
             )
     }
-
 }
 
 export default HorizontalScroll;

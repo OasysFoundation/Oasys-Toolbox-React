@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import LandingPageHorizontalSection from './LandingPageHorizontalSection'
+import HorizontalScroll from '../horizontal_scroll/HorizontalScroll'
 import './landingPage.css'
 import api from '../tools'
 import {getTagsForCategory} from "../utils";
@@ -8,6 +8,16 @@ import ErrorLoadingContentPage from "../ErrorLoadingContentPage"
 
 import HeaderImage from './HeaderImage'
 
+const styles={
+	HorizontalScrollOuterCenterContainer:{
+		display:"flex", 
+		justifyContent:"center",
+	},
+	HorizontalScrollContainer:{
+		width:"100%", 
+		maxWidth:"900px",
+	},
+}
 
 const tileColors = {
 	light:"#F4F4E8",
@@ -219,24 +229,36 @@ class LandingPageController extends Component{
 			<div>
 				{this.checkMobile()
 					?	(
-						<HeaderImage type="mobile"/>
+						<div>
+							<HeaderImage type="mobile"/>
+							<section style={styles.HorizontalScrollOuterCenterContainer}>
+								<div  style={styles.HorizontalScrollContainer}>
+									<br/>
+									<HorizontalScroll title={"Tiles"} data={tiles} id={sectionIds[0]} positionChange={this.changeSectionOrder.bind(this)} type="mobile"/>
+									{this.state.pageData.map(dataObj=>
+											<HorizontalScroll title={dataObj.title} data={dataObj.data} id={dataObj.id} type="mobile"/>
+									)}
+
+								</div>
+							</section>
+						</div>
 					)
 					: (
-						<HeaderImage type="PC"/>
+						<div>
+							<HeaderImage type="PC"/>
+							<section style={styles.HorizontalScrollOuterCenterContainer}>
+								<div  style={styles.HorizontalScrollContainer}>
+									<br/>
+									<HorizontalScroll title={"Tiles"} data={tiles} id={sectionIds[0]} positionChange={this.changeSectionOrder.bind(this)}/>
+									{this.state.pageData.map(dataObj=>
+											<HorizontalScroll title={dataObj.title} data={dataObj.data} id={dataObj.id}/>
+									)}
+
+								</div>
+							</section>
+						</div>
 					)
 				}
-
-                <section style={{display:"flex", justifyContent:"center"}}>
-					<div  style={{width:"100%", maxWidth:"900px"}}>
-						<br/>
-						<LandingPageHorizontalSection title={"Tiles"} data={tiles} id={sectionIds[0]} positionChange={this.changeSectionOrder.bind(this)}/>
-						
-						{this.state.pageData.map(dataObj=>
-								<LandingPageHorizontalSection title={dataObj.title} data={dataObj.data} id={dataObj.id}/>
-						)}
-
-					</div>
-				</section>
 			</div>
 			)
 	}
