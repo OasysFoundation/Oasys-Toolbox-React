@@ -308,7 +308,7 @@ class NavBar extends React.Component {
           },
         ];
         return (
-         <Navbar inverse style={styles.navbarMobile}>
+         <Navbar style={styles.navbarMobile}>
             <div style={styles.navbarMobileTopRow}>
                 <a href="/explore" style={styles.navbarBrandMobile}>
                     <img src={Logo_Small} style={styles.navbarBrandMobileImage}/>
@@ -366,7 +366,7 @@ class NavBar extends React.Component {
 
         //required for Searchbar
         const { selectedOption } = this.state;
-        
+
         let groupedOptions = [
           {
             label: 'Categories',
@@ -379,7 +379,7 @@ class NavBar extends React.Component {
         ];
 
         return(
-            <Navbar inverse expand="sm" style={{height:this.state.height, backgroundColor:"#F8F8F4", borderBottom: "1px solid #27363E"}}>
+            <Navbar color="light" light expand="sm" style={{height:this.state.height, backgroundColor:"#F8F8F4", borderBottom: "1px solid #27363E"}}>
               <NavbarBrand href="/explore" style={styles.navBarBrand}>
                   <img src={Logo} style={styles.navbarBrandImage}/>
               </NavbarBrand>
