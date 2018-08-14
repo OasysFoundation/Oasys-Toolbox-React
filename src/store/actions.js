@@ -9,6 +9,9 @@ const actions = function (store) { //store for async stuff
     return {
         //state variable gets inject into the action functions somehow through the connect(maptoprops, action)
 
+        onChangeProjectTitle(state, value) {
+          return update(state, {project: {title: {$set: value}}})
+        },
         onChangeContent(state, id, value) {
             const clone = JSON.parse(JSON.stringify(state));
             let elements = clone.chapters[state.activeChapterIndex].elements;
