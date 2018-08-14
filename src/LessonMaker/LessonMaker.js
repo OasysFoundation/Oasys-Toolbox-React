@@ -156,5 +156,5 @@ export default connect(mapStoreToProps, actions)(LessonMaker);
 //     console.log(propsFromStore);
 //         const {projects} = propsFromStore;
 //         return React.createElement(LessonMaker, {project: projects[0]});
-//         // return (<LessonMaker people={people} setFirstName={setFirstName}/>)
+//          return (<LessonMaker people={people} setFirstName={setFirstName}/>)
 //     });
