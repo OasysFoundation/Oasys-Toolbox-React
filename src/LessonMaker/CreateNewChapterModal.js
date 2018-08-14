@@ -38,8 +38,8 @@ class CreateNewChapterModal extends Component {
                 </InputGroup>
 	          </ModalBody>
 	          <ModalFooter>
-	            <Button color="primary" onClick={this.onCreateNewChapter.bind(this)}>Create new Chapter</Button>{' '}
 	            <Button color="secondary" onClick={this.toggle.bind(this)}>Cancel</Button>
+	            <Button color="primary" onClick={this.onCreateNewChapter.bind(this)}>Create new Chapter</Button>{' '}
 	          </ModalFooter>
 	        </Modal>
 			)
