@@ -97,9 +97,9 @@ class Element extends Component {
                         <FadeableCard
                             id={id}
                             type={type}
-                            onDelete={() => this.props.onDeleteElement(id)}
-                            onMoveUp={() => this.props.onMoveElement(id, -1)}
-                            onMoveDown={() => this.props.onMoveElement(id, +1)}
+                            // onDelete={() => this.props.onDeleteElement(id)}
+                            // onMoveUp={() => this.props.onMoveElement(id, -1)}
+                            // onMoveDown={() => this.props.onMoveElement(id, +1)}
                             isEditMode={!this.props.isPreview && this.state.isHovered}
                         >
                             {this.typeToComponent(type)}
@@ -122,11 +122,11 @@ Element.propTypes = {
 //IMPORTANT!! the project data is in the project obj, the rest of the store (action functions) is just flat there
 
 // export default connect(mapToProps, actions)( ({projects}) => React.createElement(LessonMaker, {project: projects[0]}) );
-export default connect(mapStoreToProps, actions)(Element);
-// export default connect(mapToProps, actions)((propsFromStore) => {
-//     console.log(propsFromStore);
-//         const {projects} = propsFromStore;
-//         return React.createElement(LessonMaker, {project: projects[0]});
-//         // return (<LessonMaker people={people} setFirstName={setFirstName}/>)
-//     });
+// export default connect(mapStoreToProps, actions)(Element);
+export default connect(mapStoreToProps, actions)((propsFromStore) => {
+    console.log(propsFromStore);
+        const {projects} = propsFromStore;
+        return React.createElement(Element, propsFromStore);
+        // return (<LessonMaker people={people} setFirstName={setFirstName}/>)
+    });
 

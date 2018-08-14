@@ -234,7 +234,7 @@ class LessonMaker extends Component {
                                     />
                                     <ElementAdder
                                         key={el.id + 1}
-                                        onAddElement={this.onAddElement}
+                                        // onAddElement={this.onAddElement}
                                         idx={idx}
                                         nElems={activeChapter.elements.length} />
                                 </Item>
@@ -257,6 +257,8 @@ class LessonMaker extends Component {
 
 
 //IMPORTANT!! the project data is in the project obj, the rest of the store (action functions) is just flat there
+
+
 
 // export default connect(mapToProps, actions)( ({projects}) => React.createElement(LessonMaker, {project: projects[0]}) );
 export default connect(mapStoreToProps, actions)(LessonMaker);
