@@ -113,6 +113,20 @@ class HorizontalScrollButtonMaker extends Component{
 	      currentUsername: data.userId,
 	    });
   	}
+  	handleClick(value){
+  		value==="remix"
+  			? window.location.href=`/create/${this.state.currentUsername}/${this.state.currentTitle}`
+  			: value === "comments"
+  				? window.location.href=`/comments/${this.state.currentUsername}/${this.state.currentTitle}`
+  				: value==="user"
+  					? window.location.href=`/user/${this.state.currentUsername}/`
+  					: value==="collection"
+  						? null
+  						: value==="flag"
+							? null
+							: null
+
+  	}
 
 	render(){
 		
@@ -187,23 +201,23 @@ class HorizontalScrollButtonMaker extends Component{
 	                       className={'modal-sm ' + this.props.className} style={styles.modalOuterDiv}>
 	                  <ModalHeader toggle={this.toggleSmall} style={styles.modalHeader}>{this.state.currentTitle}</ModalHeader>
 	                  <ModalBody style={styles.modalBody}>
-	                      <Button block color="light" style={styles.modalButton}>
+	                      <Button block color="light" onClick={this.handleClick.bind(this,"remix")} style={styles.modalButton}>
 	                      	<div style={{flex:1}}><FontAwesomeIcon icon="pencil-alt"/></div>
 	                      	<div style={{flex:3, textAlign:"left"}}>Remix</div>
 	                      </Button>
-						  <Button block color="light" style={styles.modalButton}>
+						  <Button block color="light" onClick={this.handleClick.bind(this,"comments")} style={styles.modalButton}>
 						  	<div style={{flex:1}}><FontAwesomeIcon icon="comment"/></div>
 	                      	<div style={{flex:3, textAlign:"left"}}>View Comments</div>
 						  </Button>
-						  <Button block color="light" style={styles.modalButton}>
+						  <Button block color="light" onClick={this.handleClick.bind(this,"user")} style={styles.modalButton}>
 						  	<div style={{flex:1}}><FontAwesomeIcon icon="user"/></div>
 	                      	<div style={{flex:3, textAlign:"left"}}>{"Go To " + this.state.currentUsername + "'s Page"}</div>
 						  </Button>
-						  <Button block color="light" style={styles.modalButton}>
+						  <Button block color="light" onClick={this.handleClick.bind(this,"collection")} style={styles.modalButton}>
 						  	<div style={{flex:1}}><FontAwesomeIcon icon="object-group"/></div>
 	                      	<div style={{flex:3, textAlign:"left"}}>Create New Collection</div>
 						  </Button>
-						  <Button block color="light" style={styles.modalButton}>
+						  <Button block color="light" onClick={this.handleClick.bind(this,"flag")} style={styles.modalButton}>
 						  	<div style={{flex:1}}><FontAwesomeIcon icon="flag"/></div>
 	                      	<div style={{flex:3, textAlign:"left"}}>Flag as Inappropriate</div>
 						  </Button>
