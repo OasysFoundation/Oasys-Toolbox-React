@@ -15,7 +15,6 @@ class SidebarToc extends Component {
     constructor(props) {
         super(props);
         this.handleChangeChapter = this.handleChangeChapter.bind(this);
-
         this.opt = {
             tocId: 'toc',
             totalWidth: 199,
@@ -42,12 +41,13 @@ class SidebarToc extends Component {
             handleHover: this.handleMouserOver,
         }
 
-        this.updateToc();
         this.mounted = false;
 
         this.state = {
             width: this.opt.width,
+            height: null,
         };
+
     }
 
     updateToc() {
@@ -62,14 +62,20 @@ class SidebarToc extends Component {
             }
             e.linkIdx = [];
             e.links.map(f => e.linkIdx.push(idobj[f.chapterId]));
-        })
+        });
         let mainPath = tocjs.longestPath(this.chaptersExt);
         let tocInfo = tocjs.prepareToc(mainPath, this.chaptersExt);
         tocInfo = tocjs.sortIntoTocLevels(tocInfo, this.chaptersExt, mainPath);
         tocInfo = tocjs.reorderX(tocInfo);
         this.tocInfo = tocjs.insertArrowLocs(tocInfo, this.opt);
-        let nLevels = 1 + Math.max(...this.tocInfo.map(e => e.level))
-        this.height = nLevels * this.opt.rectHeight + (nLevels - 1) * this.opt.gapy;
+        console.log(this.tocInfo)
+        let nLevels = 1 + Math.max(...this.tocInfo.map(e => e.level));
+        let newHeight = nLevels * this.opt.rectHeight + (nLevels - 1) * this.opt.gapy;
+        if (newHeight!==this.state.height) {
+            this.setState({
+                height: newHeight,
+            });
+        }
     }
 
     handleChangeChapter(id) {
@@ -93,6 +99,7 @@ class SidebarToc extends Component {
     }
 
     componentDidMount() {
+        this.updateToc();
         this.drawToc();
         this.mounted = true;
     }
@@ -108,13 +115,13 @@ class SidebarToc extends Component {
                     className="svgTocWrap"
                     xmlns="http://www.w3.org/2000/svg"
                     width={this.state.width}
-                    height={this.height}
+                    height={this.state.height}
                     viewBox={"0 0 " + this.state.width + " " + this.state.height}
                 >
                 <svg
                     id="toc"
                     width={this.state.width}
-                    height={this.height}
+                    height={this.state.height}
                     viewBox={"0 0 " + this.state.width + " " + this.state.height}
                 >
                 </svg>

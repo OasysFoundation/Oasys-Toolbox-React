@@ -128,7 +128,7 @@ class QuizzEdit extends Component {
         }
 
         const selectedAnswer = this.state.answers? this.state.answers[this.state.selectedAnswerIndex] : null;
-        const feedbackTitle = selectedAnswer? (selectedAnswer.correct ? "You are amazing! This is correct." : "Schade Schokolade. This is wrong.") : null;
+        const feedbackTitle = selectedAnswer? (selectedAnswer.correct ? "You are amazing! This is correct. 🎉" : "Try Again. This is wrong. 😭") : null;
 
         const that = this; 
         return (

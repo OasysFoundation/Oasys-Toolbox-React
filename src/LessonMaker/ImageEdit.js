@@ -78,13 +78,19 @@ class ImageEdit extends Component {
         });
     }
 
+    onKeyPress(event) {
+        if (event.key === 'Enter') {
+            this.onClickButton();
+        }
+    }
+
     render() {
     	
         return (
             <div>
             	<InputGroup>
 			        <InputGroupAddon addonType="prepend">🖼</InputGroupAddon>
-			        <Input placeholder="search term" onChange={this.onChangedSearchTerm.bind(this)}/>
+			        <Input placeholder="search term" onChange={this.onChangedSearchTerm.bind(this)} onKeyPress={this.onKeyPress.bind(this)} />
                    <InputGroupAddon addonType="append">
                         <Button color="secondary" onClick={this.onClickButton.bind(this)} >
                         Search

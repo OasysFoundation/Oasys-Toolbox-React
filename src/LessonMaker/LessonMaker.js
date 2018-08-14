@@ -73,7 +73,7 @@ class LessonMaker extends Component {
             <div className="app-body">
                 <SideBarLesson/>
                 <main className="main">
-                    <Container fluid>
+                    <Container fluid className='main-width'>
                         <center>
                             <section className='main-width' style={{
                                 display: 'flex',
@@ -82,7 +82,6 @@ class LessonMaker extends Component {
                                 flex: 1,
                                 flexDirection: 'row'
                             }}>
-                                {/*<div style={{marginBottom: 0}} className="input-group mb-3">*/}
                                 <div className="input-group-prepend">
                                     <span className="input-group-text" id="basic-addon1">Chapter Title</span>
                                 </div>

@@ -28,7 +28,7 @@ class DataViewCreator extends Component {
 						<h3 style={{marginBottom: '0px'}}>Overview</h3>
 						<hr style={{marginTop: '0px', borderColor: colors.GULLGREY}}/>
 						<center>
-							<Card className="card-fancy has-shadow" style={{width: '500px'}}>
+							<Card className="card-fancy has-shadow">
 								<CardBody className='flex-center'>
 								{summaryStats.map((elem,idx) =>
 									<div className={(idx<summaryStats.length-1) ? 'cell-center card-section border-right' : 'cell-center card-section'}>
