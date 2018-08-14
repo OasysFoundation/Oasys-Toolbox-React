@@ -267,7 +267,7 @@ class QuizzEditModal extends Component {
 
     onCreateNewChapter(newChapterName) {
         const newUuid = uuidv4();
-        this.props.onAddChapter(newChapterName, newUuid);
+        this.props.onAddChapter(newUuid, newChapterName);
         this.state.newChapterCreatedResolver({
                 title: newChapterName,
                 identifier: newUuid
