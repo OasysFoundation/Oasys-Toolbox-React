@@ -111,8 +111,8 @@ class SideBarLesson extends Component {
 
 
 SideBarLesson.propTypes = {
-    onAddChapter: PropTypes.func.isRequired,
-    chapters: PropTypes.array
+    title: PropTypes.string.isRequired,
+    tags: PropTypes.array.isRequired,
 };
 
 // only take what you need

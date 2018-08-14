@@ -22,7 +22,6 @@ class Element extends Component {
 
     state = {
         isHovered: false,
-        isClicked: false,
         tempContent: this.props.data.content
     };
 
@@ -34,18 +33,18 @@ class Element extends Component {
     }
 
     typeToComponent(type) {
-        const {content, id} = this.props.data
+        const {content, id, isEditMode} = this.props.data
         let render = <div>NO ELEMENT TYPE YET HERE</div>;
 
-        const isFocus = this.state.isHovered || this.state.isClicked;
+        const {isHovered} = this.state
 
         const params = {
             key: id,
             id: id,
             test: "XXX",
             data: content,
-            isFocus,
-            isEditMode: isFocus, //phase out editMode to not confuse
+            isHovered,
+            isEditMode, //phase out editMode to not confuse
             // isPreview: this.props.isPreview,
             onChange: this.handleChange
         }
@@ -83,18 +82,15 @@ class Element extends Component {
                 <div className='mainWidth'>
                     <section onMouseEnter={() => this.setState({isHovered: true})}
                              onMouseLeave={() => this.setState({isHovered: false})}
-                             onClick={() => this.setState({isClicked: true})}
                     >
-                        {this.props.isEditMode
-                            ? (<FadeableCard
+                        <FadeableCard
                                 id={id}
                                 type={type}
-                                isEditMode={!this.props.isEditMode && this.state.isHovered}
+                                isEditMode={this.props.isEditMode}
                                 >
                                 {this.typeToComponent(type)}
-                            </FadeableCard>)
-                            : (<React.Fragment>{this.typeToComponent(type)}</React.Fragment>)
-                        }
+                            </FadeableCard>
+                            {/*: (<React.Fragment>{this.typeToComponent(type)}</React.Fragment>)*/}
 
                     </section>
                 </div>

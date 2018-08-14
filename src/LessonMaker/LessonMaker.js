@@ -1,28 +1,18 @@
 import React, {Component} from 'react';
 import {Container} from "reactstrap"
-import uuidv4 from "uuid/v4"
-
-import {moveEntry, withoutEntry, getObjectsByKey} from "../utils/trickBox";
 import SideBarLesson from "./SideBarLesson";
-import Element from "./Element";
-import ElementAdder from './ElementAdder'
-
-import globals from '../globals'
-import tools from '../tools'
-
 import posed, {PoseGroup} from 'react-pose';
+import PropTypes from 'prop-types';
 
 import {connect} from "redux-zero/react";
 import actions from "../store/actions";
 
+import Element from "./Element";
+import ElementAdder from './ElementAdder'
+
 
 const Item = posed.div();
-
 class LessonMaker extends Component {
-    // state = {
-    //     isEditMode: true,
-    // };
-
     componentDidMount() {
         // this.inhaleSessionStorage();
         //api.getProjectsForUser().then()
@@ -36,29 +26,6 @@ class LessonMaker extends Component {
         clearInterval(this.autoSaver);
     }
 
-    //TODO timestamps for restore / reject
-    inhaleSessionStorage() {
-
-        // const proj = JSON.parse(JSON.stringify(this.state.project));
-        //
-        // //deep searches data and returns 1D array with objects that have an ID property
-        // //by reference!
-        // const allWithID = getObjectsByKey([proj], 'id');
-        // const sessionKeys = Object.keys(sessionStorage).filter(key => key.includes(globals.SESSIONSTORAGE_KEY))
-        // //get
-        // sessionKeys.forEach(key => {
-        //     const match = allWithID.find(el => globals.SESSIONSTORAGE_KEY + el['id'] === key)
-        //     if (match) {
-        //         match.content = JSON.parse(sessionStorage.getItem(key)).content;
-        //     }
-        // })
-        // this.setState({project: proj});
-    }
-
-    // toggle(prop) { //used for isEditmode...
-    //     this.setState({[prop]: !this.state[prop]})
-    // }
-
     saveStatus() {
         console.log('saving status....')
         //api.saveContent
@@ -71,7 +38,9 @@ class LessonMaker extends Component {
 
         return (
             <div className="app-body">
+
                 <SideBarLesson/>
+
                 <main className="main">
                     <Container fluid className='main-width'>
                         <center>
@@ -114,10 +83,9 @@ class LessonMaker extends Component {
                                         key={el.id}
                                         data={el}
                                     />
-                                    <ElementAdder
-                                        key={el.id + 1}
-                                        idx={idx}
-                                    />
+
+                                    {/*SHORT FORM FOR --> isEditMode ? <Adder/> : null */}
+                                    {this.props.isEditMode && <ElementAdder key={el.id + 1} idx={idx}/>}
                                 </Item>
                             )}
                         </PoseGroup>
@@ -128,9 +96,18 @@ class LessonMaker extends Component {
     }
 }
 
-const mapStoreToProps = ({chapters, activeChapterIndex, isEditMode}) => ({isEditMode, chapters, activeChapterIndex})
+LessonMaker.propTypes = {
+    chapters: PropTypes.arrayOf(PropTypes.shape({
+        title: PropTypes.string,
+        links: PropTypes.array,
+        id: PropTypes.string,
+        elements: PropTypes.array
+    })).isRequired,
+    isEditMode: PropTypes.array.isRequired,
+    activeChapterIndex: PropTypes.number
+};
 
-//neededActions === function
+const mapStoreToProps = ({chapters, activeChapterIndex, isEditMode}) => ({isEditMode, chapters, activeChapterIndex})
 const neededActions = (store) => {
     const {onChangeChapterTitle, onToggleEditMode} = actions();
     return {onChangeChapterTitle, onToggleEditMode}

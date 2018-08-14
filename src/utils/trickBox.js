@@ -17,6 +17,25 @@ const saveToSessionStorage = function(id, value) {
     )
 }
 
+
+//inhaleSessionStorage() {
+
+    // const proj = JSON.parse(JSON.stringify(this.state.project));
+    //
+    // //deep searches data and returns 1D array with objects that have an ID property
+    // //by reference!
+    // const allWithID = getObjectsByKey([proj], 'id');
+    // const sessionKeys = Object.keys(sessionStorage).filter(key => key.includes(globals.SESSIONSTORAGE_KEY))
+    // //get
+    // sessionKeys.forEach(key => {
+    //     const match = allWithID.find(el => globals.SESSIONSTORAGE_KEY + el['id'] === key)
+    //     if (match) {
+    //         match.content = JSON.parse(sessionStorage.getItem(key)).content;
+    //     }
+    // })
+    // this.setState({project: proj});
+//}
+
 const typeToIcon = (type) => {
     switch (type) {
         case globals.EDIT_QUILL:
