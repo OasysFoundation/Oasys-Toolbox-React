@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import cover from '../images/coverFred-4.jpg'
 import coverMobile from '../images/coverMid.png'
+import coverTiny from '../images/coverTiny.png'
 import {Button} from 'reactstrap'
 import Media from "react-media";
 
@@ -46,12 +47,14 @@ const styles = {
 		justifyContent:"center",
 		color:"#27363e", 
 		fontFamily:"helveticaneue",
+		textAlign: "center",
 	},
 	subtitle:{
 		color:"#27363e", 
 		fontFamily:"helveticaneue",
 		display:"flex", 
 		justifyContent:"center",
+		textAlign: "center",
 	},
 
 }
@@ -59,14 +62,28 @@ const styles = {
 class HeaderImage extends Component{
 	constructor(props){
 		super(props);
+		this.state = { 
+			imageLoading: true,
+		};
 	}
+
+	handleImageLoaded() {
+    	this.setState({ 
+    		imageLoading: false 
+    	});
+  	}
 
 	getPCScreenImage(value){
 		let myFontSizeTitle="3.5vw";
 		let myFontSizeSubTitle="2vw";
 		let currentCover = coverMobile;
-		
-		if(value==="medium"){
+
+		if(value==="tiny"){
+			myFontSizeTitle="7vw";
+		    myFontSizeSubTitle="5vw";
+		    currentCover=coverTiny;
+		}
+		else if(value==="medium"){
 			myFontSizeTitle="2.5vw";
 		    myFontSizeSubTitle="1.25vw";
 			currentCover=cover;
@@ -80,50 +97,87 @@ class HeaderImage extends Component{
 		return (
 			<div style={styles.mainContainer}>
 			  
-			  	<img src={currentCover} style={styles.backgroundImage}/>
+			  <img src={currentCover} onLoad={this.handleImageLoaded.bind(this)} style={styles.backgroundImage}/>
 			  
-              <div style={styles.floatingAbsoluteContainer}>
-              	<div style={styles.titleAndSubtitle}>
-              		<div style={styles.title}>
-              			<h1 style={{fontSize:myFontSizeTitle}}>Explore Interactive Content</h1>
-              		</div>​​​​​​​
-              		<div style={styles.subtitle}>
-              			<h2 style={{fontSize:myFontSizeSubTitle}}>Learn Science and Technology through Experimentation and Play</h2> 
-              		</div>
-              	</div>
-              	<div style={styles.bottomButtonDiv}>
-              		<Button size="lg" color="light"> Create Your Own Content!</Button>
-              	</div>
-              </div>
+			  {this.state.imageLoading
+			  	? "Loading..." 
+			  	: (
+			  		<div style={styles.floatingAbsoluteContainer}>
+				      	<div style={styles.titleAndSubtitle}>
+				      		<div style={styles.title}>
+				      			<h1 style={{fontSize:myFontSizeTitle}}>Explore Interactive Content</h1>
+				      		</div>​​​​​​​
+				      		<div style={styles.subtitle}>
+				      			<h2 style={{fontSize:myFontSizeSubTitle}}>Learn Science and Technology through Experimentation and Play</h2> 
+				      		</div>
+				      	</div>
+				      	<div style={styles.bottomButtonDiv}>
+				      		<Button size="lg" color="light"> Create Your Own Content!</Button>
+				      	</div>
+				    </div>
+			  	)
+			  }
+              
              </div>
 		)
 	}
 
-	getMobileScreenImage(){
-		alert("mobile bitches");
+	renderMobileHeader(){
+		let myFontSizeTitle="7vw";
+		let myFontSizeSubTitle="5vw";
+		return(
+			<div style={styles.mainContainer}>
+				<img src={coverTiny} onLoad={this.handleImageLoaded.bind(this)} style={styles.backgroundImage}/>
+				{this.state.imageLoading
+				  	? "Loading..." 
+				  	: (
+				  		<div style={styles.floatingAbsoluteContainer}>
+					      	<div style={styles.titleAndSubtitle}>
+					      		<div style={styles.title}>
+					      			<h1 style={{fontSize:myFontSizeTitle}}>Explore Interactive Content</h1>
+					      		</div>​​​​​​​
+					      		<div style={styles.subtitle}>
+					      			<h2 style={{fontSize:myFontSizeSubTitle}}>Learn Science and Technology through Experimentation and Play</h2> 
+					      		</div>
+					      	</div>
+					      	<div style={styles.bottomButtonDiv}>
+					      		<Button size="lg" color="light"> Create Your Own Content!</Button>
+					      	</div>
+					    </div>
+			  		)
+			  	}
+			</div>
+		)
 	}
 
 	render(){
 		return(
 			<div>
-				<Media 
-					query="(max-width: 767px)"
-	          		render={() => null}
-	          	/>
-	          	<Media 
-					query="(min-width: 768px) and (max-width: 999px)"
-	          		render={() => this.getPCScreenImage("small")}
-	          	/>
-	          	<Media 
-					query="(min-width: 1000px) and (max-width: 1283px)"
-	          		render={() => this.getPCScreenImage("medium")}
-	          	/>
-	          	<Media 
-					query="(min-width: 1284px)"
-	          		render={() => this.getPCScreenImage("large")}
-	          	/>
-          	</div>
-		 	
+				{this.props.type==="mobile"
+						?	this.renderMobileHeader()
+						: 	(
+							<div>
+								<Media 
+									query="(max-width: 625px)"
+					          		render={() => this.getPCScreenImage("tiny")}
+					          	/>
+					          	<Media 
+									query="(min-width: 626px) and (max-width: 999px)"
+					          		render={() => this.getPCScreenImage("small")}
+					          	/>
+					          	<Media 
+									query="(min-width: 1000px) and (max-width: 1283px)"
+					          		render={() => this.getPCScreenImage("medium")}
+					          	/>
+					          	<Media 
+									query="(min-width: 1284px)"
+					          		render={() => this.getPCScreenImage("large")}
+					          	/>
+			          		</div>
+						)
+
+				}
+			</div>
 		)
 	}
 
