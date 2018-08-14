@@ -15,7 +15,6 @@ class SidebarToc extends Component {
     constructor(props) {
         super(props);
         this.handleChangeChapter = this.handleChangeChapter.bind(this);
-
         this.opt = {
             tocId: 'toc',
             totalWidth: 199,
@@ -48,6 +47,7 @@ class SidebarToc extends Component {
             width: this.opt.width,
             height: null,
         };
+
     }
 
     updateToc() {
@@ -62,12 +62,13 @@ class SidebarToc extends Component {
             }
             e.linkIdx = [];
             e.links.map(f => e.linkIdx.push(idobj[f.chapterId]));
-        })
+        });
         let mainPath = tocjs.longestPath(this.chaptersExt);
         let tocInfo = tocjs.prepareToc(mainPath, this.chaptersExt);
         tocInfo = tocjs.sortIntoTocLevels(tocInfo, this.chaptersExt, mainPath);
         tocInfo = tocjs.reorderX(tocInfo);
         this.tocInfo = tocjs.insertArrowLocs(tocInfo, this.opt);
+        console.log(this.tocInfo)
         let nLevels = 1 + Math.max(...this.tocInfo.map(e => e.level));
         let newHeight = nLevels * this.opt.rectHeight + (nLevels - 1) * this.opt.gapy;
         if (newHeight!==this.state.height) {
