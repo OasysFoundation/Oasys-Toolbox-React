@@ -14,7 +14,7 @@ class QuizzButton extends Component {
     		isSelected: !this.state.isSelected
     	});
 
-    	this.props.onSelect();
+    	this.props.onSelect(this.props.index);
     }
 
     render() {
@@ -36,7 +36,7 @@ class QuizzButton extends Component {
         };
 
     	return (
-    		<div style={quizAnswerOptionStyle} onClick={this.onSelect.bind(this)}>
+    		<div style={quizAnswerOptionStyle} onClick={this.onSelect.bind(this)} id={this.props.id}>
     					{this.props.showsSelectionIndicator? <div style={{position:'absolute', top:'5px', right:'5px'}}> {this.state.isSelected? "✅" : "☑️"} </div> : null}
     					
                         <div>{this.props.answer.title}</div>
