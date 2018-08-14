@@ -87,14 +87,18 @@ class DataDetails extends Component {
 				<Card className='has-shadow marginBottom20'>
 		            <CardBody>
 		              <div className="chart-wrapper">
-		                <Bar data={barData} options={optsUser} />
+		              	<center>
+		                	<Bar data={barData} options={optsUser} />
+		                </center>
 		              </div>
 		            </CardBody>
 	            </Card>
 				<Card className='has-shadow'>
 		            <CardBody>
 		              <div className="chart-wrapper">
-		                <Bar data={barData} options={optsRewards} />
+		              	<center>
+		                	<Bar data={barData} options={optsRewards} />
+		                </center>
 		              </div>
 		            </CardBody>
 	            </Card>

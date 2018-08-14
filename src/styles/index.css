@@ -359,7 +359,7 @@ html, body, svg, text {
 }
 
 .oasys .dataview .card-body {
-    padding: 15px 0px 15px 0px;
+    padding: 5px 0px 15px 0px;
 }
 
 .oasys .dataview .font-big {
@@ -372,5 +372,9 @@ html, body, svg, text {
 
 .oasys .dataview .table {
     background-color: #f8f8f4;
+}
+
+.oasys .dataview .chart-wrapper {
+    margin: 0px 15px 5px 15px;
 }
 

@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import { Card, CardBody, Container } from 'reactstrap';
-import DataOverview from './DataOverview'
-import DataDetails from './DataDetails'
+
+import colors from '../colors';
+import DataOverview from './DataOverview';
+import DataDetails from './DataDetails';
 
 class DataViewCreator extends Component {
 
@@ -24,7 +26,7 @@ class DataViewCreator extends Component {
                 <main className="main dataview">
                     <Container fluid className='paddingTop20 paddingBottom20 main-width'>
 						<h3 style={{marginBottom: '0px'}}>Overview</h3>
-						<hr style={{marginTop: '0px'}}/>
+						<hr style={{marginTop: '0px', borderColor: colors.GULLGREY}}/>
 						<center>
 							<Card className="card-fancy has-shadow" style={{width: '500px'}}>
 								<CardBody className='flex-center'>
@@ -39,14 +41,14 @@ class DataViewCreator extends Component {
 						</center>
 
 						<h3 style={{marginBottom: '0px'}}>Summary</h3>
-						<hr style={{marginTop: '0px'}}/>
+						<hr style={{marginTop: '0px', borderColor: colors.GULLGREY}}/>
 
 						<DataOverview/>
 
 						<h3 style={{marginBottom: '0px', marginTop: '30px'}}>
 							Details for lesson {this.state.contentTitle}
 						</h3>
-						<hr style={{marginTop: '0px'}}/>
+						<hr style={{marginTop: '0px', borderColor: colors.GULLGREY}}/>
 
 						<DataDetails contentTitle={this.state.contentTitle}/>
 

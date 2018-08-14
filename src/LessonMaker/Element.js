@@ -56,23 +56,33 @@ class Element extends Component {
         let render = <div>NO ELEMENT TYPE YET HERE</div>;
 
         const isEditMode = this.state.isHovered || this.state.isClicked;
+
+        const params = {
+            key: id,
+            id:id,
+            test: "XXX",
+            data: content,
+            isEditMode,
+            isPreview: this.props.isPreview,
+            onChange: this.handleChange
+        }
         // Q: Why is QuillEdit receiving the key prop, but ImageEdit and FormulaEdit not?
         switch (type) {
             case globals.EDIT_QUILL:
-                render = <QuillEdit key={id} id={id} isPreview={this.props.isPreview} isEditMode={isEditMode} onChange={this.handleChange} data={this.state.tempContent}/>
+                render = <QuillEdit {...params} data={this.state.tempContent}/>
+                //render = <QuillEdit key={id} id={id} isPreview={this.props.isPreview} isEditMode={isEditMode} onChange={this.handleChange} data={this.state.tempContent}/>
                 break;
             case globals.EDIT_IMAGE:
-                render = <ImageEdit key={id} id={id} data={content} isPreview={this.props.isPreview} isEditMode={isEditMode} onChange={this.handleChange} />
+                render = <ImageEdit {...params} />
                 break;
             case globals.EDIT_FORMULA:
-                render = <FormulaEdit key={id} id={id} data={content} isPreview={this.props.isPreview} isEditMode={isEditMode}
-                                      onChange={this.handleChange} />
+                render = <FormulaEdit {...params} />
                 break;
             case globals.EDIT_QUIZ:
-                render = <QuizzEdit key={id} id={id} data={content} chapters={this.props.chaptersLight} isEditMode={isEditMode} isPreview={this.props.isPreview} onChange={this.handleChange} />
+                render = <QuizzEdit {...params} chapters={this.props.chaptersLight} onAddChapter={this.props.onAddChapter} />
                 break;
             case globals.EDIT_VIDEO:
-                render = <VideoEdit key={id} id={id}  data={content} isPreview={this.props.isPreview} isEditMode={isEditMode} onChange={this.handleChange}/>
+                render = <VideoEdit {...params}/>
                 break;
 
             default:
@@ -97,9 +107,6 @@ class Element extends Component {
                         <FadeableCard
                             id={id}
                             type={type}
-                            // onDelete={() => this.props.onDeleteElement(id)}
-                            // onMoveUp={() => this.props.onMoveElement(id, -1)}
-                            // onMoveDown={() => this.props.onMoveElement(id, +1)}
                             isEditMode={!this.props.isPreview && this.state.isHovered}
                         >
                             {this.typeToComponent(type)}
@@ -114,19 +121,10 @@ class Element extends Component {
 
 Element.propTypes = {
     id: PropTypes.string,
-    //data: PropTypes.object.isRequired,
+    data: PropTypes.object.isRequired,
     onDelete: PropTypes.func,
     onMove: PropTypes.func
 };
 
 //IMPORTANT!! the project data is in the project obj, the rest of the store (action functions) is just flat there
-
-// export default connect(mapToProps, actions)( ({projects}) => React.createElement(LessonMaker, {project: projects[0]}) );
-// export default connect(mapStoreToProps, actions)(Element);
-export default connect(mapStoreToProps, actions)((propsFromStore) => {
-    console.log(propsFromStore);
-        const {projects} = propsFromStore;
-        return React.createElement(Element, propsFromStore);
-        // return (<LessonMaker people={people} setFirstName={setFirstName}/>)
-    });
-
+export default connect(mapStoreToProps, actions)(Element);
