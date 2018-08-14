@@ -49,8 +49,8 @@ const data = {
                             {
                                 "title": "1 dudeldi dumm da da",
                                 "image": "",
-                                "correct": false,
-                                "feedback": "wrong, sorry try again",
+                                "correct": true,
+                                "feedback": "correct, your cool",
                                 "action": null,
                                 "isSelected": false
                             },
