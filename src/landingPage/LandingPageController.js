@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import LandingPageHorizontalSection from './LandingPageHorizontalSection'
-import cover from '../images/plzfinal.png'
 import './landingPage.css'
 import api from '../tools'
 import {getTagsForCategory} from "../utils";
 import {Unwrap, Wrap} from "../utils"
 import ErrorLoadingContentPage from "../ErrorLoadingContentPage"
 
-import {Button} from 'reactstrap'
+import HeaderImage from './HeaderImage'
 
 
 const tileColors = {
@@ -212,26 +211,7 @@ class LandingPageController extends Component{
 
 		return(
 			<div>
-				<section style={{display: "flex", justifyContent: "center", flexWrap: "wrap"}}>
-				 	<div style={{minWidth: 0, marginBottom: "16px",position:"relative"}}>
-	                  <img src={cover} style={{width: "100%", maxWidth: "100%", maxHeight: "450px"}}/>
-	                  <div style={{position:"absolute",top: ".5em", width:"100%", display:"flex", justifyContent:"center",  flexDirection: "column", height:"90%",}}>
-	                  	<div style={{flex:"5", display:"flex", flexDirection:"column", height:"auto"}}>
-	                  		<div style={{display:"flex",justifyContent:"center"}}>
-	                  			<h1 style={{fontSize:"3.6vw", color:"#27363e", fontFamily:"helveticaneue"}}>Explore Interactive Content</h1>
-	                  		</div>​​​​​​​
-	                  		<div style={{fontSize:"1.3vw", color:"#27363e", fontFamily:"helveticaneue",display:"flex", justifyContent:"center"}}>
-	                  			Learn STEM Naturally with Trial, Error, and Feedback 
-	                  		</div>
-	                  	</div>
-	                  	<div style={{fontSize:"2vh", fontFamily:"helveticaneue", flex:"1",display:"flex", justifyContent:"center"}}>
-	                  		<div style={{height:"50%"}}>
-	                  		<Button size="lg" color="light" style={{color:"#27363e"}}> Create Your Own Content!</Button>
-	                  		</div>
-	                  	</div>
-	                  </div>
-	                 </div>
-                </section>
+				<HeaderImage/>
 
                 <section style={{display:"flex", justifyContent:"center"}}>
 					<div  style={{width:"100%", maxWidth:"900px"}}>
