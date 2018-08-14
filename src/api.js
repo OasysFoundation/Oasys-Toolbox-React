@@ -38,11 +38,11 @@ const api = {
     },
     getContentsPreview() {
         const url = BASE_URL + 'getContentsPreview/';
-        return get(url)
+        return get(url);
     },
     getUserContentsPreview(userId) {
         const url = `${BASE_URL}getUserContentsPreview/${userId}`;
-        return get(url)
+        return get(url);
     },
     getWalletIdForUser(userName) {
         const url = `${BASE_URL}profile/${userName}`;
@@ -50,7 +50,7 @@ const api = {
     },
     getProfileInfo(authUserID) {
         const url = `${BASE_URL}profile/${authUserID}`;
-        return get(url)
+        return get(url);
     },
     getGifsForSearch(searchString) {
 
