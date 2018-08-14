@@ -2,7 +2,7 @@
 //use immutable
 import update from 'immutability-helper'
 import {moveEntry, withoutEntry} from "../utils/trickBox";
-import tools from "../tools";
+import {initContent} from "../tools";
 import uuidv4 from 'uuid/v4'
 
 const actions = function (store) { //store for async stuff
@@ -38,6 +38,7 @@ const actions = function (store) { //store for async stuff
 
         onAddChapter(state, uid, title) {
             const clone = JSON.parse(JSON.stringify(state));
+            const lastChapterId = state.chapters[state.chapters.length-1].id;
 
             const activeChapter = clone.chapters[state.activeChapterIndex];
             activeChapter.links.push({
@@ -51,8 +52,9 @@ const actions = function (store) { //store for async stuff
                     id: uid,
                     title: title || `|| Untitled Chapter ||`,
                     elements: [],
-                    timestamp: Date.now(),
-                    links: []
+                    // linkIdx: [1],
+                    links: [],
+                    timestamp: Date.now()
                 }
             );
 
@@ -90,7 +92,7 @@ const actions = function (store) { //store for async stuff
             const newElem = {
                 id: uuidv4(),
                 type: typeSelected,
-                content: tools.initContent(typeSelected),
+                content: initContent(typeSelected),
                 timestamp: Date.now()
             };
 

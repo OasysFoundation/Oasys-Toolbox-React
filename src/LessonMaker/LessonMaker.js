@@ -21,13 +21,12 @@ const Item = posed.div();
 
 class LessonMaker extends Component {
     state = {
-        project: this.props.project,
         currChapIdx: 0,
         isEditMode: true,
     };
 
     componentDidMount() {
-        this.inhaleSessionStorage();
+        // this.inhaleSessionStorage();
         //api.getProjectsForUser().then()
         const that = this;
         this.autoSaver = setInterval(function () {
@@ -117,11 +116,11 @@ class LessonMaker extends Component {
                                         key={el.id}
                                         isPreview={!this.state.isEditMode}
                                         data={el}
-                                        chaptersLight={this.state.project.chapters.map(c => ({title:c.title, id: c.id}) )}
+                                        chaptersLight={this.props.project.chapters.map(c => ({title:c.title, id: c.id}) )}
                                     />
                                     <ElementAdder
                                         key={el.id + 1}
-                                        // onAddElement={this.onAddElement}
+                                        onAddElement={this.props.onAddElement}
                                         idx={idx}
                                         nElems={activeChapter.elements.length} />
                                 </Item>

@@ -27,6 +27,9 @@ class FormulaEdit extends Component {
 	}
 	
     render() {
+
+        const formula = this.state.formula? this.state.formula.split(" ").join(" \\space ") : null;
+
         return (
             <div>
             	<InputGroup>
@@ -34,10 +37,10 @@ class FormulaEdit extends Component {
 			        <Input placeholder="formula" onChange={this.onChangedSearchTerm.bind(this)}/>
 		        </InputGroup>
             	<center>
-            	{this.state.formula
+            	{formula
                 ? <div className='math-renderview'>
                     <BlockMath 
-                        math={this.state.formula}
+                        math={formula}
                         renderError={(error) => {
                           return <b>Incorrect Input: {error.name}</b>
                         }}

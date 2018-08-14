@@ -1,6 +1,6 @@
 import globals from './globals';
 
-export default function initContent(type) {
+export function initContent(type) {
 	let typeToInit = {}
 	typeToInit[globals.EDIT_QUILL] = '';
 	typeToInit[globals.EDIT_QUIZ] = '';
