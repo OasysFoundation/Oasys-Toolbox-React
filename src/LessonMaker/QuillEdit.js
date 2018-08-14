@@ -87,10 +87,10 @@ class QuillEdit extends Component {
 
     componentWillReceiveProps() {
         if (this.mounted) {
-            if (this.props.isEditMode) {
-                this.refs.reactQuill.getEditor().enable();
-            } else {
+            if (this.props.isPreview) {
                 this.refs.reactQuill.getEditor().disable();
+            } else {
+                this.refs.reactQuill.getEditor().enable();
             }
         }
         return true;
@@ -100,9 +100,6 @@ class QuillEdit extends Component {
         window.katex = katex;
         window.d3 = require('d3');
         this.mounted = true;
-
-        this.refs.reactQuill.getEditor().disable();
-        this.refs.reactQuill.getEditor().enable();
 
         // for enabling graphing in quill, uncomment the following
         /*

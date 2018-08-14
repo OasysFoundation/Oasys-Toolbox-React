@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 // import api from '../api';
 // import colors from '../colors';
 import VideoEditCropper from './VideoEditCropper';
+import VideoPreview from './VideoPreview';
 
 class VideoEdit extends Component {
 
@@ -34,19 +35,26 @@ class VideoEdit extends Component {
         this.props.onChange(data);
     }
 
+    renderVideo(){
+        return (<div>
+            {this.props.isPreview
+                ? (<VideoPreview data={this.props.data} />)
+                : (<VideoEditCropper 
+                    data={this.props.data} 
+                    elementId={this.props.id} 
+                    onChangeCrop={this.onChangeCrop.bind(this)}
+                   />)
+            }
+        </div>)
+    }
+
     render(){
         return (
             <div className='video-embed'>
-                {this.props.data.url ? 
-                    (
-                    <VideoEditCropper 
-                        data={this.props.data} 
-                        elementId={this.props.id} 
-                        onChangeCrop={this.onChangeCrop.bind(this)}
-                    />
-                    )
-                    :
-                    (
+                {this.props.data.url 
+                ? this.renderVideo()
+                :
+                (
                     <div className='flex-center'>
                         <i class="fab fa-youtube fa-3x"></i>
                         <input
@@ -55,7 +63,7 @@ class VideoEdit extends Component {
                           onChange={this.onChangeUrl.bind(this)}
                         />
                     </div>
-                    )
+                )
                 }
             </div>
         )

@@ -27,8 +27,8 @@ const data = {
                     type: globals.EDIT_VIDEO,
                     content: {
                         url: 'https://www.youtube.com/watch?v=gcS04BI2sbk',
-                        cropStart: 0.0,
-                        cropEnd: 0.0,
+                        cropStart: 100.0,
+                        cropEnd: 105.0,
                     }
                 },
                 {
