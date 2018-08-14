@@ -115,8 +115,6 @@ html, body, svg, text {
     left: 15%;
 }
 
-/* WE CAN DEFINE CUSTOM STYLES BY PREPENDING THE CLASS SELECTION WITH ".oasys" */
-
 .oasys .card-header {
     margin: 0;
     padding: 0.25rem 0.25rem;
@@ -152,7 +150,7 @@ html, body, svg, text {
     border: none;
 }
 
-.oasys .mainWidth {
+.oasys .main-width {
     max-width: 750px;
     min-width: 750px;
     width: 750px;
@@ -185,13 +183,30 @@ html, body, svg, text {
 }
 
 .oasys .paddingTop20 {
-    margin-top: 20px;
+    padding-top: 20px;
+}
+
+.oasys .paddingBottom20 {
+    padding-bottom: 20px;
+}
+
+.oasys .marginBottom20 {
+    margin-bottom: 20px;
 }
 
 .oasys .cell-center {
     text-align: center;
     display:table-cell;
     vertical-align:middle;
+}
+
+.oasys .page-link {
+    color: #2a9699;
+}
+
+.oasys .page-item.active .page-link {
+    background-color: #2a9699;
+    border-color: #2a9699;
 }
 
 /* ------------------ sidebar ----------------- */
@@ -330,7 +345,7 @@ html, body, svg, text {
 /* ------------------- data view ------------------- */
 
 .oasys .dataview .card-fancy {
-    background-color: #F4F4E8;
+    background-color: #f8f8f4;
     margin-bottom: 20px;
     width: auto;
 }
@@ -344,7 +359,7 @@ html, body, svg, text {
 }
 
 .oasys .dataview .card-body {
-    padding: 15px 0px 15px 0px;
+    padding: 5px 0px 15px 0px;
 }
 
 .oasys .dataview .font-big {
@@ -353,5 +368,13 @@ html, body, svg, text {
 
 .oasys .dataview .card-body p {
     margin-bottom: 0px;
+}
+
+.oasys .dataview .table {
+    background-color: #f8f8f4;
+}
+
+.oasys .dataview .chart-wrapper {
+    margin: 0px 15px 5px 15px;
 }
 

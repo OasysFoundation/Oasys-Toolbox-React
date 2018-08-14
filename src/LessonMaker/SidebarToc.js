@@ -12,9 +12,6 @@ import SideBarLesson from "./SideBarLesson";
 
 class SidebarToc extends Component {
 
-    /*
-    We expect the props chapters and currChapIdx here.
-    */
     constructor(props) {
         super(props);
         this.handleChangeChapter = this.handleChangeChapter.bind(this);

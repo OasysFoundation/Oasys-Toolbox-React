@@ -36,17 +36,24 @@ const actions = function (store) { //store for async stuff
             return clone
         },
 
-        onAddChapter(state) {
+        onAddChapter(state, uid, title) {
             const clone = JSON.parse(JSON.stringify(state));
             const lastChapterId = state.chapters[state.chapters.length-1].id;
 
+            const activeChapter = clone.chapters[state.activeChapterIndex];
+            activeChapter.links.push({
+                eventId: uuidv4(),
+                chapterId: uid
+            });
+            clone.chapters[state.activeChapterIndex] = activeChapter;
+
             clone.chapters.push(
                 {
-                    id: uuidv4(),
-                    title: `|| Untitled Chapter ||`,
+                    id: uid,
+                    title: title || `|| Untitled Chapter ||`,
                     elements: [],
                     // linkIdx: [1],
-                    // links: [],
+                    links: [],
                     timestamp: Date.now()
                 }
             );

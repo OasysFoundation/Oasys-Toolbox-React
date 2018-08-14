@@ -18,11 +18,11 @@ import { connect } from "redux-zero/react";
 
 const styles = {
     normal: {
-        cursor: 'pointer',
+        // cursor: 'pointer',
         // border: `1px solid blue`
     },
     highlight: {
-        cursor: 'pointer',
+        // cursor: 'pointer',
         background: 'lightyellow',
         // border: `1px solid green`
 
