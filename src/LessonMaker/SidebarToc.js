@@ -150,10 +150,10 @@ SidebarToc.propTypes = {
     chapters: PropTypes.array.isRequired,
     activeChapterIndex: PropTypes.number.isRequired
 };
+
 //only take what you need
 export default connect(mapStoreToProps, actions)((propsFromStore) => {
     const {onChangeActiveChapter, project} = propsFromStore;
     const {chapters, activeChapterIndex} = project;
     return React.createElement(SidebarToc, {onChangeActiveChapter, chapters, activeChapterIndex});
-    // return (<LessonMaker people={people} setFirstName={setFirstName}/>)
 });

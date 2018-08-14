@@ -8,7 +8,7 @@ import createBrowserHistory from 'history/createBrowserHistory';
 import { withRouter } from 'react-router'
 import LessonMaker from './LessonMaker/LessonMaker'
 import ContentSelection from './ContentSelection'
-import DataViewCreator from './DataViewCreator'
+import DataViewCreator from './DataView/DataViewCreator'
 import AboutPage from './AboutPage'
 import Account from './Account'
 
