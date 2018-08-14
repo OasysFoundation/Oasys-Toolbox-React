@@ -12,6 +12,10 @@ import {
 } from 'reactstrap';
 
 import ToolbarQuill from './ToolbarQuill'
+import mapStoreToProps from "../store/mapStoreToProps";
+import actions from "../store/actions";
+import { connect } from "redux-zero/react";
+
 
 // console.log(globals.ICON_FONTSIZE_MIDDLE, 'fontsize')
 const ICON = function (className, fontSize = globals.ICON_FONTSIZE_MIDDLE) {
@@ -77,13 +81,13 @@ class FadeableCard extends Component {
                                 </div>
                                 <div hidden={!isEditMode} >
                                     <a className="card-header-action btn btn-setting"
-                                       onClick={this.props.onMoveUp}
+                                       onClick={() => this.props.onMoveElement(id, -1)}
                                     >
                                         {ICON("icon-arrow-up-circle")}
                                     </a>
 
                                     <a className="card-header-action btn btn-setting"
-                                       onClick={this.props.onMoveDown}>
+                                       onClick={() => this.props.onMoveElement(id, +1)}>
                                         {ICON("icon-arrow-down-circle")}
                                     </a>
                                     <a
@@ -97,7 +101,7 @@ class FadeableCard extends Component {
                                         className="card-header-action btn btn-setting"
                                         onClick={() => {
                                             this.toggle('shouldFade')
-                                            this.props.onDelete() //id is alrea
+                                            this.props.onDeleteElement(id) //id is alrea
                                         }}>
                                         {ICON("icon-close")}
                                     </a>
@@ -107,16 +111,11 @@ class FadeableCard extends Component {
                         {/*</CardHeader>*/}
                         <Collapse isOpen={this.state.isOpen} id="collapseExample">
                             <CardBody>
-                                {/*  !! This passes the Content in between here !! */}
+                                {/*  !! This passes the Children (in render) of Fadeable card from <Element/>  in between here !! */}
                                 {this.props.children}
 
                             </CardBody>
                         </Collapse>
-                        {/*<CardFooter style={styling.cardFooter}>*/}
-                        {/*<button>*/}
-                        {/*+++*/}
-                        {/*</button>*/}
-                        {/*</CardFooter>*/}
                     </Card>
 
                 </Fade>
@@ -135,4 +134,18 @@ FadeableCard.propTypes = {
     onMoveDown: PropTypes.func,
 };
 
-export default FadeableCard;
+
+// const takeFromStore = ({onMoveElement, onDeleteElement, onChangeContent}) =>  //needs nothing from store because it's passed from parent
+
+//actions is a function that returns on object of functions!
+export default connect(mapStoreToProps, actions)(FadeableCard);
+
+
+// export default connect(mapStoreToProps, actions)((propsFromStore) => {
+//     console.log(propsFromStore);
+//     const {onMoveElement, onDeleteElement, onChangeContent} = propsFromStore;
+//     console.log('PRRROPPPPS', propsFromStore)
+//     return <FadeableCard {...this.props} onDeleteElement={onDeleteElement} onMoveElement={onMoveElement} />;
+//     // return (<LessonMaker people={people} setFirstName={setFirstName}/>)
+// });
+
