@@ -55,6 +55,7 @@ class Element extends Component {
         const {content, id} = this.props.data
         let render = <div>NO ELEMENT TYPE YET HERE</div>;
 
+        // @markus: hier musst du die Preview / Edit funktionalitaet implementeiren. Die Elemente implementeiren schon isEditMode
         const isEditMode = this.state.isHovered || this.state.isClicked;
 
         const params = {
