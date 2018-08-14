@@ -22,16 +22,15 @@ class VideoEdit extends Component {
     onChangeUrl(e) {
         const url = e.target.value;
         if (this.isValidYouTubeUrl(url)) {
-            let data = this.props.data;
-            data.url = url;
+            const {cropStart, cropEnd} = this.props.data;
+            const data  = {url, cropStart, cropEnd};
             this.props.onChange(data);
         }
     }
 
     onChangeCrop(cropStart, cropEnd) {
-        let data = this.props.data;
-        data.cropStart = cropStart;
-        data.cropEnd = cropEnd;
+        const {url} = this.props.data;
+        const data  = {url, cropStart, cropEnd};
         this.props.onChange(data);
     }
 
@@ -69,5 +68,3 @@ class VideoEdit extends Component {
         )
     }
 }
-
-export default VideoEdit;
