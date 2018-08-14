@@ -66,6 +66,7 @@ export function sortIntoTocLevels(tocInfo, chapters, mainPath) {
         }
         addTocInfo.push({
             idx: idx,
+            id: chapters[idx].id,
             level: poslevs[0],
             next: chapters[idx].linkIdx.filter(e=>e>idx),
             prev: chapters[idx].linkIdx.filter(e=>e<idx),

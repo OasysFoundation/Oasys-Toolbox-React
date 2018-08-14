@@ -152,8 +152,6 @@ html, body, svg, text {
 
 .oasys .main-width {
     max-width: 750px;
-    min-width: 750px;
-    width: 750px;
 }
 
 .oasys .card {
@@ -355,7 +353,7 @@ html, body, svg, text {
 }
 
 .oasys .dataview .card-section {
-    padding: 0px 15px 0px 15px;
+    padding: 10px 15px 0px 15px;
 }
 
 .oasys .dataview .card-body {

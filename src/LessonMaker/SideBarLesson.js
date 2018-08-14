@@ -2,16 +2,16 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'reactstrap';
 import { Input, FormText, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import {connect} from "redux-zero/react";
 
 import {
-    AppSidebar,
-    AppSidebarFooter,
-    AppSidebarMinimizer,
+AppSidebar,
+AppSidebarFooter,
+AppSidebarMinimizer,
 } from '@coreui/react';
 
-import mapStoreToProps from "../store/mapStoreToProps";
+import {connect} from "redux-zero/react";
 import actions from "../store/actions";
+import mapStoreToProps from "../store/mapStoreToProps";
 import SidebarToc from "./SidebarToc";
 
 class SideBarLesson extends Component {

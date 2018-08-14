@@ -8,13 +8,15 @@ import uuidv4 from 'uuid/v4'
 const actions = function (store) { //store for async stuff
     return {
         //state variable gets inject into the action functions somehow through the connect(maptoprops, action)
+        onToggleEditMode(state){
+            return update(state, {isEditMode: {$set: !state.isEditMode}})
+        },
 
         onChangeProjectTitle(state, value) {
           return update(state, {title: {$set: value}})
         },
 
-        onChangeProjectTags(state, value) {
-            const tags = value.split(" ");
+        onChangeProjectTags(state, tags) {
             return update(state, {tags: {$set: tags}})
         },
         onChangeContent(state, id, value) {
