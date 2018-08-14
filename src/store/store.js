@@ -6,6 +6,7 @@ import globals from "../globals";
 const data = {
     title: "Physics101",
     id: 'project_1245',
+    isEditMode: true,
     description: 'LASDIADALAIDA',
     tags: [], //has categories
     activeChapterIndex: 0,
