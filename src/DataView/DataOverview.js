@@ -25,7 +25,6 @@ class DataOverview extends Component {
 	render(){
 		return (
 			<div classname='table'>
-
 				<h3 style={{marginBottom: '0px'}}>
 					Summary
 					<sup><i class="far fa-question-circle margin-right5 medgrey" data-tip='tooltip' data-for='summary'></i></sup>

@@ -297,6 +297,7 @@ html, body, svg, text {
     width: 15px;
     overflow: hidden;
     right: -5px;
+    display: none;
 }
 
 .oasys .video-embed .noUi-handle-lower {
@@ -383,12 +384,12 @@ html, body, svg, text {
     color: #ffffff;
 }
 
-.oasys .dataview .table .active:hover {
+.oasys .dataview .table tbody .active:hover {
     background-color: #28ccb4;
     color: #ffffff;
 }
 
-.oasys .dataview .table tr:hover {
+.oasys .dataview .table tbody tr:hover {
     background-color: #28ccb4;
     color: #ffffff;
 }
