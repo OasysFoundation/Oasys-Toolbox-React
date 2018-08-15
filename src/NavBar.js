@@ -4,6 +4,7 @@ import Media from "react-media";
 import Select from 'react-select';
 import api from './tools'
 
+
 // Images
 import Search from './images/search_grey_96x96.png';
 import Learn from './images/learn.png'
@@ -99,7 +100,7 @@ const styles = {
         borderBottomRightRadius: ".25rem",
     },
     navbarMobile:{
-        backgroundColor: "#F8F8F4", 
+        backgroundColor: "#f8f8f4", 
         height: "100px",
         borderBottom: "1px solid #27363E",
     },
@@ -171,6 +172,11 @@ const styles = {
     navbarMobileSelectDiv: {
       width:"85%",
       color:"black",
+    },
+    navbarRefactor:{
+        height:"100%", 
+        backgroundColor:"#f8f8f4", 
+        borderBottom: "1px solid #27363E",
     }   
 };
 
@@ -392,7 +398,8 @@ class NavBar extends React.Component {
         ];
 
         return(
-            <Navbar color="light" light expand="sm" style={{height:this.state.height, backgroundColor:"#F8F8F4", borderBottom: "1px solid #27363E"}}>
+            <div style={{height:this.state.height}}>
+            <Navbar light expand="sm" style={styles.navbarRefactor} >
               <NavbarBrand href="/explore" style={styles.navBarBrand}>
                   <img src={Logo} style={styles.navbarBrandImage}/>
               </NavbarBrand>
@@ -420,7 +427,7 @@ class NavBar extends React.Component {
 
               </Collapse>
             </Navbar>
-
+            </div>
         );
       }
 

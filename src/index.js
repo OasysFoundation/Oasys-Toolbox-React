@@ -47,7 +47,10 @@ import "./scss_coreui/style.css"
 import "simple-line-icons/css/simple-line-icons.css"
 // import "@coreui/icons/"
 
-//fontAwesome icons
+import Footer from './Footer'
+
+
+//fontAwesome icons 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
@@ -58,6 +61,10 @@ import {faObjectGroup} from '@fortawesome/free-solid-svg-icons'
 import {faUser} from '@fortawesome/free-solid-svg-icons'
 import {faLayerGroup} from '@fortawesome/free-solid-svg-icons'
 import {faLightbulb} from '@fortawesome/free-solid-svg-icons'
+import {faGithub} from '@fortawesome/free-brands-svg-icons'
+import {faInstagram} from '@fortawesome/free-brands-svg-icons'
+import {faTwitter} from '@fortawesome/free-brands-svg-icons'
+
 
 library.add(faEllipsisV)
 library.add(faPencilAlt)
@@ -67,8 +74,9 @@ library.add(faObjectGroup)
 library.add(faUser)
 library.add(faLayerGroup)
 library.add(faLightbulb)
-
-
+library.add(faGithub)
+library.add(faInstagram)
+library.add(faTwitter)
 
 const history = createBrowserHistory();
 
@@ -131,7 +139,7 @@ class Index extends Component {
 
                             <Route component={NotFoundPage}/>
                         </Switch>
-                        
+                        <Footer/>
 
                     </div>
                 </Router>
