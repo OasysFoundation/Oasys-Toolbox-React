@@ -143,7 +143,7 @@ class QuizzEdit extends Component {
 
                 <Popover placement="top" isOpen={this.state.showsFeedbackPopover} target={'answer-id-' + this.state.selectedAnswerIndex} toggle={this.onCloseFeedbackPopover.bind(this)}>
                   <PopoverHeader>{ feedbackTitle }</PopoverHeader>
-                  <PopoverBody>{this.state.answers[this.state.selectedAnswerIndex].feedback}</PopoverBody>
+                  <PopoverBody>{this.state.answers.length? this.state.answers[this.state.selectedAnswerIndex].feedback : null}</PopoverBody>
                 </Popover>
 
                 <QuizzEditModal question={this.state.question} answers={this.state.answers} quizType={this.state.quizType} 
