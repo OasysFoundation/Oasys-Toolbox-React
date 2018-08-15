@@ -25,12 +25,12 @@ const styling = {
     }
 };
 
-const {EDIT_QUILL, EDIT_QUIZ, EDIT_SYSTEM, EDIT_GAME} = globals;
+const {EDIT_QUILL, EDIT_QUIZ, EDIT_SYSTEM, EDIT_EMBED} = globals;
 
 const types = [
     EDIT_QUILL,
     EDIT_QUIZ,
-    EDIT_GAME,
+    EDIT_EMBED,
     EDIT_SYSTEM
 ]
 

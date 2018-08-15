@@ -39,7 +39,7 @@ function typeToString(type) {
     const dict = {};
     dict[globals.EDIT_QUILL] = 'Text';
     dict[globals.EDIT_QUIZ] = 'Quiz';
-    dict[globals.EDIT_GAME] = 'Game';
+    dict[globals.EDIT_EMBED] = 'Iframe';
     dict[globals.EDIT_VIDEO] = 'Video';
     dict[globals.EDIT_IMAGE] = 'Image';
     dict[globals.EDIT_FORMULA] = 'Formula';
