@@ -20,7 +20,7 @@ const styles={
 }
 
 const underlineOnSelectionColours = {
-            0: "#28ccb4",
+            0: "#2a9699",
         }
 
 class HorizontalScroll extends Component {
