@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { Card, CardBody, Container } from 'reactstrap';
+import ReactTooltip from "react-tooltip"
 
 import colors from '../colors';
 import DataOverview from './DataOverview';
@@ -16,10 +17,11 @@ class DataViewCreator extends Component {
 
 	render(){
 		let summaryStats = [
-			{'label': 'Average rating', 'value': 'N/A'},
-			{'label': 'Total plays', 'value': '0'},
-			{'label': 'OAS token', 'value': '0'},
-			{'label': 'Open feedback', 'value': '0'},
+			{'label': 'Lessons', 'value': '0', 'help': 'Total number of lessons that you have created.', id: Math.random(36).toString()},
+			{'label': 'Rating', 'value': 'N/A', 'help': 'Average rating of all your lessons.', id: Math.random(36).toString()},
+			{'label': 'Learners', 'value': '0', 'help': 'How many learners have accessed your lessons.', id: Math.random(36).toString()},
+			{'label': 'OAS token', 'value': '0', 'help': 'Amount of OAS tokens you have earned.', id: Math.random(36).toString()},
+			{'label': 'Open feedback', 'value': '0', 'help': 'Amount of unread feedback from learners.', id: Math.random(36).toString()},
 		]
 		return ( 
 			<div className="app-body">
@@ -32,7 +34,11 @@ class DataViewCreator extends Component {
 								<CardBody className='flex-center'>
 								{summaryStats.map((elem,idx) =>
 									<div className={(idx<summaryStats.length-1) ? 'cell-center card-section border-right' : 'cell-center card-section'}>
-										<p>{elem.label}</p>
+										<p>
+											{elem.label}
+              								<sup><i class="far fa-question-circle margin-right5 medgrey" data-tip='tooltip' data-for={elem.id}></i></sup>
+                    						<ReactTooltip id={elem.id}> {elem.help} </ReactTooltip>
+										</p>
 										<p className='font-big'>{elem.value}</p>
 								    </div>
 								)}

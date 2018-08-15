@@ -1,15 +1,20 @@
 import React, {Component} from 'react';
-import { Card, CardBody, CardHeader, Container } from 'reactstrap';
-import { Col, Pagination, PaginationItem, PaginationLink, Row, Table } from 'reactstrap';
-import { Bar, Line } from 'react-chartjs-2';
+import { Card, CardBody } from 'reactstrap';
+import { Bar } from 'react-chartjs-2';
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 
 import colors, {hexToRgba} from '../colors';
 
-let palette = [colors.GREEN, colors.TURQUOISE, colors.LOCHINVAR, colors.GHOST, colors.WINTERSUN, colors.SUMMERSUN, colors.RUST, colors.VELVET, colors.SPANISHWHITE];
-let paletteRgba1 = palette.map(color=>hexToRgba(color,0.6));
+let palette = [
+  colors.GREEN, colors.TURQUOISE, colors.LOCHINVAR, 
+  colors.GULLGREY, colors.WINTERSUN, colors.SUMMERSUN, 
+  colors.BROWN, colors.RUST, colors.VELVET, 
+  colors.MOUNTBATTEN, colors.GHOST, colors.GREY,
+];
+let paletteRgba1 = palette.map(color=>hexToRgba(color,0.7));
 let paletteRgba2 = palette.map(color=>hexToRgba(color,1.0));
 
+const chartHeight = '250px';
 
 const lineData = {
   labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
@@ -39,7 +44,7 @@ const lineData = {
 };
 
 const barData = {
-  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
   datasets: [
     {
       label: 'My First dataset',
@@ -48,7 +53,7 @@ const barData = {
       borderWidth: 1,
       hoverBackgroundColor: paletteRgba2,
       hoverBorderColor: paletteRgba2,
-      data: [65, 59, 80, 81, 56, 55, 40, 22, 37],
+      data: [65, 59, 80, 81, 56, 55, 40, 22, 37, 10, 20, 30],
     },
   ],
 };
@@ -68,15 +73,18 @@ let options = {
   },
   legend: {
   	display: false,
-  }
+  },
+  scales: {
+     yAxes: [{
+         ticks: {
+             beginAtZero: true
+         }
+     }]
+ }
 };
 
 class DataDetails extends Component {
 
-	constructor(props) {
-		super(props);
-	}
-	
 	render(){
 		let optsUser = JSON.parse(JSON.stringify(options));
 		let optsRewards = JSON.parse(JSON.stringify(options));
@@ -88,7 +96,7 @@ class DataDetails extends Component {
 		            <CardBody>
 		              <div className="chart-wrapper">
 		              	<center>
-		                	<Bar data={barData} options={optsUser} />
+		                	<Bar data={barData} options={optsUser} height={chartHeight} />
 		                </center>
 		              </div>
 		            </CardBody>
@@ -97,7 +105,7 @@ class DataDetails extends Component {
 		            <CardBody>
 		              <div className="chart-wrapper">
 		              	<center>
-		                	<Bar data={barData} options={optsRewards} />
+		                	<Bar data={barData} options={optsRewards} height={chartHeight} />
 		                </center>
 		              </div>
 		            </CardBody>

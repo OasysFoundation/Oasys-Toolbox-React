@@ -354,6 +354,7 @@ html, body, svg, text {
 
 .oasys .dataview .card-section {
     padding: 10px 15px 0px 15px;
+    max-height: 70px;
 }
 
 .oasys .dataview .card-body {
@@ -376,3 +377,6 @@ html, body, svg, text {
     margin: 0px 15px 5px 15px;
 }
 
+.oasys .dataview .medgrey {
+    color: #626970;
+}

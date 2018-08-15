@@ -1,6 +1,36 @@
 import React, {Component} from 'react';
-import { Card, CardBody, Container } from 'reactstrap';
-import { Col, Pagination, PaginationItem, PaginationLink, Row, Table } from 'reactstrap';
+import { Pagination, PaginationItem, PaginationLink, Table } from 'reactstrap';
+import ReactTooltip from "react-tooltip"
+
+const summaryData = [
+	{
+		'title': 'Bullshit detector',
+		'rating': 4.4,
+		'learner': 100,
+		'token': 5,
+		'published': new Date(),
+
+	},
+	{
+		'title': 'Energy is esoteric',
+		'rating': 4.2,
+		'learner': 200,
+		'token': 2,
+		'published': new Date(),
+
+	},
+	{
+		'title': 'Atoms are not atoms',
+		'rating': 4.0,
+		'learner': 1000,
+		'token': 200,
+		'published': new Date(),
+
+	},
+];
+
+const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+
 
 class DataOverview extends Component {
 	
@@ -10,37 +40,49 @@ class DataOverview extends Component {
 				<Table responsive striped className='has-shadow' style={{border: '1px solid #c8ced3'}}>
 		          <thead>
 		          <tr>
-		            <th>Username</th>
-		            <th>Date registered</th>
-		            <th>Role</th>
+		            <th>
+		            	Title
+		            </th>
+		            <th>
+		            	Rating
+		            	<sup><i class="far fa-question-circle margin-right5 medgrey" data-tip='tooltip' data-for='rating-help'></i></sup>
+                    	<ReactTooltip id='rating-help'> 
+                    		Average rating of this lesson
+                    	</ReactTooltip>
+                    </th>
+		            <th>
+		            	Learners
+		            	<sup><i class="far fa-question-circle margin-right5 medgrey" data-tip='tooltip' data-for='learner-help'></i></sup>
+                    	<ReactTooltip id='learner-help'> 
+                    		How many learners have accessed this lesson
+                    	</ReactTooltip>
+                    </th>
+		            <th>
+		            	Tokens
+		            	<sup><i class="far fa-question-circle margin-right5 medgrey" data-tip='tooltip' data-for='token-help'></i></sup>
+                    	<ReactTooltip id='token-help'> 
+                    		Amount of tokens you have earned with this lesson
+                    	</ReactTooltip>
+                	</th>
+		            <th>
+		            	Birthday
+		            	<sup><i class="far fa-question-circle margin-right5 medgrey" data-tip='tooltip' data-for='birthday-help'></i></sup>
+                    	<ReactTooltip id='birthday-help'> 
+                    		Date at which you published this lesson
+                    	</ReactTooltip>
+                    </th>
 		          </tr>
 		          </thead>
 		          <tbody>
-		          <tr>
-		            <td>Yiorgos Avraamu</td>
-		            <td>2012/01/01</td>
-		            <td>Member</td>
-		          </tr>
-		          <tr>
-		            <td>Avram Tarasios</td>
-		            <td>2012/02/01</td>
-		            <td>Staff</td>
-		          </tr>
-		          <tr>
-		            <td>Quintin Ed</td>
-		            <td>2012/02/01</td>
-		            <td>Admin</td>
-		          </tr>
-		          <tr>
-		            <td>Enéas Kwadwo</td>
-		            <td>2012/03/01</td>
-		            <td>Member</td>
-		          </tr>
-		          <tr>
-		            <td>Agapetus Tadeáš</td>
-		            <td>2012/01/21</td>
-		            <td>Staff</td>
-		          </tr>
+		          	{summaryData.map(e=>
+			          <tr>
+			            <td>{e.title}</td>
+			            <td>{e.rating}</td>
+			            <td>{e.learner}</td>
+			            <td>{e.token}</td>
+			            <td>{e.published.toLocaleDateString("en-US", dateOptions)}</td>
+			          </tr>
+		          	)}
 		          </tbody>
 		        </Table>
 			        <Pagination className='flex-center'>
