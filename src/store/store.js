@@ -24,6 +24,7 @@ const data = {
             elements: [
 
                 {
+                    parentChapterID: "chapter_124552",
                     id: "schnuckeldi",
                     type: globals.EDIT_VIDEO,
                     content: {
@@ -33,11 +34,15 @@ const data = {
                     }
                 },
                 {
+                    parentChapterID: "chapter_124552",
+
                     id: "d6363cb1-a398-4637-8528-5b28bf88c5a2",
                     type: globals.EDIT_QUILL,
-                    content: "oisdhkashdkajsdhasjkdaksdhaskdaskdhaskdhasldlkashdalskdhalskdhasldhasdkhaskldhasldhaskldASDSASADSaSSD"
+                    content: "HALLO 1"
                 },
                 {
+                    parentChapterID: "chapter_124552",
+
                     id: "aaaaaa2222222",
                     type: globals.EDIT_QUIZ,
                     content: {
@@ -83,11 +88,15 @@ const data = {
                     }
                 },
                 {
+                    parentChapterID: "chapter_124552",
+
                     id: "aaaaaa222",
-                    type: 6,
-                    content: "2*2=5"
+                    type: 0,
+                    content: "HALLO 2"
                 },
                 {
+                    parentChapterID: "chapter_124552",
+
                     id: "asdwasd2",
                     type: 5,
                     content: {
@@ -140,6 +149,11 @@ const data = {
         }
     ]
 }
+
+//elements evolved from reptiles to mammals and know their father now
+data.chapters.forEach(chapter => chapter.elements.forEach(el => el.parentChapterID = chapter.id));
+data.chapters.forEach(chapter => chapter.elements.forEach(el => el.timestamp = Date.now()));
+data.chapters.forEach(chapter => chapter.timestamp = Date.now());
 
 const store = createStore(data);
 

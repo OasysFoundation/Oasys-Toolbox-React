@@ -24,6 +24,7 @@ import {connect} from "redux-zero/react";
 
 class Element extends Component {
 
+    fromChapter = this.props.data.parentChapterID;
     state = {
         isHovered: false,
         tempContent: this.props.data.content
@@ -75,8 +76,11 @@ class Element extends Component {
     }
 
     componentWillUnmount(){
-        // console.log('YAAAAh, unmounted')
-        this.props.onChangeContent(this.props.data.id, this.state.tempContent, this.props.activeChapterIndex)
+        this.props.onChangeContent(
+            this.props.data.id,
+            this.state.tempContent,
+            this.fromChapter
+        )
     }
 
     //onClick={() => this.setState({isHovered: true})}

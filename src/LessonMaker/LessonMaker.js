@@ -14,13 +14,19 @@ import ElementAdder from './ElementAdder'
 const Item = posed.div();
 
 class LessonMaker extends Component {
+    constructor(props) {
+        super(props);
+        props.mergeStoreWithSessionStorage();
+    }
+
     componentDidMount() {
         // this.inhaleSessionStorage();
         //api.getProjectsForUser().then()
         const that = this;
         this.autoSaver = setInterval(function () {
             that.saveStatus()
-        }, 20000)
+        }, 20000);
+
     }
 
     componentWillUnmount() {
@@ -37,8 +43,6 @@ class LessonMaker extends Component {
         const activeChapter = this.props.chapters[this.props.activeChapterIndex];
         const {elements} = activeChapter;
         const emptyChapterAdder = elements.length > 0 ? null : <ElementAdder key={"filler"} idx={0}/>;
-
-        console.log('elements  ', elements, elements.length > 0);
 
         return (
             <div className="app-body">
@@ -114,8 +118,8 @@ LessonMaker.propTypes = {
 
 const mapStoreToProps = ({chapters, activeChapterIndex, isEditMode}) => ({isEditMode, chapters, activeChapterIndex})
 const neededActions = (store) => {
-    const {onChangeChapterTitle, onToggleEditMode} = actions();
-    return {onChangeChapterTitle, onToggleEditMode}
+    const {onChangeChapterTitle, onToggleEditMode, mergeStoreWithSessionStorage} = actions();
+    return {onChangeChapterTitle, onToggleEditMode, mergeStoreWithSessionStorage }
 };
 
 export default connect(mapStoreToProps, neededActions)(LessonMaker);

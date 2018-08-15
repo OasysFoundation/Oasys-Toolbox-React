@@ -13,7 +13,7 @@ const actions = function (store) { //store for async stuff
             return update(state, {isEditMode: {$set: !state.isEditMode}})
         },
 
-        inhaleSessionStorage(state) {
+        mergeStoreWithSessionStorage(state) {
             const clone = JSON.parse(JSON.stringify(state));
             //deep searches data and returns 1D array with objects that have an ID property
             //by reference!
@@ -22,8 +22,11 @@ const actions = function (store) { //store for async stuff
             //get
             sessionKeys.forEach(key => {
                 const matchFromState = allWithID.find(el => globals.SESSIONSTORAGE_KEY + el['id'] === key)
+                console.log(matchFromState, "FOUND in STATE!", key)
                 if (matchFromState) {
                     const matchFromSession = JSON.parse(sessionStorage.getItem(key));
+                    console.log(matchFromSession, "FOUND in SESSION!", key);
+
                     if (matchFromSession.timestamp > matchFromState.timestamp) {
                         console.log('Compare two Items session - state', matchFromSession, matchFromState)
                         matchFromState.content = matchFromSession.content;
@@ -45,11 +48,11 @@ const actions = function (store) { //store for async stuff
         onChangeProjectTags(state, tags) {
             return update(state, {tags: {$set: tags}})
         },
-        onChangeContent(state, id, value, activeChapterIndex) {
 
-            console.log(state, id, value, activeChapterIndex)
+        onChangeContent(state, id, value, elementChapter) {
             const clone = JSON.parse(JSON.stringify(state));
-            let elements = clone.chapters[ (activeChapterIndex || state.activeChapterIndex) ].elements;
+            const currentChapter = clone.chapters.find(chapter => chapter.id === elementChapter);
+            let elements = currentChapter.elements;
 
             const elem = elements.find(el => el.id === id);
             if (!elem) {
@@ -57,16 +60,14 @@ const actions = function (store) { //store for async stuff
                 return
             };
 
-            console.log("changing ", elem.content, " to --", value)
             elem.content = value;
             elem.timestamp = Date.now();
 
-            clone.chapters[state.activeChapterIndex].elements = elements;
-
+            currentChapter.elements = elements;
             return clone
         },
+
         onChangeActiveChapter(state, id) {
-            console.log(state, "STAATE on active")
             const index = state.chapters.findIndex(chapter => chapter.id.toString() === id.toString());
             console.log("new active chapter idx:  ", index)
             return update(state, {activeChapterIndex: {$set: index}})
@@ -136,7 +137,8 @@ const actions = function (store) { //store for async stuff
                 id: uuidv4(),
                 type: typeSelected,
                 content: initContent(typeSelected),
-                timestamp: Date.now()
+                timestamp: Date.now(),
+                parentChapterID: clone.chapters[state.activeChapterIndex].id
             };
 
             clone.chapters[state.activeChapterIndex].elements = [
