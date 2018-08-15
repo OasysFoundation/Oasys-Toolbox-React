@@ -38,6 +38,10 @@ const actions = function (store) { //store for async stuff
           return update(state, {title: {$set: value}})
         },
 
+        onChangeProjectDescription(state, value) {
+          return update(state, {description: {$set: value}})
+        },
+
         onChangeProjectTags(state, tags) {
             return update(state, {tags: {$set: tags}})
         },

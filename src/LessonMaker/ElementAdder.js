@@ -5,6 +5,8 @@ import globals from '../globals'
 import {connect} from "redux-zero/react";
 import actions from "../store/actions";
 
+import AddNewElementModal from './AddNewElementModal'
+
 const styling = {
     all: {
         display: 'flex',
@@ -37,12 +39,29 @@ const types = [
 class ElementAdder extends Component {
 
     state = {
-        isHovered: false
+        showsNewElementModal: false
+    }
+
+    onAddNewElement() {
+        this.setState({
+            showsNewElementModal: true
+        });
+    }
+
+    onCloseElementModal() {
+        this.setState({
+            showsNewElementModal: false
+        });
+    }
+
+    onSelectElement() {
+        
     }
 
     render() {
         const that = this;
         return (
+
             <section style={styling.all} className={'card-header'}
                      onMouseEnter={() => this.setState({isHovered: true})}
                      onMouseLeave={() => this.setState({isHovered: false})}
@@ -56,17 +75,18 @@ class ElementAdder extends Component {
                              alt=""
                         />)}
                 </section>
-                <section style={{alignSelf:'center', display: 'flex', 'justifyContent': 'center', alignItems: 'center'}} hidden={this.state.isHovered}>
-                    <i style={{color: '#A2ABB8', fontSize:'30px'}} className='icon-plus'> </i>
-                    {this.props.nElems<1
+                <section style={{alignSelf:'center', display: 'flex', 'justifyContent': 'center', alignItems: 'center', marginTop:'15px'}}>
+                    <i style={{color: '#A2ABB8', fontSize:'30px'}} className='icon-plus' onClick={this.onAddNewElement.bind(this)}> </i>
+                    {this.props.nElems<=1 
+
                     ?
                       <span className='help-text' style={{color: '#626970', marginLeft: '15px'}}>You can add more content by clicking or tapping the plus icon.</span>
                     : null
                     }
                     
+                <AddNewElementModal isOpen={this.state.showsNewElementModal} onClose={this.onCloseElementModal.bind(this)} onSelectElement={this.onSelectElement.bind(this)}/>
                 </section>
             </section>
-
         );
     }
 }

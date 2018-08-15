@@ -22,6 +22,7 @@ class SideBarLesson extends Component {
         }
         this.title = null;
         this.tags = null;
+        this.description = null;
     }
 
     onSettingsShow(){
@@ -43,6 +44,10 @@ class SideBarLesson extends Component {
         if (this.title!=null) {
             this.props.onChangeProjectTitle(this.title);
         }
+
+        if (this.description!=null) {
+            this.props.onChangeProjectDescription(this.description);
+        }
         this.setState({
             showSettingsDialog: false,
         });
@@ -60,11 +65,20 @@ class SideBarLesson extends Component {
                         defaultValue={this.props.title}
                         onChange={e=>this.title=e.target.value}
                     />
-                    <FormText color="muted">
+                    <FormText color="muted" style={{marginBottom:'10px'}}>
                         The title for this lesson may have 40 characters at most.
                     </FormText>
-                    <Input
-                        defaultValue={this.props.tags.join(" ")}
+                    <Input 
+                        type='textarea'
+                        rows='4'
+                        defaultValue={this.props.description} 
+                        onChange={e=>this.description=e.target.value}
+                    />
+                    <FormText color="muted" style={{marginBottom:'10px'}}>
+                        The description will be shown to the learner before they start the lesson.
+                    </FormText>
+                    <Input 
+                        defaultValue={this.props.tags.join(" ")} 
                         onChange={e=>this.tags=e.target.value}
                     />
                     <FormText color="muted">
@@ -114,7 +128,7 @@ SideBarLesson.propTypes = {
 
 // only take what you need
 export default connect(mapStoreToProps, actions)((propsFromStore) => {
-    const {project, onChangeProjectTitle, onChangeProjectTags} = propsFromStore;
-    const {title, tags} = project;
-    return React.createElement(SideBarLesson, {title, tags, onChangeProjectTitle, onChangeProjectTags});
+    const {project, onChangeProjectTitle, onChangeProjectTags, onChangeProjectDescription} = propsFromStore;
+    const {title, tags, description} = project;
+    return React.createElement(SideBarLesson, {title, tags, description, onChangeProjectTitle, onChangeProjectTags, onChangeProjectDescription});
 });
