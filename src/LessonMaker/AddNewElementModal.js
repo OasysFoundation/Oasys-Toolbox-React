@@ -20,7 +20,7 @@ class AddNewElementModal extends Component {
 		globals.EDIT_FORMULA,
 		globals.EDIT_QUIZ,
 		globals.EDIT_VIDEO,
-		globals.EDIT_EMBED,
+		globals.EDIT_GAME,
 		globals.EDIT_SYSTEM
 	]
 	
@@ -37,8 +37,8 @@ class AddNewElementModal extends Component {
                 return "Quiz";
             case globals.EDIT_VIDEO:
                 return "Video";
-            case globals.EDIT_EMBED:
-            	return "Iframe";
+            case globals.EDIT_GAME:
+            	return "Game";
             case globals.EDIT_SYSTEM:
             	return "System Simulation";
 
@@ -84,12 +84,12 @@ class AddNewElementModal extends Component {
             <Modal isOpen={this.props.isOpen} toggle={this.props.onClose} backdrop={true}>
 		        <ModalHeader toggle={this.props.onClose}>Adding a new Element to this Chapter</ModalHeader>
 		          <ModalBody>
-		          <div style={{display: "flex", flexWrap: "wrap", flexDirection:"row"}}>
+		          <div style={{width: "100%", display: "flex", flexWrap: "wrap", flexDirection:"row"}}>
 					{this.elementTypes.map(function(elementType) {
 						return (
-							<div onClick={function() { that.onSelectElement(elementType) }} style={{marginBottom:'10px'}}>
+							<div onClick={function() { that.onSelectElement(elementType) }} style={{marginBottom:'10px', width:'50%'}}>
 								<center>
-									<img src={that.iconForElement(elementType)} style={{width:'50%'}}/>
+									<img src={that.iconForElement(elementType)} style={{width:'100%', padding:'10px'}}/>
 									<br />
 									{that.titleForElement(elementType)}
 								</center>
