@@ -9,6 +9,7 @@ import actions from "../store/actions";
 
 import Element from "./Element";
 import ElementAdder from './ElementAdder'
+import ContentView from './ContentView'
 
 
 const Item = posed.div();
@@ -39,8 +40,8 @@ class LessonMaker extends Component {
         return (
             <div className="app-body">
 
-                <SideBarLesson/>
 
+                {this.props.isEditMode && <SideBarLesson/>}
                 <main className="main">
                     <Container fluid className='main-width'>
                         <center>
