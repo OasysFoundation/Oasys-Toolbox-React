@@ -68,7 +68,6 @@ class SideBarLesson extends Component {
                     <FormText color="muted" style={{marginBottom:'10px'}}>
                         The title for this lesson may have 40 characters at most.
                     </FormText>
-<<<<<<< HEAD
                     <Input 
                         type='textarea'
                         rows='4'
@@ -80,10 +79,6 @@ class SideBarLesson extends Component {
                     </FormText>
                     <Input 
                         defaultValue={this.props.tags.join(" ")} 
-=======
-                    <Input
-                        defaultValue={this.props.tags.join(" ")}
->>>>>>> 1cc4026d408e35730ffdd2c3e36bd0cba0eb9c09
                         onChange={e=>this.tags=e.target.value}
                     />
                     <FormText color="muted">
