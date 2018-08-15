@@ -46,7 +46,7 @@ const tiles = [{
 		name: "Machine Learning", 
 		color: tileColors.dark,
 	},{
-		name: "iOs", 
+		name: "iOS", 
 		color: tileColors.medium,
 	},{
 		name: "Blockchain", 
@@ -118,8 +118,8 @@ class LandingPageController extends Component{
 							id: sectionIds[4]
 						},
 						{
-							title:"iOs",
-							data:this.state.filteredContent.filter(this.correctCategory("iOs")),
+							title:"iOS",
+							data:this.state.filteredContent.filter(this.correctCategory("iOS")),
 							id: sectionIds[4]
 						},
 						{
