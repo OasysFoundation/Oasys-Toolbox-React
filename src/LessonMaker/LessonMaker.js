@@ -12,6 +12,7 @@ import ElementAdder from './ElementAdder'
 
 
 const Item = posed.div();
+
 class LessonMaker extends Component {
     componentDidMount() {
         // this.inhaleSessionStorage();

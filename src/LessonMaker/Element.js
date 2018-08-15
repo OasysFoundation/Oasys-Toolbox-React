@@ -8,7 +8,7 @@ import FormulaEdit from './FormulaEdit'
 import QuizzEdit from './QuizzEdit'
 import VideoEdit from './VideoEdit'
 
-// import {saveToSessionStorage} from "../utils/trickBox";
+import {saveToSessionStorage} from "../utils/trickBox";
 import {
     Card,
     CardBody
@@ -22,8 +22,6 @@ import {connect} from "redux-zero/react";
 //TODO
 //put Fade from CoreUI --> Wrap it in component to manage IN/Out state!
 
-
-
 class Element extends Component {
 
     state = {
@@ -34,8 +32,7 @@ class Element extends Component {
     //glue function between LessonMaker and Quill to add ID
     handleChange = (value) => {
         this.setState({tempContent: value}); //for Quill
-        this.props.onChangeContent(this.props.data.id, value)
-        // saveToSessionStorage(this.props.data.id, value) //for s{this.typeToComponent(type)}witching chapters
+        saveToSessionStorage(this.props.data.id, value) //for s{this.typeToComponent(type)}witching chapters
     }
 
     typeToComponent(type) {
@@ -45,7 +42,6 @@ class Element extends Component {
         const params = {
             key: id,
             id: id,
-            test: "XXX",
             data: content,
             isHovered,
             isEditMode: this.props.isEditMode,
@@ -78,6 +74,10 @@ class Element extends Component {
         return render;
     }
 
+    componentWillUnmount(){
+        // console.log('YAAAAh, unmounted')
+        this.props.onChangeContent(this.props.data.id, this.state.tempContent, this.props.activeChapterIndex)
+    }
 
     //onClick={() => this.setState({isHovered: true})}
     render() {
@@ -120,7 +120,7 @@ Element.propTypes = {
     data: PropTypes.object.isRequired,
 };
 
-const mapStoreToProps = ({chapters, isEditMode}) => ({chapters, isEditMode});
+const mapStoreToProps = ({chapters, isEditMode, activeChapterIndex}) => ({chapters, activeChapterIndex, isEditMode});
 
 //don't need anything!
 const neededActions = (store) => {

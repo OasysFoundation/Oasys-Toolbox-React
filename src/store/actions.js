@@ -1,9 +1,10 @@
 //TODO use my mongo functions to do upsert, insert, find for STATE etc
 //use immutable
 import update from 'immutability-helper'
-import {moveEntry, withoutEntry} from "../utils/trickBox";
+import {moveEntry, withoutEntry, getObjectsByKey} from "../utils/trickBox";
 import {initContent} from "../tools";
-import uuidv4 from 'uuid/v4'
+import uuidv4 from 'uuid/v4';
+import globals from '../globals'
 
 const actions = function (store) { //store for async stuff
     return {
@@ -12,6 +13,27 @@ const actions = function (store) { //store for async stuff
             return update(state, {isEditMode: {$set: !state.isEditMode}})
         },
 
+        inhaleSessionStorage(state) {
+            const clone = JSON.parse(JSON.stringify(state));
+            //deep searches data and returns 1D array with objects that have an ID property
+            //by reference!
+            const allWithID = getObjectsByKey([clone], 'id');
+            const sessionKeys = Object.keys(sessionStorage).filter(key => key.includes(globals.SESSIONSTORAGE_KEY))
+            //get
+            sessionKeys.forEach(key => {
+                const matchFromState = allWithID.find(el => globals.SESSIONSTORAGE_KEY + el['id'] === key)
+                if (matchFromState) {
+                    const matchFromSession = JSON.parse(sessionStorage.getItem(key));
+                    if (matchFromSession.timestamp > matchFromState.timestamp) {
+                        console.log('Compare two Items session - state', matchFromSession, matchFromState)
+                        matchFromState.content = matchFromSession.content;
+                    }
+                }
+            });
+            return clone;
+        },
+
+
         onChangeProjectTitle(state, value) {
           return update(state, {title: {$set: value}})
         },
@@ -19,18 +41,19 @@ const actions = function (store) { //store for async stuff
         onChangeProjectTags(state, tags) {
             return update(state, {tags: {$set: tags}})
         },
-        onChangeContent(state, id, value) {
-            const clone = JSON.parse(JSON.stringify(state));
-            let elements = clone.chapters[state.activeChapterIndex].elements;
+        onChangeContent(state, id, value, activeChapterIndex) {
 
-            console.log(id)
-            console.log('ELELLELEM', elements)
+            console.log(state, id, value, activeChapterIndex)
+            const clone = JSON.parse(JSON.stringify(state));
+            let elements = clone.chapters[ (activeChapterIndex || state.activeChapterIndex) ].elements;
 
             const elem = elements.find(el => el.id === id);
             if (!elem) {
                 console.log('no element found on change content -- maybe handlechange fired, but element in Chapter that is not active')
                 return
             };
+
+            console.log("changing ", elem.content, " to --", value)
             elem.content = value;
             elem.timestamp = Date.now();
 
