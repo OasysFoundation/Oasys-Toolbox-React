@@ -321,6 +321,7 @@ class NavBar extends React.Component {
                         options={groupedOptions}
                         onChange={this.handleChange}
                         formatGroupLabel={formatGroupLabel}
+                        placeholder="Search"
                       />
                  </div>
             </div>
@@ -398,6 +399,7 @@ class NavBar extends React.Component {
                                 options={groupedOptions}
                                 onChange={this.handleChange}
                                 formatGroupLabel={formatGroupLabel}
+                                placeholder="Search"
                               />
                        </div>
                     )
