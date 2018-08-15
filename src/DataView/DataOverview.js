@@ -1,42 +1,33 @@
 import React, {Component} from 'react';
-import { Pagination, PaginationItem, PaginationLink, Table } from 'reactstrap';
-import ReactTooltip from "react-tooltip"
+// import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
+import { Table } from 'reactstrap';
+import ReactTooltip from 'react-tooltip';
 
-const summaryData = [
-	{
-		'title': 'Bullshit detector',
-		'rating': 4.4,
-		'learner': 100,
-		'token': 5,
-		'published': new Date(),
-
-	},
-	{
-		'title': 'Energy is esoteric',
-		'rating': 4.2,
-		'learner': 200,
-		'token': 2,
-		'published': new Date(),
-
-	},
-	{
-		'title': 'Atoms are not atoms',
-		'rating': 4.0,
-		'learner': 1000,
-		'token': 200,
-		'published': new Date(),
-
-	},
-];
+import colors from '../colors';
 
 const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
 
 
 class DataOverview extends Component {
+
+	onChangeData(id) {
+		this.props.onChangeData(id);
+	}
 	
 	render(){
 		return (
 			<div classname='table'>
+
+				<h3 style={{marginBottom: '0px'}}>
+					Summary
+					<sup><i class="far fa-question-circle margin-right5 medgrey" data-tip='tooltip' data-for='summary'></i></sup>
+					<ReactTooltip id='summary' place='right'> 
+						You can select any row in the summary table. <br/>
+						This will show detailed statistics for the selected lesson below the table.
+					</ReactTooltip>
+				</h3>
+				<hr style={{marginTop: '0px', borderColor: colors.GULLGREY}}/>
+
 				<Table responsive striped className='has-shadow' style={{border: '1px solid #c8ced3'}}>
 		          <thead>
 		          <tr>
@@ -74,8 +65,15 @@ class DataOverview extends Component {
 		          </tr>
 		          </thead>
 		          <tbody>
-		          	{summaryData.map(e=>
-			          <tr>
+			          <tr onClick={e=>this.onChangeData('all')} style={{cursor: 'pointer'}}>
+			            <td><strong>All lessons</strong></td>
+			            <td><strong>{(this.props.data.map(e=>e.rating).reduce((a,b)=>a+b,0)/this.props.data.length).toFixed(1)}</strong></td>
+			            <td><strong>{this.props.data.map(e=>e.learner).reduce((a,b)=>a+b)}</strong></td>
+			            <td><strong>{this.props.data.map(e=>e.token).reduce((a,b)=>a+b)}</strong></td>
+			            <td></td>
+			          </tr>
+		          	{this.props.data.map(e=>
+			          <tr onClick={f=>this.onChangeData(e.id)} style={{cursor: 'pointer'}}>
 			            <td>{e.title}</td>
 			            <td>{e.rating}</td>
 			            <td>{e.learner}</td>
@@ -85,6 +83,10 @@ class DataOverview extends Component {
 		          	)}
 		          </tbody>
 		        </Table>
+		        {/* We don't need pagination for now. Later, it can be implemented like so:
+		        	https://scotch.io/tutorials/build-custom-pagination-with-react
+		        	Or even better, use the ready-made react-table that supports sorting and pagination:
+		        	https://github.com/react-tools/react-table
 			        <Pagination className='flex-center'>
 			          <PaginationItem disabled><PaginationLink previous tag="button">Prev</PaginationLink></PaginationItem>
 			          <PaginationItem active>
@@ -95,6 +97,7 @@ class DataOverview extends Component {
 			          <PaginationItem><PaginationLink tag="button">4</PaginationLink></PaginationItem>
 			          <PaginationItem><PaginationLink next tag="button">Next</PaginationLink></PaginationItem>
 			        </Pagination>
+			    */}
 			</div>
 		)
 	}

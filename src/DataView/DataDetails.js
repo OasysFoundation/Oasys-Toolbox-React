@@ -16,33 +16,6 @@ let paletteRgba2 = palette.map(color=>hexToRgba(color,1.0));
 
 const chartHeight = '250px';
 
-const lineData = {
-  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-  datasets: [
-    {
-      label: 'My First dataset',
-      fill: false,
-      lineTension: 0.1,
-      backgroundColor: paletteRgba1,
-      borderColor: paletteRgba1,
-      borderCapStyle: 'butt',
-      borderDash: [],
-      borderDashOffset: 0.0,
-      borderJoinStyle: 'miter',
-      pointBorderColor: 'rgba(75,192,192,1)',
-      pointBackgroundColor: '#fff',
-      pointBorderWidth: 1,
-      pointHoverRadius: 5,
-      pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-      pointHoverBorderColor: 'rgba(220,220,220,1)',
-      pointHoverBorderWidth: 2,
-      pointRadius: 1,
-      pointHitRadius: 10,
-      data: [65, 59, 80, 81, 56, 55, 40],
-    },
-  ],
-};
-
 const barData = {
   labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
   datasets: [
@@ -92,6 +65,15 @@ class DataDetails extends Component {
 		optsRewards.title.text = 'Rewards for lesson ' + this.props.contentTitle;
 		return (
 			<div>
+
+        <h3 style={{marginBottom: '0px', marginTop: '30px'}}>
+          {(this.props.data.id==='all')
+          ? ('Details for all lessons')
+          : ('Details for lesson ' + this.props.data.title)
+          }
+        </h3>
+        <hr style={{marginTop: '0px', borderColor: colors.GULLGREY}}/>
+
 				<Card className='has-shadow marginBottom20'>
 		            <CardBody>
 		              <div className="chart-wrapper">
