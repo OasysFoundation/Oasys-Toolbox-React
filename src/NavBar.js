@@ -322,6 +322,8 @@ class NavBar extends React.Component {
                         onChange={this.handleChange}
                         formatGroupLabel={formatGroupLabel}
                         placeholder="Search"
+                        noOptionsMessage={this.noOptionsMessage}
+
                       />
                  </div>
             </div>
@@ -340,6 +342,10 @@ class NavBar extends React.Component {
          </Navbar>
 
         );
+      }
+
+      noOptionsMessage(){
+        return "No content found. Create your own!"
       }
 
       getPCVersion(){
@@ -400,6 +406,7 @@ class NavBar extends React.Component {
                                 onChange={this.handleChange}
                                 formatGroupLabel={formatGroupLabel}
                                 placeholder="Search"
+                                noOptionsMessage={this.noOptionsMessage}
                               />
                        </div>
                     )
