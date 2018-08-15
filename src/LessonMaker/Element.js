@@ -7,6 +7,7 @@ import ImageEdit from './ImageEdit'
 import FormulaEdit from './FormulaEdit'
 import QuizzEdit from './QuizzEdit'
 import VideoEdit from './VideoEdit'
+import EmbedEdit from './EmbedEdit'
 
 import {saveToSessionStorage} from "../utils/trickBox";
 import {
@@ -72,7 +73,9 @@ class Element extends Component {
             case globals.EDIT_VIDEO:
                 render = <VideoEdit {...params}/>
                 break;
-
+            case globals.EDIT_EMBED:
+                render = <EmbedEdit {...params}/>
+                break;
             default:
                 return (<div key={"1223"}>not yet implemented</div>)
         }

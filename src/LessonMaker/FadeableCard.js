@@ -39,7 +39,7 @@ function typeToString(type) {
     const dict = {};
     dict[globals.EDIT_QUILL] = 'Text';
     dict[globals.EDIT_QUIZ] = 'Quiz';
-    dict[globals.EDIT_GAME] = 'Game';
+    dict[globals.EDIT_EMBED] = 'Iframe';
     dict[globals.EDIT_VIDEO] = 'Video';
     dict[globals.EDIT_IMAGE] = 'Image';
     dict[globals.EDIT_FORMULA] = 'Formula';
@@ -61,15 +61,11 @@ class FadeableCard extends Component {
         //for debugging
         return (
             <div>
-                <section style={styling.toolbar}>
-                    <section>
-                        {/*Quill has to render but is hidden if not Quill, bc QUILL is hacky and searches for a toolbar ID*/}
-                        {ToolbarQuill(id, type === globals.EDIT_QUILL && isEditMode)}
-                    </section>
-                </section>
                 <Fade timeout={300} in={this.state.shouldFade}>
-                    <Card className="card-fancy has-shadow">
-                            <section style={styling.cardActions} >
+                    <Card className={this.state.isOpen ? "card-fancy has-shadow" : "card-fancy has-shadow minimized"}>
+                            <section style={styling.cardActions} > 
+                                {/*Quill has to render but is hidden if not Quill, bc QUILL is hacky and searches for a toolbar ID*/}
+                                {ToolbarQuill(id, type === globals.EDIT_QUILL && isEditMode)}
                                 <div className='card-hint'>
                                     {this.state.isOpen ? null : typeToString(type) }
                                 </div>

@@ -16,7 +16,7 @@ const globals = {
 	// types of editors
 	EDIT_QUILL: 0,
 	EDIT_QUIZ: 1,
-	EDIT_GAME: 2,
+	EDIT_EMBED: 2,
 	EDIT_VIDEO: 3,
 	EDIT_SYSTEM: 4,
 	EDIT_IMAGE: 5,

@@ -25,12 +25,12 @@ const styling = {
     }
 };
 
-const {EDIT_QUILL, EDIT_QUIZ, EDIT_SYSTEM, EDIT_GAME} = globals;
+const {EDIT_QUILL, EDIT_QUIZ, EDIT_SYSTEM, EDIT_EMBED} = globals;
 
 const types = [
     EDIT_QUILL,
     EDIT_QUIZ,
-    EDIT_GAME,
+    EDIT_EMBED,
     EDIT_SYSTEM
 ]
 
@@ -54,8 +54,11 @@ class ElementAdder extends Component {
         });
     }
 
-    onSelectElement() {
-        
+    onSelectElement(elementType) {
+        this.props.onAddElement(elementType, this.props.idx);
+        this.setState({
+            showsNewElementModal: false
+        });
     }
 
     render() {
@@ -66,15 +69,7 @@ class ElementAdder extends Component {
                      onMouseEnter={() => this.setState({isHovered: true})}
                      onMouseLeave={() => this.setState({isHovered: false})}
             >
-                <section hidden={!this.state.isHovered}>
-                    {types.map(type =>
-                        <img style={styling.image}
-                             key={Math.random()}
-                             src={typeToIcon(type)}
-                             onClick={() => that.props.onAddElement(type, that.props.idx)}
-                             alt=""
-                        />)}
-                </section>
+
                 <section style={{alignSelf:'center', display: 'flex', 'justifyContent': 'center', alignItems: 'center', marginTop:'15px'}}>
                     <i style={{color: '#A2ABB8', fontSize:'30px'}} className='icon-plus' onClick={this.onAddNewElement.bind(this)}> </i>
                     {this.props.nElems<=1 

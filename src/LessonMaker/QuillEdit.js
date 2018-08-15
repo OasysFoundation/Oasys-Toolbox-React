@@ -71,11 +71,11 @@ class QuillEdit extends Component {
         // define custom icons
         let icons = ReactQuill.Quill.import('ui/icons');
         icons['header']['1'] = '';
-        icons['bold'] = '<img src="' + textBoldIcon + '"/>';
-        icons['italic'] = '<img src="' + textItalicIcon + '"/>';
-        icons['blockquote'] = '<img src="' + textQuoteIcon + '"/>';
-        icons['background'] = '<img src="' + textColorIcon + '"/>';
-        icons['link'] = '<img src="' + textLinkIcon + '"/>';
+        icons['bold'] = '<img src="' + textBoldIcon + '" height="20"/>';
+        icons['italic'] = '<img src="' + textItalicIcon + '" height="20"/>';
+        icons['blockquote'] = '<img src="' + textQuoteIcon + '" height="20"/>';
+        icons['background'] = '<img src="' + textColorIcon + '" height="20"/>';
+        icons['link'] = '<img src="' + textLinkIcon + '" height="20"/>';
 
         let font = ReactQuill.Quill.import('formats/font');
         font.whitelist = ['Charter-Regular'];
