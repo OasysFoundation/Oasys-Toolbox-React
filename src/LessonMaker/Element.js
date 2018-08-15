@@ -33,10 +33,12 @@ class Element extends Component {
     }
 
     typeToComponent(type) {
-        const {content, id, isEditMode} = this.props.data
+        const {content, id} = this.props.data;
+
+
         let render = <div>NO ELEMENT TYPE YET HERE</div>;
 
-        const {isHovered} = this.state
+        const {isHovered} = this.state;
 
         const params = {
             key: id,
@@ -44,7 +46,7 @@ class Element extends Component {
             test: "XXX",
             data: content,
             isHovered,
-            isEditMode, //phase out editMode to not confuse
+            isEditMode: this.props.isEditMode, //phase out editMode to not confuse
             // isPreview: this.props.isPreview,
             onChange: this.handleChange
         }
