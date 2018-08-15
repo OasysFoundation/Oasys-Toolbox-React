@@ -214,7 +214,7 @@ class HorizontalScrollButtonMaker extends Component{
 	                      	<div style={{flex:3, textAlign:"left"}}>{"Go To " + this.state.currentUsername + "'s Page"}</div>
 						  </Button>
 						  <Button block color="light" onClick={this.handleClick.bind(this,"collection")} style={styles.modalButton}>
-						  	<div style={{flex:1}}><FontAwesomeIcon icon="object-group"/></div>
+						  	<div style={{flex:1}}><FontAwesomeIcon icon="layer-group"/></div>
 	                      	<div style={{flex:3, textAlign:"left"}}>Create New Collection</div>
 						  </Button>
 						  <Button block color="light" onClick={this.handleClick.bind(this,"flag")} style={styles.modalButton}>
