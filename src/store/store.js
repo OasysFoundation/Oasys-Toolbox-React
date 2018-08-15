@@ -22,8 +22,14 @@ const data = {
             ],
             // linkIdx: ["chapter_99852"],
             elements: [
-
                 {
+                    id: "embed678",
+                    type: globals.EDIT_EMBED,
+                    content: {
+                        provider: 'concord',
+                        url: "http://lab.concord.org/embeddable.html#interactives/sam/intermolecular-attractions/3-1-oil-and-water.json"
+                    }
+                },{
                     id: "schnuckeldi",
                     type: globals.EDIT_VIDEO,
                     content: {
