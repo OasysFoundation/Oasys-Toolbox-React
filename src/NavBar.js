@@ -11,6 +11,7 @@ import Create from './images/create.png'
 import User from './images/settings.png'
 import Logo from './images/oasys_logo_big.png'
 import Logo_Small from './images/oasys_logo_small.png'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
 // Styling
@@ -46,6 +47,7 @@ const styles = {
         justifyContent: "center", 
         padding:"0px 8px 0px 8px",
         color:"​​​​​​​#3E4B54",
+        fontSize:".9rem"
     },
     navbarNavLinkForImage:{
         padding:"0px 0px 0px 0px",
@@ -157,7 +159,8 @@ const styles = {
         flex:1, 
         display:"flex", 
         alignItems:"center", 
-        justifyContent:"center"
+        color:"rgba(0, 0, 0, 0.5)",
+        justifyContent:"center",
     },
     navbarMobileNavImage:{
         height: '65%',
@@ -329,13 +332,14 @@ class NavBar extends React.Component {
             </div>
             <div style={styles.navbarMobileBottomRow}>
                 <a href="/explore" style={styles.navbarMobileNavs}>
-                    <img src={Learn} style={styles.navbarMobileNavImage}/>
+                    <FontAwesomeIcon icon="lightbulb" className="faAlignRight marginRight5" size="lg"/>
                 </a>
                 <a href="/create" style={styles.navbarMobileNavs}>
-                    <img src={Create} style={styles.navbarMobileNavImage}/>
+                    <FontAwesomeIcon icon="pencil-alt" className="faAlignRight marginRight5" size="lg"/>
                 </a>
                 <a href="/user" style={styles.navbarMobileNavs}>
-                    <img src={User} style={styles.navbarMobileNavImage}/>
+                    <FontAwesomeIcon icon="user" className="faAlignRight marginRight5" size="lg"/>
+
                 </a>
 
             </div>
@@ -354,19 +358,19 @@ class NavBar extends React.Component {
             <Nav navbar style={styles.navbarNavs}>
               <NavItem style={styles.navbarNavItem}>
                 <NavLink href="/explore/" style={styles.navbarNavLinkForImage}>
-                    <img src={Learn} style={styles.navbarNavImage}/>
+                    <FontAwesomeIcon icon="lightbulb" className="faAlignRight marginRight5" size="lg" style={{marginRight:"5px"}}/>
                 </NavLink>
                 <NavLink href="/explore/" style={styles.navbarLinks}>Learn</NavLink>
               </NavItem>
               <NavItem style={styles.navbarNavItem}> 
                 <NavLink href="/create/" style={styles.navbarNavLinkForImage}>
-                    <img src={Create} style={styles.navbarNavImage}/>
+                    <FontAwesomeIcon icon="pencil-alt" className="faAlignRight marginRight5" size="lg" style={{marginRight:"5px"}}/>
                 </NavLink>
                 <NavLink href="/create/" style={styles.navbarLinks}>Create</NavLink>
               </NavItem>
               <NavItem style={styles.navbarNavItem}>
                 <NavLink href="/user/" style={styles.navbarNavLinkForImage}>
-                    <img src={User} style={styles.navbarNavImage}/>
+                    <FontAwesomeIcon icon="user" className="faAlignRight marginRight5" size="lg" style={{marginRight:"5px"}}/>
                 </NavLink>
                 <NavLink href="/user/" style={styles.navbarLinks}>Profile</NavLink>
               </NavItem>

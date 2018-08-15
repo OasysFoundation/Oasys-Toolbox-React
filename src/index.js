@@ -57,7 +57,7 @@ import {faComment} from '@fortawesome/free-solid-svg-icons'
 import {faObjectGroup} from '@fortawesome/free-solid-svg-icons'
 import {faUser} from '@fortawesome/free-solid-svg-icons'
 import {faLayerGroup} from '@fortawesome/free-solid-svg-icons'
-
+import {faLightbulb} from '@fortawesome/free-solid-svg-icons'
 
 library.add(faEllipsisV)
 library.add(faPencilAlt)
@@ -66,6 +66,8 @@ library.add(faComment)
 library.add(faObjectGroup)
 library.add(faUser)
 library.add(faLayerGroup)
+library.add(faLightbulb)
+
 
 
 const history = createBrowserHistory();
