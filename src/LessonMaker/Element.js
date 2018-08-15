@@ -27,13 +27,17 @@ class Element extends Component {
     fromChapter = this.props.data.parentChapterID;
     state = {
         isHovered: false,
-        tempContent: this.props.data.content
+        tempContent: sessionStorage.getItem(this.props.data.id) || this.props.data.content,
+        timestamp: Date.now()
     };
 
     //glue function between LessonMaker and Quill to add ID
     handleChange = (value) => {
-        this.setState({tempContent: value}); //for Quill
         saveToSessionStorage(this.props.data.id, value) //for s{this.typeToComponent(type)}witching chapters
+
+        //DO NOT CALL setState before session storage!! will override itself
+        this.setState({tempContent: value, timestamp: Date.now()}); //for Quill
+
     }
 
     typeToComponent(type) {
@@ -46,7 +50,7 @@ class Element extends Component {
             data: content,
             isHovered,
             isEditMode: this.props.isEditMode,
-            onChange: this.handleChange
+            onChange: this.handleChange.bind(this)
         }
 
         let render = <div>NO ELEMENT TYPE YET HERE</div>;
@@ -76,12 +80,19 @@ class Element extends Component {
     }
 
     componentWillUnmount(){
+        // console.log('unmounting ', this.state.tempContent)
         this.props.onChangeContent(
             this.props.data.id,
             this.state.tempContent,
             this.fromChapter
         )
     }
+    componentWillReceiveProps(nextprops){
+        // console.log(nextprops, 'nextprops!!')
+        // const contentUpdated = nextprops.data.timestamp > this.state.timestamp
+        // this.setState({tempContent: contentUpdated, timestamp: Date.now()})
+    }
+
 
     //onClick={() => this.setState({isHovered: true})}
     render() {

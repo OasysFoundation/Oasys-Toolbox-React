@@ -28,11 +28,15 @@ const actions = function (store) { //store for async stuff
                     console.log(matchFromSession, "FOUND in SESSION!", key);
 
                     if (matchFromSession.timestamp > matchFromState.timestamp) {
-                        console.log('Compare two Items session - state', matchFromSession, matchFromState)
+                        console.log('Compare two Items session - state', matchFromSession, matchFromState);
+
                         matchFromState.content = matchFromSession.content;
+
                     }
                 }
             });
+
+            console.log('new store version', clone)
             return clone;
         },
 

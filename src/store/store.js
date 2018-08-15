@@ -152,9 +152,11 @@ const data = {
 
 //elements evolved from reptiles to mammals and know their father now
 data.chapters.forEach(chapter => chapter.elements.forEach(el => el.parentChapterID = chapter.id));
-data.chapters.forEach(chapter => chapter.elements.forEach(el => el.timestamp = Date.now()));
-data.chapters.forEach(chapter => chapter.timestamp = Date.now());
+data.chapters.forEach(chapter => chapter.elements.forEach(el => el.timestamp = 50000));
+data.chapters.forEach(chapter => chapter.timestamp = 50000);
 
 const store = createStore(data);
+
+window.store = store;
 
 export default store;

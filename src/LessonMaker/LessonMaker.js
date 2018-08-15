@@ -16,7 +16,7 @@ const Item = posed.div();
 class LessonMaker extends Component {
     constructor(props) {
         super(props);
-        props.mergeStoreWithSessionStorage();
+        // props.mergeStoreWithSessionStorage();
     }
 
     componentDidMount() {
