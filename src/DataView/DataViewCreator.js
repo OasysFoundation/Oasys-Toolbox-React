@@ -1,32 +1,70 @@
 import React, {Component} from 'react';
-import { Card, CardBody, Container } from 'reactstrap';
-import ReactTooltip from "react-tooltip"
+import { Container } from 'reactstrap';
 
-import colors from '../colors';
 import DataOverview from './DataOverview';
 import DataDetails from './DataDetails';
+
+
+const allLessons = [
+	{
+		'title': 'Bullshit detector',
+		'rating': 4.4,
+		'learner': 100,
+		'token': 5,
+		'published': new Date(),
+		'id': Math.random(36).toString(),
+	},
+	{
+		'title': 'Energy is esoteric',
+		'rating': 4.2,
+		'learner': 200,
+		'token': 2,
+		'published': new Date(),
+		'id': Math.random(36).toString(),
+
+	},
+	{
+		'title': 'Atoms are not atomic',
+		'rating': 4.3,
+		'learner': 1000,
+		'token': 200,
+		'published': new Date(),
+		'id': Math.random(36).toString(),
+	},
+];
+
 
 class DataViewCreator extends Component {
 
 	constructor(props) {
 		super(props);
 		this.state = {
-			contentTitle: 'Bullshit detector'
+			dataId: 'all',
+		}
+		this.summaryData = {
+			'title': 'All lessons',
+			'rating': 0,
+			'learner': 0,
+			'published': 0,
+			'id': 'all',
+		}
+		this.state = {currentData: this.summaryData};
+	}
+
+	onChangeData(id) {
+		if (id==='all') {
+			this.setState({currentdata:this.summaryData});
+		} else {
+			this.setState({currentdata:allLessons.filter(l=>l.id===id)});
 		}
 	}
 
 	render(){
-		let summaryStats = [
-			{'label': 'Lessons', 'value': '0', 'help': 'Total number of lessons that you have created.', id: Math.random(36).toString()},
-			{'label': 'Rating', 'value': 'N/A', 'help': 'Average rating of all your lessons.', id: Math.random(36).toString()},
-			{'label': 'Learners', 'value': '0', 'help': 'How many learners have accessed your lessons.', id: Math.random(36).toString()},
-			{'label': 'OAS token', 'value': '0', 'help': 'Amount of OAS tokens you have earned.', id: Math.random(36).toString()},
-			{'label': 'Open feedback', 'value': '0', 'help': 'Amount of unread feedback from learners.', id: Math.random(36).toString()},
-		]
 		return ( 
 			<div className="app-body">
                 <main className="main dataview">
                     <Container fluid className='paddingTop20 paddingBottom20 main-width'>
+            			{/*
 						<h3 style={{marginBottom: '0px'}}>Overview</h3>
 						<hr style={{marginTop: '0px', borderColor: colors.GULLGREY}}/>
 						<center>
@@ -45,18 +83,18 @@ class DataViewCreator extends Component {
 								</CardBody>
 							</Card>
 						</center>
+						*/}
 
-						<h3 style={{marginBottom: '0px'}}>Summary</h3>
-						<hr style={{marginTop: '0px', borderColor: colors.GULLGREY}}/>
+						<DataOverview 
+							onChangeData={this.onChangeData.bind(this)}
+							data={allLessons}
+						/>
 
-						<DataOverview/>
-
-						<h3 style={{marginBottom: '0px', marginTop: '30px'}}>
-							Details for lesson {this.state.contentTitle}
-						</h3>
-						<hr style={{marginTop: '0px', borderColor: colors.GULLGREY}}/>
-
-						<DataDetails contentTitle={this.state.contentTitle}/>
+						<DataDetails 
+							contentTitle={this.state.contentTitle} 
+							dataId={this.state.dataId} 
+							data={this.state.currentData}
+						/>
 
 					</Container>
 				</main>
