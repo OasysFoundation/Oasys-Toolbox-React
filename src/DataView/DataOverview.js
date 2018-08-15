@@ -10,7 +10,15 @@ const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
 
 class DataOverview extends Component {
 
+	constructor(props) {
+		super(props);
+		this.state = {
+			activeId: 'all',
+		}
+	}
+
 	onChangeData(id) {
+		this.setState({activeId: id});
 		this.props.onChangeData(id);
 	}
 	
@@ -21,9 +29,10 @@ class DataOverview extends Component {
 				<h3 style={{marginBottom: '0px'}}>
 					Summary
 					<sup><i class="far fa-question-circle margin-right5 medgrey" data-tip='tooltip' data-for='summary'></i></sup>
-					<ReactTooltip id='summary' place='right'> 
+					<ReactTooltip id='summary' place='bottom'> 
 						You can select any row in the summary table. <br/>
-						This will show detailed statistics for the selected lesson below the table.
+						This will show detailed statistics for the <br/>
+						selected lesson below the table.
 					</ReactTooltip>
 				</h3>
 				<hr style={{marginTop: '0px', borderColor: colors.GULLGREY}}/>
@@ -49,10 +58,10 @@ class DataOverview extends Component {
                     	</ReactTooltip>
                     </th>
 		            <th>
-		            	Tokens
+		            	Rewards
 		            	<sup><i class="far fa-question-circle margin-right5 medgrey" data-tip='tooltip' data-for='token-help'></i></sup>
                     	<ReactTooltip id='token-help'> 
-                    		Amount of tokens you have earned with this lesson
+                    		Amount of OAS tokens you have earned with this lesson
                     	</ReactTooltip>
                 	</th>
 		            <th>
@@ -65,7 +74,11 @@ class DataOverview extends Component {
 		          </tr>
 		          </thead>
 		          <tbody>
-			          <tr onClick={e=>this.onChangeData('all')} style={{cursor: 'pointer'}}>
+			          <tr 
+			          	onClick={e=>this.onChangeData('all')} 
+			          	style={{cursor: 'pointer'}}
+			          	className={this.state.activeId==='all' ? 'active' : ''}
+			          >
 			            <td><strong>All lessons</strong></td>
 			            <td><strong>{(this.props.data.map(e=>e.rating).reduce((a,b)=>a+b,0)/this.props.data.length).toFixed(1)}</strong></td>
 			            <td><strong>{this.props.data.map(e=>e.learner).reduce((a,b)=>a+b)}</strong></td>
@@ -73,7 +86,11 @@ class DataOverview extends Component {
 			            <td></td>
 			          </tr>
 		          	{this.props.data.map(e=>
-			          <tr onClick={f=>this.onChangeData(e.id)} style={{cursor: 'pointer'}}>
+			          <tr 
+			          	onClick={f=>this.onChangeData(e.id)} 
+			          	style={{cursor: 'pointer'}} 
+			          	className={this.state.activeId===e.id ? 'active' : ''}
+			          >
 			            <td>{e.title}</td>
 			            <td>{e.rating}</td>
 			            <td>{e.learner}</td>

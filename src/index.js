@@ -26,6 +26,7 @@ import { Provider } from "redux-zero/react";
 
 
 import store from "./store/store";
+import ContentView from "./LessonMaker/ContentView";
 
 // in the coreui template, the following four 4 lines are imported globally in App.js
 // import '@coreui/icons/css/coreui-icons.min.css';
@@ -55,6 +56,7 @@ class Index extends Component {
                             <Switch>
                                 {/*<Route exact path="/" render={()=><ContentSelection/>} />*/}
                                 <Route exact path="/" render={(props) => <LessonMaker {...props} />} />
+                                <Route exact path="/view" render={() => <ContentView project={store.getState()} />} />
                                 <Route exact path="/learn" render={(props) => <ContentSelection {...props} />} />
                                 <Route exact path="/create" render={(props) => <LessonMaker {...props} />} />
                                 <Route exact path="/data" render={(props) => <DataViewCreator {...props} />} />

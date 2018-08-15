@@ -23,7 +23,14 @@ const actions = function (store) { //store for async stuff
             const clone = JSON.parse(JSON.stringify(state));
             let elements = clone.chapters[state.activeChapterIndex].elements;
 
+            console.log(id)
+            console.log('ELELLELEM', elements)
+
             const elem = elements.find(el => el.id === id);
+            if (!elem) {
+                console.log('no element found on change content -- maybe handlechange fired, but element in Chapter that is not active')
+                return
+            };
             elem.content = value;
             elem.timestamp = Date.now();
 
@@ -48,7 +55,6 @@ const actions = function (store) { //store for async stuff
 
         onAddChapter(state, uid, title) {
             const clone = JSON.parse(JSON.stringify(state));
-            const lastChapterId = state.chapters[state.chapters.length-1].id;
 
             const activeChapter = clone.chapters[state.activeChapterIndex];
             activeChapter.links.push({

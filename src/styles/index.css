@@ -142,6 +142,11 @@ html, body, svg, text {
     padding: 0rem 1.25rem 1.25rem 1.25rem;
 }
 
+.oasys .make-big {
+    font-size: 60px;
+}
+
+
 .oasys .card-footer {
     margin: 0;
     padding: 0.25rem 0.25rem;
@@ -370,7 +375,11 @@ html, body, svg, text {
 }
 
 .oasys .dataview .table {
-    background-color: #f8f8f4;
+    background-color: #ffffff;
+}
+
+.oasys .dataview .table .active {
+    background-color: #f4efb6;
 }
 
 .oasys .dataview .chart-wrapper {

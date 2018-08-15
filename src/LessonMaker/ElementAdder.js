@@ -61,11 +61,24 @@ class ElementAdder extends Component {
     render() {
         const that = this;
         return (
-            
-                
+
+            <section style={styling.all} className={'card-header'}
+                     onMouseEnter={() => this.setState({isHovered: true})}
+                     onMouseLeave={() => this.setState({isHovered: false})}
+            >
+                <section hidden={!this.state.isHovered}>
+                    {types.map(type =>
+                        <img style={styling.image}
+                             key={Math.random()}
+                             src={typeToIcon(type)}
+                             onClick={() => that.props.onAddElement(type, that.props.idx)}
+                             alt=""
+                        />)}
+                </section>
                 <section style={{alignSelf:'center', display: 'flex', 'justifyContent': 'center', alignItems: 'center', marginTop:'15px'}}>
                     <i style={{color: '#A2ABB8', fontSize:'30px'}} className='icon-plus' onClick={this.onAddNewElement.bind(this)}> </i>
                     {this.props.nElems<=1 
+
                     ?
                       <span className='help-text' style={{color: '#626970', marginLeft: '15px'}}>You can add more content by clicking or tapping the plus icon.</span>
                     : null
@@ -73,7 +86,7 @@ class ElementAdder extends Component {
                     
                 <AddNewElementModal isOpen={this.state.showsNewElementModal} onClose={this.onCloseElementModal.bind(this)} onSelectElement={this.onSelectElement.bind(this)}/>
                 </section>
-
+            </section>
         );
     }
 }

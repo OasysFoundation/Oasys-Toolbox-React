@@ -35,12 +35,15 @@ class LessonMaker extends Component {
     render() {
         const activeChapter = this.props.chapters[this.props.activeChapterIndex];
         const {elements} = activeChapter;
+        const emptyChapterAdder = elements.length > 0 ? null : <ElementAdder key={"filler"} idx={0}/>;
+
+        console.log('elements  ', elements, elements.length > 0);
 
         return (
             <div className="app-body">
 
-                <SideBarLesson/>
 
+                {this.props.isEditMode && <SideBarLesson/>}
                 <main className="main">
                     <Container fluid className='main-width'>
                         <center>
@@ -89,6 +92,7 @@ class LessonMaker extends Component {
                                 </Item>
                             )}
                         </PoseGroup>
+                        {emptyChapterAdder}
                     </Container>
                 </main>
             </div>
@@ -103,7 +107,7 @@ LessonMaker.propTypes = {
         id: PropTypes.string,
         elements: PropTypes.array
     })).isRequired,
-    isEditMode: PropTypes.array.isRequired,
+    isEditMode: PropTypes.bool.isRequired,
     activeChapterIndex: PropTypes.number
 };
 

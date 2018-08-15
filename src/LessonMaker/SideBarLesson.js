@@ -57,14 +57,14 @@ class SideBarLesson extends Component {
                 </ModalHeader>
                   <ModalBody>
                     <Input 
-                        defaultValue={this.props.title} 
+                        defaultValue={this.props.title}
                         onChange={e=>this.title=e.target.value}
                     />
                     <FormText color="muted">
                         The title for this lesson may have 40 characters at most.
                     </FormText>
-                    <Input 
-                        defaultValue={this.props.tags.join(" ")} 
+                    <Input
+                        defaultValue={this.props.tags.join(" ")}
                         onChange={e=>this.tags=e.target.value}
                     />
                     <FormText color="muted">
@@ -78,14 +78,11 @@ class SideBarLesson extends Component {
                 </Modal>
                     
                 <AppSidebar fixed display="lg">
-                    {/*<AppSidebarHeader/>*/}
-                    {/*<AppSidebarForm/>*/}
-                    {/*<AppSidebarNav navConfig={navParams} {...this.props} style={{flex: "0 0", height: ""}}/>*/}
                     <Button className='sidebar-button title '>
                         <input 
                             className='form-control' 
-                            defaultValue='Untitled lesson' 
-                            value={this.props.title} 
+                            // defaultValue='Untitled lesson'
+                            value={this.props.title || 'Untitled lesson'}
                             onChange={e=>this.props.onChangeProjectTitle(e.target.value)}
                         />
                         <i class="fas fa-align-right fa-lg fa-cog" onClick={this.onSettingsShow.bind(this)}></i> 
@@ -112,7 +109,7 @@ class SideBarLesson extends Component {
 
 SideBarLesson.propTypes = {
     title: PropTypes.string.isRequired,
-    tags: PropTypes.array.isRequired,
+    tags: PropTypes.array.isRequired
 };
 
 // only take what you need

@@ -53,9 +53,9 @@ class DataViewCreator extends Component {
 
 	onChangeData(id) {
 		if (id==='all') {
-			this.setState({currentdata:this.summaryData});
+			this.setState({currentData:this.summaryData});
 		} else {
-			this.setState({currentdata:allLessons.filter(l=>l.id===id)});
+			this.setState({currentData:allLessons.filter(l=>l.id===id)[0]});
 		}
 	}
 

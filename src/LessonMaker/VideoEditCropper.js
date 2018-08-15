@@ -39,7 +39,7 @@ class VideoEditCropper extends Component {
 
     onSetEnd(){
     	let time = this.refs.video.getCurrentTime();
-        if (time===undefined || time===null || time<this.cropStart) { time = this.props.data.cropStart; }
+        if (time===undefined || time===null || time<this.props.data.cropStart) { time = this.props.data.cropStart; }
         document.getElementById('video-slider'+this.props.elementId).noUiSlider.set([this.props.data.cropStart, time]);
     	this.refs.inputEnd.value = this.formatTime(time);
     	this.props.onChangeCrop(this.props.data.cropStart, time);
@@ -50,7 +50,7 @@ class VideoEditCropper extends Component {
         let time = parseFloat(e.target.value);
         if (time===undefined || isNaN(time)) { time = this.min; }
         if (time>this.props.data.cropEnd) { time = this.props.data.cropEnd; }
-        this.cropStart = time;
+        this.props.onChangeCrop(time, this.props.data.cropEnd);
         this.refs.video.seekTo(time);
         this.refs.video.getInternalPlayer().pauseVideo();
         document.getElementById('video-slider'+this.props.elementId).noUiSlider.set([time, this.props.data.cropEnd]);
@@ -60,6 +60,7 @@ class VideoEditCropper extends Component {
         let time = parseFloat(e.target.value);
         if (time===undefined || isNaN(time)) { time = this.max; }
         if (time<this.cropStart) { time = this.cropStart; }
+        this.props.onChangeCrop(this.props.data.cropStart, time);
         this.refs.video.seekTo(time);
         this.refs.video.getInternalPlayer().pauseVideo();
         document.getElementById('video-slider'+this.props.elementId).noUiSlider.set([this.props.data.cropStart, time]);
@@ -74,9 +75,6 @@ class VideoEditCropper extends Component {
         if (this.props.data.cropEnd===0.0) {
             this.onChangeCrop(0.0, max);
         }
-    	this.refs.inputStart.value = this.formatTime(0.0);
-    	this.refs.inputEnd.value = this.formatTime(max);
-
     	ReactDOM.render(
     		<Nouislider
                 connect
@@ -85,8 +83,8 @@ class VideoEditCropper extends Component {
                 behaviour="tap"
                 id={"video-slider"+this.props.elementId}
                 range={{
-                    min: [this.props.data.cropStart],
-                    max: [max]
+                    min: 0,
+                    max: max
                 }}
                 onSlide={this.onSlide.bind(this)}
             />
@@ -111,6 +109,7 @@ class VideoEditCropper extends Component {
 		}
 		return(
 			<div>
+                {console.log(this.props.data)}
 				<div className='videoEditWrapper'>
 	                <ReactPlayer
 	                  url={this.props.data.url}
@@ -132,10 +131,10 @@ class VideoEditCropper extends Component {
 	                    <input 
 	                    	readonly='readonly'
 	                        onInput={this.updateStart.bind(this)} 
-	                        defaultValue={Number.parseFloat(this.cropStart).toFixed(1)} 
 	                        className='form-control'
 	                        placeholder='0'
 	                        ref='inputStart'
+                            defaultValue={this.formatTime(this.props.data.cropStart)}
 	                    />
 	                    <Button className='bgprimary' style={{marginRight: 'auto'}} onClick={this.onSetStart.bind(this)}>
 	                    	<i class="fas fa-arrow-left" style={{marginRight: '5px'}}></i> 
@@ -149,10 +148,10 @@ class VideoEditCropper extends Component {
 	                    <input 
 	                    	readonly='readonly'
 	                        onInput={this.updateEnd.bind(this)} 
-	                        defaultValue={Number.parseFloat(this.props.data.cropEnd).toFixed(1)} 
 	                        className='form-control'
 	                        placeholder='0'
 	                        ref='inputEnd'
+                            defaultValue={this.formatTime(this.props.data.cropEnd)}
 	                    />
 	                </div>
                 </center>
