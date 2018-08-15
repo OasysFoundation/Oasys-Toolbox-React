@@ -58,7 +58,7 @@ class ElementAdder extends Component {
                 </section>
                 <section style={{alignSelf:'center', display: 'flex', 'justifyContent': 'center', alignItems: 'center'}} hidden={this.state.isHovered}>
                     <i style={{color: '#A2ABB8', fontSize:'30px'}} className='icon-plus'> </i>
-                    {this.props.nElems<=1 
+                    {this.props.nElems<1
                     ?
                       <span className='help-text' style={{color: '#626970', marginLeft: '15px'}}>You can add more content by clicking or tapping the plus icon.</span>
                     : null

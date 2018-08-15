@@ -8,7 +8,7 @@ import FormulaEdit from './FormulaEdit'
 import QuizzEdit from './QuizzEdit'
 import VideoEdit from './VideoEdit'
 
-import {saveToSessionStorage} from "../utils/trickBox";
+// import {saveToSessionStorage} from "../utils/trickBox";
 import {
     Card,
     CardBody
@@ -82,7 +82,6 @@ class Element extends Component {
     //onClick={() => this.setState({isHovered: true})}
     render() {
         const {id, type} = this.props.data;
-        const that = this;
         return (
             <center>
                 <div className='mainWidth'>
