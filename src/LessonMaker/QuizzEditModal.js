@@ -314,7 +314,7 @@ class QuizzEditModal extends Component {
                 </center>
                     {this.state.answers.map(function(answer, index) {
                         return (
-                            <div style={{marginBottom: '20px'}} key="i-dont-want-to-do-this">
+                            <div style={{marginBottom: '20px'}} key={"i-dont-want-to-do-this-"+index}>
 
                             <InputGroup>
                                 <InputGroupAddon addonType="prepend">

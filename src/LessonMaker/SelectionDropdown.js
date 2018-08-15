@@ -37,7 +37,7 @@ class SelectionDropdown extends Component {
 	            </DropdownToggle>
 	            <DropdownMenu>
 		            {this.props.options.map(function(option, index) {
-		            	return <DropdownItem onClick={function() { that.onSelectItem(index); }}>{option}</DropdownItem>
+		            	return <DropdownItem onClick={function() { that.onSelectItem(index); }} key={"selection-dropdown-" + index} >{option}</DropdownItem>
 		            })}
 	            </DropdownMenu>
 	        </InputGroupButtonDropdown>
