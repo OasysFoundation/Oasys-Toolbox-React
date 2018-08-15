@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
 
 
-import { InputGroup, InputGroupAddon, Input, InputGroupText, InputGroupButtonDropdown, DropdownToggle, DropdownItem, DropdownMenu } from 'reactstrap';
-import { Button } from 'reactstrap';
+import { InputGroupButtonDropdown, DropdownToggle, DropdownItem, DropdownMenu } from 'reactstrap';
 
-import PropTypes from 'prop-types';
-
-import colors from '../colors'
 
 
 //this is the new "Preview" Component
