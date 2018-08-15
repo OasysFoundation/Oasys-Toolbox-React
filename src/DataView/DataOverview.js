@@ -21,9 +21,10 @@ class DataOverview extends Component {
 				<h3 style={{marginBottom: '0px'}}>
 					Summary
 					<sup><i class="far fa-question-circle margin-right5 medgrey" data-tip='tooltip' data-for='summary'></i></sup>
-					<ReactTooltip id='summary' place='right'> 
+					<ReactTooltip id='summary' place='bottom'> 
 						You can select any row in the summary table. <br/>
-						This will show detailed statistics for the selected lesson below the table.
+						This will show detailed statistics for the <br/>
+						selected lesson below the table.
 					</ReactTooltip>
 				</h3>
 				<hr style={{marginTop: '0px', borderColor: colors.GULLGREY}}/>
@@ -49,10 +50,10 @@ class DataOverview extends Component {
                     	</ReactTooltip>
                     </th>
 		            <th>
-		            	Tokens
+		            	Rewards
 		            	<sup><i class="far fa-question-circle margin-right5 medgrey" data-tip='tooltip' data-for='token-help'></i></sup>
                     	<ReactTooltip id='token-help'> 
-                    		Amount of tokens you have earned with this lesson
+                    		Amount of OAS tokens you have earned with this lesson
                     	</ReactTooltip>
                 	</th>
 		            <th>

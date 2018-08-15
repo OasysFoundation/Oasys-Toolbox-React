@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Card, CardBody } from 'reactstrap';
 import { Bar } from 'react-chartjs-2';
-import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
+// import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 
 import colors, {hexToRgba} from '../colors';
 
@@ -20,7 +20,7 @@ const barData = {
   labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
   datasets: [
     {
-      label: 'My First dataset',
+      label: '',
       backgroundColor: paletteRgba1,
       borderColor: paletteRgba1,
       borderWidth: 1,
@@ -31,10 +31,39 @@ const barData = {
   ],
 };
 
+const durationData = {
+  labels: ['0:00','5:00','10:00','15:00','20:00','25:00','30:00'],
+  datasets: [
+    {
+      label: '',
+      backgroundColor: paletteRgba1,
+      borderColor: paletteRgba1,
+      borderWidth: 1,
+      hoverBackgroundColor: paletteRgba2,
+      hoverBorderColor: paletteRgba2,
+      data: [0, 5, 30, 10, 25, 15, 3],
+    },
+  ],
+};
+
+const scoreData = {
+  labels: [0,1,2,3,4,5],
+  datasets: [
+    {
+      label: '',
+      backgroundColor: paletteRgba1,
+      borderColor: paletteRgba1,
+      borderWidth: 1,
+      hoverBackgroundColor: paletteRgba2,
+      hoverBorderColor: paletteRgba2,
+      data: [0, 5, 12, 15, 18, 11],
+    },
+  ],
+};
+
 let options = {
   tooltips: {
-    enabled: false,
-    custom: CustomTooltips
+    enabled: true,
   },
   maintainAspectRatio: false,
   title: {
@@ -49,9 +78,19 @@ let options = {
   },
   scales: {
      yAxes: [{
-         ticks: {
-             beginAtZero: true
-         }
+         ticks: { beginAtZero: true },
+         scaleLabel: {
+          display: true,
+          labelString: 'Y text',
+         },
+         gridLines: { display:false },
+     }],
+     xAxes: [{
+         scaleLabel: {
+          display: false,
+          labelString: 'X text',
+         },
+         gridLines: { display:false },
      }]
  }
 };
@@ -59,10 +98,28 @@ let options = {
 class DataDetails extends Component {
 
 	render(){
+
 		let optsUser = JSON.parse(JSON.stringify(options));
-		let optsRewards = JSON.parse(JSON.stringify(options));
-		optsUser.title.text = 'Users for lesson ' + this.props.contentTitle;
-		optsRewards.title.text = 'Rewards for lesson ' + this.props.contentTitle;
+    let optsRewards = JSON.parse(JSON.stringify(options));
+    let optsDuration = JSON.parse(JSON.stringify(options));
+    let optsScore = JSON.parse(JSON.stringify(options));
+
+		optsUser.title.text = 'Users';
+    optsUser.scales.yAxes[0].scaleLabel.labelString = 'Users';
+
+    optsRewards.title.text = 'Rewards';
+    optsRewards.scales.yAxes[0].scaleLabel.labelString = 'Rewards';
+
+    optsScore.title.text = 'Average score from questions';
+    optsScore.scales.yAxes[0].scaleLabel.labelString = 'Users';
+    optsScore.scales.xAxes[0].scaleLabel.display = true;
+    optsScore.scales.xAxes[0].scaleLabel.labelString = 'Score';
+
+    optsDuration.title.text = 'Average time spent with lesson';
+    optsDuration.scales.yAxes[0].scaleLabel.labelString = 'Users';
+    optsDuration.scales.xAxes[0].scaleLabel.display = true;
+    optsDuration.scales.xAxes[0].scaleLabel.labelString = 'Time [min:sec]';
+
 		return (
 			<div>
 
@@ -75,23 +132,52 @@ class DataDetails extends Component {
         <hr style={{marginTop: '0px', borderColor: colors.GULLGREY}}/>
 
 				<Card className='has-shadow marginBottom20'>
-		            <CardBody>
-		              <div className="chart-wrapper">
-		              	<center>
-		                	<Bar data={barData} options={optsUser} height={chartHeight} />
-		                </center>
-		              </div>
-		            </CardBody>
-	            </Card>
-				<Card className='has-shadow'>
-		            <CardBody>
-		              <div className="chart-wrapper">
-		              	<center>
-		                	<Bar data={barData} options={optsRewards} height={chartHeight} />
-		                </center>
-		              </div>
-		            </CardBody>
-	            </Card>
+          <CardBody>
+            <div className="chart-wrapper">
+            	<center>
+              	<Bar data={barData} options={optsUser} height={chartHeight} />
+              </center>
+            </div>
+          </CardBody>
+        </Card>
+
+				<Card className='has-shadow marginBottom20'>
+          <CardBody>
+            <div className="chart-wrapper">
+            	<center>
+              	<Bar data={barData} options={optsRewards} height={chartHeight} />
+              </center>
+            </div>
+          </CardBody>
+        </Card>
+
+        <Card className='has-shadow marginBottom20'>
+          <CardBody>
+            <div className="chart-wrapper">
+              <center>
+                <Bar data={scoreData} options={optsScore} height={chartHeight} />
+              </center>
+            </div>
+          </CardBody>
+        </Card>
+
+        <Card className='has-shadow marginBottom20'>
+          <CardBody>
+            <div className="chart-wrapper">
+              <center>
+                <Bar data={durationData} options={optsDuration} height={chartHeight} />
+              </center>
+            </div>
+          </CardBody>
+        </Card>
+
+        {/* If a specific lesson is selected, we could also show the following:
+              - users per slide
+              - feedback per slide
+              - quiz questions/answers
+              - time per question as distribution
+        */}
+
 			</div>
 		)
 	}
