@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 import { InputGroupButtonDropdown, DropdownToggle, DropdownItem, DropdownMenu } from 'reactstrap';
 
 
-
 //this is the new "Preview" Component
 class SelectionDropdown extends Component {
 	constructor(props) {
@@ -37,7 +36,7 @@ class SelectionDropdown extends Component {
 		            })}
 	            </DropdownMenu>
 	        </InputGroupButtonDropdown>
-    		);
+		);
     }
 }
 
