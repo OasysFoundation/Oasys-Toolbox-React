@@ -28,6 +28,9 @@ const tileColors = {
 }
 
 const tiles = [{
+		name: "Featured Experiences", 
+		color: tileColors.medium,
+	},{
 		name: "Physics", 
 		color: tileColors.dark,
 	},{

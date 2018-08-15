@@ -145,8 +145,8 @@ class HorizontalScrollButtonMaker extends Component{
 
 		if(this.props.type==="Tiles"){
 			hashLink=this.props.data.name
-			aTag = this.props.data.name==="Physics" 
-				? <a onClick={this.props.positionChange.bind(this,"Physics")} className="pn-ProductNav_Link" aria-selected="true">Physics</a>
+			aTag = this.props.data.name==="Featured Experiences" 
+				? <a onClick={this.props.positionChange.bind(this,"Featured Experiences")} className="pn-ProductNav_Link" aria-selected="true">Featured Experiences</a>
 				: <a onClick={this.props.positionChange.bind(this,hashLink)} className="pn-ProductNav_Link">{this.props.data.name}</a>
 		}
 		else{
