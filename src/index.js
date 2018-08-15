@@ -56,7 +56,7 @@ class Index extends Component {
                             <Switch>
                                 {/*<Route exact path="/" render={()=><ContentSelection/>} />*/}
                                 <Route exact path="/" render={(props) => <LessonMaker {...props} />} />
-                                <Route exact path="/view" render={() => <ContentView elements={store.getState().chapters[0].elements} />} />
+                                <Route exact path="/view" render={() => <ContentView project={store.getState()} />} />
                                 <Route exact path="/learn" render={(props) => <ContentSelection {...props} />} />
                                 <Route exact path="/create" render={(props) => <LessonMaker {...props} />} />
                                 <Route exact path="/data" render={(props) => <DataViewCreator {...props} />} />

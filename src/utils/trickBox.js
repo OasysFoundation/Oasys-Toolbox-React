@@ -16,6 +16,9 @@ const saveToSessionStorage = function(id, value) {
         JSON.stringify({content: value, timestamp: Date.now()})
     )
 }
+const ICON = function (className, fontSize = globals.ICON_FONTSIZE_MIDDLE) {
+    return <i style={{fontSize: fontSize, color: '#626970'}} className={className}> </i>;
+}
 
 
 //inhaleSessionStorage() {
@@ -161,7 +164,7 @@ function substringInObjCount(obj, substr) {
 
 
 
-export {Unwrap, Wrap,
+export {Unwrap, Wrap, ICON,
     NUcheck, substringInObjCount, saveToSessionStorage,
     flatten, CATEGORIES,
     getTagsForCategory, typeToIcon,

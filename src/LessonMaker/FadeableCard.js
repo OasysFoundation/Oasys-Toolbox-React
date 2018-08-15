@@ -13,11 +13,9 @@ import ToolbarQuill from './ToolbarQuill'
 import actions from "../store/actions";
 import { connect } from "redux-zero/react";
 
+import {ICON} from '../utils/trickBox'
 
 // console.log(globals.ICON_FONTSIZE_MIDDLE, 'fontsize')
-const ICON = function (className, fontSize = globals.ICON_FONTSIZE_MIDDLE) {
-    return <i style={{fontSize: fontSize, color: '#626970'}} className={className}> </i>;
-}
 
 
 const styling = {
