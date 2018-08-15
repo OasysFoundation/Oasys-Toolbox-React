@@ -104,19 +104,19 @@ class DataDetails extends Component {
     let optsDuration = JSON.parse(JSON.stringify(options));
     let optsScore = JSON.parse(JSON.stringify(options));
 
-		optsUser.title.text = 'Users';
-    optsUser.scales.yAxes[0].scaleLabel.labelString = 'Users';
+		optsUser.title.text = 'Learners';
+    optsUser.scales.yAxes[0].scaleLabel.labelString = 'Learners';
 
     optsRewards.title.text = 'Rewards';
     optsRewards.scales.yAxes[0].scaleLabel.labelString = 'Rewards';
 
     optsScore.title.text = 'Average score from questions';
-    optsScore.scales.yAxes[0].scaleLabel.labelString = 'Users';
+    optsScore.scales.yAxes[0].scaleLabel.labelString = 'Learners';
     optsScore.scales.xAxes[0].scaleLabel.display = true;
     optsScore.scales.xAxes[0].scaleLabel.labelString = 'Score';
 
     optsDuration.title.text = 'Average time spent with lesson';
-    optsDuration.scales.yAxes[0].scaleLabel.labelString = 'Users';
+    optsDuration.scales.yAxes[0].scaleLabel.labelString = 'Learners';
     optsDuration.scales.xAxes[0].scaleLabel.display = true;
     optsDuration.scales.xAxes[0].scaleLabel.labelString = 'Time [min:sec]';
 
@@ -172,7 +172,7 @@ class DataDetails extends Component {
         </Card>
 
         {/* If a specific lesson is selected, we could also show the following:
-              - users per slide
+              - learners per slide
               - feedback per slide
               - quiz questions/answers
               - time per question as distribution
