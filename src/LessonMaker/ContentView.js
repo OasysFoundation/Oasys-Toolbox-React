@@ -22,8 +22,6 @@ class ContentView extends Component {
 
         //make an array with all the elements flat ==> so they can be scrolled scrollable
         this.allElementsinProject = flatten(this.chapters.map(chapter => chapter.elements));
-        console.log(this.allElementsinProject, "allelemens");
-
 
         this.state = {
             //decides what elements are not HIDDEN in the SCROLLVIEW
@@ -31,7 +29,6 @@ class ContentView extends Component {
             activeChapterIndex: 0
         }
         this.chaptersSeenIDs = [this.state.activeChapterID];
-        console.log(this.state.activeChapterID, "chapter id")
     }
 
 

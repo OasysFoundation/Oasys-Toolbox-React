@@ -3,7 +3,6 @@ import React from 'react';
 
 import GameIcon from "../assets/icons/Game.png"
 import TextIcon from "../assets/icons/Text.png"
-import VideoIcon from "../assets/icons/Hypervideo.png"
 import SysIcon from "../assets/icons/SystemSimulation.png"
 import QuizIcon from "../assets/icons/Quiz.png"
 // import ImageIcon from "../assets/icons/.png"
@@ -42,17 +41,13 @@ const ICON = function (className, fontSize = globals.ICON_FONTSIZE_MIDDLE) {
 const typeToIcon = (type) => {
     switch (type) {
         case globals.EDIT_QUILL:
-            return TextIcon
-            break;
+            return TextIcon;
         case globals.EDIT_GAME:
             return GameIcon
-            break;
         case globals.EDIT_SYSTEM:
             return SysIcon
-            break;
         case globals.EDIT_QUIZ:
             return QuizIcon
-            break;
         default:
             return <div>ICON or TYPE NOT FOUND</div>
     }

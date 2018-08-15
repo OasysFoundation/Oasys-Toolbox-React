@@ -62,12 +62,13 @@ class SideBarLesson extends Component {
                 </ModalHeader>
                   <ModalBody>
                     <Input 
-                        defaultValue={this.props.title} 
+                        defaultValue={this.props.title}
                         onChange={e=>this.title=e.target.value}
                     />
                     <FormText color="muted" style={{marginBottom:'10px'}}>
                         The title for this lesson may have 40 characters at most.
                     </FormText>
+<<<<<<< HEAD
                     <Input 
                         type='textarea'
                         rows='4'
@@ -79,6 +80,10 @@ class SideBarLesson extends Component {
                     </FormText>
                     <Input 
                         defaultValue={this.props.tags.join(" ")} 
+=======
+                    <Input
+                        defaultValue={this.props.tags.join(" ")}
+>>>>>>> 1cc4026d408e35730ffdd2c3e36bd0cba0eb9c09
                         onChange={e=>this.tags=e.target.value}
                     />
                     <FormText color="muted">
@@ -95,8 +100,8 @@ class SideBarLesson extends Component {
                     <Button className='sidebar-button title '>
                         <input 
                             className='form-control' 
-                            defaultValue='Untitled lesson' 
-                            value={this.props.title} 
+                            // defaultValue='Untitled lesson'
+                            value={this.props.title || 'Untitled lesson'}
                             onChange={e=>this.props.onChangeProjectTitle(e.target.value)}
                         />
                         <i class="fas fa-align-right fa-lg fa-cog" onClick={this.onSettingsShow.bind(this)}></i> 

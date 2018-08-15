@@ -3,7 +3,11 @@ import glb from "./globals";
 //READ if we are in DEV(npm start) or PROD (npm run build) and change the API LOCATION accordingly
 const DEV = process.env.NODE_ENV === 'development';
 const USE_REMOTE = true;
+
+/*
 const API = DEV && USE_REMOTE ? glb.API_DEV_REMOTE : (DEV && !USE_REMOTE ? glb.API_DEV_LOCAL : glb.API_PROD);
+*/
+
 // console.log(`process.env.NODE_ENV = ${process.env.NODE_ENV} so I app uses << ${API} >> to make API CALLS`)
 
 // const BASE_URL = glb.API_PROD;
