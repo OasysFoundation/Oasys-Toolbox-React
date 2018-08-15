@@ -9,6 +9,10 @@ import QuizzEdit from './QuizzEdit'
 import VideoEdit from './VideoEdit'
 
 import {saveToSessionStorage} from "../utils/trickBox";
+import {
+    Card,
+    CardBody
+} from 'reactstrap';
 
 import 'react-quill/dist/quill.snow.css';
 import actions from "../store/actions";
@@ -17,6 +21,8 @@ import {connect} from "redux-zero/react";
 
 //TODO
 //put Fade from CoreUI --> Wrap it in component to manage IN/Out state!
+
+
 
 class Element extends Component {
 
@@ -34,10 +40,6 @@ class Element extends Component {
 
     typeToComponent(type) {
         const {content, id} = this.props.data;
-
-
-        let render = <div>NO ELEMENT TYPE YET HERE</div>;
-
         const {isHovered} = this.state;
 
         const params = {
@@ -46,10 +48,12 @@ class Element extends Component {
             test: "XXX",
             data: content,
             isHovered,
-            isEditMode: this.props.isEditMode, //phase out editMode to not confuse
-            // isPreview: this.props.isPreview,
+            isEditMode: this.props.isEditMode,
             onChange: this.handleChange
         }
+
+        let render = <div>NO ELEMENT TYPE YET HERE</div>;
+
         switch (type) {
             case globals.EDIT_QUILL:
                 render = <QuillEdit {...params} data={this.state.tempContent}/>
@@ -85,14 +89,24 @@ class Element extends Component {
                     <section onMouseEnter={() => this.setState({isHovered: true})}
                              onMouseLeave={() => this.setState({isHovered: false})}
                     >
-                        <FadeableCard
+                        {this.props.isEditMode ?
+                            <FadeableCard
                                 id={id}
                                 type={type}
                                 isEditMode={this.props.isEditMode}
-                                >
+                            >
                                 {this.typeToComponent(type)}
                             </FadeableCard>
-                            {/*: (<React.Fragment>{this.typeToComponent(type)}</React.Fragment>)*/}
+
+                            :
+                                <Card className="card-fancy has-shadow">
+                                    <CardBody>
+                                        {this.typeToComponent(type)}
+                                    </CardBody>
+                                    {/*<hr/>*/}
+                                </Card>
+                        }
+
 
                     </section>
                 </div>

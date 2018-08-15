@@ -78,9 +78,6 @@ class SideBarLesson extends Component {
                 </Modal>
                     
                 <AppSidebar fixed display="lg">
-                    {/*<AppSidebarHeader/>*/}
-                    {/*<AppSidebarForm/>*/}
-                    {/*<AppSidebarNav navConfig={navParams} {...this.props} style={{flex: "0 0", height: ""}}/>*/}
                     <Button className='sidebar-button title '>
                         <input 
                             className='form-control' 
@@ -112,7 +109,7 @@ class SideBarLesson extends Component {
 
 SideBarLesson.propTypes = {
     title: PropTypes.string.isRequired,
-    tags: PropTypes.array.isRequired,
+    tags: PropTypes.array.isRequired
 };
 
 // only take what you need
