@@ -3,6 +3,7 @@ import ReactQuill from 'react-quill';
 import Quill from 'quill';
 import PropTypes from 'prop-types';
 import katex from 'katex';
+import ToolbarQuill from './ToolbarQuill'
 
 import 'katex/dist/katex.min.css';
 
@@ -122,6 +123,7 @@ class QuillEdit extends Component {
     }
 
     render() {
+
         let modules = {
             toolbar: {
                 container: '#toolbar-quill-' + this.props.id,
@@ -143,6 +145,8 @@ class QuillEdit extends Component {
 
         return (
             <div id={'quill-container-' + this.props.id}>
+                {ToolbarQuill(this.props.id, false)}
+                {/*always hide*/}
                 {/*{this.renderToolbar()}*/}
                 <ReactQuill
                     value={this.props.data}

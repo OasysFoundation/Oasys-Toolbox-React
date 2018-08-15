@@ -68,7 +68,7 @@ class SideBarLesson extends Component {
                         onChange={e=>this.tags=e.target.value}
                     />
                     <FormText color="muted">
-                        Tags are being used to inform the learner about the context. For example, you can use tags like 'physics', or 'mathematics'.
+                        Tags are being used to inform the learner about the context. For example. you can use subject areas like 'physics' or 'maths', or describe the type of experience, e.g. 'storyline' or 'simulation'.
                     </FormText>
                   </ModalBody>
                   <ModalFooter>
@@ -111,8 +111,8 @@ class SideBarLesson extends Component {
 
 
 SideBarLesson.propTypes = {
-    onAddChapter: PropTypes.func.isRequired,
-    chapters: PropTypes.array
+    title: PropTypes.string.isRequired,
+    tags: PropTypes.array.isRequired,
 };
 
 // only take what you need

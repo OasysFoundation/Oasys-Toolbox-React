@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import { Button } from 'reactstrap';
-import ReactDOM from 'react-dom';
 
-import Nouislider from "nouislider-react";
 import ReactPlayer from 'react-player'
 
 import 'nouislider/distribute/nouislider.css';

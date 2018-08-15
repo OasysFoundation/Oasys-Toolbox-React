@@ -71,7 +71,6 @@ class FadeableCard extends Component {
                 </section>
                 <Fade timeout={300} in={this.state.shouldFade}>
                     <Card className="card-fancy has-shadow">
-                        {/*<CardHeader>*/}
                             <section style={styling.cardActions} >
                                 <div className='card-hint'>
                                     {this.state.isOpen ? null : typeToString(type) }
@@ -129,9 +128,6 @@ FadeableCard.propTypes = {
     onDeleteElement: PropTypes.func.isRequired
 };
 
-
-// const takeFromStore = ({onMoveElement, onDeleteElement, onChangeContent}) =>  //needs nothing from store because it's passed from parent
-
 //actions is a function that returns on object of functions!
 const mapStoreToProps = (store) => ({});
 
@@ -141,13 +137,3 @@ const neededActions = (store) => {
     return {onDeleteElement, onMoveElement}
 };
 export default connect(mapStoreToProps, neededActions)(FadeableCard);
-
-
-// export default connect(mapStoreToProps, actions)((propsFromStore) => {
-//     console.log(propsFromStore);
-//     const {onMoveElement, onDeleteElement, onChangeContent} = propsFromStore;
-//     console.log('PRRROPPPPS', propsFromStore)
-//     return <FadeableCard {...this.props} onDeleteElement={onDeleteElement} onMoveElement={onMoveElement} />;
-//     // return (<LessonMaker people={people} setFirstName={setFirstName}/>)
-// });
-

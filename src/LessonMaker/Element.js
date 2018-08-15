@@ -22,30 +22,29 @@ class Element extends Component {
 
     state = {
         isHovered: false,
-        isClicked: false,
         tempContent: this.props.data.content
     };
 
     //glue function between LessonMaker and Quill to add ID
     handleChange = (value) => {
         this.setState({tempContent: value}); //for Quill
-        saveToSessionStorage(this.props.data.id, value) //for s{this.typeToComponent(type)}witching chapters
+        this.props.onChangeContent(this.props.data.id, value)
+        // saveToSessionStorage(this.props.data.id, value) //for s{this.typeToComponent(type)}witching chapters
     }
 
-
     typeToComponent(type) {
-        const {content, id} = this.props.data
+        const {content, id, isEditMode} = this.props.data
         let render = <div>NO ELEMENT TYPE YET HERE</div>;
 
-        const isFocus = this.state.isHovered || this.state.isClicked;
+        const {isHovered} = this.state
 
         const params = {
             key: id,
             id: id,
             test: "XXX",
             data: content,
-            isFocus,
-            isEditMode: isFocus, //phase out editMode to not confuse
+            isHovered,
+            isEditMode, //phase out editMode to not confuse
             // isPreview: this.props.isPreview,
             onChange: this.handleChange
         }
@@ -80,22 +79,21 @@ class Element extends Component {
         const that = this;
         return (
             <center>
-                <section onMouseEnter={() => this.setState({isHovered: true})}
-                         onMouseLeave={() => this.setState({isHovered: false})}
-                         onClick={() => this.setState({isClicked: true})}
-                >
-                    {this.props.isEditMode
-                        ? (<FadeableCard
-                            id={id}
-                            type={type}
-                            isEditMode={!this.props.isEditMode && this.state.isHovered}
-                            >
-                            {this.typeToComponent(type)}
-                        </FadeableCard>)
-                        : (<React.Fragment>{this.typeToComponent(type)}</React.Fragment>)
-                    }
+                <div className='mainWidth'>
+                    <section onMouseEnter={() => this.setState({isHovered: true})}
+                             onMouseLeave={() => this.setState({isHovered: false})}
+                    >
+                        <FadeableCard
+                                id={id}
+                                type={type}
+                                isEditMode={this.props.isEditMode}
+                                >
+                                {this.typeToComponent(type)}
+                            </FadeableCard>
+                            {/*: (<React.Fragment>{this.typeToComponent(type)}</React.Fragment>)*/}
 
-                </section>
+                    </section>
+                </div>
             </center>
         );
     }
@@ -110,7 +108,10 @@ Element.propTypes = {
 const mapStoreToProps = ({chapters, isEditMode}) => ({chapters, isEditMode});
 
 //don't need anything!
-const neededActions = (store) => ({});
+const neededActions = (store) => {
+    const {onChangeContent} = actions();
+    return {onChangeContent}
+};
 
 //IMPORTANT!! the project data is in the project obj, the rest of the store (action functions) is just flat there
 export default connect(mapStoreToProps, neededActions)(Element);
