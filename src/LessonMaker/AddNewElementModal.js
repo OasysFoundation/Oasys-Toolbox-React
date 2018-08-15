@@ -87,7 +87,7 @@ class AddNewElementModal extends Component {
 		          <div style={{width: "100%", display: "flex", flexWrap: "wrap", flexDirection:"row"}}>
 					{this.elementTypes.map(function(elementType) {
 						return (
-							<div onClick={function() { that.onSelectElement(elementType) }} style={{marginBottom:'10px', width:'50%'}}>
+							<div onClick={function() { that.onSelectElement(elementType) }} style={{marginBottom:'10px', width:'50%', cursor: "pointer"}}>
 								<center>
 									<img src={that.iconForElement(elementType)} style={{width:'100%', padding:'10px'}}/>
 									<br />
