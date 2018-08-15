@@ -116,7 +116,7 @@ class HeaderImage extends Component{
 				      		</div>
 				      	</div>
 				      	<div style={styles.bottomButtonDiv}>
-				      		<Button size="lg" color="light" onClick={this.openCreate}> Create Your Own Content!</Button>
+				      		<Button size="lg" color="light" onClick={this.openCreate} style={{height:"70%"}}> Create Your Own Content!</Button>
 				      	</div>
 				    </div>
 			  	)
@@ -145,7 +145,7 @@ class HeaderImage extends Component{
 					      		</div>
 					      	</div>
 					      	<div style={styles.bottomButtonDiv}>
-					      		<Button size="lg" color="light"> Create Your Own Content!</Button>
+					      		<Button size="lg" color="light" onClick={this.openCreate} style={{height:"70%"}}> Create Your Own Content!</Button>
 					      	</div>
 					    </div>
 			  		)
