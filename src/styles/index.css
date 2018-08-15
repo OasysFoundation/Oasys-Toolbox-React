@@ -370,7 +370,11 @@ html, body, svg, text {
 }
 
 .oasys .dataview .table {
-    background-color: #f8f8f4;
+    background-color: #ffffff;
+}
+
+.oasys .dataview .table .active {
+    background-color: #f4efb6;
 }
 
 .oasys .dataview .chart-wrapper {

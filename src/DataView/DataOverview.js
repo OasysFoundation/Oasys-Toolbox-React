@@ -10,7 +10,15 @@ const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
 
 class DataOverview extends Component {
 
+	constructor(props) {
+		super(props);
+		this.state = {
+			activeId: 'all',
+		}
+	}
+
 	onChangeData(id) {
+		this.setState({activeId: id});
 		this.props.onChangeData(id);
 	}
 	
@@ -66,7 +74,11 @@ class DataOverview extends Component {
 		          </tr>
 		          </thead>
 		          <tbody>
-			          <tr onClick={e=>this.onChangeData('all')} style={{cursor: 'pointer'}}>
+			          <tr 
+			          	onClick={e=>this.onChangeData('all')} 
+			          	style={{cursor: 'pointer'}}
+			          	className={this.state.activeId==='all' ? 'active' : ''}
+			          >
 			            <td><strong>All lessons</strong></td>
 			            <td><strong>{(this.props.data.map(e=>e.rating).reduce((a,b)=>a+b,0)/this.props.data.length).toFixed(1)}</strong></td>
 			            <td><strong>{this.props.data.map(e=>e.learner).reduce((a,b)=>a+b)}</strong></td>
@@ -74,7 +86,11 @@ class DataOverview extends Component {
 			            <td></td>
 			          </tr>
 		          	{this.props.data.map(e=>
-			          <tr onClick={f=>this.onChangeData(e.id)} style={{cursor: 'pointer'}}>
+			          <tr 
+			          	onClick={f=>this.onChangeData(e.id)} 
+			          	style={{cursor: 'pointer'}} 
+			          	className={this.state.activeId===e.id ? 'active' : ''}
+			          >
 			            <td>{e.title}</td>
 			            <td>{e.rating}</td>
 			            <td>{e.learner}</td>
