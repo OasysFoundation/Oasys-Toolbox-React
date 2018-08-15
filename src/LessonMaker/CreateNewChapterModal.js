@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import { InputGroup, InputGroupAddon, Input, InputGroupText, InputGroupButtonDropdown, DropdownToggle, DropdownItem, DropdownMenu } from 'reactstrap';
+import { InputGroup, Input } from 'reactstrap';
 import { Button } from 'reactstrap';
 
 class CreateNewChapterModal extends Component {

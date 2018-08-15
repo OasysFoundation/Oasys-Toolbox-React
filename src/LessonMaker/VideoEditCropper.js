@@ -12,10 +12,6 @@ const playerHeight = '360px';
 
 class VideoEditCropper extends Component {
 
-	constructor(props){
-		super(props);
-	}
-
     onSlide(render, handle, value, un, percent){
         this.onChangeCrop(value[0], value[1]);
     }

@@ -41,9 +41,9 @@ class QuizzButton extends Component {
     					
                         <div>{this.props.answer.title}</div>
                         <div>
-                        {this.props.answer.image!=""? (
+                        {this.props.answer.image!==""? (
                                 <center>
-                                    <img src={this.props.answer.image} width="100%" style={{padding:'10px'}}/>
+                                    <img src={this.props.answer.image} alt="" width="100%" style={{padding:'10px'}}/>
                                 </center>
                         ) : null}
             </div></div>

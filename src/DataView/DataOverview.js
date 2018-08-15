@@ -1,48 +1,93 @@
 import React, {Component} from 'react';
-import { Card, CardBody, Container } from 'reactstrap';
-import { Col, Pagination, PaginationItem, PaginationLink, Row, Table } from 'reactstrap';
+// import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
+import { Table } from 'reactstrap';
+import ReactTooltip from 'react-tooltip';
+
+import colors from '../colors';
+
+const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+
 
 class DataOverview extends Component {
+
+	onChangeData(id) {
+		this.props.onChangeData(id);
+	}
 	
 	render(){
 		return (
 			<div classname='table'>
+
+				<h3 style={{marginBottom: '0px'}}>
+					Summary
+					<sup><i class="far fa-question-circle margin-right5 medgrey" data-tip='tooltip' data-for='summary'></i></sup>
+					<ReactTooltip id='summary' place='bottom'> 
+						You can select any row in the summary table. <br/>
+						This will show detailed statistics for the <br/>
+						selected lesson below the table.
+					</ReactTooltip>
+				</h3>
+				<hr style={{marginTop: '0px', borderColor: colors.GULLGREY}}/>
+
 				<Table responsive striped className='has-shadow' style={{border: '1px solid #c8ced3'}}>
 		          <thead>
 		          <tr>
-		            <th>Username</th>
-		            <th>Date registered</th>
-		            <th>Role</th>
+		            <th>
+		            	Title
+		            </th>
+		            <th>
+		            	Rating
+		            	<sup><i class="far fa-question-circle margin-right5 medgrey" data-tip='tooltip' data-for='rating-help'></i></sup>
+                    	<ReactTooltip id='rating-help'> 
+                    		Average rating of this lesson
+                    	</ReactTooltip>
+                    </th>
+		            <th>
+		            	Learners
+		            	<sup><i class="far fa-question-circle margin-right5 medgrey" data-tip='tooltip' data-for='learner-help'></i></sup>
+                    	<ReactTooltip id='learner-help'> 
+                    		How many learners have accessed this lesson
+                    	</ReactTooltip>
+                    </th>
+		            <th>
+		            	Rewards
+		            	<sup><i class="far fa-question-circle margin-right5 medgrey" data-tip='tooltip' data-for='token-help'></i></sup>
+                    	<ReactTooltip id='token-help'> 
+                    		Amount of OAS tokens you have earned with this lesson
+                    	</ReactTooltip>
+                	</th>
+		            <th>
+		            	Birthday
+		            	<sup><i class="far fa-question-circle margin-right5 medgrey" data-tip='tooltip' data-for='birthday-help'></i></sup>
+                    	<ReactTooltip id='birthday-help'> 
+                    		Date at which you published this lesson
+                    	</ReactTooltip>
+                    </th>
 		          </tr>
 		          </thead>
 		          <tbody>
-		          <tr>
-		            <td>Yiorgos Avraamu</td>
-		            <td>2012/01/01</td>
-		            <td>Member</td>
-		          </tr>
-		          <tr>
-		            <td>Avram Tarasios</td>
-		            <td>2012/02/01</td>
-		            <td>Staff</td>
-		          </tr>
-		          <tr>
-		            <td>Quintin Ed</td>
-		            <td>2012/02/01</td>
-		            <td>Admin</td>
-		          </tr>
-		          <tr>
-		            <td>Enéas Kwadwo</td>
-		            <td>2012/03/01</td>
-		            <td>Member</td>
-		          </tr>
-		          <tr>
-		            <td>Agapetus Tadeáš</td>
-		            <td>2012/01/21</td>
-		            <td>Staff</td>
-		          </tr>
+			          <tr onClick={e=>this.onChangeData('all')} style={{cursor: 'pointer'}}>
+			            <td><strong>All lessons</strong></td>
+			            <td><strong>{(this.props.data.map(e=>e.rating).reduce((a,b)=>a+b,0)/this.props.data.length).toFixed(1)}</strong></td>
+			            <td><strong>{this.props.data.map(e=>e.learner).reduce((a,b)=>a+b)}</strong></td>
+			            <td><strong>{this.props.data.map(e=>e.token).reduce((a,b)=>a+b)}</strong></td>
+			            <td></td>
+			          </tr>
+		          	{this.props.data.map(e=>
+			          <tr onClick={f=>this.onChangeData(e.id)} style={{cursor: 'pointer'}}>
+			            <td>{e.title}</td>
+			            <td>{e.rating}</td>
+			            <td>{e.learner}</td>
+			            <td>{e.token}</td>
+			            <td>{e.published.toLocaleDateString("en-US", dateOptions)}</td>
+			          </tr>
+		          	)}
 		          </tbody>
 		        </Table>
+		        {/* We don't need pagination for now. Later, it can be implemented like so:
+		        	https://scotch.io/tutorials/build-custom-pagination-with-react
+		        	Or even better, use the ready-made react-table that supports sorting and pagination:
+		        	https://github.com/react-tools/react-table
 			        <Pagination className='flex-center'>
 			          <PaginationItem disabled><PaginationLink previous tag="button">Prev</PaginationLink></PaginationItem>
 			          <PaginationItem active>
@@ -53,6 +98,7 @@ class DataOverview extends Component {
 			          <PaginationItem><PaginationLink tag="button">4</PaginationLink></PaginationItem>
 			          <PaginationItem><PaginationLink next tag="button">Next</PaginationLink></PaginationItem>
 			        </Pagination>
+			    */}
 			</div>
 		)
 	}

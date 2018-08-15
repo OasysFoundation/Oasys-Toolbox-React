@@ -1,28 +1,20 @@
 import React, { Component } from 'react';
 
 
-import { InputGroup, InputGroupAddon, Input, InputGroupText, InputGroupButtonDropdown, DropdownToggle, DropdownItem, DropdownMenu } from 'reactstrap';
 import { Button } from 'reactstrap';
-import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 import { Popover, PopoverHeader, PopoverBody } from 'reactstrap';
 
 
 import PropTypes from 'prop-types';
-import api from '../api'
 
 import colors from '../colors'
-import globals from '../globals'
 
-import SelectionDropdown from './SelectionDropdown'
 import QuizzEditModal from './QuizzEditModal'
 import QuizzButton from './QuizzButton'
 
 import {saveToSessionStorage} from '../utils/trickBox'
 
-const ICON = function(className, fontSize=globals.ICON_FONTSIZE_NORMAL) {
-    return <i style={{fontSize:fontSize}} className={className}> </i>;
-}
 
 //this is the new "Preview" Component
 class QuizzEdit extends Component {
@@ -136,16 +128,16 @@ class QuizzEdit extends Component {
                 {this.props.isEditMode? <Button color="primary" onClick={this.onClickEditButton.bind(this)}>Edit Quiz</Button> : null}
 
                 <h1>{this.state.question.title}</h1>
-                <img src={this.state.question.image} />
+                <img src={this.state.question.image} alt="" />
                 <center>
             	<div style={containerStyle}>
                    
             	   {this.state.answers.map(function(answer, index) {
-                    return <QuizzButton answer={answer} key={"answer-id-" + index} id={"answer-id-" + index} showsSelectionIndicator={that.state.quizType=='multiple-choice'} isSelected={answer.isSelected} index={index} onSelect={that.onSelectAnswer.bind(that)} width={elementWidth} height={elementHeight} color={that.quizColors[index % that.quizColors.length]} />
+                    return <QuizzButton answer={answer} key={"answer-id-" + index} id={"answer-id-" + index} showsSelectionIndicator={that.state.quizType==='multiple-choice'} isSelected={answer.isSelected} index={index} onSelect={that.onSelectAnswer.bind(that)} width={elementWidth} height={elementHeight} color={that.quizColors[index % that.quizColors.length]} />
                    })}
 
             	</div>
-                {this.state.quizType == 'multiple-choice'? <Button color="primary" onClick={this.onClickSubmitButton.bind(this)}>Submit</Button> : null}
+                {this.state.quizType === 'multiple-choice'? <Button color="primary" onClick={this.onClickSubmitButton.bind(this)}>Submit</Button> : null}
                 </center>
 
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 
-import { InputGroup, InputGroupAddon, Input, InputGroupText, InputGroupButtonDropdown, DropdownToggle, DropdownItem, DropdownMenu } from 'reactstrap';
+import { InputGroup, InputGroupAddon, Input, InputGroupText } from 'reactstrap';
 import { Button } from 'reactstrap';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
@@ -9,8 +9,6 @@ import { Nav, NavItem, NavLink } from 'reactstrap';
 
 import classnames from 'classnames';
 
-import PropTypes from 'prop-types';
-import api from '../api'
 
 import colors from '../colors'
 import globals from '../globals'
@@ -71,14 +69,14 @@ class QuizzEditModal extends Component {
             return;
         }
 
-        if (identifier == 'action-correct') {
+        if (identifier === 'action-correct') {
             this.setState({
                 actionCorrect: this.props.chapters[chapterIndex].id
             });
             return;
         }
 
-        if (identifier == 'action-wrong') {
+        if (identifier === 'action-wrong') {
             this.setState({
                 actionWrong: this.props.chapters[chapterIndex].id
             });
@@ -105,10 +103,10 @@ class QuizzEditModal extends Component {
 
         const answers = this.state.answers;
 
-        if (this.state.quizType == 'single-choice') {
-            if (value == "on") {
+        if (this.state.quizType === 'single-choice') {
+            if (value === "on") {
                 answers.map(function(answer, answerIndex) {
-                    if (answerIndex == index) {
+                    if (answerIndex === index) {
                         answer.correct = true;
                     } else {
                         answer.correct = false;
@@ -130,8 +128,8 @@ class QuizzEditModal extends Component {
     }
 
     onSelectImage(e, file) {
-        var file = file || e.target.files[0],
-            pattern = /image-*/,
+        file = file || e.target.files[0];
+        var pattern = /image-*/,
             reader = new FileReader();
 
         if (!file.type.match(pattern)) {
@@ -141,7 +139,7 @@ class QuizzEditModal extends Component {
 
         reader.onload = (e) => {
 
-            if (this.state.selectingImageForIndex == "question") {
+            if (this.state.selectingImageForIndex === "question") {
                 const question = this.state.question;
                 question.image = reader.result;
                 this.setState({
@@ -208,7 +206,7 @@ class QuizzEditModal extends Component {
     onChangeQuizType(newQuizType) {
 
         // ensure that only one answer is marked as corect for single choice (simply the first one)
-        if (newQuizType == 'single-choice') {
+        if (newQuizType === 'single-choice') {
             const answers = this.state.answers;
             var hasFoundCorrectAnswer = false;
             answers.map(function(answer) {
@@ -217,6 +215,7 @@ class QuizzEditModal extends Component {
                 } else {
                     answer.correct = false;
                 }
+                return answer;
             })
 
             this.setState({
@@ -232,7 +231,7 @@ class QuizzEditModal extends Component {
     chapterTitleForIdentifier(identifier) {
 
         return this.props.chapters.reduce(function(result, currentChapter) { 
-            if (currentChapter.id == identifier) {
+            if (currentChapter.id === identifier) {
                 return currentChapter;
             }
             return result; 
@@ -310,11 +309,11 @@ class QuizzEditModal extends Component {
                     <InputGroupAddon addonType="append"><Button color="secondary" onClick={function() { that.onShowImageSelectionDialog("question") }}>{ICON("icon-camera")}</Button></InputGroupAddon>
                 </InputGroup>
                 <center>
-                <img src={this.state.question.image} style={{maxWidth:'200px', marginBottom:"20px"}} />
+                <img src={this.state.question.image} style={{maxWidth:'200px', marginBottom:"20px"}} alt="" />
                 </center>
                     {this.state.answers.map(function(answer, index) {
                         return (
-                            <div style={{marginBottom: '20px'}} key="i-dont-want-to-do-this">
+                            <div style={{marginBottom: '20px'}} key={"i-dont-want-to-do-this-"+index}>
 
                             <InputGroup>
                                 <InputGroupAddon addonType="prepend">
@@ -348,9 +347,9 @@ class QuizzEditModal extends Component {
                                 </InputGroupAddon>
 
                             </InputGroup>
-                            {answer.image!=""? (
+                            {answer.image!==""? (
                                 <center>
-                                    <img src={answer.image} style={{maxWidth:'200px'}} />
+                                    <img src={answer.image} style={{maxWidth:'200px'}} alt="" />
                                 </center>
                                 ) : null}
                             

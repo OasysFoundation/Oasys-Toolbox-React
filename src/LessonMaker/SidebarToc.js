@@ -7,7 +7,6 @@ import * as tocjs from '../assets/scripts/toc.js'
 import mapStoreToProps from "../store/mapStoreToProps";
 import actions from "../store/actions";
 import {connect} from "redux-zero/react";
-import SideBarLesson from "./SideBarLesson";
 
 
 class SidebarToc extends Component {
@@ -44,7 +43,7 @@ class SidebarToc extends Component {
         this.mounted = false;
 
         this.state = {
-            width: this.opt.width,
+            width: this.opt.totalWidth,
             height: null,
         };
 

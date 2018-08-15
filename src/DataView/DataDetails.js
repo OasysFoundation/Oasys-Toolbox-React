@@ -1,62 +1,69 @@
 import React, {Component} from 'react';
-import { Card, CardBody, CardHeader, Container } from 'reactstrap';
-import { Col, Pagination, PaginationItem, PaginationLink, Row, Table } from 'reactstrap';
-import { Bar, Line } from 'react-chartjs-2';
-import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
+import { Card, CardBody } from 'reactstrap';
+import { Bar } from 'react-chartjs-2';
+// import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 
 import colors, {hexToRgba} from '../colors';
 
-let palette = [colors.GREEN, colors.TURQUOISE, colors.LOCHINVAR, colors.GHOST, colors.WINTERSUN, colors.SUMMERSUN, colors.RUST, colors.VELVET, colors.SPANISHWHITE];
-let paletteRgba1 = palette.map(color=>hexToRgba(color,0.6));
+let palette = [
+  colors.GREEN, colors.TURQUOISE, colors.LOCHINVAR, 
+  colors.GULLGREY, colors.WINTERSUN, colors.SUMMERSUN, 
+  colors.BROWN, colors.RUST, colors.VELVET, 
+  colors.MOUNTBATTEN, colors.GHOST, colors.GREY,
+];
+let paletteRgba1 = palette.map(color=>hexToRgba(color,0.7));
 let paletteRgba2 = palette.map(color=>hexToRgba(color,1.0));
 
-
-const lineData = {
-  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-  datasets: [
-    {
-      label: 'My First dataset',
-      fill: false,
-      lineTension: 0.1,
-      backgroundColor: paletteRgba1,
-      borderColor: paletteRgba1,
-      borderCapStyle: 'butt',
-      borderDash: [],
-      borderDashOffset: 0.0,
-      borderJoinStyle: 'miter',
-      pointBorderColor: 'rgba(75,192,192,1)',
-      pointBackgroundColor: '#fff',
-      pointBorderWidth: 1,
-      pointHoverRadius: 5,
-      pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-      pointHoverBorderColor: 'rgba(220,220,220,1)',
-      pointHoverBorderWidth: 2,
-      pointRadius: 1,
-      pointHitRadius: 10,
-      data: [65, 59, 80, 81, 56, 55, 40],
-    },
-  ],
-};
+const chartHeight = '250px';
 
 const barData = {
-  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
   datasets: [
     {
-      label: 'My First dataset',
+      label: '',
       backgroundColor: paletteRgba1,
       borderColor: paletteRgba1,
       borderWidth: 1,
       hoverBackgroundColor: paletteRgba2,
       hoverBorderColor: paletteRgba2,
-      data: [65, 59, 80, 81, 56, 55, 40, 22, 37],
+      data: [65, 59, 80, 81, 56, 55, 40, 22, 37, 10, 20, 30],
+    },
+  ],
+};
+
+const durationData = {
+  labels: ['0:00','5:00','10:00','15:00','20:00','25:00','30:00'],
+  datasets: [
+    {
+      label: '',
+      backgroundColor: paletteRgba1,
+      borderColor: paletteRgba1,
+      borderWidth: 1,
+      hoverBackgroundColor: paletteRgba2,
+      hoverBorderColor: paletteRgba2,
+      data: [0, 5, 30, 10, 25, 15, 3],
+    },
+  ],
+};
+
+const scoreData = {
+  labels: [0,1,2,3,4,5],
+  datasets: [
+    {
+      label: '',
+      backgroundColor: paletteRgba1,
+      borderColor: paletteRgba1,
+      borderWidth: 1,
+      hoverBackgroundColor: paletteRgba2,
+      hoverBorderColor: paletteRgba2,
+      data: [0, 5, 12, 15, 18, 11],
     },
   ],
 };
 
 let options = {
   tooltips: {
-    enabled: false,
-    custom: CustomTooltips
+    enabled: true,
   },
   maintainAspectRatio: false,
   title: {
@@ -68,40 +75,109 @@ let options = {
   },
   legend: {
   	display: false,
-  }
+  },
+  scales: {
+     yAxes: [{
+         ticks: { beginAtZero: true },
+         scaleLabel: {
+          display: true,
+          labelString: 'Y text',
+         },
+         gridLines: { display:false },
+     }],
+     xAxes: [{
+         scaleLabel: {
+          display: false,
+          labelString: 'X text',
+         },
+         gridLines: { display:false },
+     }]
+ }
 };
 
 class DataDetails extends Component {
 
-	constructor(props) {
-		super(props);
-	}
-	
 	render(){
+
 		let optsUser = JSON.parse(JSON.stringify(options));
-		let optsRewards = JSON.parse(JSON.stringify(options));
-		optsUser.title.text = 'Users for lesson ' + this.props.contentTitle;
-		optsRewards.title.text = 'Rewards for lesson ' + this.props.contentTitle;
+    let optsRewards = JSON.parse(JSON.stringify(options));
+    let optsDuration = JSON.parse(JSON.stringify(options));
+    let optsScore = JSON.parse(JSON.stringify(options));
+
+		optsUser.title.text = 'Learners';
+    optsUser.scales.yAxes[0].scaleLabel.labelString = 'Learners';
+
+    optsRewards.title.text = 'Rewards';
+    optsRewards.scales.yAxes[0].scaleLabel.labelString = 'Rewards';
+
+    optsScore.title.text = 'Average score from questions';
+    optsScore.scales.yAxes[0].scaleLabel.labelString = 'Learners';
+    optsScore.scales.xAxes[0].scaleLabel.display = true;
+    optsScore.scales.xAxes[0].scaleLabel.labelString = 'Score';
+
+    optsDuration.title.text = 'Average time spent with lesson';
+    optsDuration.scales.yAxes[0].scaleLabel.labelString = 'Learners';
+    optsDuration.scales.xAxes[0].scaleLabel.display = true;
+    optsDuration.scales.xAxes[0].scaleLabel.labelString = 'Time [min:sec]';
+
 		return (
 			<div>
+
+        <h3 style={{marginBottom: '0px', marginTop: '30px'}}>
+          {(this.props.data.id==='all')
+          ? ('Details for all lessons')
+          : ('Details for lesson ' + this.props.data.title)
+          }
+        </h3>
+        <hr style={{marginTop: '0px', borderColor: colors.GULLGREY}}/>
+
 				<Card className='has-shadow marginBottom20'>
-		            <CardBody>
-		              <div className="chart-wrapper">
-		              	<center>
-		                	<Bar data={barData} options={optsUser} />
-		                </center>
-		              </div>
-		            </CardBody>
-	            </Card>
-				<Card className='has-shadow'>
-		            <CardBody>
-		              <div className="chart-wrapper">
-		              	<center>
-		                	<Bar data={barData} options={optsRewards} />
-		                </center>
-		              </div>
-		            </CardBody>
-	            </Card>
+          <CardBody>
+            <div className="chart-wrapper">
+            	<center>
+              	<Bar data={barData} options={optsUser} height={chartHeight} />
+              </center>
+            </div>
+          </CardBody>
+        </Card>
+
+				<Card className='has-shadow marginBottom20'>
+          <CardBody>
+            <div className="chart-wrapper">
+            	<center>
+              	<Bar data={barData} options={optsRewards} height={chartHeight} />
+              </center>
+            </div>
+          </CardBody>
+        </Card>
+
+        <Card className='has-shadow marginBottom20'>
+          <CardBody>
+            <div className="chart-wrapper">
+              <center>
+                <Bar data={scoreData} options={optsScore} height={chartHeight} />
+              </center>
+            </div>
+          </CardBody>
+        </Card>
+
+        <Card className='has-shadow marginBottom20'>
+          <CardBody>
+            <div className="chart-wrapper">
+              <center>
+                <Bar data={durationData} options={optsDuration} height={chartHeight} />
+              </center>
+            </div>
+          </CardBody>
+        </Card>
+
+        {/* If a specific lesson is selected, we could also show the following:
+              - learners per slide
+              - feedback per slide
+              - quiz questions/answers
+              - time per question as distribution
+        */}
+
 			</div>
 		)
 	}
