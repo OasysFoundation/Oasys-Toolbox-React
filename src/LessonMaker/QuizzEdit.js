@@ -119,7 +119,7 @@ class QuizzEdit extends Component {
             flexWrap: flexWrap
         }
 
-        const selectedAnswer = this.state.answers? this.state.answers[this.state.selectedAnswerIndex] : null;
+        const selectedAnswer = this.state.answers ? this.state.answers[this.state.selectedAnswerIndex] : null;
         const feedbackTitle = selectedAnswer? (selectedAnswer.correct ? "You are amazing! This is correct. 🎉" : "Try Again. This is wrong. 😭") : null;
 
         const that = this; 

@@ -27,7 +27,7 @@ const actions = function (store) { //store for async stuff
                     const matchFromSession = JSON.parse(sessionStorage.getItem(key));
                     console.log(matchFromSession, "FOUND in SESSION!", key);
 
-                    if (matchFromSession.timestamp > matchFromState.timestamp) {
+                    if (matchFromSession.timestamp >= matchFromState.timestamp) {
                         console.log('Compare two Items session - state', matchFromSession, matchFromState);
 
                         matchFromState.content = matchFromSession.content;
@@ -80,7 +80,7 @@ const actions = function (store) { //store for async stuff
 
         onChangeActiveChapter(state, id) {
             const index = state.chapters.findIndex(chapter => chapter.id.toString() === id.toString());
-            console.log("new active chapter idx:  ", index)
+            // console.log("new active chapter idx:  ", index)
             return update(state, {activeChapterIndex: {$set: index}})
         },
 

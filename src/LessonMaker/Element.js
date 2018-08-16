@@ -9,7 +9,7 @@ import QuizzEdit from './QuizzEdit'
 import VideoEdit from './VideoEdit'
 import EmbedEdit from './EmbedEdit'
 
-import {saveToSessionStorage} from "../utils/trickBox";
+import {saveToSessionStorage, getContentFromSessionStorage} from "../utils/trickBox";
 import {
     Card,
     CardBody
@@ -28,21 +28,29 @@ class Element extends Component {
 
     state = {
         isHovered: false,
-        tempContent: this.props.data.content || sessionStorage.getItem(this.props.data.id),
+        tempContent: this.props.data.content || getContentFromSessionStorage(this.props.data.id),
         timestamp: Date.now()
     };
 
     //glue function between LessonMaker and Quill to add ID
     handleChange = (value) => {
-        saveToSessionStorage(this.props.data.id, value) //for s{this.typeToComponent(type)}witching chapters
-
+        // const equal = JSON.stringify(value) === JSON.stringify(this.props.data.content)
+        // console.log(value === this.props.data.content, equal, "EQUAL")
+        //
+        // saveToSessionStorage(this.props.data.id, value)
+        // const storeTimestamp =  this.props.data.timestamp;
+        // const sessionTimestamp = getContentFromSessionStorage(this.props.data.id).timestamp;
+        //
+        // console.log("Handle change fired @",this.props.data.id, this.props.data.timestamp, value, getContentFromSessionStorage(this.props.data.id) )
+        //
+        // console.log(storeTimestamp, sessionTimestamp, "TIMESTAMPS")
         //DO NOT CALL setState before session storage!! will override itself
         this.setState({tempContent: value, timestamp: Date.now()}); //for Quill
 
     }
 
     typeToComponent(type) {
-        const {content, id} = this.props.data;
+        const {id} = this.props.data;
         const {isHovered} = this.state;
 
         const params = {
