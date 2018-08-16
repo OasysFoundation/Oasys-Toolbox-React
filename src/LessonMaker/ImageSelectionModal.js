@@ -53,7 +53,9 @@ class ImageSelectionModal extends Component {
 
 		return (
 			<Modal isOpen={this.props.isOpen} toggle={this.toggle} backdrop={true}>
-            <Nav tabs>
+            
+			<ModalHeader toggle={this.toggle}>
+			<Nav tabs>
               <NavItem>
                 <NavLink
                   className={classnames({ active: this.state.currentTab === 'imageSelection' })}
@@ -71,7 +73,7 @@ class ImageSelectionModal extends Component {
                 </NavLink>
               </NavItem>
             </Nav>
-			<ModalHeader toggle={this.toggle}>Select one of thos amazin image.</ModalHeader>
+			</ModalHeader>
 	          <ModalBody>
 	          	{this.imageSourceDescription()}
 				<Table>
