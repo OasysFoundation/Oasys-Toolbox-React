@@ -27,7 +27,7 @@ const actions = function (store) { //store for async stuff
                     const matchFromSession = JSON.parse(sessionStorage.getItem(key));
                     console.log(matchFromSession, "FOUND in SESSION!", key);
 
-                    if (matchFromSession.timestamp > matchFromState.timestamp) {
+                    if (matchFromSession.timestamp >= matchFromState.timestamp) {
                         console.log('Compare two Items session - state', matchFromSession, matchFromState);
 
                         matchFromState.content = matchFromSession.content;
@@ -54,6 +54,8 @@ const actions = function (store) { //store for async stuff
         },
 
         onChangeContent(state, id, value, elementChapter) {
+
+            console.log(value, id)
             //more verbose, but performant (instead of Json.stringify)
             const currentChapterIdx = state.chapters.findIndex(chapter => chapter.id === elementChapter);
             let elements = state.chapters[currentChapterIdx].elements;
@@ -78,9 +80,28 @@ const actions = function (store) { //store for async stuff
             })
         },
 
+
+        // onChangeContent_old(state, id, value, elementChapter) {
+        //     const clone = JSON.parse(JSON.stringify(state));
+        //     const currentChapter = clone.chapters.find(chapter => chapter.id === elementChapter);
+        //     let elements = currentChapter.elements;
+        //
+        //     const elem = elements.find(el => el.id === id);
+        //     if (!elem) {
+        //         console.log('no element found on change content -- maybe handlechange fired, but element in Chapter that is not active')
+        //         return
+        //     };
+        //
+        //     elem.content = value;
+        //     elem.timestamp = Date.now();
+        //
+        //     currentChapter.elements = elements;
+        //     return clone
+        // },
+
         onChangeActiveChapter(state, id) {
             const index = state.chapters.findIndex(chapter => chapter.id.toString() === id.toString());
-            console.log("new active chapter idx:  ", index)
+            // console.log("new active chapter idx:  ", index)
             return update(state, {activeChapterIndex: {$set: index}})
         },
 

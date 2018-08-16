@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Element from './Element';
 import ScrollView, {ScrollElement} from "../utils/scroller";
-import {ICON, flatten} from '../utils/trickBox'
+import {ICON, flatten, isEmpty} from '../utils/trickBox'
 import {Container} from "reactstrap"
 
 
@@ -46,6 +46,11 @@ class ContentView extends Component {
         }, () => this.scrollTo(this.chapters[nextIdx].elements[0].id));
     }
     goToChapter = (chapterID) => {
+        if (isEmpty(chapterID)) {
+            console.log('NULL ? quiz didnt give chapterID -> default next chapter');
+            //scroll to next element or (if end of chapter, next elements chapter)
+            this.goToNextChapter();
+        }
         this.chaptersSeenIDs.push(chapterID);
         const chapterIndex = this.chapters.findIndex(chapter => chapter.id === chapterID);
         this.setState({
