@@ -24,10 +24,10 @@ class DataOverview extends Component {
 	
 	render(){
 		return (
-			<div classname='table'>
+			<div className='table'>
 				<h3 style={{marginBottom: '0px'}}>
 					Summary
-					<sup><i class="far fa-question-circle margin-right5 medgrey" data-tip='tooltip' data-for='summary'></i></sup>
+					<sup><i className="far fa-question-circle margin-right5 medgrey" data-tip='tooltip' data-for='summary'></i></sup>
 					<ReactTooltip id='summary' place='bottom'> 
 						You can select any row in the summary table. <br/>
 						This will show detailed statistics for the <br/>
@@ -44,28 +44,28 @@ class DataOverview extends Component {
 		            </th>
 		            <th>
 		            	Rating
-		            	<sup><i class="far fa-question-circle margin-right5 medgrey" data-tip='tooltip' data-for='rating-help'></i></sup>
+		            	<sup><i className="far fa-question-circle margin-right5 medgrey" data-tip='tooltip' data-for='rating-help'></i></sup>
                     	<ReactTooltip id='rating-help'> 
                     		Average rating of this lesson
                     	</ReactTooltip>
                     </th>
 		            <th>
 		            	Learners
-		            	<sup><i class="far fa-question-circle margin-right5 medgrey" data-tip='tooltip' data-for='learner-help'></i></sup>
+		            	<sup><i className="far fa-question-circle margin-right5 medgrey" data-tip='tooltip' data-for='learner-help'></i></sup>
                     	<ReactTooltip id='learner-help'> 
                     		How many learners have accessed this lesson
                     	</ReactTooltip>
                     </th>
 		            <th>
 		            	Rewards
-		            	<sup><i class="far fa-question-circle margin-right5 medgrey" data-tip='tooltip' data-for='token-help'></i></sup>
+		            	<sup><i className="far fa-question-circle margin-right5 medgrey" data-tip='tooltip' data-for='token-help'></i></sup>
                     	<ReactTooltip id='token-help'> 
                     		Amount of OAS tokens you have earned with this lesson
                     	</ReactTooltip>
                 	</th>
 		            <th>
 		            	Birthday
-		            	<sup><i class="far fa-question-circle margin-right5 medgrey" data-tip='tooltip' data-for='birthday-help'></i></sup>
+		            	<sup><i className="far fa-question-circle margin-right5 medgrey" data-tip='tooltip' data-for='birthday-help'></i></sup>
                     	<ReactTooltip id='birthday-help'> 
                     		Date at which you published this lesson
                     	</ReactTooltip>
@@ -89,6 +89,7 @@ class DataOverview extends Component {
 			          	onClick={f=>this.onChangeData(e.id)} 
 			          	style={{cursor: 'pointer'}} 
 			          	className={this.state.activeId===e.id ? 'active' : ''}
+			          	key={e.id}
 			          >
 			            <td>{e.title}</td>
 			            <td>{e.rating}</td>

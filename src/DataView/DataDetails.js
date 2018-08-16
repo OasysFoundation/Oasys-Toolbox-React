@@ -14,7 +14,7 @@ let palette = [
 let paletteRgba1 = palette.map(color=>hexToRgba(color,0.7));
 let paletteRgba2 = palette.map(color=>hexToRgba(color,1.0));
 
-const chartHeight = '250px';
+const chartHeight = 250;
 
 const barData = {
   labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],

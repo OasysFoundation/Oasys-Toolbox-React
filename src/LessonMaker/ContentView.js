@@ -2,8 +2,6 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Element from './Element';
 import ScrollView, {ScrollElement} from "../utils/scroller";
-
-// import '../styles/scroller.css'
 import {ICON, flatten} from '../utils/trickBox'
 import {Container} from "reactstrap"
 
@@ -47,7 +45,13 @@ class ContentView extends Component {
             activeChapterID: nextID
         }, () => this.scrollTo(this.chapters[nextIdx].elements[0].id));
     }
-    goToChapter = (id) => {
+    goToChapter = (chapterID) => {
+        this.chaptersSeenIDs.push(chapterID);
+        const chapterIndex = this.chapters.findIndex(chapter => chapter.id === chapterID);
+        this.setState({
+            activeChapterIndex: chapterIndex,
+            activeChapterID: chapterID
+        }, () => this.scrollTo(this.chapters[chapterIndex].elements[0].id));
 
     }
 
@@ -58,7 +62,7 @@ class ContentView extends Component {
                 <main className="main">
                     <Container fluid className='main-width'>
                         {
-                            allElementsinProject.map(({id}) => <button class="yoloBut"
+                            allElementsinProject.map(({id}) => <button className="yoloBut"
                                                                        onClick={() => this.scrollTo(id)}>{id}</button>)
                         }
                         <ScrollView ref={scroller => this._scroller = scroller}>
@@ -68,7 +72,10 @@ class ContentView extends Component {
 
                                     <ScrollElement key={el.id} name={el.id}>
                                         <div className="item" hidden={ !( this.chaptersSeenIDs.includes(el.fromChapter) )}>
-                                            <Element data={el} id={el.id} isEditMode={false}/>
+                                            <Element data={el} id={el.id}
+                                                     isEditMode={false}
+                                                     onLearnerInteraction={this.goToChapter}
+                                            />
                                             {el.id}
                                         </div>
                                     </ScrollElement>))

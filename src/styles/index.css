@@ -105,6 +105,8 @@ html, body, svg, text {
     background: #f0f3f5;
     display: flex;
     align-items: center;
+    min-height: 100vh;
+    flex-direction: column;
 }
 
 .oasys .input-group mb-3 {
@@ -161,6 +163,7 @@ html, body, svg, text {
 
 .oasys .card {
     margin-bottom: 0;
+    text-align: left;
 }
 
 .oasys .flex-center {

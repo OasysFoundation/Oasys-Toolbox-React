@@ -10,7 +10,21 @@ import 'nouislider/distribute/nouislider.css';
 const playerWidth = '640px';
 const playerHeight = '360px';
 
+// for next version, we might replace the video player component with
+// https://github.com/rafaesc/reactube-client
+// this player supports cropping out of the box
+
 class VideoEditCropper extends Component {
+
+    constructor(props) {
+        super(props);
+        this.onSlide = this.onSlide.bind(this);
+        this.onPlayerReady = this.onPlayerReady.bind(this);
+        this.updateStart = this.updateStart.bind(this);
+        this.updateEnd = this.updateEnd.bind(this);
+        this.onSetStart = this.onSetStart.bind(this);
+        this.onsetEnd = this.onSetEnd.bind(this);
+    }
 
     onSlide(render, handle, value, un, percent){
         this.onChangeCrop(value[0], value[1]);
@@ -86,7 +100,7 @@ class VideoEditCropper extends Component {
                     min: 0,
                     max: max
                 }}
-                onSlide={this.onSlide.bind(this)}
+                onSlide={this.onSlide}
             />
     	, this.refs.sliderWrapper);
 
@@ -115,7 +129,7 @@ class VideoEditCropper extends Component {
 	                  config={{youtube: youtubeConfig}}
 	                  ref='video'
 	                  playing={false}
-	                  onReady={this.onPlayerReady.bind(this)}
+	                  onReady={this.onPlayerReady}
 	                  width={playerWidth}
 	                  height={playerHeight}
 	                />
@@ -128,25 +142,25 @@ class VideoEditCropper extends Component {
                 <center>
 	                <div className='video-controls' style={{width: playerWidth}}>
 	                    <input 
-	                    	readonly='readonly'
-	                        onInput={this.updateStart.bind(this)} 
+	                    	readOnly='readonly'
+	                        onInput={this.updateStart} 
 	                        className='form-control'
 	                        placeholder='0'
 	                        ref='inputStart'
                             defaultValue={this.formatTime(this.props.data.cropStart)}
 	                    />
-	                    <Button className='bgprimary' style={{marginRight: 'auto'}} onClick={this.onSetStart.bind(this)}>
-	                    	<i class="fas fa-arrow-left" style={{marginRight: '5px'}}></i> 
+	                    <Button className='bgprimary' style={{marginRight: 'auto'}} onClick={this.onSetStart}>
+	                    	<i className="fas fa-arrow-left" style={{marginRight: '5px'}}></i> 
 	                    	set to current time
 	                    </Button>
 
-	                    <Button className='bgprimary' color="#28CCB4" onClick={this.onSetEnd.bind(this)}>
+	                    <Button className='bgprimary' color="#28CCB4" onClick={this.onSetEnd}>
 	                    	set to current time
-	                    	<i class="fas fa-arrow-right" style={{marginLeft: '5px'}}></i> 
+	                    	<i className="fas fa-arrow-right" style={{marginLeft: '5px'}}></i> 
 	                    </Button>
 	                    <input 
-	                    	readonly='readonly'
-	                        onInput={this.updateEnd.bind(this)} 
+	                    	readOnly='readonly'
+	                        onInput={this.updateEnd} 
 	                        className='form-control'
 	                        placeholder='0'
 	                        ref='inputEnd'

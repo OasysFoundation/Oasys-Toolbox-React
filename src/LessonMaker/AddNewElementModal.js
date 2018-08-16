@@ -85,9 +85,13 @@ class AddNewElementModal extends Component {
 		        <ModalHeader toggle={this.props.onClose}>Adding a new Element to this Chapter</ModalHeader>
 		          <ModalBody>
 		          <div style={{width: "100%", display: "flex", flexWrap: "wrap", flexDirection:"row"}}>
-					{this.elementTypes.map(function(elementType) {
+					{this.elementTypes.map(function(elementType,idx) {
 						return (
-							<div onClick={function() { that.onSelectElement(elementType) }} style={{marginBottom:'10px', width:'50%', cursor: "pointer"}}>
+							<div 
+                                onClick={function() { that.onSelectElement(elementType) }} 
+                                style={{marginBottom:'10px', width:'50%', cursor: "pointer"}}
+                                key={idx.toString()}
+                            >
 								<center>
 									<img src={that.iconForElement(elementType)} style={{width:'100%', padding:'10px'}}/>
 									<br />

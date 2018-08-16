@@ -40,6 +40,16 @@ class QuizzEditModal extends Component {
             showsCreateNewChapterDialog: false,
             newChapterCreatedResolver: null
         }
+
+        this.onSelectImage = this.onSelectImage.bind(this);
+        this.onClose = this.onClose.bind(this);
+        this.onSelectAction = this.onSelectAction.bind(this);
+        this.onAddNewAnswerOption = this.onAddNewAnswerOption.bind(this);
+        this.onSave = this.onSave.bind(this);
+        this.onClose = this.onClose.bind(this);
+        this.onCloseNewChapterCreationDialog = this.onCloseNewChapterCreationDialog.bind(this);
+        this.onSelectAction = this.onSelectAction.bind(this);
+        this.onCreateNewChapter = this.onCreateNewChapter.bind(this);
     }
 
     onSave() {
@@ -278,9 +288,9 @@ class QuizzEditModal extends Component {
         return (
             <div>
 
-                <input style={{display: "none"}} type="file" accept="image/*" onChange={that.onSelectImage.bind(that)} ref="fileUploader" />
+                <input style={{display: "none"}} type="file" accept="image/*" onChange={this.onSelectImage} ref="fileUploader" />
 
-                <Modal isOpen={this.props.isOpen} toggle={this.onClose.bind(this)} backdrop={true}>
+                <Modal isOpen={this.props.isOpen} toggle={this.onClose} backdrop={true}>
                 
                     <Nav tabs>
                       <NavItem>
@@ -301,7 +311,7 @@ class QuizzEditModal extends Component {
                       </NavItem>
                     </Nav>
 
-                  <ModalHeader toggle={this.onClose.bind(this)}>Edit Quiz – {this.state.quizType==='single-choice'? "Single Choice with Selection Options" : "Multiple Choice with Actions"}</ModalHeader>
+                  <ModalHeader toggle={this.onClose}>Edit Quiz – {this.state.quizType==='single-choice'? "Single Choice with Selection Options" : "Multiple Choice with Actions"}</ModalHeader>
                   <ModalBody>
                 <InputGroup>
                     <InputGroupAddon addonType="prepend">?</InputGroupAddon>
@@ -311,7 +321,7 @@ class QuizzEditModal extends Component {
                 <center>
                 <img src={this.state.question.image} style={{maxWidth:'200px', marginBottom:"20px"}} alt="" />
                 </center>
-                    {this.state.answers.map(function(answer, index) {
+                    {this.state.answers.map((answer, index) => {
                         return (
                             <div style={{marginBottom: '20px'}} key={"i-dont-want-to-do-this-"+index}>
 
@@ -334,7 +344,7 @@ class QuizzEditModal extends Component {
                                 
                                 {
                                     that.state.quizType==='single-choice'?
-                                    (<SelectionDropdown onSelect={that.onSelectAction.bind(that)} identifier={index} default={answer.action!=null? that.chapterTitleForIdentifier(answer.action) : "No Action"} options={that.getActionMenuItems()}/>)
+                                    (<SelectionDropdown onSelect={this.onSelectAction} identifier={index} default={answer.action!=null? that.chapterTitleForIdentifier(answer.action) : "No Action"} options={that.getActionMenuItems()}/>)
                                 :
                                     null
                                 }
@@ -359,15 +369,15 @@ class QuizzEditModal extends Component {
                     })}
                     <center>
                             
-                    <Button color="secondary" onClick={this.onAddNewAnswerOption.bind(this)}>Add new Answer Option</Button>
+                    <Button color="secondary" onClick={this.onAddNewAnswerOption}>Add new Answer Option</Button>
                     {
                         
                         this.state.quizType==='multiple-choice'?
                         (   
                             <div style={{marginTop:'20px'}}>
-                                <SelectionDropdown onSelect={this.onSelectAction.bind(that)} identifier={"action-correct"} default={this.state.actionCorrect? "When correct: " + this.chapterTitleForIdentifier(this.state.actionCorrect) : "When answered correctly…"} options={this.getActionMenuItems()}/>
+                                <SelectionDropdown onSelect={this.onSelectAction} identifier={"action-correct"} default={this.state.actionCorrect? "When correct: " + this.chapterTitleForIdentifier(this.state.actionCorrect) : "When answered correctly…"} options={this.getActionMenuItems()}/>
                                 <br />
-                                <SelectionDropdown onSelect={this.onSelectAction.bind(that)} identifier={"action-wrong"} default={this.state.actionWrong? "When wrong: " + this.chapterTitleForIdentifier(this.state.actionWrong) : "When answered wrong…"} options={this.getActionMenuItems()} />
+                                <SelectionDropdown onSelect={this.onSelectAction} identifier={"action-wrong"} default={this.state.actionWrong? "When wrong: " + this.chapterTitleForIdentifier(this.state.actionWrong) : "When answered wrong…"} options={this.getActionMenuItems()} />
                             </div>
                         )
                     :
@@ -378,12 +388,12 @@ class QuizzEditModal extends Component {
 
                   </ModalBody>
                   <ModalFooter>
-                    <Button color="secondary" onClick={this.onClose.bind(this)}>Cancel</Button>
-                    <Button color="primary" onClick={this.onSave.bind(this)}>Save</Button>
+                    <Button color="secondary" onClick={this.onClose}>Cancel</Button>
+                    <Button color="primary" onClick={this.onSave}>Save</Button>
                   </ModalFooter>
                 </Modal>
 
-                <CreateNewChapterModal isOpen={this.state.showsCreateNewChapterDialog} onClose={this.onCloseNewChapterCreationDialog.bind(this)} onCreateNewChapter={this.onCreateNewChapter.bind(this)} />
+                <CreateNewChapterModal isOpen={this.state.showsCreateNewChapterDialog} onClose={this.onCloseNewChapterCreationDialog} onCreateNewChapter={this.onCreateNewChapter} />
             </div>
         )
     }

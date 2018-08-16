@@ -38,9 +38,18 @@ const types = [
 
 class ElementAdder extends Component {
 
-    state = {
-        showsNewElementModal: false
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            showsNewElementModal: false
+        }
+
+        this.onCloseElementModal = this.onCloseElementModal.bind(this);
+        this.onAddNewElement = this.onAddNewElement.bind(this);
+        this.onSelectElement = this.onSelectElement.bind(this);
     }
+
 
     onAddNewElement() {
         this.setState({
@@ -69,9 +78,8 @@ class ElementAdder extends Component {
                      onMouseEnter={() => this.setState({isHovered: true})}
                      onMouseLeave={() => this.setState({isHovered: false})}
             >
-
-                <section style={{alignSelf:'center', display: 'flex', 'justifyContent': 'center', alignItems: 'center', margin:'15px'}}>
-                    <i style={{color: '#A2ABB8', fontSize:'30px', cursor: "pointer"}} className='icon-plus' onClick={this.onAddNewElement.bind(this)}> </i>
+                <section style={{alignSelf:'center', display: 'flex', 'justifyContent': 'center', alignItems: 'center', marginTop:'15px'}}>
+                    <i style={{color: '#A2ABB8', fontSize:'30px'}} className='icon-plus' onClick={this.onAddNewElement}> </i>
                     {this.props.nElems<=1 
 
                     ?
@@ -79,7 +87,7 @@ class ElementAdder extends Component {
                     : null
                     }
                     
-                <AddNewElementModal isOpen={this.state.showsNewElementModal} onClose={this.onCloseElementModal.bind(this)} onSelectElement={this.onSelectElement.bind(this)}/>
+                <AddNewElementModal isOpen={this.state.showsNewElementModal} onClose={this.onCloseElementModal} onSelectElement={this.onSelectElement}/>
                 </section>
             </section>
         );
@@ -88,7 +96,8 @@ class ElementAdder extends Component {
 
 
 ElementAdder.propTypes = {
-    onAddElement: PropTypes.func.isRequired
+    onAddElement: PropTypes.func.isRequired,
+    nElems: PropTypes.number.isRequired
 };
 
 //check lessonmaker if you don't get the syntax here

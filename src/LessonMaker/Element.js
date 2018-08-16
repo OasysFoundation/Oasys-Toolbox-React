@@ -24,11 +24,11 @@ import {connect} from "redux-zero/react";
 //put Fade from CoreUI --> Wrap it in component to manage IN/Out state!
 
 class Element extends Component {
-
     fromChapter = this.props.data.parentChapterID;
+
     state = {
         isHovered: false,
-        tempContent: sessionStorage.getItem(this.props.data.id) || this.props.data.content,
+        tempContent: this.props.data.content || sessionStorage.getItem(this.props.data.id),
         timestamp: Date.now()
     };
 
@@ -48,7 +48,7 @@ class Element extends Component {
         const params = {
             key: id,
             id: id,
-            data: content,
+            data: this.state.tempContent,
             isHovered,
             isEditMode: this.props.isEditMode,
             onChange: this.handleChange.bind(this)

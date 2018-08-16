@@ -11,6 +11,7 @@ class SelectionDropdown extends Component {
         this.state = {
             isOpen: false
         }
+        this.toggleDropDown = this.toggleDropDown.bind(this);
     }
 
     toggleDropDown(element) {
@@ -26,7 +27,7 @@ class SelectionDropdown extends Component {
     render() {
     	var that = this;
     	return (
-	        <InputGroupButtonDropdown addonType="append" isOpen={this.state.isOpen} toggle={this.toggleDropDown.bind(this)}>
+	        <InputGroupButtonDropdown addonType="append" isOpen={this.state.isOpen} toggle={this.toggleDropDown}>
 	            <DropdownToggle caret color="secondary">
 	              {this.props.default}
 	            </DropdownToggle>

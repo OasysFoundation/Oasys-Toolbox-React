@@ -14,6 +14,7 @@ import actions from "../store/actions";
 import { connect } from "redux-zero/react";
 
 import {ICON} from '../utils/trickBox'
+import {typeToString} from "../tools";
 
 // console.log(globals.ICON_FONTSIZE_MIDDLE, 'fontsize')
 
@@ -33,17 +34,6 @@ const styling = {
         justifyContent: 'space-between',
         padding: '0.5rem 0.2rem',
     }
-}
-
-function typeToString(type) {
-    const dict = {};
-    dict[globals.EDIT_QUILL] = 'Text';
-    dict[globals.EDIT_QUIZ] = 'Quiz';
-    dict[globals.EDIT_EMBED] = 'Iframe';
-    dict[globals.EDIT_VIDEO] = 'Video';
-    dict[globals.EDIT_IMAGE] = 'Image';
-    dict[globals.EDIT_FORMULA] = 'Formula';
-    return dict[type];
 }
 
 class FadeableCard extends Component {

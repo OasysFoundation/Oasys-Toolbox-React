@@ -49,6 +49,7 @@ class DataViewCreator extends Component {
 			'id': 'all',
 		}
 		this.state = {currentData: this.summaryData};
+		this.onChangeData = this.onChangeData.bind(this);
 	}
 
 	onChangeData(id) {
@@ -74,7 +75,7 @@ class DataViewCreator extends Component {
 									<div className={(idx<summaryStats.length-1) ? 'cell-center card-section border-right' : 'cell-center card-section'}>
 										<p>
 											{elem.label}
-              								<sup><i class="far fa-question-circle margin-right5 medgrey" data-tip='tooltip' data-for={elem.id}></i></sup>
+              								<sup><i className="far fa-question-circle margin-right5 medgrey" data-tip='tooltip' data-for={elem.id}></i></sup>
                     						<ReactTooltip id={elem.id}> {elem.help} </ReactTooltip>
 										</p>
 										<p className='font-big'>{elem.value}</p>
@@ -86,7 +87,7 @@ class DataViewCreator extends Component {
 						*/}
 
 						<DataOverview 
-							onChangeData={this.onChangeData.bind(this)}
+							onChangeData={this.onChangeData}
 							data={allLessons}
 						/>
 

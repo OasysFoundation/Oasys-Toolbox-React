@@ -23,6 +23,10 @@ class SideBarLesson extends Component {
         this.title = null;
         this.tags = null;
         this.description = null;
+
+        this.onSettingsClose = this.onSettingsClose.bind(this);
+        this.onSettingsSave = this.onSettingsSave.bind(this);
+        this.onSettingsShow = this.onSettingsShow.bind(this);
     }
 
     onSettingsShow(){
@@ -56,7 +60,7 @@ class SideBarLesson extends Component {
     render() {
         return (
             <div>
-                <Modal isOpen={this.state.showSettingsDialog} toggle={this.onSettingsClose.bind(this)} backdrop={true}>
+                <Modal isOpen={this.state.showSettingsDialog} toggle={this.onSettingsClose} backdrop={true}>
                 <ModalHeader>
                     Settings
                 </ModalHeader>
@@ -86,8 +90,8 @@ class SideBarLesson extends Component {
                     </FormText>
                   </ModalBody>
                   <ModalFooter>
-                    <Button color="secondary" onClick={this.onSettingsClose.bind(this)}>Cancel</Button>
-                    <Button color="primary" onClick={this.onSettingsSave.bind(this)}>Save</Button>
+                    <Button color="secondary" onClick={this.onSettingsClose}>Cancel</Button>
+                    <Button color="primary" onClick={this.onSettingsSave}>Save</Button>
                   </ModalFooter>
                 </Modal>
                     
@@ -99,16 +103,16 @@ class SideBarLesson extends Component {
                             value={this.props.title || 'Untitled lesson'}
                             onChange={e=>this.props.onChangeProjectTitle(e.target.value)}
                         />
-                        <i class="fas fa-align-right fa-lg fa-cog" onClick={this.onSettingsShow.bind(this)}></i> 
+                        <i className="fas fa-align-right fa-lg fa-cog" onClick={this.onSettingsShow}></i> 
                     </Button>
                     <Button className='sidebar-button'>
                         <div>Save draft</div>
                         
-                        <i class="fas fa-align-right fa-lg fa-save"></i> 
+                        <i className="fas fa-align-right fa-lg fa-save"></i> 
                     </Button>
                     <Button className='sidebar-button publish'>
                         <div>Publish</div>
-                        <i class="fas fa-align-right fa-lg fa-globe-americas"></i> 
+                        <i className="fas fa-align-right fa-lg fa-globe-americas"></i> 
                     </Button>
                     <hr />
                     <SidebarToc />
