@@ -26,9 +26,9 @@ class QuizzEdit extends Component {
         super(props);
         this.state = {
             showsModalEditor: false,
-        	question: props.data.question? props.data.question : "",
-            answers: props.data.answers? props.data.answers : [],
-            quizType: props.data.quizType? props.data.quizType : "single-choice",
+        	question: props.data? props.data.question : "",
+            answers: props.data? props.data.answers : [],
+            quizType: props.data? props.data.quizType : "single-choice",
             showsPageSelectionDropDown: false,
             selectingImageForIndex: 0,
             showsFeedbackPopover: false,
@@ -49,7 +49,7 @@ class QuizzEdit extends Component {
             answers: data.answers,
             quizType: data.quizType
         }, function() {
-            saveToSessionStorage(this.props.id, {
+            this.props.onChange({
                 question: this.state.question,
                 answers: this.state.answers,
                 quizType: this.state.quizType
@@ -133,10 +133,10 @@ class QuizzEdit extends Component {
         return (
             <div>
                 {this.props.isEditMode? <Button color="primary" onClick={this.onClickEditButton}>Edit Quiz</Button> : null}
-
+                <center>
                 <h1>{this.state.question.title}</h1>
                 <img src={this.state.question.image} alt="" />
-                <center>
+                
             	<div style={containerStyle}>
                    
             	   {this.state.answers.map((answer, index) => {
@@ -150,7 +150,7 @@ class QuizzEdit extends Component {
 
                 <Popover placement="top" isOpen={this.state.showsFeedbackPopover} target={'answer-id-' + this.state.selectedAnswerIndex} toggle={this.onCloseFeedbackPopover}>
                   <PopoverHeader>{ feedbackTitle }</PopoverHeader>
-                  <PopoverBody>{this.state.answers[this.state.selectedAnswerIndex].feedback}</PopoverBody>
+                  <PopoverBody>{this.state.answers.length? this.state.answers[this.state.selectedAnswerIndex].feedback : null}</PopoverBody>
                 </Popover>
 
                 <QuizzEditModal question={this.state.question} answers={this.state.answers} quizType={this.state.quizType} 

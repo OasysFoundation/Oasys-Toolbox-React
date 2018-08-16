@@ -20,8 +20,7 @@ class AddNewElementModal extends Component {
 		globals.EDIT_FORMULA,
 		globals.EDIT_QUIZ,
 		globals.EDIT_VIDEO,
-		globals.EDIT_GAME,
-		globals.EDIT_SYSTEM
+		globals.EDIT_EMBED
 	]
 	
 
@@ -37,11 +36,10 @@ class AddNewElementModal extends Component {
                 return "Quiz";
             case globals.EDIT_VIDEO:
                 return "Video";
-            case globals.EDIT_GAME:
-            	return "Game";
-            case globals.EDIT_SYSTEM:
-            	return "System Simulation";
-
+            //case globals.EDIT_GAME:
+            //	return "Game";
+            case globals.EDIT_EMBED:
+            	return "Simulation";
             default:
                 return "Yet unknown element."
         }
@@ -62,9 +60,9 @@ class AddNewElementModal extends Component {
                 return QuizIcon;
             case globals.EDIT_VIDEO:
                 return VideoIcon;
-            case globals.EDIT_GAME:
-            	return GameIcon;
-            case globals.EDIT_SYSTEM:
+            //case globals.EDIT_GAME:
+            //	return GameIcon;
+            case globals.EDIT_EMBED:
             	return SystemIcon;
 
             default:
@@ -89,7 +87,7 @@ class AddNewElementModal extends Component {
 						return (
 							<div 
                                 onClick={function() { that.onSelectElement(elementType) }} 
-                                style={{marginBottom:'10px', width:'50%'}}
+                                style={{marginBottom:'10px', width:'50%', cursor: "pointer"}}
                                 key={idx.toString()}
                             >
 								<center>
