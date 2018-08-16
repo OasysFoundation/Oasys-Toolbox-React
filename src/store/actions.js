@@ -116,6 +116,10 @@ const actions = function (store) { //store for async stuff
           //remove link if exists in answer
         },
 
+        createNewChapterLink(fromID, toID) {
+
+        },
+
         onAddChapter(state, uid, title) {
             const clone = JSON.parse(JSON.stringify(state));
 
