@@ -93,7 +93,7 @@ class QuizzEdit extends Component {
     }
 
     onContinue(nextChapterId) {
-        this.props.onLearnerInteraction(nextChapterId);
+        this.props.onLearnerInteraction(nextChapterId, this.props.id);
     }
 
 	
