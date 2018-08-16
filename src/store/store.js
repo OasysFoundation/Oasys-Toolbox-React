@@ -25,7 +25,7 @@ const data = {
                 {
                     parentChapterID: "chapter_124552",
                     id: "embed678",
-                    type: globals.EDIT_EMBED,
+                    type: 2,
                     content: {
                         provider: 'concord',
                         url: "http://lab.concord.org/embeddable.html#interactives/sam/intermolecular-attractions/3-1-oil-and-water.json"

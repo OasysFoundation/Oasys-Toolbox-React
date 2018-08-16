@@ -12,7 +12,8 @@ export function initContent(type) {
 	typeToInit[globals.EDIT_SYSTEM] = '';
 	typeToInit[globals.EDIT_IMAGE] = '';
 	typeToInit[globals.EDIT_FORMULA] = '';
-	return typeToInit[type];
+
+	return typeToInit[type.toString()];
 }
 
 export function typeToString(type) {

@@ -9,7 +9,7 @@ import QuizzEdit from './QuizzEdit'
 import VideoEdit from './VideoEdit'
 import EmbedEdit from './EmbedEdit'
 
-import {saveToSessionStorage, getContentFromSessionStorage} from "../utils/trickBox";
+import {saveToSessionStorage, getContentFromSessionStorage, isEmpty} from "../utils/trickBox";
 import {
     Card,
     CardBody
@@ -18,6 +18,7 @@ import {
 import 'react-quill/dist/quill.snow.css';
 import actions from "../store/actions";
 import {connect} from "redux-zero/react";
+import {initContent} from "../tools";
 
 
 //TODO
@@ -90,7 +91,7 @@ class Element extends Component {
         return render;
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         // console.log('unmounting ', this.state.tempContent)
         this.props.onChangeContent(
             this.props.data.id,
@@ -98,7 +99,8 @@ class Element extends Component {
             this.fromChapter
         )
     }
-    componentWillReceiveProps(nextprops){
+
+    componentWillReceiveProps(nextprops) {
         // console.log(nextprops, 'nextprops!!')
         // const contentUpdated = nextprops.data.timestamp > this.state.timestamp
         // this.setState({tempContent: contentUpdated, timestamp: Date.now()})
@@ -124,12 +126,12 @@ class Element extends Component {
                             </FadeableCard>
 
                             :
-                                <Card className="card-fancy has-shadow">
-                                    <CardBody>
-                                        {this.typeToComponent(type)}
-                                    </CardBody>
-                                    {/*<hr/>*/}
-                                </Card>
+                            <Card className="card-fancy has-shadow">
+                                <CardBody>
+                                    {this.typeToComponent(type)}
+                                </CardBody>
+                                {/*<hr/>*/}
+                            </Card>
                         }
 
 
@@ -142,11 +144,19 @@ class Element extends Component {
 
 
 Element.propTypes = {
-    id: PropTypes.string,
     data: PropTypes.object.isRequired,
 };
 
 const mapStoreToProps = ({chapters, isEditMode, activeChapterIndex}) => ({chapters, activeChapterIndex, isEditMode});
+
+Element.propTypes = {
+    data: function (props, propName) {
+        // console.log(props, propName, props.data.type, 'proptype check', typeof props.data.content,  typeof initContent(props['type']));
+        if (isEmpty(props.data.content) || typeof props.data.content !== typeof initContent(props.data.type)) {
+            return new Error('' + props.data.id + " , " + props.data.type + " " + "Content does not fit Content Type @ Element")
+        }
+    }
+};
 
 //don't need anything!
 const neededActions = (store) => {
