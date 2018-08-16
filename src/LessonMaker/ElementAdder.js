@@ -78,7 +78,7 @@ class ElementAdder extends Component {
                      onMouseEnter={() => this.setState({isHovered: true})}
                      onMouseLeave={() => this.setState({isHovered: false})}
             >
-                <section style={{alignSelf:'center', display: 'flex', 'justifyContent': 'center', alignItems: 'center', marginTop:'15px'}}>
+                <section style={{alignSelf:'center', display: 'flex', 'justifyContent': 'center', alignItems: 'center', marginTop:'15px', marginBottom: '15px'}}>
                     <i style={{color: '#A2ABB8', fontSize:'30px'}} className='icon-plus' onClick={this.onAddNewElement}> </i>
                     {this.props.nElems<=1 
 
