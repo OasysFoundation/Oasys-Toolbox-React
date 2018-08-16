@@ -15,6 +15,14 @@ const saveToSessionStorage = function(id, value) {
         JSON.stringify({content: value, timestamp: Date.now()})
     )
 }
+
+const getContentFromSessionStorage = function(id) {
+    if (isEmpty(id)) {
+        throw Error('Empty ID, cannot get content from Session')
+    }
+    return JSON.parse(sessionStorage.getItem(globals.SESSIONSTORAGE_KEY + id))
+};
+
 const ICON = function (className, fontSize = globals.ICON_FONTSIZE_MIDDLE) {
     return <i style={{fontSize: fontSize, color: '#626970'}} className={className}> </i>;
 }
@@ -160,7 +168,7 @@ function substringInObjCount(obj, substr) {
 
 
 export {Unwrap, Wrap, ICON,
-    NUcheck, substringInObjCount, saveToSessionStorage,
+    NUcheck, substringInObjCount, saveToSessionStorage, getContentFromSessionStorage,
     flatten, CATEGORIES,
     getTagsForCategory, typeToIcon,
     withoutEntry, isEmpty, getObjectsByKey, moveEntry}
