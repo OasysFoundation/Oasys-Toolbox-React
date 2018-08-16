@@ -10,6 +10,10 @@ import 'nouislider/distribute/nouislider.css';
 const playerWidth = '640px';
 const playerHeight = '360px';
 
+// for next version, we might replace the video player component with
+// https://github.com/rafaesc/reactube-client
+// this player supports cropping out of the box
+
 class VideoEditCropper extends Component {
 
     onSlide(render, handle, value, un, percent){
@@ -109,7 +113,6 @@ class VideoEditCropper extends Component {
 		}
 		return(
 			<div>
-                {console.log(this.props.data)}
 				<div className='videoEditWrapper'>
 	                <ReactPlayer
 	                  url={this.props.data.url}
