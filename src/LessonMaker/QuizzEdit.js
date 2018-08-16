@@ -54,7 +54,7 @@ class QuizzEdit extends Component {
                 question: this.state.question,
                 answers: this.state.answers,
                 quizType: this.state.quizType
-            });
+            }, true);
         });
     }
 

@@ -34,7 +34,7 @@ class Element extends Component {
     };
 
     //glue function between LessonMaker and Quill to add ID
-    handleChange = (value) => {
+    handleChange = (value, shouldInstantUpdate = false) => {
         // const equal = JSON.stringify(value) === JSON.stringify(this.props.data.content)
         // console.log(value === this.props.data.content, equal, "EQUAL")
         //
@@ -48,7 +48,14 @@ class Element extends Component {
         //DO NOT CALL setState before session storage!! will override itself
         this.setState({tempContent: value, timestamp: Date.now()}); //for Quill
 
-    }
+        if (shouldInstantUpdate) {
+            this.props.onChangeContent(
+                this.props.data.id,
+                this.state.tempContent,
+                this.fromChapter)
+        }
+
+    };
 
     typeToComponent(type) {
         const {id} = this.props.data;
@@ -60,7 +67,8 @@ class Element extends Component {
             data: this.state.tempContent,
             isHovered,
             isEditMode: this.props.isEditMode,
-            onChange: this.handleChange.bind(this)
+            onChange: this.handleChange.bind(this),
+            onLearnerInteraction: this.props.onLearnerInteraction
         }
 
         let render = <div>NO ELEMENT TYPE YET HERE</div>;
