@@ -44,18 +44,26 @@ class ContentView extends Component {
             activeChapterIndex: nextIdx,
             activeChapterID: nextID
         }, () => this.scrollTo(this.chapters[nextIdx].elements[0].id));
+    };
+    goToElementinChapter(elementIndex) {
+        this.scrollTo(this.chapters[this.state.activeChapterIndex].elements[elementIndex])
+
     }
-    goToChapter = (chapterID) => {
-        if (isEmpty(chapterID)) {
+    goToChapter = (sendToChapterID, interactionElementID) => {
+        if (isEmpty(sendToChapterID)) {
             console.log('NULL ? quiz didnt give chapterID -> default next chapter');
             //scroll to next element or (if end of chapter, next elements chapter)
-            this.goToNextChapter();
+            const currentChapter = this.chapters[this.state.activeChapterIndex]
+            const interactionElementIndex = currentChapter.elements.findIndex(el => el.id === interactionElementID);
+            const isLastElement = currentChapter.elements.length-1 <= interactionElementIndex
+
+            isLastElement ? this.goToNextChapter() : this.goToNextElement(interactionElementIndex + 1);
         }
-        this.chaptersSeenIDs.push(chapterID);
-        const chapterIndex = this.chapters.findIndex(chapter => chapter.id === chapterID);
+        this.chaptersSeenIDs.push(sendToChapterID);
+        const chapterIndex = this.chapters.findIndex(chapter => chapter.id === sendToChapterID);
         this.setState({
             activeChapterIndex: chapterIndex,
-            activeChapterID: chapterID
+            activeChapterID: sendToChapterID
         }, () => this.scrollTo(this.chapters[chapterIndex].elements[0].id));
 
     }
