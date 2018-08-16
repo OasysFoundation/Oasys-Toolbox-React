@@ -21,7 +21,7 @@ class ImageEdit extends Component {
     constructor(props) {
         super(props);
         this.state = {
-        	imageUrl: this.props.data.imageUrl,
+        	imageUrl: this.props.data? this.props.data.imageUrl : null,
             showsImageSelectionPopover: false,
             images: [],
             gifs: [],

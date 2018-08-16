@@ -26,9 +26,9 @@ class QuizzEdit extends Component {
         super(props);
         this.state = {
             showsModalEditor: false,
-        	question: props.data.question? props.data.question : "",
-            answers: props.data.answers? props.data.answers : [],
-            quizType: props.data.quizType? props.data.quizType : "single-choice",
+        	question: props.data? props.data.question : "",
+            answers: props.data? props.data.answers : [],
+            quizType: props.data? props.data.quizType : "single-choice",
             showsPageSelectionDropDown: false,
             selectingImageForIndex: 0,
             showsFeedbackPopover: false,
@@ -133,10 +133,10 @@ class QuizzEdit extends Component {
         return (
             <div>
                 {this.props.isEditMode? <Button color="primary" onClick={this.onClickEditButton}>Edit Quiz</Button> : null}
-
+                <center>
                 <h1>{this.state.question.title}</h1>
                 <img src={this.state.question.image} alt="" />
-                <center>
+                
             	<div style={containerStyle}>
                    
             	   {this.state.answers.map((answer, index) => {
