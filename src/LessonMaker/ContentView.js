@@ -27,6 +27,8 @@ class ContentView extends Component {
             activeChapterIndex: 0
         }
         this.chaptersSeenIDs = [this.state.activeChapterID];
+
+        this.goToChapter = this.goToChapter.bind(this);
     }
 
 
@@ -45,11 +47,14 @@ class ContentView extends Component {
             activeChapterID: nextID
         }, () => this.scrollTo(this.chapters[nextIdx].elements[0].id));
     };
-    goToElementinChapter(elementIndex) {
-        this.scrollTo(this.chapters[this.state.activeChapterIndex].elements[elementIndex])
+    goToElementinChapter(nextElementIndex) {
+        const nextElementID = this.chapters[this.state.activeChapterIndex].elements[nextElementIndex].id
+        this.scrollTo(nextElementID)
 
     }
     goToChapter = (sendToChapterID, interactionElementID) => {
+
+        console.log("ids", sendToChapterID, interactionElementID, "ids")
         if (isEmpty(sendToChapterID)) {
             console.log('NULL ? quiz didnt give chapterID -> default next chapter');
             //scroll to next element or (if end of chapter, next elements chapter)
@@ -57,7 +62,9 @@ class ContentView extends Component {
             const interactionElementIndex = currentChapter.elements.findIndex(el => el.id === interactionElementID);
             const isLastElement = currentChapter.elements.length-1 <= interactionElementIndex
 
-            isLastElement ? this.goToNextChapter() : this.goToNextElement(interactionElementIndex + 1);
+            console.log("Last element ? ", isLastElement)
+            isLastElement ? this.goToNextChapter() : this.goToElementinChapter(interactionElementIndex);
+            return
         }
         this.chaptersSeenIDs.push(sendToChapterID);
         const chapterIndex = this.chapters.findIndex(chapter => chapter.id === sendToChapterID);
@@ -69,6 +76,7 @@ class ContentView extends Component {
     }
 
     render() {
+        console.log('ooooo')
         const {allElementsinProject} = this;
         return (
             <div className="app-body">

@@ -60,7 +60,8 @@ class Element extends Component {
             data: this.state.tempContent,
             isHovered,
             isEditMode: this.props.isEditMode,
-            onChange: this.handleChange.bind(this)
+            onChange: this.handleChange.bind(this),
+            onLearnerInteraction: this.props.onLearnerInteraction
         }
 
         let render = <div>NO ELEMENT TYPE YET HERE</div>;
