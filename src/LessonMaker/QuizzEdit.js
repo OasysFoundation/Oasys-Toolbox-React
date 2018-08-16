@@ -49,7 +49,7 @@ class QuizzEdit extends Component {
             answers: data.answers,
             quizType: data.quizType
         }, function() {
-            saveToSessionStorage(this.props.id, {
+            this.props.onChange({
                 question: this.state.question,
                 answers: this.state.answers,
                 quizType: this.state.quizType
