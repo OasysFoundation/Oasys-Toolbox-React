@@ -153,15 +153,20 @@ class QuizzEdit extends Component {
                 {this.state.quizType === 'multiple-choice'? <Button color="primary" onClick={this.onClickSubmitButton}>Submit</Button> : null}
                 </center>
 
-
-                <Popover placement="top" isOpen={this.state.showsFeedbackPopover} target={'answer-id-' + this.state.selectedAnswerIndex} toggle={this.onCloseFeedbackPopover}>
+                {this.state.showsFeedbackPopover? 
+                (
+                  <Popover placement="top" isOpen={this.state.showsFeedbackPopover} target={'answer-id-' + this.state.selectedAnswerIndex} toggle={this.onCloseFeedbackPopover}>
                   <PopoverHeader>{ feedbackTitle }</PopoverHeader>
                   <PopoverBody>{this.state.answers.length? this.state.answers[this.state.selectedAnswerIndex].feedback : null}</PopoverBody>
                   <center>
                   <Button color="primary" onClick={function() { that.onContinue(selectedAnswer.action) }} style={{marginBottom: '15px'}}> Continue… </Button>
                   </center>
-                  
-                </Popover>
+                  </Popover>
+                )
+                :
+                null
+                }
+
 
                 <QuizzEditModal question={this.state.question} answers={this.state.answers} quizType={this.state.quizType} 
                 onChange={this.onChangeData} onClose={this.onClose} chapters={this.props.chapters} isOpen={this.state.showsModalEditor} />
