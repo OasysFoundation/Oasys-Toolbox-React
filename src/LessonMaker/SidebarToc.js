@@ -44,7 +44,7 @@ class SidebarToc extends Component {
 
         this.state = {
             width: this.opt.totalWidth,
-            height: null,
+            height: 0,
         };
 
     }

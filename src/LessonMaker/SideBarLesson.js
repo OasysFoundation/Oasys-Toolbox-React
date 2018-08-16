@@ -99,16 +99,16 @@ class SideBarLesson extends Component {
                             value={this.props.title || 'Untitled lesson'}
                             onChange={e=>this.props.onChangeProjectTitle(e.target.value)}
                         />
-                        <i class="fas fa-align-right fa-lg fa-cog" onClick={this.onSettingsShow.bind(this)}></i> 
+                        <i className="fas fa-align-right fa-lg fa-cog" onClick={this.onSettingsShow.bind(this)}></i> 
                     </Button>
                     <Button className='sidebar-button'>
                         <div>Save draft</div>
                         
-                        <i class="fas fa-align-right fa-lg fa-save"></i> 
+                        <i className="fas fa-align-right fa-lg fa-save"></i> 
                     </Button>
                     <Button className='sidebar-button publish'>
                         <div>Publish</div>
-                        <i class="fas fa-align-right fa-lg fa-globe-americas"></i> 
+                        <i className="fas fa-align-right fa-lg fa-globe-americas"></i> 
                     </Button>
                     <hr />
                     <SidebarToc />

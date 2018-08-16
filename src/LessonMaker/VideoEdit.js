@@ -55,7 +55,7 @@ class VideoEdit extends Component {
                 :
                 (
                     <div className='flex-center'>
-                        <i class="fab fa-youtube fa-3x"></i>
+                        <i className="fab fa-youtube fa-3x"></i>
                         <input
                           placeholder='Please enter a YouTube URL'
                           className='form-control url-input'

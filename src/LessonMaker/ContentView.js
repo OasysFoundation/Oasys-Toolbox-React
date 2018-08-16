@@ -62,7 +62,7 @@ class ContentView extends Component {
                 <main className="main">
                     <Container fluid className='main-width'>
                         {
-                            allElementsinProject.map(({id}) => <button class="yoloBut"
+                            allElementsinProject.map(({id}) => <button className="yoloBut"
                                                                        onClick={() => this.scrollTo(id)}>{id}</button>)
                         }
                         <ScrollView ref={scroller => this._scroller = scroller}>

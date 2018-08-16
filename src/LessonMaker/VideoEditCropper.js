@@ -132,7 +132,7 @@ class VideoEditCropper extends Component {
                 <center>
 	                <div className='video-controls' style={{width: playerWidth}}>
 	                    <input 
-	                    	readonly='readonly'
+	                    	readOnly='readonly'
 	                        onInput={this.updateStart.bind(this)} 
 	                        className='form-control'
 	                        placeholder='0'
@@ -140,16 +140,16 @@ class VideoEditCropper extends Component {
                             defaultValue={this.formatTime(this.props.data.cropStart)}
 	                    />
 	                    <Button className='bgprimary' style={{marginRight: 'auto'}} onClick={this.onSetStart.bind(this)}>
-	                    	<i class="fas fa-arrow-left" style={{marginRight: '5px'}}></i> 
+	                    	<i className="fas fa-arrow-left" style={{marginRight: '5px'}}></i> 
 	                    	set to current time
 	                    </Button>
 
 	                    <Button className='bgprimary' color="#28CCB4" onClick={this.onSetEnd.bind(this)}>
 	                    	set to current time
-	                    	<i class="fas fa-arrow-right" style={{marginLeft: '5px'}}></i> 
+	                    	<i className="fas fa-arrow-right" style={{marginLeft: '5px'}}></i> 
 	                    </Button>
 	                    <input 
-	                    	readonly='readonly'
+	                    	readOnly='readonly'
 	                        onInput={this.updateEnd.bind(this)} 
 	                        className='form-control'
 	                        placeholder='0'

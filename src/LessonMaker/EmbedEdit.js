@@ -15,6 +15,14 @@ This should be updated once in a while!
 
 */
 
+const customIframeStyles = {
+    position: 'absolute', 
+    width: '100%', 
+    height: '100%', 
+    left:'0', 
+    top: '0'
+}
+
 function getConcordEmbeddables(){
     const CONCORD_URL = 'http://lab.concord.org/embeddable.html#';
     const concordIgnore = [
@@ -65,14 +73,6 @@ function getConcordEmbeddables(){
     return concordSims;
 }
 
-const customIframeStyles = {
-    position: 'absolute', 
-    width: '100%', 
-    height: '100%', 
-    left:'0', 
-    top: '0'
-}
-
 class EmbedEdit extends Component {
 
     constructor(props) {
@@ -92,7 +92,23 @@ class EmbedEdit extends Component {
 
     render() {
         const customSelectStyles = {
-        }
+          control: styles => ({ ...styles, backgroundColor: 'white' }),
+          option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+            const color = 'rgba(40,204,180, 0.5)';
+            return {
+              ...styles,
+              backgroundColor: isDisabled
+                ? null
+                : isSelected ? data.color : isFocused ? color : null,
+              color: isDisabled
+                ? '#ccc'
+                : isSelected
+                  ? '#888'
+                  : data.color,
+              cursor: isDisabled ? 'not-allowed' : 'pointer',
+            };
+          },
+        };
 
         return (
             <div className='embed-edit'>
