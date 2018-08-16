@@ -14,10 +14,11 @@ import RatingBar from './RatingBar'
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 
+// check if emojis are rendered or not
 function supportsEmoji() {
-  var ctx = document.createElement("canvas").getContext("2d");
-  ctx.fillText("😗", -2, 4);
-  return ctx.getImageData(0, 0, 1, 1).data[3] > 0; // Not a transparent pixel
+  var context = document.createElement("canvas").getContext("2d");
+  context.fillText("🖥", -2, 4);
+  return context.getImageData(0, 0, 1, 1).data[3] > 0; // Not a transparent pixel
 }
 
 class ConcludingContentPage extends Component {
