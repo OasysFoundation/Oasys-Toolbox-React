@@ -41,6 +41,7 @@ class QuizzEdit extends Component {
         this.onCloseFeedbackPopover = this.onCloseFeedbackPopover.bind(this);
         this.onChangeData = this.onChangeData.bind(this);
         this.onClose = this.onClose.bind(this);
+        this.onContinue = this.onContinue.bind(this);
     }
 
     onChangeData(data) {
@@ -74,6 +75,7 @@ class QuizzEdit extends Component {
     }
 
     onSelectAnswer(index) {
+
         this.setState({
             showsFeedbackPopover: false
         }, function() {
@@ -88,6 +90,10 @@ class QuizzEdit extends Component {
         this.setState({
             showsFeedbackPopover: false
         });   
+    }
+
+    onContinue(nextChapterId) {
+        this.props.onLearnerInteraction(nextChapterId);
     }
 
 	
@@ -151,6 +157,10 @@ class QuizzEdit extends Component {
                 <Popover placement="top" isOpen={this.state.showsFeedbackPopover} target={'answer-id-' + this.state.selectedAnswerIndex} toggle={this.onCloseFeedbackPopover}>
                   <PopoverHeader>{ feedbackTitle }</PopoverHeader>
                   <PopoverBody>{this.state.answers.length? this.state.answers[this.state.selectedAnswerIndex].feedback : null}</PopoverBody>
+                  <center>
+                  <Button color="primary" onClick={function() { that.onContinue(selectedAnswer.action) }} style={{marginBottom: '15px'}}> Continue… </Button>
+                  </center>
+                  
                 </Popover>
 
                 <QuizzEditModal question={this.state.question} answers={this.state.answers} quizType={this.state.quizType} 
