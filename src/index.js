@@ -24,6 +24,8 @@ import Header from './Header';
 
 import { Provider } from "redux-zero/react";
 
+import ConcludingContentPage from './ConcludingContentPage'
+
 
 import store from "./store/store";
 import ContentView from "./LessonMaker/ContentView";
@@ -62,6 +64,7 @@ class Index extends Component {
                                 <Route exact path="/data" render={(props) => <DataViewCreator {...props} />} />
                                 <Route exact path="/about" render={(props) => <AboutPage {...props} />} />
                                 <Route exact path="/account" render={(props) => <Account {...props} />} />
+                                <Route exact path="/conclusion" render={(props) => <ConcludingContentPage {...props} />} />
                                 {/*<Route path="/data" render={(props)=>( this.state.authUser ? <DataViewCreator authUser={this.state.authUser} /> : null)} />*/}
                                 {/*<Route path="/data/preview" render={(props)=>( this.state.authUser ? <DataViewCreator authUser={this.state.authUser} /> : null)} />*/}
                                 {/*<Route path="/explore" render={(props)=>( this.state.authUser ? <ContentSelection authUser={this.state.authUser} /> : null)} />*/}
