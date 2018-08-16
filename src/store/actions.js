@@ -54,21 +54,28 @@ const actions = function (store) { //store for async stuff
         },
 
         onChangeContent(state, id, value, elementChapter) {
-            const clone = JSON.parse(JSON.stringify(state));
-            const currentChapter = clone.chapters.find(chapter => chapter.id === elementChapter);
-            let elements = currentChapter.elements;
+            //more verbose, but performant (instead of Json.stringify)
+            const currentChapterIdx = state.chapters.findIndex(chapter => chapter.id === elementChapter);
+            let elements = state.chapters[currentChapterIdx].elements;
 
-            const elem = elements.find(el => el.id === id);
-            if (!elem) {
+            const elemIdx = elements.findIndex(el => el.id === id);
+            if (!elements[elemIdx]) {
                 console.log('no element found on change content -- maybe handlechange fired, but element in Chapter that is not active')
                 return
             };
 
-            elem.content = value;
-            elem.timestamp = Date.now();
-
-            currentChapter.elements = elements;
-            return clone
+            return update(state, {
+                chapters: {
+                    [currentChapterIdx]: {
+                        elements: {
+                            [elemIdx]: {
+                                content: {$set: value},
+                                timestamp: {$set: Date.now()}
+                            }
+                        }
+                    }
+                }
+            })
         },
 
         onChangeActiveChapter(state, id) {
@@ -110,14 +117,17 @@ const actions = function (store) { //store for async stuff
         },
 
         onMoveElement(state, id, direction) {
-            const clone = JSON.parse(JSON.stringify(state));
-            let elements = clone.chapters[state.activeChapterIndex].elements;
+            let elements = state.chapters[state.activeChapterIndex].elements;
             const entryIdx = elements.findIndex(el => el.id === id);
 
-            console.log(clone, 'state', state, state.activeChapterIndex, clone.activeChapterIndex)
-            clone.chapters[clone.activeChapterIndex].elements = moveEntry(elements, entryIdx, direction)
+            return update(state, {
+                chapters:{
+                    [state.activeChapterIndex]: {
+                        elements:{ $set: moveEntry(elements, entryIdx, direction)}
+                    }
 
-            return clone;
+                }
+            })
         },
 
         onDeleteElement(state, id) {
