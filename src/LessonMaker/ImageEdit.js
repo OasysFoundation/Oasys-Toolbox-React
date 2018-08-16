@@ -21,7 +21,7 @@ class ImageEdit extends Component {
     constructor(props) {
         super(props);
         this.state = {
-        	imageUrl: this.props.data.imageUrl,
+        	imageUrl: this.props.data? this.props.data.imageUrl : null,
             showsImageSelectionPopover: false,
             images: [],
             gifs: [],
@@ -36,9 +36,8 @@ class ImageEdit extends Component {
     }
 
     saveCurrentState() {
-        saveToSessionStorage(this.props.id, {
-            imageUrl: this.state.imageUrl
-        });
+        const data = {imageUrl: this.state.imageUrl};
+        this.props.onChange(data);
     }
 
     searchTerm = null;
@@ -81,6 +80,8 @@ class ImageEdit extends Component {
         this.setState({
             imageUrl: image,
             didStartSearch: false
+        }, function() {
+            this.saveCurrentState();
         });
     }
 
@@ -116,7 +117,7 @@ class ImageEdit extends Component {
                         <ProgressiveImage src={this.state.imageUrl} placeholder='https://media3.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy-downsized.gif' style={{maxWidth:'550px'}} >
                              {(src) => <img src={src} alt='' style={{maxWidth:'100%'}} />}
                         </ProgressiveImage>
-                    ) : <p>Search for GIFs and imgages above.</p>}
+                    ) : <p>Search for GIFs and images above.</p>}
                 {this.state.didStartSearch? <GridLoader size={30} /> : null}
             	</center>
 

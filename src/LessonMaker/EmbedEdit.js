@@ -55,7 +55,7 @@ function getConcordEmbeddables(){
         concordIgnore.indexOf(elem.groupKey)<0
     ));
     concordSims.map((elem,idx) => {
-        elem.value = 'concord_' + Sha256.hash(elem.path);
+        elem.value = 'concord_' + idx.toString();
         elem.label = elem.title + ': ' + elem.subtitle;
         elem.path = CONCORD_URL + elem.path;
         return null;
@@ -84,7 +84,10 @@ class EmbedEdit extends Component {
 
         let selectedOption = null;
         if (this.props.data.id !== '' && this.props.data.id.substring(0,7) ===  'concord') {
-            const candidates = this.concordSims.filter(e=>e.value===this.props.data.id);
+            const candidates = this.concordSims.filter(e=>{
+                return e.value==this.props.data.id;
+            });
+
             if (candidates.length===0) {
                 throw new Error('Could not find concord embeddable with id: ' + this.props.data.id);
             } else {
@@ -97,6 +100,8 @@ class EmbedEdit extends Component {
         }
 
         this.handleChange = this.handleChange.bind(this);
+
+        console.log(this.concordSims);
     }
 
     handleChange(selectedOption) {
@@ -131,7 +136,7 @@ class EmbedEdit extends Component {
                             styles={customSelectStyles}
                           />
                           {this.state.selectedOption 
-                           ? <p style={{margin: '10px 0px 15px 10px'}}>{this.state.selectedOption.about}</p>
+                           ? <p style={{margin: '10px 0px 15px 10px'}}>{this.state.selectedOption.about.join(' ')}</p>
                            : null
                           }
                     </div>
@@ -140,12 +145,19 @@ class EmbedEdit extends Component {
 
                 {this.state.selectedOption 
                  ? <div style={{position: 'relative', width: '100%', height: '0', paddingBottom: '75%'}}>
+                  {/*
+                     <iframe title={Math.random().toString(36)}
+                            style={{width: '100%', height: '100%'}}
+                            allow="geolocation; microphone; camera;"
+                            src={this.state.selectedOption.path}
+                      />
+                  */}
                     <Iframe 
                         url={this.state.selectedOption.path}
                         width="100%"
                         height="100%"
                         id="myId"
-                        className="myClassname"
+                        className={this.props.isEditMode ? "iframe_edit" : "iframe_preview" } 
                         display="initial"
                         position="relative"
                         allowFullScreen

@@ -205,7 +205,7 @@ class QuizzEditModal extends Component {
     }
 
     onChangeQuestion(newText) {
-        const question = this.state.question;
+        var question = {...this.state.question};
         question.title = newText;
         this.setState({
             question: question

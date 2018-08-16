@@ -89,7 +89,7 @@ class AddNewElementModal extends Component {
 						return (
 							<div 
                                 onClick={function() { that.onSelectElement(elementType) }} 
-                                style={{marginBottom:'10px', width:'50%'}}
+                                style={{marginBottom:'10px', width:'50%', cursor: "pointer"}}
                                 key={idx.toString()}
                             >
 								<center>
