@@ -4,6 +4,9 @@ export function initContent(type) {
 	let typeToInit = {}
 	typeToInit[globals.EDIT_QUILL] = '';
 	typeToInit[globals.EDIT_QUIZ] = '';
+	typeToInit[globals.EDIT_EMBED] = {
+		id: '',
+	};
 	typeToInit[globals.EDIT_VIDEO] = {
 		url: '',
 		cropStart: 0.0,

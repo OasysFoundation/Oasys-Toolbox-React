@@ -49,6 +49,7 @@ class DataViewCreator extends Component {
 			'id': 'all',
 		}
 		this.state = {currentData: this.summaryData};
+		this.onChangeData = this.onChangeData.bind(this);
 	}
 
 	onChangeData(id) {
@@ -86,7 +87,7 @@ class DataViewCreator extends Component {
 						*/}
 
 						<DataOverview 
-							onChangeData={this.onChangeData.bind(this)}
+							onChangeData={this.onChangeData}
 							data={allLessons}
 						/>
 

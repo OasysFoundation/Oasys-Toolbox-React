@@ -27,6 +27,12 @@ class ImageEdit extends Component {
             gifs: [],
             didStartSearch: false
         }
+
+        this.onChangedSearchTerm = this.onChangedSearchTerm.bind(this);
+        this.onKeyPress = this.onKeyPress.bind(this);
+        this.onClickButton = this.onClickButton.bind(this);
+        this.closeModalImgageSelection= this.closeModalImgageSelection.bind(this);
+        this.onSelectImage = this.onSelectImage.bind(this);
     }
 
     saveCurrentState() {
@@ -92,9 +98,9 @@ class ImageEdit extends Component {
                 {this.props.isEditMode? (
                 	<InputGroup style={{marginBottom:'20px'}}>
     			        <InputGroupAddon addonType="prepend">🖼</InputGroupAddon>
-    			        <Input placeholder="search term" onChange={this.onChangedSearchTerm.bind(this)} onKeyPress={this.onKeyPress.bind(this)} />
+    			        <Input placeholder="search term" onChange={this.onChangedSearchTerm} onKeyPress={this.onKeyPress} />
                        <InputGroupAddon addonType="append">
-                            <Button color="secondary" onClick={this.onClickButton.bind(this)} >
+                            <Button color="secondary" onClick={this.onClickButton} >
                             Search
                             </Button>
                         </InputGroupAddon>
@@ -114,7 +120,7 @@ class ImageEdit extends Component {
                 {this.state.didStartSearch? <GridLoader size={30} /> : null}
             	</center>
 
-                <ImageSelectionModal isOpen={this.state.showsImageSelectionPopover} images={this.state.images} gifs={this.state.gifs} onClose={this.closeModalImgageSelection.bind(this)} onSelect={this.onSelectImage.bind(this)} />
+                <ImageSelectionModal isOpen={this.state.showsImageSelectionPopover} images={this.state.images} gifs={this.state.gifs} onClose={this.closeModalImgageSelection} onSelect={this.onSelectImage} />
             </div>
         )
     }

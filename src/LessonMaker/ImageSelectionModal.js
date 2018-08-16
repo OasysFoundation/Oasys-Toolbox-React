@@ -9,6 +9,11 @@ import ProgressiveImage from 'react-progressive-image';
 
 class ImageSelectionModal extends Component {
 
+	constructor(props) {
+		super(props);
+		this.toggle = this.toggle.bind(this);
+	}
+
 	state = {
 		currentTab: 'imageSelection'
 	}
@@ -47,7 +52,7 @@ class ImageSelectionModal extends Component {
 
 
 		return (
-			<Modal isOpen={this.props.isOpen} toggle={this.toggle.bind(this)} backdrop={true}>
+			<Modal isOpen={this.props.isOpen} toggle={this.toggle} backdrop={true}>
             <Nav tabs>
               <NavItem>
                 <NavLink
@@ -66,7 +71,7 @@ class ImageSelectionModal extends Component {
                 </NavLink>
               </NavItem>
             </Nav>
-			<ModalHeader toggle={this.toggle.bind(this)}>Select one of thos amazin image.</ModalHeader>
+			<ModalHeader toggle={this.toggle}>Select one of thos amazin image.</ModalHeader>
 	          <ModalBody>
 	          	{this.imageSourceDescription()}
 				<Table>
