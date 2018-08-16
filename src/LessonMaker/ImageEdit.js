@@ -36,9 +36,8 @@ class ImageEdit extends Component {
     }
 
     saveCurrentState() {
-        saveToSessionStorage(this.props.id, {
-            imageUrl: this.state.imageUrl
-        });
+        const data = {imageUrl: this.state.imageUrl};
+        this.props.onChange(data);
     }
 
     searchTerm = null;
@@ -81,6 +80,8 @@ class ImageEdit extends Component {
         this.setState({
             imageUrl: image,
             didStartSearch: false
+        }, function() {
+            this.saveCurrentState();
         });
     }
 
