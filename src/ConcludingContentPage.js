@@ -25,7 +25,14 @@ class ConcludingContentPage extends Component {
 	state = {
 		hovered: false,
 		selectedRating: null,
-		showsFeedbackForm: false
+		showsFeedbackForm: false,
+		randomGif: null
+	}
+
+	componentDidMount() {
+		this.setState({
+			randomGif: this.randomSuccessGif()
+		});
 	}
 
 	onSelectRating(rating) {
@@ -67,7 +74,7 @@ class ConcludingContentPage extends Component {
 
             	<br />
             	
-            	<img src={this.randomSuccessGif()} style={{maxWidth: '100%', marginBottom:'20px', marginTop:'20px'}}/>
+            	<img src={this.state.randomGif} style={{maxWidth: '100%', marginBottom:'20px', marginTop:'20px'}}/>
             	<br />
 				<RatingBar onSelectRating={this.onSelectRating.bind(this)}/>
 
