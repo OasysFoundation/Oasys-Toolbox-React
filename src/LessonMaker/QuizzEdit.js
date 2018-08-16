@@ -65,7 +65,7 @@ class QuizzEdit extends Component {
     }
 
     onClickSubmitButton() {
-
+        
     }
 
     onClose() {
@@ -153,7 +153,7 @@ class QuizzEdit extends Component {
                 {this.state.quizType === 'multiple-choice'? <Button color="primary" onClick={this.onClickSubmitButton}>Submit</Button> : null}
                 </center>
 
-                {this.state.showsFeedbackPopover? 
+                {this.state.showsFeedbackPopover && this.state.quizType=='single-choice'? 
                 (
                   <Popover placement="top" isOpen={this.state.showsFeedbackPopover} target={'answer-id-' + this.state.selectedAnswerIndex} toggle={this.onCloseFeedbackPopover}>
                   <PopoverHeader>{ feedbackTitle }</PopoverHeader>
