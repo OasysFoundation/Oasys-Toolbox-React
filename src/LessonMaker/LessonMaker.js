@@ -48,7 +48,7 @@ class LessonMaker extends Component {
             <div className="app-body">
 
 
-                {this.props.isEditMode && <SideBarLesson/>}
+                <SideBarLesson/>
                 <main className="main">
                     <Container fluid className='main-width'>
                         <center>
