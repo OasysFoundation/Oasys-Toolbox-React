@@ -88,7 +88,8 @@ class ElementAdder extends Component {
 
 
 ElementAdder.propTypes = {
-    onAddElement: PropTypes.func.isRequired
+    onAddElement: PropTypes.func.isRequired,
+    nElems: PropTypes.number.isRequired
 };
 
 //check lessonmaker if you don't get the syntax here
