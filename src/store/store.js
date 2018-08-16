@@ -62,7 +62,7 @@ const data = {
                                 "image": "",
                                 "correct": true,
                                 "feedback": "correct, your cool",
-                                "action": null,
+                                "action": "chapter_100",
                                 "isSelected": false
                             },
                             {
@@ -70,7 +70,7 @@ const data = {
                                 "image": "",
                                 "correct": false,
                                 "feedback": "wrong, sorry try again",
-                                "action": null,
+                                "action": "chapter_99852",
                                 "isSelected": false
                             },
                             {

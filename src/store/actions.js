@@ -112,6 +112,9 @@ const actions = function (store) { //store for async stuff
             chap.timestamp = Date.now();
             return clone
         },
+        onAddLink(InteractionElementData, toChapterID){
+          //remove link if exists in answer
+        },
 
         onAddChapter(state, uid, title) {
             const clone = JSON.parse(JSON.stringify(state));

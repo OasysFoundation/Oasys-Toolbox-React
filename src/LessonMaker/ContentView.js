@@ -27,6 +27,8 @@ class ContentView extends Component {
             activeChapterIndex: 0
         }
         this.chaptersSeenIDs = [this.state.activeChapterID];
+
+        this.goToChapter = this.goToChapter.bind(this);
     }
 
 
@@ -44,23 +46,37 @@ class ContentView extends Component {
             activeChapterIndex: nextIdx,
             activeChapterID: nextID
         }, () => this.scrollTo(this.chapters[nextIdx].elements[0].id));
+    };
+    goToElementinChapter(nextElementIndex) {
+        const nextElementID = this.chapters[this.state.activeChapterIndex].elements[nextElementIndex].id
+        this.scrollTo(nextElementID)
+
     }
-    goToChapter = (chapterID) => {
-        if (isEmpty(chapterID)) {
+    goToChapter = (sendToChapterID, interactionElementID) => {
+
+        console.log("ids", sendToChapterID, interactionElementID, "ids")
+        if (isEmpty(sendToChapterID)) {
             console.log('NULL ? quiz didnt give chapterID -> default next chapter');
             //scroll to next element or (if end of chapter, next elements chapter)
-            this.goToNextChapter();
+            const currentChapter = this.chapters[this.state.activeChapterIndex]
+            const interactionElementIndex = currentChapter.elements.findIndex(el => el.id === interactionElementID);
+            const isLastElement = currentChapter.elements.length-1 <= interactionElementIndex
+
+            console.log("Last element ? ", isLastElement)
+            isLastElement ? this.goToNextChapter() : this.goToElementinChapter(interactionElementIndex);
+            return
         }
-        this.chaptersSeenIDs.push(chapterID);
-        const chapterIndex = this.chapters.findIndex(chapter => chapter.id === chapterID);
+        this.chaptersSeenIDs.push(sendToChapterID);
+        const chapterIndex = this.chapters.findIndex(chapter => chapter.id === sendToChapterID);
         this.setState({
             activeChapterIndex: chapterIndex,
-            activeChapterID: chapterID
+            activeChapterID: sendToChapterID
         }, () => this.scrollTo(this.chapters[chapterIndex].elements[0].id));
 
     }
 
     render() {
+        console.log('ooooo')
         const {allElementsinProject} = this;
         return (
             <div className="app-body">
