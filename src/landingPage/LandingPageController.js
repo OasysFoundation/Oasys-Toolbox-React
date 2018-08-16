@@ -77,7 +77,6 @@ class LandingPageController extends Component{
 			category: 'Featured',
 			pageData:[],
 			previousState:'',
-
 		}
 
 		api.getContentsPreview()
@@ -90,52 +89,62 @@ class LandingPageController extends Component{
 						{
 							title:"Featured Experiences",
 							data:this.state.filteredContent,
-							id: sectionIds[1]
+							id: sectionIds[1],
+							icon: "trophy",
 						},
 						{
 							title:"Physics",
 							data:this.state.filteredContent.filter(this.correctCategory("Physics")),
-							id: sectionIds[2]
+							id: sectionIds[2],
+							icon:"atom",
 						},
 						{
 							title:"Chemistry",
 							data:this.state.filteredContent.filter(this.correctCategory("Chemistry")),
-							id: sectionIds[3]
+							id: sectionIds[3],
+							icon:"microscope",
 						},
 						{
 							title:"Computer Science Fundamentals",
 							data:this.state.filteredContent.filter(this.correctCategory("Computer Science Fundamentals")),
-							id: sectionIds[4]
+							id: sectionIds[4],
+							icon:"code",
 						},
 						{
 							title:"Mathematics",
 							data:this.state.filteredContent.filter(this.correctCategory("Mathematics")),
-							id: sectionIds[4]
+							id: sectionIds[4],
+							icon:"shapes",
 						},
 						{
 							title:"Machine Learning",
 							data:this.state.filteredContent.filter(this.correctCategory("Machine Learning")),
-							id: sectionIds[4]
+							id: sectionIds[4],
+							icon:"brain",
 						},
 						{
 							title:"iOS",
 							data:this.state.filteredContent.filter(this.correctCategory("iOS")),
-							id: sectionIds[4]
+							id: sectionIds[4],
+							icon:"mobile-alt",
 						},
 						{
 							title:"Blockchain",
 							data:this.state.filteredContent.filter(this.correctCategory("Blockchain")),
-							id: sectionIds[4]
+							id: sectionIds[4],
+							icon:"link",
 						},
 						{
 							title:"Smart Contracts",
 							data:this.state.filteredContent.filter(this.correctCategory("Smart Contracts")),
-							id: sectionIds[4]
+							id: sectionIds[4],
+							icon:"file-contract",
 						},
 						{
 							title:"Web Dev",
 							data:this.state.filteredContent.filter(this.correctCategory("Web Dev")),
-							id: sectionIds[4]
+							id: sectionIds[4],
+							icon:"js",
 						},
 					]
 				}))
@@ -263,7 +272,7 @@ class LandingPageController extends Component{
 							        <div>
 									<HorizontalScroll title={"Tiles"} data={tiles} id={sectionIds[0]} positionChange={this.changeSectionOrder.bind(this)}/>
 									{this.state.pageData.map(dataObj=>
-											<HorizontalScroll title={dataObj.title} data={dataObj.data} id={dataObj.id}/>
+											<HorizontalScroll title={dataObj.title} data={dataObj.data} id={dataObj.id} icon={dataObj.icon}/>
 									)}
 									</div>
 									</ScrollableAnchor>

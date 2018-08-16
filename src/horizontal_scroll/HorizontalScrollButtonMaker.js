@@ -6,13 +6,15 @@ import { Rate } from 'antd';
 import './horizontal_scroll.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Modal, ModalBody, ModalFooter, ModalHeader, Row } from 'reactstrap';
+import Truncate from 'react-truncate';
+
 
 
 const styles= {
 	cardStyle:{
 		boxShadow: "3px 3px 5px #888888", 
-		width:"175px", 
-		height:"250px", 
+		width:"150px", 
+		height:"225px", 
 		backgroundColor: '#F6F1DE', 
 		borderColor:"#F6F1DE", 
 		color: "#F6F1DE", 
@@ -22,9 +24,9 @@ const styles= {
 	},
 	cardBody:{
 		width:"100%", 
-		height:"160px", 
+		height:"190px", 
 		display:"flex", 
-		padding:"1em",
+		overflow:"hidden",
 	},
 	titleAndSubtitle:{
 		flex:5, 
@@ -33,6 +35,7 @@ const styles= {
 	cardTitle:{
 		textDecoration:"none", 
 		width:"100%",
+		fontSize:".9rem",
 	},
 	cardTitleLink:{
 		textDecoration:"none", 
@@ -80,6 +83,8 @@ const styles= {
 	cardImageDiv:{
 		minWidth: 0, 
 		marginBottom: "5px",
+		textDecoration:"none",
+		color:"#2a9699"
 	},
 	cardImage:{
 		width: "auto%", 
@@ -186,11 +191,21 @@ class HorizontalScrollButtonMaker extends Component{
 			          <div style={styles.titleAndSubtitle}>
 					          <CardTitle style={styles.cardTitle}>
 					          	<a href={userLink} style={styles.cardTitleLink}>
-					          	 {this.props.data.title}
+					          	<div>
+					          	  <Truncate lines={4} >
+					          	 	{this.props.data.title}
+					              </Truncate>
+					              </div>
 					          	</a>
 					          </CardTitle>
 					          <CardSubtitle>
-					          <a href={returnUrl} style={styles.cardSubtitle}>By {this.props.data.userId}</a>
+					          <a href={returnUrl} style={styles.cardSubtitle}>
+					          <div>
+					          	  <Truncate lines={1} >
+					          	 	By {this.props.data.userId}
+					              </Truncate>
+					              </div>
+					          </a>
 					          </CardSubtitle>
 				      </div>
 
@@ -228,7 +243,7 @@ class HorizontalScrollButtonMaker extends Component{
 			        <a href={userLink} style={styles.cardImageOuterLink}>
 				        <section style={styles.cardImageSection}>
 						 	<div style={styles.cardImageDiv}>
-			                  <img src={globe} style={styles.cardImage}/>
+			                  <FontAwesomeIcon icon={this.props.icon} size="3x"/>
 			                </div>
 	                	</section>
 				        <CardBody>

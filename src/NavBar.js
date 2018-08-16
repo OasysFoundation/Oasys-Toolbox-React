@@ -160,7 +160,7 @@ const styles = {
         flex:1, 
         display:"flex", 
         alignItems:"center", 
-        color:"rgba(0, 0, 0, 0.5)",
+        color:"#27363E",
         justifyContent:"center",
     },
     navbarMobileNavImage:{
@@ -363,22 +363,22 @@ class NavBar extends React.Component {
         const navbarRightElements = (
             <Nav navbar style={styles.navbarNavs}>
               <NavItem style={styles.navbarNavItem}>
-                <NavLink href="/explore/" style={styles.navbarNavLinkForImage}>
+                <NavLink href="/explore/" style={styles.navbarLinks}>
                     <FontAwesomeIcon icon="lightbulb" className="faAlignRight marginRight5" size="lg" style={{marginRight:"5px"}}/>
+                    Learn
                 </NavLink>
-                <NavLink href="/explore/" style={styles.navbarLinks}>Learn</NavLink>
               </NavItem>
               <NavItem style={styles.navbarNavItem}> 
-                <NavLink href="/create/" style={styles.navbarNavLinkForImage}>
-                    <FontAwesomeIcon icon="pencil-alt" className="faAlignRight marginRight5" size="lg" style={{marginRight:"5px"}}/>
+                <NavLink href="/create/" style={styles.navbarLinks}>
+                   <FontAwesomeIcon icon="pencil-alt" className="faAlignRight marginRight5" size="lg" style={{marginRight:"5px"}}/>
+                   Create
                 </NavLink>
-                <NavLink href="/create/" style={styles.navbarLinks}>Create</NavLink>
               </NavItem>
               <NavItem style={styles.navbarNavItem}>
-                <NavLink href="/user/" style={styles.navbarNavLinkForImage}>
+                <NavLink href="/user/" style={styles.navbarLinks}>
                     <FontAwesomeIcon icon="user" className="faAlignRight marginRight5" size="lg" style={{marginRight:"5px"}}/>
+                    Profile
                 </NavLink>
-                <NavLink href="/user/" style={styles.navbarLinks}>Profile</NavLink>
               </NavItem>
             </Nav>
         );

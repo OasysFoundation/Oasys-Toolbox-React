@@ -13,7 +13,7 @@ import {faGithub, faInstagram, faTwitter} from '@fortawesome/free-brands-svg-ico
 import {faFlag, faComment, faLayerGroup} from '@fortawesome/free-solid-svg-icons'
 
 //Card Icons
-import {faEllipsisV, faAtom, faMicroscope, faCode, faShapes, faBrain, faMobileAlt, faLink, faFileContract} from '@fortawesome/free-solid-svg-icons'
+import {faEllipsisV, faAtom, faMicroscope, faCode, faShapes, faBrain, faMobileAlt, faLink, faFileContract, faTrophy} from '@fortawesome/free-solid-svg-icons'
 import {faJs} from '@fortawesome/free-brands-svg-icons'
 
 //Navbar Icons
@@ -26,4 +26,4 @@ library.add(faGithub, faInstagram, faTwitter)
 library.add(faFlag, faComment, faLayerGroup)
 
 //Card Icons
-library.add(faEllipsisV, faAtom, faMicroscope, faCode, faShapes, faBrain, faMobileAlt, faLink, faFileContract, faJs)
+library.add(faEllipsisV, faAtom, faMicroscope, faCode, faShapes, faBrain, faMobileAlt, faLink, faFileContract, faJs, faTrophy)
