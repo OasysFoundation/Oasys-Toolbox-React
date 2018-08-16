@@ -109,7 +109,6 @@ class VideoEditCropper extends Component {
 		}
 		return(
 			<div>
-                {console.log(this.props.data)}
 				<div className='videoEditWrapper'>
 	                <ReactPlayer
 	                  url={this.props.data.url}

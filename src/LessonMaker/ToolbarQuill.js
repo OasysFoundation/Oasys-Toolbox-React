@@ -13,10 +13,10 @@ export default function ToolBarQuill(id, isShown = true) {
         </span>
             <span className="ql-formats">
           <button className="ql-header ql-smaller">
-            <img src={textSmallerIcon} alt=""/>
+            <img src={textSmallerIcon} height='20' alt=""/>
           </button>
           <button className="ql-header ql-bigger" value="1">
-            <img src={textBiggerIcon} alt=""/>
+            <img src={textBiggerIcon} height='20' alt=""/>
           </button>
         </span>
             <span className="ql-formats">

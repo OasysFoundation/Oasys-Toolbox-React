@@ -147,13 +147,17 @@
 }
 
 .oasys .ql-toolbar.ql-snow {
-  background-color: #3E4B54;
   width: 270px;
+  margin: -8px 0px 0px 10px;
   padding: 4px 0px 8px 2px;
-  border-radius: 5px;
+  border: none;
+}
+
+.oasys .minimized .ql-toolbar.ql-snow {
+  display: none;
 }
 
 .oasys .ql-formats button {
-  margin-left: 2px;
-  margin-right: 2px;
+  margin-left: 0px;
+  margin-right: 0px;
 }
