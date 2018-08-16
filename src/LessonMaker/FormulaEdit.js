@@ -18,6 +18,8 @@ class FormulaEdit extends Component {
         this.state = {
         	formula: null
         }
+
+        this.onChangedSearchTerm = this.onChangedSearchTerm.bind(this);
     }
 
 	onChangedSearchTerm(element) {
@@ -35,7 +37,7 @@ class FormulaEdit extends Component {
                 {this.props.isEditMode? (
                 	<InputGroup>
     			        <InputGroupAddon addonType="prepend">🏎</InputGroupAddon>
-    			        <Input placeholder="formula" onChange={this.onChangedSearchTerm.bind(this)}/>
+    			        <Input placeholder="formula" onChange={this.onChangedSearchTerm}/>
     		        </InputGroup>
                     )
                     :

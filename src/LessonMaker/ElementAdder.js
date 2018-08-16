@@ -38,9 +38,18 @@ const types = [
 
 class ElementAdder extends Component {
 
-    state = {
-        showsNewElementModal: false
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            showsNewElementModal: false
+        }
+
+        this.onCloseElementModal = this.onCloseElementModal.bind(this);
+        this.onAddNewElement = this.onAddNewElement.bind(this);
+        this.onSelectElement = this.onSelectElement.bind(this);
     }
+
 
     onAddNewElement() {
         this.setState({
@@ -71,7 +80,7 @@ class ElementAdder extends Component {
             >
 
                 <section style={{alignSelf:'center', display: 'flex', 'justifyContent': 'center', alignItems: 'center', marginTop:'15px'}}>
-                    <i style={{color: '#A2ABB8', fontSize:'30px'}} className='icon-plus' onClick={this.onAddNewElement.bind(this)}> </i>
+                    <i style={{color: '#A2ABB8', fontSize:'30px'}} className='icon-plus' onClick={this.onAddNewElement}> </i>
                     {this.props.nElems<=1 
 
                     ?
@@ -79,7 +88,7 @@ class ElementAdder extends Component {
                     : null
                     }
                     
-                <AddNewElementModal isOpen={this.state.showsNewElementModal} onClose={this.onCloseElementModal.bind(this)} onSelectElement={this.onSelectElement.bind(this)}/>
+                <AddNewElementModal isOpen={this.state.showsNewElementModal} onClose={this.onCloseElementModal} onSelectElement={this.onSelectElement}/>
                 </section>
             </section>
         );

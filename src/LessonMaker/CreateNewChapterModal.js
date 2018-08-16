@@ -6,6 +6,13 @@ import { Button } from 'reactstrap';
 
 class CreateNewChapterModal extends Component {
 
+	constructor(props) {
+		super(props);
+		this.toggle = this.toggle.bind(this);
+		this.onChangeText = this.onChangeText.bind(this);
+		this.onCreateNewChapter = this.onCreateNewChapter.bind(this);
+	}
+
 	state = {
 		newCategoryName: ""
 	}
@@ -30,16 +37,16 @@ class CreateNewChapterModal extends Component {
 
 	render() {
 		return (
-			<Modal isOpen={this.props.isOpen} toggle={this.toggle.bind(this)} backdrop={true}>
-	          <ModalHeader toggle={this.toggle.bind(this)}>Create New Chapter</ModalHeader>
+			<Modal isOpen={this.props.isOpen} toggle={this.toggle} backdrop={true}>
+	          <ModalHeader toggle={this.toggle}>Create New Chapter</ModalHeader>
 	          <ModalBody>
 	          	<InputGroup>
-                    <Input placeholder="New Chapter Name" value={this.state.newCategoryName} onChange={this.onChangeText.bind(this)} />
+                    <Input placeholder="New Chapter Name" value={this.state.newCategoryName} onChange={this.onChangeText} />
                 </InputGroup>
 	          </ModalBody>
 	          <ModalFooter>
-	            <Button color="secondary" onClick={this.toggle.bind(this)}>Cancel</Button>
-	            <Button color="primary" onClick={this.onCreateNewChapter.bind(this)}>Create new Chapter</Button>{' '}
+	            <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+	            <Button color="primary" onClick={this.onCreateNewChapter}>Create new Chapter</Button>{' '}
 	          </ModalFooter>
 	        </Modal>
 			)

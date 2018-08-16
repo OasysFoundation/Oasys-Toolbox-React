@@ -7,6 +7,12 @@ import VideoPreview from './VideoPreview';
 
 class VideoEdit extends Component {
 
+    constructor(props) {
+        super(props);
+        this.onChangeUrl = this.onChangeUrl.bind(this);
+        this.onChangeCrop = this.onChangeCrop.bind(this);
+    }
+
     isValidYouTubeUrl(url) {
         if (url !== undefined || url !== '') {
             var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=|\?v=)([^#&?]*).*/;
@@ -41,7 +47,7 @@ class VideoEdit extends Component {
                 : (<VideoEditCropper 
                     data={this.props.data} 
                     elementId={this.props.id} 
-                    onChangeCrop={this.onChangeCrop.bind(this)}
+                    onChangeCrop={this.onChangeCrop}
                    />)
             }
         </div>)
@@ -59,7 +65,7 @@ class VideoEdit extends Component {
                         <input
                           placeholder='Please enter a YouTube URL'
                           className='form-control url-input'
-                          onChange={this.onChangeUrl.bind(this)}
+                          onChange={this.onChangeUrl}
                         />
                     </div>
                 )

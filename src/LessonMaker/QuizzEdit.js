@@ -34,6 +34,13 @@ class QuizzEdit extends Component {
             showsFeedbackPopover: false,
             selectedAnswerIndex: 0
         }
+
+        this.onClickEditButton = this.onClickEditButton.bind(this);
+        this.onSelectAnswer = this.onSelectAnswer.bind(this);
+        this.onClickSubmitButton = this.onClickSubmitButton.bind(this);
+        this.onCloseFeedbackPopover = this.onCloseFeedbackPopover.bind(this);
+        this.onChangeData = this.onChangeData.bind(this);
+        this.onClose = this.onClose.bind(this);
     }
 
     onChangeData(data) {
@@ -125,29 +132,29 @@ class QuizzEdit extends Component {
         const that = this; 
         return (
             <div>
-                {this.props.isEditMode? <Button color="primary" onClick={this.onClickEditButton.bind(this)}>Edit Quiz</Button> : null}
+                {this.props.isEditMode? <Button color="primary" onClick={this.onClickEditButton}>Edit Quiz</Button> : null}
 
                 <h1>{this.state.question.title}</h1>
                 <img src={this.state.question.image} alt="" />
                 <center>
             	<div style={containerStyle}>
                    
-            	   {this.state.answers.map(function(answer, index) {
-                    return <QuizzButton answer={answer} key={"answer-id-" + index} id={"answer-id-" + index} showsSelectionIndicator={that.state.quizType==='multiple-choice'} isSelected={answer.isSelected} index={index} onSelect={that.onSelectAnswer.bind(that)} width={elementWidth} height={elementHeight} color={that.quizColors[index % that.quizColors.length]} />
+            	   {this.state.answers.map((answer, index) => {
+                    return <QuizzButton answer={answer} key={"answer-id-" + index} id={"answer-id-" + index} showsSelectionIndicator={that.state.quizType==='multiple-choice'} isSelected={answer.isSelected} index={index} onSelect={this.onSelectAnswer} width={elementWidth} height={elementHeight} color={that.quizColors[index % that.quizColors.length]} />
                    })}
 
             	</div>
-                {this.state.quizType === 'multiple-choice'? <Button color="primary" onClick={this.onClickSubmitButton.bind(this)}>Submit</Button> : null}
+                {this.state.quizType === 'multiple-choice'? <Button color="primary" onClick={this.onClickSubmitButton}>Submit</Button> : null}
                 </center>
 
 
-                <Popover placement="top" isOpen={this.state.showsFeedbackPopover} target={'answer-id-' + this.state.selectedAnswerIndex} toggle={this.onCloseFeedbackPopover.bind(this)}>
+                <Popover placement="top" isOpen={this.state.showsFeedbackPopover} target={'answer-id-' + this.state.selectedAnswerIndex} toggle={this.onCloseFeedbackPopover}>
                   <PopoverHeader>{ feedbackTitle }</PopoverHeader>
                   <PopoverBody>{this.state.answers[this.state.selectedAnswerIndex].feedback}</PopoverBody>
                 </Popover>
 
                 <QuizzEditModal question={this.state.question} answers={this.state.answers} quizType={this.state.quizType} 
-                onChange={this.onChangeData.bind(this)} onClose={this.onClose.bind(this)} chapters={this.props.chapters} isOpen={this.state.showsModalEditor} />
+                onChange={this.onChangeData} onClose={this.onClose} chapters={this.props.chapters} isOpen={this.state.showsModalEditor} />
             </div>
         )
     }
