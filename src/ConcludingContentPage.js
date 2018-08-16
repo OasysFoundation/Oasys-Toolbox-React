@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import BigLetterRenderer from './BigLetterRenderer'
-import {Motion, spring} from 'react-motion';
 
 import Bravocado from './assets/gifs/bravocado.gif'
 import GoodJobBoy from './assets/gifs/good_job_boy.gif'

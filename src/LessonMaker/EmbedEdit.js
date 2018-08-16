@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import Iframe from 'react-iframe';
 import Select from 'react-select';
+import sha256 from 'js-sha256';
 
-import Sha256 from '../utils/sha256';
 import interactives from '../assets/json/concord-interactives.json';
 
 /*
@@ -55,7 +55,7 @@ function getConcordEmbeddables(){
         concordIgnore.indexOf(elem.groupKey)<0
     ));
     concordSims.map((elem,idx) => {
-        elem.value = 'concord_' + idx.toString();
+        elem.value = 'concord_' + sha256(elem.path);
         elem.label = elem.title + ': ' + elem.subtitle;
         elem.path = CONCORD_URL + elem.path;
         return null;
@@ -74,40 +74,20 @@ function getConcordEmbeddables(){
     return concordSims;
 }
 
+
+const concordSims = getConcordEmbeddables();
+
+
 class EmbedEdit extends Component {
 
     constructor(props) {
         super(props);
-        this.textInput = React.createRef();
-
-        this.concordSims = getConcordEmbeddables();
-
-        let selectedOption = null;
-        if (this.props.data.id !== '' && this.props.data.id.substring(0,7) ===  'concord') {
-            const candidates = this.concordSims.filter(e=>{
-                return e.value==this.props.data.id;
-            });
-
-            if (candidates.length===0) {
-                throw new Error('Could not find concord embeddable with id: ' + this.props.data.id);
-            } else {
-                selectedOption = candidates[0];
-            }
-        }
-
-        this.state = {
-            selectedOption: selectedOption,
-        }
-
         this.handleChange = this.handleChange.bind(this);
-
-        console.log(this.concordSims);
     }
 
     handleChange(selectedOption) {
-        this.setState({ selectedOption });
         this.props.onChange({
-            id: selectedOption.value,
+            id: selectedOption. value
         });
     }
 
@@ -125,46 +105,43 @@ class EmbedEdit extends Component {
           },
         };
 
+        let candidates = concordSims.filter(e=>{
+            return e.value==this.props.data.id;
+        });
+        let embedElem = candidates[0];
+        
         return (
             <div className='embed-edit'>
                 {this.props.isEditMode 
                 ?   <div>
                         <Select
-                            value={this.state.selectedOption}
+                            value={embedElem ? embedElem : null}
                             onChange={this.handleChange}
-                            options={this.concordSims}
+                            options={concordSims}
                             styles={customSelectStyles}
                           />
-                          {this.state.selectedOption 
-                           ? <p style={{margin: '10px 0px 15px 10px'}}>{this.state.selectedOption.about.join(' ')}</p>
+                          {embedElem
+                           ? <p style={{margin: '10px 0px 15px 10px'}}>{embedElem.about.join(' ')}</p>
                            : null
                           }
                     </div>
                 :   null
                 }
-
-                {this.state.selectedOption 
-                 ? <div style={{position: 'relative', width: '100%', height: '0', paddingBottom: '75%'}}>
-                  {/*
-                     <iframe title={Math.random().toString(36)}
-                            style={{width: '100%', height: '100%'}}
-                            allow="geolocation; microphone; camera;"
-                            src={this.state.selectedOption.path}
-                      />
-                  */}
+                {embedElem
+                ?  <div style={{position: 'relative', width: '100%', height: '0', paddingBottom: '75%'}}>
                     <Iframe 
-                        url={this.state.selectedOption.path}
+                        url={embedElem.path}
                         width="100%"
                         height="100%"
                         id="myId"
-                        className={this.props.isEditMode ? "iframe_edit" : "iframe_preview" } 
+                        className='iframe'
                         display="initial"
                         position="relative"
                         allowFullScreen
                         styles={customIframeStyles}
                     />
                    </div>
-                 : null
+                : null
                 }
             </div>
         )

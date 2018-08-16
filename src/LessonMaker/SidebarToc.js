@@ -117,13 +117,7 @@ class SidebarToc extends Component {
                     height={this.state.height}
                     viewBox={"0 0 " + this.state.width + " " + this.state.height}
                 >
-                <svg
-                    id="toc"
-                    width={this.state.width}
-                    height={this.state.height}
-                    viewBox={"0 0 " + this.state.width + " " + this.state.height}
-                >
-                </svg>
+                <g id="toc"/>
                 </svg>
                 <div ref='tooltipWrapper'/>
             </div>
