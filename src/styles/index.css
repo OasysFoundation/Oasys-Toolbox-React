@@ -161,6 +161,7 @@ html, body, svg, text {
 
 .oasys .card {
     margin-bottom: 0;
+    text-align: left;
 }
 
 .oasys .flex-center {
