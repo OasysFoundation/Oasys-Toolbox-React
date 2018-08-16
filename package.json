@@ -33,6 +33,7 @@
     "react-iframe": "^1.2.0",
     "react-katex": "^2.0.2",
     "react-player": "^1.6.4",
+    "react-pose": "^2.2.3",
     "react-progressive-image": "^0.3.0",
     "react-quill": "^1.2.7",
     "react-router-dom": "^4.3.1",
