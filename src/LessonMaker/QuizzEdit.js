@@ -27,7 +27,24 @@ class QuizzEdit extends Component {
         this.state = {
             showsModalEditor: false,
         	question: props.data? props.data.question : "",
-            answers: props.data? props.data.answers : [],
+            answers: props.data? props.data.answers : [
+                {
+                    "title": "",
+                    "image": "",
+                    "correct": false,
+                    "feedback": "",
+                    "action": null,
+                    "isSelected": false
+                },
+                {
+                    "title": "",
+                    "image": "",
+                    "correct": false,
+                    "feedback": "",
+                    "action": null,
+                    "isSelected": false
+                }
+            ],
             quizType: props.data? props.data.quizType : "single-choice",
             showsPageSelectionDropDown: false,
             selectingImageForIndex: 0,
@@ -56,7 +73,6 @@ class QuizzEdit extends Component {
                 answers: that.state.answers,
                 quizType: that.state.quizType
             }, true)
-            that.props.updateChapterLinks();
         });
     }
 
@@ -141,17 +157,16 @@ class QuizzEdit extends Component {
         const that = this; 
         return (
             <div>
-                {this.props.isEditMode? <Button color="primary" onClick={this.onClickEditButton}>Edit Quiz</Button> : null}
                 <center>
-                <h1>{this.state.question.title}</h1>
+                {this.props.isEditMode? <Button color="primary" onClick={this.onClickEditButton}>Edit Quiz</Button> : null}
+                <h1>{this.state.question.title? this.state.question.title : "This Quiz has no Question, yet."}</h1>
+                {this.state.question.title? null : <p style={{marginBottom:'10px', maxWidth:'350px'}}>Click 'Edit Quiz' to edit the question and answers, and to chose between single choice or multiple choice.</p>}
                 <img src={this.state.question.image} alt="" style={{maxWidth:'80%'}}/>
                 
             	<div style={containerStyle}>
-                   
             	   {this.state.answers.map((answer, index) => {
                     return <QuizzButton answer={answer} key={"answer-id-" + index} id={"answer-id-" + index} showsSelectionIndicator={that.state.quizType==='multiple-choice'} isSelected={answer.isSelected} index={index} onSelect={this.onSelectAnswer} width={elementWidth} height={elementHeight} color={that.quizColors[index % that.quizColors.length]} />
                    })}
-
             	</div>
                 {this.state.quizType === 'multiple-choice'? <Button color="primary" onClick={this.onClickSubmitButton}>Submit</Button> : null}
                 </center>

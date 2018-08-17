@@ -42,7 +42,7 @@ class QuizzButton extends Component {
     		<div style={quizAnswerOptionStyle} onClick={this.onSelect} id={this.props.id}>
     					{this.props.showsSelectionIndicator? <div style={{position:'absolute', top:'5px', right:'5px'}}> {this.state.isSelected? "✅" : "☑️"} </div> : null}
     					
-                        <div>{this.props.answer.title}</div>
+                        <div>{this.props.answer.title? this.props.answer.title : "This answer option is empty. Click \'Edit Quiz\' in order to edit or remove it."}</div>
                         <div>
                         {this.props.answer.image!==""? (
                                 <center>
