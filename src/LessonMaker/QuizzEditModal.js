@@ -55,9 +55,24 @@ class QuizzEditModal extends Component {
         this.onCreateNewChapter = this.onCreateNewChapter.bind(this);
     }
 
-    resetModalState() {
-        this.setState(this.baseState);
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            question: nextProps.question? nextProps.question : "",
+            answers: nextProps.answers? nextProps.answers : [],
+            showsPageSelectionDropDown: false,
+            selectingImageForIndex: 0,
+            quizType: nextProps.quizType? nextProps.quizType : "single-choice",
+            actionCorrect: nextProps.actionCorrect? nextProps.actionCorrect : null,
+            actionWrong: nextProps.actionWrong? nextProps.actionWrong : null,
+            showsCreateNewChapterDialog: false,
+            newChapterCreatedResolver: null,
+            userCreatedChapters: []
+        });
+
+        this.baseState = JSON.parse(JSON.stringify(this.state));
     }
+
+
 
     onSave() {
         this.props.onChange({
@@ -76,8 +91,9 @@ class QuizzEditModal extends Component {
     }
 
     onClose() {
-        this.resetModalState();
-        this.props.onClose();
+        this.setState(this.baseState, function() {
+            this.props.onClose();    
+        });
     }
 
     onSelectAction(identifier, chapterIndex) {
