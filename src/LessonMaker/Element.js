@@ -46,15 +46,15 @@ class Element extends Component {
         //
         // console.log(storeTimestamp, sessionTimestamp, "TIMESTAMPS")
         //DO NOT CALL setState before session storage!! will override itself
-        this.setState({tempContent: value, timestamp: Date.now()}); //for Quill
-
-        if (shouldInstantUpdate) {
-            this.props.onChangeContent(
-                this.props.data.id,
-                this.state.tempContent,
-                this.fromChapter)
-        }
-
+        this.setState(
+            {tempContent: value, timestamp: Date.now()}, () => {
+                if (shouldInstantUpdate) {
+                    this.props.onChangeContent(
+                        this.props.data.id,
+                        this.state.tempContent,
+                        this.fromChapter)
+                }
+            }); //for Quill
     };
 
     typeToComponent(type) {
@@ -84,8 +84,11 @@ class Element extends Component {
                 render = <FormulaEdit {...params} />
                 break;
             case globals.EDIT_QUIZ:
-                render = <QuizzEdit {...params} chapters={this.props.chapters.map(c => ({title: c.title, id: c.id}))}
-                                    onAddChapter={this.props.onAddChapter}/>
+                render = <QuizzEdit {...params}
+                                    chapters={this.props.chapters.map(c => ({title: c.title, id: c.id}))}
+                                    onAddChapter={this.props.onAddChapter}
+                                    updateChapterLinks = {this.props.updateChapterLinks}
+                />
                 break;
             case globals.EDIT_VIDEO:
                 render = <VideoEdit {...params}/>
@@ -168,8 +171,8 @@ Element.propTypes = {
 
 //don't need anything!
 const neededActions = (store) => {
-    const {onChangeContent} = actions();
-    return {onChangeContent}
+    const {onChangeContent, updateChapterLinks} = actions();
+    return {onChangeContent, updateChapterLinks}
 };
 
 //IMPORTANT!! the project data is in the project obj, the rest of the store (action functions) is just flat there

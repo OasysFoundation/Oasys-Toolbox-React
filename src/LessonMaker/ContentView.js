@@ -31,6 +31,14 @@ class ContentView extends Component {
         this.goToChapter = this.goToChapter.bind(this);
     }
 
+    foldElement(elemID) {
+        //set prop shouldFold
+        //set prop foldedTextonButton
+        //checks in render an replaces with
+    }
+    unFoldElement(elemID) {
+
+    }
 
     scrollTo = (name) => {
         this._scroller.scrollTo(name);
@@ -46,12 +54,14 @@ class ContentView extends Component {
             activeChapterIndex: nextIdx,
             activeChapterID: nextID
         }, () => this.scrollTo(this.chapters[nextIdx].elements[0].id));
-    };
+    }
+
     goToElementinChapter(nextElementIndex) {
         const nextElementID = this.chapters[this.state.activeChapterIndex].elements[nextElementIndex].id
         this.scrollTo(nextElementID)
 
     }
+
     goToChapter = (sendToChapterID, interactionElementID) => {
 
         console.log("ids", sendToChapterID, interactionElementID, "ids")
@@ -93,6 +103,7 @@ class ContentView extends Component {
 
                                     <ScrollElement key={el.id} name={el.id}>
                                         <div className="item" hidden={ !( this.chaptersSeenIDs.includes(el.fromChapter) )}>
+                                            {/*{el.shouldFold ?}*/}
                                             <Element data={el} id={el.id}
                                                      isEditMode={false}
                                                      onLearnerInteraction={this.goToChapter}

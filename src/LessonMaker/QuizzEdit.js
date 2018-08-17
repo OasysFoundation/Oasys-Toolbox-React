@@ -45,16 +45,18 @@ class QuizzEdit extends Component {
     }
 
     onChangeData(data) {
+        const that = this;
         this.setState({
             question: data.question,
             answers: data.answers,
             quizType: data.quizType
         }, function() {
-            this.props.onChange({
-                question: this.state.question,
-                answers: this.state.answers,
-                quizType: this.state.quizType
-            }, true);
+            that.props.onChange({
+                question: that.state.question,
+                answers: that.state.answers,
+                quizType: that.state.quizType
+            }, true)
+            that.props.updateChapterLinks();
         });
     }
 

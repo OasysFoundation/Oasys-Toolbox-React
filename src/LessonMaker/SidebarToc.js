@@ -138,7 +138,7 @@ export default connect(mapStoreToProps, actions)((propsFromStore) => {
     const {chapters, activeChapterIndex} = project;
     return React.createElement(SidebarToc, {
         onChangeActiveChapter, 
-        chapters: chapters.map(c => ({title:c.title, id: c.id, links: c.links})), 
+        chapters: chapters.map(c => ({title:c.title, id: c.id, links: c.links})),
         activeChapterIndex
     });
 });
