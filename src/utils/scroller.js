@@ -31,13 +31,11 @@ class ScrollView extends Component {
             }
         }
     }
-    scrollTo = (name) => {
+    scrollTo = (name, alignment={top: 0}) => {
         const node = findDOMNode(this.elements[name]);
         scrollIntoView(node, {
             time: 500,
-            align: {
-                top: 0
-            }
+            align: alignment
         })
     }
     render() {
