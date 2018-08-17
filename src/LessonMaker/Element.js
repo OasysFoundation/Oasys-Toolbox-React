@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import VisibilitySensor from 'react-visibility-sensor';
+
 import FadeableCard from './FadeableCard'
 import globals from "../globals";
 import QuillEdit from './QuillEdit'
@@ -25,13 +27,19 @@ import {initContent} from "../tools";
 //put Fade from CoreUI --> Wrap it in component to manage IN/Out state!
 
 class Element extends Component {
-    fromChapter = this.props.data.parentChapterID;
 
-    state = {
-        isHovered: false,
-        tempContent: this.props.data.content || getContentFromSessionStorage(this.props.data.id),
-        timestamp: Date.now()
-    };
+    constructor(props) {
+        super(props);
+        this.changeVisibility = this.changeVisibility.bind(this);
+
+        this.fromChapter = this.props.data.parentChapterID;
+
+        this.state = {
+            isHovered: false,
+            tempContent: this.props.data.content || getContentFromSessionStorage(this.props.data.id),
+            timestamp: Date.now()
+        };
+    }
 
     //glue function between LessonMaker and Quill to add ID
     handleChange = (value, shouldInstantUpdate = false) => {
@@ -114,13 +122,18 @@ class Element extends Component {
         // this.setState({tempContent: contentUpdated, timestamp: Date.now()})
     }
 
+    changeVisibility(isVisible) {
+        let visStr = 'invisible';
+        if (isVisible) {visStr = 'visible'}
+        console.log('Element type ' + this.props.data.type + ' (' + this.props.data.id + ') is now ' + visStr);
+    }
 
     //onClick={() => this.setState({isHovered: true})}
     render() {
         const {id, type} = this.props.data;
         return (
             <center>
-                <div className='mainWidth'>
+                <div className='main-width'>
                     <section onMouseEnter={() => this.setState({isHovered: true})}
                              onMouseLeave={() => this.setState({isHovered: false})}
                     >
@@ -132,10 +145,10 @@ class Element extends Component {
                             >
                                 {this.typeToComponent(type)}
                             </FadeableCard>
-
                             :
                             <Card className="card-fancy has-shadow">
                                 <CardBody>
+                                    <VisibilitySensor onChange={this.changeVisibility}/>
                                     {this.typeToComponent(type)}
                                 </CardBody>
                                 {/*<hr/>*/}
