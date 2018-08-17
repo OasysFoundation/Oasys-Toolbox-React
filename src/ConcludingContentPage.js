@@ -97,7 +97,7 @@ class ConcludingContentPage extends Component {
 
         		) : null}
 				
-				<SocialSharingButtons url="https://joinoasys.org" author="Mark22" title="Work" description="This is the best content I've ever made." />
+				<SocialSharingButtons url={this.props.url} author={this.props.author} title={this.props.title} description={this.props.description} />
 
 				</center>
             </div>
