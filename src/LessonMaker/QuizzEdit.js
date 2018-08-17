@@ -144,7 +144,7 @@ class QuizzEdit extends Component {
                 {this.props.isEditMode? <Button color="primary" onClick={this.onClickEditButton}>Edit Quiz</Button> : null}
                 <center>
                 <h1>{this.state.question.title}</h1>
-                <img src={this.state.question.image} alt="" />
+                <img src={this.state.question.image} alt="" style={{maxWidth:'80%'}}/>
                 
             	<div style={containerStyle}>
                    
