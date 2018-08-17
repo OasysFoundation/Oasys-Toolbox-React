@@ -1,10 +1,10 @@
 import React from 'react';
 import Media from "react-media"; 
 import Select from 'react-select';
-import api from './tools'
+import api from './api'
 
-import Logo from './images/oasys_logo_big.png'
-import Logo_Small from './images/oasys_logo_small.png'
+import Logo from './assets/images/brand/oasys_logo_big.png'
+import Logo_Small from './assets/images/brand/oasys_logo_small.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 // Styling

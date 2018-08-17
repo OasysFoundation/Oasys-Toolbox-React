@@ -21,6 +21,8 @@ import "@coreui/icons/css/coreui-icons.css"
 import './styles/index.css';
 
 import Header from './Header';
+import Navbar from './Navbar';
+import FontAwesomeImports from "./FontAwesomeImports"
 
 import {Provider} from "redux-zero/react";
 
@@ -55,17 +57,17 @@ class Index extends Component {
         super();
     }
 
+    handleChangeSearchBar(newVal){
+        this.setState({category:newVal})
+    }
+
     render() {
         return (
             <div className="oasys app">
-
-                <AppHeader fixed>
-                    {<Header/>}
-                </AppHeader>
                 <Provider store={store}>
                     <Router history={history}>
                         <div>
-                            {/*<NavBar authUser={this.state.authUser}/>*/}
+                            {<Navbar onChange={this.handleChangeSearchBar.bind(this)}/>}
                             <Switch>
                                 <Route exact path="/" render={() => <ContentSelection/>}/>
                                 <Route exact path="/create" render={(props) => <LessonMaker {...props} />}/>
