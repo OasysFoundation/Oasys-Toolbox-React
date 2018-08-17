@@ -18,7 +18,7 @@ import {
 import 'react-quill/dist/quill.snow.css';
 import actions from "../store/actions";
 import {connect} from "redux-zero/react";
-import {initContent} from "../tools";
+import {isElementEmpty, initContent} from "../tools";
 
 
 //TODO
@@ -102,6 +102,10 @@ class Element extends Component {
         return render;
     }
 
+    componentDidMount() {
+        console.log('empty elements?', isElementEmpty(this.props.data))
+    }
+
     componentWillUnmount() {
         // console.log('unmounting ', this.state.tempContent)
         this.props.onChangeContent(
@@ -160,14 +164,14 @@ Element.propTypes = {
 
 const mapStoreToProps = ({chapters, isEditMode, activeChapterIndex}) => ({chapters, activeChapterIndex, isEditMode});
 
-Element.propTypes = {
-    data: function (props, propName) {
-        // console.log(props, propName, props.data.type, 'proptype check', typeof props.data.content,  typeof initContent(props['type']));
-        if (isEmpty(props.data.content) || typeof props.data.content !== typeof initContent(props.data.type)) {
-            return new Error('' + props.data.id + " , " + props.data.type + " " + "Content does not fit Content Type @ Element")
-        }
-    }
-};
+// Element.defaultPropTypes = {
+//     data: function (props, propName) {
+//         // console.log(props, propName, props.data.type, 'proptype check', typeof props.data.content,  typeof initContent(props['type']));
+//         if (isEmpty(props.data.content) || typeof props.data.content !== typeof initContent(props.data.type)) {
+//             return new Error('' + props.data.id + " , " + props.data.type + " " + "Content does not fit Content Type @ Element")
+//         }
+//     }
+// };
 
 //don't need anything!
 const neededActions = (store) => {

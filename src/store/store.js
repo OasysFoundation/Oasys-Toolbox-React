@@ -124,7 +124,7 @@ const data = {
                 {
                     id: 'OKOOKOOOKOKOK',
                     type: 6,
-                    content: "2*5=10"
+                    content: ""
                 },
                 {
                     id: 'uiuiiuriuiu',

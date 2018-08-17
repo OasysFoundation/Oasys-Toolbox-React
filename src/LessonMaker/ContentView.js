@@ -4,6 +4,7 @@ import Element from './Element';
 import ScrollView, {ScrollElement} from "../utils/scroller";
 import {ICON, flatten, isEmpty} from '../utils/trickBox'
 import {Container} from "reactstrap"
+import {isElementEmpty} from "../tools";
 
 
 class ContentView extends Component {
@@ -36,6 +37,7 @@ class ContentView extends Component {
         //set prop foldedTextonButton
         //checks in render an replaces with
     }
+
     unFoldElement(elemID) {
 
     }
@@ -46,7 +48,7 @@ class ContentView extends Component {
     goToNextChapter = () => {
         const idx = this.state.activeChapterIndex;
         //is there more chapters?
-        const nextIdx =  (idx + 1) >= this.chapters.length ? idx : (idx+1);
+        const nextIdx = (idx + 1) >= this.chapters.length ? idx : (idx + 1);
         const nextID = this.chapters[nextIdx].id;
         this.chaptersSeenIDs.push(nextID);
 
@@ -70,7 +72,7 @@ class ContentView extends Component {
             //scroll to next element or (if end of chapter, next elements chapter)
             const currentChapter = this.chapters[this.state.activeChapterIndex]
             const interactionElementIndex = currentChapter.elements.findIndex(el => el.id === interactionElementID);
-            const isLastElement = currentChapter.elements.length-1 <= interactionElementIndex
+            const isLastElement = currentChapter.elements.length - 1 <= interactionElementIndex
 
             console.log("Last element ? ", isLastElement)
             isLastElement ? this.goToNextChapter() : this.goToElementinChapter(interactionElementIndex);
@@ -97,18 +99,14 @@ class ContentView extends Component {
                                                                        onClick={() => this.scrollTo(id)}>{id}</button>)
                         }
                         <ScrollView ref={scroller => this._scroller = scroller}>
-                            {/*<div className="scroller">*/}
                             <React.Fragment>
                                 {allElementsinProject.map(el => (
 
                                     <ScrollElement key={el.id} name={el.id}>
-                                        <div className="item" hidden={ !( this.chaptersSeenIDs.includes(el.fromChapter) )}>
-                                            {/*{el.shouldFold ?}*/}
-                                            <Element data={el} id={el.id}
-                                                     isEditMode={false}
-                                                     onLearnerInteraction={this.goToChapter}
-                                            />
-                                            {el.id}
+                                        <div className="item" hidden={!(this.chaptersSeenIDs.includes(el.fromChapter))}>
+                                            { !isElementEmpty(el) && <Element data={el} id={el.id}
+                                                                            isEditMode={false}
+                                                                            onLearnerInteraction={this.goToChapter}/>}
                                         </div>
                                     </ScrollElement>))
                                 }
