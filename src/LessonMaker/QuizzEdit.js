@@ -93,6 +93,7 @@ class QuizzEdit extends Component {
     }
 
     onContinue(nextChapterId) {
+        this.onCloseFeedbackPopover();
         this.props.onLearnerInteraction(nextChapterId, this.props.id);
     }
 
