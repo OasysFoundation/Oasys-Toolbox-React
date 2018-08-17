@@ -101,7 +101,7 @@ class Authentication extends Component {
                     modalBody: "You have been logged in successfully",
                     showModal: "true",
                 })
-                that.props.onLoginUpdateUser(cbData);
+                that.props.onUpdateUserInfo(cbData);
             })
             .catch(error => {
                 console.log("Error FROM login", error)
@@ -127,6 +127,7 @@ class Authentication extends Component {
             let that = this;
             auth.doCreateUserWithEmailAndPassword(that.state.email, that.state.password)
                 .then(authUser => {
+                    console.log(authUser, 'authuser')
                     auth.doGetIdToken()
                         .then(function (idToken) {
                             const userObject = {
@@ -135,6 +136,7 @@ class Authentication extends Component {
                             }
                             api.postNewUserName(userObject, idToken)
                                 .then((body) => {
+                                    console.log(body, 'body')
                                     if (body.hyphen) {
                                         that.setState({
                                             modalTitle: "Error",
@@ -152,7 +154,8 @@ class Authentication extends Component {
                                                 })
 
 
-                                                that.props.onCreat;
+                                                //body? or authuser? or what prop
+                                                that.props.onUpdateUserInfo(body);
 
                                             })
                                             .catch(function (error) {
@@ -541,8 +544,8 @@ class Authentication extends Component {
 
 const mapStoreToProps = ({user}) => ({user});
 const neededActions = (store) => {
-    const {onLoginUpdateUser} = actions();
-    return {onLoginUpdateUser}
+    const {onUpdateUserInfo} = actions();
+    return {onUpdateUserInfo}
 };
 // export default connect(mapStoreToProps, neededActions)(LessonMaker);
 

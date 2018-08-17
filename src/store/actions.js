@@ -40,7 +40,7 @@ const actions = function (store) { //store for async stuff
             return clone;
         },
 
-        onLoginUpdateUser(state, firebaseLoginObj) {
+        onUpdateUserInfo(state, firebaseLoginObj) {
 
             const {user} = firebaseLoginObj;
             saveToSessionStorage('user', user);
