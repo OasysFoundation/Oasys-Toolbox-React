@@ -215,6 +215,10 @@ html, body, svg, text {
     border-color: #2a9699;
 }
 
+.oasys .icon-plus {
+    cursor: pointer;
+}
+
 /* ------------------ sidebar ----------------- */
 .oasys .sidebar .sidebar-nav {
     flex: 0 0 auto;
@@ -272,6 +276,10 @@ html, body, svg, text {
     margin-left: -5px;
     margin-right: 5px;
     padding: 3px;
+}
+
+.oasys .modal-header .close {
+    display: none;
 }
 
 /* ------------------ video edit ----------------- */
