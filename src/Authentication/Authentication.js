@@ -3,6 +3,7 @@ import * as auth from './auth';
 import * as firebase from './firebase';
 import { Button, Card, CardBody, CardFooter, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 import { CardHeader, Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap';
+import api from '../tools'
 
 const INITIAL_STATE = {
 	email:"",
@@ -10,7 +11,6 @@ const INITIAL_STATE = {
 	password:"",
 	confirmPassword:"",
 	previousPassword:"",
-	currentView:"",
 };
 
 class Authentication extends Component {
@@ -18,6 +18,7 @@ class Authentication extends Component {
 		super(props);
 		this.state = { ...INITIAL_STATE };
 		this.state={
+			currentView:"",
 			showModal:false,
 			modalTitle:"",
 			modalBody:"",
@@ -80,7 +81,76 @@ class Authentication extends Component {
 
 
 	RegisterSubmitted(){
-
+		if (this.state.username.indexOf('-') > -1){
+			this.setState(() => ({ ...INITIAL_STATE }));
+	        this.setState({
+	        	modalTitle:"Error",
+	        	modalBody:"Usernames cannot contain hyphens (-)",
+	        	showModal:"true",
+	        });
+		}
+		else{
+			let that = this;
+			auth.doCreateUserWithEmailAndPassword(that.state.email, that.state.password)
+	            .then(authUser => {
+	                auth.doGetIdToken()
+	                	.then(function(idToken) {
+		            	  const userObject = {
+		               	 	"uid": auth.doGetUid(),
+		                	"username": that.state.username,
+		            	  }
+		                  api.postNewUserName(userObject, idToken)
+		                    .then((body) => {
+		                            if (body.hyphen){
+								        that.setState({
+								        	modalTitle:"Error",
+								        	modalBody:"Usernames cannot contain hyphens (-)",
+								        	showModal:"true",
+								        });
+		                            }
+		                            else {
+		                                auth.doUpdateProfile(that.state.username)
+		                                	.then(function () {
+			                                    that.setState(() => ({ ...INITIAL_STATE }));
+										        that.setState({
+										        	modalTitle:"Weclome to Oasys",
+										        	modalBody:"Your account was created successfully",
+										        	showModal:"true",
+										        })
+										    })
+			                                .catch(function (error) {
+										        that.setState({
+										        	modalTitle:"Error",
+										        	modalBody:error.message,
+										        	showModal:"true",
+										        });
+			                                });
+		                            }
+		                    })
+		                    .catch(function(err){
+						        that.setState({
+						        	modalTitle:"Error",
+						        	modalBody:"Houston we have a problem. Email us at info@joinoasys.org if this continuous!",
+						        	showModal:"true",
+						        });
+		                  	})
+		                })
+		                .catch(function (error) {
+					        that.setState({
+					        	modalTitle:"Error",
+					        	modalBody:error.message,
+					        	showModal:"true",
+					        });
+                        })
+		            })
+		            .catch(function (error) {
+				        that.setState({
+				        	modalTitle:"Error",
+				        	modalBody:error.message,
+				        	showModal:"true",
+				        });
+                    })
+		}
 	}
 
 	ForgotPasswordSubmitted(){
@@ -90,7 +160,7 @@ class Authentication extends Component {
 	        this.setState(() => ({ ...INITIAL_STATE }));
 	        this.setState({
 	        	modalTitle:"Success",
-	        	modalBody:"Please check your email inbox to reset your password.",
+	        	modalBody:"Your password has been reset! Please check your email to retrieve your new password.",
 	        	showModal:"true",
 	        })
 	      })
@@ -105,7 +175,33 @@ class Authentication extends Component {
 	}
 
 	ResetPasswordSubmitted(){
-		
+		let that = this;
+		auth.doSignInWithEmailAndPassword(this.state.email,this.state.previousPassword)
+			.then(function(user){
+				auth.doPasswordUpdate(this.state.password)
+					.then(function(){
+						 that.setState(() => ({ ...INITIAL_STATE }));
+						 that.setState({
+				        	modalTitle:"Success",
+				        	modalBody:"Your password has been changed!",
+				        	showModal:"true",
+				        });
+					})
+					.catch(function(error){
+						that.setState({
+				        	modalTitle:"Error",
+				        	modalBody:error.message,
+				        	showModal:"true",
+				        });
+					})
+			})
+			.catch(function(error){
+				that.setState({
+		        	modalTitle:"Error",
+		        	modalBody:error.message,
+		        	showModal:"true",
+		        });
+			})
 	}
 
 	updateEmail(event){
@@ -276,7 +372,7 @@ class Authentication extends Component {
 	              <Card className="mx-4">
 	                <CardBody className="p-4">
 	                  <Form>
-	                    <h1>Register</h1>
+	                    <h1>Forgot Password</h1>
 	                    <p className="text-muted">Recover your password</p>
 	                    <InputGroup className="mb-3">
 	                      <InputGroupAddon addonType="prepend">
@@ -311,8 +407,14 @@ class Authentication extends Component {
 	              <Card className="mx-4">
 	                <CardBody className="p-4">
 	                  <Form>
-	                    <h1>Register</h1>
+	                    <h1>Reset Password</h1>
 	                    <p className="text-muted">Reset your password</p>
+	                    <InputGroup className="mb-3">
+	                      <InputGroupAddon addonType="prepend">
+	                        <InputGroupText>@</InputGroupText>
+	                      </InputGroupAddon>
+	                      <Input type="text" placeholder="Email" autoComplete="email"  onChange={this.updateEmail}/>
+	                    </InputGroup>
 	                    <InputGroup className="mb-3">
 	                      <InputGroupAddon addonType="prepend">
 	                        <InputGroupText>
