@@ -1,10 +1,10 @@
 //TODO use my mongo functions to do upsert, insert, find for STATE etc
 //use immutable
 import update from 'immutability-helper'
-import {moveEntry, withoutEntry, getObjectsByKey} from "../utils/trickBox";
+import {moveEntry, withoutEntry, getObjectsByKey, saveToSessionStorage} from "../utils/trickBox";
 import {initContent} from "../tools";
 import uuidv4 from 'uuid/v4';
-import globals from '../globals'
+import globals from '../globals';
 
 const actions = function (store) { //store for async stuff
     return {
@@ -40,6 +40,12 @@ const actions = function (store) { //store for async stuff
             return clone;
         },
 
+        onLoginUpdateUser(state, firebaseLoginObj) {
+
+            const {user} = firebaseLoginObj;
+            saveToSessionStorage('user', user);
+            return update(state, {user: {$set: user}})
+        },
 
         onChangeProjectTitle(state, value) {
           return update(state, {title: {$set: value}})

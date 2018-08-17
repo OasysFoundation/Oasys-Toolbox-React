@@ -54,7 +54,7 @@ class Element extends Component {
         //
         // console.log(storeTimestamp, sessionTimestamp, "TIMESTAMPS")
         //DO NOT CALL setState before session storage!! will override itself
-        this.setState(
+        this.setState( //lots of ASYNC BS to avoid....
             () => ({tempContent: value, timestamp: Date.now()}), () => {
                 if (shouldInstantUpdate) {
                     console.log("TEMP CONTENT ON ELEMENT AT", this.state.tempContent)
@@ -64,7 +64,7 @@ class Element extends Component {
                         this.fromChapter);
                     this.props.updateChapterLinks()
                 }
-            }); //for Quill
+            });
     };
 
     typeToComponent(type) {

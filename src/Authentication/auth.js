@@ -19,3 +19,17 @@ export const doPasswordReset = (email) =>
 // Password Change
 export const doPasswordUpdate = (password) =>
   auth.currentUser.updatePassword(password);
+
+// get unique id
+export const doGetIdToken= () =>
+  auth.currentUser.getIdToken(true);
+
+// get unique id
+export const doGetUid= () =>
+  auth.currentUser.uid;
+
+// get unique id
+export const doUpdateProfile= (username) =>
+  auth.currentUser.updateProfile({displayName: username});
+
+  
