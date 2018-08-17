@@ -18,14 +18,12 @@ import {saveToSessionStorage} from '../utils/trickBox'
 
 //this is the new "Preview" Component
 class QuizzEdit extends Component {
-
     quizColors = [
         hexToRgba(colors.MOUNTBATTEN, 0.8), 
         hexToRgba(colors.PURPLE, 0.8), 
         hexToRgba(colors.RUST, 0.8), 
         hexToRgba(colors.VELVET, 0.8)
     ];
-
     constructor(props) {
         super(props);
         this.state = {
@@ -55,6 +53,7 @@ class QuizzEdit extends Component {
             showsFeedbackPopover: false,
             selectedAnswerIndex: 0
         }
+
 
         this.onClickEditButton = this.onClickEditButton.bind(this);
         this.onSelectAnswer = this.onSelectAnswer.bind(this);
@@ -87,19 +86,34 @@ class QuizzEdit extends Component {
     }
 
     onClickSubmitButton() {
-        
+        const areSelectedOptionsCorrect = this.areSelectedOptionsCorrect();
+
+        if (areSelectedOptionsCorrect) {
+
+        }
+    }
+
+    areSelectedOptionsCorrect() {
+        return this.state.answers.reduce(function(currentResult, answer) {
+            return currentResult && (answer.correct == answer.isSelected);
+        }, true);
     }
 
     onClose() {
         this.setState({
             showsModalEditor: false
-        })
+        });
     }
 
     onSelectAnswer(index) {
 
+        const answers = this.state.answers;
+        answers[index].isSelected = !answers[index].isSelected;
+
+
         this.setState({
-            showsFeedbackPopover: false
+            showsFeedbackPopover: false,
+            answers: answers
         }, function() {
             this.setState({
                 selectedAnswerIndex: index,
@@ -187,7 +201,7 @@ class QuizzEdit extends Component {
                 }
 
 
-                <QuizzEditModal question={this.state.question} answers={this.state.answers} quizType={this.state.quizType} 
+                <QuizzEditModal question={this.state.question} answers={JSON.parse(JSON.stringify(this.state.answers))} quizType={this.state.quizType} 
                 onChange={this.onChangeData} onClose={this.onClose} chapters={this.props.chapters} isOpen={this.state.showsModalEditor} />
             </div>
         )

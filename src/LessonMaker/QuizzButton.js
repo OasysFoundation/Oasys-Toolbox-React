@@ -3,19 +3,10 @@ import React, { Component } from 'react';
 class QuizzButton extends Component {
 	constructor(props) {
         super(props);
-
-        this.state= {
-        	isSelected: props.isSelected
-        }
-
         this.onSelect = this.onSelect.bind(this);
     }
 
     onSelect() {
-    	this.setState({
-    		isSelected: !this.state.isSelected
-    	});
-
     	this.props.onSelect(this.props.index);
     }
 
@@ -52,8 +43,7 @@ class QuizzButton extends Component {
     	return (
     		<div style={quizAnswerWrapStyle} onClick={this.onSelect} id={this.props.id}>
                 <div style={quizAnswerStyle}>
-    					{this.props.showsSelectionIndicator? <div style={{position:'absolute', top:'5px', right:'5px'}}> {this.state.isSelected? "✅" : "☑️"} </div> : null}
-    					
+    					{this.props.showsSelectionIndicator? <div style={{position:'absolute', top:'5px', right:'5px'}}> {this.state.isSelected? "✅" : "☑️"} </div> : null}    					
                         <div>{this.props.answer.title? this.props.answer.title : "This answer option is empty. Click \'Edit Quiz\' in order to edit or remove it."}</div>
                         <div>
                         {this.props.answer.image!==""? (
