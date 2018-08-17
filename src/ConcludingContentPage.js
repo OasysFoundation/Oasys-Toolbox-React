@@ -12,6 +12,7 @@ import { Button, Input } from 'reactstrap';
 import RatingBar from './RatingBar'
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
+import SocialSharingButtons from './SocialSharingButtons'
 
 // check if emojis are rendered or not
 function supportsEmoji() {
@@ -96,6 +97,8 @@ class ConcludingContentPage extends Component {
 
         		) : null}
 				
+				<SocialSharingButtons url={this.props.url} author={this.props.author} title={this.props.title} description={this.props.description} />
+
 				</center>
             </div>
         );

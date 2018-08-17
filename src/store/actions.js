@@ -55,7 +55,7 @@ const actions = function (store) { //store for async stuff
 
         onChangeContent(state, id, value, elementChapter) {
 
-            console.log(value, id)
+            console.log(id, value)
             //more verbose, but performant (instead of Json.stringify)
             const currentChapterIdx = state.chapters.findIndex(chapter => chapter.id === elementChapter);
             let elements = state.chapters[currentChapterIdx].elements;
@@ -80,25 +80,6 @@ const actions = function (store) { //store for async stuff
             })
         },
 
-
-        // onChangeContent_old(state, id, value, elementChapter) {
-        //     const clone = JSON.parse(JSON.stringify(state));
-        //     const currentChapter = clone.chapters.find(chapter => chapter.id === elementChapter);
-        //     let elements = currentChapter.elements;
-        //
-        //     const elem = elements.find(el => el.id === id);
-        //     if (!elem) {
-        //         console.log('no element found on change content -- maybe handlechange fired, but element in Chapter that is not active')
-        //         return
-        //     };
-        //
-        //     elem.content = value;
-        //     elem.timestamp = Date.now();
-        //
-        //     currentChapter.elements = elements;
-        //     return clone
-        // },
-
         onChangeActiveChapter(state, id) {
             const index = state.chapters.findIndex(chapter => chapter.id.toString() === id.toString());
             // console.log("new active chapter idx:  ", index)
@@ -116,8 +97,27 @@ const actions = function (store) { //store for async stuff
           //remove link if exists in answer
         },
 
-        createNewChapterLink(fromID, toID) {
+        //usually called after onChangeContent adds new actions
+        updateChapterLinks(state) {
+            const clone = JSON.parse(JSON.stringify(state));
 
+            clone.chapters.forEach(chapter => {
+                chapter.elements.forEach(elem => {
+                    if (elem.type === globals.EDIT_QUIZ) {
+                        if (elem.content.answers) {
+                            const links = elem.content.answers
+                                .filter(answer => answer.action != null)
+                                .map(answerWithLink => answerWithLink.action);
+
+                            chapter.links = links.map(function(link){ return {
+                                eventId: uuidv4(),
+                                chapterId: link
+                            }})
+                        }
+                    }
+                })
+            })
+            return clone;
         },
 
         onAddChapter(state, uid, title) {

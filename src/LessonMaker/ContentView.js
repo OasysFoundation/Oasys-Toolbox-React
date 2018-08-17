@@ -4,6 +4,7 @@ import Element from './Element';
 import ScrollView, {ScrollElement} from "../utils/scroller";
 import {ICON, flatten, isEmpty} from '../utils/trickBox'
 import {Container} from "reactstrap"
+import {isElementEmpty} from "../tools";
 
 
 class ContentView extends Component {
@@ -26,11 +27,20 @@ class ContentView extends Component {
             activeChapterID: this.chapters[0].id,
             activeChapterIndex: 0
         }
-        this.chaptersSeenIDs = [this.state.activeChapterID];
+        // this.chaptersSeenIDs = [this.state.activeChapterID];
 
         this.goToChapter = this.goToChapter.bind(this);
     }
 
+    foldElement(elemID) {
+        //set prop shouldFold
+        //set prop foldedTextonButton
+        //checks in render an replaces with
+    }
+
+    unFoldElement(elemID) {
+
+    }
 
     scrollTo = (name) => {
         this._scroller.scrollTo(name);
@@ -38,20 +48,23 @@ class ContentView extends Component {
     goToNextChapter = () => {
         const idx = this.state.activeChapterIndex;
         //is there more chapters?
-        const nextIdx =  (idx + 1) >= this.chapters.length ? idx : (idx+1);
+        const nextIdx = (idx + 1) >= this.chapters.length ? idx : (idx + 1);
         const nextID = this.chapters[nextIdx].id;
-        this.chaptersSeenIDs.push(nextID);
+
+        // this.chaptersSeenIDs.push(nextID);
 
         this.setState({
             activeChapterIndex: nextIdx,
             activeChapterID: nextID
-        }, () => this.scrollTo(this.chapters[nextIdx].elements[0].id));
-    };
+        }, () => this.scrollTo(this.chapters[nextIdx].elements[0].id, {bottom: '5vh'}));
+    }
+
     goToElementinChapter(nextElementIndex) {
         const nextElementID = this.chapters[this.state.activeChapterIndex].elements[nextElementIndex].id
         this.scrollTo(nextElementID)
 
     }
+
     goToChapter = (sendToChapterID, interactionElementID) => {
 
         console.log("ids", sendToChapterID, interactionElementID, "ids")
@@ -60,13 +73,13 @@ class ContentView extends Component {
             //scroll to next element or (if end of chapter, next elements chapter)
             const currentChapter = this.chapters[this.state.activeChapterIndex]
             const interactionElementIndex = currentChapter.elements.findIndex(el => el.id === interactionElementID);
-            const isLastElement = currentChapter.elements.length-1 <= interactionElementIndex
+            const isLastElement = currentChapter.elements.length - 1 <= interactionElementIndex
 
             console.log("Last element ? ", isLastElement)
             isLastElement ? this.goToNextChapter() : this.goToElementinChapter(interactionElementIndex);
             return
         }
-        this.chaptersSeenIDs.push(sendToChapterID);
+        // this.chaptersSeenIDs.push(sendToChapterID);
         const chapterIndex = this.chapters.findIndex(chapter => chapter.id === sendToChapterID);
         this.setState({
             activeChapterIndex: chapterIndex,
@@ -79,37 +92,31 @@ class ContentView extends Component {
         console.log('ooooo')
         const {allElementsinProject} = this;
         return (
-            <div className="app-body">
-                <main className="main">
-                    <Container fluid className='main-width'>
-                        {
-                            allElementsinProject.map(({id}) => <button className="yoloBut"
-                                                                       onClick={() => this.scrollTo(id)}>{id}</button>)
-                        }
-                        <ScrollView ref={scroller => this._scroller = scroller}>
-                            {/*<div className="scroller">*/}
+            <ScrollView ref={scroller => this._scroller = scroller}>
+                <div className="app-body">
+                    <main className="main">
+                        <Container fluid className='main-width'>
                             <React.Fragment>
                                 {allElementsinProject.map(el => (
 
                                     <ScrollElement key={el.id} name={el.id}>
-                                        <div className="item" hidden={ !( this.chaptersSeenIDs.includes(el.fromChapter) )}>
+                                        <div className="item" hidden={el.fromChapter !== this.state.activeChapterID}>
+                                            {!isElementEmpty(el)
+                                            &&
                                             <Element data={el} id={el.id}
                                                      isEditMode={false}
-                                                     onLearnerInteraction={this.goToChapter}
-                                            />
-                                            {el.id}
+                                                     onLearnerInteraction={this.goToChapter}/>}
                                         </div>
                                     </ScrollElement>))
                                 }
                             </React.Fragment>
-                            {/*</div>*/}
-                        </ScrollView>
-                        <div onClick={() => this.goToNextChapter()}>
-                            {ICON("icon-arrow-down make-big")}
-                        </div>
-                    </Container>
-                </main>
-            </div>
+                            <div onClick={() => this.goToNextChapter()}>
+                                {ICON("icon-arrow-down make-big")}
+                            </div>
+                        </Container>
+                    </main>
+                </div>
+            </ScrollView>
         );
     }
 }

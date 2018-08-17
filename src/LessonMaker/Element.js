@@ -20,7 +20,7 @@ import {
 import 'react-quill/dist/quill.snow.css';
 import actions from "../store/actions";
 import {connect} from "redux-zero/react";
-import {initContent} from "../tools";
+import {isElementEmpty, initContent} from "../tools";
 
 
 //TODO
@@ -54,15 +54,15 @@ class Element extends Component {
         //
         // console.log(storeTimestamp, sessionTimestamp, "TIMESTAMPS")
         //DO NOT CALL setState before session storage!! will override itself
-        this.setState({tempContent: value, timestamp: Date.now()}); //for Quill
-
-        if (shouldInstantUpdate) {
-            this.props.onChangeContent(
-                this.props.data.id,
-                this.state.tempContent,
-                this.fromChapter)
-        }
-
+        this.setState(
+            {tempContent: value, timestamp: Date.now()}, () => {
+                if (shouldInstantUpdate) {
+                    this.props.onChangeContent(
+                        this.props.data.id,
+                        this.state.tempContent,
+                        this.fromChapter)
+                }
+            }); //for Quill
     };
 
     typeToComponent(type) {
@@ -92,8 +92,11 @@ class Element extends Component {
                 render = <FormulaEdit {...params} />
                 break;
             case globals.EDIT_QUIZ:
-                render = <QuizzEdit {...params} chapters={this.props.chapters.map(c => ({title: c.title, id: c.id}))}
-                                    onAddChapter={this.props.onAddChapter}/>
+                render = <QuizzEdit {...params}
+                                    chapters={this.props.chapters.map(c => ({title: c.title, id: c.id}))}
+                                    onAddChapter={this.props.onAddChapter}
+                                    updateChapterLinks = {this.props.updateChapterLinks}
+                />
                 break;
             case globals.EDIT_VIDEO:
                 render = <VideoEdit {...params}/>
@@ -105,6 +108,10 @@ class Element extends Component {
                 return (<div key={"1223"}>not yet implemented</div>)
         }
         return render;
+    }
+
+    componentDidMount() {
+        console.log('empty elements?', isElementEmpty(this.props.data))
     }
 
     componentWillUnmount() {
@@ -170,19 +177,19 @@ Element.propTypes = {
 
 const mapStoreToProps = ({chapters, isEditMode, activeChapterIndex}) => ({chapters, activeChapterIndex, isEditMode});
 
-Element.propTypes = {
-    data: function (props, propName) {
-        // console.log(props, propName, props.data.type, 'proptype check', typeof props.data.content,  typeof initContent(props['type']));
-        if (isEmpty(props.data.content) || typeof props.data.content !== typeof initContent(props.data.type)) {
-            return new Error('' + props.data.id + " , " + props.data.type + " " + "Content does not fit Content Type @ Element")
-        }
-    }
-};
+// Element.defaultPropTypes = {
+//     data: function (props, propName) {
+//         // console.log(props, propName, props.data.type, 'proptype check', typeof props.data.content,  typeof initContent(props['type']));
+//         if (isEmpty(props.data.content) || typeof props.data.content !== typeof initContent(props.data.type)) {
+//             return new Error('' + props.data.id + " , " + props.data.type + " " + "Content does not fit Content Type @ Element")
+//         }
+//     }
+// };
 
 //don't need anything!
 const neededActions = (store) => {
-    const {onChangeContent} = actions();
-    return {onChangeContent}
+    const {onChangeContent, updateChapterLinks} = actions();
+    return {onChangeContent, updateChapterLinks}
 };
 
 //IMPORTANT!! the project data is in the project obj, the rest of the store (action functions) is just flat there

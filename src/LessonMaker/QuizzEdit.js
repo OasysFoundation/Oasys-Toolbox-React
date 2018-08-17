@@ -45,16 +45,18 @@ class QuizzEdit extends Component {
     }
 
     onChangeData(data) {
+        const that = this;
         this.setState({
             question: data.question,
             answers: data.answers,
             quizType: data.quizType
         }, function() {
-            this.props.onChange({
-                question: this.state.question,
-                answers: this.state.answers,
-                quizType: this.state.quizType
-            }, true);
+            that.props.onChange({
+                question: that.state.question,
+                answers: that.state.answers,
+                quizType: that.state.quizType
+            }, true)
+            that.props.updateChapterLinks();
         });
     }
 
@@ -65,7 +67,7 @@ class QuizzEdit extends Component {
     }
 
     onClickSubmitButton() {
-
+        
     }
 
     onClose() {
@@ -153,7 +155,7 @@ class QuizzEdit extends Component {
                 {this.state.quizType === 'multiple-choice'? <Button color="primary" onClick={this.onClickSubmitButton}>Submit</Button> : null}
                 </center>
 
-                {this.state.showsFeedbackPopover? 
+                {this.state.showsFeedbackPopover && this.state.quizType=='single-choice'? 
                 (
                   <Popover placement="top" isOpen={this.state.showsFeedbackPopover} target={'answer-id-' + this.state.selectedAnswerIndex} toggle={this.onCloseFeedbackPopover}>
                   <PopoverHeader>{ feedbackTitle }</PopoverHeader>
