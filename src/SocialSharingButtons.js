@@ -18,26 +18,20 @@ class SocialSharingButtons extends Component {
 		const defaultTitle = 'One of the best explanations for \"' + this.props.title + '\" I\'ve seen so far. Made by ' + this.props.author;
 		return (
 				<div style={{display:'flex', alignItems: 'center', justifyContent: 'center'}}>
-					<i style={iconStyle} className='icon-plus' />
 					<TwitterShareButton url={this.props.url} title={defaultTitle + ' on'} hashtags={['learnWithOasys', 'joinoasys', 'interactiveLearning']}>
-						<i style={iconStyle} className='twitter-square' />
-						T
+						<i style={iconStyle} className='fab fa-twitter-square' />
 					</TwitterShareButton>
 					<FacebookShareButton url={this.props.url} quote={this.props.description} > 
-						<i style={iconStyle} className='facebook-square' />
-						F
+						<i style={iconStyle} className='fab fa-facebook-square' />
 					</FacebookShareButton>
 					<TelegramShareButton url={this.props.url} title={defaultTitle}>
-						<i style={iconStyle} className='telegram' />
-						TG
+						<i style={iconStyle} className='fab fa-telegram' />
 					</TelegramShareButton>
 					<WhatsappShareButton url={this.props.url} title={defaultTitle}>
-						<i style={iconStyle} className='whatsapp' />
-						WA
+						<i style={iconStyle} className='fab fa-whatsapp' />
 					</WhatsappShareButton>
-					<EmailShareButton url={this.props.url} subject={defaultTitle} >
-						<i style={iconStyle} className='email' />
-						E
+					<EmailShareButton url={this.props.url} subject={defaultTitle} body={this.props.description + "… Check it out here: " + this.props.url} >
+						<i style={iconStyle} className='fas fa-envelope' />
 					</EmailShareButton>
 				</div>
 			)
