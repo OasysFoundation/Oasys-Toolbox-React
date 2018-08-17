@@ -1,0 +1,288 @@
+body {
+  font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 700;
+}
+
+header.masthead {
+  position: relative;
+  background-color: #000000;
+  padding-top: 8rem;
+  padding-bottom: 8rem;
+  min-height: 550px;
+}
+
+header.masthead .overlay {
+  position: absolute;
+  background-color: #212529;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0.3;
+}
+
+header.masthead h1 {
+  font-size: 2rem;
+}
+
+header.masthead {
+  z-index: 100;
+  position: relative;
+}
+
+.hero_image {
+  width: 100%;
+  height: auto;
+  text-align: right;
+}
+
+.hero_image img {
+  position: absolute;
+  right: 20px;
+  bottom: 0px;
+  max-width: 70%;
+}
+
+.vertical-center {
+  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 100vh; /* These two lines are counted as one :-)       */
+
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  max-height:200px;
+}
+
+@media (min-width: 768px) {
+  header.masthead {
+    padding-top: 12rem;
+    padding-bottom: 12rem;
+  }
+  header.masthead h1 {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero_image img {
+    display: none;
+  }
+  .logo {
+    max-height:120px;
+  }
+}
+
+
+.showcase .showcase-text {
+  padding: 3rem;
+}
+
+.showcase .showcase-img {
+  min-height: 30rem;
+  background-size: cover;
+}
+
+@media (min-width: 768px) {
+  .showcase .showcase-text {
+    padding: 7rem;
+  }
+}
+
+.features-icons {
+  padding-top: 7rem;
+  padding-bottom: 7rem;
+}
+
+.features-icons .features-icons-item {
+  max-width: 20rem;
+}
+
+.features-icons .features-icons-item .features-icons-icon {
+  height: 7rem;
+}
+
+.features-icons .features-icons-item .features-icons-icon i {
+  font-size: 4.5rem;
+}
+
+.features-icons .features-icons-item:hover .features-icons-icon i {
+  font-size: 5rem;
+}
+
+.testimonials {
+  padding-top: 7rem;
+  padding-bottom: 7rem;
+}
+
+.testimonials .testimonial-item {
+  max-width: 18rem;
+}
+
+.testimonials .testimonial-item img {
+  max-width: 12rem;
+  box-shadow: 0px 5px 5px 0px #adb5bd;
+}
+
+
+
+.call-to-action .overlay {
+  position: absolute;
+  background-color: #212529;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0.3;
+}
+
+footer.footer {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+.navbar-toggle, .icon-bar {
+    border:1px solid orange;
+}
+
+
+.my-container {
+    position: absolute;
+    background: #07575b;
+    overflow: hidden;
+    z-index: -50;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+.my-container:before {
+    content: ' ';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: .15;
+   background-image: url("images/oasys_bg_cropped.gif");
+    background-repeat: no-repeat;
+    background-position: 50% 0;
+    -ms-background-size: cover;
+    -o-background-size: cover;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    background-size: cover;
+}
+
+#particles-js {
+  position: absolute;
+  background-color: #07575b;
+  z-index: -50;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+.rz-small-margin{
+ margin-right: 20rem;
+ margin-left: 20rem;
+ border-color: #07575b;
+}
+.rz-no-border{
+  padding-top: 7em;
+  padding-bottom: 7em;
+}
+
+.rz-no-border-special-1{
+  padding-top: 0em;
+  padding-bottom: 7em;
+}
+.rz-no-border-special-2{
+  padding-top: 7em;
+  padding-bottom: 2em;
+}
+
+.navbar-brand,
+.navbar-nav li a {
+    line-height: 4rem;
+    height: 4rem;
+    padding-top: 0;
+}
+
+.rz-font{
+font-family: 'Open Sans', sans-serif;
+}
+
+.rz-fontsize-sm{
+font-family: 'Open Sans', sans-serif;
+font-size: 1.0em; 
+}
+
+.rz-navbar{
+font-size: 1.2em;
+list-style-type: none;
+}
+.showcase{
+background-color: #ffffff;
+}
+
+.svg {
+    width: 100px;
+    height: 100px;
+}
+svg path,
+svg circle {
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -ms-transition: all .5s ease;
+    -o-transition: all .5s ease;
+}
+svg:hover path {
+    fill: blue;
+}
+
+.scrolled{
+  background:#66a5ad;
+}
+
+.button1 {
+  background-color: #ffffff;
+  margin:0;
+  border-color: #ffffff;
+  color: #000000;
+  } 
+
+.button1:hover{
+  background-color: #66a5ad;
+  border-color: #000000;
+}
+
+.button2 {
+  background-color: #000000;
+  margin:0;
+  border-color: #000000;
+  color: #ffffff;
+  } /* Green */
+
+.button2:hover{
+  background-color: #66a5ad;
+  border-color: #66a5ad;
+  color:#000000;
+}
+
+.h2, h2 {
+    font-size: 2.5rem;
+}
+
