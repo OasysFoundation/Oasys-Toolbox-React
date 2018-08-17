@@ -40,7 +40,9 @@ class QuizzEditModal extends Component {
             showsCreateNewChapterDialog: false,
             newChapterCreatedResolver: null,
             userCreatedChapters: []
-        }
+        };
+
+        this.baseState = JSON.parse(JSON.stringify(this.state));
 
         this.onSelectImage = this.onSelectImage.bind(this);
         this.onClose = this.onClose.bind(this);
@@ -53,6 +55,10 @@ class QuizzEditModal extends Component {
         this.onCreateNewChapter = this.onCreateNewChapter.bind(this);
     }
 
+    resetModalState() {
+        this.setState(this.baseState);
+    }
+
     onSave() {
         this.props.onChange({
             question: this.state.question,
@@ -62,10 +68,15 @@ class QuizzEditModal extends Component {
             actionWrong: this.state.actionWrong
         });
 
+        this.state.userCreatedChapters.forEach(function(chapter) {
+            this.props.onAddChapter(chapter.id, chapter.title);
+        })
+
         this.props.onClose();
     }
 
     onClose() {
+        this.resetModalState();
         this.props.onClose();
     }
 
@@ -93,7 +104,6 @@ class QuizzEditModal extends Component {
             });
             return;
         }
-
 
         const answers = this.state.answers;
         answers[identifier].action = this.getAllChapters()[chapterIndex].id;
@@ -132,7 +142,7 @@ class QuizzEditModal extends Component {
         } else {
             answers[index].correct = !answers[index].correct;
             this.setState({
-                    answers: answers
+                fanswers: answers
             });
         }
         
