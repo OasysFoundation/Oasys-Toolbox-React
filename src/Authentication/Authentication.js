@@ -22,6 +22,7 @@ class Authentication extends Component {
 			showModal:false,
 			modalTitle:"",
 			modalBody:"",
+			//updateStore:this.props.onChange,
 		}
 
 
@@ -76,13 +77,30 @@ class Authentication extends Component {
 	}
 
 	LoginSubmitted(event){
+		let that = this;
+		auth.doSignInWithEmailAndPassword(that.state.email, that.state.password)
+	      .then(() => {
+	        that.setState(() => ({ ...INITIAL_STATE }));
+	        that.setState({
+	        	modalTitle:"Weclome to Oasys",
+	        	modalBody:"You have been logged in successfully",
+	        	showModal:"true",
+	        })
+	        //that.state.updateStore();
+	      })
+	      .catch(error => {
+	        that.setState({
+	        	modalTitle:"Error",
+	        	modalBody:error.message,
+	        	showModal:"true",
+	        });
+	      });
 		
 	}
 
 
 	RegisterSubmitted(){
 		if (this.state.username.indexOf('-') > -1){
-			this.setState(() => ({ ...INITIAL_STATE }));
 	        this.setState({
 	        	modalTitle:"Error",
 	        	modalBody:"Usernames cannot contain hyphens (-)",
@@ -117,6 +135,7 @@ class Authentication extends Component {
 										        	modalBody:"Your account was created successfully",
 										        	showModal:"true",
 										        })
+										        //that.state.updateStore();
 										    })
 			                                .catch(function (error) {
 										        that.setState({
@@ -163,6 +182,7 @@ class Authentication extends Component {
 	        	modalBody:"Your password has been reset! Please check your email to retrieve your new password.",
 	        	showModal:"true",
 	        })
+	        //this.state.updateStore();
 	      })
 	      // FAILURE
 	      .catch(error => {
@@ -186,6 +206,8 @@ class Authentication extends Component {
 				        	modalBody:"Your password has been changed!",
 				        	showModal:"true",
 				        });
+						//that.state.updateStore();
+
 					})
 					.catch(function(error){
 						that.setState({
