@@ -27,7 +27,7 @@ const data = {
                     id: "embed678",
                     type: 2,
                     content: {
-                        id: "http://lab.concord.org/embeddable.html#interactives/sam/intermolecular-attractions/3-1-oil-and-water.json"
+                        id: ''
                     }
                 },{
                     id: "schnuckeldi",

@@ -109,7 +109,6 @@ class EmbedEdit extends Component {
             return e.value==this.props.data.id;
         });
         let embedElem = candidates[0];
-        
         return (
             <div className='embed-edit'>
                 {this.props.isEditMode 
