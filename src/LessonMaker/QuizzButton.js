@@ -34,7 +34,8 @@ class QuizzButton extends Component {
             width: this.props.width,
             minHeight: this.props.height,
             backgroundColor: this.props.color,
-            position: 'relative'
+            position: 'relative',
+            cursor: 'pointer'
         };
 
     	return (
