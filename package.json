@@ -43,6 +43,7 @@
     "react-share": "^2.3.0",
     "react-spinners": "^0.4.4",
     "react-tooltip": "^3.6.1",
+    "react-visibility-sensor": "^3.11.1",
     "reactstrap": "^6.3.1",
     "redux-zero": "^4.13.1",
     "sass-loader": "^7.1.0",
