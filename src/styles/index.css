@@ -427,3 +427,11 @@ html, body, svg, text {
 .popover-inner .btn {
     font-size: 1.25rem;
 }
+
+
+/* ------------------- content view ------------------- */
+
+.oasys .card.content-view {
+    padding-top: 30px;
+    border: none;
+}
