@@ -30,6 +30,8 @@ import ConcludingContentPage from './ConcludingContentPage'
 import store from "./store/store";
 import ContentView from "./LessonMaker/ContentView";
 
+import Bitmoji from './Bitmoji'
+
 // in the coreui template, the following four 4 lines are imported globally in App.js
 // import '@coreui/icons/css/coreui-icons.min.css';
 // import 'flag-icon-css/css/flag-icon.min.css';
@@ -65,6 +67,7 @@ class Index extends Component {
                                 <Route exact path="/about" render={(props) => <AboutPage {...props} />} />
                                 <Route exact path="/account" render={(props) => <Account {...props} />} />
                                 <Route exact path="/conclusion" render={(props) => <ConcludingContentPage author="Mark22" {...props} />} />
+                                <Route exact path="/bitmoji" render={(props) => <Bitmoji {...props} />} />
                                 {/*<Route path="/data" render={(props)=>( this.state.authUser ? <DataViewCreator authUser={this.state.authUser} /> : null)} />*/}
                                 {/*<Route path="/data/preview" render={(props)=>( this.state.authUser ? <DataViewCreator authUser={this.state.authUser} /> : null)} />*/}
                                 {/*<Route path="/explore" render={(props)=>( this.state.authUser ? <ContentSelection authUser={this.state.authUser} /> : null)} />*/}
