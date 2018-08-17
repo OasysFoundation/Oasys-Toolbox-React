@@ -73,7 +73,6 @@ class QuizzEdit extends Component {
                 answers: that.state.answers,
                 quizType: that.state.quizType
             }, true)
-            that.props.updateChapterLinks();
         });
     }
 

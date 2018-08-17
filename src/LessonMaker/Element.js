@@ -11,7 +11,7 @@ import QuizzEdit from './QuizzEdit'
 import VideoEdit from './VideoEdit'
 import EmbedEdit from './EmbedEdit'
 
-import {saveToSessionStorage, getContentFromSessionStorage, isEmpty} from "../utils/trickBox";
+import {getContentFromSessionStorage} from "../utils/trickBox";
 import {
     Card,
     CardBody
@@ -55,12 +55,14 @@ class Element extends Component {
         // console.log(storeTimestamp, sessionTimestamp, "TIMESTAMPS")
         //DO NOT CALL setState before session storage!! will override itself
         this.setState(
-            {tempContent: value, timestamp: Date.now()}, () => {
+            () => ({tempContent: value, timestamp: Date.now()}), () => {
                 if (shouldInstantUpdate) {
+                    console.log("TEMP CONTENT ON ELEMENT AT", this.state.tempContent)
                     this.props.onChangeContent(
                         this.props.data.id,
                         this.state.tempContent,
-                        this.fromChapter)
+                        this.fromChapter);
+                    this.props.updateChapterLinks()
                 }
             }); //for Quill
     };
@@ -95,7 +97,6 @@ class Element extends Component {
                 render = <QuizzEdit {...params}
                                     chapters={this.props.chapters.map(c => ({title: c.title, id: c.id}))}
                                     onAddChapter={this.props.onAddChapter}
-                                    updateChapterLinks = {this.props.updateChapterLinks}
                 />
                 break;
             case globals.EDIT_VIDEO:

@@ -100,9 +100,10 @@ const actions = function (store) { //store for async stuff
         //usually called after onChangeContent adds new actions
         updateChapterLinks(state) {
             const clone = JSON.parse(JSON.stringify(state));
+            console.log(clone.chapters, "chaps");
 
             clone.chapters.forEach(chapter => {
-                chapter.elements.forEach(elem => {
+                chapter.elements.forEach((elem,i) => {
                     if (elem.type === globals.EDIT_QUIZ) {
                         if (elem.content.answers) {
                             const links = elem.content.answers
@@ -112,7 +113,9 @@ const actions = function (store) { //store for async stuff
                             chapter.links = links.map(function(link){ return {
                                 eventId: uuidv4(),
                                 chapterId: link
-                            }})
+                            }});
+
+                            console.log(chapter.id, i , chapter.links)
                         }
                     }
                 })
