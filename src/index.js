@@ -22,6 +22,7 @@ import './styles/index.css';
 
 import Header from './Header';
 import Navbar from './Navbar';
+import Footer from "./Footer"
 import FontAwesomeImports from "./FontAwesomeImports"
 
 import {Provider} from "redux-zero/react";
@@ -110,8 +111,7 @@ class Index extends Component {
 
                                 {/*<Route component={NotFoundPage}/>*/}
                             </Switch>
-
-
+                            <Footer/>
                         </div>
                     </Router>
                 </Provider>
