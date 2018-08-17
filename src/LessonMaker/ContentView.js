@@ -11,8 +11,8 @@ class ContentView extends Component {
     constructor(props) {
         super(props)
 
-        this.project = JSON.parse(JSON.stringify(this.props.project));
-        this.chapters = this.project.chapters;
+
+        this.chapters = JSON.parse(JSON.stringify(this.props.chapters));
         //inject fromChapter prop to all elements;
         this.chapters
             .forEach(chapter => chapter.elements
@@ -57,6 +57,7 @@ class ContentView extends Component {
             activeChapterIndex: nextIdx,
             activeChapterID: nextID
         }, () => this.scrollTo(this.chapters[nextIdx].elements[0].id, {bottom: '5vh'}));
+        this.props.o
     }
 
     goToElementinChapter(nextElementIndex) {
@@ -84,7 +85,13 @@ class ContentView extends Component {
         this.setState({
             activeChapterIndex: chapterIndex,
             activeChapterID: sendToChapterID
-        }, () => this.scrollTo(this.chapters[chapterIndex].elements[0].id));
+        }, () => {
+            this.scrollTo(this.chapters[chapterIndex].elements[0].id);
+
+            //highlight the active chapter in TOC while previewing
+            //TODO not really working here...
+            this.props.onChangeActiveChapter(sendToChapterID)
+        });
 
     }
 
@@ -121,8 +128,5 @@ class ContentView extends Component {
     }
 }
 
-ContentView.propTypes = {
-    elements: PropTypes.array.isRequired
-};
 
 export default ContentView;
