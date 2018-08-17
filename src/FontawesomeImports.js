@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faLightbulb, faPencilAlt, faUser} from '@fortawesome/free-solid-svg-icons'
 
 //Social Icons
-import {faGithub, faInstagram, faTwitter} from '@fortawesome/free-brands-svg-icons'
+import {faGithub, faInstagram, faTwitter, faLinkedinIn} from '@fortawesome/free-brands-svg-icons'
 
 //Modal Icons
 import {faFlag, faComment, faLayerGroup} from '@fortawesome/free-solid-svg-icons'
@@ -20,7 +20,7 @@ import {faJs} from '@fortawesome/free-brands-svg-icons'
 library.add(faLightbulb,faPencilAlt,faUser)
 
 //Social Icons
-library.add(faGithub, faInstagram, faTwitter)
+library.add(faGithub, faInstagram, faTwitter, faLinkedinIn)
 
 //Modal Icons
 library.add(faFlag, faComment, faLayerGroup)

@@ -1,5 +1,7 @@
  import React, {Component} from 'react'
  import './About.css'
+ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 
  //Image imports, can probably be optimized
  import robbie from "./images/robbie.jpeg"
@@ -11,6 +13,7 @@
  import learningEffectiveness from "./images/learningEffectiveness.png"
 
 
+
 class About extends Component{
   constructor(props){
     super(props)
@@ -20,6 +23,8 @@ class About extends Component{
     
       <div>
         <header className="masthead text-white text-center vertical-center">
+          <div className="my-container">
+          </div>
           <div className="container h-100">
             <div className="row h-100">
               <div className="col-lg-8 mx-auto text-center">
@@ -27,7 +32,7 @@ class About extends Component{
                 <p align="left" className="text-center lead mb-5 rz-font text-white">We aim to connect teachers, students, and coders to make the creation of interactive educational contents easy, fun and rewarding.</p>
                 <div className="form-row mx-auto text-center">
                   <div className="mx-auto col-8 mb-2">
-                    <form action="https://app.joinoasys.org">
+                    <form action="/">
                       <button type="submit" className="btn btn-block btn-lg btn-primary button1 pl-0 pr-0 mx-auto rz-font"><small>Take Me to Oasys!</small></button>
                     </form>
                   </div>
@@ -117,8 +122,8 @@ class About extends Component{
                   <img className="img-fluid rounded-circle mb-3" src={robbie} alt="Picture of Robbie Zuazua" />
                   <h5>Robbie Zuazua</h5>
                   <p className="font-weight-light mb-0">Founder, Software Engineer, Business Operations, Climber</p>
-                  <p className="font-weight-light mb-0"><a href="https://www.linkedin.com/in/robert-zuazua-231795a8" target="_blank"> <i className="fa fa-linkedin" /> LinkedIn</a></p>
-                  <p className="font-weight-light mb-0"><a href="https://github.com/RobZuazua" target="_blank"> <i className="fa fa-github" /> Github</a></p>
+                  <p className="font-weight-light mb-0"><a href="https://www.linkedin.com/in/robert-zuazua-231795a8" target="_blank"> <FontAwesomeIcon icon={['fab', 'linkedin-in']} className="faAlignRight marginRight5" size="lg"/> LinkedIn</a></p>
+                  <p className="font-weight-light mb-0"><a href="https://github.com/RobZuazua" target="_blank"> <FontAwesomeIcon icon={['fab', 'github']} className="faAlignRight marginRight5" size="lg"/> Github</a></p>
                 </div>
               </div>
               <div className="col-lg-3 mx-auto">
@@ -126,9 +131,9 @@ class About extends Component{
                   <img className="img-fluid rounded-circle mb-3" src={frederik} alt="Picture of Frederik Riedel" />
                   <h5>Frederik Riedel</h5>
                   <p className="font-weight-light mb-0">Founder, Software Engineer, Platform Design, Climber</p>
-                  <p className="font-weight-light mb-0"><a href="https://www.linkedin.com/in/frederik-riedel" target="_blank"> <i className="fa fa-linkedin" /> LinkedIn</a></p>
-                  <p className="font-weight-light mb-0"><a href="https://twitter.com/frederikriedel" target="_blank"> <i className="fa fa-twitter" /> Twitter</a></p>
-                  <p className="font-weight-light mb-0"><a href="https://github.com/frogg" target="_blank"> <i className="fa fa-github" /> Github</a></p>
+                  <p className="font-weight-light mb-0"><a href="https://www.linkedin.com/in/frederik-riedel" target="_blank"> <FontAwesomeIcon icon={['fab', 'linkedin-in']} className="faAlignRight marginRight5" size="lg"/> LinkedIn</a></p>
+                  <p className="font-weight-light mb-0"><a href="https://twitter.com/frederikriedel" target="_blank"> <FontAwesomeIcon icon={['fab', 'twitter']} className="faAlignRight marginRight5" size="lg"/> Twitter</a></p>
+                  <p className="font-weight-light mb-0"><a href="https://github.com/frogg" target="_blank"> <FontAwesomeIcon icon={['fab', 'github']} className="faAlignRight marginRight5" size="lg"/> Github</a></p>
                 </div>
               </div>
               <div className="col-lg-3 mx-auto">
@@ -136,8 +141,8 @@ class About extends Component{
                   <img className="img-fluid rounded-circle mb-3" src={daniel} alt="Picture of Daniel Renz" />
                   <h5>Daniel Renz</h5>
                   <p className="font-weight-light mb-0">Founder, Machine Learning PhD, Neuroscience of Learning, Surfer</p>
-                  <p className="font-weight-light mb-0"><a href="https://www.linkedin.com/in/daniel-renz-22045b9/" target="_blank"> <i className="fa fa-linkedin" /> LinkedIn</a></p>
-                  <p className="font-weight-light mb-0"><a href="https://github.com/dlrenz" target="_blank"> <i className="fa fa-github" /> Github</a></p>
+                  <p className="font-weight-light mb-0"><a href="https://www.linkedin.com/in/daniel-renz-22045b9/" target="_blank"> <FontAwesomeIcon icon={['fab', 'linkedin-in']} className="faAlignRight marginRight5" size="lg"/> LinkedIn</a></p>
+                  <p className="font-weight-light mb-0"><a href="https://github.com/dlrenz" target="_blank"> <FontAwesomeIcon icon={['fab', 'github']} className="faAlignRight marginRight5" size="lg"/> Github</a></p>
                 </div>
               </div>
               <div className="col-lg-3 mx-auto">
@@ -145,8 +150,8 @@ class About extends Component{
                   <img className="img-fluid rounded-circle mb-3" src={markus} alt="Picture of Markus Strasser" />
                   <h5>Markus Strasser</h5>
                   <p className="font-weight-light mb-0">Founder, Software Engineer, Game Creator, VR/AR, Artist</p>
-                  <p className="font-weight-light mb-0"><a href="https://www.linkedin.com/in/markus-strasser-3098b4165/" target="_blank"> <i className="fa fa-linkedin" /> LinkedIn</a></p>
-                  <p className="font-weight-light mb-0"><a href="https://github.com/cocokiri" target="_blank"> <i className="fa fa-github" /> Github</a></p>
+                  <p className="font-weight-light mb-0"><a href="https://www.linkedin.com/in/markus-strasser-3098b4165/" target="_blank"> <FontAwesomeIcon icon={['fab', 'linkedin-in']} className="faAlignRight marginRight5" size="lg"/> LinkedIn</a></p>
+                  <p className="font-weight-light mb-0"><a href="https://github.com/cocokiri" target="_blank"> <FontAwesomeIcon icon={['fab', 'github']} className="faAlignRight marginRight5" size="lg"/> Github</a></p>
                 </div>
               </div>
             </div>
