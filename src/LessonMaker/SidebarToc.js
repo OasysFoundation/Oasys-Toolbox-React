@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
 import * as tocjs from '../assets/scripts/toc.js'
-import mapStoreToProps from "../store/mapStoreToProps";
 import actions from "../store/actions";
 import {connect} from "redux-zero/react";
 
@@ -50,7 +49,7 @@ class SidebarToc extends Component {
     }
 
     updateToc() {
-        this.chaptersExt = this.props.chapters;
+        this.chaptersExt = this.props.chaptersLight;
         let idobj = {};
         this.chaptersExt.map((e, i) => idobj[e.id] = i);
         this.chaptersExt.forEach((e, i) => {
@@ -67,7 +66,7 @@ class SidebarToc extends Component {
         tocInfo = tocjs.sortIntoTocLevels(tocInfo, this.chaptersExt, mainPath);
         tocInfo = tocjs.reorderX(tocInfo);
         this.tocInfo = tocjs.insertArrowLocs(tocInfo, this.opt);
-        console.log(this.tocInfo)
+
         let nLevels = 1 + Math.max(...this.tocInfo.map(e => e.level));
         let newHeight = nLevels * this.opt.rectHeight + (nLevels - 1) * this.opt.gapy;
         if (newHeight!==this.state.height) {
@@ -108,6 +107,7 @@ class SidebarToc extends Component {
         if (this.mounted) {
             this.drawToc();
         }
+        console.log('toc re-renders');
         return (
             <div>
                 <svg
@@ -129,10 +129,11 @@ class SidebarToc extends Component {
 
 SidebarToc.propTypes = {
     onChangeActiveChapter: PropTypes.func.isRequired,
-    chapters: PropTypes.array.isRequired,
+    chaptersLight: PropTypes.array.isRequired,
     activeChapterIndex: PropTypes.number.isRequired
 };
 
+/*
 export default connect(mapStoreToProps, actions)((propsFromStore) => {
     const {onChangeActiveChapter, project} = propsFromStore;
     const {chapters, activeChapterIndex} = project;
@@ -142,3 +143,19 @@ export default connect(mapStoreToProps, actions)((propsFromStore) => {
         activeChapterIndex
     });
 });
+*/
+
+
+
+
+
+const mapStoreToProps = ({activeChapterIndex, chapters}) => ({chaptersLight: chapters.map(c => ({title:c.title, id: c.id, links: c.links})) , activeChapterIndex});
+
+//don't need anything!
+const neededActions = (store) => {
+    const {onChangeActiveChapter} = actions();
+    return {onChangeActiveChapter}
+};
+
+//IMPORTANT!! the project data is in the project obj, the rest of the store (action functions) is just flat there
+export default connect(mapStoreToProps, actions)(SidebarToc);

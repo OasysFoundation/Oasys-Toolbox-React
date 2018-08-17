@@ -38,8 +38,11 @@ class QuizzEditModal extends Component {
             actionCorrect: props.actionCorrect? props.actionCorrect : null,
             actionWrong: props.actionWrong? props.actionWrong : null,
             showsCreateNewChapterDialog: false,
-            newChapterCreatedResolver: null
-        }
+            newChapterCreatedResolver: null,
+            userCreatedChapters: []
+        };
+
+        this.baseState = JSON.parse(JSON.stringify(this.state));
 
         this.onSelectImage = this.onSelectImage.bind(this);
         this.onClose = this.onClose.bind(this);
@@ -52,6 +55,10 @@ class QuizzEditModal extends Component {
         this.onCreateNewChapter = this.onCreateNewChapter.bind(this);
     }
 
+    resetModalState() {
+        this.setState(this.baseState);
+    }
+
     onSave() {
         this.props.onChange({
             question: this.state.question,
@@ -61,41 +68,45 @@ class QuizzEditModal extends Component {
             actionWrong: this.state.actionWrong
         });
 
+        this.state.userCreatedChapters.forEach(function(chapter) {
+            this.props.onAddChapter(chapter.id, chapter.title);
+        })
+
         this.props.onClose();
     }
 
     onClose() {
+        this.resetModalState();
         this.props.onClose();
     }
 
     onSelectAction(identifier, chapterIndex) {
 
-        if (chapterIndex >= this.props.chapters.length) {
-            console.log("create new chapter!");
+        if (chapterIndex >= this.getAllChapters().length) {
             const that = this;
-            this.createNewChapter().then(function() {
-                that.onSelectAction(identifier, chapterIndex);
+            this.createNewChapter().then(function(newChapter) {
+                const newChapterIndex = that.chapterIndexForIdentifier(newChapter.id);
+                that.onSelectAction(identifier, newChapterIndex);
             });
             return;
         }
 
         if (identifier === 'action-correct') {
             this.setState({
-                actionCorrect: this.props.chapters[chapterIndex].id
+                actionCorrect: this.getAllChapters()[chapterIndex].id
             });
             return;
         }
 
         if (identifier === 'action-wrong') {
             this.setState({
-                actionWrong: this.props.chapters[chapterIndex].id
+                actionWrong: this.getAllChapters()[chapterIndex].id
             });
             return;
         }
 
-
         const answers = this.state.answers;
-        answers[identifier].action = this.props.chapters[chapterIndex].id;
+        answers[identifier].action = this.getAllChapters()[chapterIndex].id;
 
         this.setState({
             answers: answers
@@ -131,7 +142,7 @@ class QuizzEditModal extends Component {
         } else {
             answers[index].correct = !answers[index].correct;
             this.setState({
-                    answers: answers
+                fanswers: answers
             });
         }
         
@@ -239,8 +250,7 @@ class QuizzEditModal extends Component {
     }
 
     chapterTitleForIdentifier(identifier) {
-
-        return this.props.chapters.reduce(function(result, currentChapter) { 
+        return this.getAllChapters().reduce(function(result, currentChapter) { 
             if (currentChapter.id === identifier) {
                 return currentChapter;
             }
@@ -248,8 +258,23 @@ class QuizzEditModal extends Component {
         }).title;
     }
 
+    chapterIndexForIdentifier(identifier) {
+        var chapterIndex = null;
+        this.getAllChapters().forEach(function(chapter, index) {
+            if (chapter.id == identifier) {
+                chapterIndex = index;
+            }
+        });
+        return chapterIndex;
+    }
+
+    getAllChapters() {
+        return this.state.userCreatedChapters.concat(this.props.chapters);
+    }
+
     getActionMenuItems() {
-        var menuItems = this.props.chapters.map(function(element) { return "Go to " + element.title + "…"});
+        
+        var menuItems = this.getAllChapters().map(function(element) { return "Go to " + element.title + "…"});
         menuItems.push("Create new Chapter…");
         return menuItems;
     }
@@ -275,10 +300,20 @@ class QuizzEditModal extends Component {
 
     onCreateNewChapter(newChapterName) {
         const newUuid = uuidv4();
-        this.props.onAddChapter(newUuid, newChapterName);
-        this.state.newChapterCreatedResolver({
+            
+        const userCreatedChapters = this.state.userCreatedChapters;
+        userCreatedChapters.push({
+            title: newChapterName,
+            id: newUuid
+        });
+
+        this.setState({
+            userCreatedChapters: userCreatedChapters
+        }, function() {
+            this.state.newChapterCreatedResolver({
                 title: newChapterName,
-                identifier: newUuid
+                id: newUuid
+            });
         });
     }
 
