@@ -11,15 +11,17 @@ export function longestPath(graph) {
     let pathCosts = [];
     function findAllPaths(idx, currentCost, currentPath) {
         currentPath.push(idx);
-        if (graph[idx].linkIdx.length===0) {
-            pathCosts.push(currentCost);
-            paths.push(currentPath);
-        }
+        let hasNext = false;
         for (let i = 0; i < graph[idx].linkIdx.length; i++) {
             let child = graph[idx].linkIdx[i];
             if (child > idx) {
                 findAllPaths(child, currentCost+1, currentPath.slice());
+                hasNext = true;
             }
+        }
+        if (graph[idx].linkIdx.length===0 || hasNext) {
+            pathCosts.push(currentCost);
+            paths.push(currentPath);
         }
     }
     findAllPaths(start, 1, []);
@@ -57,12 +59,13 @@ export function sortIntoTocLevels(tocInfo, chapters, mainPath) {
         // find first element this one points to
         let nextElem = Math.min(...chapters[idx].linkIdx.filter(e=>e>idx));
         // how many possible levels?
-        let posrefs = tocInfo.map(e=>e.idx).filter(e=>e>prevElem&&e<nextElem);
+        let posrefs = tocInfo.map(e=>e.idx).filter(e=>e>prevElem&&(e<nextElem||!isFinite(nextElem)));
         let poslevs = tocInfo.filter(e=>posrefs.indexOf(e.idx) >= 0).map(e=>e.level);
         // console.log(idx + ": " + prevElem + " - " + nextElem + " --> " + poslevs);
         // for now, always take the first possible level. Can there be none?
         if (poslevs.length===0) {
-            throw new Error("TOC: Cannot find placement for all elements off the longest path.")
+            console.log("TOC: Cannot find placement for all elements off the longest path.");
+            poslevs = [mainPath.length];
         }
         addTocInfo.push({
             idx: idx,
@@ -78,12 +81,14 @@ export function sortIntoTocLevels(tocInfo, chapters, mainPath) {
     // find final element and make sure it is at the highest level
     let fin = tocInfo.filter(e=>e.linkIdx.length===0);
     if (fin.length===0) {
-        throw new Error("No final chapter! (The final chapter cannot have any links.");
-    }
-    fin = fin[0]
-    let levels = tocInfo.map(e=>e.level);
-    if (fin.level < Math.max(...levels) || levels.filter(e=>e===fin.level).length > 1) {
-        fin.level = Math.max(...levels) + 1;
+        console.log("TOC: No final chapter! (The final chapter cannot have any links)");
+        let fin = [tocInfo[Math.max(...tocInfo.map(e=>e.level))]];
+    } else {
+        fin = fin[0];
+        let levels = tocInfo.map(e=>e.level);
+        if (fin.level < Math.max(...levels) || levels.filter(e=>e===fin.level).length > 1) {
+            fin.level = Math.max(...levels) + 1;
+        }
     }
     return tocInfo;
 }
