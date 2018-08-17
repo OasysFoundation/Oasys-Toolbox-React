@@ -160,7 +160,7 @@ class QuizzEdit extends Component {
                 <center>
                 {this.props.isEditMode? <Button color="primary" onClick={this.onClickEditButton}>Edit Quiz</Button> : null}
                 <h1>{this.state.question.title? this.state.question.title : "This Quiz has no Question, yet."}</h1>
-                {this.state.question.title? null : <p style={{marginBottom:'10px'}}>Click 'Edit Quiz' to edit the question and answers.</p>}
+                {this.state.question.title? null : <p style={{marginBottom:'10px', maxWidth:'350px'}}>Click 'Edit Quiz' to edit the question and answers, and to chose between single choice or multiple choice.</p>}
                 <img src={this.state.question.image} alt="" style={{maxWidth:'80%'}}/>
                 
             	<div style={containerStyle}>
