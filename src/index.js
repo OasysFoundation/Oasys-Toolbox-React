@@ -9,7 +9,6 @@ import {withRouter} from 'react-router'
 import LessonMaker from './LessonMaker/LessonMaker'
 import ContentSelection from './ContentSelection'
 import DataViewCreator from './DataView/DataViewCreator'
-import AboutPage from './AboutPage'
 import Account from './Account'
 
 import {AppHeader} from '@coreui/react';
@@ -22,7 +21,9 @@ import './styles/index.css';
 
 import Header from './Header';
 import Navbar from './Navbar';
-import Footer from "./Footer"
+import Footer from "./Footer";
+import About from "./About"
+
 import FontAwesomeImports from "./FontAwesomeImports"
 
 import {Provider} from "redux-zero/react";
@@ -78,7 +79,7 @@ class Index extends Component {
                                 <Route exact path="/learn" render={(props) => <ContentSelection {...props} />}/>
                                 <Route exact path="/create" render={(props) => <LessonMaker {...props} />}/>
                                 <Route exact path="/data" render={(props) => <DataViewCreator {...props} />}/>
-                                <Route exact path="/about" render={(props) => <AboutPage {...props} />}/>
+                                <Route exact path="/about" render={(props) => <About {...props} />}/>
                                 <Route exact path="/account" render={(props) => <Account {...props} />}/>
                                 <Route exact path="/conclusion"
                                        render={(props) => <ConcludingContentPage url="https://joinoasys.org"
