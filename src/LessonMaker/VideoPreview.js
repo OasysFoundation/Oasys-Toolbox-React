@@ -9,6 +9,31 @@ const playerHeight = '360px';
 
 class VideoPreview extends Component {
 
+	constructor(props) {
+		super(props);
+		this.onPlay = this.onPlay.bind(this);
+		this.onPause = this.onPause.bind(this);
+		this.onEnded = this.onEnded.bind(this);
+	}
+
+	onPlay(){
+		if (!this.props.isEditMode) {
+			console.log('play: '  + this.props.elementId);
+		}
+	}
+
+	onPause(){
+		if (!this.props.isEditMode) {
+			console.log('pause: '  + this.props.elementId);
+		}
+	}
+
+	onEnded(){
+		if (!this.props.isEditMode) {
+			console.log('end: '  + this.props.elementId);
+		}
+	}
+
 	render(){
 		// &modestbranding=1&showinfo=0
 		let youtubeConfig = {
@@ -33,6 +58,9 @@ class VideoPreview extends Component {
 	                  playing={false}
 	                  width={playerWidth}
 	                  height={playerHeight}
+	                  onPlay={this.onPlay}
+	                  onPause={this.onPause}
+	                  onEnded={this.onEnded}
 	                />
                 </div>
             </div>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import {
   FacebookShareButton,
@@ -37,6 +38,13 @@ class SocialSharingButtons extends Component {
 			)
 	}
 
+}
+
+SocialSharingButtons.propTypes = {
+    title: PropTypes.string.isRequired,
+    author: PropTypes.string.isRequired,
+    url: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
 }
 
 export default SocialSharingButtons;
