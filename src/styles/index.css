@@ -412,3 +412,26 @@ html, body, svg, text {
 .oasys .dataview .medgrey {
     color: #626970;
 }
+
+
+/* ------------------- quiz editor ------------------- */
+
+.popover-inner h3.popover-header {
+    font-size: 1.25rem;
+}
+
+.popover-inner .popover-body {
+    font-size: 1.25rem;
+}
+
+.popover-inner .btn {
+    font-size: 1.25rem;
+}
+
+
+/* ------------------- content view ------------------- */
+
+.oasys .card.content-view {
+    padding-top: 30px;
+    border: none;
+}

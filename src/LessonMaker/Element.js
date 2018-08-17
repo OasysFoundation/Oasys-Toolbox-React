@@ -154,7 +154,7 @@ class Element extends Component {
                                 {this.typeToComponent(type)}
                             </FadeableCard>
                             :
-                            <Card className="card-fancy has-shadow">
+                            <Card className="card-fancy has-shadow card content-view">
                                 <CardBody>
                                     <VisibilitySensor onChange={this.changeVisibility}/>
                                     {this.typeToComponent(type)}

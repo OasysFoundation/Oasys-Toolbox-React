@@ -154,6 +154,9 @@ export function insertArrowLocs(tocInfo, opt) {
         elem.xarrow = [];
         for (let j=0; j<elem.linkIdx.length; j++) {
             let link = tocInfo[tocIdx.indexOf(elem.linkIdx[j])];
+            if (link===undefined) {
+                continue;
+            }
             let loc = (Math.min(link.xmax,elem.xmax) + Math.max(link.xmin,elem.xmin)) / 2;
             // console.log("[" + link.xmin + "," + link.xmax + "]; " + "[" + elem.xmin + "," + elem.xmax + "]" + "-->" + loc)
             for (let k=Math.min(elem.level, link.level); k<Math.max(elem.level, link.level); k++) {
@@ -222,6 +225,9 @@ export function drawConnections(tocInfo, opt){
         let links = tocInfo[i].linkIdx;
         for (let j=0; j<links.length; j++) {
             let elem = tocInfo.filter(e=>e.idx === links[j])[0];
+            if (elem===undefined) {
+                continue;
+            }
             let y1 = tocInfo[i].level * (opt.gapy + opt.rectHeight);
             let y2 = elem.level * (opt.gapy + opt.rectHeight);
             let x = Math.round(opt.totalWidth*tocInfo[i].xarrow[j]);

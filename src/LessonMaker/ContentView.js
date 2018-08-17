@@ -117,10 +117,12 @@ class ContentView extends Component {
                                     </ScrollElement>))
                                 }
                             </React.Fragment>
-                            <div onClick={() => this.goToNextChapter()}>
-                                {ICON("icon-arrow-down make-big")}
-                            </div>
                         </Container>
+                        <center>
+                            <div onClick={() => this.goToNextChapter()}>
+                                {ICON("icon-arrow-down", 40)}
+                            </div>
+                        </center>
                     </main>
                 </div>
             </ScrollView>
