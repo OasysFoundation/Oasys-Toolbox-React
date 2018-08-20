@@ -1,4 +1,5 @@
 import glb from "./globals";
+import store from './store/store'
 
 //READ if we are in DEV(npm start) or PROD (npm run build) and change the API LOCATION accordingly
 const DEV = process.env.NODE_ENV === 'development';
@@ -20,6 +21,13 @@ console.log('BACKEND API : ', BASE_URL)
 
 //Markus: I use a Promise instead of a callback so you can chain
 //with .then and .catch (errorhandling) inside the component and
+
+function getIdTokenFromStore() {
+    const idToken = store.getState().user.idToken;
+    if (! idToken) throw Error('no idToken in store @ api call')
+    else return idToken
+}
+
 
 const api = {
     getContentsForCreator: function (user) {
@@ -95,28 +103,37 @@ const api = {
             })
         });
     },
-    postUserContentAccess(interactionData, token) {
+    postUserContentAccess(interactionData) {
+        const token = getIdTokenFromStore()
         const url = `${BASE_URL}saveUserContentAccess/`
         //uid
         return post(url, token, interactionData)
     },
-    postRating(ratingData, token) {
+    postRating(ratingData) {
+        const token = getIdTokenFromStore()
+
         //contentOwner, contentName, rating, userWhoRates,
         const url = `${BASE_URL}rate/`;
         ///${contentOwner}/${contentName}/${rating}/${userWhoRates}
         //uid
         return post(url, token, ratingData)
     },
-    postNewUserName(userData, token) {
+    postNewUserName(userData) {
+        const token = getIdTokenFromStore()
+
         const url = BASE_URL + "newUsername/" 
         return post(url, token, userData);
     },
-    postWalletId(walletData, token) {
+    postWalletId(walletData) {
+        const token = getIdTokenFromStore()
+
         const url = BASE_URL + "postWalletId/"
         return post(url, token, walletData);
     },
     /*Pass data in URL until we figure out how to refactor this one*/
-    postTitlePic(username, contentId, data, uid, token) {
+    postTitlePic(username, contentId, data, uid) {
+        const token = getIdTokenFromStore()
+
         const url = BASE_URL + "uploadTitle/" + username + "/" + contentId;
         return fetch(url, {
             method: 'POST',
@@ -128,7 +145,9 @@ const api = {
         })
     },
     /*Pass data in URL until we figure out how to refactor this one*/
-    postProfilePic(uid, data, token) {
+    postProfilePic(uid, data) {
+        const token = getIdTokenFromStore()
+
         const url = BASE_URL + "uploadProfilePic/" + uid;
         return fetch(url, {
             method: 'POST',
@@ -139,11 +158,15 @@ const api = {
             })
         })
     },
-    postComment(commentData, token) {
+    postComment(commentData) {
+        const token = getIdTokenFromStore()
+
         const url = `${BASE_URL}comment/`;
         return post(url, token, commentData)
     },
-    postContent(contentData, token){
+    postContent(contentData){
+        const token = getIdTokenFromStore()
+
         const url = `${BASE_URL}save/`;
         return fetch(url, {
             method: 'POST',

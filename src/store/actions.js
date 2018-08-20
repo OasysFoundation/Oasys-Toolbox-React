@@ -50,6 +50,14 @@ const actions = function (store) { //store for async stuff
             )
         },
 
+        setIdToken(state, idtoken) {
+            return update(state, {
+                user: {
+                    idToken: {$set : idtoken}
+                }
+            })
+        },
+
         onUpdateUserInfo(state, firebaseLoginObj) {
 
             const {user} = firebaseLoginObj;
