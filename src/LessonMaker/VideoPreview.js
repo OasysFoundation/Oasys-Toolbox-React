@@ -32,6 +32,7 @@ class VideoPreview extends Component {
 		if (!this.props.isEditMode) {
 			console.log('end: '  + this.props.elementId);
 		}
+		this.props.onFinishedVideo();
 	}
 
 	render(){

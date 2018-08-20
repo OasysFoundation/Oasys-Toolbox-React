@@ -30,6 +30,7 @@ class ContentView extends Component {
         // this.chaptersSeenIDs = [this.state.activeChapterID];
 
         this.goToChapter = this.goToChapter.bind(this);
+        this.foldElement = this.foldElement.bind(this);
     }
 
     foldElement(elemID) {
@@ -112,7 +113,9 @@ class ContentView extends Component {
                                             &&
                                             <Element data={el} id={el.id}
                                                      isEditMode={false}
-                                                     onLearnerInteraction={this.goToChapter}/>}
+                                                     onLearnerInteraction={this.goToChapter}
+                                            />
+                                            }
                                         </div>
                                     </ScrollElement>))
                                 }

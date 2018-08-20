@@ -19,6 +19,7 @@ import {CardHeader, Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap
 import api from '../api'
 import actions from "../store/actions";
 import {connect} from "redux-zero/react";
+import {Redirect} from 'react-router'
 
 const INITIAL_STATE = {
     email: "",
@@ -37,6 +38,7 @@ class Authentication extends Component {
             showModal: false,
             modalTitle: "",
             modalBody: "",
+            loginSuccess: false
             //updateStore:this.props.onChange,
         }
 
@@ -103,7 +105,13 @@ class Authentication extends Component {
                 })
                 const {displayName, uid} = cbData.user
                 const userObj = {name: displayName, uid}
+
+                auth.doGetIdToken()
+                    .then(token => that.props.setIdToken(token))
+                    .catch(err => console.log('could not get id token', err))
+
                 that.props.onAuthSuccess(userObj);
+                that.setState({loginSuccess: true})
             })
             .catch(error => {
                 console.log("Error FROM login", error)
@@ -130,13 +138,15 @@ class Authentication extends Component {
             auth.doCreateUserWithEmailAndPassword(that.state.email, that.state.password)
                 .then(authUser => {
                     console.log(authUser, 'authuser')
-                    auth.doGetIdToken()
+                    const idToken  = auth.doGetIdToken()
+                        console.log('idToken ', idToken)
                         .then(function (idToken) {
                             const userObject = {
                                 "uid": auth.doGetUid(),
                                 "username": that.state.username,
                             }
-                            that.props.onAuthSuccess(userObject);
+
+
                             api.postNewUserName(userObject, idToken)
                                 .then((body) => {
                                     console.log(body, 'body')
@@ -155,6 +165,15 @@ class Authentication extends Component {
                                                     modalBody: "Your account was created successfully",
                                                     showModal: "true",
                                                 })
+
+                                                that.props.onAuthSuccess(userObject);
+
+                                                auth.doGetIdToken()
+                                                    .then(token => that.props.setIdToken(token))
+                                                    .catch(err => console.log('could not get id token', err))
+
+                                                //for redirect
+                                                that.setState({loginSuccess: true})
 
 
                                                 //body? or authuser? or what prop
@@ -523,6 +542,10 @@ class Authentication extends Component {
     }
 
     render() {
+        if (this.state.loginSuccess) {
+            return <Redirect to={"/"} />
+        }
+
         return (
             <div>
                 {this.state.currentView}
@@ -544,8 +567,8 @@ class Authentication extends Component {
 
 const mapStoreToProps = ({user}) => ({user});
 const neededActions = (store) => {
-    const {onAuthSuccess} = actions();
-    return {onAuthSuccess}
+    const {onAuthSuccess, setIdToken} = actions();
+    return {onAuthSuccess, setIdToken}
 };
 // export default connect(mapStoreToProps, neededActions)(LessonMaker);
 
