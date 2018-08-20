@@ -95,7 +95,6 @@ class QuizzEditModal extends Component {
             userCreatedChapters: []
         });
 
-
         this.props.onClose();
     }
 
@@ -268,6 +267,8 @@ class QuizzEditModal extends Component {
                 } else {
                     answer.correct = false;
                 }
+                answer.isSelected = false;
+                answers.feedback = answers.feedback? answers.feedback : "";
                 return answer;
             })
 
