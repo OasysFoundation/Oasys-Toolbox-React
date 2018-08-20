@@ -86,7 +86,6 @@ Kievit is a former Medium sans-serif font
 */
 
 
-
 html, body, svg, text {
   margin: 0;
   padding: 0;
@@ -119,10 +118,6 @@ html, body {
     padding-top: 20px;
 }
 
-.oasys .input-group mb-3 {
-    margin:0 !important;
-}
-
 .oasys .card-header {
     margin: 0;
     padding: 0.25rem 0.25rem;
@@ -153,7 +148,6 @@ html, body {
 .oasys .make-big {
     font-size: 60px;
 }
-
 
 .oasys .card-footer {
     margin: 0;
@@ -227,9 +221,18 @@ html, body {
 
 .oasys .app-body {
     overflow-y: hidden;
+    margin-top: 0px;
 }
 
+
+html:not([dir="rtl"]) .main {
+  margin-left: 30px; 
+}
 /* ------------------ sidebar ----------------- */
+
+html:not([dir="rtl"]) .sidebar {
+  margin-left: -150px; 
+}
 
 .oasys .sidebar .sidebar-nav {
     flex: 0 0 auto;
