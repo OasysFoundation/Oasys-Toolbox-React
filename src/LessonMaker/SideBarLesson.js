@@ -67,7 +67,11 @@ class SideBarLesson extends Component {
     }
 
     saveContent() {
-        // api.postContent('content', 'idtoken')
+
+        //everything except the user props and isEditMode
+        const {user, isEditMode, ...project} = this.props.project
+
+        api.postContent(project)
     }
 
     publishContent() {
@@ -177,6 +181,7 @@ export default connect(mapStoreToProps, actions)((propsFromStore) => {
     const {project, onChangeProjectTitle, onChangeProjectTags, onChangeProjectDescription} = propsFromStore;
     const {title, tags, description} = project;
     return React.createElement(SideBarLesson, {
+        project,
         title,
         tags,
         description,
