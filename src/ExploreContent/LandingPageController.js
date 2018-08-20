@@ -25,7 +25,7 @@ const tileColors = {
 }
 
 const tiles = [{
-		name: "Featured Experiences", 
+		name: "Featured", 
 		color: tileColors.medium,
 	},{
 		name: "Physics", 
@@ -81,7 +81,7 @@ class LandingPageController extends Component{
                 	() => this.setState({
 						pageData : [
 						{
-							title:"Featured Experiences",
+							title:"Featured",
 							data:this.state.filteredContent,
 							id: sectionIds[1],
 							icon: "trophy",
