@@ -40,11 +40,11 @@ const actions = function (store) { //store for async stuff
             return clone;
         },
 
-        onAuthSuccess(state, uid, idToken) {
+        onAuthSuccess(state, userObj) {
             return update(state, {
                     user: {
-                        UID: {$set: uid},
-                        IDToken: {$set: idToken}
+                        uid: {$set: userObj.uid},
+                        name: {$set: userObj.name}
                     }
                 }
             )
@@ -53,7 +53,7 @@ const actions = function (store) { //store for async stuff
         onUpdateUserInfo(state, firebaseLoginObj) {
 
             const {user} = firebaseLoginObj;
-            saveToSessionStorage('user', user);
+            saveToSessionStorage(globals.SESSIONSTORAGE_KEY + 'user', user);
             return update(state, {user: {$set: user}})
         },
 
