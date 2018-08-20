@@ -43,13 +43,13 @@
   font-size: 0;
 }
 
-.pn-ProductNav {
+.horizontal-scroll .pn-ProductNav {
   /* Make an auto-hiding scroller for the 3 people using a IE */
   -ms-overflow-style: -ms-autohiding-scrollbar;
   /* Remove the default scrollbar for WebKit implementations */
 }
 
-.pn-ProductNav::-webkit-scrollbar {
+.horizontal-scroll .pn-ProductNav::-webkit-scrollbar {
   display: none;
 }
 
