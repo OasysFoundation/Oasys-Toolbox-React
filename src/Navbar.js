@@ -49,6 +49,8 @@ const styles = {
     navbarLinks:{
         padding:"2px",
         color:"#27363E",
+        display: "flex",
+        flexDirection: "column"
     },
     navbarNavs: {
         fontFamily: "helveticaneue",
@@ -353,27 +355,27 @@ class NavBar extends React.Component {
               <NavItem style={styles.navbarNavItem}>
                 <NavLink onClick={() => history.push("/explore")} style={styles.navbarLinks}>
                    {/* <FontAwesomeIcon icon="lightbulb" className="faAlignRight marginRight5" size="lg" style={{marginRight:"5px"}}/> */}
-                    <i className="fas fa-align-right fa-lg fa-compass margin-right5"></i> 
+                    <i className="fas fa-align-right fa-lg fa-compass" style={{alignSelf: "center"}}></i>
                     Learn
                 </NavLink>
               </NavItem>
               <NavItem style={styles.navbarNavItem}> 
                 <NavLink onClick={() => history.push("/create")} style={styles.navbarLinks}>
                    {/*<FontAwesomeIcon icon="pencil-alt" className="faAlignRight marginRight5" size="lg" style={{marginRight:"5px"}}/> */}
-                    <i className="fas fa-align-right fa-lg fa-pencil-alt margin-right5"></i> 
+                    <i className="fas fa-align-right fa-lg fa-pencil-alt" style={{alignSelf: "center"}}></i>
                    Create
                 </NavLink>
               </NavItem>
 
               <NavItem style={styles.navbarNavItem}>
                 <NavLink onClick={() => history.push("/data")} href="/data" style={styles.navbarLinks}>
-                  <i className="fas fa-align-right fa-lg fa-chart-bar margin-right5"></i> 
+                  <i className="fas fa-align-right fa-lg fa-chart-bar" style={{alignSelf: "center"}}></i>
                   Analytics
                 </NavLink>
               </NavItem>
               <NavItem style={styles.navbarNavItem}>
                 <NavLink onClick={() => history.push("/about")} style={styles.navbarLinks}>
-                  <i className="fas fa-align-right fa-lg fa-info-circle margin-right5"></i> 
+                  <i className="fas fa-align-right fa-lg fa-info-circle" style={{alignSelf: "center"}}></i>
                   About
                 </NavLink>
               </NavItem>
