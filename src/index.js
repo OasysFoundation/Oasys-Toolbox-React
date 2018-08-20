@@ -3,7 +3,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import registerServiceWorker from './registerServiceWorker';
 import {Router, Route, Switch} from 'react-router-dom';
-import createBrowserHistory from 'history/createBrowserHistory';
 
 import {withRouter} from 'react-router'
 import LessonMaker from './LessonMaker/LessonMaker'
@@ -44,7 +43,7 @@ import Authentication from "./Authentication/Authentication";
 //     whyDidYouUpdate(React);
 // }
 
-const history = createBrowserHistory();
+import history from './history'
 
 class Index extends Component {
     constructor(props) {

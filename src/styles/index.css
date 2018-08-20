@@ -111,6 +111,7 @@ html, body {
     align-items: center;
     min-height: 100vh;
     flex-direction: column;
+    padding-top: 20px;
 }
 
 .oasys .input-group mb-3 {
@@ -248,6 +249,8 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    font-family: 'JafBernino-Regular';
+    font-size: 1.0rem;
 }
 
 .oasys .sidebar-button:hover {
@@ -276,9 +279,10 @@ html, body {
 
 .oasys .sidebar-button.title input {
     font-weight: bold;
+    font-size: 1.1rem;
     background-color: #30444D;
     border-color: #30444D;
-    color: #eeeeee;
+    color: #28CCB4;
     margin-left: -5px;
     margin-right: 5px;
     padding: 3px;
