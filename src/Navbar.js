@@ -28,6 +28,8 @@ import {
   InputGroup,
   InputGroupAddon } from 'reactstrap';
 
+import history from './history'
+
 const styles = {
     navbarNavItem:{
         display: "flex",
@@ -35,7 +37,8 @@ const styles = {
         justifyContent: "center", 
         padding:"0px 8px 0px 8px",
         color:"​​​​​​​#3E4B54",
-        fontSize:"1.0rem"
+        fontSize:"1.0rem",
+        cursor: 'pointer',
     },
     navbarNavLinkForImage:{
         padding:"0px 0px 0px 0px",
@@ -45,7 +48,7 @@ const styles = {
     },
     navbarLinks:{
         padding:"2px",
-        color:"#27363E"
+        color:"#27363E",
     },
     navbarNavs: {
         fontFamily: "helveticaneue",
@@ -145,6 +148,7 @@ const styles = {
         alignItems:"center", 
         color:"#27363E",
         justifyContent:"center",
+        cursor: 'pointer'
     },
     navbarMobileNavImage:{
         height: '65%',
@@ -321,7 +325,7 @@ class NavBar extends React.Component {
                  </div>
             </div>
             <div style={styles.navbarMobileBottomRow}>
-                <a href="/explore" style={styles.navbarMobileNavs}>
+                <a href={"/data"} style={styles.navbarMobileNavs}>
                     <FontAwesomeIcon icon="lightbulb" className="faAlignRight marginRight5" size="lg"/>
                 </a>
                 <a href="/create" style={styles.navbarMobileNavs}>
@@ -347,14 +351,14 @@ class NavBar extends React.Component {
         const navbarRightElements = (
             <Nav navbar style={styles.navbarNavs}>
               <NavItem style={styles.navbarNavItem}>
-                <NavLink href="/explore/" style={styles.navbarLinks}>
+                <NavLink onClick={() => history.push("/explore")} style={styles.navbarLinks}>
                    {/* <FontAwesomeIcon icon="lightbulb" className="faAlignRight marginRight5" size="lg" style={{marginRight:"5px"}}/> */}
                     <i className="fas fa-align-right fa-lg fa-compass margin-right5"></i> 
                     Learn
                 </NavLink>
               </NavItem>
               <NavItem style={styles.navbarNavItem}> 
-                <NavLink href="/create/" style={styles.navbarLinks}>
+                <NavLink onClick={() => history.push("/create")} style={styles.navbarLinks}>
                    {/*<FontAwesomeIcon icon="pencil-alt" className="faAlignRight marginRight5" size="lg" style={{marginRight:"5px"}}/> */}
                     <i className="fas fa-align-right fa-lg fa-pencil-alt margin-right5"></i> 
                    Create
@@ -362,20 +366,20 @@ class NavBar extends React.Component {
               </NavItem>
 
               <NavItem style={styles.navbarNavItem}>
-                <NavLink href="/data" style={styles.navbarLinks}>
+                <NavLink onClick={() => history.push("/data")} href="/data" style={styles.navbarLinks}>
                   <i className="fas fa-align-right fa-lg fa-chart-bar margin-right5"></i> 
                   Analytics
                 </NavLink>
               </NavItem>
               <NavItem style={styles.navbarNavItem}>
-                <NavLink href="/about" style={styles.navbarLinks}>
+                <NavLink onClick={() => history.push("/about")} style={styles.navbarLinks}>
                   <i className="fas fa-align-right fa-lg fa-info-circle margin-right5"></i> 
                   About
                 </NavLink>
               </NavItem>
 
               <NavItem style={styles.navbarNavItem}>
-                <NavLink href="/user/" style={styles.navbarLinks}>
+                <NavLink onClick={() => history.push("/user")} style={styles.navbarLinks}>
                     {/*<FontAwesomeIcon icon="user" className="faAlignRight marginRight5" size="lg" style={{marginRight:"5px"}}/> */}
                     <i className="fas fa-align-right fa-lg fa-user margin-right5"></i> 
                     Profile
