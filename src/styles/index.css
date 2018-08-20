@@ -225,12 +225,12 @@ html, body {
 }
 
 
-html:not([dir="rtl"]) .oasys .main {
+html:not([dir="rtl"]) .main {
   margin-left: 30px; 
 }
 /* ------------------ sidebar ----------------- */
 
-html:not([dir="rtl"]) .oasys .sidebar {
+html:not([dir="rtl"]) .sidebar {
   margin-left: -150px; 
 }
 
