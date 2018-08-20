@@ -11,10 +11,12 @@ import QuizzEdit from './QuizzEdit'
 import VideoEdit from './VideoEdit'
 import EmbedEdit from './EmbedEdit'
 
+
 import {getContentFromSessionStorage} from "../utils/trickBox";
 import {
     Card,
-    CardBody
+    CardBody,
+    Button
 } from 'reactstrap';
 
 import 'react-quill/dist/quill.snow.css';
@@ -31,13 +33,15 @@ class Element extends Component {
     constructor(props) {
         super(props);
         this.changeVisibility = this.changeVisibility.bind(this);
+        this.elementFinished = this.elementFinished.bind(this);
 
         this.fromChapter = this.props.data.parentChapterID;
 
         this.state = {
             isHovered: false,
             tempContent: this.props.data.content || getContentFromSessionStorage(this.props.data.id),
-            timestamp: Date.now()
+            timestamp: Date.now(),
+            shouldFoldInView: false,
         };
     }
 
@@ -54,7 +58,7 @@ class Element extends Component {
         //
         // console.log(storeTimestamp, sessionTimestamp, "TIMESTAMPS")
         //DO NOT CALL setState before session storage!! will override itself
-        this.setState(
+        this.setState( //lots of ASYNC BS to avoid....
             () => ({tempContent: value, timestamp: Date.now()}), () => {
                 if (shouldInstantUpdate) {
                     console.log("TEMP CONTENT ON ELEMENT AT", this.state.tempContent)
@@ -64,7 +68,7 @@ class Element extends Component {
                         this.fromChapter);
                     this.props.updateChapterLinks()
                 }
-            }); //for Quill
+            });
     };
 
     typeToComponent(type) {
@@ -100,7 +104,7 @@ class Element extends Component {
                 />
                 break;
             case globals.EDIT_VIDEO:
-                render = <VideoEdit {...params}/>
+                render = <VideoEdit {...params} onFinishedVideo={this.elementFinished}/>
                 break;
             case globals.EDIT_EMBED:
                 render = <EmbedEdit {...params}/>
@@ -124,6 +128,10 @@ class Element extends Component {
         )
     }
 
+    elementFinished(){
+        this.setState({shouldFoldInView: true})
+    }
+
     componentWillReceiveProps(nextprops) {
         // console.log(nextprops, 'nextprops!!')
         // const contentUpdated = nextprops.data.timestamp > this.state.timestamp
@@ -139,6 +147,7 @@ class Element extends Component {
     //onClick={() => this.setState({isHovered: true})}
     render() {
         const {id, type} = this.props.data;
+
         return (
             <center>
                 <div className='main-width'>
@@ -154,10 +163,18 @@ class Element extends Component {
                                 {this.typeToComponent(type)}
                             </FadeableCard>
                             :
-                            <Card className="card-fancy has-shadow">
+                            <Card className="card-fancy has-shadow card content-view">
                                 <CardBody>
                                     <VisibilitySensor onChange={this.changeVisibility}/>
-                                    {this.typeToComponent(type)}
+                                    {this.state.shouldFoldInView
+
+                                        ? <Button color="primary"
+                                                  onClick={() => this.setState({shouldFoldInView:false})}>
+                                            Check again
+                                        </Button>
+
+                                        : this.typeToComponent(type)
+                                    }
                                 </CardBody>
                                 {/*<hr/>*/}
                             </Card>

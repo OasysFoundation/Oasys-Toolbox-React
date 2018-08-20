@@ -8,7 +8,7 @@ import { Popover, PopoverHeader, PopoverBody } from 'reactstrap';
 
 import PropTypes from 'prop-types';
 
-import colors from '../colors'
+import colors, {hexToRgba} from '../colors'
 
 import QuizzEditModal from './QuizzEditModal'
 import QuizzButton from './QuizzButton'
@@ -18,9 +18,12 @@ import {saveToSessionStorage} from '../utils/trickBox'
 
 //this is the new "Preview" Component
 class QuizzEdit extends Component {
-
-    quizColors = [colors.WINTERSUN, colors.LOCHINVAR, colors.VELVET, colors.GREEN];
-
+    quizColors = [
+        hexToRgba(colors.MOUNTBATTEN, 0.8), 
+        hexToRgba(colors.PURPLE, 0.8), 
+        hexToRgba(colors.RUST, 0.8), 
+        hexToRgba(colors.VELVET, 0.8)
+    ];
     constructor(props) {
         super(props);
         this.state = {
@@ -145,10 +148,7 @@ class QuizzEdit extends Component {
 	
     render() {
 
-        let flexDirection = 'row';
-        let flexWrap = 'nowrap';
-        let elementWidth = "25%";
-        let elementHeight = "50px";
+        let gridTemplateColumns = '47% 47%';
 
 
         const containsLongAnswerText = this.state.answers.reduce(function(result, answer) {
@@ -157,25 +157,16 @@ class QuizzEdit extends Component {
         , 0);
 
         if (containsLongAnswerText) {
-            flexDirection = 'column';
-            elementWidth = "100%";
+            gridTemplateColumns = '94%';
         }
 
-
-        const containsAtLeastOneImage = this.state.answers.reduce(function(result, answer) {
-            return result || answer["image"];
-        }
-        , 0);
-
-        if (containsAtLeastOneImage) {
-            flexWrap = 'wrap';
-            elementWidth = "50%";
-        }
-
-        const containerStyle = {
-            display: "flex",
-            flexDirection: flexDirection,
-            flexWrap: flexWrap
+        const gridContainerStyle = {
+            display: 'grid',
+            gridAutoRows: '1fr',
+            gridTemplateColumns: gridTemplateColumns,
+            alignItems: 'center',
+            rowGap: '10px',
+            columnGap: '10px',
         }
 
         const selectedAnswer = this.state.answers ? this.state.answers[this.state.selectedAnswerIndex] : null;
@@ -190,9 +181,18 @@ class QuizzEdit extends Component {
                 {this.state.question.title? null : <p style={{marginBottom:'10px', maxWidth:'350px'}}>Click 'Edit Quiz' to edit the question and answers, and to chose between single choice or multiple choice.</p>}
                 <img src={this.state.question.image} alt="" style={{maxWidth:'80%'}}/>
                 
-            	<div style={containerStyle}>
+            	<div style={gridContainerStyle}>
             	   {this.state.answers.map((answer, index) => {
-                    return <QuizzButton answer={answer} key={"answer-id-" + index} id={"answer-id-" + index} showsSelectionIndicator={that.isMultipleChoice()} isSelected={answer.isSelected} index={index} onSelect={this.onSelectAnswer} width={elementWidth} height={elementHeight} color={that.quizColors[index % that.quizColors.length]} />
+                    return <QuizzButton 
+                                answer={answer} 
+                                key={"answer-id-" + index} 
+                                id={"answer-id-" + index} 
+                                showsSelectionIndicator={that.isMultipleChoice()} 
+                                isSelected={answer.isSelected} 
+                                index={index} 
+                                onSelect={this.onSelectAnswer}
+                                color={that.quizColors[index % that.quizColors.length]} 
+                            />
                    })}
             	</div>
                 {this.isMultipleChoice()? <Button color="primary" onClick={this.onClickSubmitButton}>Submit</Button> : null}
@@ -214,7 +214,7 @@ class QuizzEdit extends Component {
 
 
                 <QuizzEditModal question={this.state.question} answers={JSON.parse(JSON.stringify(this.state.answers))} quizType={this.state.quizType} 
-                onChange={this.onChangeData} onClose={this.onClose} chapters={this.props.chapters} isOpen={this.state.showsModalEditor} />
+                onChange={this.onChangeData} onClose={this.onClose} chapters={this.props.chapters} isOpen={this.state.showsModalEditor} onAddChapter={this.props.onAddChapter} />
             </div>
         )
     }

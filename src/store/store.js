@@ -4,6 +4,11 @@ import globals from "../globals";
 
 
 const data = {
+    user: {
+        name: null,
+        uid: null,
+        idToken: null
+    },
     title: "Physics101",
     id: 'project_1245',
     isEditMode: true,
@@ -20,14 +25,13 @@ const data = {
                     chapterId: "chapter_99852"
                 },
             ],
-            // linkIdx: ["chapter_99852"],
             elements: [
                 {
                     parentChapterID: "chapter_124552",
                     id: "embed678",
                     type: 2,
                     content: {
-                        id: "http://lab.concord.org/embeddable.html#interactives/sam/intermolecular-attractions/3-1-oil-and-water.json"
+                        id: ''
                     }
                 },{
                     id: "schnuckeldi",
@@ -137,10 +141,6 @@ const data = {
                     eventId: "jhhoawjdoaw",
                     chapterId: "chapter_100"
                 },
-                {
-                    eventId: "asdf",
-                    chapterId: "chapter_124552"
-                },
             ],
         },
         {
@@ -154,10 +154,6 @@ const data = {
                 }
             ],
             links: [
-                {
-                    eventId: "asdf",
-                    chapterId: "chapter_124552"
-                },
             ],
         }
     ]

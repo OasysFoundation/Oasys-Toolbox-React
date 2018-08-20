@@ -1,15 +1,15 @@
 //TODO use my mongo functions to do upsert, insert, find for STATE etc
 //use immutable
 import update from 'immutability-helper'
-import {moveEntry, withoutEntry, getObjectsByKey} from "../utils/trickBox";
+import {moveEntry, withoutEntry, getObjectsByKey, saveToSessionStorage} from "../utils/trickBox";
 import {initContent} from "../tools";
 import uuidv4 from 'uuid/v4';
-import globals from '../globals'
+import globals from '../globals';
 
 const actions = function (store) { //store for async stuff
     return {
         //state variable gets inject into the action functions somehow through the connect(maptoprops, action)
-        onToggleEditMode(state){
+        onToggleEditMode(state) {
             return update(state, {isEditMode: {$set: !state.isEditMode}})
         },
 
@@ -40,13 +40,37 @@ const actions = function (store) { //store for async stuff
             return clone;
         },
 
+        onAuthSuccess(state, userObj) {
+            return update(state, {
+                    user: {
+                        uid: {$set: userObj.uid},
+                        name: {$set: userObj.name}
+                    }
+                }
+            )
+        },
+
+        setIdToken(state, idtoken) {
+            return update(state, {
+                user: {
+                    idToken: {$set : idtoken}
+                }
+            })
+        },
+
+        onUpdateUserInfo(state, firebaseLoginObj) {
+
+            const {user} = firebaseLoginObj;
+            saveToSessionStorage(globals.SESSIONSTORAGE_KEY + 'user', user);
+            return update(state, {user: {$set: user}})
+        },
 
         onChangeProjectTitle(state, value) {
-          return update(state, {title: {$set: value}})
+            return update(state, {title: {$set: value}})
         },
 
         onChangeProjectDescription(state, value) {
-          return update(state, {description: {$set: value}})
+            return update(state, {description: {$set: value}})
         },
 
         onChangeProjectTags(state, tags) {
@@ -64,7 +88,8 @@ const actions = function (store) { //store for async stuff
             if (!elements[elemIdx]) {
                 console.log('no element found on change content -- maybe handlechange fired, but element in Chapter that is not active')
                 return
-            };
+            }
+            ;
 
             return update(state, {
                 chapters: {
@@ -93,8 +118,8 @@ const actions = function (store) { //store for async stuff
             chap.timestamp = Date.now();
             return clone
         },
-        onAddLink(InteractionElementData, toChapterID){
-          //remove link if exists in answer
+        onAddLink(InteractionElementData, toChapterID) {
+            //remove link if exists in answer
         },
 
         //usually called after onChangeContent adds new actions
@@ -103,19 +128,21 @@ const actions = function (store) { //store for async stuff
             console.log(clone.chapters, "chaps");
 
             clone.chapters.forEach(chapter => {
-                chapter.elements.forEach((elem,i) => {
+                chapter.elements.forEach((elem, i) => {
                     if (elem.type === globals.EDIT_QUIZ) {
                         if (elem.content.answers) {
                             const links = elem.content.answers
                                 .filter(answer => answer.action != null)
                                 .map(answerWithLink => answerWithLink.action);
 
-                            chapter.links = links.map(function(link){ return {
-                                eventId: uuidv4(),
-                                chapterId: link
-                            }});
+                            chapter.links = links.map(function (link) {
+                                return {
+                                    eventId: uuidv4(),
+                                    chapterId: link
+                                }
+                            });
 
-                            console.log(chapter.id, i , chapter.links)
+                            console.log(chapter.id, i, chapter.links)
                         }
                     }
                 })
@@ -152,9 +179,9 @@ const actions = function (store) { //store for async stuff
             const entryIdx = elements.findIndex(el => el.id === id);
 
             return update(state, {
-                chapters:{
+                chapters: {
                     [state.activeChapterIndex]: {
-                        elements:{ $set: moveEntry(elements, entryIdx, direction)}
+                        elements: {$set: moveEntry(elements, entryIdx, direction)}
                     }
 
                 }

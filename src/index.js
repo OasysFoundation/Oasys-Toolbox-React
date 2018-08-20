@@ -5,14 +5,13 @@ import registerServiceWorker from './registerServiceWorker';
 import {Router, Route, Switch} from 'react-router-dom';
 import createBrowserHistory from 'history/createBrowserHistory';
 
-import { withRouter } from 'react-router'
+import {withRouter} from 'react-router'
 import LessonMaker from './LessonMaker/LessonMaker'
 import ContentSelection from './ContentSelection'
 import DataViewCreator from './DataView/DataViewCreator'
-import AboutPage from './AboutPage'
 import Account from './Account'
 
-import { AppHeader } from '@coreui/react';
+import {AppHeader} from '@coreui/react';
 
 import "simple-line-icons/css/simple-line-icons.css"
 import "./assets/fontAwesome/css/all.min.css"
@@ -21,8 +20,14 @@ import "@coreui/icons/css/coreui-icons.css"
 import './styles/index.css';
 
 import Header from './Header';
+import Navbar from './Navbar';
+import Footer from "./Footer";
+import About from "./About"
+import LandingPageController from "./ExploreContent/LandingPageController"
 
-import { Provider } from "redux-zero/react";
+import FontAwesomeImports from "./FontAwesomeImports"
+
+import {Provider} from "redux-zero/react";
 
 import ConcludingContentPage from './ConcludingContentPage'
 
@@ -31,12 +36,7 @@ import store from "./store/store";
 import ContentView from "./LessonMaker/ContentView";
 
 import Bitmoji from './Bitmoji'
-
-// in the coreui template, the following four 4 lines are imported globally in App.js
-// import '@coreui/icons/css/coreui-icons.min.css';
-// import 'flag-icon-css/css/flag-icon.min.css';
-// import 'font-awesome/css/font-awesome.min.css';
-
+import Authentication from "./Authentication/Authentication";
 
 //logs unnecessary rerenders in the console
 // if (process.env.NODE_ENV !== 'production') {
@@ -47,27 +47,40 @@ import Bitmoji from './Bitmoji'
 const history = createBrowserHistory();
 
 class Index extends Component {
+    constructor(props) {
+        super(props);
+        this.state={
+            category:"",
+        }
+    }
+
+    handleChangeSearchBar(newVal){
+        this.setState({category:newVal})
+    }
+
     render() {
         return (
             <div className="oasys app">
-                <AppHeader fixed>
-                  {<Header />}
-                </AppHeader>
                 <Provider store={store}>
                     <Router history={history}>
                         <div>
-                            {/*<NavBar authUser={this.state.authUser}/>*/}
+                            {<Navbar onChange={this.handleChangeSearchBar.bind(this)}/>}
                             <Switch>
-                                {/*<Route exact path="/" render={()=><ContentSelection/>} />*/}
-                                <Route exact path="/" render={(props) => <LessonMaker {...props} />} />
-                                <Route exact path="/view" render={() => <ContentView project={store.getState()} />} />
-                                <Route exact path="/learn" render={(props) => <ContentSelection {...props} />} />
-                                <Route exact path="/create" render={(props) => <LessonMaker {...props} />} />
-                                <Route exact path="/data" render={(props) => <DataViewCreator {...props} />} />
-                                <Route exact path="/about" render={(props) => <AboutPage {...props} />} />
-                                <Route exact path="/account" render={(props) => <Account {...props} />} />
-                                <Route exact path="/conclusion" render={(props) => <ConcludingContentPage url="https://joinoasys.org" author="Mark22" title="Feet and Cotion" description="I am explaining to you how feet and cotion works." {...props} />} />
-                                <Route exact path="/bitmoji" render={(props) => <Bitmoji {...props} />} />
+                                <Route exact path="/" render={() => <LandingPageController category={this.state.category}/>}/>
+                                <Route exact path="/user" render={() => <Authentication/>}/>
+                                <Route exact path="/create" render={(props) => <LessonMaker {...props} />}/>
+                                {/*<Route exact path="/auth" render={(props) => <Authentication/>}/>*/}
+                                <Route exact path="/view" render={() => <ContentView project={store.getState()}/>}/>
+                                <Route exact path="/learn" render={(props) => <LandingPageController {...props} />}/>
+                                <Route exact path="/create" render={(props) => <LessonMaker {...props} />}/>
+                                <Route exact path="/data" render={(props) => <DataViewCreator {...props} />}/>
+                                <Route exact path="/about" render={(props) => <About {...props} />}/>
+                                <Route exact path="/account" render={(props) => <Account {...props} />}/>
+                                <Route exact path="/conclusion"
+                                       render={(props) => <ConcludingContentPage url="https://joinoasys.org"
+                                                                                 author="Mark22" title="Feet and Cotion"
+                                                                                 description="I am explaining to you how feet and cotion works." {...props} />}/>
+                                <Route exact path="/bitmoji" render={(props) => <Bitmoji {...props} />}/>
                                 {/*<Route path="/data" render={(props)=>( this.state.authUser ? <DataViewCreator authUser={this.state.authUser} /> : null)} />*/}
                                 {/*<Route path="/data/preview" render={(props)=>( this.state.authUser ? <DataViewCreator authUser={this.state.authUser} /> : null)} />*/}
                                 {/*<Route path="/explore" render={(props)=>( this.state.authUser ? <ContentSelection authUser={this.state.authUser} /> : null)} />*/}
@@ -94,8 +107,7 @@ class Index extends Component {
 
                                 {/*<Route component={NotFoundPage}/>*/}
                             </Switch>
-                            
-
+                            <Footer/>
                         </div>
                     </Router>
                 </Provider>
@@ -104,7 +116,10 @@ class Index extends Component {
     }
 }
 
+
+
 export default withRouter(Index);
+
 
 
 ReactDOM.render(<Index/>, document.getElementById('root'));

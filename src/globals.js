@@ -6,7 +6,7 @@ const globals = {
     ICON_FONTSIZE_NORMAL: "18px",
     SESSIONSTORAGE_KEY: `__OASYS_ID__`,
 
-	HARDSET_BASE: "https://api.joinoasys.org/",
+	HARDSET_BASE: "localhost:3000/",
 
     API_DEV_LOCAL: 'http://localhost:8080/',
 	API_PROD: 'https://api.joinoasys.org/',

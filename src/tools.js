@@ -21,7 +21,7 @@ export function isElementEmpty(data) {
     const {type, content} = data;
 
     const emptyContent = typeToInit[type.toString()];
-
+    
     if (typeof content === 'string') {
         return content === emptyContent;
     }

@@ -9,6 +9,7 @@ import actions from "../store/actions";
 
 import Element from "./Element";
 import ElementAdder from './ElementAdder'
+import ContentView from './ContentView'
 
 
 const Item = posed.div();
@@ -52,52 +53,65 @@ class LessonMaker extends Component {
                 <main className="main">
                     <Container fluid className='main-width'>
                         <center>
-                            <section className='main-width' style={{
-                                display: 'flex',
-                                marginTop: '1rem',
-                                marginBottom: '1rem',
-                                flex: 1,
-                                flexDirection: 'row'
-                            }}>
-                                <div className="input-group-prepend">
-                                    <span className="input-group-text" id="basic-addon1">Chapter Title</span>
-                                </div>
-                                <input
-                                    type="text"
-                                    className="form-control header"
-                                    placeholder="Name your Chapter"
-                                    aria-label="Name this Chapter"
-                                    value={activeChapter.title}
-                                    onChange={(ev) => this.props.onChangeChapterTitle(ev.target.value)}
-                                    aria-describedby="basic-addon1"
-                                    style={{marginRight: '10px'}}
-                                />
-                                <button
-                                    type="button"
-                                    className={this.props.isEditMode ? "btn btn-dark preview-btn" : "btn btn-light preview-btn"}
-                                    style={{width: '150px'}}
-                                    onClick={() => this.props.onToggleEditMode()}
-                                >
-                                    <span className={this.props.isEditMode ? "icon-grid" : "icon-layers"}></span>
-                                    {"  "}
-                                    {this.props.isEditMode ? 'Preview' : '  Edit  '}
-                                </button>
-                            </section>
-                        </center>
-                        <PoseGroup>
-                            {elements.map((el, idx) =>
-                                <Item key={el.id}>
-                                    <Element
-                                        key={el.id}
-                                        data={el}
-                                    />
 
-                                    {/*SHORT FORM FOR --> isEditMode ? <Adder/> : null */}
-                                    {this.props.isEditMode && <ElementAdder key={el.id + 1} idx={idx}/>}
-                                </Item>
-                            )}
-                        </PoseGroup>
+
+                                    <section className='main-width' style={{
+                                        display: 'flex',
+                                        marginTop: '1rem',
+                                        marginBottom: '1rem',
+                                        flex: 1,
+                                        flexDirection: 'row'
+                                    }}>
+
+                                        <div className="input-group-prepend">
+                                            <span className="input-group-text" id="basic-addon1">Chapter Title</span>
+                                        </div>
+                                        <input
+                                            type="text"
+                                            className="form-control header"
+                                            placeholder="Name your Chapter"
+                                            aria-label="Name this Chapter"
+                                            value={activeChapter.title}
+                                            onChange={(ev) => this.props.onChangeChapterTitle(ev.target.value)}
+                                            aria-describedby="basic-addon1"
+                                            style={{marginRight: '10px'}}
+                                        />
+                                        <button
+                                            type="button"
+                                            className={this.props.isEditMode ? "btn btn-dark preview-btn" : "btn btn-light preview-btn"}
+                                            style={{width: '150px'}}
+                                            onClick={() => this.props.onToggleEditMode()}
+                                        >
+                                            <span className={this.props.isEditMode ? "icon-grid" : "icon-layers"}></span>
+                                            {"  "}
+                                            {this.props.isEditMode ? 'Preview' : '  Edit  '}
+                                        </button>
+                                    </section>
+                            {this.props.isEditMode
+                                ? (<React.Fragment>
+                                <PoseGroup>
+                                    {elements.map((el, idx) =>
+                                        <Item key={el.id}>
+                                            <Element
+                                                key={el.id}
+                                                data={el}
+                                            />
+
+                                            {/*SHORT FORM FOR --> isEditMode ? <Adder/> : null */}
+                                            {this.props.isEditMode && <ElementAdder key={el.id + 1} idx={idx}/>}
+                                        </Item>
+                                    )}
+                                </PoseGroup>
+
+                            </React.Fragment>)
+
+
+                            : <ContentView chapters={this.props.chapters} onChangeActiveChapter={this.props.onChangeActiveChapter}/>
+                        }
+
                         {emptyChapterAdder}
+                        </center>
+
                     </Container>
                 </main>
             </div>
@@ -118,8 +132,8 @@ LessonMaker.propTypes = {
 
 const mapStoreToProps = ({chapters, activeChapterIndex, isEditMode}) => ({isEditMode, chapters, activeChapterIndex})
 const neededActions = (store) => {
-    const {onChangeChapterTitle, onToggleEditMode, mergeStoreWithSessionStorage} = actions();
-    return {onChangeChapterTitle, onToggleEditMode, mergeStoreWithSessionStorage }
+    const {onChangeActiveChapter, onChangeChapterTitle, onToggleEditMode, mergeStoreWithSessionStorage} = actions();
+    return {onChangeActiveChapter, onChangeChapterTitle, onToggleEditMode, mergeStoreWithSessionStorage}
 };
 
 export default connect(mapStoreToProps, neededActions)(LessonMaker);
