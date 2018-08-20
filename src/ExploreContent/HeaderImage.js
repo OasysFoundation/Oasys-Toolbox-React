@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {Button} from 'reactstrap'
 import Media from "react-media";
 
+import colors, { hexToRgba } from '../colors';
+
 //images
 import cover from '../assets/images/Cover.jpg'
 import coverMobile from '../assets/images/coverMid.png'
@@ -36,27 +38,42 @@ const styles = {
 		height:"auto",
 	},
 	bottomButtonDiv:{
-		fontSize:"2vh", 
-		fontFamily:"helveticaneue", 
 		flex:"1",
 		display:"flex", 
 		justifyContent:"center",
 		height:"50%",
-		color:"#27363e",
+	},
+	bottomButton: {
+		height: '50%',
+		fontSize:"1.3rem", 
+		color: colors.RUST,
+		fontFamily:'HelveticaNeue-Bold',
+		backgroundColor: colors.SNOW1,
+		border: '2px solid ' + colors.SNOW2,
+		boxShadow: '0px 0px 20px 1px #555555',
 	},
 	title:{
 		display:"flex",
 		justifyContent:"center",
-		color:"#27363e", 
-		fontFamily:"helveticaneue",
+		color: colors.SNOW1, 
+		WebkitTextStroke: '1px ' + colors.SPANISHWHITE,
+		textStroke: '1px ' + colors.SPANISHWHITE,
+		fontFamily: 'HelveticaNeue-Light',
 		textAlign: "center",
+		marginTop: "6vw",
+		textShadow: '0px 0px 20px #000000',
+		paddingTop: '10px',
 	},
 	subtitle:{
-		color:"#27363e", 
-		fontFamily:"helveticaneue",
+		color: colors.SNOW1, 
+		WebkitTextStroke: '1px ' + colors.SPANISHWHITE,
+		textStroke: '1px ' + colors.SPANISHWHITE,
+		fontFamily: 'HelveticaNeue-Light',
 		display:"flex", 
 		justifyContent:"center",
 		textAlign: "center",
+		textShadow: '0px 0px 20px #000000',
+		paddingTop: '10px',
 	},
 
 }
@@ -80,23 +97,23 @@ class HeaderImage extends Component{
   	}
 
 	getPCScreenImage(value){
-		let myFontSizeTitle="3.5vw";
-		let myFontSizeSubTitle="2vw";
+		let myFontSizeTitle="2.5rem";
+		let myFontSizeSubTitle="1.8rem";
 		let currentCover = coverMobile;
 
 		if(value==="tiny"){
-			myFontSizeTitle="7vw";
-		    myFontSizeSubTitle="5vw";
+			myFontSizeTitle="2.5rem";
+		    myFontSizeSubTitle="1.8rem";
 		    currentCover=coverTiny;
 		}
 		else if(value==="medium"){
-			myFontSizeTitle="2.5vw";
-		    myFontSizeSubTitle="1.25vw";
+			myFontSizeTitle="3.0rem";
+		    myFontSizeSubTitle="2.0rem";
 			currentCover=cover;
 		}
 		else if(value==="large"){
-			myFontSizeTitle = "2vw"
-			myFontSizeSubTitle = "1vw"
+			myFontSizeTitle = "3.0rem"
+			myFontSizeSubTitle = "2.0rem"
 			currentCover = cover;
 		}
 
@@ -111,14 +128,14 @@ class HeaderImage extends Component{
 			  		<div style={styles.floatingAbsoluteContainer}>
 				      	<div style={styles.titleAndSubtitle}>
 				      		<div style={styles.title}>
-				      			<h1 style={{fontSize:myFontSizeTitle}}>Explore Interactive Content</h1>
+				      			<h1 style={{fontSize:myFontSizeTitle, fontVariant: 'small-caps'}}>Explore Interactive Content</h1>
 				      		</div>​​​​​​​
 				      		<div style={styles.subtitle}>
 				      			<h2 style={{fontSize:myFontSizeSubTitle}}>Learn Science and Technology through Experimentation and Play</h2> 
 				      		</div>
 				      	</div>
 				      	<div style={styles.bottomButtonDiv}>
-				      		<Button size="lg" color="light" onClick={this.openCreate} style={{height:"70%"}}> Create Your Own Content!</Button>
+				      		<Button size="lg" color="light" onClick={this.openCreate}  style={styles.bottomButton}> Create a Lesson!</Button>
 				      	</div>
 				    </div>
 			  	)
@@ -147,7 +164,7 @@ class HeaderImage extends Component{
 					      		</div>
 					      	</div>
 					      	<div style={styles.bottomButtonDiv}>
-					      		<Button size="lg" color="light" onClick={this.openCreate} style={{height:"70%"}}> Create Your Own Content!</Button>
+					      		<Button size="lg" color="light" onClick={this.openCreate} style={{height:"70%"}}> Create a lesson!</Button>
 					      	</div>
 					    </div>
 			  		)
