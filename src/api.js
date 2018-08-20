@@ -148,7 +148,8 @@ const api = {
         return fetch(url, {
             method: 'POST',
             body: JSON.stringify(contentData),
-            headers: new Headers({
+            headers:
+                new Headers({
                 'Content-Type': 'application/json',
                 'Authorization': `${token}`,
             })

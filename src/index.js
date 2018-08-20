@@ -37,15 +37,6 @@ import ContentView from "./LessonMaker/ContentView";
 
 import Bitmoji from './Bitmoji'
 import Authentication from "./Authentication/Authentication";
-import actions from "./store/actions";
-import {connect} from "redux-zero/react";
-
-
-// in the coreui template, the following four 4 lines are imported globally in App.js
-// import '@coreui/icons/css/coreui-icons.min.css';
-// import 'flag-icon-css/css/flag-icon.min.css';
-// import 'font-awesome/css/font-awesome.min.css';
-
 
 //logs unnecessary rerenders in the console
 // if (process.env.NODE_ENV !== 'production') {
@@ -76,9 +67,9 @@ class Index extends Component {
                             {<Navbar onChange={this.handleChangeSearchBar.bind(this)}/>}
                             <Switch>
                                 <Route exact path="/" render={() => <LandingPageController category={this.state.category}/>}/>
+                                <Route exact path="/user" render={() => <Authentication/>}/>
                                 <Route exact path="/create" render={(props) => <LessonMaker {...props} />}/>
-                                <Route exact path="/auth"
-                                       render={(props) => <Authentication/>}/>
+                                {/*<Route exact path="/auth" render={(props) => <Authentication/>}/>*/}
                                 <Route exact path="/view" render={() => <ContentView project={store.getState()}/>}/>
                                 <Route exact path="/learn" render={(props) => <LandingPageController {...props} />}/>
                                 <Route exact path="/create" render={(props) => <LessonMaker {...props} />}/>

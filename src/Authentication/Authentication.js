@@ -101,7 +101,9 @@ class Authentication extends Component {
                     modalBody: "You have been logged in successfully",
                     showModal: "true",
                 })
-                that.props.onUpdateUserInfo(cbData);
+                const {displayName, uid} = cbData.user
+                const userObj = {name: displayName, uid}
+                that.props.onAuthSuccess(userObj);
             })
             .catch(error => {
                 console.log("Error FROM login", error)
@@ -134,6 +136,7 @@ class Authentication extends Component {
                                 "uid": auth.doGetUid(),
                                 "username": that.state.username,
                             }
+                            that.props.onAuthSuccess(userObject);
                             api.postNewUserName(userObject, idToken)
                                 .then((body) => {
                                     console.log(body, 'body')
@@ -155,7 +158,6 @@ class Authentication extends Component {
 
 
                                                 //body? or authuser? or what prop
-                                                that.props.onUpdateUserInfo(body);
 
                                             })
                                             .catch(function (error) {
@@ -225,8 +227,6 @@ class Authentication extends Component {
                             modalBody: "Your password has been changed!",
                             showModal: "true",
                         });
-                        //that.state.updateStore();
-
                     })
                     .catch(function (error) {
                         that.setState({
@@ -544,8 +544,8 @@ class Authentication extends Component {
 
 const mapStoreToProps = ({user}) => ({user});
 const neededActions = (store) => {
-    const {onUpdateUserInfo} = actions();
-    return {onUpdateUserInfo}
+    const {onAuthSuccess} = actions();
+    return {onAuthSuccess}
 };
 // export default connect(mapStoreToProps, neededActions)(LessonMaker);
 

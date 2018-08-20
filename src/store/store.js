@@ -4,6 +4,10 @@ import globals from "../globals";
 
 
 const data = {
+    user: {
+        name: null,
+        uid: null
+    },
     title: "Physics101",
     id: 'project_1245',
     isEditMode: true,
