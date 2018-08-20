@@ -338,7 +338,7 @@ class HorizontalScroll extends Component {
 
     render(){
         return(
-            <div style={styles.HorizontalScrollContainer}>
+            <div style={styles.HorizontalScrollContainer} className="horizontal-scroll">
                 <div style={styles.HorizontalScrollTitle}>
                     {
                         this.props.title && this.props.title=="Tiles"

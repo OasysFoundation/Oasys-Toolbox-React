@@ -138,8 +138,7 @@ class HeaderImage extends Component {
                                 </div>
                             </div>
                             <div style={styles.bottomButtonDiv}>
-                                <Button size="lg" color="light" onClick={this.openCreate}
-                                        style={styles.bottomButton}> Create a Lesson!</Button>
+                               
                             </div>
                         </div>
                     )
@@ -173,8 +172,7 @@ class HeaderImage extends Component {
                                 <div style={styles.bottomButtonDiv}>
                                 </div>
                             </div>
-                            <Button size="lg" color="light" onClick={this.openCreate} style={{height: "70%"}}> Create a
-                                lesson!</Button>
+                            
                         </React.Fragment>
 
                     )

@@ -472,10 +472,10 @@ html:not([dir="rtl"]) .oasys .sidebar {
 
 /* ------------------- navbar ------------------- */
 
-.oasys.app .navbar {
+/*.oasys.app .navbar {
     background-color: #f8f8f4; 
     height: 100px;
     border-bottom: 1px solid #27363E;
     position: relative;
     z-index: 1999;
-}
+}*/

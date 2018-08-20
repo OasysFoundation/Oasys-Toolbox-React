@@ -163,11 +163,13 @@ const styles = {
       width:"85%",
       color:"black",
     },
-    navbarRefactor:{
-        height:"100%", 
-        backgroundColor:"#f8f8f4", 
-        borderBottom: "1px solid #27363E",
-    }   
+    navbarMobile:{
+      height: "100px",
+      borderBottom: "1px solid #27363E",
+      backgroundColor:"#f8f8f4",
+      zIndex: 1999,
+    }
+  
 };
 
 const selectOptions = [{
@@ -233,7 +235,7 @@ class NavBar extends React.Component {
         super(props);
         this.toggle = this.toggle.bind(this);
         this.state = {
-          height: "35px",
+          height: "50px",
           isOpen: false,
           isHidden: false,
           selectedOption: null,
@@ -275,12 +277,12 @@ class NavBar extends React.Component {
     };
 
     toggle() {
-        this.state.height==="13rem"
+        this.state.height==="21rem"
         ? this.setState({
-           height:"40px"
+           height:"50px"
           })
         : this.setState({
-           height:"13rem"
+           height:"21rem"
           })
         this.setState({
           isOpen: !this.state.isOpen,
@@ -309,7 +311,7 @@ class NavBar extends React.Component {
           },
         ];
         return (
-         <Navbar className='navbar-ontop'>
+         <Navbar fixed="top" style={styles.navbarMobile} className='navbar-ontop'>
             <div style={styles.navbarMobileTopRow}>
                 <a href="/explore" style={styles.navbarBrandMobile}>
                     <img src={Logo_Small} style={styles.navbarBrandMobileImage}/>
@@ -328,14 +330,16 @@ class NavBar extends React.Component {
             </div>
             <div style={styles.navbarMobileBottomRow}>
                 <a href={"/data"} style={styles.navbarMobileNavs}>
-                    <FontAwesomeIcon icon="lightbulb" className="faAlignRight marginRight5" size="lg"/>
+                    {/*<FontAwesomeIcon icon="lightbulb" className="faAlignRight marginRight5" size="lg"/>*/}
+                    <i className="fas fa-align-right fa-lg fa-lightbulb" style={{alignSelf: "center"}}></i>
                 </a>
                 <a href="/create" style={styles.navbarMobileNavs}>
-                    <FontAwesomeIcon icon="pencil-alt" className="faAlignRight marginRight5" size="lg"/>
+                    {/*<FontAwesomeIcon icon="pencil-alt" className="faAlignRight marginRight5" size="lg"/>*/}
+                    <i className="fas fa-align-right fa-lg fa-pencil-alt" style={{alignSelf: "center"}}></i>
                 </a>
                 <a href="/user" style={styles.navbarMobileNavs}>
-                    <FontAwesomeIcon icon="user" className="faAlignRight marginRight5" size="lg"/>
-
+                    {/*<FontAwesomeIcon icon="user" className="faAlignRight marginRight5" size="lg"/>*/}
+                    <i className="fas fa-align-right fa-lg fa-user" style={{alignSelf: "center"}}></i>
                 </a>
 
             </div>
@@ -355,7 +359,7 @@ class NavBar extends React.Component {
               <NavItem style={styles.navbarNavItem}>
                 <NavLink onClick={() => history.push("/explore")} style={styles.navbarLinks}>
                    {/* <FontAwesomeIcon icon="lightbulb" className="faAlignRight marginRight5" size="lg" style={{marginRight:"5px"}}/> */}
-                    <i className="fas fa-align-right fa-lg fa-compass" style={{alignSelf: "center"}}></i>
+                    <i className="fas fa-align-right fa-lg fa-lightbulb" style={{alignSelf: "center"}}></i>
                     Learn
                 </NavLink>
               </NavItem>
@@ -395,7 +399,7 @@ class NavBar extends React.Component {
 
         let groupedOptions = [
           {
-            label: 'Categories',
+            label: 'Topics',
             options: selectOptions,
           },
           {
@@ -403,10 +407,9 @@ class NavBar extends React.Component {
             options: this.state.contentTitles,
           },
         ];
-
         return(
-            <div style={{height:this.state.height}}>
-            <Navbar light expand="sm" style={styles.navbarRefactor} >
+            <div>
+            <Navbar light fixed="top" expand="sm" style={{height:this.state.height, backgroundColor:"#f8f8f4", borderBottom: "1px solid #27363E",zIndex: 1999}} >
               <NavbarBrand href="/" style={styles.navBarBrand}>
                   <img src={Logo} style={styles.navbarBrandImage}/>
               </NavbarBrand>
