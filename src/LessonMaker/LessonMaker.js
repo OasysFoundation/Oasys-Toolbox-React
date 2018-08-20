@@ -95,6 +95,7 @@ class LessonMaker extends Component {
                                             <Element
                                                 key={el.id}
                                                 data={el}
+                                                isPreview={true}
                                             />
 
                                             {/*SHORT FORM FOR --> isEditMode ? <Adder/> : null */}
@@ -106,7 +107,10 @@ class LessonMaker extends Component {
                             </React.Fragment>)
 
 
-                            : <ContentView chapters={this.props.chapters} onChangeActiveChapter={this.props.onChangeActiveChapter}/>
+                            : <ContentView
+                                    isPreview={true}
+                                    chapters={this.props.chapters}
+                                    onChangeActiveChapter={this.props.onChangeActiveChapter}/>
                         }
 
                         {emptyChapterAdder}

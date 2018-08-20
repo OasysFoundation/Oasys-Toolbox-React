@@ -101,8 +101,8 @@ class ContentView extends Component {
         const {allElementsinProject} = this;
         return (
             <ScrollView ref={scroller => this._scroller = scroller}>
-                <div className="app-body">
-                    <main className="main">
+                <div className={this.props.isPreview ? null : "app-body"}>
+                    <main className={this.props.isPreview ? null : "main"}>
                         <Container fluid className='main-width'>
                             <React.Fragment>
                                 {allElementsinProject.map(el => (
@@ -131,6 +131,17 @@ class ContentView extends Component {
             </ScrollView>
         );
     }
+}
+
+ContentView.defaultProps = {
+    isPreview: false,
+}
+
+ContentView.propTypes = {
+    chapters: PropTypes.object.isRequired,
+    onChangeActiveChapter: PropTypes.func.isRequired,
+    isPreview: PropTypes.bool.isRequired
+
 }
 
 
