@@ -43,7 +43,8 @@ class VideoEdit extends Component {
     renderVideo(){
         return (<div>
             {!this.props.isEditMode
-                ? (<VideoPreview 
+                ? (<VideoPreview
+                    onFinishedVideo={this.props.onFinishedVideo}
                     data={this.props.data} 
                     elementId={this.props.id} 
                     isEditMode={this.props.isEditMode}
