@@ -39,7 +39,8 @@ class QuizzEditModal extends Component {
             actionWrong: props.actionWrong? props.actionWrong : null,
             showsCreateNewChapterDialog: false,
             newChapterCreatedResolver: null,
-            userCreatedChapters: []
+            userCreatedChapters: [],
+            generalFeedback: props.generalFeedback? props.generalFeedback : ""
         };
 
         this.baseState = JSON.parse(JSON.stringify(this.state));
@@ -66,7 +67,8 @@ class QuizzEditModal extends Component {
             actionWrong: nextProps.actionWrong? nextProps.actionWrong : null,
             showsCreateNewChapterDialog: false,
             newChapterCreatedResolver: null,
-            userCreatedChapters: []
+            userCreatedChapters: [],
+            generalFeedback: nextProps.generalFeedback? nextProps.generalFeedback : ""
         });
 
         this.baseState = JSON.parse(JSON.stringify(this.state));
@@ -80,12 +82,19 @@ class QuizzEditModal extends Component {
             answers: this.state.answers,
             quizType: this.state.quizType,
             actionCorrect: this.state.actionCorrect,
-            actionWrong: this.state.actionWrong
+            actionWrong: this.state.actionWrong,
+            generalFeedback: this.state.generalFeedback
         });
 
         this.state.userCreatedChapters.forEach(function(chapter) {
             this.props.onAddChapter(chapter.id, chapter.title);
-        })
+        }, function() {
+            this.setState({
+                userCreatedChapters: []
+            });
+        });
+
+
 
         this.props.onClose();
     }
@@ -224,6 +233,13 @@ class QuizzEditModal extends Component {
     }
 
     onChangeFeedbackHint(newText, index) {
+
+        if (index === 'generalFeedback') {
+            this.setState({
+                generalFeedback: newText
+            });
+        }
+
         var currentAnswers = this.state.answers;
         currentAnswers[index].feedback = newText;
         this.setState({
@@ -421,14 +437,23 @@ class QuizzEditModal extends Component {
                                     <img src={answer.image} style={{maxWidth:'200px'}} alt="" />
                                 </center>
                                 ) : null}
-                            
+                            {this.isSingleChoice() ?
                             <Input placeholder="Answer feedback or hint (optional). Motivate and help your student." value={answer.feedback} onChange={function(element) { that.onChangeFeedbackHint(element.target.value, index) }} />
+                            :
+                            null}
+                            
                             </div>
                             )
                     })}
                     <center>
-                            
-                    <Button color="secondary" onClick={this.onAddNewAnswerOption}>Add new Answer Option</Button>
+                    <Button color="secondary" style={{marginBottom:'20px'}} onClick={this.onAddNewAnswerOption}>Add new Answer Option</Button>
+
+                    {this.isMultipleChoice() ?
+                        <Input placeholder="Feedback or hint after the student submitted their solution (optional)." value={this.state.generalFeedback} onChange={function(element) { this.onChangeFeedbackHint(element.target.value, 'generalFeedback') }} />
+                        :
+                    null}
+
+                    
                     {
                         
                         this.isMultipleChoice()?
