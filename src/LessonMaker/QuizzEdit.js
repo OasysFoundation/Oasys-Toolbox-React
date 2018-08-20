@@ -50,8 +50,10 @@ class QuizzEdit extends Component {
             quizType: props.data? props.data.quizType : "single-choice",
             showsPageSelectionDropDown: false,
             selectingImageForIndex: 0,
-            showsFeedbackPopover: false,
-            selectedAnswerIndex: 0,
+            feedbackPopoverAnchor: null,
+            feedbackPopoverText: "",
+            feedbackPopoverTitle: "",
+            feedbackPopoverAction: null,
             generalFeedback: props.data? props.data.feedback : null
         }
 
@@ -95,6 +97,11 @@ class QuizzEdit extends Component {
         } else {
             feedback = "This is not quite right."
         }
+
+        this.setState({
+            feedbackPopoverAnchor: "submit-multiple-choice-button",
+            feedbackPopoverText: this.state.generalFeedback
+        });
     }
 
     areSelectedOptionsCorrect() {
@@ -116,13 +123,18 @@ class QuizzEdit extends Component {
 
 
         this.setState({
-            showsFeedbackPopover: false,
+            feedbackPopoverAnchor: null,
             answers: answers
         }, function() {
-            this.setState({
-                selectedAnswerIndex: index,
-                showsFeedbackPopover: true
-            })
+            if (this.isSingleChoice()) {
+                const selectedAnswer = answers[index];
+                this.setState({
+                    feedbackPopoverAnchor: 'answer-id-'+index,
+                    feedbackPopoverText: selectedAnswer.feedback,
+                    feedbackPopoverTitle: selectedAnswer.correct? "Amazing, this is correct!" : "This is wrong…",
+                    feedbackPopoverAction: selectedAnswer.action
+                });
+            }
         });
     }
 
@@ -169,15 +181,12 @@ class QuizzEdit extends Component {
             columnGap: '10px',
         }
 
-        const selectedAnswer = this.state.answers ? this.state.answers[this.state.selectedAnswerIndex] : null;
-        const feedbackTitle = selectedAnswer? (selectedAnswer.correct ? "You are amazing! This is correct. 🎉" : "This is wrong. 😭") : null;
-
         const that = this; 
         return (
             <div>
                 <center>
                 {this.props.isEditMode? <Button color="primary" onClick={this.onClickEditButton}>Edit Quiz</Button> : null}
-                <h1>{this.state.question.title? this.state.question.title : "This Quiz has no Question, yet."}</h1>
+                <h1>{this.state.question.title? this.state.question.title : "This quiz has no question, yet."}</h1>
                 {this.state.question.title? null : <p style={{marginBottom:'10px', maxWidth:'350px'}}>Click 'Edit Quiz' to edit the question and answers, and to chose between single choice or multiple choice.</p>}
                 <img src={this.state.question.image} alt="" style={{maxWidth:'80%'}}/>
                 
@@ -195,16 +204,16 @@ class QuizzEdit extends Component {
                             />
                    })}
             	</div>
-                {this.isMultipleChoice()? <Button color="primary" onClick={this.onClickSubmitButton}>Submit</Button> : null}
+                {this.isMultipleChoice()? <Button color="primary" id="submit-multiple-choice-button" onClick={this.onClickSubmitButton.bind(this)}>Submit</Button> : null}
                 </center>
 
-                {this.state.showsFeedbackPopover && this.isSingleChoice()? 
+                {this.state.feedbackPopoverAnchor? 
                 (
-                  <Popover placement="top" isOpen={this.state.showsFeedbackPopover} target={'answer-id-' + this.state.selectedAnswerIndex} toggle={this.onCloseFeedbackPopover}>
-                  <PopoverHeader>{ feedbackTitle }</PopoverHeader>
-                  <PopoverBody>{this.state.answers.length? this.state.answers[this.state.selectedAnswerIndex].feedback : null}</PopoverBody>
+                  <Popover placement="top" isOpen={Boolean(this.state.feedbackPopoverAnchor)} target={this.state.feedbackPopoverAnchor} toggle={this.onCloseFeedbackPopover}>
+                  <PopoverHeader>{ this.state.feedbackPopoverTitle }</PopoverHeader>
+                  <PopoverBody>{this.state.feedbackPopoverText}</PopoverBody>
                   <center>
-                  <Button color="primary" onClick={function() { that.onContinue(selectedAnswer.action) }} style={{marginBottom: '15px'}}> Continue… </Button>
+                  <Button color="primary" onClick={function() { that.onContinue(this.state.feedbackPopoverAction) }} style={{marginBottom: '15px'}}> Continue… </Button>
                   </center>
                   </Popover>
                 )

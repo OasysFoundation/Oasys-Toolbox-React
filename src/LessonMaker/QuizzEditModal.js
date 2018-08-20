@@ -237,13 +237,13 @@ class QuizzEditModal extends Component {
             this.setState({
                 generalFeedback: newText
             });
+        } else {
+            var currentAnswers = this.state.answers;
+            currentAnswers[index].feedback = newText;
+            this.setState({
+                answers: currentAnswers
+            });
         }
-
-        var currentAnswers = this.state.answers;
-        currentAnswers[index].feedback = newText;
-        this.setState({
-            answers: currentAnswers
-        })
     }
 
     onChangeQuestion(newText) {
@@ -450,7 +450,7 @@ class QuizzEditModal extends Component {
                     <Button color="secondary" style={{marginBottom:'20px'}} onClick={this.onAddNewAnswerOption}>Add new Answer Option</Button>
 
                     {this.isMultipleChoice() ?
-                        <Input placeholder="Feedback or hint after the student submitted their solution (optional)." value={this.state.generalFeedback} onChange={function(element) { this.onChangeFeedbackHint(element.target.value, 'generalFeedback') }} />
+                        <Input placeholder="Feedback or hint after the student submitted their solution (optional)." value={that.state.generalFeedback} onChange={function(element) { that.onChangeFeedbackHint(element.target.value, 'generalFeedback') }} />
                         :
                     null}
 
