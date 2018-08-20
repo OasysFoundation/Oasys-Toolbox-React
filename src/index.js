@@ -23,6 +23,7 @@ import Header from './Header';
 import Navbar from './Navbar';
 import Footer from "./Footer";
 import About from "./About"
+import LandingPageController from "./ExploreContent/LandingPageController"
 
 import FontAwesomeImports from "./FontAwesomeImports"
 
@@ -56,7 +57,10 @@ const history = createBrowserHistory();
 
 class Index extends Component {
     constructor(props) {
-        super();
+        super(props);
+        this.state={
+            category:"",
+        }
     }
 
     handleChangeSearchBar(newVal){
@@ -71,12 +75,12 @@ class Index extends Component {
                         <div>
                             {<Navbar onChange={this.handleChangeSearchBar.bind(this)}/>}
                             <Switch>
-                                <Route exact path="/" render={() => <ContentSelection/>}/>
+                                <Route exact path="/" render={() => <LandingPageController category={this.state.category}/>}/>
                                 <Route exact path="/create" render={(props) => <LessonMaker {...props} />}/>
                                 <Route exact path="/auth"
                                        render={(props) => <Authentication/>}/>
                                 <Route exact path="/view" render={() => <ContentView project={store.getState()}/>}/>
-                                <Route exact path="/learn" render={(props) => <ContentSelection {...props} />}/>
+                                <Route exact path="/learn" render={(props) => <LandingPageController {...props} />}/>
                                 <Route exact path="/create" render={(props) => <LessonMaker {...props} />}/>
                                 <Route exact path="/data" render={(props) => <DataViewCreator {...props} />}/>
                                 <Route exact path="/about" render={(props) => <About {...props} />}/>
