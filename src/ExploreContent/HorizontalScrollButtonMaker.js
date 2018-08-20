@@ -12,7 +12,7 @@ const styles= {
 		borderColor:"#F6F1DE", 
 		color: "#F6F1DE", 
 		maxHeight:"300px", 
-		fontFamily:"HelveticaNeue_Bold,-apple-system, sans-serif",
+		fontFamily:"HelveticaNeue-Light,-apple-system, sans-serif",
 		margin:"0 5px"
 	},
 	cardBody:{
@@ -29,6 +29,7 @@ const styles= {
 		textDecoration:"none", 
 		width:"100%",
 		fontSize:".9rem",
+		fontFamily:"HelveticaNeue-Light,-apple-system, sans-serif",
 	},
 	cardTitleLink:{
 		textDecoration:"none", 
@@ -39,6 +40,7 @@ const styles= {
 	},
 	cardSubtitle:{
 		color:"#C6361D",
+		fontFamily:"HelveticaNeue-Light,-apple-system, sans-serif",
 	},
 	verticalEllipsesOuterDiv:{
 		flex:"1", 
@@ -50,7 +52,7 @@ const styles= {
 		color:"#C3C8D4",
 	},
 	modalOuterDiv:{
-		fontFamily:"HelveticaNeue_Light",
+		fontFamily:"HelveticaNeue-Light",
 	},
 	modalHeader:{
 		fontSize:"2.5em"
@@ -88,7 +90,7 @@ const styles= {
 		color:"#C6361D", 
 		display:"flex", 
 		justifyContent:"center",
-	}
+	},
 }
 
 class HorizontalScrollButtonMaker extends Component{
@@ -164,13 +166,18 @@ class HorizontalScrollButtonMaker extends Component{
 
 		}
 
-
-
-
+		const containedStyle = {
+			textTransform: "none", 
+			borderRadius: "12px", 
+			margin:".3em .3em .3em .3em", 
+			boxShadow: "1px 1px 5px #888888",
+			backgroundColor: this.props.data.color,
+		}
+		
 		return(
 			this.props.type==="Tiles"
 			? (
-				<Button variant="contained" size="small" color="inherit" style={{textTransform: "none", backgroundColor:this.props.data.color, borderRadius: "12px", margin:".3em .3em .3em .3em", boxShadow: "1px 1px 5px #888888"}}>
+				<Button variant="contained" size="small" color="inherit" style={containedStyle}>
             		{aTag}
             	</Button>
             )
