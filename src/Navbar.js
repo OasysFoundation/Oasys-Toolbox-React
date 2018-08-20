@@ -348,19 +348,36 @@ class NavBar extends React.Component {
             <Nav navbar style={styles.navbarNavs}>
               <NavItem style={styles.navbarNavItem}>
                 <NavLink href="/explore/" style={styles.navbarLinks}>
-                    <FontAwesomeIcon icon="lightbulb" className="faAlignRight marginRight5" size="lg" style={{marginRight:"5px"}}/>
+                   {/* <FontAwesomeIcon icon="lightbulb" className="faAlignRight marginRight5" size="lg" style={{marginRight:"5px"}}/> */}
+              <i className="fas fa-align-right fa-lg fa-compass margin-right5"></i> 
                     Learn
                 </NavLink>
               </NavItem>
               <NavItem style={styles.navbarNavItem}> 
                 <NavLink href="/create/" style={styles.navbarLinks}>
-                   <FontAwesomeIcon icon="pencil-alt" className="faAlignRight marginRight5" size="lg" style={{marginRight:"5px"}}/>
+                   {/*<FontAwesomeIcon icon="pencil-alt" className="faAlignRight marginRight5" size="lg" style={{marginRight:"5px"}}/> */}
+              <i className="fas fa-align-right fa-lg fa-pencil-alt margin-right5"></i> 
                    Create
                 </NavLink>
               </NavItem>
+
+              <NavItem style={styles.navbarNavItem}>
+                <NavLink href="/data" style={styles.navbarLinks}>
+                  <i className="fas fa-align-right fa-lg fa-chart-bar margin-right5"></i> 
+                  Analytics
+                </NavLink>
+              </NavItem>
+              <NavItem style={styles.navbarNavItem}>
+                <NavLink href="/about" style={styles.navbarLinks}>
+                  <i className="fas fa-align-right fa-lg fa-info-circle margin-right5"></i> 
+                  About
+                </NavLink>
+              </NavItem>
+
               <NavItem style={styles.navbarNavItem}>
                 <NavLink href="/user/" style={styles.navbarLinks}>
-                    <FontAwesomeIcon icon="user" className="faAlignRight marginRight5" size="lg" style={{marginRight:"5px"}}/>
+                    {/*<FontAwesomeIcon icon="user" className="faAlignRight marginRight5" size="lg" style={{marginRight:"5px"}}/> */}
+                    <i className="fas fa-align-right fa-lg fa-user margin-right5"></i> 
                     Profile
                 </NavLink>
               </NavItem>
