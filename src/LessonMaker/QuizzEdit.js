@@ -48,7 +48,8 @@ class QuizzEdit extends Component {
             showsPageSelectionDropDown: false,
             selectingImageForIndex: 0,
             showsFeedbackPopover: false,
-            selectedAnswerIndex: 0
+            selectedAnswerIndex: 0,
+            generalFeedback: props.data? props.data.feedback : null
         }
 
 
@@ -85,8 +86,11 @@ class QuizzEdit extends Component {
     onClickSubmitButton() {
         const areSelectedOptionsCorrect = this.areSelectedOptionsCorrect();
 
+        var feedback = ""
         if (areSelectedOptionsCorrect) {
-
+            feedback = "Great, your answer is correct!";
+        } else {
+            feedback = "This is not quite right."
         }
     }
 
@@ -128,6 +132,14 @@ class QuizzEdit extends Component {
     onContinue(nextChapterId) {
         this.onCloseFeedbackPopover();
         this.props.onLearnerInteraction(nextChapterId, this.props.id);
+    }
+
+    isSingleChoice() {
+        return this.state.quizType === 'single-choice';
+    }
+
+    isMultipleChoice() {
+        return !this.isSingleChoice();
     }
 
 	
@@ -180,13 +192,13 @@ class QuizzEdit extends Component {
                 
             	<div style={containerStyle}>
             	   {this.state.answers.map((answer, index) => {
-                    return <QuizzButton answer={answer} key={"answer-id-" + index} id={"answer-id-" + index} showsSelectionIndicator={that.state.quizType==='multiple-choice'} isSelected={answer.isSelected} index={index} onSelect={this.onSelectAnswer} width={elementWidth} height={elementHeight} color={that.quizColors[index % that.quizColors.length]} />
+                    return <QuizzButton answer={answer} key={"answer-id-" + index} id={"answer-id-" + index} showsSelectionIndicator={that.isMultipleChoice()} isSelected={answer.isSelected} index={index} onSelect={this.onSelectAnswer} width={elementWidth} height={elementHeight} color={that.quizColors[index % that.quizColors.length]} />
                    })}
             	</div>
-                {this.state.quizType === 'multiple-choice'? <Button color="primary" onClick={this.onClickSubmitButton}>Submit</Button> : null}
+                {this.isMultipleChoice()? <Button color="primary" onClick={this.onClickSubmitButton}>Submit</Button> : null}
                 </center>
 
-                {this.state.showsFeedbackPopover && this.state.quizType=='single-choice'? 
+                {this.state.showsFeedbackPopover && this.isSingleChoice()? 
                 (
                   <Popover placement="top" isOpen={this.state.showsFeedbackPopover} target={'answer-id-' + this.state.selectedAnswerIndex} toggle={this.onCloseFeedbackPopover}>
                   <PopoverHeader>{ feedbackTitle }</PopoverHeader>

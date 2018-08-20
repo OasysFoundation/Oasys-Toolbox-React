@@ -140,7 +140,7 @@ class QuizzEditModal extends Component {
 
         const answers = this.state.answers;
 
-        if (this.state.quizType === 'single-choice') {
+        if (this.isSingleChoice()) {
             if (value === "on") {
                 answers.map(function(answer, answerIndex) {
                     if (answerIndex === index) {
@@ -333,6 +333,14 @@ class QuizzEditModal extends Component {
         });
     }
 
+    isSingleChoice() {
+        return this.state.quizType === 'single-choice';
+    }
+
+    isMultipleChoice() {
+        return !this.isSingleChoice();
+    }
+
 	
     render() {
         const that = this; 
@@ -346,7 +354,7 @@ class QuizzEditModal extends Component {
                     <Nav tabs>
                       <NavItem>
                         <NavLink
-                          className={classnames({ active: this.state.quizType === 'single-choice' })}
+                          className={classnames({ active: this.isSingleChoice() })}
                           onClick={() => { this.onChangeQuizType('single-choice'); }}
                         >
                           Single Choice Quiz
@@ -354,7 +362,7 @@ class QuizzEditModal extends Component {
                       </NavItem>
                       <NavItem>
                         <NavLink
-                          className={classnames({ active: this.state.quizType === 'multiple-choice' })}
+                          className={classnames({ active: this.isMultipleChoice() })}
                           onClick={() => { this.onChangeQuizType('multiple-choice'); }}
                         >
                           Multiple Choice Quiz
@@ -362,7 +370,7 @@ class QuizzEditModal extends Component {
                       </NavItem>
                     </Nav>
 
-                  <ModalHeader toggle={this.onClose}>Edit Quiz – {this.state.quizType==='single-choice'? "Single Choice with Selection Options" : "Multiple Choice with Actions"}</ModalHeader>
+                  <ModalHeader toggle={this.onClose}>Edit Quiz – {this.isSingleChoice()? "Single Choice with Selection Options" : "Multiple Choice with Actions"}</ModalHeader>
                   <ModalBody>
                 <InputGroup>
                     <InputGroupAddon addonType="prepend">?</InputGroupAddon>
@@ -379,7 +387,7 @@ class QuizzEditModal extends Component {
                             <InputGroup>
                                 <InputGroupAddon addonType="prepend">
                                   <InputGroupText style={{'backgroundColor': answer.correct? colors.TURQUOISE : null}}>
-                                    {that.state.quizType==='single-choice'?
+                                    {that.isSingleChoice()?
                                         <Input addon checked={answer.correct? "checked" : null} type="radio" name="radio1" onChange={function(radio) { that.onUpdateCorrectAnswer(radio.target.value, index) } } />
                                         :
                                         <Input addon checked={answer.correct? "checked" : null} type="checkbox" onClick={function(checkbox) { that.onUpdateCorrectAnswer(null, index) } } />
@@ -394,7 +402,7 @@ class QuizzEditModal extends Component {
                                 </InputGroupAddon>
                                 
                                 {
-                                    that.state.quizType==='single-choice'?
+                                    that.isSingleChoice()?
                                     (<SelectionDropdown onSelect={this.onSelectAction} identifier={index} default={answer.action!=null? that.chapterTitleForIdentifier(answer.action) : "No Action"} options={that.getActionMenuItems()}/>)
                                 :
                                     null
@@ -423,7 +431,7 @@ class QuizzEditModal extends Component {
                     <Button color="secondary" onClick={this.onAddNewAnswerOption}>Add new Answer Option</Button>
                     {
                         
-                        this.state.quizType==='multiple-choice'?
+                        this.isMultipleChoice()?
                         (   
                             <div style={{marginTop:'20px'}}>
                                 <SelectionDropdown onSelect={this.onSelectAction} identifier={"action-correct"} default={this.state.actionCorrect? "When correct: " + this.chapterTitleForIdentifier(this.state.actionCorrect) : "When answered correctly…"} options={this.getActionMenuItems()}/>
