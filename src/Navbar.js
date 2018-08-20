@@ -58,7 +58,7 @@ const styles = {
     },
     navbarBrandImage:{
         height: "40px",
-        marginRight: '50px',
+        marginRight: '35px',
     },
     navbarCollapse:{
         width:"100%",
