@@ -57,7 +57,8 @@ const styles = {
         fontFamily: "helveticaneue",
     },
     navbarBrandImage:{
-        height: "30px",
+        height: "40px",
+        marginRight: '35px',
     },
     navbarCollapse:{
         width:"100%",
@@ -85,11 +86,6 @@ const styles = {
         backgroundColor:"#f6f6f6",
         borderTopRightRadius: ".25rem",
         borderBottomRightRadius: ".25rem",
-    },
-    navbarMobile:{
-        backgroundColor: "#f8f8f4", 
-        height: "100px",
-        borderBottom: "1px solid #27363E",
     },
     navbarMobileTopRow:{
         height:"50%", 
@@ -155,6 +151,7 @@ const styles = {
     },
     navbarSelectOuterDiv:{
         width: "50%",
+        maxWidth: "350px"
     },
     navbarMobileSelectDiv: {
       width:"85%",
@@ -230,7 +227,7 @@ class NavBar extends React.Component {
         super(props);
         this.toggle = this.toggle.bind(this);
         this.state = {
-          height: "50px",
+          height: "35px",
           isOpen: false,
           isHidden: false,
           selectedOption: null,
@@ -274,7 +271,7 @@ class NavBar extends React.Component {
     toggle() {
         this.state.height==="13rem"
         ? this.setState({
-           height:"50px"
+           height:"40px"
           })
         : this.setState({
            height:"13rem"
@@ -306,7 +303,7 @@ class NavBar extends React.Component {
           },
         ];
         return (
-         <Navbar style={styles.navbarMobile}>
+         <Navbar className='navbar-ontop'>
             <div style={styles.navbarMobileTopRow}>
                 <a href="/explore" style={styles.navbarBrandMobile}>
                     <img src={Logo_Small} style={styles.navbarBrandMobileImage}/>

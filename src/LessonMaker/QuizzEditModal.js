@@ -39,7 +39,8 @@ class QuizzEditModal extends Component {
             actionWrong: props.actionWrong? props.actionWrong : null,
             showsCreateNewChapterDialog: false,
             newChapterCreatedResolver: null,
-            userCreatedChapters: []
+            userCreatedChapters: [],
+            generalFeedback: props.generalFeedback? props.generalFeedback : ""
         };
 
         this.baseState = JSON.parse(JSON.stringify(this.state));
@@ -66,7 +67,8 @@ class QuizzEditModal extends Component {
             actionWrong: nextProps.actionWrong? nextProps.actionWrong : null,
             showsCreateNewChapterDialog: false,
             newChapterCreatedResolver: null,
-            userCreatedChapters: []
+            userCreatedChapters: [],
+            generalFeedback: nextProps.generalFeedback? nextProps.generalFeedback : ""
         });
 
         this.baseState = JSON.parse(JSON.stringify(this.state));
@@ -80,12 +82,19 @@ class QuizzEditModal extends Component {
             answers: this.state.answers,
             quizType: this.state.quizType,
             actionCorrect: this.state.actionCorrect,
-            actionWrong: this.state.actionWrong
+            actionWrong: this.state.actionWrong,
+            generalFeedback: this.state.generalFeedback
         });
 
+        const that = this;
         this.state.userCreatedChapters.forEach(function(chapter) {
-            this.props.onAddChapter(chapter.id, chapter.title);
-        })
+            that.props.onAddChapter(chapter.id, chapter.title);
+        });
+
+        this.setState({
+            userCreatedChapters: []
+        });
+
 
         this.props.onClose();
     }
@@ -140,7 +149,7 @@ class QuizzEditModal extends Component {
 
         const answers = this.state.answers;
 
-        if (this.state.quizType === 'single-choice') {
+        if (this.isSingleChoice()) {
             if (value === "on") {
                 answers.map(function(answer, answerIndex) {
                     if (answerIndex === index) {
@@ -224,6 +233,13 @@ class QuizzEditModal extends Component {
     }
 
     onChangeFeedbackHint(newText, index) {
+
+        if (index === 'generalFeedback') {
+            this.setState({
+                generalFeedback: newText
+            });
+        }
+
         var currentAnswers = this.state.answers;
         currentAnswers[index].feedback = newText;
         this.setState({
@@ -333,6 +349,14 @@ class QuizzEditModal extends Component {
         });
     }
 
+    isSingleChoice() {
+        return this.state.quizType === 'single-choice';
+    }
+
+    isMultipleChoice() {
+        return !this.isSingleChoice();
+    }
+
 	
     render() {
         const that = this; 
@@ -346,7 +370,7 @@ class QuizzEditModal extends Component {
                     <Nav tabs>
                       <NavItem>
                         <NavLink
-                          className={classnames({ active: this.state.quizType === 'single-choice' })}
+                          className={classnames({ active: this.isSingleChoice() })}
                           onClick={() => { this.onChangeQuizType('single-choice'); }}
                         >
                           Single Choice Quiz
@@ -354,7 +378,7 @@ class QuizzEditModal extends Component {
                       </NavItem>
                       <NavItem>
                         <NavLink
-                          className={classnames({ active: this.state.quizType === 'multiple-choice' })}
+                          className={classnames({ active: this.isMultipleChoice() })}
                           onClick={() => { this.onChangeQuizType('multiple-choice'); }}
                         >
                           Multiple Choice Quiz
@@ -362,7 +386,7 @@ class QuizzEditModal extends Component {
                       </NavItem>
                     </Nav>
 
-                  <ModalHeader toggle={this.onClose}>Edit Quiz – {this.state.quizType==='single-choice'? "Single Choice with Selection Options" : "Multiple Choice with Actions"}</ModalHeader>
+                  <ModalHeader toggle={this.onClose}>Edit Quiz – {this.isSingleChoice()? "Single Choice with Selection Options" : "Multiple Choice with Actions"}</ModalHeader>
                   <ModalBody>
                 <InputGroup>
                     <InputGroupAddon addonType="prepend">?</InputGroupAddon>
@@ -379,7 +403,7 @@ class QuizzEditModal extends Component {
                             <InputGroup>
                                 <InputGroupAddon addonType="prepend">
                                   <InputGroupText style={{'backgroundColor': answer.correct? colors.TURQUOISE : null}}>
-                                    {that.state.quizType==='single-choice'?
+                                    {that.isSingleChoice()?
                                         <Input addon checked={answer.correct? "checked" : null} type="radio" name="radio1" onChange={function(radio) { that.onUpdateCorrectAnswer(radio.target.value, index) } } />
                                         :
                                         <Input addon checked={answer.correct? "checked" : null} type="checkbox" onClick={function(checkbox) { that.onUpdateCorrectAnswer(null, index) } } />
@@ -394,7 +418,7 @@ class QuizzEditModal extends Component {
                                 </InputGroupAddon>
                                 
                                 {
-                                    that.state.quizType==='single-choice'?
+                                    that.isSingleChoice()?
                                     (<SelectionDropdown onSelect={this.onSelectAction} identifier={index} default={answer.action!=null? that.chapterTitleForIdentifier(answer.action) : "No Action"} options={that.getActionMenuItems()}/>)
                                 :
                                     null
@@ -413,17 +437,26 @@ class QuizzEditModal extends Component {
                                     <img src={answer.image} style={{maxWidth:'200px'}} alt="" />
                                 </center>
                                 ) : null}
-                            
+                            {this.isSingleChoice() ?
                             <Input placeholder="Answer feedback or hint (optional). Motivate and help your student." value={answer.feedback} onChange={function(element) { that.onChangeFeedbackHint(element.target.value, index) }} />
+                            :
+                            null}
+                            
                             </div>
                             )
                     })}
                     <center>
-                            
-                    <Button color="secondary" onClick={this.onAddNewAnswerOption}>Add new Answer Option</Button>
+                    <Button color="secondary" style={{marginBottom:'20px'}} onClick={this.onAddNewAnswerOption}>Add new Answer Option</Button>
+
+                    {this.isMultipleChoice() ?
+                        <Input placeholder="Feedback or hint after the student submitted their solution (optional)." value={this.state.generalFeedback} onChange={function(element) { this.onChangeFeedbackHint(element.target.value, 'generalFeedback') }} />
+                        :
+                    null}
+
+                    
                     {
                         
-                        this.state.quizType==='multiple-choice'?
+                        this.isMultipleChoice()?
                         (   
                             <div style={{marginTop:'20px'}}>
                                 <SelectionDropdown onSelect={this.onSelectAction} identifier={"action-correct"} default={this.state.actionCorrect? "When correct: " + this.chapterTitleForIdentifier(this.state.actionCorrect) : "When answered correctly…"} options={this.getActionMenuItems()}/>
