@@ -193,15 +193,15 @@ class HeaderImage extends Component {
                                 render={() => this.getPCScreenImage("tiny")}
                             />
                             <Media
-                                query="(min-width: 626px) and (max-width: 999px)"
+                                query="(min-width: 625px) and (max-width: 999px)"
                                 render={() => this.getPCScreenImage("small")}
                             />
                             <Media
-                                query="(min-width: 1000px) and (max-width: 1283px)"
+                                query="(min-width: 999px) and (max-width: 1283px)"
                                 render={() => this.getPCScreenImage("medium")}
                             />
                             <Media
-                                query="(min-width: 1284px)"
+                                query="(min-width: 1283px)"
                                 render={() => this.getPCScreenImage("large")}
                             />
                         </div>
