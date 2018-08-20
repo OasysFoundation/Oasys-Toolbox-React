@@ -466,6 +466,10 @@ html:not([dir="rtl"]) .oasys .sidebar {
     border: none;
 }
 
+.oasys .pn-ProductNav {
+    overflow-x: hidden;
+}
+
 /* ------------------- navbar ------------------- */
 
 .oasys.app .navbar {
