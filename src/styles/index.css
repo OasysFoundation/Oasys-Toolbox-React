@@ -225,6 +225,10 @@ html, body {
     cursor: pointer;
 }
 
+.oasys .app-body {
+    overflow-y: hidden;
+}
+
 /* ------------------ sidebar ----------------- */
 
 .oasys .sidebar .sidebar-nav {
