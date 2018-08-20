@@ -387,7 +387,7 @@ class NavBar extends React.Component {
         return(
             <div style={{height:this.state.height}}>
             <Navbar light expand="sm" style={styles.navbarRefactor} >
-              <NavbarBrand href="/explore" style={styles.navBarBrand}>
+              <NavbarBrand href="/" style={styles.navBarBrand}>
                   <img src={Logo} style={styles.navbarBrandImage}/>
               </NavbarBrand>
               <NavbarToggler onClick={this.toggle}/>
