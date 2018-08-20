@@ -20,7 +20,6 @@ const data = {
                     chapterId: "chapter_99852"
                 },
             ],
-            // linkIdx: ["chapter_99852"],
             elements: [
                 {
                     parentChapterID: "chapter_124552",
@@ -137,10 +136,6 @@ const data = {
                     eventId: "jhhoawjdoaw",
                     chapterId: "chapter_100"
                 },
-                {
-                    eventId: "asdf",
-                    chapterId: "chapter_124552"
-                },
             ],
         },
         {
@@ -154,10 +149,6 @@ const data = {
                 }
             ],
             links: [
-                {
-                    eventId: "asdf",
-                    chapterId: "chapter_124552"
-                },
             ],
         }
     ]

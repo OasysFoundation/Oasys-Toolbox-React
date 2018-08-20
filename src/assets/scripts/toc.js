@@ -52,9 +52,9 @@ export function sortIntoTocLevels(tocInfo, chapters, mainPath) {
         let idx = chapters[todo[i]].idx;
         // find element pointing to this one
         let chaps = chapters.filter(e=>e.linkIdx.indexOf(idx)>=0);
-        if (chaps.length===0) {
+        /*if (chaps.length===0) {
             throw new Error("While building TOC, a chapter was discovered that is disconnected (" + chapters[todo[i]].title + ")")
-        }
+        }*/
         let prevElem = Math.max(0,...chaps.map(e=>e.idx).filter(e=>e<idx));
         // find first element this one points to
         let nextElem = Math.min(...chapters[idx].linkIdx.filter(e=>e>idx));
@@ -302,6 +302,7 @@ export function svgRect(obj,idx,opt){
     svg.setAttribute("rx", '0.25rem'); // corner radius horizontal
     svg.setAttribute("ry", '0.25rem'); // corner radius vertical
     svg.setAttribute("opacity", 1.0);
+    svg.setAttribute("class", 'toc-button');
     svg.setAttribute('data-tip', 'tooltip');
     svg.setAttribute('data-for', 'toc-'+idx);
     svg.addEventListener("click", function(){opt.handleClick(idx)}, false);

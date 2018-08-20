@@ -113,10 +113,6 @@ html, body, svg, text {
     margin:0 !important;
 }
 
-.oasys .app-header .navbar-brand {
-    left: 15%;
-}
-
 .oasys .card-header {
     margin: 0;
     padding: 0.25rem 0.25rem;
@@ -220,6 +216,7 @@ html, body, svg, text {
 }
 
 /* ------------------ sidebar ----------------- */
+
 .oasys .sidebar .sidebar-nav {
     flex: 0 0 auto;
 }
@@ -241,6 +238,7 @@ html, body, svg, text {
     border-radius: 0.25rem;
     background-color: #3E4B54;
     color: #eeeeee;
+    height: 25px;
     /* border: 1px solid #626970; */
     border: none;
     display: flex;
@@ -276,10 +274,18 @@ html, body, svg, text {
     margin-left: -5px;
     margin-right: 5px;
     padding: 3px;
+    height: 18px;
 }
 
 .oasys .modal-header .close {
     display: none;
+}
+
+.toc-button:hover {
+    background-color: #ff0000;
+}
+.toc-button:hover {
+    background-color: #00ff00;
 }
 
 /* ------------------ video edit ----------------- */
