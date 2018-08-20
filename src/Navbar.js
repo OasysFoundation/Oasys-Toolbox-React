@@ -35,7 +35,7 @@ const styles = {
         justifyContent: "center", 
         padding:"0px 8px 0px 8px",
         color:"​​​​​​​#3E4B54",
-        fontSize:".9rem"
+        fontSize:"1.0rem"
     },
     navbarNavLinkForImage:{
         padding:"0px 0px 0px 0px",
@@ -349,14 +349,14 @@ class NavBar extends React.Component {
               <NavItem style={styles.navbarNavItem}>
                 <NavLink href="/explore/" style={styles.navbarLinks}>
                    {/* <FontAwesomeIcon icon="lightbulb" className="faAlignRight marginRight5" size="lg" style={{marginRight:"5px"}}/> */}
-              <i className="fas fa-align-right fa-lg fa-compass margin-right5"></i> 
+                    <i className="fas fa-align-right fa-lg fa-compass margin-right5"></i> 
                     Learn
                 </NavLink>
               </NavItem>
               <NavItem style={styles.navbarNavItem}> 
                 <NavLink href="/create/" style={styles.navbarLinks}>
                    {/*<FontAwesomeIcon icon="pencil-alt" className="faAlignRight marginRight5" size="lg" style={{marginRight:"5px"}}/> */}
-              <i className="fas fa-align-right fa-lg fa-pencil-alt margin-right5"></i> 
+                    <i className="fas fa-align-right fa-lg fa-pencil-alt margin-right5"></i> 
                    Create
                 </NavLink>
               </NavItem>
