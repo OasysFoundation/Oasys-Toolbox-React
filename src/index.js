@@ -66,6 +66,7 @@ class Index extends Component {
                             {<Navbar onChange={this.handleChangeSearchBar.bind(this)}/>}
                             <Switch>
                                 <Route exact path="/" render={() => <LandingPageController category={this.state.category}/>}/>
+                                <Route exact path="/explore" render={() => <LandingPageController category={this.state.category}/>}/>
                                 <Route exact path="/user" render={() => <Authentication/>}/>
                                 <Route exact path="/create" render={(props) => <LessonMaker {...props} />}/>
                                 {/*<Route exact path="/auth" render={(props) => <Authentication/>}/>*/}

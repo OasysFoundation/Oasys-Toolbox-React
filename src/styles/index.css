@@ -29,6 +29,11 @@
     src: url('../assets/fonts/HelveticaNeue-Light.ttf');
 }
 
+@font-face {
+    font-family: 'HelveticaNeue-Bold'; 
+    src: url('../assets/fonts/HelveticaNeue-Bold.ttf');
+}
+
 /*
 RobotoSlab is a very popular and well design serif font
 FreightText is a former Medium serif font
@@ -81,7 +86,6 @@ Kievit is a former Medium sans-serif font
 */
 
 
-
 html, body, svg, text {
   margin: 0;
   padding: 0;
@@ -114,10 +118,6 @@ html, body {
     padding-top: 20px;
 }
 
-.oasys .input-group mb-3 {
-    margin:0 !important;
-}
-
 .oasys .card-header {
     margin: 0;
     padding: 0.25rem 0.25rem;
@@ -148,7 +148,6 @@ html, body {
 .oasys .make-big {
     font-size: 60px;
 }
-
 
 .oasys .card-footer {
     margin: 0;
@@ -220,7 +219,20 @@ html, body {
     cursor: pointer;
 }
 
+.oasys .app-body {
+    overflow-y: hidden;
+    margin-top: 0px;
+}
+
+
+html:not([dir="rtl"]) .oasys .main {
+  margin-left: 30px; 
+}
 /* ------------------ sidebar ----------------- */
+
+html:not([dir="rtl"]) .oasys .sidebar {
+  margin-left: -150px; 
+}
 
 .oasys .sidebar .sidebar-nav {
     flex: 0 0 auto;
@@ -452,6 +464,10 @@ html, body {
 .oasys .card.content-view {
     padding-top: 30px;
     border: none;
+}
+
+.oasys .pn-ProductNav {
+    overflow-x: hidden;
 }
 
 /* ------------------- navbar ------------------- */

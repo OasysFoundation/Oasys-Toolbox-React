@@ -79,7 +79,6 @@ const actions = function (store) { //store for async stuff
 
         onChangeContent(state, id, value, elementChapter) {
 
-            console.log(id, value)
             //more verbose, but performant (instead of Json.stringify)
             const currentChapterIdx = state.chapters.findIndex(chapter => chapter.id === elementChapter);
             let elements = state.chapters[currentChapterIdx].elements;
@@ -125,7 +124,6 @@ const actions = function (store) { //store for async stuff
         //usually called after onChangeContent adds new actions
         updateChapterLinks(state) {
             const clone = JSON.parse(JSON.stringify(state));
-            console.log(clone.chapters, "chaps");
 
             clone.chapters.forEach(chapter => {
                 chapter.elements.forEach((elem, i) => {
@@ -142,7 +140,6 @@ const actions = function (store) { //store for async stuff
                                 }
                             });
 
-                            console.log(chapter.id, i, chapter.links)
                         }
                     }
                 })

@@ -61,7 +61,6 @@ class Element extends Component {
         this.setState( //lots of ASYNC BS to avoid....
             () => ({tempContent: value, timestamp: Date.now()}), () => {
                 if (shouldInstantUpdate) {
-                    console.log("TEMP CONTENT ON ELEMENT AT", this.state.tempContent)
                     this.props.onChangeContent(
                         this.props.data.id,
                         this.state.tempContent,
@@ -116,11 +115,9 @@ class Element extends Component {
     }
 
     componentDidMount() {
-        console.log('empty elements?', isElementEmpty(this.props.data))
     }
 
     componentWillUnmount() {
-        // console.log('unmounting ', this.state.tempContent)
         this.props.onChangeContent(
             this.props.data.id,
             this.state.tempContent,
@@ -141,7 +138,7 @@ class Element extends Component {
     changeVisibility(isVisible) {
         let visStr = 'invisible';
         if (isVisible) {visStr = 'visible'}
-        console.log('Element type ' + this.props.data.type + ' (' + this.props.data.id + ') is now ' + visStr);
+        // console.log('Element type ' + this.props.data.type + ' (' + this.props.data.id + ') is now ' + visStr);
     }
 
     //onClick={() => this.setState({isHovered: true})}
@@ -165,7 +162,7 @@ class Element extends Component {
                             :
                             <Card className="card-fancy has-shadow card content-view">
                                 <CardBody>
-                                    <VisibilitySensor onChange={this.changeVisibility}/>
+                                    {this.props.isPreview && <VisibilitySensor onChange={this.changeVisibility}/>}
                                     {this.state.shouldFoldInView
 
                                         ? <Button color="primary"
@@ -188,6 +185,9 @@ class Element extends Component {
     }
 }
 
+Element.defaultProps = {
+    isPreview: false
+}
 
 Element.propTypes = {
     data: PropTypes.object.isRequired,
