@@ -206,8 +206,8 @@ const mapStoreToProps = ({chapters, isEditMode, activeChapterIndex}) => ({chapte
 
 //don't need anything!
 const neededActions = (store) => {
-    const {onChangeContent, updateChapterLinks} = actions();
-    return {onChangeContent, updateChapterLinks}
+    const {onChangeContent, updateChapterLinks, onAddChapter} = actions();
+    return {onChangeContent, updateChapterLinks, onAddChapter}
 };
 
 //IMPORTANT!! the project data is in the project obj, the rest of the store (action functions) is just flat there
