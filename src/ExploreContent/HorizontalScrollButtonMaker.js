@@ -4,8 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Truncate from 'react-truncate';
 
 const styles= {
-	cardStyle:{
-		boxShadow: "3px 3px 5px #888888", 
+	cardStyle:{ 
 		width:"150px", 
 		height:"225px", 
 		backgroundColor: '#F6F1DE', 
@@ -14,6 +13,9 @@ const styles= {
 		maxHeight:"300px", 
 		fontFamily:"HelveticaNeue-Light,-apple-system, sans-serif",
 		margin:"0 5px"
+	},
+	boxShadow:{
+		boxShadow: "1px 1px 5px #888888",
 	},
 	cardBody:{
 		width:"100%", 
@@ -170,20 +172,19 @@ class HorizontalScrollButtonMaker extends Component{
 			textTransform: "none", 
 			borderRadius: "12px", 
 			margin:".3em .3em .3em .3em", 
-			boxShadow: "1px 1px 5px #888888",
 			backgroundColor: this.props.data.color,
 		}
 		
 		return(
 			this.props.type==="Tiles"
 			? (
-				<Button variant="contained" size="small" color="inherit" style={containedStyle}>
+				<Button variant="contained" size="small" color="inherit" style={{...containedStyle,...styles.boxShadow}}>
             		{aTag}
             	</Button>
             )
             : (
             	<div className="pn-ProductNav_Link" aria-selected="true">
-			      <Card backgroundColor="black" style={styles.cardStyle}>
+			      <Card backgroundColor="black" style={{...styles.cardStyle,...styles.boxShadow}}>
 			        <CardBody style={styles.cardBody}>
 			          <div style={styles.titleAndSubtitle}>
 					          <CardTitle style={styles.cardTitle}>
