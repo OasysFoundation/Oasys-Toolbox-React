@@ -12,7 +12,7 @@ const styles= {
 		color: "#F6F1DE", 
 		maxHeight:"300px", 
 		fontFamily:"HelveticaNeue-Light,-apple-system, sans-serif",
-		margin:"0 5px"
+		margin:".3em 5px"
 	},
 	boxShadow:{
 		boxShadow: "1px 1px 5px #888888",
