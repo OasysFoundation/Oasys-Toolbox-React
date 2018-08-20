@@ -336,9 +336,9 @@ class HorizontalScroll extends Component {
         )
     }
 
-    render(){
+    createHorizontalSection(){
         return(
-            <div style={styles.HorizontalScrollContainer} className="horizontal-scroll">
+           <div style={styles.HorizontalScrollContainer} className="horizontal-scroll">
                 <div style={styles.HorizontalScrollTitle}>
                     {
                         this.props.title && this.props.title=="Tiles"
@@ -364,7 +364,18 @@ class HorizontalScroll extends Component {
                     
                 }
             </div>
-            )
+        )
+    }
+
+    render(){
+        return(
+            <div>
+                {this.props.data&&this.props.data.length
+                    ? this.createHorizontalSection()
+                    : null
+                }
+            </div>
+        )
     }
 }
 
