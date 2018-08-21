@@ -30,6 +30,7 @@ class SideBarLesson extends Component {
         this.onSettingsSave = this.onSettingsSave.bind(this);
         this.onSettingsShow = this.onSettingsShow.bind(this);
         this.onSwitchProject = this.onSwitchProject.bind(this);
+        this.saveContent = this.saveContent.bind(this);
     }
 
     onSettingsShow() {
