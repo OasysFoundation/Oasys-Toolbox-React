@@ -10,7 +10,7 @@ const styles= {
 		backgroundColor: '#F6F1DE', 
 		borderColor:"#F6F1DE", 
 		color: "#F6F1DE", 
-		fontFamily:"HelveticaNeue-Light,-apple-system, sans-serif",
+		fontFamily:"Raleway-Regular,-apple-system, sans-serif",
 		margin:".3em 5px"
 	},
 	boxShadow:{
@@ -32,7 +32,7 @@ const styles= {
 		textDecoration:"none", 
 		width:"100%",
 		fontSize:".9rem",
-		fontFamily:"HelveticaNeue-Light,-apple-system, sans-serif",
+		fontFamily:"Raleway-Regular,-apple-system, sans-serif",
 	},
 	cardTitleLink:{
 		textDecoration:"none", 
@@ -43,7 +43,7 @@ const styles= {
 	},
 	cardSubtitle:{
 		color:"#C6361D",
-		fontFamily:"HelveticaNeue-Light,-apple-system, sans-serif",
+		fontFamily:"Raleway-Regular,-apple-system, sans-serif",
 	},
 	verticalEllipsesOuterDiv:{
 		flex:"1", 
@@ -56,7 +56,7 @@ const styles= {
 		color:"#a2abb8",
 	},
 	modalOuterDiv:{
-		fontFamily:"HelveticaNeue-Light",
+		fontFamily:"Raleway-Regular",
 	},
 	modalHeader:{
 		fontSize:"2.5em"

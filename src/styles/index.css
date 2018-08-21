@@ -34,6 +34,16 @@
     src: url('../assets/fonts/HelveticaNeue-Bold.ttf');
 }
 
+@font-face {
+    font-family: 'IndieFlower'; 
+    src: url('../assets/fonts/IndieFlower.ttf');
+}
+
+@font-face {
+    font-family: 'Raleway-Regular'; 
+    src: url('../assets/fonts/Raleway-Regular.ttf');
+}
+
 /*
 RobotoSlab is a very popular and well design serif font
 FreightText is a former Medium serif font

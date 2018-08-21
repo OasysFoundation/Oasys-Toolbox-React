@@ -22,10 +22,9 @@ const styles = {
         maxHeight: "475px",
         maxWidth: "100%",
     },
-    floatingAbsoluteContainer: {
+    floatingContainer: {
         position: "absolute",
         top: "1em",
-        width: "100%",
         display: "flex",
         justifyContent: "center",
         flexDirection: "column",
@@ -47,35 +46,39 @@ const styles = {
         height: '50%',
         fontSize: "1.3rem",
         color: colors.RUST,
-        fontFamily: 'HelveticaNeue-Bold',
+        fontFamily: 'IndieFlower',
         backgroundColor: colors.SNOW1,
         border: '2px solid ' + colors.SNOW2,
         boxShadow: '0px 0px 20px 1px #555555',
     },
     title: {
-        display: "flex",
         justifyContent: "center",
-        color: colors.SNOW1,
-        WebkitTextStroke: '1px ' + colors.SPANISHWHITE,
-        textStroke: '1px ' + colors.SPANISHWHITE,
-        fontFamily: 'HelveticaNeue-Light',
         textAlign: "center",
         marginTop: "6vw",
-        textShadow: '0px 0px 20px #000000',
         paddingTop: '10px',
+        backgroundColor: hexToRgba(colors.RUST, 0.5),
+        textShadow: '0px 0px 3px' + colors.RUST,
     },
     subtitle: {
-        color: colors.SNOW1,
-        WebkitTextStroke: '1px ' + colors.SPANISHWHITE,
-        textStroke: '1px ' + colors.SPANISHWHITE,
-        fontFamily: 'HelveticaNeue-Light',
         display: "flex",
         justifyContent: "center",
         textAlign: "center",
-        textShadow: '0px 0px 20px #000000',
         paddingTop: '10px',
     },
-
+    titleFont: {
+        fontFamily: 'IndieFlower',
+        fontSize: "2.5rem", 
+        fontWeight: '400',
+        padding: '10px 20px',
+        color: colors.SNOW1,
+    },
+    subtitleFont: {
+        fontFamily: 'IndieFlower',
+        fontSize: '1.8rem',
+        fontWeight: '400',
+        padding: '10px 20px',
+        color: colors.SNOW1,
+    }
 }
 
 class HeaderImage extends Component {
@@ -88,7 +91,7 @@ class HeaderImage extends Component {
 
     handleImageLoaded() {
         this.setState({
-            imageLoading: false
+            imageLoading: false,
         });
     }
 
@@ -97,23 +100,22 @@ class HeaderImage extends Component {
     }
 
     getPCScreenImage(value) {
-        let myFontSizeTitle = "2.5rem";
-        let myFontSizeSubTitle = "1.8rem";
         let currentCover = coverMobile;
-
+        let titleFontSize = "2.5rem";
+        let subtitleFontSize = "1.8rem";
         if (value === "tiny") {
-            myFontSizeTitle = "2.5rem";
-            myFontSizeSubTitle = "1.8rem";
+            titleFontSize = "2.0rem";
+            subtitleFontSize = "1.5rem";
             currentCover = coverTiny;
         }
         else if (value === "medium") {
-            myFontSizeTitle = "3.0rem";
-            myFontSizeSubTitle = "2.0rem";
+            titleFontSize = "3.0rem";
+            subtitleFontSize = "2.0rem";
             currentCover = cover;
         }
         else if (value === "large") {
-            myFontSizeTitle = "3.0rem"
-            myFontSizeSubTitle = "2.0rem"
+            titleFontSize = "3.0rem";
+            subtitleFontSize = "2.0rem";
             currentCover = cover;
         }
 
@@ -125,17 +127,18 @@ class HeaderImage extends Component {
                 {this.state.imageLoading
                     ? "Loading..."
                     : (
-                        <div style={styles.floatingAbsoluteContainer}>
-                            <div style={styles.titleAndSubtitle}>
-                                <div style={styles.title}>
-                                    <h1 style={{fontSize: myFontSizeTitle, fontVariant: 'small-caps'}}>Explore
-                                        Interactive Content</h1>
-                                </div>
-                                ​​​​​​​
-                                <div style={styles.subtitle}>
-                                    <h2 style={{fontSize: myFontSizeSubTitle}}>Learn Science and Technology through
-                                        Experimentation and Play</h2>
-                                </div>
+                        <div style={styles.floatingContainer}>
+                            <div style={styles.title}>
+                                <h1 style={styles.titleFont}>
+                                    <span style={{fontSize: titleFontSize}}>
+                                        Explore Interactive Content
+                                    </span>
+                                </h1>
+                                <h2 style={styles.subtitleFont}>
+                                    <span style={{fontSize: subtitleFontSize}}>
+                                        Learn Science and Technology through Experimentation and Play
+                                    </span>
+                                </h2>
                             </div>
                             <div style={styles.bottomButtonDiv}>
                                
@@ -149,8 +152,8 @@ class HeaderImage extends Component {
     }
 
     renderMobileHeader() {
-        let myFontSizeTitle = "7vw";
-        let myFontSizeSubTitle = "5vw";
+        let titleFontSize = "7vw";
+        let subtitleFontSize = "5vw";
         return (
             <div style={styles.mainContainer}>
                 <img src={coverTiny} onLoad={this.handleImageLoaded.bind(this)} style={styles.backgroundImage}/>
@@ -158,18 +161,21 @@ class HeaderImage extends Component {
                     ? "Loading..."
                     : (
                         <React.Fragment>
-                            <div style={styles.floatingAbsoluteContainer}>
-                                <div style={styles.titleAndSubtitle}>
-                                    <div style={styles.title}>
-                                        <h1 style={{fontSize: myFontSizeTitle}}>Explore Interactive Content</h1>
-                                    </div>
-                                    ​​​​​​​
-                                    <div style={styles.subtitle}>
-                                        <h2 style={{fontSize: myFontSizeSubTitle}}>Learn Science and Technology through
-                                            Experimentation and Play</h2>
-                                    </div>
+                            <div style={styles.floatingContainer}>
+                                <div style={styles.title}>
+                                    <h1 style={styles.titleFont}>
+                                        <span style={{fontSize: titleFontSize}}>
+                                            Explore Interactive Content
+                                        </span>
+                                    </h1>
+                                    <h2 style={styles.subtitleFont}>
+                                        <span style={{fontSize: subtitleFontSize}}>
+                                            Learn Science and Technology through Experimentation and Play
+                                        </span>
+                                    </h2>
                                 </div>
                                 <div style={styles.bottomButtonDiv}>
+                                   
                                 </div>
                             </div>
                             

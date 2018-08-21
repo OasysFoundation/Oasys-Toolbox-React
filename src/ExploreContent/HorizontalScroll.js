@@ -9,8 +9,8 @@ const styles={
         padding:"10px 10px 10px 10px",
     },
     HorizontalScrollTitle:{
-        fontSize:"1.3rem",
-        fontFamily: "HelveticaNeue-Light,-apple-system, sans-serif",
+        fontSize:"1.5rem",
+        fontFamily: "IndieFlower,-apple-system, sans-serif",
     },
     HRDividingLine:{
         height:"1px", 
