@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import ReactTooltip from "react-tooltip"
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
+import deepEqual from 'deep-equal';
 
 import * as tocjs from '../assets/scripts/toc.js'
 import actions from "../store/actions";
@@ -41,6 +42,7 @@ class SidebarToc extends Component {
 
         this.mounted = false;
 
+
         this.state = {
             width: this.opt.totalWidth,
             height: 0,
@@ -48,13 +50,13 @@ class SidebarToc extends Component {
 
     }
 
-    updateToc() {
-        this.chaptersExt = this.props.chaptersLight;
+    updateToc(props) {
+        this.chaptersExt = props.chaptersLight;
         let idobj = {};
         this.chaptersExt.map((e, i) => idobj[e.id] = i);
         this.chaptersExt.forEach((e, i) => {
             e.idx = i;
-            this.props.activeChapterIndex === i ? e.active = true : e.active = false;
+            props.activeChapterIndex === i ? e.active = true : e.active = false;
             if (e.links === undefined) {
                 throw new Error('Chapter object must have links array as property (can be empty)!');
             }
@@ -80,7 +82,7 @@ class SidebarToc extends Component {
         this.props.onChangeActiveChapter(id);
     }
 
-    drawToc() {
+    drawToc(props) {
         let svg = document.getElementById(this.opt.tocId);
         svg.parentNode.replaceChild(svg.cloneNode(false), svg);
         tocjs.drawChapters(this.tocInfo, this.chaptersExt, this.opt);
@@ -97,23 +99,39 @@ class SidebarToc extends Component {
     }
 
     componentDidMount() {
-        this.updateToc();
-        this.drawToc();
+        this.updateToc(this.props);
+        this.drawToc(this.props);
         this.mounted = true;
     }
 
-    render() {
-        this.updateToc();
-        if (this.mounted) {
-            this.drawToc();
+    componentWillReceiveProps(nextprops){
+        let isChanged = false;
+        // yes: we have to MANUALLY compare if the objects are the same because somehow JSON.stringify does not WORK!
+        for (let i=0; i<nextprops.chaptersLight.length; i++) {
+            if (nextprops.chaptersLight[i].title !== this.props.chaptersLight[i].title) { isChanged=true; break; }
+            if (nextprops.chaptersLight[i].id !== this.props.chaptersLight[i].id) { isChanged=true; break; }
+            for (let j=0; j<nextprops.chaptersLight[i].links; j++) {
+                if (nextprops.chaptersLight[i].links[j].id !== nextprops.chaptersLight[i].links[j].id) {isChanged=true; break; }
+            }
+            if (isChanged) { break; }
         }
-        console.log('toc re-renders');
+
+        if (isChanged || this.props.activeChapterIndex !== nextprops.activeChapterIndex) {
+            this.updateToc(nextprops);
+            if (this.mounted) {
+                this.drawToc(nextprops);
+            }
+            console.log('toc re-renders');
+        } 
+    }
+
+    render() {
         return (
             <div>
                 <svg
                     className="svgTocWrap"
                     xmlns="http://www.w3.org/2000/svg"
-                    width={this.state.width}
+                    totalWidthh={this.state.width}
                     height={this.state.height}
                     viewBox={"0 0 " + this.state.width + " " + this.state.height}
                 >
