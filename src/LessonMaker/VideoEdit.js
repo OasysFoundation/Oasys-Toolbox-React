@@ -37,6 +37,7 @@ class VideoEdit extends Component {
     onChangeCrop(cropStart, cropEnd) {
         const {url} = this.props.data;
         const data  = {url, cropStart, cropEnd};
+        
         this.props.onChange(data, false, true);
     }
 

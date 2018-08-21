@@ -110,7 +110,7 @@ class Index extends Component {
 
                                 {/*<Route component={NotFoundPage}/>*/}
                             </Switch>
-                            <Footer/>
+                            <Route exact path="create/" render={(props) => <Footer />} />
                         </div>
                     </Router>
                 </Provider>

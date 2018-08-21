@@ -36,6 +36,7 @@ class VideoPreview extends Component {
 	}
 
 	render(){
+		console.log(this.props.data.cropStart)
 		// &modestbranding=1&showinfo=0
 		let youtubeConfig = {
       		playerVars: { 
@@ -45,8 +46,8 @@ class VideoPreview extends Component {
       			loop: 0,
       			rel: 0,
       			enablejsapi: 1,
-      			start: this.props.data.cropStart,
-      			end: this.props.data.cropEnd,
+      			start: parseInt(this.props.data.cropStart),
+      			end: parseInt(this.props.data.cropEnd),
       		}
 		}
 		return(
