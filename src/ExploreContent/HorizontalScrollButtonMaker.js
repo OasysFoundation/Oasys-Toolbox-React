@@ -3,11 +3,13 @@ import { Button, Card, CardImg, CardText, CardBody, CardLink, CardTitle, CardSub
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Truncate from 'react-truncate';
 
+import colors from '../colors';
+
 const styles= {
 	cardStyle:{ 
-		width:"150px", 
-		height:"200px", 
-		backgroundColor: '#F6F1DE', 
+		width:"170px", 
+		height:"150px", 
+		backgroundColor: colors.SNOW2, 
 		borderColor:"#F6F1DE", 
 		color: "#F6F1DE", 
 		fontFamily:"Raleway-Regular,-apple-system, sans-serif",
@@ -21,7 +23,7 @@ const styles= {
 		height:"80%", 
 		display:"flex", 
 		overflow:"hidden",
-		padding: "1.25rem",
+		padding: "1.0rem",
 
 	},
 	titleAndSubtitle:{
@@ -42,7 +44,8 @@ const styles= {
 		whiteSpace:"initial",
 	},
 	cardSubtitle:{
-		color:"#C6361D",
+		color: colors.RUST,
+		fontSize: '0.8rem',
 		fontFamily:"Raleway-Regular,-apple-system, sans-serif",
 	},
 	verticalEllipsesOuterDiv:{
@@ -51,9 +54,9 @@ const styles= {
 		cursor: 'pointer',
 	},
 	ellipsisIcon:{
-		flex:"1", 
-		float:"right", 
-		color:"#a2abb8",
+		flex: "1", 
+		float: "right", 
+		color: colors.RUST,
 	},
 	modalOuterDiv:{
 		fontFamily:"Raleway-Regular",
@@ -90,10 +93,17 @@ const styles= {
 		maxHeight: "85px",
 	},
 	cardRatingsOuterDiv:{
-		color:"#C6361D", 
 		display:"flex", 
 		justifyContent:"center",
 	},
+	rating: {
+		color: colors.SUMMERSUN, 
+		textShadow: '0px 0px 1px ' +  colors.RUST,
+	},
+	ratingCount: {
+		color: colors.RUST, 
+		marginLeft: '5px',
+	}
 }
 
 class HorizontalScrollButtonMaker extends Component{
@@ -141,6 +151,7 @@ class HorizontalScrollButtonMaker extends Component{
 			uniqueId="",
 			returnUrl="",
 			stars="",
+			starCount="",
 			userLink = "";
 
 		if(this.props.type==="Tiles"){
@@ -163,7 +174,7 @@ class HorizontalScrollButtonMaker extends Component{
 					else
 						stars += whiteStar 
 				}
-				stars+=" (12)"
+				starCount = " (12)"
 			}
 
 		}
@@ -200,7 +211,7 @@ class HorizontalScrollButtonMaker extends Component{
 					          <a href={returnUrl} style={styles.cardSubtitle}>
 					          <div>
 					          	  <Truncate lines={1} >
-					          	 	By {this.props.data.userId}
+					          	 	by {this.props.data.userId}
 					              </Truncate>
 					              </div>
 					          </a>
@@ -241,7 +252,8 @@ class HorizontalScrollButtonMaker extends Component{
 			        <a href={userLink} style={styles.cardImageOuterLink}>
 				        <CardBody>
 				        <CardText style={styles.cardRatingsOuterDiv}>
-				          {stars}
+				          <span style={styles.rating}>{stars}</span>
+				          <span style={styles.ratingCount}>{starCount}</span>
 				         </CardText>
 				        </CardBody>
 			        </a>
