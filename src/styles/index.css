@@ -265,7 +265,7 @@ html:not([dir="rtl"]) .sidebar {
     border-radius: 0.25rem;
     background-color: #3E4B54;
     color: #eeeeee;
-    height: 25px;
+    height: 35px;
     /* border: 1px solid #626970; */
     border: none;
     display: flex;
@@ -296,7 +296,7 @@ html:not([dir="rtl"]) .sidebar {
 }
 
 .oasys .sidebar-button.title {
-    margin-top: 25px;
+    margin-top: 65px;
 }
 
 .oasys .sidebar-button.title input {
@@ -308,7 +308,7 @@ html:not([dir="rtl"]) .sidebar {
     margin-left: -5px;
     margin-right: 5px;
     padding: 3px;
-    height: 18px;
+    height: 25px;
 }
 
 .oasys .modal-header .close {
