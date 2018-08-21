@@ -85,8 +85,8 @@ class SidebarToc extends Component {
     drawToc(props) {
         let svg = document.getElementById(this.opt.tocId);
         svg.parentNode.replaceChild(svg.cloneNode(false), svg);
-        tocjs.drawChapters(this.tocInfo, this.chaptersExt, this.opt);
-        tocjs.drawConnections(this.tocInfo, this.opt);
+        let activeElem = tocjs.drawChapters(this.tocInfo, this.chaptersExt, this.opt);
+        tocjs.drawConnections(this.tocInfo, this.opt, activeElem);
         this.refs.tooltipWrapper.innerHTML = "";
         for (let i = 0; i < this.chaptersExt.length; i++) {
             const div = document.createElement("div");
