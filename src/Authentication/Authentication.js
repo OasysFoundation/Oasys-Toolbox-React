@@ -13,9 +13,9 @@ import {
     InputGroup,
     InputGroupAddon,
     InputGroupText,
+    Modal, ModalBody, ModalFooter, ModalHeader,
     Row
 } from 'reactstrap';
-import {CardHeader, Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap';
 import api from '../api'
 import actions from "../store/actions";
 import {connect} from "redux-zero/react";
