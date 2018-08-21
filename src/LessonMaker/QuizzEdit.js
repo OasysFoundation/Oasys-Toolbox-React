@@ -78,7 +78,7 @@ class QuizzEdit extends Component {
                 question: that.state.question,
                 answers: that.state.answers,
                 quizType: that.state.quizType
-            }, true)
+            }, true, true)
         });
     }
 

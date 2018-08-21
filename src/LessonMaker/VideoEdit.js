@@ -30,14 +30,14 @@ class VideoEdit extends Component {
         if (this.isValidYouTubeUrl(url)) {
             const {cropStart, cropEnd} = this.props.data;
             const data  = {url, cropStart, cropEnd};
-            this.props.onChange(data);
+            this.props.onChange(data, false, true);
         }
     }
 
     onChangeCrop(cropStart, cropEnd) {
         const {url} = this.props.data;
         const data  = {url, cropStart, cropEnd};
-        this.props.onChange(data);
+        this.props.onChange(data, false, true);
     }
 
     renderVideo(){

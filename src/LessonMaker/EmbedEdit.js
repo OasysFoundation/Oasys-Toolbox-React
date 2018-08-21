@@ -88,7 +88,7 @@ class EmbedEdit extends Component {
     handleChange(selectedOption) {
         this.props.onChange({
             id: selectedOption.value,
-        });
+        }, false, true);
     }
 
     render() {
