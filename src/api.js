@@ -28,6 +28,12 @@ function getIdTokenFromStore() {
     else return idToken
 }
 
+function getUserIdFromStore() {
+    const uid = store.getState().user.uid;
+    if (! uid) throw Error('no userID in store @ api call')
+    else return uid
+}
+
 
 const api = {
     getContentsForCreator: function (user) {
@@ -54,7 +60,8 @@ const api = {
         const url = BASE_URL + 'getContentsPreview/';
         return get(url);
     },
-    getUserContentsPreview(userId) {
+    getUserContentsPreview() {
+        const userId = getUserIdFromStore()
         const url = `${BASE_URL}getUserContentsPreview/${userId}`;
         return get(url);
     },

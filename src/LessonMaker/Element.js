@@ -46,7 +46,7 @@ class Element extends Component {
     }
 
     //glue function between LessonMaker and Quill to add ID
-    handleChange = (value, shouldInstantUpdate = false) => {
+    handleChange = (value, shouldUpdateChapterLinks = false, shouldInstantUpdate = false) => {
         // const equal = JSON.stringify(value) === JSON.stringify(this.props.data.content)
         // console.log(value === this.props.data.content, equal, "EQUAL")
         //
@@ -57,15 +57,22 @@ class Element extends Component {
         // console.log("Handle change fired @",this.props.data.id, this.props.data.timestamp, value, getContentFromSessionStorage(this.props.data.id) )
         //
         // console.log(storeTimestamp, sessionTimestamp, "TIMESTAMPS")
-        //DO NOT CALL setState before session storage!! will override itself
+        // DO NOT CALL setState before session storage!! will override itself
+        // console.log(this.state.tempContent, value, "values")
+
         this.setState( //lots of ASYNC BS to avoid....
-            () => ({tempContent: value, timestamp: Date.now()}), () => {
+            () => ({tempContent: value, timestamp: Date.now()}),
+            () => {
+
                 if (shouldInstantUpdate) {
                     this.props.onChangeContent(
                         this.props.data.id,
                         this.state.tempContent,
                         this.fromChapter);
-                    this.props.updateChapterLinks()
+                    if (shouldInstantUpdate) {
+                        this.props.updateChapterLinks()
+                    }
+
                 }
             });
     };
@@ -125,7 +132,7 @@ class Element extends Component {
         )
     }
 
-    elementFinished(){
+    elementFinished() {
         this.setState({shouldFoldInView: true})
     }
 
@@ -137,7 +144,9 @@ class Element extends Component {
 
     changeVisibility(isVisible) {
         let visStr = 'invisible';
-        if (isVisible) {visStr = 'visible'}
+        if (isVisible) {
+            visStr = 'visible'
+        }
         // console.log('Element type ' + this.props.data.type + ' (' + this.props.data.id + ') is now ' + visStr);
     }
 
@@ -166,7 +175,7 @@ class Element extends Component {
                                     {this.state.shouldFoldInView
 
                                         ? <Button color="primary"
-                                                  onClick={() => this.setState({shouldFoldInView:false})}>
+                                                  onClick={() => this.setState({shouldFoldInView: false})}>
                                             Check again
                                         </Button>
 
