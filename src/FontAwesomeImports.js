@@ -1,7 +1,6 @@
 
 //fontAwesome components 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 //Navbar Icons
 import {faLightbulb, faPencilAlt, faUser} from '@fortawesome/free-solid-svg-icons'

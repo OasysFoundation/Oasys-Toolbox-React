@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Button, Card, CardImg, CardText, CardBody, CardLink, CardTitle, CardSubtitle, Modal, ModalBody, ModalFooter, ModalHeader, Row  } from 'reactstrap';
+import { Button, Card, CardText, CardBody, CardTitle, CardSubtitle, Modal, ModalBody, ModalHeader } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Truncate from 'react-truncate';
 
-import colors, { hexToRgba } from '../colors';
+import colors from '../colors';
 
 const styles= {
 	cardStyle:{ 
@@ -125,18 +125,17 @@ class HorizontalScrollButtonMaker extends Component{
 	    });
   	}
   	handleClick(value){
-  		value==="remix"
-  			? window.location.href=`/create/${this.state.currentUsername}/${this.state.currentTitle}`
-  			: value === "comments"
-  				? window.location.href=`/comments/${this.state.currentUsername}/${this.state.currentTitle}`
-  				: value==="user"
-  					? window.location.href=`/user/${this.state.currentUsername}/`
-  					: value==="collection"
-  						? null
-  						: value==="flag"
-							? null
-							: null
-  	}
+  			if(value==="remix")
+  				window.location.href  = `/create/${this.state.currentUsername}/${this.state.currentTitle}`
+  			else if(value === "comments")
+				window.location.href  = `/comments/${this.state.currentUsername}/${this.state.currentTitle}`
+			else if(value==="user")
+				window.location.href  = `/user/${this.state.currentUsername}/`
+			// else if(value==="collection")
+			// 	null
+			// else if(value==="flag")
+			// 	null
+}
 
 	render(){
 		
@@ -144,12 +143,7 @@ class HorizontalScrollButtonMaker extends Component{
 		let hashLink, aTag = "";
 
 		// for type == card
-		let title="",
-			author="",
-			rating="",
-			numRatings="",
-			uniqueId="",
-			returnUrl="",
+		let returnUrl="",
 			stars="",
 			starCount="",
 			userLink = "";
@@ -161,7 +155,6 @@ class HorizontalScrollButtonMaker extends Component{
 				: <a onClick={this.props.positionChange.bind(this,hashLink)} className="pn-ProductNav_Link">{this.props.data.name}</a>
 		}
 		else{
-			title= this.props.data.title;
 			userLink = `/user/${this.props.data.userId}/${this.props.data.contentId}`
 			returnUrl = "/user/"+this.props.data.userId;
 			let rating = this.props.data.rating;

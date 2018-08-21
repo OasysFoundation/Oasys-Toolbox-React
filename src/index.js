@@ -6,13 +6,10 @@ import {Router, Route, Switch} from 'react-router-dom';
 
 import {withRouter} from 'react-router'
 import LessonMaker from './LessonMaker/LessonMaker'
-import ContentSelection from './ContentSelection'
 import DataViewCreator from './DataView/DataViewCreator'
 import AccountPage from './AccountPage'
 
 import PrivacyPolicyPage from './PrivacyPolicyPage'
-
-import {AppHeader} from '@coreui/react';
 
 import "simple-line-icons/css/simple-line-icons.css"
 import "./assets/fontAwesome/css/all.min.css"
@@ -20,7 +17,6 @@ import "./styles/coreui/coreui.css"
 import "@coreui/icons/css/coreui-icons.css"
 import './styles/index.css';
 
-import Header from './Header';
 import Navbar from './Navbar';
 import Footer from "./Footer";
 import About from "./About"
