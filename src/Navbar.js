@@ -30,6 +30,16 @@ import {
 
 import history from './history'
 
+
+const ITEMDICT = [
+  {link: '/explore', icon: 'fa-lightbulb', label: 'Learn'},
+  {link: '/create', icon: 'fa-pencil-alt', label: 'Create'},
+  {link: '/data', icon: 'fa-chart-bar', label: 'Analytics'},
+  {link: '/about', icon: 'fa-info-circle', label: 'About'},
+  {link: '/user', icon: 'fa-user', label: 'Account'}
+];
+
+
 const styles = {
     navbarNavItem:{
         display: "flex",
@@ -39,6 +49,7 @@ const styles = {
         color:"​​​​​​​#3E4B54",
         fontSize:"1.0rem",
         cursor: 'pointer',
+        marginTop: '5px',
     },
     navbarNavLinkForImage:{
         padding:"0px 0px 0px 0px",
@@ -50,16 +61,16 @@ const styles = {
         padding:"2px",
         color:"#27363E",
         display: "flex",
-        flexDirection: "column"
+        flexDirection: "column",
     },
     navbarNavs: {
-        fontFamily: "helveticaneue",
+        fontFamily: "HelveticaNeue-Light",
         fontSize: "1em",
         marginLeft: "auto",
     },
     navBarBrand: {
         padding: "1em",
-        fontFamily: "helveticaneue",
+        fontFamily: "HelveticaNeue-Light",
     },
     navbarBrandImage:{
         height: "40px",
@@ -81,7 +92,7 @@ const styles = {
         width: "50%", 
         paddingTop:".28rem", 
         paddingBottom:".28rem",
-        fontFamily:"helveticaneue",
+        fontFamily:"HelveticaNeue-Light",
     },
     navbarSubmitButton:{
         borderTopLeftRadius:0, 
@@ -123,7 +134,7 @@ const styles = {
         borderBottomRightRadius:0, 
         width: "50%", 
         flex:5,
-        fontFamily:"helveticaneue",
+        fontFamily:"HelveticaNeue-Light",
     },
     navbarMobileSubmitButton:{
         borderTopLeftRadius:0, 
@@ -329,19 +340,11 @@ class NavBar extends React.Component {
                  </div>
             </div>
             <div style={styles.navbarMobileBottomRow}>
-                <a href={"/data"} style={styles.navbarMobileNavs}>
-                    {/*<FontAwesomeIcon icon="lightbulb" className="faAlignRight marginRight5" size="lg"/>*/}
-                    <i className="fas fa-align-right fa-lg fa-lightbulb" style={{alignSelf: "center"}}></i>
+              {ITEMDICT.map(elem=>
+                <a href={elem.link} style={styles.navbarMobileNavs}>
+                    <i className={"fas fa-align-right fa-lg "+elem.icon} style={{alignSelf: "center"}}></i>
                 </a>
-                <a href="/create" style={styles.navbarMobileNavs}>
-                    {/*<FontAwesomeIcon icon="pencil-alt" className="faAlignRight marginRight5" size="lg"/>*/}
-                    <i className="fas fa-align-right fa-lg fa-pencil-alt" style={{alignSelf: "center"}}></i>
-                </a>
-                <a href="/user" style={styles.navbarMobileNavs}>
-                    {/*<FontAwesomeIcon icon="user" className="faAlignRight marginRight5" size="lg"/>*/}
-                    <i className="fas fa-align-right fa-lg fa-user" style={{alignSelf: "center"}}></i>
-                </a>
-
+              )}
             </div>
          </Navbar>
 
@@ -356,41 +359,18 @@ class NavBar extends React.Component {
 
         const navbarRightElements = (
             <Nav navbar style={styles.navbarNavs}>
-              <NavItem style={styles.navbarNavItem}>
-                <NavLink onClick={() => history.push("/explore")} style={styles.navbarLinks}>
-                   {/* <FontAwesomeIcon icon="lightbulb" className="faAlignRight marginRight5" size="lg" style={{marginRight:"5px"}}/> */}
-                    <i className="fas fa-align-right fa-lg fa-lightbulb" style={{alignSelf: "center"}}></i>
-                    Learn
-                </NavLink>
-              </NavItem>
-              <NavItem style={styles.navbarNavItem}> 
-                <NavLink onClick={() => history.push("/create")} style={styles.navbarLinks}>
-                   {/*<FontAwesomeIcon icon="pencil-alt" className="faAlignRight marginRight5" size="lg" style={{marginRight:"5px"}}/> */}
-                    <i className="fas fa-align-right fa-lg fa-pencil-alt" style={{alignSelf: "center"}}></i>
-                   Create
-                </NavLink>
-              </NavItem>
-
-              <NavItem style={styles.navbarNavItem}>
-                <NavLink onClick={() => history.push("/data")} href="/data" style={styles.navbarLinks}>
-                  <i className="fas fa-align-right fa-lg fa-chart-bar" style={{alignSelf: "center"}}></i>
-                  Analytics
-                </NavLink>
-              </NavItem>
-              <NavItem style={styles.navbarNavItem}>
-                <NavLink onClick={() => history.push("/about")} style={styles.navbarLinks}>
-                  <i className="fas fa-align-right fa-lg fa-info-circle" style={{alignSelf: "center"}}></i>
-                  About
-                </NavLink>
-              </NavItem>
-
-              <NavItem style={styles.navbarNavItem}>
-                <NavLink onClick={() => history.push("/user")} style={styles.navbarLinks}>
-                    {/*<FontAwesomeIcon icon="user" className="faAlignRight marginRight5" size="lg" style={{marginRight:"5px"}}/> */}
-                    <i className="fas fa-align-right fa-lg fa-user" style={{alignSelf: "center"}}></i>
-                    Account
-                </NavLink>
-              </NavItem>
+              {ITEMDICT.map(elem=>
+                <NavItem style={styles.navbarNavItem}>
+                  <NavLink onClick={() => history.push(elem.link)} style={styles.navbarLinks}>
+                     {/* <FontAwesomeIcon icon="lightbulb" className="faAlignRight marginRight5" size="lg" style={{marginRight:"5px"}}/> */}
+                      <i 
+                        className={"fas fa-align-right fa-lg " + elem.icon} 
+                        style={{alignSelf: "center", marginBottom: '5px'}}
+                      />
+                      {elem.label}
+                  </NavLink>
+                </NavItem>
+              )}
             </Nav>
         );
 

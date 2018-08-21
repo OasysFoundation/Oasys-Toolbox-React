@@ -48,6 +48,7 @@ const styles= {
 	verticalEllipsesOuterDiv:{
 		flex:"1", 
 		height:"100%",
+		cursor: 'pointer',
 	},
 	ellipsisIcon:{
 		flex:"1", 
