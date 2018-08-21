@@ -10,6 +10,8 @@ import ContentSelection from './ContentSelection'
 import DataViewCreator from './DataView/DataViewCreator'
 import Account from './Account'
 
+import PrivacyPolicyPage from './PrivacyPolicyPage'
+
 import {AppHeader} from '@coreui/react';
 
 import "simple-line-icons/css/simple-line-icons.css"
@@ -76,6 +78,7 @@ class Index extends Component {
                                 <Route exact path="/data" render={(props) => <DataViewCreator {...props} />}/>
                                 <Route exact path="/about" render={(props) => <About {...props} />}/>
                                 <Route exact path="/account" render={(props) => <Account {...props} />}/>
+                                <Route exact path="/privacy" render={(props) => <PrivacyPolicyPage {...props} />}/>
                                 <Route exact path="/conclusion"
                                        render={(props) => <ConcludingContentPage url="https://joinoasys.org"
                                                                                  author="Mark22" title="Feet and Cotion"
