@@ -32,4 +32,6 @@ export const doGetUid= () =>
 export const doUpdateProfile= (username) =>
   auth.currentUser.updateProfile({displayName: username});
 
+export const doCheckLoggedIn= () =>
+  auth.currentUser
   

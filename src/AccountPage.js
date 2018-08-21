@@ -4,6 +4,7 @@ import api from './api'
 import {getTagsForCategory} from "./utils/LandingPage";
 import ScrollableAnchor from 'react-scrollable-anchor'
 import * as auth from './Authentication/auth';
+import history from './history'
 
 const styles = {
     HorizontalScrollOuterCenterContainer: {
@@ -15,7 +16,6 @@ const styles = {
         maxWidth: "900px",
     },
 }
-const sectionIds = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 class AccountPage extends Component {
     constructor(props) {
@@ -28,36 +28,41 @@ class AccountPage extends Component {
             pageData: [],
             previousState: '',
             loggedIn: false,
+            readyToLoad:false,
         }
-
-        api.getUserContentsPreview(/*api.js knows userID from store, if logged in*/)
-            .then(json =>
-                this.setState({
-                        content: json || "errorLoadingContent"
-                    },
-                    () => this.setState({
-                        pageData: [
-                            {
-                                title: "My Publications",
-                                data: this.state.content.filter(content => content.published == 1),
-                                id: sectionIds[1],
-                                icon: "trophy",
-                            },
-                            {
-                                title: "My Drafts",
-                                data: this.state.content.filter(content => content.published != 1),
-                                id: sectionIds[2],
-                                icon: "code",
-                            },
-                        ],
-                        loggedIn: true
+        this.loadAccountPage = this.loadAccountPage.bind(this);
+        try {
+            api.getUserContentsPreview(/*api.js knows userID from store, if logged in*/)
+                .then(json => {
+                    this.setState({
+                            content: json || "errorLoadingContent"
                     })
-                )
-            )
-            .catch(err => {
-                console.log('error')
-                this.setState({loggedIn: false})
-            })
+                    if(json)
+                        this.setState({
+                            pageData: [
+                                {
+                                    title: "My Publications",
+                                    data: this.state.content.filter(content => content.published == 1),
+                                    icon: "trophy",
+                                },
+                                {
+                                    title: "My Drafts",
+                                    data: this.state.content.filter(content => content.published != 1),
+                                    icon: "code",
+                                },
+                            ],
+                        })
+                    this.setState({loggedIn: true,readyToLoad:true})
+                })
+                
+                .catch(err => {
+                    console.log('error')
+                    this.state={loggedIn: false, readyToLoad:true}
+                })
+        }
+        catch (e){
+            this.state=({loggedIn: false, readyToLoad:true})
+        }
     }
 
     checkMobile() {
@@ -68,8 +73,8 @@ class AccountPage extends Component {
         return check;
     }
 
-    render() {
-        return (
+    loadAccountPage(){
+        return(
             <div>
                 {this.checkMobile()
                     ? (
@@ -107,6 +112,20 @@ class AccountPage extends Component {
                             </section>
                         </div>
                     )
+                }
+            </div>
+        )
+    }
+
+    render() {
+        return (
+            <div>
+                {
+                    this.state.readyToLoad 
+                        ? this.state.loggedIn
+                            ? this.loadAccountPage()
+                            : history.push('/auth')
+                        : null
                 }
             </div>
         )
