@@ -6,22 +6,23 @@ import Truncate from 'react-truncate';
 const styles= {
 	cardStyle:{ 
 		width:"150px", 
-		height:"225px", 
+		height:"200px", 
 		backgroundColor: '#F6F1DE', 
 		borderColor:"#F6F1DE", 
 		color: "#F6F1DE", 
-		maxHeight:"300px", 
 		fontFamily:"HelveticaNeue-Light,-apple-system, sans-serif",
 		margin:".3em 5px"
 	},
 	boxShadow:{
 		boxShadow: "1px 1px 5px #888888",
 	},
-	cardBody:{
+	homeCardBody:{
 		width:"100%", 
-		height:"190px", 
+		height:"80%", 
 		display:"flex", 
 		overflow:"hidden",
+		padding: "1.25rem",
+
 	},
 	titleAndSubtitle:{
 		flex:5, 
@@ -51,7 +52,7 @@ const styles= {
 	ellipsisIcon:{
 		flex:"1", 
 		float:"right", 
-		color:"#C3C8D4",
+		color:"#a2abb8",
 	},
 	modalOuterDiv:{
 		fontFamily:"HelveticaNeue-Light",
@@ -70,7 +71,6 @@ const styles= {
 	},
 	cardImageOuterLink:{
 		textDecoration:"none", 
-		height:"100%",
 	},
 	cardImageSection:{
 		display: "flex", 
@@ -185,7 +185,7 @@ class HorizontalScrollButtonMaker extends Component{
             : (
             	<div className="pn-ProductNav_Link" aria-selected="true">
 			      <Card backgroundColor="black" style={{...styles.cardStyle,...styles.boxShadow}}>
-			        <CardBody style={styles.cardBody}>
+			        <CardBody style={styles.homeCardBody}>
 			          <div style={styles.titleAndSubtitle}>
 					          <CardTitle style={styles.cardTitle}>
 					          	<a href={userLink} style={styles.cardTitleLink}>
@@ -208,7 +208,7 @@ class HorizontalScrollButtonMaker extends Component{
 				      </div>
 
 			          <div style={styles.verticalEllipsesOuterDiv}>
-			          	<a onClick={this.toggleSmall.bind(this,this.props.data)}><FontAwesomeIcon icon="ellipsis-v" style={styles.ellipsisIcon}/></a>
+			          	<a onClick={this.toggleSmall.bind(this,this.props.data)} className="noTextDecoration"><FontAwesomeIcon icon="ellipsis-v" style={styles.ellipsisIcon}/></a>
 			          </div>
 			          <Modal isOpen={this.state.small} toggle={this.toggleSmall}
 	                       className={'modal-sm ' + this.props.className} style={styles.modalOuterDiv}>
@@ -239,11 +239,6 @@ class HorizontalScrollButtonMaker extends Component{
 	                </Modal>
 			        </CardBody>
 			        <a href={userLink} style={styles.cardImageOuterLink}>
-				        <section style={styles.cardImageSection}>
-						 	<div style={styles.cardImageDiv}>
-			                  <FontAwesomeIcon icon={this.props.icon} size="3x"/>
-			                </div>
-	                	</section>
 				        <CardBody>
 				        <CardText style={styles.cardRatingsOuterDiv}>
 				          {stars}

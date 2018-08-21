@@ -213,7 +213,7 @@ class LandingPageController extends Component{
 			<div>
 				{this.checkMobile()
 					?	(
-						<div>
+						<div className="landingPage">
 							<HeaderImage type="mobile"/>
 							<section style={styles.HorizontalScrollOuterCenterContainer}>
 								<div  style={styles.HorizontalScrollContainer}>
@@ -232,7 +232,7 @@ class LandingPageController extends Component{
 						</div>
 					)
 					: (
-						<div>
+						<div className="landingPage">
 							<HeaderImage type="PC"/>
 							<section style={styles.HorizontalScrollOuterCenterContainer}>
 								<div style={styles.HorizontalScrollContainer}>

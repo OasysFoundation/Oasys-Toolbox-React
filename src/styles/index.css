@@ -469,6 +469,10 @@ html:not([dir="rtl"]) .sidebar {
 /*.oasys .pn-ProductNav {
     overflow-x: hidden;
 }*/
+.oasys .landingPage .noTextDecoration,  .oasys .landingPage .noTextDecoration:hover{
+    text-decoration: none;
+    color:#a2abb8;
+}
 
 /* ------------------- navbar ------------------- */
 
