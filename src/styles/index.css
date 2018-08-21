@@ -119,6 +119,10 @@ html, body {
   z-index: 9999 !important;
 }
 
+.oasys .modal {
+    z-index: 2999;
+}
+
 .oasys .main {
     background: #f0f3f5;
     display: flex;

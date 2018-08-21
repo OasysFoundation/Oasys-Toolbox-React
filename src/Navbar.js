@@ -178,7 +178,7 @@ const styles = {
       height: "100px",
       borderBottom: "1px solid #27363E",
       backgroundColor:"#f8f8f4",
-      zIndex: 1999,
+      //zIndex: 1999,
     }
   
 };
@@ -389,7 +389,7 @@ class NavBar extends React.Component {
         ];
         return(
             <div>
-            <Navbar light fixed="top" expand="sm" style={{height:this.state.height, backgroundColor:"#f8f8f4", borderBottom: "1px solid #27363E",zIndex: 1999}} >
+            <Navbar light fixed="top" expand="sm" style={{height:this.state.height, backgroundColor:"#f8f8f4", borderBottom: "1px solid #27363E"}} >
               <NavbarBrand href="/" style={styles.navBarBrand}>
                   <img src={Logo} style={styles.navbarBrandImage}/>
               </NavbarBrand>
