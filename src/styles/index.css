@@ -29,6 +29,21 @@
     src: url('../assets/fonts/HelveticaNeue-Light.ttf');
 }
 
+@font-face {
+    font-family: 'HelveticaNeue-Bold'; 
+    src: url('../assets/fonts/HelveticaNeue-Bold.ttf');
+}
+
+@font-face {
+    font-family: 'IndieFlower'; 
+    src: url('../assets/fonts/IndieFlower.ttf');
+}
+
+@font-face {
+    font-family: 'Raleway-Regular'; 
+    src: url('../assets/fonts/Raleway-Regular.ttf');
+}
+
 /*
 RobotoSlab is a very popular and well design serif font
 FreightText is a former Medium serif font
@@ -81,7 +96,6 @@ Kievit is a former Medium sans-serif font
 */
 
 
-
 html, body, svg, text {
   margin: 0;
   padding: 0;
@@ -114,10 +128,6 @@ html, body {
     padding-top: 20px;
 }
 
-.oasys .input-group mb-3 {
-    margin:0 !important;
-}
-
 .oasys .card-header {
     margin: 0;
     padding: 0.25rem 0.25rem;
@@ -148,7 +158,6 @@ html, body {
 .oasys .make-big {
     font-size: 60px;
 }
-
 
 .oasys .card-footer {
     margin: 0;
@@ -220,7 +229,20 @@ html, body {
     cursor: pointer;
 }
 
+.oasys .app-body {
+    overflow-y: hidden;
+    margin-top: 0px;
+}
+
+
+html:not([dir="rtl"]) .main {
+  margin-left: 30px; 
+}
 /* ------------------ sidebar ----------------- */
+
+html:not([dir="rtl"]) .sidebar {
+  margin-left: -150px; 
+}
 
 .oasys .sidebar .sidebar-nav {
     flex: 0 0 auto;
@@ -454,12 +476,30 @@ html, body {
     border: none;
 }
 
+/*.oasys .pn-ProductNav {
+    overflow-x: hidden;
+}*/
+.oasys .landingPage .noTextDecoration,  .oasys .landingPage .noTextDecoration:hover{
+    text-decoration: none;
+    color:#a2abb8;
+}
+
+.oasys .landingPage .bruh{
+    text-decoration: none;
+    color:#a2abb8;
+}
+
+.oasys .landingPage .bruh:hover{
+    text-decoration: none;
+    color:#a2abb8;
+}
+
 /* ------------------- navbar ------------------- */
 
-.oasys.app .navbar {
+/*.oasys.app .navbar {
     background-color: #f8f8f4; 
     height: 100px;
     border-bottom: 1px solid #27363E;
     position: relative;
     z-index: 1999;
-}
+}*/

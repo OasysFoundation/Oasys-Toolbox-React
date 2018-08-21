@@ -27,9 +27,9 @@ class FooterPage extends React.Component {
                             <h6 className="text-uppercase font-weight-bold"><strong>Follow us</strong></h6>
                             <hr className="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style={{width: '60px'}}/>
                             <div style={{fontSize:"1rem"}}>
-                            <p><a href="https://github.com/OasysFoundation" className="dark-grey-text"><div style={{color:"#27363E"}}><FontAwesomeIcon icon={['fab', 'github']} className="faAlignRight marginRight5" size="lg"/></div></a></p>
-                            <p><a href="https://twitter.com/OasysOrg" className="dark-grey-text"><div style={{color:"#27363E"}}><FontAwesomeIcon icon={['fab', 'twitter']} className="faAlignRight marginRight5" size="lg"/></div></a></p>
-                            <p><a href="https://www.instagram.com/oasyseducation/" className="dark-grey-text"><div style={{color:"#27363E"}}><FontAwesomeIcon icon={['fab', 'instagram']} className="faAlignRight marginRight5" size="lg"/></div></a></p>
+                            <p><a href="https://github.com/OasysFoundation" className="dark-grey-text" style={{color:"#27363E"}}><FontAwesomeIcon icon={['fab', 'github']} className="faAlignRight marginRight5" size="lg"/></a></p>
+                            <p><a href="https://twitter.com/OasysOrg" className="dark-grey-text" style={{color:"#27363E"}}><FontAwesomeIcon icon={['fab', 'twitter']} className="faAlignRight marginRight5" size="lg"/></a></p>
+                            <p><a href="https://www.instagram.com/oasyseducation/" className="dark-grey-text" style={{color:"#27363E"}}><FontAwesomeIcon icon={['fab', 'instagram']} className="faAlignRight marginRight5" size="lg"/></a></p>
                             </div>
                         </Col>
                         <Col md="4" lg="3" xl="3" className="mb-4 dark-grey-text">

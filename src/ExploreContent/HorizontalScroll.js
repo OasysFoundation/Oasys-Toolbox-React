@@ -2,20 +2,36 @@ import React, { Component } from 'react';
 import { Button } from 'reactstrap';
 import './HorizontalScroll.css';
 import HorizontalScrollButtonMaker from './HorizontalScrollButtonMaker'
-
+import colors from '../colors';
 
 const styles={
     HorizontalScrollContainer:{
         padding:"10px 10px 10px 10px",
     },
     HorizontalScrollTitle:{
-        fontSize:"1.3rem",
-        fontFamily: "helveticaneue,-apple-system, sans-serif",
+        fontSize:"1.5rem",
+        fontFamily: "IndieFlower,-apple-system, sans-serif",
     },
     HRDividingLine:{
-        height:"1px", 
-        border: "none", 
-        marginTop:"0",
+        marginTop: "0",
+        borderColor: colors.GULLGREY,
+    },
+    fadeButton:{
+        backgroundColor: "transparent",
+        border: 0,
+        height: "100%",
+        outline: "none",
+        padding: 0,
+    },
+    faderRight:{
+        width: "5rem",
+        backgroundImage: "linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgb(248, 248, 244) 100%)",
+        height: "100%",
+    },
+    faderLeft:{
+        width: "5rem",
+        backgroundImage: "linear-gradient(to left, rgba(255, 255, 255, 0) 0%, rgb(248, 248, 244) 100%)",
+        height: "100%",
     }
 }
 
@@ -317,14 +333,25 @@ class HorizontalScroll extends Component {
             <div className="parent">
                 <div className="pn-ProductNav_Wrapper">
                     <nav ref={this.pnProductNav} id="pnProductNav" className="pn-ProductNav">    
-                        <div ref={this.pnProductNavContents} id="pnProductNavContents" className="pn-ProductNav_Contents">
-                            {this.props.data.map((myData)=>{
-                                    return (<HorizontalScrollButtonMaker data={myData} type={this.props.title} positionChange={this.props.positionChange} icon={this.props.icon}/>)
+                        <div ref={this.pnProductNavContents} id="pnProductNavContents" className="pn-ProductNav_Contents" style={styles.HorizontalFade}>
+                            {this.props.data.map((myData,index)=>{
+                                    return (<HorizontalScrollButtonMaker key={index} data={myData} type={this.props.title} positionChange={this.props.positionChange} icon={this.props.icon}/>)
                                 })}
-                                
                             <span ref={this.pnIndicator} id="pnIndicator" className="pn-ProductNav_Indicator"></span>
                         </div>
                     </nav>
+                    <div className="fade_Right">
+                        <button style={styles.fadeButton}>
+                            <div style={styles.faderRight}>
+                            </div>
+                        </button>
+                    </div>
+                    <div className="fade_Left">
+                        <button style={styles.fadeButton}>
+                            <div style={styles.faderLeft}>
+                            </div>
+                        </button>
+                    </div>
                     <button ref={this.pnAdvancerLeft} id="pnAdvancerLeft" className="pn-Advancer pn-Advancer_Left" type="button">
                         <svg className="pn-Advancer_Icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 551 1024"><path d="M445.44 38.183L-2.53 512l447.97 473.817 85.857-81.173-409.6-433.23v81.172l409.6-433.23L445.44 38.18z"/></svg>
                     </button>
@@ -336,9 +363,9 @@ class HorizontalScroll extends Component {
         )
     }
 
-    render(){
+    createHorizontalSection(){
         return(
-            <div style={styles.HorizontalScrollContainer}>
+           <div style={styles.HorizontalScrollContainer} className="horizontal-scroll">
                 <div style={styles.HorizontalScrollTitle}>
                     {
                         this.props.title && this.props.title=="Tiles"
@@ -346,7 +373,7 @@ class HorizontalScroll extends Component {
                         : this.props.title
 
                     }
-                    <hr color="black" style={styles.HRDividingLine}/>
+                    <hr style={styles.HRDividingLine}/>
                 </div>
                 {this.getHorizontalScrollers()}
                 {this.props.title!="Tiles"
@@ -364,7 +391,18 @@ class HorizontalScroll extends Component {
                     
                 }
             </div>
-            )
+        )
+    }
+
+    render(){
+        return(
+            <div>
+                {this.props.data&&this.props.data.length
+                    ? this.createHorizontalSection()
+                    : null
+                }
+            </div>
+        )
     }
 }
 

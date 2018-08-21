@@ -25,7 +25,7 @@ const tileColors = {
 }
 
 const tiles = [{
-		name: "Featured Experiences", 
+		name: "Featured", 
 		color: tileColors.medium,
 	},{
 		name: "Physics", 
@@ -81,7 +81,7 @@ class LandingPageController extends Component{
                 	() => this.setState({
 						pageData : [
 						{
-							title:"Featured Experiences",
+							title:"Featured",
 							data:this.state.filteredContent,
 							id: sectionIds[1],
 							icon: "trophy",
@@ -213,7 +213,7 @@ class LandingPageController extends Component{
 			<div>
 				{this.checkMobile()
 					?	(
-						<div>
+						<div className="landingPage">
 							<HeaderImage type="mobile"/>
 							<section style={styles.HorizontalScrollOuterCenterContainer}>
 								<div  style={styles.HorizontalScrollContainer}>
@@ -222,7 +222,7 @@ class LandingPageController extends Component{
 									<div>
 									<HorizontalScroll title={"Tiles"} data={tiles} id={sectionIds[0]} positionChange={this.changeSectionOrder.bind(this)} type="mobile"/>
 									{this.state.pageData.map(dataObj=>
-											<HorizontalScroll title={dataObj.title} data={dataObj.data} id={dataObj.id} type="mobile"/>
+											<HorizontalScroll key={dataObj.title} title={dataObj.title} data={dataObj.data} id={dataObj.id} type="mobile"/>
 									)}
 									</div>
 									</ScrollableAnchor>
@@ -232,7 +232,7 @@ class LandingPageController extends Component{
 						</div>
 					)
 					: (
-						<div>
+						<div className="landingPage">
 							<HeaderImage type="PC"/>
 							<section style={styles.HorizontalScrollOuterCenterContainer}>
 								<div style={styles.HorizontalScrollContainer}>

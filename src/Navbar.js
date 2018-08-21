@@ -30,6 +30,16 @@ import {
 
 import history from './history'
 
+
+const ITEMDICT = [
+  {link: '/explore', icon: 'fa-lightbulb', label: 'Learn'},
+  {link: '/create', icon: 'fa-pencil-alt', label: 'Create'},
+  {link: '/data', icon: 'fa-chart-bar', label: 'Analytics'},
+  {link: '/about', icon: 'fa-info-circle', label: 'About'},
+  {link: '/user', icon: 'fa-user', label: 'Account'}
+];
+
+
 const styles = {
     navbarNavItem:{
         display: "flex",
@@ -37,8 +47,9 @@ const styles = {
         justifyContent: "center", 
         padding:"0px 8px 0px 8px",
         color:"​​​​​​​#3E4B54",
-        fontSize:".9rem",
-        cursor: 'pointer'
+        fontSize:"1.0rem",
+        cursor: 'pointer',
+        marginTop: '5px',
     },
     navbarNavLinkForImage:{
         padding:"0px 0px 0px 0px",
@@ -48,16 +59,18 @@ const styles = {
     },
     navbarLinks:{
         padding:"2px",
-        color:"#27363E"
+        color:"#27363E",
+        display: "flex",
+        flexDirection: "column",
     },
     navbarNavs: {
-        fontFamily: "helveticaneue",
+        fontFamily: "HelveticaNeue-Light",
         fontSize: "1em",
         marginLeft: "auto",
     },
     navBarBrand: {
         padding: "1em",
-        fontFamily: "helveticaneue",
+        fontFamily: "HelveticaNeue-Light",
     },
     navbarBrandImage:{
         height: "40px",
@@ -79,7 +92,7 @@ const styles = {
         width: "50%", 
         paddingTop:".28rem", 
         paddingBottom:".28rem",
-        fontFamily:"helveticaneue",
+        fontFamily:"HelveticaNeue-Light",
     },
     navbarSubmitButton:{
         borderTopLeftRadius:0, 
@@ -121,7 +134,7 @@ const styles = {
         borderBottomRightRadius:0, 
         width: "50%", 
         flex:5,
-        fontFamily:"helveticaneue",
+        fontFamily:"HelveticaNeue-Light",
     },
     navbarMobileSubmitButton:{
         borderTopLeftRadius:0, 
@@ -161,11 +174,13 @@ const styles = {
       width:"85%",
       color:"black",
     },
-    navbarRefactor:{
-        height:"100%", 
-        backgroundColor:"#f8f8f4", 
-        borderBottom: "1px solid #27363E",
-    }   
+    navbarMobile:{
+      height: "100px",
+      borderBottom: "1px solid #27363E",
+      backgroundColor:"#f8f8f4",
+      zIndex: 1999,
+    }
+  
 };
 
 const selectOptions = [{
@@ -231,7 +246,7 @@ class NavBar extends React.Component {
         super(props);
         this.toggle = this.toggle.bind(this);
         this.state = {
-          height: "35px",
+          height: "50px",
           isOpen: false,
           isHidden: false,
           selectedOption: null,
@@ -273,12 +288,12 @@ class NavBar extends React.Component {
     };
 
     toggle() {
-        this.state.height==="13rem"
+        this.state.height==="21rem"
         ? this.setState({
-           height:"40px"
+           height:"50px"
           })
         : this.setState({
-           height:"13rem"
+           height:"21rem"
           })
         this.setState({
           isOpen: !this.state.isOpen,
@@ -307,7 +322,7 @@ class NavBar extends React.Component {
           },
         ];
         return (
-         <Navbar className='navbar-ontop'>
+         <Navbar fixed="top" style={styles.navbarMobile} className='navbar-ontop'>
             <div style={styles.navbarMobileTopRow}>
                 <a href="/explore" style={styles.navbarBrandMobile}>
                     <img src={Logo_Small} style={styles.navbarBrandMobileImage}/>
@@ -325,17 +340,11 @@ class NavBar extends React.Component {
                  </div>
             </div>
             <div style={styles.navbarMobileBottomRow}>
-                <a href={"/data"} style={styles.navbarMobileNavs}>
-                    <FontAwesomeIcon icon="lightbulb" className="faAlignRight marginRight5" size="lg"/>
+              {ITEMDICT.map(elem=>
+                <a href={elem.link} style={styles.navbarMobileNavs}>
+                    <i className={"fas fa-align-right fa-lg "+elem.icon} style={{alignSelf: "center"}}></i>
                 </a>
-                <a href="/create" style={styles.navbarMobileNavs}>
-                    <FontAwesomeIcon icon="pencil-alt" className="faAlignRight marginRight5" size="lg"/>
-                </a>
-                <a href="/user" style={styles.navbarMobileNavs}>
-                    <FontAwesomeIcon icon="user" className="faAlignRight marginRight5" size="lg"/>
-
-                </a>
-
+              )}
             </div>
          </Navbar>
 
@@ -350,41 +359,18 @@ class NavBar extends React.Component {
 
         const navbarRightElements = (
             <Nav navbar style={styles.navbarNavs}>
-              <NavItem style={styles.navbarNavItem}>
-                <NavLink onClick={() => history.push("/explore")} style={styles.navbarLinks}>
-                   {/* <FontAwesomeIcon icon="lightbulb" className="faAlignRight marginRight5" size="lg" style={{marginRight:"5px"}}/> */}
-              <i className="fas fa-align-right fa-lg fa-compass margin-right5"></i> 
-                    Learn
-                </NavLink>
-              </NavItem>
-              <NavItem style={styles.navbarNavItem}> 
-                <NavLink onClick={() => history.push("/create")} style={styles.navbarLinks}>
-                   {/*<FontAwesomeIcon icon="pencil-alt" className="faAlignRight marginRight5" size="lg" style={{marginRight:"5px"}}/> */}
-              <i className="fas fa-align-right fa-lg fa-pencil-alt margin-right5"></i> 
-                   Create
-                </NavLink>
-              </NavItem>
-
-              <NavItem style={styles.navbarNavItem}>
-                <NavLink onClick={() => history.push("/data")} href="/data" style={styles.navbarLinks}>
-                  <i className="fas fa-align-right fa-lg fa-chart-bar margin-right5"></i> 
-                  Analytics
-                </NavLink>
-              </NavItem>
-              <NavItem style={styles.navbarNavItem}>
-                <NavLink onClick={() => history.push("/about")} style={styles.navbarLinks}>
-                  <i className="fas fa-align-right fa-lg fa-info-circle margin-right5"></i> 
-                  About
-                </NavLink>
-              </NavItem>
-
-              <NavItem style={styles.navbarNavItem}>
-                <NavLink onClick={() => history.push("/user")} style={styles.navbarLinks}>
-                    {/*<FontAwesomeIcon icon="user" className="faAlignRight marginRight5" size="lg" style={{marginRight:"5px"}}/> */}
-                    <i className="fas fa-align-right fa-lg fa-user margin-right5"></i> 
-                    Profile
-                </NavLink>
-              </NavItem>
+              {ITEMDICT.map(elem=>
+                <NavItem style={styles.navbarNavItem}>
+                  <NavLink onClick={() => history.push(elem.link)} style={styles.navbarLinks}>
+                     {/* <FontAwesomeIcon icon="lightbulb" className="faAlignRight marginRight5" size="lg" style={{marginRight:"5px"}}/> */}
+                      <i 
+                        className={"fas fa-align-right fa-lg " + elem.icon} 
+                        style={{alignSelf: "center", marginBottom: '5px'}}
+                      />
+                      {elem.label}
+                  </NavLink>
+                </NavItem>
+              )}
             </Nav>
         );
 
@@ -393,7 +379,7 @@ class NavBar extends React.Component {
 
         let groupedOptions = [
           {
-            label: 'Categories',
+            label: 'Topics',
             options: selectOptions,
           },
           {
@@ -401,10 +387,9 @@ class NavBar extends React.Component {
             options: this.state.contentTitles,
           },
         ];
-
         return(
-            <div style={{height:this.state.height}}>
-            <Navbar light expand="sm" style={styles.navbarRefactor} >
+            <div>
+            <Navbar light fixed="top" expand="sm" style={{height:this.state.height, backgroundColor:"#f8f8f4", borderBottom: "1px solid #27363E",zIndex: 1999}} >
               <NavbarBrand href="/" style={styles.navBarBrand}>
                   <img src={Logo} style={styles.navbarBrandImage}/>
               </NavbarBrand>

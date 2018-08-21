@@ -2,7 +2,7 @@
  import './styles/About.css'
  import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-
+import colors, { hexToRgba } from './colors'
  //Image imports, can probably be optimized
  import robbie from "./assets/images/robbie.jpeg"
  import daniel from "./assets/images/daniel.jpeg"
@@ -12,7 +12,30 @@
  import pedagogy from "./assets/images/pedagogy.png"
  import learningEffectiveness from "./assets/images/learningEffectiveness.png"
 
-
+const styles = {
+  title: {
+        justifyContent: "center",
+        textAlign: "center",
+        marginTop: "0",
+        paddingTop: '10px',
+        backgroundColor: hexToRgba(colors.RUST, 0.7),
+        textShadow: '0px 0px 3px' + '#6f2002',
+  },
+  titleFont: {
+      fontFamily: 'IndieFlower',
+      fontSize: "2.5rem", 
+      fontWeight: '400',
+      padding: '10px 20px',
+      color: colors.SNOW1,
+  },
+  subtitleFont: {
+      fontFamily: 'IndieFlower',
+      fontSize: '1.8rem',
+      fontWeight: '400',
+      padding: '10px 20px',
+      color: colors.SNOW1,
+  },
+}
 
 class About extends Component{
   constructor(props){
@@ -22,24 +45,19 @@ class About extends Component{
     return(
     
       <div>
-        <header className="masthead text-white text-center vertical-center">
+        <header className="masthead">
           <div className="my-container">
           </div>
-          <div className="container h-100">
+          <div>
             <div className="row h-100">
               <div className="col-lg-8 mx-auto text-center">
-                <h2 align="left" className="text-center mb-5 rz-font rz-fontsize-lg text-white">Create, Modify &amp; Earn from Educational Content</h2>
-                <p align="left" className="text-center lead mb-5 rz-font text-white">We aim to connect teachers, students, and coders to make the creation of interactive educational contents easy, fun and rewarding.</p>
-                <div className="form-row mx-auto text-center">
-                  <div className="mx-auto col-8 mb-2">
-                    <form action="/">
-                      <button type="submit" className="btn btn-block btn-lg btn-primary button1 pl-0 pr-0 mx-auto rz-font"><small>Take Me to Oasys!</small></button>
-                    </form>
-                  </div>
-                  <br />
-                  <br />
-                  <br />
-                  <br />
+                <div style={styles.title}>
+                    <h1 style={styles.titleFont}>
+                      Create, Modify &amp; Earn from Educational Content
+                    </h1>
+                    <h2 style={styles.subtitleFont}>
+                      We connect teachers, students, and coders to make the creation of interactive educational contents easy, fun and rewarding
+                    </h2>
                 </div>
               </div>
             </div>

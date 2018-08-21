@@ -4,22 +4,25 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Truncate from 'react-truncate';
 
 const styles= {
-	cardStyle:{
-		boxShadow: "3px 3px 5px #888888", 
+	cardStyle:{ 
 		width:"150px", 
-		height:"225px", 
+		height:"200px", 
 		backgroundColor: '#F6F1DE', 
 		borderColor:"#F6F1DE", 
 		color: "#F6F1DE", 
-		maxHeight:"300px", 
-		fontFamily:"HelveticaNeue_Bold,-apple-system, sans-serif",
-		margin:"0 5px"
+		fontFamily:"Raleway-Regular,-apple-system, sans-serif",
+		margin:".3em 5px"
 	},
-	cardBody:{
+	boxShadow:{
+		boxShadow: "1px 1px 5px #888888",
+	},
+	homeCardBody:{
 		width:"100%", 
-		height:"190px", 
+		height:"80%", 
 		display:"flex", 
 		overflow:"hidden",
+		padding: "1.25rem",
+
 	},
 	titleAndSubtitle:{
 		flex:5, 
@@ -29,6 +32,7 @@ const styles= {
 		textDecoration:"none", 
 		width:"100%",
 		fontSize:".9rem",
+		fontFamily:"Raleway-Regular,-apple-system, sans-serif",
 	},
 	cardTitleLink:{
 		textDecoration:"none", 
@@ -39,18 +43,20 @@ const styles= {
 	},
 	cardSubtitle:{
 		color:"#C6361D",
+		fontFamily:"Raleway-Regular,-apple-system, sans-serif",
 	},
 	verticalEllipsesOuterDiv:{
 		flex:"1", 
 		height:"100%",
+		cursor: 'pointer',
 	},
 	ellipsisIcon:{
 		flex:"1", 
 		float:"right", 
-		color:"#C3C8D4",
+		color:"#a2abb8",
 	},
 	modalOuterDiv:{
-		fontFamily:"HelveticaNeue_Light",
+		fontFamily:"Raleway-Regular",
 	},
 	modalHeader:{
 		fontSize:"2.5em"
@@ -66,7 +72,6 @@ const styles= {
 	},
 	cardImageOuterLink:{
 		textDecoration:"none", 
-		height:"100%",
 	},
 	cardImageSection:{
 		display: "flex", 
@@ -88,7 +93,7 @@ const styles= {
 		color:"#C6361D", 
 		display:"flex", 
 		justifyContent:"center",
-	}
+	},
 }
 
 class HorizontalScrollButtonMaker extends Component{
@@ -140,8 +145,8 @@ class HorizontalScrollButtonMaker extends Component{
 
 		if(this.props.type==="Tiles"){
 			hashLink=this.props.data.name
-			aTag = this.props.data.name==="Featured Experiences" 
-				? <a onClick={this.props.positionChange.bind(this,"Featured Experiences")} className="pn-ProductNav_Link" aria-selected="true">Featured Experiences</a>
+			aTag = this.props.data.name==="Featured" 
+				? <a onClick={this.props.positionChange.bind(this,"Featured")} className="pn-ProductNav_Link" aria-selected="true">Featured</a>
 				: <a onClick={this.props.positionChange.bind(this,hashLink)} className="pn-ProductNav_Link">{this.props.data.name}</a>
 		}
 		else{
@@ -149,7 +154,6 @@ class HorizontalScrollButtonMaker extends Component{
 			userLink = `/user/${this.props.data.userId}/${this.props.data.contentId}`
 			returnUrl = "/user/"+this.props.data.userId;
 			let rating = this.props.data.rating;
-			console.log(rating);
 			let whiteStar = '\u2606';
 			let blackStar = '\u2605'
 			if (rating){
@@ -164,20 +168,24 @@ class HorizontalScrollButtonMaker extends Component{
 
 		}
 
-
-
-
+		const containedStyle = {
+			textTransform: "none", 
+			borderRadius: "12px", 
+			margin:".3em .3em .3em .3em", 
+			backgroundColor: this.props.data.color,
+		}
+		
 		return(
 			this.props.type==="Tiles"
 			? (
-				<Button variant="contained" size="small" color="inherit" style={{textTransform: "none", backgroundColor:this.props.data.color, borderRadius: "12px", margin:".3em .3em .3em .3em", boxShadow: "1px 1px 5px #888888"}}>
+				<Button variant="contained" size="small" color="inherit" style={{...containedStyle,...styles.boxShadow}}>
             		{aTag}
             	</Button>
             )
             : (
             	<div className="pn-ProductNav_Link" aria-selected="true">
-			      <Card backgroundColor="black" style={styles.cardStyle}>
-			        <CardBody style={styles.cardBody}>
+			      <Card style={{...styles.cardStyle,...styles.boxShadow}}>
+			        <CardBody style={styles.homeCardBody}>
 			          <div style={styles.titleAndSubtitle}>
 					          <CardTitle style={styles.cardTitle}>
 					          	<a href={userLink} style={styles.cardTitleLink}>
@@ -199,8 +207,8 @@ class HorizontalScrollButtonMaker extends Component{
 					          </CardSubtitle>
 				      </div>
 
-			          <div style={styles.verticalEllipsesOuterDiv}>
-			          	<a onClick={this.toggleSmall.bind(this,this.props.data)}><FontAwesomeIcon icon="ellipsis-v" style={styles.ellipsisIcon}/></a>
+			          <div style={styles.verticalEllipsesOuterDiv} className="bruh">
+			          	<a onClick={this.toggleSmall.bind(this,this.props.data)} className="noTextDecoration"><FontAwesomeIcon icon="ellipsis-v" style={styles.ellipsisIcon}/></a>
 			          </div>
 			          <Modal isOpen={this.state.small} toggle={this.toggleSmall}
 	                       className={'modal-sm ' + this.props.className} style={styles.modalOuterDiv}>
@@ -231,11 +239,6 @@ class HorizontalScrollButtonMaker extends Component{
 	                </Modal>
 			        </CardBody>
 			        <a href={userLink} style={styles.cardImageOuterLink}>
-				        <section style={styles.cardImageSection}>
-						 	<div style={styles.cardImageDiv}>
-			                  <FontAwesomeIcon icon={this.props.icon} size="3x"/>
-			                </div>
-	                	</section>
 				        <CardBody>
 				        <CardText style={styles.cardRatingsOuterDiv}>
 				          {stars}
