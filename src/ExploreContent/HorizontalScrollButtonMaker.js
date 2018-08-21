@@ -153,7 +153,6 @@ class HorizontalScrollButtonMaker extends Component{
 			userLink = `/user/${this.props.data.userId}/${this.props.data.contentId}`
 			returnUrl = "/user/"+this.props.data.userId;
 			let rating = this.props.data.rating;
-			console.log(rating);
 			let whiteStar = '\u2606';
 			let blackStar = '\u2605'
 			if (rating){
@@ -184,7 +183,7 @@ class HorizontalScrollButtonMaker extends Component{
             )
             : (
             	<div className="pn-ProductNav_Link" aria-selected="true">
-			      <Card backgroundColor="black" style={{...styles.cardStyle,...styles.boxShadow}}>
+			      <Card style={{...styles.cardStyle,...styles.boxShadow}}>
 			        <CardBody style={styles.homeCardBody}>
 			          <div style={styles.titleAndSubtitle}>
 					          <CardTitle style={styles.cardTitle}>
@@ -207,7 +206,7 @@ class HorizontalScrollButtonMaker extends Component{
 					          </CardSubtitle>
 				      </div>
 
-			          <div style={styles.verticalEllipsesOuterDiv}>
+			          <div style={styles.verticalEllipsesOuterDiv} className="bruh">
 			          	<a onClick={this.toggleSmall.bind(this,this.props.data)} className="noTextDecoration"><FontAwesomeIcon icon="ellipsis-v" style={styles.ellipsisIcon}/></a>
 			          </div>
 			          <Modal isOpen={this.state.small} toggle={this.toggleSmall}

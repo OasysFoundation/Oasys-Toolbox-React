@@ -222,7 +222,7 @@ class LandingPageController extends Component{
 									<div>
 									<HorizontalScroll title={"Tiles"} data={tiles} id={sectionIds[0]} positionChange={this.changeSectionOrder.bind(this)} type="mobile"/>
 									{this.state.pageData.map(dataObj=>
-											<HorizontalScroll title={dataObj.title} data={dataObj.data} id={dataObj.id} type="mobile"/>
+											<HorizontalScroll key={dataObj.title} title={dataObj.title} data={dataObj.data} id={dataObj.id} type="mobile"/>
 									)}
 									</div>
 									</ScrollableAnchor>

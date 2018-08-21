@@ -474,6 +474,16 @@ html:not([dir="rtl"]) .sidebar {
     color:#a2abb8;
 }
 
+.oasys .landingPage .bruh{
+    text-decoration: none;
+    color:#a2abb8;
+}
+
+.oasys .landingPage .bruh:hover{
+    text-decoration: none;
+    color:#a2abb8;
+}
+
 /* ------------------- navbar ------------------- */
 
 /*.oasys.app .navbar {
