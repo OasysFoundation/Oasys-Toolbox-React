@@ -53,6 +53,7 @@ class Index extends Component {
         this.state={
             category:"",
         }
+
     }
 
     handleChangeSearchBar(newVal){
@@ -110,7 +111,7 @@ class Index extends Component {
 
                                 {/*<Route component={NotFoundPage}/>*/}
                             </Switch>
-                            <Route exact path="create/" render={(props) => <Footer />} />
+                            <Footer />
                         </div>
                     </Router>
                 </Provider>

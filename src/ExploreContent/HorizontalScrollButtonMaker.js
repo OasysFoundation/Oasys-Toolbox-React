@@ -3,7 +3,7 @@ import { Button, Card, CardImg, CardText, CardBody, CardLink, CardTitle, CardSub
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Truncate from 'react-truncate';
 
-import colors from '../colors';
+import colors, { hexToRgba } from '../colors';
 
 const styles= {
 	cardStyle:{ 
@@ -197,6 +197,9 @@ class HorizontalScrollButtonMaker extends Component{
             	<div className="pn-ProductNav_Link" aria-selected="true">
 			      <Card style={{...styles.cardStyle,...styles.boxShadow}}>
 			        <CardBody style={styles.homeCardBody}>
+			          {/*<div style={{position: 'absolute', top: '20px', left: '40px'}}>
+				          <i className="fas fa-7x fa-flask" style={{color: hexToRgba(colors.VELVET, 0.1)}}></i>
+			          </div> */}
 			          <div style={styles.titleAndSubtitle}>
 					          <CardTitle style={styles.cardTitle}>
 					          	<a href={userLink} style={styles.cardTitleLink}>
