@@ -40,7 +40,9 @@ const styles = {
         flex: "1",
         display: "flex",
         justifyContent: "center",
+        alignItems: "center",
         height: "50%",
+        paddingTop:"20vh"
     },
     bottomButton: {
         height: '50%',
@@ -141,7 +143,8 @@ class HeaderImage extends Component {
                                 </h2>
                             </div>
                             <div style={styles.bottomButtonDiv}>
-                               
+                                <Button size="lg" color="light" onClick={this.openCreate} style={{display:"flex", alignItems:"cener"}}> Create your own content!</Button>
+
                             </div>
                         </div>
                     )
@@ -175,7 +178,7 @@ class HeaderImage extends Component {
                                     </h2>
                                 </div>
                                 <div style={styles.bottomButtonDiv}>
-                                   
+                                    <Button size="lg" color="light" onClick={this.openCreate} style={{display:"flex", alignItems:"center"}}> Create your own content!</Button>
                                 </div>
                             </div>
                             
