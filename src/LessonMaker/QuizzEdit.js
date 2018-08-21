@@ -29,7 +29,7 @@ class QuizzEdit extends Component {
         this.state = {
             showsModalEditor: false,
         	question: props.data? props.data.question : "",
-            answers: props.data? props.data.answers : [
+            answers: props.data? props.data.answers : [ // provides two empty answers as default for new quiz
                 {
                     "title": "",
                     "image": "",
@@ -98,9 +98,13 @@ class QuizzEdit extends Component {
             feedback = "This is not quite right."
         }
 
+        const action = areSelectedOptionsCorrect? this.state.actionCorrect : this.state.actionWrong;
+
         this.setState({
             feedbackPopoverAnchor: "submit-multiple-choice-button",
-            feedbackPopoverText: this.state.generalFeedback
+            feedbackPopoverText: this.state.generalFeedback,
+            feedbackPopoverTitle: feedback,
+            feedbackPopoverAction: action
         });
     }
 
@@ -213,7 +217,7 @@ class QuizzEdit extends Component {
                   <PopoverHeader>{ this.state.feedbackPopoverTitle }</PopoverHeader>
                   <PopoverBody>{this.state.feedbackPopoverText}</PopoverBody>
                   <center>
-                  <Button color="primary" onClick={function() { that.onContinue(this.state.feedbackPopoverAction) }} style={{marginBottom: '15px'}}> Continue… </Button>
+                  <Button color="primary" onClick={function() { that.onContinue(that.state.feedbackPopoverAction) }} style={{marginBottom: '15px'}}> Continue… </Button>
                   </center>
                   </Popover>
                 )
