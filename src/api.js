@@ -61,7 +61,7 @@ const api = {
         return get(url);
     },
     getUserContentsPreview() {
-        const userId = getUserIdFromStore()
+        const userId = getUserIdFromStore();
         const url = `${BASE_URL}getUserContentsPreview/${userId}`;
         return get(url);
     },

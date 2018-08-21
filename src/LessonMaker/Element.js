@@ -69,7 +69,7 @@ class Element extends Component {
                         this.props.data.id,
                         this.state.tempContent,
                         this.fromChapter);
-                    if (shouldInstantUpdate) {
+                    if (shouldUpdateChapterLinks) {
                         this.props.updateChapterLinks()
                     }
 

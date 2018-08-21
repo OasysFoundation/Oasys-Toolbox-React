@@ -54,10 +54,10 @@ class AccountPage extends Component {
                     })
                 )
             )
-            .catch(err)
-        {
-            this.setState({loggedIn: false})
-        }
+            .catch(err => {
+                console.log('error')
+                this.setState({loggedIn: false})
+            })
     }
 
     checkMobile() {

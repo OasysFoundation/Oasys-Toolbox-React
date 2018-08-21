@@ -8,7 +8,7 @@ import {withRouter} from 'react-router'
 import LessonMaker from './LessonMaker/LessonMaker'
 import ContentSelection from './ContentSelection'
 import DataViewCreator from './DataView/DataViewCreator'
-import Account from './Account'
+import AccountPage from './AccountPage'
 
 import PrivacyPolicyPage from './PrivacyPolicyPage'
 
@@ -77,7 +77,7 @@ class Index extends Component {
                                 <Route exact path="/create" render={(props) => <LessonMaker {...props} />}/>
                                 <Route exact path="/data" render={(props) => <DataViewCreator {...props} />}/>
                                 <Route exact path="/about" render={(props) => <About {...props} />}/>
-                                <Route exact path="/account" render={(props) => <Account {...props} />}/>
+                                <Route exact path="/account" render={(props) => <AccountPage {...props} />}/>
                                 <Route exact path="/privacy" render={(props) => <PrivacyPolicyPage {...props} />}/>
                                 <Route exact path="/conclusion"
                                        render={(props) => <ConcludingContentPage url="https://joinoasys.org"
