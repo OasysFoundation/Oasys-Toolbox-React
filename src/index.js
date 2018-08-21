@@ -38,6 +38,7 @@ import ContentView from "./LessonMaker/ContentView";
 
 import Bitmoji from './Bitmoji'
 import Authentication from "./Authentication/Authentication";
+import {Redirect} from 'react-router'
 
 //logs unnecessary rerenders in the console
 // if (process.env.NODE_ENV !== 'production') {

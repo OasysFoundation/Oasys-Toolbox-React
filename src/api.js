@@ -24,13 +24,13 @@ console.log('BACKEND API : ', BASE_URL)
 
 function getIdTokenFromStore() {
     const idToken = store.getState().user.idToken;
-    if (! idToken) throw Error('no idToken in store @ api call')
+    if (! idToken) console.error('no idToken in store @ api call')
     else return idToken
 }
 
 function getUserIdFromStore() {
     const uid = store.getState().user.uid;
-    if (! uid) throw Error('no userID in store @ api call')
+    if (! uid) console.error('no userID in store @ api call')
     else return uid
 }
 

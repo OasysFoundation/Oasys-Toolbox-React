@@ -19,7 +19,11 @@ import {CardHeader, Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap
 import api from '../api'
 import actions from "../store/actions";
 import {connect} from "redux-zero/react";
-import {Redirect} from 'react-router'
+import {Redirect} from 'react-router';
+
+import {auth as authObj} from "./firebase";
+import history from '../history'
+
 
 const INITIAL_STATE = {
     email: "",
@@ -38,10 +42,16 @@ class Authentication extends Component {
             showModal: false,
             modalTitle: "",
             modalBody: "",
-            loginSuccess: false
+            loginSuccess: false,
             //updateStore:this.props.onChange,
         }
 
+        if (authObj.currentUser) {
+            console.log('userID!')
+            auth.doSignOut()
+                .then( () => history.push('/') )
+                .catch(err => console.log(err, 'problem signing out'))
+        }
 
         this.RegisterClicked = this.RegisterClicked.bind(this);
         this.LoginClicked = this.LoginClicked.bind(this);
@@ -543,7 +553,7 @@ class Authentication extends Component {
 
     render() {
         if (this.state.loginSuccess) {
-            return <Redirect to={"/"} />
+            return <Redirect to={"/account"} />
         }
 
         return (
