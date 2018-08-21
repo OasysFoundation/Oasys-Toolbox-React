@@ -430,16 +430,10 @@ class Authentication extends Component {
                                         </InputGroup>
                                         <Button color="success" block onClick={this.RegisterSubmitted}>Create
                                             Account</Button>
+                                        <Button color="primary" className="px-4" block
+                                                onClick={this.LoginClicked}>Back</Button>
                                     </Form>
                                 </CardBody>
-                                <CardFooter className="p-4">
-                                    <Row>
-                                        <Col xs="4">
-                                            <Button color="primary" className="px-4" block
-                                                    onClick={this.LoginClicked}>Back</Button>
-                                        </Col>
-                                    </Row>
-                                </CardFooter>
                             </Card>
                         </Col>
                     </Row>
@@ -468,16 +462,10 @@ class Authentication extends Component {
                                         </InputGroup>
                                         <Button color="success" block
                                                 onClick={this.ForgotPasswordSubmitted}>Submit</Button>
+                                        <Button color="primary" className="px-4" block
+                                                    onClick={this.LoginClicked}>Back</Button>
                                     </Form>
                                 </CardBody>
-                                <CardFooter className="p-4">
-                                    <Row>
-                                        <Col xs="4">
-                                            <Button color="primary" className="px-4" block
-                                                    onClick={this.LoginClicked}>Back</Button>
-                                        </Col>
-                                    </Row>
-                                </CardFooter>
                             </Card>
                         </Col>
                     </Row>
@@ -533,16 +521,10 @@ class Authentication extends Component {
                                         </InputGroup>
                                         <Button color="success" block
                                                 onClick={this.ResetPasswordSubmitted}>Submit</Button>
+                                        <Button color="primary" className="px-4" block
+                                                    onClick={this.LoginClicked}>Back</Button>
                                     </Form>
                                 </CardBody>
-                                <CardFooter className="p-4">
-                                    <Row>
-                                        <Col xs="4">
-                                            <Button color="primary" className="px-4" block
-                                                    onClick={this.LoginClicked}>Back</Button>
-                                        </Col>
-                                    </Row>
-                                </CardFooter>
                             </Card>
                         </Col>
                     </Row>
