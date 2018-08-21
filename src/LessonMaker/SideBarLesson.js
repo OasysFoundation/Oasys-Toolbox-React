@@ -30,6 +30,7 @@ class SideBarLesson extends Component {
         this.onSettingsSave = this.onSettingsSave.bind(this);
         this.onSettingsShow = this.onSettingsShow.bind(this);
         this.onSwitchProject = this.onSwitchProject.bind(this);
+        this.saveContent = this.saveContent.bind(this);
     }
 
     onSettingsShow() {
@@ -65,9 +66,7 @@ class SideBarLesson extends Component {
             showProjectsDialog: false,
         });
     }
-
     saveContent() {
-
         //everything except the user props and isEditMode
         const {user, isEditMode, ...project} = this.props.project
 
@@ -75,7 +74,7 @@ class SideBarLesson extends Component {
     }
 
     publishContent() {
-        // api.postContent()
+        // api.publishContent()
     }
 
     render() {
