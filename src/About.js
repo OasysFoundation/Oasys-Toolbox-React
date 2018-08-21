@@ -22,14 +22,14 @@ const styles = {
         textShadow: '0px 0px 3px' + '#6f2002',
   },
   titleFont: {
-      fontFamily: 'IndieFlower',
+      fontFamily: 'Charter-Bold',
       fontSize: "2.5rem", 
       fontWeight: '400',
       padding: '10px 20px',
       color: colors.SNOW1,
   },
   subtitleFont: {
-      fontFamily: 'IndieFlower',
+      fontFamily: 'Charter-Bold',
       fontSize: '1.8rem',
       fontWeight: '400',
       padding: '10px 20px',

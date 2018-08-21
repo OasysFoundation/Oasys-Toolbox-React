@@ -10,7 +10,7 @@ const styles={
     },
     HorizontalScrollTitle:{
         fontSize:"1.5rem",
-        fontFamily: "IndieFlower,-apple-system, sans-serif",
+        fontFamily: "Charter-Bold,-apple-system, sans-serif",
     },
     HRDividingLine:{
         marginTop: "0",
