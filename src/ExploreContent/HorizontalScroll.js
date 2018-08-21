@@ -88,9 +88,8 @@ class HorizontalScroll extends Component {
             pnProductNav.setAttribute("data-overflowing", determineOverflow(pnProductNavContents, pnProductNav));
 
             // Set the indicator
-            this.props.title==="Tiles"
-            ? moveIndicator(pnProductNav.querySelector("[aria-selected=\"true\"]"), underlineOnSelectionColours[0])
-            : null
+            if(this.props.title==="Tiles")
+                moveIndicator(pnProductNav.querySelector("[aria-selected=\"true\"]"), underlineOnSelectionColours[0])
 
             // Handle the scroll of the horizontal container
             var last_known_scroll_position = 0;
@@ -176,7 +175,7 @@ class HorizontalScroll extends Component {
                     var styleOfTransform = window.getComputedStyle(pnProductNavContents, null);
                     var tr = styleOfTransform.getPropertyValue("-webkit-transform") || styleOfTransform.getPropertyValue("transform");
                     // If there is no transition we want to default to 0 and not null
-                    var amount = Math.abs(parseInt(tr.split(",")[4]) || 0);
+                    var amount = Math.abs(parseInt(tr.split(",")[4],10) || 0);
                     pnProductNavContents.style.transform = "none";
                     pnProductNavContents.classList.add("pn-ProductNav_Contents-no-transition");
                     // Now lets set the scroll position
