@@ -91,7 +91,7 @@ class About extends Component{
               <div className="col-lg-4">
                 <div className="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
                   <div className="features-icons-icon d-flex">
-                    <img src={pedagogy} className="svg m-auto" width="2em" />
+                    <img src={pedagogy} className="svg m-auto" />
                   </div>
                   <h3>Pedagogy over Popularity</h3>
                   <p className="lead mb-0"> Content creators are rewarded fairly based on how well their contents teach a knowledge concept. Our machine learning models estimate the educational value each content brings to the platform. Rewards are distributed via a blockchain-based token system - this ensures easy and secure payouts globally. This also raises the average quality of contents over time.</p>
@@ -100,7 +100,7 @@ class About extends Component{
               <div className="col-lg-4">
                 <div className="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
                   <div className="features-icons-icon d-flex">
-                    <img src={learningEffectiveness} className="svg m-auto" style={{width: "2em"}}/>
+                    <img src={learningEffectiveness} className="svg m-auto"/>
                   </div>
                   <h3>Advance Learning Effectiveness</h3>
                   <p className="lead mb-0">Interactive learning experiences communicate more information than static ones. The problem with  static contents like textbooks and powerpoint slides, is that they dont allow for trial and error, which is necessary for effective learning.</p>
