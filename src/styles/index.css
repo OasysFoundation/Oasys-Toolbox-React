@@ -528,3 +528,10 @@ html:not([dir="rtl"]) .sidebar {
     position: relative;
     z-index: 1999;
 }*/
+
+/* ------------------- footer ------------------- */
+
+.oasys .custom-footer .noMarginTop{
+    margin-top: 0 !important;
+}
+

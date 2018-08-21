@@ -41,7 +41,7 @@ class About extends Component{
   render(){
     return(
     
-      <div>
+      <div className="about">
         <header className="masthead">
           <div className="my-container">
           </div>
