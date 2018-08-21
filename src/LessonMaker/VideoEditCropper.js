@@ -23,7 +23,7 @@ class VideoEditCropper extends Component {
         this.updateStart = this.updateStart.bind(this);
         this.updateEnd = this.updateEnd.bind(this);
         this.onSetStart = this.onSetStart.bind(this);
-        this.onsetEnd = this.onSetEnd.bind(this);
+        this.onSetEnd = this.onSetEnd.bind(this);
     }
 
     onSlide(render, handle, value, un, percent){
