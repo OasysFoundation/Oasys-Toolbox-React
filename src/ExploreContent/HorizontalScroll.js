@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button } from 'reactstrap';
 import './HorizontalScroll.css';
 import HorizontalScrollButtonMaker from './HorizontalScrollButtonMaker'
-
+import colors from '../colors';
 
 const styles={
     HorizontalScrollContainer:{
@@ -13,9 +13,8 @@ const styles={
         fontFamily: "IndieFlower,-apple-system, sans-serif",
     },
     HRDividingLine:{
-        height:"1px", 
-        border: "none", 
-        marginTop:"0",
+        marginTop: "0",
+        borderColor: colors.GULLGREY,
     },
     fadeButton:{
         backgroundColor: "transparent",
@@ -374,7 +373,7 @@ class HorizontalScroll extends Component {
                         : this.props.title
 
                     }
-                    <hr color="black" style={styles.HRDividingLine}/>
+                    <hr style={styles.HRDividingLine}/>
                 </div>
                 {this.getHorizontalScrollers()}
                 {this.props.title!="Tiles"

@@ -57,7 +57,7 @@ const styles = {
         marginTop: "6vw",
         paddingTop: '10px',
         backgroundColor: hexToRgba(colors.RUST, 0.5),
-        textShadow: '0px 0px 3px' + colors.RUST,
+        textShadow: '0px 0px 3px' + '#6f2002',
     },
     subtitle: {
         display: "flex",

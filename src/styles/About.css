@@ -14,20 +14,17 @@ h6 {
 
 header.masthead {
   position: relative;
-  background-color: #000000;
   padding-top: 8rem;
   padding-bottom: 8rem;
-  min-height: 550px;
+  height: 500px;
 }
 
 header.masthead .overlay {
   position: absolute;
-  background-color: #212529;
   height: 100%;
   width: 100%;
   top: 0;
   left: 0;
-  opacity: 0.3;
 }
 
 header.masthead h1 {
@@ -138,18 +135,15 @@ header.masthead {
 
 .call-to-action .overlay {
   position: absolute;
-  background-color: #212529;
   height: 100%;
   width: 100%;
   top: 0;
   left: 0;
-  opacity: 0.3;
 }
 
 
 .my-container {
     position: absolute;
-    background: #07575b;
     overflow: hidden;
     z-index: -50;
   width: 100%;
@@ -166,8 +160,7 @@ header.masthead {
     width: 100%;
     height: 100%;
     z-index: 1;
-    opacity: .15;
-   background-image: url("../assets/images/brand/oasys_bg_cropped.gif");
+   background-image: url("../assets/images/brand/oasys_bg_rust.png");
     background-repeat: no-repeat;
     background-position: 50% 0;
     -ms-background-size: cover;
