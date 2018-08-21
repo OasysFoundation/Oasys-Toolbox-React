@@ -66,9 +66,7 @@ class SideBarLesson extends Component {
             showProjectsDialog: false,
         });
     }
-
     saveContent() {
-
         //everything except the user props and isEditMode
         const {user, isEditMode, ...project} = this.props.project
 
@@ -76,7 +74,7 @@ class SideBarLesson extends Component {
     }
 
     publishContent() {
-        // api.postContent()
+        // api.publishContent()
     }
 
     render() {

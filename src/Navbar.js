@@ -9,6 +9,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
 import {connect} from "redux-zero/react";
 import actions from "./store/actions";
+import {auth} from "./Authentication/firebase";
 
 // Styling
 import {
@@ -40,7 +41,8 @@ const ITEMDICT = [
     {link: '/create', icon: 'fa-pencil-alt', label: 'Create'},
     {link: '/data', icon: 'fa-chart-bar', label: 'Analytics'},
     {link: '/about', icon: 'fa-info-circle', label: 'About'},
-    {link: '/user', icon: 'fa-user', label: 'Account'}
+    {link: '/account', icon: 'fa-user', label: 'Account'},
+    {link: '/user', icon: 'fa-user', label: 'Login'}
 ];
 
 
@@ -347,7 +349,7 @@ class NavBar extends React.Component {
                 </div>
                 <div style={styles.navbarMobileBottomRow}>
                     {ITEMDICT.map(elem =>
-                        <a href={elem.link} style={styles.navbarMobileNavs}>
+                        <a key={elem.link} href={elem.link} style={styles.navbarMobileNavs}>
                             <i className={"fas fa-align-right fa-lg " + elem.icon} style={{alignSelf: "center"}}></i>
                         </a>
                     )}
@@ -366,7 +368,7 @@ class NavBar extends React.Component {
         const navbarRightElements = (
             <Nav navbar style={styles.navbarNavs}>
                 {ITEMDICT.map(elem =>
-                    <NavItem style={styles.navbarNavItem}>
+                    <NavItem key={elem.link} style={styles.navbarNavItem}>
                         <NavLink onClick={() => history.push(elem.link)} style={styles.navbarLinks}>
                             {/* <FontAwesomeIcon icon="lightbulb" className="faAlignRight marginRight5" size="lg" style={{marginRight:"5px"}}/> */}
                             <i
@@ -436,7 +438,7 @@ class NavBar extends React.Component {
         const {selectedOption} = this.state;
 
         /if we know the user, display his name in navbar/
-        ITEMDICT.forEach(item => item.link === '/user' ? item.label = this.props.user.name || "Account" : null)
+        ITEMDICT.forEach(item => item.link === '/user' ? ( item.label = auth.currentUser ? "Logout" : "Login") : null)
 
         return (
             <div>
