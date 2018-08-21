@@ -47,8 +47,6 @@ class LessonMaker extends Component {
 
         return (
             <div className="app-body">
-
-
                 <SideBarLesson/>
                 <main className="main">
                     <Container fluid className='main-width'>

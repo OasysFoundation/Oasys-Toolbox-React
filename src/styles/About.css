@@ -15,7 +15,6 @@ h6 {
 header.masthead {
   position: relative;
   padding-top: 8rem;
-  padding-bottom: 8rem;
   height: 500px;
 }
 
@@ -63,8 +62,7 @@ header.masthead {
 
 @media (min-width: 768px) {
   header.masthead {
-    padding-top: 12rem;
-    padding-bottom: 12rem;
+    padding-top: 8rem;
   }
   header.masthead h1 {
     font-size: 3rem;
