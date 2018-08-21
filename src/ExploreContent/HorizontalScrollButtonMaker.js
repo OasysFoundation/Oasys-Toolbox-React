@@ -7,8 +7,8 @@ import colors from '../colors';
 
 const styles= {
 	cardStyle:{ 
-		width:"150px", 
-		height:"200px", 
+		width:"170px", 
+		height:"150px", 
 		backgroundColor: colors.SNOW2, 
 		borderColor:"#F6F1DE", 
 		color: "#F6F1DE", 
@@ -23,7 +23,7 @@ const styles= {
 		height:"80%", 
 		display:"flex", 
 		overflow:"hidden",
-		padding: "1.25rem",
+		padding: "1.0rem",
 
 	},
 	titleAndSubtitle:{
@@ -52,8 +52,6 @@ const styles= {
 		flex:"1", 
 		height:"100%",
 		cursor: 'pointer',
-		marginTop: '-5px',
-		marginRight: '-5px',
 	},
 	ellipsisIcon:{
 		flex: "1", 
