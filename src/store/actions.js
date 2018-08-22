@@ -53,7 +53,7 @@ const actions = function (store) { //store for async stuff
         setIdToken(state, idtoken) {
             return update(state, {
                 user: {
-                    idToken: {$set : idtoken}
+                    idToken: {$set: idtoken}
                 }
             })
         },
@@ -126,21 +126,30 @@ const actions = function (store) { //store for async stuff
             const clone = JSON.parse(JSON.stringify(state));
 
             clone.chapters.forEach(chapter => {
-                chapter.elements.forEach((elem, i) => {
-                    if (elem.type === globals.EDIT_QUIZ) {
+                let continue_links = [];
+                let answer_links = [];
+                chapter.elements.forEach(elem => {
+                    if (elem.type === globals.EDIT_QUIZ || elem.type === globals.EDIT_CONTINUE_ELEMENT) {
+
                         if (elem.content.answers) {
-                            const links = elem.content.answers
+                            console.log('yeahh 2', elem.content.answers)
+
+                            const answeractions = elem.content.answers
                                 .filter(answer => answer.action != null)
-                                .map(answerWithLink => answerWithLink.action);
-
-                            chapter.links = links.map(function (link) {
-                                return {
-                                    eventId: uuidv4(),
-                                    chapterId: link
-                                }
-                            });
-
+                                .map(answerWithLink => answerWithLink.action)
+                            answer_links.push(...answeractions)
                         }
+                        if (elem.content.action) {
+                            continue_links.push(elem.content.action);
+                        }
+                        const links = [...continue_links, ...answer_links]
+                        chapter.links = links.map(function (link) {
+                            return {
+                                eventId: uuidv4(),
+                                chapterId: link
+                            }
+                        });
+
                     }
                 })
             })

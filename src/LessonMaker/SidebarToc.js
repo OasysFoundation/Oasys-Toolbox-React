@@ -106,17 +106,17 @@ class SidebarToc extends Component {
     componentWillReceiveProps(nextprops){
         let isChanged = false;
         // yes: we have to MANUALLY compare if the objects are the same because somehow JSON.stringify does not WORK!
+        if (nextprops.chaptersLight.length !==  this.props.chaptersLight.length) { isChanged = true; }
         for (let i=0; i<nextprops.chaptersLight.length; i++) {
+            if (isChanged) { break; }
             if (nextprops.chaptersLight[i].title !== this.props.chaptersLight[i].title) { isChanged=true; break; }
             if (nextprops.chaptersLight[i].id !== this.props.chaptersLight[i].id) { isChanged=true; break; }
             for (let j=0; j<nextprops.chaptersLight[i].links; j++) {
                 if (nextprops.chaptersLight[i].links[j].id !== this.props.chaptersLight[i].links[j].id) {isChanged=true; break; }
             }
-            if (isChanged) { break; }
         }
 
         if (isChanged || this.props.activeChapterIndex !== nextprops.activeChapterIndex) {
-            console.log(nextprops.chaptersLight)
             this.updateToc(nextprops);
             if (this.mounted) {
                 this.drawToc(nextprops);

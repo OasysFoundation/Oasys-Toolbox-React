@@ -70,10 +70,9 @@ class Element extends Component {
                         this.props.data.id,
                         this.state.tempContent,
                         this.fromChapter);
-                    if (shouldUpdateChapterLinks) {
-                        this.props.updateChapterLinks()
-                    }
-
+                }
+                if (shouldUpdateChapterLinks) {
+                    this.props.updateChapterLinks()
                 }
             });
     };
