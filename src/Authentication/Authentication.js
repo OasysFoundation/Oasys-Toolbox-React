@@ -23,6 +23,8 @@ import {Redirect} from 'react-router';
 
 import history from '../history'
 
+import firebase from 'firebase'
+
 
 const INITIAL_STATE = {
     email: "",
@@ -306,6 +308,48 @@ class Authentication extends Component {
         window.location.href = "/"
     }
 
+    onLoginWithFacebook() {
+        
+        var provider = new firebase.auth.FacebookAuthProvider();
+
+        firebase.auth().signInWithPopup(provider).then(function(result) {
+          // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+          var token = result.credential.accessToken;
+          // The signed-in user info.
+          var user = result.user;
+          // ...
+        }).catch(function(error) {
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          // The email of the user's account used.
+          var email = error.email;
+          // The firebase.auth.AuthCredential type that was used.
+          var credential = error.credential;
+          // ...
+        });
+    }
+
+    onLoginWithGoogle() {
+        var provider = new firebase.auth.GoogleAuthProvider();
+        firebase.auth().signInWithPopup(provider).then(function(result) {
+          // This gives you a Google Access Token. You can use it to access the Google API.
+          var token = result.credential.accessToken;
+          // The signed-in user info.
+          var user = result.user;
+          // ...
+        }).catch(function(error) {
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          // The email of the user's account used.
+          var email = error.email;
+          // The firebase.auth.AuthCredential type that was used.
+          var credential = error.credential;
+          // ...
+        });
+    }
+
     getLoginView() {
         return (
             <div className="app flex-row align-items-center">
@@ -353,6 +397,9 @@ class Authentication extends Component {
                                                             onClick={this.ResetPasswordClicked}>Reset Password</Button>
                                                 </Col>
                                             </Row>
+                                            <br />
+                                            <Button color="primary" block onClick={this.onLoginWithFacebook.bind(this)}>Login with Facebook</Button>
+                                            <Button color="primary" block onClick={this.onLoginWithGoogle.bind(this)}>Login with Google</Button>
                                         </Form>
                                     </CardBody>
                                 </Card>
