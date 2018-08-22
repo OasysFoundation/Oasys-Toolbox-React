@@ -107,7 +107,27 @@ html, body {
   background-color: rgb(248, 248, 244);
 }
 
-.oasys .ql-container.ql-snow {
+.oasys .ql-container.ql-snow h1 {
+    font-family: 'Charter-Regular';
+}
+
+.oasys .ql-container.ql-snow h2 {
+    font-family: 'Charter-Regular';
+}
+
+.oasys .ql-container.ql-snow h3 {
+    font-family: 'Charter-Regular';
+}
+
+.oasys .ql-container.ql-snow h4 {
+    font-family: 'Charter-Regular';
+}
+
+.oasys .ql-container.ql-snow h5 {
+    font-family: 'Charter-Regular';
+}
+
+.oasys .ql-container.ql-snow p {
     font-family: 'Charter-Regular';
 }
 
@@ -508,3 +528,10 @@ html:not([dir="rtl"]) .sidebar {
     position: relative;
     z-index: 1999;
 }*/
+
+/* ------------------- footer ------------------- */
+
+.oasys .custom-footer .noMarginTop{
+    margin-top: 0 !important;
+}
+

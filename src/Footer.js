@@ -6,7 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 class FooterPage extends React.Component {
     render(){
         return(
-            <Footer color="blue-grey" className="page-footer font-small lighten-5 pt-4" style={{backgroundColor:"#f8f8f4"}}>
+            <div className="custom-footer">
+            <Footer color="blue-grey" className="noMarginTop page-footer font-small lighten-5 pt-4" style={{backgroundColor:"#f8f8f4", borderTop:"1px solid #27363E"}}>
                 <Container className="mt-5 text-center text-md-left">
                     <Row className="mt-3" style={{display:"flex", justifyContent:"center"}}>
                         <Col md="3" lg="4" xl="3" className="mb-4 dark-grey-text">
@@ -35,12 +36,13 @@ class FooterPage extends React.Component {
                         <Col md="4" lg="3" xl="3" className="mb-4 dark-grey-text">
                             <h6 className="text-uppercase font-weight-bold"><strong>Contact</strong></h6>
                             <hr className="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style={{width: '60px'}}/>
-                            <p><i className="fa fa-home mr-3"></i> Berlin, 10115 🇩🇪</p>
+                            <p><i className="fa fa-home mr-3"></i> Berlin, 10115 <span role="img" aria-label="german-flag">🇩🇪</span></p>
                             <p><i className="fa fa-envelope mr-3"></i> info@joinoasys.com</p>
                         </Col>
                     </Row>
                 </Container>
             </Footer>
+            </div>
         );
     }
 }

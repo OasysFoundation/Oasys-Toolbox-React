@@ -7,8 +7,8 @@ class PrivacyPolicyPage extends Component {
 
     render() {
         return (
-            <center>
-            <div style={{maxWidth:'700px', textAlign:'left'}}>
+            <div className='main'>
+            <div style={{maxWidth:'700px'}}>
                 <h1>Privacy Policy</h1>
 
 
@@ -119,7 +119,7 @@ class PrivacyPolicyPage extends Component {
       
         </ul>  
         </div>                              
-        </center>
+        </div>
         )
     }
 }

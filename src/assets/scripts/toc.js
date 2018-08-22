@@ -187,6 +187,7 @@ export function insertArrowLocs(tocInfo, opt) {
 export function drawChapters(tocInfo, chapters, opt) {
     let maxLevel = Math.max(...tocInfo.map(e=>e.level));
     let offy = 0;
+    let activeElem = {};
     for (let i=0; i<=maxLevel; i++) {
         let offx = 0;
         let elems = tocInfo.filter(e=>e.level === i);
@@ -198,6 +199,7 @@ export function drawChapters(tocInfo, chapters, opt) {
                 text: chapters[elems[0].idx].title,
                 active: chapters[elems[0].idx].active,
             };
+            if (info.active) { activeElem = info; }
             document.getElementById(opt.tocId).appendChild(svgRect(info,elems[0].id,opt));
             document.getElementById(opt.tocId).appendChild(svgText(info,elems[0].id,opt));
         } else {
@@ -210,6 +212,7 @@ export function drawChapters(tocInfo, chapters, opt) {
                     text: chapters[elems[j].idx].title,
                     active: chapters[elems[j].idx].active,
                 };
+                if (info.active) { activeElem = info; }
                 document.getElementById(opt.tocId).appendChild(svgRect(info,elems[j].id,opt));
                 document.getElementById(opt.tocId).appendChild(svgText(info,elems[j].id,opt));
                 offx = offx + rectWidth + opt.gapx;
@@ -217,9 +220,10 @@ export function drawChapters(tocInfo, chapters, opt) {
         }
         offy = offy + opt.gapy + opt.rectHeight;
     }
+    return activeElem;
 }
 
-export function drawConnections(tocInfo, opt){
+export function drawConnections(tocInfo, opt, activeElem){
     let arrowToDraw = [];
     for (let i=0; i<tocInfo.length; i++) {
         let links = tocInfo[i].linkIdx;
@@ -241,7 +245,7 @@ export function drawConnections(tocInfo, opt){
             let level1 = Math.min(tocInfo[i].level,elem.level);
             let level2 = Math.max(tocInfo[i].level,elem.level);
             for (let k=1; k<level2-level1; k++) {
-                drawTunnel(level1+k,x,opt);
+                drawTunnel(level1+k,x,activeElem,opt);
             }
             arrowToDraw.push({x:x,y1:y1,y2:y2});
         }
@@ -249,10 +253,14 @@ export function drawConnections(tocInfo, opt){
     arrowToDraw.forEach(e=>drawArrow(e.x,e.y1,e.y2,opt));
 }
 
-export function drawTunnel(level,x,opt) {
+export function drawTunnel(level,x,activeElem,opt) {
     let y1 = level * (opt.rectHeight + opt.gapy);
     let y2 = y1 + opt.rectHeight;
-    document.getElementById(opt.tocId).appendChild(svgBezier(x-6,x+6,y1-7,y1+1,opt.rectColorDefaultFill,opt.rectColorDefaultStroke));
+    let fillColor = opt.rectColorDefaultFill;
+    if (x > activeElem.x - 3 && x < activeElem.x + 3 + activeElem.width && (y1 === activeElem.y || y2===activeElem.y) ) {
+        fillColor = opt.rectColorActiveFill;
+    }
+    document.getElementById(opt.tocId).appendChild(svgBezier(x-6,x+6,y1-7,y1+1,fillColor,opt.rectColorDefaultStroke));
     document.getElementById(opt.tocId).appendChild(svgBezier(x-6,x+6,y2-7,y2+1,opt.backgroundColor,opt.rectColorDefaultStroke));
 }
 

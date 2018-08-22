@@ -40,13 +40,15 @@ const styles = {
         flex: "1",
         display: "flex",
         justifyContent: "center",
+        alignItems: "center",
         height: "50%",
+        paddingTop:"20vh"
     },
     bottomButton: {
         height: '50%',
         fontSize: "1.3rem",
         color: colors.RUST,
-        fontFamily: 'IndieFlower',
+        fontFamily: 'Charter-Bold',
         backgroundColor: colors.SNOW1,
         border: '2px solid ' + colors.SNOW2,
         boxShadow: '0px 0px 20px 1px #555555',
@@ -57,7 +59,7 @@ const styles = {
         marginTop: "6vw",
         paddingTop: '10px',
         backgroundColor: hexToRgba(colors.RUST, 0.5),
-        textShadow: '0px 0px 3px' + '#6f2002',
+        textShadow: '0px 0px 3px #6f2002',
     },
     subtitle: {
         display: "flex",
@@ -66,14 +68,14 @@ const styles = {
         paddingTop: '10px',
     },
     titleFont: {
-        fontFamily: 'IndieFlower',
+        fontFamily: 'Charter-Bold',
         fontSize: "2.5rem", 
         fontWeight: '400',
         padding: '10px 20px',
         color: colors.SNOW1,
     },
     subtitleFont: {
-        fontFamily: 'IndieFlower',
+        fontFamily: 'Charter-Bold',
         fontSize: '1.8rem',
         fontWeight: '400',
         padding: '10px 20px',
@@ -122,7 +124,7 @@ class HeaderImage extends Component {
         return (
             <div style={styles.mainContainer}>
 
-                <img src={currentCover} onLoad={this.handleImageLoaded.bind(this)} style={styles.backgroundImage}/>
+                <img src={currentCover} alt="cover" onLoad={this.handleImageLoaded.bind(this)} style={styles.backgroundImage}/>
 
                 {this.state.imageLoading
                     ? "Loading..."
@@ -141,7 +143,8 @@ class HeaderImage extends Component {
                                 </h2>
                             </div>
                             <div style={styles.bottomButtonDiv}>
-                               
+                                <Button size="lg" color="light" onClick={this.openCreate} style={{display:"flex", alignItems:"cener"}}> Create your own content!</Button>
+
                             </div>
                         </div>
                     )
@@ -156,7 +159,7 @@ class HeaderImage extends Component {
         let subtitleFontSize = "5vw";
         return (
             <div style={styles.mainContainer}>
-                <img src={coverTiny} onLoad={this.handleImageLoaded.bind(this)} style={styles.backgroundImage}/>
+                <img src={coverTiny} alt="cover" onLoad={this.handleImageLoaded.bind(this)} style={styles.backgroundImage}/>
                 {this.state.imageLoading
                     ? "Loading..."
                     : (
@@ -175,7 +178,7 @@ class HeaderImage extends Component {
                                     </h2>
                                 </div>
                                 <div style={styles.bottomButtonDiv}>
-                                   
+                                    <Button size="lg" color="light" onClick={this.openCreate} style={{display:"flex", alignItems:"center"}}> Create your own content!</Button>
                                 </div>
                             </div>
                             

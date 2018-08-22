@@ -6,13 +6,10 @@ import {Router, Route, Switch} from 'react-router-dom';
 
 import {withRouter} from 'react-router'
 import LessonMaker from './LessonMaker/LessonMaker'
-import ContentSelection from './ContentSelection'
 import DataViewCreator from './DataView/DataViewCreator'
-import Account from './Account'
+import AccountPage from './AccountPage'
 
 import PrivacyPolicyPage from './PrivacyPolicyPage'
-
-import {AppHeader} from '@coreui/react';
 
 import "simple-line-icons/css/simple-line-icons.css"
 import "./assets/fontAwesome/css/all.min.css"
@@ -20,7 +17,6 @@ import "./styles/coreui/coreui.css"
 import "@coreui/icons/css/coreui-icons.css"
 import './styles/index.css';
 
-import Header from './Header';
 import Navbar from './Navbar';
 import Footer from "./Footer";
 import About from "./About"
@@ -38,6 +34,7 @@ import ContentView from "./LessonMaker/ContentView";
 
 import Bitmoji from './Bitmoji'
 import Authentication from "./Authentication/Authentication";
+import {Redirect} from 'react-router'
 
 //logs unnecessary rerenders in the console
 // if (process.env.NODE_ENV !== 'production') {
@@ -53,6 +50,7 @@ class Index extends Component {
         this.state={
             category:"",
         }
+
     }
 
     handleChangeSearchBar(newVal){
@@ -69,15 +67,15 @@ class Index extends Component {
                             <Switch>
                                 <Route exact path="/" render={() => <LandingPageController category={this.state.category}/>}/>
                                 <Route exact path="/explore" render={() => <LandingPageController category={this.state.category}/>}/>
-                                <Route exact path="/user" render={() => <Authentication/>}/>
+                                <Route exact path="/user" render={() => <AccountPage/>}/>
                                 <Route exact path="/create" render={(props) => <LessonMaker {...props} />}/>
-                                {/*<Route exact path="/auth" render={(props) => <Authentication/>}/>*/}
+                                {<Route exact path="/auth" render={(props) => <Authentication/>}/>}
                                 <Route exact path="/view" render={() => <ContentView project={store.getState()}/>}/>
                                 <Route exact path="/learn" render={(props) => <LandingPageController {...props} />}/>
                                 <Route exact path="/create" render={(props) => <LessonMaker {...props} />}/>
                                 <Route exact path="/data" render={(props) => <DataViewCreator {...props} />}/>
                                 <Route exact path="/about" render={(props) => <About {...props} />}/>
-                                <Route exact path="/account" render={(props) => <Account {...props} />}/>
+                                <Route exact path="/account" render={(props) => <AccountPage {...props} />}/>
                                 <Route exact path="/privacy" render={(props) => <PrivacyPolicyPage {...props} />}/>
                                 <Route exact path="/conclusion"
                                        render={(props) => <ConcludingContentPage url="https://joinoasys.org"
@@ -110,7 +108,7 @@ class Index extends Component {
 
                                 {/*<Route component={NotFoundPage}/>*/}
                             </Switch>
-                            <Footer/>
+                            <Footer />
                         </div>
                     </Router>
                 </Provider>

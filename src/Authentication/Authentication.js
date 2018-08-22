@@ -13,13 +13,16 @@ import {
     InputGroup,
     InputGroupAddon,
     InputGroupText,
+    Modal, ModalBody, ModalFooter, ModalHeader,
     Row
 } from 'reactstrap';
-import {CardHeader, Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap';
 import api from '../api'
 import actions from "../store/actions";
 import {connect} from "redux-zero/react";
-import {Redirect} from 'react-router'
+import {Redirect} from 'react-router';
+
+import history from '../history'
+
 
 const INITIAL_STATE = {
     email: "",
@@ -38,10 +41,16 @@ class Authentication extends Component {
             showModal: false,
             modalTitle: "",
             modalBody: "",
-            loginSuccess: false
+            loginSuccess: false,
             //updateStore:this.props.onChange,
         }
 
+        if (auth.doCheckLoggedIn()) {
+            console.log('userID!')
+            auth.doSignOut()
+                .then( () => history.push('/') )
+                .catch(err => console.log(err, 'problem signing out'))
+        }
 
         this.RegisterClicked = this.RegisterClicked.bind(this);
         this.LoginClicked = this.LoginClicked.bind(this);
@@ -101,7 +110,7 @@ class Authentication extends Component {
                 that.setState({
                     modalTitle: "Weclome to Oasys",
                     modalBody: "You have been logged in successfully",
-                    showModal: "true",
+                    showModal: true,
                 })
                 const {displayName, uid} = cbData.user
                 const userObj = {name: displayName, uid}
@@ -118,7 +127,7 @@ class Authentication extends Component {
                 that.setState({
                     modalTitle: "Error",
                     modalBody: error.message,
-                    showModal: "true",
+                    showModal: true,
                 });
             });
 
@@ -130,7 +139,7 @@ class Authentication extends Component {
             this.setState({
                 modalTitle: "Error",
                 modalBody: "Usernames cannot contain hyphens (-)",
-                showModal: "true",
+                showModal: true,
             });
         }
         else {
@@ -138,80 +147,73 @@ class Authentication extends Component {
             auth.doCreateUserWithEmailAndPassword(that.state.email, that.state.password)
                 .then(authUser => {
                     console.log(authUser, 'authuser')
-                    const idToken  = auth.doGetIdToken()
-                        console.log('idToken ', idToken)
-                        .then(function (idToken) {
-                            const userObject = {
-                                "uid": auth.doGetUid(),
-                                "username": that.state.username,
-                            }
-
-
-                            api.postNewUserName(userObject, idToken)
-                                .then((body) => {
-                                    console.log(body, 'body')
-                                    if (body.hyphen) {
-                                        that.setState({
-                                            modalTitle: "Error",
-                                            modalBody: "Usernames cannot contain hyphens (-)",
-                                            showModal: "true",
-                                        });
-                                    }
-                                    else {
-                                        auth.doUpdateProfile(that.state.username)
-                                            .then(function () {
-                                                that.setState({
-                                                    modalTitle: "Weclome to Oasys",
-                                                    modalBody: "Your account was created successfully",
-                                                    showModal: "true",
-                                                })
-
-                                                that.props.onAuthSuccess(userObject);
-
-                                                auth.doGetIdToken()
-                                                    .then(token => that.props.setIdToken(token))
-                                                    .catch(err => console.log('could not get id token', err))
-
-                                                //for redirect
-                                                that.setState({loginSuccess: true})
-
-
-                                                //body? or authuser? or what prop
-
-                                            })
-                                            .catch(function (error) {
-                                                that.setState({
-                                                    modalTitle: "Error",
-                                                    modalBody: error.message,
-                                                    showModal: "true",
-                                                });
-                                            });
-                                    }
-                                })
-                                .catch(function (err) {
-                                    that.setState({
-                                        modalTitle: "Error",
-                                        modalBody: "Mhh there is something strange going on. Email us at info@joinoasys.org if this continuous!",
-                                        showModal: "true",
-                                    });
-                                })
+                    auth.doGetIdToken()
+                        .then(token => {
+                            console.log(token, 'token')
+                            that.props.setIdToken(token)
+                            this.updateBackendonRegister(that)
                         })
-                        .catch(function (error) {
-                            that.setState({
-                                modalTitle: "Error",
-                                modalBody: error.message,
-                                showModal: "true",
-                            });
-                        })
+                        .catch(err => console.log('could not get id token', err))
                 })
                 .catch(function (error) {
                     that.setState({
                         modalTitle: "Error",
                         modalBody: error.message,
-                        showModal: "true",
+                        showModal: true,
                     });
                 })
         }
+    }
+
+    updateBackendonRegister(that){                  
+        const userObject = {
+            "uid": auth.doGetUid(),
+            "username": that.state.username,
+        }
+
+        api.postNewUserName(userObject)
+            .then((body) => {
+                console.log(body, 'body')
+                if (body.hyphen) {
+                    that.setState({
+                        modalTitle: "Error",
+                        modalBody: "Usernames cannot contain hyphens (-)",
+                        showModal: true,
+                    });
+                }
+                else {
+                    auth.doUpdateProfile(that.state.username)
+                        .then(function () {
+                            that.setState({
+                                modalTitle: "Weclome to Oasys",
+                                modalBody: "Your account was created successfully",
+                                showModal: true,
+                            })
+
+                            that.props.onAuthSuccess(userObject);
+
+                            //for redirect
+                            that.setState({loginSuccess: true})
+
+                            //body? or authuser? or what prop
+
+                        })
+                        .catch(function (error) {
+                            that.setState({
+                                modalTitle: "Error",
+                                modalBody: error.message,
+                                showModal: true,
+                            });
+                        });
+                }
+            })
+            .catch(function (err) {
+                that.setState({
+                    modalTitle: "Error",
+                    modalBody: "Mhh there is something strange going on. Email us at info@joinoasys.org if this continues!",
+                    showModal: true,
+                });
+            })
     }
 
     ForgotPasswordSubmitted() {
@@ -221,7 +223,7 @@ class Authentication extends Component {
                 this.setState({
                     modalTitle: "Success",
                     modalBody: "Your password has been reset! Please check your email to get your new password.",
-                    showModal: "true",
+                    showModal: true,
                 })
                 //this.state.updateStore();
             })
@@ -230,7 +232,7 @@ class Authentication extends Component {
                 this.setState({
                     modalTitle: "Error",
                     modalBody: error.message,
-                    showModal: "true",
+                    showModal: true,
                 });
             });
     }
@@ -244,14 +246,14 @@ class Authentication extends Component {
                         that.setState({
                             modalTitle: "Success",
                             modalBody: "Your password has been changed!",
-                            showModal: "true",
+                            showModal: true,
                         });
                     })
                     .catch(function (error) {
                         that.setState({
                             modalTitle: "Error",
                             modalBody: error.message,
-                            showModal: "true",
+                            showModal: true,
                         });
                     })
             })
@@ -259,7 +261,7 @@ class Authentication extends Component {
                 that.setState({
                     modalTitle: "Error",
                     modalBody: error.message,
-                    showModal: "true",
+                    showModal: true,
                 });
             })
     }
@@ -420,16 +422,10 @@ class Authentication extends Component {
                                         </InputGroup>
                                         <Button color="success" block onClick={this.RegisterSubmitted}>Create
                                             Account</Button>
+                                        <Button color="primary" className="px-4" block
+                                                onClick={this.LoginClicked}>Back</Button>
                                     </Form>
                                 </CardBody>
-                                <CardFooter className="p-4">
-                                    <Row>
-                                        <Col xs="4">
-                                            <Button color="primary" className="px-4" block
-                                                    onClick={this.LoginClicked}>Back</Button>
-                                        </Col>
-                                    </Row>
-                                </CardFooter>
                             </Card>
                         </Col>
                     </Row>
@@ -458,16 +454,10 @@ class Authentication extends Component {
                                         </InputGroup>
                                         <Button color="success" block
                                                 onClick={this.ForgotPasswordSubmitted}>Submit</Button>
+                                        <Button color="primary" className="px-4" block
+                                                    onClick={this.LoginClicked}>Back</Button>
                                     </Form>
                                 </CardBody>
-                                <CardFooter className="p-4">
-                                    <Row>
-                                        <Col xs="4">
-                                            <Button color="primary" className="px-4" block
-                                                    onClick={this.LoginClicked}>Back</Button>
-                                        </Col>
-                                    </Row>
-                                </CardFooter>
                             </Card>
                         </Col>
                     </Row>
@@ -523,16 +513,10 @@ class Authentication extends Component {
                                         </InputGroup>
                                         <Button color="success" block
                                                 onClick={this.ResetPasswordSubmitted}>Submit</Button>
+                                        <Button color="primary" className="px-4" block
+                                                    onClick={this.LoginClicked}>Back</Button>
                                     </Form>
                                 </CardBody>
-                                <CardFooter className="p-4">
-                                    <Row>
-                                        <Col xs="4">
-                                            <Button color="primary" className="px-4" block
-                                                    onClick={this.LoginClicked}>Back</Button>
-                                        </Col>
-                                    </Row>
-                                </CardFooter>
                             </Card>
                         </Col>
                     </Row>
@@ -543,7 +527,7 @@ class Authentication extends Component {
 
     render() {
         if (this.state.loginSuccess) {
-            return <Redirect to={"/"} />
+            return <Redirect to={"/user"} />
         }
 
         return (

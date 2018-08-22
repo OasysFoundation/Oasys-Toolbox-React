@@ -11,8 +11,8 @@ const API = DEV && USE_REMOTE ? glb.API_DEV_REMOTE : (DEV && !USE_REMOTE ? glb.A
 
 // console.log(`process.env.NODE_ENV = ${process.env.NODE_ENV} so I app uses << ${API} >> to make API CALLS`)
 
-// const BASE_URL = glb.API_PROD;
-const BASE_URL = glb.API_PROD;
+ const BASE_URL = glb.API_PROD;
+//const BASE_URL = glb.API_DEV_LOCAL;
 
 console.log('BACKEND API : ', BASE_URL)
 
@@ -24,8 +24,14 @@ console.log('BACKEND API : ', BASE_URL)
 
 function getIdTokenFromStore() {
     const idToken = store.getState().user.idToken;
-    if (! idToken) throw Error('no idToken in store @ api call')
+    if (! idToken) throw new Error('no idToken in store @ api call')
     else return idToken
+}
+
+function getUserIdFromStore() {
+    const uid = store.getState().user.uid;
+    if (! uid) throw new Error("no usedID in store @ api call");
+    else return uid
 }
 
 
@@ -54,7 +60,8 @@ const api = {
         const url = BASE_URL + 'getContentsPreview/';
         return get(url);
     },
-    getUserContentsPreview(userId) {
+    getUserContentsPreview() {
+        const userId = getUserIdFromStore();
         const url = `${BASE_URL}getUserContentsPreview/${userId}`;
         return get(url);
     },

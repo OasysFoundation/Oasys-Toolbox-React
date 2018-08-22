@@ -16,6 +16,8 @@ if (!firebase.apps.length) {
 
 const auth = firebase.auth();
 
+console.log('logged in??' , auth.currentUser)
+
 export {
   auth,
 };
