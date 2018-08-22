@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 // import PropTypes from 'prop-types';
-import BigLetterRenderer from './BigLetterRenderer'
+import BigLetterRenderer from './utils/BigLetterRenderer'
 
 import Bravocado from './assets/gifs/bravocado.gif'
 import GoodJobBoy from './assets/gifs/good_job_boy.gif'
