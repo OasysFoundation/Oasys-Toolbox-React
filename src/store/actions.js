@@ -147,7 +147,7 @@ const actions = function (store) { //store for async stuff
             return clone;
         },
 
-        onAddChapter(state, uid, title) {
+        onAddChapter(state, uid, title = "|| Untitled Chapter ||") {
             const clone = JSON.parse(JSON.stringify(state));
 
             const activeChapter = clone.chapters[state.activeChapterIndex];
@@ -160,7 +160,7 @@ const actions = function (store) { //store for async stuff
             clone.chapters.push(
                 {
                     id: uid,
-                    title: title || `|| Untitled Chapter ||`,
+                    title,
                     elements: [],
                     // linkIdx: [1],
                     links: [],
