@@ -75,7 +75,7 @@ class LandingPageController extends Component{
 		try{
 			api.getContentsPreview()
 	            .then(json => {
-	            	if(json)
+	            	if(json && json.length)
 		            	this.setState({
 		                	content: json || "errorLoadingContent"},
 		                	() => this.setState({filteredContent: this.getContentForCategory(this.state.category)},

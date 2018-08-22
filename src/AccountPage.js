@@ -48,7 +48,7 @@ class AccountPage extends Component {
                     this.setState({
                         content: json || "errorLoadingContent"
                     })
-                    if(json)
+                    if(json && json.length)
                         this.setState({
                             pageData: [
                                 {
@@ -166,11 +166,7 @@ class AccountPage extends Component {
             <div>
 
                 {
-                    this.state.readyToLoad 
-                        ? this.state.loggedIn
-                            ? this.loadAccountPage()
-                            : history.push('/auth')
-                        : null
+                    this.loadAccountPage()
                 }
                 <Button style={{marginTop: '6rem'}} color="primary" onClick={() => auth.doSignOut()}>{`LogOut ${this.props.user.displayName}`}</Button>
             </div>
