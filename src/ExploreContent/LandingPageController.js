@@ -68,6 +68,7 @@ class LandingPageController extends Component{
 			category: 'Featured',
 			pageData:[],
 			previousState:'',
+			loadSuccessful:false,
 		}
 	}
 
@@ -78,7 +79,7 @@ class LandingPageController extends Component{
 	            	if(json && json.length)
 		            	this.setState({
 		                	content: json || "errorLoadingContent"},
-		                	() => this.setState({filteredContent: this.getContentForCategory(this.state.category)},
+		                	() => this.setState({filteredContent: this.getContentForCategory(this.state.category),loadSuccessful:true},
 		                	() => this.setState({
 								pageData : [
 								{
@@ -180,16 +181,17 @@ class LandingPageController extends Component{
     changeSectionOrder(category){
     	let pageDataUpdate = this.state.pageData;
 
-    	pageDataUpdate.unshift(                     	// add to the front of the array
-		  pageDataUpdate.splice(                    	// the result of deleting items
-		    pageDataUpdate.findIndex(               	// starting with the index where
-		      elt => elt.title === category), 	// the title is category
-		  1)[0]                             	// and continuing for one item
-		)
-
-		this.setState({
-			pageData:pageDataUpdate,
-		})
+    	if(this.state.loadSuccessful){
+	    	pageDataUpdate.unshift(                     	// add to the front of the array
+	    				  pageDataUpdate.splice(                    	// the result of deleting items
+	    				    pageDataUpdate.findIndex(               	// starting with the index where
+	    				      elt => elt.title === category), 	// the title is category
+	    				  1)[0]                             	// and continuing for one item
+	    				)
+	    	this.setState({
+				pageData:pageDataUpdate,
+			})
+    	}		
 		window.location.href="#searchResults"
 
     }
