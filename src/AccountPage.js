@@ -52,6 +52,37 @@ class AccountPage extends Component {
                                 },
                             ],
                         })
+                    else{
+                        const username = auth.doCheckLoggedIn()?auth.doGetUsername():"test"
+
+                        const samplePublication = [{
+                            title: "This is where your published content will show",
+                            userId: username,
+                            contentId: "test",
+                            rating: "5",
+                        }]
+
+                        const sampleDraft = [{
+                            title: "This is where your saved drafts will show",
+                            userId: username,
+                            contentId: "test",
+                            rating: "5",
+                        }]
+                        this.setState({
+                            pageData: [
+                                {
+                                    title: "My Publications",
+                                    data: samplePublication,
+                                    icon: "trophy",
+                                },
+                                {
+                                    title: "My Drafts",
+                                    data: sampleDraft,
+                                    icon: "code",
+                                },
+                            ],
+                        })
+                    }
                     this.setState({loggedIn: true,readyToLoad:true})
                 })
                 
@@ -95,7 +126,7 @@ class AccountPage extends Component {
                         </div>
                     )
                     : (
-                        <div>
+                        <div style={{marginTop:"50px"}}>
                             <section style={styles.HorizontalScrollOuterCenterContainer}>
                                 <div style={styles.HorizontalScrollContainer}>
                                     <br/>
