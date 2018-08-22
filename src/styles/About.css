@@ -1,16 +1,3 @@
-.oasys .about body {
-  font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
-
-.oasys .about h1,
-.oasys .about h2,
-.oasys .about h3,
-.oasys .about h4,
-.oasys .about h5,
-.oasys .about h6 {
-  font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: 700;
-}
 
 .oasys .about header.masthead {
   position: relative;
