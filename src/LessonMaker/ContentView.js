@@ -4,7 +4,7 @@ import Element from './Element';
 import ScrollView, {ScrollElement} from "../utils/scroller";
 import {ICON, flatten, isEmpty} from '../utils/trickBox'
 import {Container} from "reactstrap"
-import {isElementEmpty} from "../tools";
+import {isElementEmpty} from "../utils/tools";
 
 
 class ContentView extends Component {

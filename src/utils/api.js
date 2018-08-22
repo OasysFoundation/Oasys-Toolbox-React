@@ -1,5 +1,5 @@
 import glb from "./globals";
-import store from './store/store'
+import store from '../store/store'
 
 //READ if we are in DEV(npm start) or PROD (npm run build) and change the API LOCATION accordingly
 // const DEV = process.env.NODE_ENV === 'development';
