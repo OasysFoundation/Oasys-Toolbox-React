@@ -306,7 +306,6 @@ class QuizzEditModal extends Component {
     }
 
     getActionMenuItems() {
-        
         var menuItems = this.getAllChapters().map(function(element) { return "Go to " + element.title + "…"});
         menuItems.push("Create new Chapter…");
         return menuItems;

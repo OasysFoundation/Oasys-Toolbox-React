@@ -10,6 +10,7 @@ import FormulaEdit from './FormulaEdit'
 import QuizzEdit from './QuizzEdit'
 import VideoEdit from './VideoEdit'
 import EmbedEdit from './EmbedEdit'
+import NextChapterSelection from './NextChapterSelection'
 
 
 import {getContentFromSessionStorage} from "../utils/trickBox";
@@ -107,6 +108,12 @@ class Element extends Component {
                 break;
             case globals.EDIT_EMBED:
                 render = <EmbedEdit {...params}/>
+                break;
+            case globals.EDIT_CONTINUE_ELEMENT:
+                render = <NextChapterSelection {...params}
+                                    chapters={this.props.chapters.map(c => ({title: c.title, id: c.id}))}
+                                    onAddChapter={this.props.onAddChapter}
+                />
                 break;
             default:
                 return (<div key={"1223"}>not yet implemented</div>)
