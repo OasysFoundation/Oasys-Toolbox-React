@@ -86,6 +86,8 @@ class NextChapterSelection extends Component {
 
     onSelectAction(identifier, chapterIndex) {
 
+        console.log(identifier, chapterIndex, "id, idx")
+
         if (chapterIndex >= this.getAllChapters().length) {
             const that = this;
             this.createNewChapter().then(function(newChapter) {
@@ -99,7 +101,7 @@ class NextChapterSelection extends Component {
         const newAction = this.getAllChapters()[chapterIndex].id;
         this.props.onChange({
             action: newAction
-        });
+        }, true, true);
     }
 
     onContinue() {

@@ -126,13 +126,16 @@ const actions = function (store) { //store for async stuff
             const clone = JSON.parse(JSON.stringify(state));
 
             clone.chapters.forEach(chapter => {
-                chapter.elements.forEach((elem, i) => {
-                    if (elem.type === globals.EDIT_QUIZ) {
+                chapter.elements.forEach(elem => {
+                    if (elem.type === globals.EDIT_QUIZ || elem.type === globals.EDIT_CONTINUE_ELEMENT) {
+                        let links;
                         if (elem.content.answers) {
-                            const links = elem.content.answers
+                            links = elem.content.answers
                                 .filter(answer => answer.action != null)
                                 .map(answerWithLink => answerWithLink.action);
-
+                        } else if (elem.content.action) {
+                            links =  [ elem.content.action ] ;
+                        }
                             chapter.links = links.map(function (link) {
                                 return {
                                     eventId: uuidv4(),
@@ -141,9 +144,8 @@ const actions = function (store) { //store for async stuff
                             });
 
                         }
-                    }
+                    })
                 })
-            })
             return clone;
         },
 
