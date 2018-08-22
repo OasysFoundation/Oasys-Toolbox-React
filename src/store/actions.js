@@ -58,6 +58,20 @@ const actions = function (store) { //store for async stuff
             })
         },
 
+        onDeleteChapter(state, chapterId) {
+            const clone = JSON.parse(JSON.stringify(state));
+            const chapters = clone.chapters.filter(chapter => chapter.id !== chapterId);
+
+            //remove links
+            chapters.forEach(chapter => {
+                chapter.links = chapter.links
+                    .filter(link => link.chapterId !== chapterId)
+            })
+
+            clone.chapters = chapters;
+            return clone
+        },
+
         onUpdateUserInfo(state, firebaseLoginObj) {
 
             const {user} = firebaseLoginObj;

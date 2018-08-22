@@ -69,7 +69,6 @@ class LandingPageController extends Component{
 			pageData:[],
 			previousState:'',
 		}
-
 		/*api.getContentsPreview()
             .then(json => 
             	this.setState({
