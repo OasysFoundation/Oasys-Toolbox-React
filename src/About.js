@@ -63,57 +63,45 @@ class About extends Component{
         <section className="bg-light rz-start rz-no-border-special-2" id="about">
           <div className="container">
             <div className="row">
-              <div className="col-lg-10 mx-auto text-center">
+              <div className="col-lg-10 mx-auto">
                 <h2 className="section-heading">What We Do</h2>
-                <hr className="light my-4 rz-small-margin" />
-                <p className="text-faded lead mb-4"> 
+                <hr />
+                <p className="text-faded lead mb-4" style={{fontSize: '1.3rem'}}> 
                   Our authoring tools let you create <em> highly interactive </em> learning experiences - no coding skills required. Our learning experiences focus on simulations, games, quizzes, and interactive plotting tools that make learning more effective and engaging. Remixing, modifying and improving existing contents is made easy. 
                 </p>
               </div>
             </div>
+            <div className="row">
+              <div className="col-lg-8 mx-auto">
+                <img src={contentCreation} alt="img error" align="right" className="svg" style={{height: "100px",width:"auto", marginLeft: '20px', marginTop: '40px'}} />
+                <h3 style={{marginTop: '10px'}}>Easy Content Creation</h3>
+                <p className="lead mb-0">Our authoring tools radically decrease barriers for creating all kinds of educational contents or improving existing ones. No coding skills are needed to adapt and remix other people's simulations or educational games.</p>
+              </div>
+            </div>  
+            <div className="row" style={{marginTop: '20px'}}>
+              <div className="col-lg-8 mx-auto">
+                <img src={learningEffectiveness} alt="img error" align="right" className="svg" style={{height: "100px",width:"auto", marginLeft: '20px', marginTop: '40px'}} />
+                <h3 style={{marginTop: '10px'}}>Advance Learning Effectiveness</h3>
+                <p className="lead mb-0">Interactive learning experiences communicate more information than static ones. The problem with  static contents like textbooks and powerpoint slides, is that they dont allow for trial and error, which is necessary for effective learning.</p>
+              </div>
+            </div>  
+            <div className="row" style={{marginTop: '20px'}}>
+              <div className="col-lg-8 mx-auto">
+                <img src={pedagogy} alt="img error" align="right" className="svg" style={{height: "100px",width:"auto", marginLeft: '20px', marginTop: '40px'}} />
+                <h3 style={{marginTop: '10px'}}>Pedagogy over Popularity</h3>
+                <p className="lead mb-0">Content creators are rewarded fairly based on how well their contents teach a knowledge concept. Our machine learning models estimate the educational value each content brings to the platform. Rewards are distributed via a blockchain-based token system - this ensures easy and secure payouts globally. This also raises the average quality of contents over time.</p>
+              </div>
+            </div>  
           </div>
         </section>
-        <section className="features-icons rz-no-border-special-1 bg-light text-center">
+        <section className="bg-light rz-no-border-special-2 bg-white" id="why">
           <div className="container">
             <div className="row">
-              <div className="col-lg-4">
-                <div className="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-                  <div className="features-icons-icon d-flex">
-                    <img src={contentCreation} alt="img error" className="svg m-auto" style={{height: "100%",width:"auto"}} />
-                  </div>
-                  <h3>Easy Content Creation</h3>
-                  <p className="lead mb-0">Our authoring tools radically decrease barriers for creating all kinds of educational contents or improving existing ones. No coding skills are needed to adapt and remix other people's simulations or educational games.</p>
-                </div>
-              </div>
-              <div className="col-lg-4">
-                <div className="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-                  <div className="features-icons-icon d-flex">
-                    <img src={pedagogy} alt="img error" className="svg m-auto" />
-                  </div>
-                  <h3>Pedagogy over Popularity</h3>
-                  <p className="lead mb-0"> Content creators are rewarded fairly based on how well their contents teach a knowledge concept. Our machine learning models estimate the educational value each content brings to the platform. Rewards are distributed via a blockchain-based token system - this ensures easy and secure payouts globally. This also raises the average quality of contents over time.</p>
-                </div>
-              </div>
-              <div className="col-lg-4">
-                <div className="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-                  <div className="features-icons-icon d-flex">
-                    <img src={learningEffectiveness} alt="img error" className="svg m-auto"/>
-                  </div>
-                  <h3>Advance Learning Effectiveness</h3>
-                  <p className="lead mb-0">Interactive learning experiences communicate more information than static ones. The problem with  static contents like textbooks and powerpoint slides, is that they dont allow for trial and error, which is necessary for effective learning.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-        <section className="features-icons rz-no-border bg-white" id="why">
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-10 mx-auto text-center">
+              <div className="col-lg-10 mx-auto">
                 <h2 className="section-heading">Our Focus is STEM</h2>
-                <hr className="light my-4 rz-small-margin" />
-                <p className="text-faded lead mb-4">
-                  Our Focus is STEM. 80% of high school students graduate without STEM proficiency. STEM subjects are inherently dynamic and complex, and understanding them intuitively requires modeling, interaction, manipulation and play. But this is not what textbooks, lectures, or MOOCs are! Our tools allow creatives and teachers to make and remix high-impact, high bandwith and highly interactive experiences. 
+                <hr />
+                <p className="text-faded lead mb-4" style={{fontSize: '1.3rem'}}> 
+                  Our Focus is STEM. 80% of high school students graduate without STEM proficiency. STEM subjects are inherently dynamic and complex, and understanding them intuitively requires modeling, interaction, manipulation and play. But this is not what textbooks, lectures, or MOOCs are! Our tools allow creatives and teachers to make and remix high-impact, high bandwith and highly interactive experiences.  
                 </p>
               </div>
             </div>
@@ -122,9 +110,9 @@ class About extends Component{
         <section className="bg-light rz-no-border-special-2" id="team">
           <div className="container">
             <div className="row">
-              <div className="col-lg-10 mx-auto text-center">
+              <div className="col-lg-10 mx-auto">
                 <h2 className="section-heading">Meet the Team</h2>
-                <hr className="light my-4 rz-small-margin" />
+                <hr />
               </div>
             </div>
           </div>
@@ -172,12 +160,14 @@ class About extends Component{
             </div>
           </div>
         </section>
-        <section id="invest" className="showcase bg-white rz-no-border">
+
+
+        <section className="bg-light rz-no-border-special-2 bg-white" id="about">
           <div className="container">
             <div className="row">
-              <div className="text-center mx-auto col-lg-10">
+              <div className="col-lg-10 mx-auto">
                 <h2 className="section-heading">Invest</h2>
-                <hr className="light my-4 rz-small-margin" />
+                <hr />
                 <p className="lead mb-0">
                   Everyone can be a part of the Oasys Project.
                   <br />

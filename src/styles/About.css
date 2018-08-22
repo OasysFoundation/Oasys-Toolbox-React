@@ -13,6 +13,11 @@
   left: 0;
 }
 
+.oasys .about hr {
+  border-color: #a2abb8;
+  margin-top: 0px;
+}
+
 .oasys .about header.masthead h1 {
   font-size: 2rem;
 }
@@ -170,16 +175,16 @@
  border-color: #07575b;
 }
 .oasys .about .rz-no-border{
-  padding-top: 7em;
+  padding-top: 2em;
   padding-bottom: 7em;
 }
 
 .oasys .about .rz-no-border-special-1{
   padding-top: 0em;
-  padding-bottom: 7em;
+  padding-bottom: 1em;
 }
 .oasys .about .rz-no-border-special-2{
-  padding-top: 7em;
+  padding-top: 2em;
   padding-bottom: 2em;
 }
 
