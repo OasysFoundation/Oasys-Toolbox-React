@@ -33,7 +33,7 @@ class Element extends Component {
 
     constructor(props) {
         super(props);
-        this.changeVisibility = this.changeVisibility.bind(this);
+        this.onChangeVisibility = this.onChangeVisibility.bind(this);
         this.elementFinished = this.elementFinished.bind(this);
 
         this.fromChapter = this.props.data.parentChapterID;
