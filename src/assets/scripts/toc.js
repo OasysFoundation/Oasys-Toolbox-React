@@ -2,6 +2,7 @@
 const NS = 'http://www.w3.org/2000/svg';
 
 export function argMax(array) {
+    if (array.length===0) { return -1 }
     return array.map((x, i) => [x, i]).reduce((r, a) => (a[0] > r[0] ? a : r))[1];
 }
 
@@ -25,6 +26,9 @@ export function longestPath(graph) {
         }
     }
     findAllPaths(start, 1, []);
+    if (pathCosts.length===0) {
+        return [];
+    }
     return paths[argMax(pathCosts)];
 }
 

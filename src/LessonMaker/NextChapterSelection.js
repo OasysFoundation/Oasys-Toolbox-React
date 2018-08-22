@@ -93,7 +93,7 @@ class NextChapterSelection extends Component {
             this.createNewChapter().then(function(newChapter) {
                 const newChapterIndex = that.chapterIndexForIdentifier(newChapter.id);
                 that.onSelectAction(identifier, newChapterIndex);
-                that.props.onAddChapter(identifier, that.chapterTitleForIdentifier(identifier), true);
+                that.props.onAddChapter(identifier, that.chapterTitleForIdentifier(identifier));
             });
             return;
         }
@@ -115,7 +115,7 @@ class NextChapterSelection extends Component {
         const action = this.props.data? this.props.data.action : "";
         const that = this;
         return (
-            <div>
+            <div className='next-chapter'>
                 <center>
                     <CreateNewChapterModal isOpen={this.state.showsCreateNewChapterDialog} onClose={this.onCloseNewChapterCreationDialog.bind(this)} onCreateNewChapter={this.onCreateNewChapter.bind(this)} />
                     {this.props.isEditMode? (
