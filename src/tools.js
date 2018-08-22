@@ -13,7 +13,11 @@ const typeToInit = {
     },
     [globals.EDIT_SYSTEM]: '',
     [globals.EDIT_IMAGE]: '',
-    [globals.EDIT_FORMULA]: ''
+    [globals.EDIT_FORMULA]: '',
+    [globals.EDIT_FORMULA]: '',
+    [globals.EDIT_CONTINUE]: {
+        action: ''
+    }
 }
 
 
@@ -21,7 +25,7 @@ export function isElementEmpty(data) {
     const {type, content} = data;
 
     const emptyContent = typeToInit[type.toString()];
-    
+
     if (typeof content === 'string') {
         return content === emptyContent;
     }
@@ -33,20 +37,20 @@ export function isElementEmpty(data) {
 }
 
 export function initContent(type) {
-    let typeToInit = {}
-    typeToInit[globals.EDIT_QUILL] = '';
-    typeToInit[globals.EDIT_QUIZ] = '';
-    typeToInit[globals.EDIT_EMBED] = {
-        id: '',
-    };
-    typeToInit[globals.EDIT_VIDEO] = {
-        url: '',
-        cropStart: 0.0,
-        cropEnd: 0.0
-    };
-    typeToInit[globals.EDIT_SYSTEM] = '';
-    typeToInit[globals.EDIT_IMAGE] = '';
-    typeToInit[globals.EDIT_FORMULA] = '';
+    // let typeToInit = {}
+    // typeToInit[globals.EDIT_QUILL] = '';
+    // typeToInit[globals.EDIT_QUIZ] = '';
+    // typeToInit[globals.EDIT_EMBED] = {
+    //     id: '',
+    // };
+    // typeToInit[globals.EDIT_VIDEO] = {
+    //     url: '',
+    //     cropStart: 0.0,
+    //     cropEnd: 0.0
+    // };
+    // typeToInit[globals.EDIT_SYSTEM] = '';
+    // typeToInit[globals.EDIT_IMAGE] = '';
+    // typeToInit[globals.EDIT_FORMULA] = '';
 
     return typeToInit[type.toString()];
 }
