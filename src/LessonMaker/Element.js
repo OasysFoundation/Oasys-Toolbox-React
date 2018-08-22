@@ -153,6 +153,8 @@ class Element extends Component {
         if (isVisible) {
             visStr = 'visible'
         }
+        console.log(visStr + " " + this.props.data)
+        this.props.onChangeVisibility({id: this.props.data.id, type: this.props.data.type});
         // console.log('Element type ' + this.props.data.type + ' (' + this.props.data.id + ') is now ' + visStr);
     }
 

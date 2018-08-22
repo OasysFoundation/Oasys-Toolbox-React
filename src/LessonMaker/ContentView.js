@@ -31,6 +31,7 @@ class ContentView extends Component {
 
         this.goToChapter = this.goToChapter.bind(this);
         this.foldElement = this.foldElement.bind(this);
+        this.handleChangeElementVisibility = this.handleChangeElementVisibility.bind(this);
 
         this.analytics = {
             timing: [],
@@ -103,7 +104,7 @@ class ContentView extends Component {
         });
 
     }
-/*
+
     updateTiming() {
         const t1 = this.analytics.lastTime;
         const t2 = new Date();
@@ -134,7 +135,7 @@ class ContentView extends Component {
             "accessUserId": this.props.authUser.displayName,
             "contentUserId": this.state.content.userId
         }
-        API.postUserContentAccess(data);
+        //API.postUserContentAccess(data);
     }
 
     postQuizData(quizObj) {
@@ -148,9 +149,8 @@ class ContentView extends Component {
             "quizzes" : quizObj.quizzes,
             "type" : "quizUpdate"
         }
-        API.postUserContentAccess(data);
+        //API.postUserContentAccess(data);
     }
-
 
     handleNext() {
         let idx = this.state.slideIdx + 1;
@@ -175,7 +175,11 @@ class ContentView extends Component {
         });
         this.postInteractionData(tobj);
     }
-*/
+
+    handleChangeElementVisibility(elem) {
+        console.log(elem);
+    }
+
     render() {
         const {allElementsinProject} = this;
         return (
@@ -190,9 +194,12 @@ class ContentView extends Component {
                                         <div className="item" hidden={el.fromChapter !== this.state.activeChapterID}>
                                             {!isElementEmpty(el)
                                             &&
-                                            <Element data={el} id={el.id}
-                                                     isEditMode={false}
-                                                     onLearnerInteraction={this.goToChapter}
+                                            <Element 
+                                                data={el} 
+                                                id={el.id}
+                                                isEditMode={false}
+                                                onLearnerInteraction={this.goToChapter}
+                                                onChangeVisibility={this.handleChangeElementVisibility}
                                             />
                                             }
                                         </div>
