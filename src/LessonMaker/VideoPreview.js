@@ -46,8 +46,8 @@ class VideoPreview extends Component {
       			loop: 0,
       			rel: 0,
       			enablejsapi: 1,
-      			start: parseInt(this.props.data.cropStart),
-      			end: parseInt(this.props.data.cropEnd),
+      			start: parseInt(this.props.data.cropStart,10),
+      			end: parseInt(this.props.data.cropEnd,10),
       		}
 		}
 		return(

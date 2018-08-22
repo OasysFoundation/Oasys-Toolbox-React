@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 
 
@@ -14,8 +14,6 @@ class BigLetterRenderer extends Component {
     }
 }
 
-BigLetterRenderer.propTypes = {
-
-};
+// BigLetterRenderer.propTypes = {};
 
 export default BigLetterRenderer;

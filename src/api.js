@@ -2,8 +2,8 @@ import glb from "./globals";
 import store from './store/store'
 
 //READ if we are in DEV(npm start) or PROD (npm run build) and change the API LOCATION accordingly
-const DEV = process.env.NODE_ENV === 'development';
-const USE_REMOTE = true;
+// const DEV = process.env.NODE_ENV === 'development';
+// const USE_REMOTE = true;
 
 /*
 const API = DEV && USE_REMOTE ? glb.API_DEV_REMOTE : (DEV && !USE_REMOTE ? glb.API_DEV_LOCAL : glb.API_PROD);

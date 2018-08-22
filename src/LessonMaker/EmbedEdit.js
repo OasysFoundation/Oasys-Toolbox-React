@@ -106,7 +106,7 @@ class EmbedEdit extends Component {
         };
 
         let candidates = concordSims.filter(e=>{
-            return e.value==this.props.data.id;
+            return e.value===this.props.data.id;
         });
         let embedElem = candidates[0];
         return (

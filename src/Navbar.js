@@ -7,7 +7,7 @@ import Logo from './assets/images/brand/oasys_logo_big.png'
 import Logo_Small from './assets/images/brand/oasys_logo_small.png'
 
 import {connect} from "redux-zero/react";
-import actions from "./store/actions";
+// import actions from "./store/actions";
 import {auth} from "./Authentication/firebase";
 
 // Styling
@@ -437,11 +437,13 @@ class NavBar extends React.Component {
 }
 
 const mapStoreToProps = ({user}) => ({user});
+/*
 const neededActions = (store) => {
     const {} = actions();
     return {}
 };
+*/
 
-
-export default connect(mapStoreToProps, neededActions)(NavBar);
+// export default connect(mapStoreToProps, neededActions)(NavBar);
+export default connect(mapStoreToProps, {})(NavBar);
 

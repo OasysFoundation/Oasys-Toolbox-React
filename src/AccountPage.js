@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import HorizontalScroll from './ExploreContent/HorizontalScroll'
 import api from './api'
-import {getTagsForCategory} from "./utils/LandingPage";
+// import {getTagsForCategory} from "./utils/LandingPage";
 import ScrollableAnchor from 'react-scrollable-anchor'
 import * as auth from './Authentication/auth';
 import history from './history'
@@ -42,12 +42,12 @@ class AccountPage extends Component {
                             pageData: [
                                 {
                                     title: "My Publications",
-                                    data: this.state.content.filter(content => content.published == 1),
+                                    data: this.state.content.filter(content => content.published === 1),
                                     icon: "trophy",
                                 },
                                 {
                                     title: "My Drafts",
-                                    data: this.state.content.filter(content => content.published != 1),
+                                    data: this.state.content.filter(content => content.published !== 1),
                                     icon: "code",
                                 },
                             ],

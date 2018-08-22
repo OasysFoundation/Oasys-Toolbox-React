@@ -294,7 +294,7 @@ class QuizzEditModal extends Component {
     chapterIndexForIdentifier(identifier) {
         var chapterIndex = null;
         this.getAllChapters().forEach(function(chapter, index) {
-            if (chapter.id == identifier) {
+            if (chapter.id === identifier) {
                 chapterIndex = index;
             }
         });

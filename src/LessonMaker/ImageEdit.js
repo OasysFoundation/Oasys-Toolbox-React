@@ -11,7 +11,7 @@ import ImageSelectionModal from './ImageSelectionModal'
 
 import { GridLoader } from 'react-spinners';
 
-import {saveToSessionStorage} from '../utils/trickBox'
+// import {saveToSessionStorage} from '../utils/trickBox'
 
 import ProgressiveImage from 'react-progressive-image';
 

@@ -22,7 +22,7 @@ import {
 import 'react-quill/dist/quill.snow.css';
 import actions from "../store/actions";
 import {connect} from "redux-zero/react";
-import {isElementEmpty, initContent} from "../tools";
+// import {isElementEmpty, initContent} from "../tools";
 
 
 //TODO
@@ -142,7 +142,7 @@ class Element extends Component {
         // this.setState({tempContent: contentUpdated, timestamp: Date.now()})
     }
 
-    changeVisibility(isVisible) {
+    onChangeVisibility(isVisible) {
         let visStr = 'invisible';
         if (isVisible) {
             visStr = 'visible'
@@ -171,7 +171,7 @@ class Element extends Component {
                             :
                             <Card className="card-fancy has-shadow card content-view">
                                 <CardBody>
-                                    {this.props.isPreview && <VisibilitySensor onChange={this.changeVisibility}/>}
+                                    {this.props.isPreview && <VisibilitySensor onChange={this.onChangeVisibility}/>}
                                     {this.state.shouldFoldInView
 
                                         ? <Button color="primary"

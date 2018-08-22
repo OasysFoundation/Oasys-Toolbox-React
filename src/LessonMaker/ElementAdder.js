@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {typeToIcon} from "../utils/trickBox";
-import globals from '../globals'
+// import {typeToIcon} from "../utils/trickBox";
+// import globals from '../globals'
 import {connect} from "redux-zero/react";
 import actions from "../store/actions";
 
@@ -25,15 +25,7 @@ const styling = {
     }
 };
 
-const {EDIT_QUILL, EDIT_QUIZ, EDIT_SYSTEM, EDIT_EMBED} = globals;
-
-const types = [
-    EDIT_QUILL,
-    EDIT_QUIZ,
-    EDIT_EMBED,
-    EDIT_SYSTEM
-]
-
+// const {EDIT_QUILL, EDIT_QUIZ, EDIT_SYSTEM, EDIT_EMBED} = globals;
 
 
 class ElementAdder extends Component {
@@ -71,7 +63,6 @@ class ElementAdder extends Component {
     }
 
     render() {
-        const that = this;
         return (
 
             <section style={styling.all} className={'card-header'}

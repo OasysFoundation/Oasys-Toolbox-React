@@ -58,7 +58,7 @@ class ContentView extends Component {
             activeChapterIndex: nextIdx,
             activeChapterID: nextID
         }, () => this.scrollTo(this.chapters[nextIdx].elements[0].id, {bottom: '5vh'}));
-        this.props.o
+        //this.props.o
     }
 
     goToElementinChapter(nextElementIndex) {

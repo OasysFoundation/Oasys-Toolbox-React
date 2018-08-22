@@ -4,7 +4,7 @@ import {
     Button,
     Card,
     CardBody,
-    CardFooter,
+//    CardFooter,
     CardGroup,
     Col,
     Container,
