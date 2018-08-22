@@ -1,7 +1,7 @@
 import {Component} from 'react';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import registerServiceWorker from './registerServiceWorker';
+import registerServiceWorker from './utils/registerServiceWorker';
 import {Router, Route, Switch} from 'react-router-dom';
 
 import {withRouter} from 'react-router'
@@ -32,7 +32,7 @@ import ConcludingContentPage from './ConcludingContentPage'
 import store from "./store/store";
 import ContentView from "./LessonMaker/ContentView";
 
-import Bitmoji from './Bitmoji'
+import Bitmoji from './utils/Bitmoji'
 import Authentication from "./Authentication/Authentication";
 // import {Redirect} from 'react-router'
 
