@@ -519,6 +519,13 @@ html:not([dir="rtl"]) .sidebar {
     color:#a2abb8;
 }
 
+
+/* ------------------- next chapter ------------------- */
+
+.oasys .next-chapter .input-group-append .btn {
+    z-index: 0;
+}
+
 /* ------------------- navbar ------------------- */
 
 /*.oasys.app .navbar {

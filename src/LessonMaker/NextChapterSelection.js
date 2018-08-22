@@ -115,7 +115,7 @@ class NextChapterSelection extends Component {
         const action = this.props.data? this.props.data.action : "";
         const that = this;
         return (
-            <div>
+            <div className='next-chapter'>
                 <center>
                     <CreateNewChapterModal isOpen={this.state.showsCreateNewChapterDialog} onClose={this.onCloseNewChapterCreationDialog.bind(this)} onCreateNewChapter={this.onCreateNewChapter.bind(this)} />
                     {this.props.isEditMode? (
