@@ -6,9 +6,9 @@ import {
   TwitterShareButton,
   TelegramShareButton,
   WhatsappShareButton,
-  PinterestShareButton,
-  RedditShareButton,
-  TumblrShareButton,
+//  PinterestShareButton,
+//  RedditShareButton,
+//  TumblrShareButton,
   EmailShareButton,
 } from 'react-share';
 
@@ -16,7 +16,7 @@ class SocialSharingButtons extends Component {
 
 	render() {
 		const iconStyle = {color: '#A2ABB8', fontSize:'30px', margin: '10px'};
-		const defaultTitle = 'One of the best explanations for \"' + this.props.title + '\" I\'ve seen so far. Made by ' + this.props.author;
+		const defaultTitle = 'One of the best explanations for "' + this.props.title + '" I\'ve seen so far. Made by ' + this.props.author;
 		return (
 				<div style={{display:'flex', alignItems: 'center', justifyContent: 'center'}}>
 					<TwitterShareButton url={this.props.url} title={defaultTitle + ' on'} hashtags={['learnWithOasys', 'joinoasys', 'interactiveLearning']}>

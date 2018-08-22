@@ -32,4 +32,10 @@ export const doGetUid= () =>
 export const doUpdateProfile= (username) =>
   auth.currentUser.updateProfile({displayName: username});
 
+// check if logged in
+export const doCheckLoggedIn= () =>
+  auth.currentUser
   
+ // get display name
+export const doGetUsername= () =>
+  auth.currentUser.displayName;

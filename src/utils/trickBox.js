@@ -1,4 +1,4 @@
-import globals from "../globals"
+import globals from "./globals"
 import React from 'react';
 
 import GameIcon from "../assets/icons/Game.png"

@@ -13,7 +13,7 @@ import {connect} from "redux-zero/react";
 import actions from "../store/actions";
 import SidebarToc from "./SidebarToc";
 
-import api from '../api'
+import api from '../utils/api'
 
 class SideBarLesson extends Component {
     constructor(props) {

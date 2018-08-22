@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-// import api from '../api';
-// import colors from '../colors';
+// import api from '../utils/api';
+// import colors from '../utils/colors';
 import VideoEditCropper from './VideoEditCropper';
 import VideoPreview from './VideoPreview';
 

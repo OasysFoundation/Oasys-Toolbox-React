@@ -15,10 +15,10 @@ import ContentView from './ContentView'
 const Item = posed.div();
 
 class LessonMaker extends Component {
-    constructor(props) {
+    /*constructor(props) {
         super(props);
         // props.mergeStoreWithSessionStorage();
-    }
+    }*/
 
     componentDidMount() {
         // this.inhaleSessionStorage();

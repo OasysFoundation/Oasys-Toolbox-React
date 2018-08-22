@@ -1,5 +1,5 @@
 import createStore from "redux-zero";
-import globals from "../globals";
+import globals from "../utils/globals";
 // import DEFAULT from "state";
 
 
@@ -37,7 +37,15 @@ const data = {
                     content: {
                         id: ''
                     }
-                },{
+                },
+                {
+                    id: "continue-element-0815",
+                    type: globals.EDIT_CONTINUE_ELEMENT,
+                    content: {
+                        action: 'chapter_124552'
+                    }
+                },
+                {
                     id: "schnuckeldi",
                     type: globals.EDIT_VIDEO,
                     content: {

@@ -6,7 +6,7 @@ import { InputGroup, InputGroupAddon, Input } from 'reactstrap';
 import { BlockMath } from 'react-katex';
 
 import PropTypes from 'prop-types';
-// import api from '../api'
+// import api from '../utils/api'
 
 
 

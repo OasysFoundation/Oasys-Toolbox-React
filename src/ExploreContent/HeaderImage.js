@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Button} from 'reactstrap'
 import Media from "react-media";
 
-import colors, {hexToRgba} from '../colors';
+import colors, {hexToRgba} from '../utils/colors';
 
 //images
 import cover from '../assets/images/Cover.jpg'
@@ -40,7 +40,9 @@ const styles = {
         flex: "1",
         display: "flex",
         justifyContent: "center",
+        alignItems: "center",
         height: "50%",
+        paddingTop:"20vh"
     },
     bottomButton: {
         height: '50%',
@@ -57,7 +59,7 @@ const styles = {
         marginTop: "6vw",
         paddingTop: '10px',
         backgroundColor: hexToRgba(colors.RUST, 0.5),
-        textShadow: '0px 0px 3px' + '#6f2002',
+        textShadow: '0px 0px 3px #6f2002',
     },
     subtitle: {
         display: "flex",
@@ -122,7 +124,7 @@ class HeaderImage extends Component {
         return (
             <div style={styles.mainContainer}>
 
-                <img src={currentCover} onLoad={this.handleImageLoaded.bind(this)} style={styles.backgroundImage}/>
+                <img src={currentCover} alt="cover" onLoad={this.handleImageLoaded.bind(this)} style={styles.backgroundImage}/>
 
                 {this.state.imageLoading
                     ? "Loading..."
@@ -141,7 +143,8 @@ class HeaderImage extends Component {
                                 </h2>
                             </div>
                             <div style={styles.bottomButtonDiv}>
-                               
+                                <Button size="lg" color="light" onClick={this.openCreate} style={{display:"flex", alignItems:"cener"}}> Create your own content!</Button>
+
                             </div>
                         </div>
                     )
@@ -156,7 +159,7 @@ class HeaderImage extends Component {
         let subtitleFontSize = "5vw";
         return (
             <div style={styles.mainContainer}>
-                <img src={coverTiny} onLoad={this.handleImageLoaded.bind(this)} style={styles.backgroundImage}/>
+                <img src={coverTiny} alt="cover" onLoad={this.handleImageLoaded.bind(this)} style={styles.backgroundImage}/>
                 {this.state.imageLoading
                     ? "Loading..."
                     : (
@@ -175,7 +178,7 @@ class HeaderImage extends Component {
                                     </h2>
                                 </div>
                                 <div style={styles.bottomButtonDiv}>
-                                   
+                                    <Button size="lg" color="light" onClick={this.openCreate} style={{display:"flex", alignItems:"center"}}> Create your own content!</Button>
                                 </div>
                             </div>
                             

@@ -1,16 +1,17 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
-import globals from "../globals";
+//import PropTypes from 'prop-types';
+import globals from '../utils/globals';
 
-import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 
 import FormulaIcon from '../assets/element_icons/formula.png'
-import GameIcon from '../assets/element_icons/game.png'
+//import GameIcon from '../assets/element_icons/game.png'
 import ImageIcon from '../assets/element_icons/image.png'
 import QuizIcon from '../assets/element_icons/quiz.png'
 import SystemIcon from '../assets/element_icons/system.png'
 import TextIcon from '../assets/element_icons/text.png'
 import VideoIcon from '../assets/element_icons/video.png'
+import ContinueIcon from '../assets/element_icons/continue.png'
 
 class AddNewElementModal extends Component {
 
@@ -20,7 +21,8 @@ class AddNewElementModal extends Component {
 		globals.EDIT_FORMULA,
 		globals.EDIT_QUIZ,
 		globals.EDIT_VIDEO,
-		globals.EDIT_EMBED
+		globals.EDIT_EMBED,
+        globals.EDIT_CONTINUE_ELEMENT
 	]
 	
 
@@ -40,11 +42,13 @@ class AddNewElementModal extends Component {
             //	return "Game";
             case globals.EDIT_EMBED:
             	return "Simulation";
+            case globals.EDIT_CONTINUE_ELEMENT:
+                return "Link to Chapter"
             default:
                 return "Yet unknown element."
         }
 
-        return "Yet unknown element."
+        //return "Yet unknown element."
 	}
 
 
@@ -64,12 +68,14 @@ class AddNewElementModal extends Component {
             //	return GameIcon;
             case globals.EDIT_EMBED:
             	return SystemIcon;
+            case globals.EDIT_CONTINUE_ELEMENT:
+                return ContinueIcon;
 
             default:
                 return null;
         }
 
-        return null;
+        //return null;
 	}
 
 	onSelectElement(elementType) {
@@ -91,7 +97,7 @@ class AddNewElementModal extends Component {
                                 key={idx.toString()}
                             >
 								<center>
-									<img src={that.iconForElement(elementType)} style={{width:'100%', padding:'10px'}}/>
+									<img alt="" src={that.iconForElement(elementType)} style={{width:'100%', padding:'10px'}}/>
 									<br />
 									{that.titleForElement(elementType)}
 								</center>

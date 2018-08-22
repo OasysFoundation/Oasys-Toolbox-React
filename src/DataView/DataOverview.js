@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import { Table } from 'reactstrap';
 import ReactTooltip from 'react-tooltip';
 
-import colors from '../colors';
+import colors from '../utils/colors';
 
 const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
 

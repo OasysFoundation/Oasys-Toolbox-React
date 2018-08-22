@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Button } from 'reactstrap';
 import './HorizontalScroll.css';
 import HorizontalScrollButtonMaker from './HorizontalScrollButtonMaker'
-import colors from '../colors';
+import colors from '../utils/colors';
 
 const styles={
     HorizontalScrollContainer:{
@@ -43,13 +42,6 @@ class HorizontalScroll extends Component {
     constructor(props) {
         super(props);
 
-        //Create Unique Ids for each core element in horizontal scroller
-        let pnProductNav = "pnProductNav" + this.props.id;
-        let pnProductNavContents = "pnProductNavContents" + this.props.id;
-        let pnIndicator = "pnIndicator" + this.props.id;
-        let pnAdvancerLeft = "pnAdvancerLeft" + this.props.id;
-        let pnAdvancerRight = "pnAdvancerRight" + this.props.id;
-
         //Create a Ref to the core elements so we can access DOM node
         this.pnProductNav = React.createRef();
         this.pnProductNavContents = React.createRef();
@@ -70,7 +62,6 @@ class HorizontalScroll extends Component {
         }
 
         let loaded = false;
-        let needRefresh = false;
 
         //Remove the underlying default scroller
         document.documentElement.classList.remove("no-js");
@@ -97,9 +88,8 @@ class HorizontalScroll extends Component {
             pnProductNav.setAttribute("data-overflowing", determineOverflow(pnProductNavContents, pnProductNav));
 
             // Set the indicator
-            this.props.title=="Tiles"
-            ? moveIndicator(pnProductNav.querySelector("[aria-selected=\"true\"]"), underlineOnSelectionColours[0])
-            : null
+            if(this.props.title==="Tiles")
+                moveIndicator(pnProductNav.querySelector("[aria-selected=\"true\"]"), underlineOnSelectionColours[0])
 
             // Handle the scroll of the horizontal container
             var last_known_scroll_position = 0;
@@ -185,7 +175,7 @@ class HorizontalScroll extends Component {
                     var styleOfTransform = window.getComputedStyle(pnProductNavContents, null);
                     var tr = styleOfTransform.getPropertyValue("-webkit-transform") || styleOfTransform.getPropertyValue("transform");
                     // If there is no transition we want to default to 0 and not null
-                    var amount = Math.abs(parseInt(tr.split(",")[4]) || 0);
+                    var amount = Math.abs(parseInt(tr.split(",")[4],10) || 0);
                     pnProductNavContents.style.transform = "none";
                     pnProductNavContents.classList.add("pn-ProductNav_Contents-no-transition");
                     // Now lets set the scroll position
@@ -285,7 +275,7 @@ class HorizontalScroll extends Component {
                                 if (!el.hasAttribute('nochilddrag') ||
                                     _document.elementFromPoint(
                                         e.pageX, e.pageY
-                                    ) == cont
+                                    ) === cont
                                 ) {
                                     pushed = 1;
                                     lastClientX = e.clientX;
@@ -308,7 +298,7 @@ class HorizontalScroll extends Component {
                                         newScrollX = (- lastClientX + (lastClientX=e.clientX));
                                     scroller.scrollTop -=
                                         newScrollY = (- lastClientY + (lastClientY=e.clientY));
-                                    if (el == _document.body) {
+                                    if (el === _document.body) {
                                         (scroller = _document.documentElement).scrollLeft -= newScrollX;
                                         scroller.scrollTop -= newScrollY;
                                     }
@@ -320,7 +310,7 @@ class HorizontalScroll extends Component {
             }
 
               
-            if (_document.readyState == 'complete') {
+            if (_document.readyState === 'complete') {
                 reset();
             } else {
                 _window[addEventListener]('load', reset, 0);
@@ -368,7 +358,7 @@ class HorizontalScroll extends Component {
            <div style={styles.HorizontalScrollContainer} className="horizontal-scroll">
                 <div style={styles.HorizontalScrollTitle}>
                     {
-                        this.props.title && this.props.title=="Tiles"
+                        this.props.title && this.props.title==="Tiles"
                         ? "Popular Topics"
                         : this.props.title
 
@@ -376,7 +366,7 @@ class HorizontalScroll extends Component {
                     <hr style={styles.HRDividingLine}/>
                 </div>
                 {this.getHorizontalScrollers()}
-                {this.props.title!="Tiles"
+                {this.props.title!=="Tiles"
                     ? (
                         this.props.type==="mobile"
                             ? <br/>

@@ -1,9 +1,9 @@
 import glb from "./globals";
-import store from './store/store'
+import store from '../store/store'
 
 //READ if we are in DEV(npm start) or PROD (npm run build) and change the API LOCATION accordingly
-const DEV = process.env.NODE_ENV === 'development';
-const USE_REMOTE = true;
+// const DEV = process.env.NODE_ENV === 'development';
+// const USE_REMOTE = true;
 
 /*
 const API = DEV && USE_REMOTE ? glb.API_DEV_REMOTE : (DEV && !USE_REMOTE ? glb.API_DEV_LOCAL : glb.API_PROD);
@@ -11,8 +11,8 @@ const API = DEV && USE_REMOTE ? glb.API_DEV_REMOTE : (DEV && !USE_REMOTE ? glb.A
 
 // console.log(`process.env.NODE_ENV = ${process.env.NODE_ENV} so I app uses << ${API} >> to make API CALLS`)
 
-// const BASE_URL = glb.API_PROD;
-const BASE_URL = glb.API_PROD;
+ const BASE_URL = glb.API_PROD;
+//const BASE_URL = glb.API_DEV_LOCAL;
 
 console.log('BACKEND API : ', BASE_URL)
 
@@ -24,13 +24,13 @@ console.log('BACKEND API : ', BASE_URL)
 
 function getIdTokenFromStore() {
     const idToken = store.getState().user.idToken;
-    if (! idToken) console.error('no idToken in store @ api call')
+    if (! idToken) throw new Error('no idToken in store @ api call')
     else return idToken
 }
 
 function getUserIdFromStore() {
     const uid = store.getState().user.uid;
-    if (! uid) console.error('no userID in store @ api call')
+    if (! uid) throw new Error("no usedID in store @ api call");
     else return uid
 }
 

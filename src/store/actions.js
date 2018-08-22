@@ -2,9 +2,9 @@
 //use immutable
 import update from 'immutability-helper'
 import {moveEntry, withoutEntry, getObjectsByKey, saveToSessionStorage} from "../utils/trickBox";
-import {initContent} from "../tools";
+import {initContent} from "../utils/tools";
 import uuidv4 from 'uuid/v4';
-import globals from '../globals';
+import globals from '../utils/globals';
 
 const actions = function (store) { //store for async stuff
     return {

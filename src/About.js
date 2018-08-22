@@ -2,7 +2,7 @@
  import './styles/About.css'
  import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import colors, { hexToRgba } from './colors'
+import colors, { hexToRgba } from './utils/colors'
  //Image imports, can probably be optimized
  import robbie from "./assets/images/robbie.jpeg"
  import daniel from "./assets/images/daniel.jpeg"
@@ -19,7 +19,7 @@ const styles = {
         marginTop: "0",
         paddingTop: '10px',
         backgroundColor: hexToRgba(colors.RUST, 0.7),
-        textShadow: '0px 0px 3px' + '#6f2002',
+        textShadow: '0px 0px 3px #6f2002',
   },
   titleFont: {
       fontFamily: 'Charter-Bold',
@@ -38,13 +38,10 @@ const styles = {
 }
 
 class About extends Component{
-  constructor(props){
-    super(props)
-  }
   render(){
     return(
     
-      <div>
+      <div className="about">
         <header className="masthead">
           <div className="my-container">
           </div>
@@ -82,7 +79,7 @@ class About extends Component{
               <div className="col-lg-4">
                 <div className="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
                   <div className="features-icons-icon d-flex">
-                    <img src={contentCreation} className="svg m-auto" style={{height: "100%",width:"auto"}} />
+                    <img src={contentCreation} alt="img error" className="svg m-auto" style={{height: "100%",width:"auto"}} />
                   </div>
                   <h3>Easy Content Creation</h3>
                   <p className="lead mb-0">Our authoring tools radically decrease barriers for creating all kinds of educational contents or improving existing ones. No coding skills are needed to adapt and remix other people's simulations or educational games.</p>
@@ -91,7 +88,7 @@ class About extends Component{
               <div className="col-lg-4">
                 <div className="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
                   <div className="features-icons-icon d-flex">
-                    <img src={pedagogy} className="svg m-auto" />
+                    <img src={pedagogy} alt="img error" className="svg m-auto" />
                   </div>
                   <h3>Pedagogy over Popularity</h3>
                   <p className="lead mb-0"> Content creators are rewarded fairly based on how well their contents teach a knowledge concept. Our machine learning models estimate the educational value each content brings to the platform. Rewards are distributed via a blockchain-based token system - this ensures easy and secure payouts globally. This also raises the average quality of contents over time.</p>
@@ -100,7 +97,7 @@ class About extends Component{
               <div className="col-lg-4">
                 <div className="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
                   <div className="features-icons-icon d-flex">
-                    <img src={learningEffectiveness} className="svg m-auto"/>
+                    <img src={learningEffectiveness} alt="img error" className="svg m-auto"/>
                   </div>
                   <h3>Advance Learning Effectiveness</h3>
                   <p className="lead mb-0">Interactive learning experiences communicate more information than static ones. The problem with  static contents like textbooks and powerpoint slides, is that they dont allow for trial and error, which is necessary for effective learning.</p>
@@ -137,39 +134,39 @@ class About extends Component{
             <div className="row mb-5">
               <div className="col-lg-3 mx-auto">
                 <div className="testimonial-item mx-auto mb-5 mb-lg-0">
-                  <img className="img-fluid rounded-circle mb-3" src={robbie} alt="Picture of Robbie Zuazua" />
+                  <img className="img-fluid rounded-circle mb-3" src={robbie} alt="Robbie Zuazua" />
                   <h5>Robbie Zuazua</h5>
                   <p className="font-weight-light mb-0">Founder, Software Engineer, Business Operations, Climber</p>
-                  <p className="font-weight-light mb-0"><a href="https://www.linkedin.com/in/robert-zuazua-231795a8" target="_blank"> <FontAwesomeIcon icon={['fab', 'linkedin-in']} className="faAlignRight marginRight5" size="lg"/> LinkedIn</a></p>
-                  <p className="font-weight-light mb-0"><a href="https://github.com/RobZuazua" target="_blank"> <FontAwesomeIcon icon={['fab', 'github']} className="faAlignRight marginRight5" size="lg"/> Github</a></p>
+                  <p className="font-weight-light mb-0"><a href="https://www.linkedin.com/in/robert-zuazua-231795a8" rel="noopener noreferrer" target="_blank"> <FontAwesomeIcon icon={['fab', 'linkedin-in']} className="faAlignRight marginRight5" size="lg"/> LinkedIn</a></p>
+                  <p className="font-weight-light mb-0"><a href="https://github.com/RobZuazua" rel="noopener noreferrer" target="_blank"> <FontAwesomeIcon icon={['fab', 'github']} className="faAlignRight marginRight5" size="lg"/> Github</a></p>
                 </div>
               </div>
               <div className="col-lg-3 mx-auto">
                 <div className="testimonial-item mx-auto mb-5 mb-lg-0">
-                  <img className="img-fluid rounded-circle mb-3" src={frederik} alt="Picture of Frederik Riedel" />
+                  <img className="img-fluid rounded-circle mb-3" src={frederik} alt="Frederik Riedel" />
                   <h5>Frederik Riedel</h5>
                   <p className="font-weight-light mb-0">Founder, Software Engineer, Platform Design, Climber</p>
-                  <p className="font-weight-light mb-0"><a href="https://www.linkedin.com/in/frederik-riedel" target="_blank"> <FontAwesomeIcon icon={['fab', 'linkedin-in']} className="faAlignRight marginRight5" size="lg"/> LinkedIn</a></p>
-                  <p className="font-weight-light mb-0"><a href="https://twitter.com/frederikriedel" target="_blank"> <FontAwesomeIcon icon={['fab', 'twitter']} className="faAlignRight marginRight5" size="lg"/> Twitter</a></p>
-                  <p className="font-weight-light mb-0"><a href="https://github.com/frogg" target="_blank"> <FontAwesomeIcon icon={['fab', 'github']} className="faAlignRight marginRight5" size="lg"/> Github</a></p>
+                  <p className="font-weight-light mb-0"><a href="https://www.linkedin.com/in/frederik-riedel" rel="noopener noreferrer" target="_blank"> <FontAwesomeIcon icon={['fab', 'linkedin-in']} className="faAlignRight marginRight5" size="lg"/> LinkedIn</a></p>
+                  <p className="font-weight-light mb-0"><a href="https://twitter.com/frederikriedel" rel="noopener noreferrer" target="_blank"> <FontAwesomeIcon icon={['fab', 'twitter']} className="faAlignRight marginRight5" size="lg"/> Twitter</a></p>
+                  <p className="font-weight-light mb-0"><a href="https://github.com/frogg" rel="noopener noreferrer" target="_blank"> <FontAwesomeIcon icon={['fab', 'github']} className="faAlignRight marginRight5" size="lg"/> Github</a></p>
                 </div>
               </div>
               <div className="col-lg-3 mx-auto">
                 <div className="testimonial-item mx-auto mb-5 mb-lg-0">
-                  <img className="img-fluid rounded-circle mb-3" src={daniel} alt="Picture of Daniel Renz" />
+                  <img className="img-fluid rounded-circle mb-3" src={daniel} alt="Daniel Renz" />
                   <h5>Daniel Renz</h5>
                   <p className="font-weight-light mb-0">Founder, Machine Learning PhD, Neuroscience of Learning, Surfer</p>
-                  <p className="font-weight-light mb-0"><a href="https://www.linkedin.com/in/daniel-renz-22045b9/" target="_blank"> <FontAwesomeIcon icon={['fab', 'linkedin-in']} className="faAlignRight marginRight5" size="lg"/> LinkedIn</a></p>
-                  <p className="font-weight-light mb-0"><a href="https://github.com/dlrenz" target="_blank"> <FontAwesomeIcon icon={['fab', 'github']} className="faAlignRight marginRight5" size="lg"/> Github</a></p>
+                  <p className="font-weight-light mb-0"><a href="https://www.linkedin.com/in/daniel-renz-22045b9/" rel="noopener noreferrer" target="_blank"> <FontAwesomeIcon icon={['fab', 'linkedin-in']} className="faAlignRight marginRight5" size="lg"/> LinkedIn</a></p>
+                  <p className="font-weight-light mb-0"><a href="https://github.com/dlrenz" rel="noopener noreferrer" target="_blank"> <FontAwesomeIcon icon={['fab', 'github']} className="faAlignRight marginRight5" size="lg"/> Github</a></p>
                 </div>
               </div>
               <div className="col-lg-3 mx-auto">
                 <div className="testimonial-item mx-auto mb-5 mb-lg-0">
-                  <img className="img-fluid rounded-circle mb-3" src={markus} alt="Picture of Markus Strasser" />
+                  <img className="img-fluid rounded-circle mb-3" src={markus} alt="Markus Strasser" />
                   <h5>Markus Strasser</h5>
                   <p className="font-weight-light mb-0">Founder, Software Engineer, Game Creator, VR/AR, Artist</p>
-                  <p className="font-weight-light mb-0"><a href="https://www.linkedin.com/in/markus-strasser-3098b4165/" target="_blank"> <FontAwesomeIcon icon={['fab', 'linkedin-in']} className="faAlignRight marginRight5" size="lg"/> LinkedIn</a></p>
-                  <p className="font-weight-light mb-0"><a href="https://github.com/cocokiri" target="_blank"> <FontAwesomeIcon icon={['fab', 'github']} className="faAlignRight marginRight5" size="lg"/> Github</a></p>
+                  <p className="font-weight-light mb-0"><a href="https://www.linkedin.com/in/markus-strasser-3098b4165/" rel="noopener noreferrer" target="_blank"> <FontAwesomeIcon icon={['fab', 'linkedin-in']} className="faAlignRight marginRight5" size="lg"/> LinkedIn</a></p>
+                  <p className="font-weight-light mb-0"><a href="https://github.com/cocokiri" rel="noopener noreferrer" target="_blank"> <FontAwesomeIcon icon={['fab', 'github']} className="faAlignRight marginRight5" size="lg"/> Github</a></p>
                 </div>
               </div>
             </div>
