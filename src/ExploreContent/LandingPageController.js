@@ -69,67 +69,80 @@ class LandingPageController extends Component{
 			pageData:[],
 			previousState:'',
 		}
-		api.getContentsPreview()
-            .then(json => 
-            	this.setState({
-                	content: json || "errorLoadingContent"},
-                	() => this.setState({filteredContent: this.getContentForCategory(this.state.category)},
-                	() => this.setState({
-						pageData : [
-						{
-							title:"Featured",
-							data:this.state.filteredContent,
-							icon: "trophy",
-						},
-						{
-							title:"Physics",
-							data:this.state.filteredContent.filter(this.correctCategory("Physics")),
-							icon:"atom",
-						},
-						{
-							title:"Chemistry",
-							data:this.state.filteredContent.filter(this.correctCategory("Chemistry")),
-							icon:"microscope",
-						},
-						{
-							title:"Computer Science Fundamentals",
-							data:this.state.filteredContent.filter(this.correctCategory("Computer Science Fundamentals")),
-							icon:"code",
-						},
-						{
-							title:"Mathematics",
-							data:this.state.filteredContent.filter(this.correctCategory("Mathematics")),
-							icon:"shapes",
-						},
-						{
-							title:"Machine Learning",
-							data:this.state.filteredContent.filter(this.correctCategory("Machine Learning")),
-							icon:"brain",
-						},
-						{
-							title:"iOS",
-							data:this.state.filteredContent.filter(this.correctCategory("iOS")),
-							icon:"mobile-alt",
-						},
-						{
-							title:"Blockchain",
-							data:this.state.filteredContent.filter(this.correctCategory("Blockchain")),
-							icon:"link",
-						},
-						{
-							title:"Smart Contracts",
-							data:this.state.filteredContent.filter(this.correctCategory("Smart Contracts")),
-							icon:"file-contract",
-						},
-						{
-							title:"Web Dev",
-							data:this.state.filteredContent.filter(this.correctCategory("Web Dev")),
-							icon:"js",
-						},
-					]
-				}))
-            ))
+	}
 
+	componentDidMount(){
+		try{
+			api.getContentsPreview()
+	            .then(json => {
+	            	if(json)
+		            	this.setState({
+		                	content: json || "errorLoadingContent"},
+		                	() => this.setState({filteredContent: this.getContentForCategory(this.state.category)},
+		                	() => this.setState({
+								pageData : [
+								{
+									title:"Featured",
+									data:this.state.filteredContent,
+									icon: "trophy",
+								},
+								{
+									title:"Physics",
+									data:this.state.filteredContent.filter(this.correctCategory("Physics")),
+									icon:"atom",
+								},
+								{
+									title:"Chemistry",
+									data:this.state.filteredContent.filter(this.correctCategory("Chemistry")),
+									icon:"microscope",
+								},
+								{
+									title:"Computer Science Fundamentals",
+									data:this.state.filteredContent.filter(this.correctCategory("Computer Science Fundamentals")),
+									icon:"code",
+								},
+								{
+									title:"Mathematics",
+									data:this.state.filteredContent.filter(this.correctCategory("Mathematics")),
+									icon:"shapes",
+								},
+								{
+									title:"Machine Learning",
+									data:this.state.filteredContent.filter(this.correctCategory("Machine Learning")),
+									icon:"brain",
+								},
+								{
+									title:"iOS",
+									data:this.state.filteredContent.filter(this.correctCategory("iOS")),
+									icon:"mobile-alt",
+								},
+								{
+									title:"Blockchain",
+									data:this.state.filteredContent.filter(this.correctCategory("Blockchain")),
+									icon:"link",
+								},
+								{
+									title:"Smart Contracts",
+									data:this.state.filteredContent.filter(this.correctCategory("Smart Contracts")),
+									icon:"file-contract",
+								},
+								{
+									title:"Web Dev",
+									data:this.state.filteredContent.filter(this.correctCategory("Web Dev")),
+									icon:"js",
+								},
+							]
+						}))
+		            )
+		            else
+		            	console.log("Mhh there is something strange going on. Email us at info@joinoasys.org if this continues!")
+
+		        })
+	        }
+	        catch(error){
+	        	console.log("Mhh there is something strange going on. Email us at info@joinoasys.org if this continues!")
+	        	console.log(error)
+	        }
 	}
 
 	getContentForCategory(category) {
