@@ -2,7 +2,7 @@
  import './styles/About.css'
  import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import colors, { hexToRgba } from './colors'
+import colors, { hexToRgba } from './utils/colors'
  //Image imports, can probably be optimized
  import robbie from "./assets/images/robbie.jpeg"
  import daniel from "./assets/images/daniel.jpeg"

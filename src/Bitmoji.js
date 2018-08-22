@@ -14,7 +14,7 @@ class Bitmoji extends Component {
 
         return (
             <div>
-                <img src={libmoji.buildPreviewUrl("fashion",3,gender[1],style[1],0,traits,outfit)} />        	
+                <img alt="" src={libmoji.buildPreviewUrl("fashion",3,gender[1],style[1],0,traits,outfit)} />        	
             </div>
         );
     }

@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import ReactTooltip from "react-tooltip"
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import deepEqual from 'deep-equal';
 
 import * as tocjs from '../assets/scripts/toc.js'
 import actions from "../store/actions";
@@ -111,7 +110,7 @@ class SidebarToc extends Component {
             if (nextprops.chaptersLight[i].title !== this.props.chaptersLight[i].title) { isChanged=true; break; }
             if (nextprops.chaptersLight[i].id !== this.props.chaptersLight[i].id) { isChanged=true; break; }
             for (let j=0; j<nextprops.chaptersLight[i].links; j++) {
-                if (nextprops.chaptersLight[i].links[j].id !== nextprops.chaptersLight[i].links[j].id) {isChanged=true; break; }
+                if (nextprops.chaptersLight[i].links[j].id !== this.props.chaptersLight[i].links[j].id) {isChanged=true; break; }
             }
             if (isChanged) { break; }
         }
@@ -143,8 +142,6 @@ class SidebarToc extends Component {
     } 
 }
 
-// export default connect(mapStoreToProps, actions)(SidebarToc);
-
 SidebarToc.propTypes = {
     onChangeActiveChapter: PropTypes.func.isRequired,
     chaptersLight: PropTypes.array.isRequired,
@@ -169,11 +166,11 @@ export default connect(mapStoreToProps, actions)((propsFromStore) => {
 
 const mapStoreToProps = ({activeChapterIndex, chapters}) => ({chaptersLight: chapters.map(c => ({title:c.title, id: c.id, links: c.links})) , activeChapterIndex});
 
-//don't need anything!
+/*
 const neededActions = (store) => {
     const {onChangeActiveChapter} = actions();
     return {onChangeActiveChapter}
-};
+}; */
 
 //IMPORTANT!! the project data is in the project obj, the rest of the store (action functions) is just flat there
 export default connect(mapStoreToProps, actions)(SidebarToc);

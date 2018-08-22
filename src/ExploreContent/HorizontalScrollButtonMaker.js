@@ -3,7 +3,7 @@ import { Button, Card, CardText, CardBody, CardTitle, CardSubtitle, Modal, Modal
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Truncate from 'react-truncate';
 
-import colors from '../colors';
+import colors from '../utils/colors';
 
 const styles= {
 	cardStyle:{ 

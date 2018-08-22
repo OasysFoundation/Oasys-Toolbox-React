@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import globals from '../globals'
+import globals from '../utils/globals'
 
 import {
     Card,
@@ -14,7 +14,7 @@ import actions from "../store/actions";
 import { connect } from "redux-zero/react";
 
 import {ICON} from '../utils/trickBox'
-import {typeToString} from "../tools";
+import {typeToString} from "../utils/tools";
 
 // console.log(globals.ICON_FONTSIZE_MIDDLE, 'fontsize')
 

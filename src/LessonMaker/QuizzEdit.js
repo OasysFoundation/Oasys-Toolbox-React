@@ -8,12 +8,12 @@ import { Popover, PopoverHeader, PopoverBody } from 'reactstrap';
 
 import PropTypes from 'prop-types';
 
-import colors, {hexToRgba} from '../colors'
+import colors, {hexToRgba} from '../utils/colors'
 
 import QuizzEditModal from './QuizzEditModal'
 import QuizzButton from './QuizzButton'
 
-import {saveToSessionStorage} from '../utils/trickBox'
+// import {saveToSessionStorage} from '../utils/trickBox'
 
 
 //this is the new "Preview" Component
@@ -110,7 +110,7 @@ class QuizzEdit extends Component {
 
     areSelectedOptionsCorrect() {
         return this.state.answers.reduce(function(currentResult, answer) {
-            return currentResult && (answer.correct == answer.isSelected);
+            return currentResult && (answer.correct === answer.isSelected);
         }, true);
     }
 

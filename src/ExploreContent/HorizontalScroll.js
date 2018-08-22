@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './HorizontalScroll.css';
 import HorizontalScrollButtonMaker from './HorizontalScrollButtonMaker'
-import colors from '../colors';
+import colors from '../utils/colors';
 
 const styles={
     HorizontalScrollContainer:{

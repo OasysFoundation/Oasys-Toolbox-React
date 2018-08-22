@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import BigLetterRenderer from './BigLetterRenderer'
 
 import Bravocado from './assets/gifs/bravocado.gif'
@@ -61,6 +61,10 @@ class ConcludingContentPage extends Component {
 		return this.successGifs[Math.floor(Math.random() * this.successGifs.length)];
 	}
 
+	renderBravoEmoji(){
+		return <span role='img' aria-label='bravo'>👏</span>
+	}
+
     render() {
         return (
             <div>
@@ -69,13 +73,13 @@ class ConcludingContentPage extends Component {
 
             	<br /><br /><br /> <br />
             	{supportsEmoji()? null : "NO EMOJI SUPPORT DETECTED :( why does your computer not conform to the unicode standard?"}
-            	<h1> 👏 Bravo 👏 you've 👏 mastered 👏 this 👏 lesson 👏 </h1>
+            	<h1> {this.renderBravoEmoji()} Bravo {this.renderBravoEmoji()} you've {this.renderBravoEmoji()} mastered {this.renderBravoEmoji()} this {this.renderBravoEmoji()} lesson {this.renderBravoEmoji()} </h1>
 
             	<Button color="primary" style={{marginTop:'20px'}}>Explore more from {this.props.author}</Button>
 
             	<br />
             	
-            	<img src={this.state.randomGif} style={{maxWidth: '100%', marginBottom:'20px', marginTop:'20px'}}/>
+            	<img alt="" src={this.state.randomGif} style={{maxWidth: '100%', marginBottom:'20px', marginTop:'20px'}}/>
             	<br />
 				<RatingBar onSelectRating={this.onSelectRating.bind(this)}/>
 

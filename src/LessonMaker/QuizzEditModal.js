@@ -10,8 +10,8 @@ import { Nav, NavItem, NavLink } from 'reactstrap';
 import classnames from 'classnames';
 
 
-import colors from '../colors'
-import globals from '../globals'
+import colors from '../utils/colors'
+import globals from '../utils/globals'
 
 import uuidv4 from "uuid/v4"
 
@@ -294,7 +294,7 @@ class QuizzEditModal extends Component {
     chapterIndexForIdentifier(identifier) {
         var chapterIndex = null;
         this.getAllChapters().forEach(function(chapter, index) {
-            if (chapter.id == identifier) {
+            if (chapter.id === identifier) {
                 chapterIndex = index;
             }
         });

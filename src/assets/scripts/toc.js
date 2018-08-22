@@ -79,6 +79,7 @@ export function sortIntoTocLevels(tocInfo, chapters, mainPath) {
     }
     tocInfo.push(...addTocInfo);
     // find final element and make sure it is at the highest level
+    /*
     let fin = tocInfo.filter(e=>e.linkIdx.length===0);
     if (fin.length===0) {
         console.log("TOC: No final chapter! (The final chapter cannot have any links)");
@@ -90,6 +91,7 @@ export function sortIntoTocLevels(tocInfo, chapters, mainPath) {
             fin.level = Math.max(...levels) + 1;
         }
     }
+    */
     return tocInfo;
 }
 

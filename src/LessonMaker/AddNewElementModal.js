@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
-import globals from "../globals";
+//import PropTypes from 'prop-types';
+import globals from '../utils/globals';
 
-import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 
 import FormulaIcon from '../assets/element_icons/formula.png'
-import GameIcon from '../assets/element_icons/game.png'
+//import GameIcon from '../assets/element_icons/game.png'
 import ImageIcon from '../assets/element_icons/image.png'
 import QuizIcon from '../assets/element_icons/quiz.png'
 import SystemIcon from '../assets/element_icons/system.png'
@@ -48,7 +48,7 @@ class AddNewElementModal extends Component {
                 return "Yet unknown element."
         }
 
-        return "Yet unknown element."
+        //return "Yet unknown element."
 	}
 
 
@@ -75,7 +75,7 @@ class AddNewElementModal extends Component {
                 return null;
         }
 
-        return null;
+        //return null;
 	}
 
 	onSelectElement(elementType) {
@@ -97,7 +97,7 @@ class AddNewElementModal extends Component {
                                 key={idx.toString()}
                             >
 								<center>
-									<img src={that.iconForElement(elementType)} style={{width:'100%', padding:'10px'}}/>
+									<img alt="" src={that.iconForElement(elementType)} style={{width:'100%', padding:'10px'}}/>
 									<br />
 									{that.titleForElement(elementType)}
 								</center>

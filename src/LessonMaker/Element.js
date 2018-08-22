@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import VisibilitySensor from 'react-visibility-sensor';
 
 import FadeableCard from './FadeableCard'
-import globals from "../globals";
+import globals from "../utils/globals";
 import QuillEdit from './QuillEdit'
 import ImageEdit from './ImageEdit'
 import FormulaEdit from './FormulaEdit'
@@ -23,7 +23,7 @@ import {
 import 'react-quill/dist/quill.snow.css';
 import actions from "../store/actions";
 import {connect} from "redux-zero/react";
-import {isElementEmpty, initContent} from "../tools";
+// import {isElementEmpty, initContent} from "../tools";
 
 
 //TODO
@@ -33,7 +33,7 @@ class Element extends Component {
 
     constructor(props) {
         super(props);
-        this.changeVisibility = this.changeVisibility.bind(this);
+        this.onChangeVisibility = this.onChangeVisibility.bind(this);
         this.elementFinished = this.elementFinished.bind(this);
 
         this.fromChapter = this.props.data.parentChapterID;
@@ -149,7 +149,7 @@ class Element extends Component {
         // this.setState({tempContent: contentUpdated, timestamp: Date.now()})
     }
 
-    changeVisibility(isVisible) {
+    onChangeVisibility(isVisible) {
         let visStr = 'invisible';
         if (isVisible) {
             visStr = 'visible'
@@ -178,7 +178,7 @@ class Element extends Component {
                             :
                             <Card className="card-fancy has-shadow card content-view">
                                 <CardBody>
-                                    {this.props.isPreview && <VisibilitySensor onChange={this.changeVisibility}/>}
+                                    {this.props.isPreview && <VisibilitySensor onChange={this.onChangeVisibility}/>}
                                     {this.state.shouldFoldInView
 
                                         ? <Button color="primary"
