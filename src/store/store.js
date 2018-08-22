@@ -1,5 +1,5 @@
 import createStore from "redux-zero";
-import globals from "../globals";
+import globals from "../utils/globals";
 // import DEFAULT from "state";
 
 

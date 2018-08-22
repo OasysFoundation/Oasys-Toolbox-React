@@ -3,7 +3,7 @@ import { Card, CardBody } from 'reactstrap';
 import { Bar } from 'react-chartjs-2';
 // import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 
-import colors, {hexToRgba} from '../colors';
+import colors, {hexToRgba} from '../utils/colors';
 
 let palette = [
   colors.GREEN, colors.TURQUOISE, colors.LOCHINVAR, 

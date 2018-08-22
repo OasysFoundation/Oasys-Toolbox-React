@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 // import {typeToIcon} from "../utils/trickBox";
-// import globals from '../globals'
+// import globals from '../utils/globals'
 import {connect} from "redux-zero/react";
 import actions from "../store/actions";
 

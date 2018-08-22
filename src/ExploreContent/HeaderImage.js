@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Button} from 'reactstrap'
 import Media from "react-media";
 
-import colors, {hexToRgba} from '../colors';
+import colors, {hexToRgba} from '../utils/colors';
 
 //images
 import cover from '../assets/images/Cover.jpg'

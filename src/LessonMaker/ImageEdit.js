@@ -5,7 +5,7 @@ import { InputGroup, InputGroupAddon, Input } from 'reactstrap';
 import { Button } from 'reactstrap';
 
 import PropTypes from 'prop-types';
-import api from '../api'
+import api from '../utils/api'
 
 import ImageSelectionModal from './ImageSelectionModal'
 

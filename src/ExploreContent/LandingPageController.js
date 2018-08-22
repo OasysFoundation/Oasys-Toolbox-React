@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import api from '../api'
+import api from '../utils/api'
 import {getTagsForCategory} from "../utils/LandingPage";
 import ScrollableAnchor from 'react-scrollable-anchor'
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import Media from "react-media";
 import Select from 'react-select';
-import api from './api'
+import api from './utils/api'
 
 import Logo from './assets/images/brand/oasys_logo_big.png'
 import Logo_Small from './assets/images/brand/oasys_logo_small.png'

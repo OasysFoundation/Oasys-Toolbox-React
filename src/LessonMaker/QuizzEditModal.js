@@ -10,8 +10,8 @@ import { Nav, NavItem, NavLink } from 'reactstrap';
 import classnames from 'classnames';
 
 
-import colors from '../colors'
-import globals from '../globals'
+import colors from '../utils/colors'
+import globals from '../utils/globals'
 
 import uuidv4 from "uuid/v4"
 

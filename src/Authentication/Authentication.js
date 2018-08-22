@@ -16,7 +16,7 @@ import {
     Modal, ModalBody, ModalFooter, ModalHeader,
     Row
 } from 'reactstrap';
-import api from '../api'
+import api from '../utils/api'
 import actions from "../store/actions";
 import {connect} from "redux-zero/react";
 import {Redirect} from 'react-router';

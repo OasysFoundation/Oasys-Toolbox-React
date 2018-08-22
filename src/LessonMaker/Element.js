@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import VisibilitySensor from 'react-visibility-sensor';
 
 import FadeableCard from './FadeableCard'
-import globals from "../globals";
+import globals from "../utils/globals";
 import QuillEdit from './QuillEdit'
 import ImageEdit from './ImageEdit'
 import FormulaEdit from './FormulaEdit'
