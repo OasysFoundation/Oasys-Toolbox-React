@@ -60,6 +60,21 @@ class LessonMaker extends Component {
     }
 
     handleChapterDelete() {
+        const {chapters, activeChapterIndex} =  this.props;
+        this.handleChapterDeleteModalClose();
+        const oldIndex = activeChapterIndex;
+        let index = activeChapterIndex === chapters.length-1 ? chapters.length -2 : activeChapterIndex;
+        // const currIdx = activeChapterIndex;
+        console.log(this.props.activeChapterIndex, index)
+
+        if (chapters.length === 1 ) {
+            index = 0;
+        }
+
+        this.props.onChangeActiveChapter(chapters[index].id)
+        this.props.onDeleteChapter(chapters[oldIndex].id);
+
+        console.log(this.props.chapters[this.props.activeChapterIndex])
 
     }
 
@@ -96,6 +111,7 @@ class LessonMaker extends Component {
 
     render() {
         const activeChapter = this.props.chapters[this.props.activeChapterIndex];
+        if (!activeChapter) {return <div>No chapters found</div>}
         const {elements} = activeChapter;
         const emptyChapterAdder = elements.length > 0 ? null : <ElementAdder key={"filler"} idx={0}/>;
 
@@ -200,8 +216,8 @@ LessonMaker.propTypes = {
 
 const mapStoreToProps = ({chapters, activeChapterIndex, isEditMode}) => ({isEditMode, chapters, activeChapterIndex})
 const neededActions = (store) => {
-    const {onChangeActiveChapter, onChangeChapterTitle, onToggleEditMode, mergeStoreWithSessionStorage} = actions();
-    return {onChangeActiveChapter, onChangeChapterTitle, onToggleEditMode, mergeStoreWithSessionStorage}
+    const {onChangeActiveChapter, onDeleteChapter, onChangeChapterTitle, onToggleEditMode, mergeStoreWithSessionStorage} = actions();
+    return {onChangeActiveChapter, onDeleteChapter, onChangeChapterTitle, onToggleEditMode, mergeStoreWithSessionStorage}
 };
 
 export default connect(mapStoreToProps, neededActions)(LessonMaker);
