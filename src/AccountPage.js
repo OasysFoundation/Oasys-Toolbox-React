@@ -6,6 +6,11 @@ import ScrollableAnchor from 'react-scrollable-anchor'
 import * as auth from './Authentication/auth';
 import history from './history'
 
+import {connect} from "redux-zero/react";
+
+import {Button} from 'reactstrap';
+
+
 const styles = {
     HorizontalScrollOuterCenterContainer: {
         display: "flex",
@@ -27,15 +32,21 @@ class AccountPage extends Component {
             }],
             pageData: [],
             previousState: '',
-            loggedIn: false,
+            loggedIn: !!props.user.uid,
             readyToLoad:false,
-        }
+        };
+
         this.loadAccountPage = this.loadAccountPage.bind(this);
+
+
+    }
+
+    componentDidMount() {
         try {
             api.getUserContentsPreview(/*api.js knows userID from store, if logged in*/)
                 .then(json => {
                     this.setState({
-                            content: json || "errorLoadingContent"
+                        content: json || "errorLoadingContent"
                     })
                     if(json)
                         this.setState({
@@ -83,9 +94,10 @@ class AccountPage extends Component {
                             ],
                         })
                     }
-                    this.setState({loggedIn: true,readyToLoad:true})
+
+                    // this.setState({loggedIn: true,readyToLoad:true})
                 })
-                
+
                 .catch(err => {
                     console.log('error')
                     this.state={loggedIn: false, readyToLoad:true}
@@ -147,10 +159,12 @@ class AccountPage extends Component {
             </div>
         )
     }
-
     render() {
+
+        this.props.user.uid || history.push('/auth')
         return (
             <div>
+
                 {
                     this.state.readyToLoad 
                         ? this.state.loggedIn
@@ -158,9 +172,13 @@ class AccountPage extends Component {
                             : history.push('/auth')
                         : null
                 }
+                <Button style={{marginTop: '6rem'}} color="primary" onClick={() => auth.doSignOut()}>{`LogOut ${this.props.user.displayName}`}</Button>
             </div>
         )
     }
 }
 
-export default AccountPage;
+const mapStoreToProps = ({user}) => ({user});
+const neededActions = {};
+
+export default connect(mapStoreToProps, neededActions)(AccountPage);

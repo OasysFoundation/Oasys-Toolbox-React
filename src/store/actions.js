@@ -40,15 +40,15 @@ const actions = function (store) { //store for async stuff
             return clone;
         },
 
-        onAuthSuccess(state, userObj) {
-            return update(state, {
-                    user: {
-                        uid: {$set: userObj.uid},
-                        name: {$set: userObj.name}
-                    }
-                }
-            )
-        },
+        // onAuthSuccess(state, userObj) {
+        //     return update(state, {
+        //             user: {
+        //                 uid: {$set: userObj.uid},
+        //                 name: {$set: userObj.name}
+        //             }
+        //         }
+        //     )
+        // },
 
         setIdToken(state, idtoken) {
             return update(state, {
