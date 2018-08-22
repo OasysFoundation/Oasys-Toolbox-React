@@ -98,7 +98,9 @@ class NextChapterSelection extends Component {
             return;
         }
 
+
         const newAction = this.getAllChapters()[chapterIndex].id;
+        console.log(newAction)
         this.props.onChange({
             action: newAction
         }, true, true);
@@ -119,7 +121,7 @@ class NextChapterSelection extends Component {
                     {this.props.isEditMode? (
                             <div>
                             <h3>Continue to…</h3>
-                            <SelectionDropdown onSelect={this.onSelectAction.bind(this)} identifier={Math.random()} default={action!=null? this.chapterTitleForIdentifier(action) : "No Action"} options={this.getActionMenuItems()}/>
+                            <SelectionDropdown onSelect={this.onSelectAction.bind(this)} identifier={Math.random().toString()} default={action!=null? this.chapterTitleForIdentifier(action) : "No Action"} options={this.getActionMenuItems()}/>
                             </div>
                         ) : (
                             <Button color="primary" onClick={function() { that.onContinue(action) }} style={{marginBottom: '15px'}}> Continue… </Button>
