@@ -129,6 +129,7 @@ class LandingPageController extends Component{
 					]
 				}))
             ))
+
 	}
 
 	getContentForCategory(category) {

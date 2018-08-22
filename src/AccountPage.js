@@ -53,7 +53,7 @@ class AccountPage extends Component {
                             ],
                         })
                     else{
-                        const username = auth.doCheckLoggedIn()?auth.doGetUsername():"test"
+                        const username = auth.doGetCurrentUser()?auth.doGetUsername():"test"
 
                         const samplePublication = [{
                             title: "This is where your published content will show",
