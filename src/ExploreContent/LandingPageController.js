@@ -69,8 +69,7 @@ class LandingPageController extends Component{
 			pageData:[],
 			previousState:'',
 		}
-
-		api.getContentsPreview()
+		/*api.getContentsPreview()
             .then(json => 
             	this.setState({
                 	content: json || "errorLoadingContent"},
@@ -130,12 +129,12 @@ class LandingPageController extends Component{
 					]
 				}))
             ))
-
+            */
 	}
 
 	getContentForCategory(category) {
         if (category === "Recently Added" || category === "Featured") {
-            return this.state.content
+            return this.state.content || []
         }
         const keywords = getTagsForCategory(category);
         //confusing naming! tags sounds like array and state.content sounds like obj -- not array
@@ -143,7 +142,7 @@ class LandingPageController extends Component{
         function stringHasSubstring(str, substr) {
             return str.toLowerCase().includes(substr.toLowerCase())
         }
-        return this.state.content
+        return this.state.content || []
             .filter(content => keywords.filter(kw => stringHasSubstring(content.tags, kw) ).length)
             //filter out when the tags string (??? should be array!) includes the keyword
 

@@ -3,6 +3,7 @@ import {Container} from "reactstrap"
 import SideBarLesson from "./SideBarLesson";
 import posed, {PoseGroup} from 'react-pose';
 import PropTypes from 'prop-types';
+import {Button, FormText, Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
 
 import {connect} from "redux-zero/react";
 import actions from "../store/actions";
@@ -15,10 +16,17 @@ import ContentView from './ContentView'
 const Item = posed.div();
 
 class LessonMaker extends Component {
-    /*constructor(props) {
+    constructor(props) {
         super(props);
+        this.state = {
+            showDeleteChapterDialog: false,
+        }
         // props.mergeStoreWithSessionStorage();
-    }*/
+        this.handleChapterDeleteModal = this.handleChapterDeleteModal.bind(this);
+        this.handleChapterDeleteModalClose = this.handleChapterDeleteModalClose.bind(this);
+        this.handleChapterDelete = this.handleChapterDelete.bind(this);
+        this.renderChapterDeleteModal = this.renderChapterDeleteModal.bind(this);
+    }
 
     componentDidMount() {
         // this.inhaleSessionStorage();
@@ -39,6 +47,52 @@ class LessonMaker extends Component {
         //api.saveContent
     }
 
+    handleChapterDeleteModal(){
+        this.setState({
+            showDeleteChapterDialog: true,
+        });
+    }
+
+    handleChapterDeleteModalClose() {
+        this.setState({
+            showDeleteChapterDialog: false,
+        });
+    }
+
+    handleChapterDelete() {
+
+    }
+
+    renderChapterDeleteModal(){
+        const modal = (this.props.chapters.length===1)
+        ? (<React.Fragment>
+                <ModalHeader>
+                    Cannot delete chapter
+                </ModalHeader>
+                <ModalBody>
+                    <p>Sorry, but each lesson needs to have at least one chapter, so you 
+                    cannot delete this chapter.</p>
+                </ModalBody>
+                <ModalFooter>
+                    <Button color="primary" onClick={this.handleChapterDeleteModalClose}>OK</Button>
+                </ModalFooter>
+            </React.Fragment>
+        )
+        : (<React.Fragment>
+                <ModalHeader>
+                    Delete chapter?
+                </ModalHeader>
+                <ModalBody>
+                    <p>Are you sure you want to delete this chapter?</p>
+                </ModalBody>
+                <ModalFooter>
+                    <Button color="secondary" onClick={this.handleChapterDeleteModalClose}>Cancel</Button>
+                    <Button color="primary" onClick={this.handleChapterDelete}>Delete</Button>
+                </ModalFooter>
+            </React.Fragment>
+        )
+        return modal;
+    }    
 
     render() {
         const activeChapter = this.props.chapters[this.props.activeChapterIndex];
@@ -49,6 +103,10 @@ class LessonMaker extends Component {
             <div className="app-body">
                 <SideBarLesson/>
                 <main className="main">
+                    <Modal isOpen={this.state.showDeleteChapterDialog} toggle={this.handleChapterDeleteModalClose} backdrop={true}>
+                        { this.renderChapterDeleteModal() }
+                    </Modal>
+
                     <Container fluid className='main-width'>
                         <center>
 
@@ -74,6 +132,14 @@ class LessonMaker extends Component {
                                             aria-describedby="basic-addon1"
                                             style={{marginRight: '10px'}}
                                         />
+                                        <button
+                                            type="button"
+                                            className="btn btn-light preview-btn"
+                                            style={{width: '150px', marginRight: '50px'}}
+                                            onClick={this.handleChapterDeleteModal}
+                                        >
+                                            Delete
+                                        </button>
                                         <button
                                             type="button"
                                             className={this.props.isEditMode ? "btn btn-dark preview-btn" : "btn btn-light preview-btn"}

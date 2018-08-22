@@ -108,7 +108,8 @@ class Index extends Component {
 
                                 {/*<Route component={NotFoundPage}/>*/}
                             </Switch>
-                            <Footer />
+                            <Route path={"/*"} component={Footer} />
+=
                         </div>
                     </Router>
                 </Provider>
