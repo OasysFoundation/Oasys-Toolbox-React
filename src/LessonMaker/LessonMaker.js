@@ -101,7 +101,7 @@ class LessonMaker extends Component {
                 </ModalBody>
                 <ModalFooter>
                     <Button color="secondary" onClick={this.handleChapterDeleteModalClose}>Cancel</Button>
-                    <Button color="primary" onClick={this.handleChapterDelete}>Delete</Button>
+                    <Button style={{backgroundColor: '#c6361d', color: colors.SNOW1}} onClick={this.handleChapterDelete}>Delete</Button>
                 </ModalFooter>
             </React.Fragment>
         )
