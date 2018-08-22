@@ -107,23 +107,12 @@ html, body {
   background-color: rgb(248, 248, 244);
 }
 
-.oasys .ql-container.ql-snow h1 {
+.oasys h1, .oasys h2, .oasys h3, .oasys h4, .oasys h5, .oasys h6 {
     font-family: 'Charter-Regular';
 }
 
-.oasys .ql-container.ql-snow h2 {
-    font-family: 'Charter-Regular';
-}
-
-.oasys .ql-container.ql-snow h3 {
-    font-family: 'Charter-Regular';
-}
-
-.oasys .ql-container.ql-snow h4 {
-    font-family: 'Charter-Regular';
-}
-
-.oasys .ql-container.ql-snow h5 {
+.oasys .ql-container.ql-snow h1, .oasys .ql-container.ql-snow h2, .oasys .ql-container.ql-snow h3,
+.oasys .ql-container.ql-snow h4, .oasys .ql-container.ql-snow h5, .oasys .ql-container.ql-snow h6, {
     font-family: 'Charter-Regular';
 }
 
