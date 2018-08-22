@@ -519,6 +519,10 @@ html:not([dir="rtl"]) .sidebar {
     color:#a2abb8;
 }
 
+.oasys .main-width.container-fluid {
+    padding: 0px;
+}
+
 
 /* ------------------- next chapter ------------------- */
 
