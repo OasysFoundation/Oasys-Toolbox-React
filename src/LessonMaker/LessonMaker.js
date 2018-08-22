@@ -4,14 +4,13 @@ import SideBarLesson from "./SideBarLesson";
 import posed, {PoseGroup} from 'react-pose';
 import PropTypes from 'prop-types';
 import {Button, FormText, Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
-
 import {connect} from "redux-zero/react";
-import actions from "../store/actions";
 
+import actions from "../store/actions";
 import Element from "./Element";
 import ElementAdder from './ElementAdder'
 import ContentView from './ContentView'
-
+import colors from '../utils/colors';
 
 const Item = posed.div();
 
@@ -150,8 +149,7 @@ class LessonMaker extends Component {
                                         />
                                         <button
                                             type="button"
-                                            className="btn btn-light preview-btn"
-                                            style={{width: '150px', marginRight: '50px'}}
+                                            className="btn preview-btn delete-btn"
                                             onClick={this.handleChapterDeleteModal}
                                         >
                                             Delete
