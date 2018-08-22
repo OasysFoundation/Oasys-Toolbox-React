@@ -68,13 +68,19 @@ class SideBarLesson extends Component {
     }
     saveContent() {
         //everything except the user props and isEditMode
-        const {user, isEditMode, ...project} = this.props.project
+        const {user, isEditMode, ...project} = this.props.project;
 
+        project.published = 0;
         api.postContent(project)
     }
 
     publishContent() {
         // api.publishContent()
+        //everything except the user props and isEditMode
+        const {user, isEditMode, ...project} = this.props.project;
+
+        project.published = 1;
+        api.postContent(project)
     }
 
     render() {
