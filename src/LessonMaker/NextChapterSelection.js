@@ -91,7 +91,7 @@ class NextChapterSelection extends Component {
             this.createNewChapter().then(function(newChapter) {
                 const newChapterIndex = that.chapterIndexForIdentifier(newChapter.id);
                 that.onSelectAction(identifier, newChapterIndex);
-                that.props.onAddChapter(identifier, that.chapterTitleForIdentifier(identifier), true);
+                that.props.onAddChapter(identifier, that.chapterTitleForIdentifier(identifier));
             });
             return;
         }
@@ -99,7 +99,7 @@ class NextChapterSelection extends Component {
         const newAction = this.getAllChapters()[chapterIndex].id;
         this.props.onChange({
             action: newAction
-        });
+        }, true, true);
     }
 
     onContinue() {
