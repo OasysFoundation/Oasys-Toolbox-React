@@ -116,6 +116,7 @@ class SidebarToc extends Component {
         }
 
         if (isChanged || this.props.activeChapterIndex !== nextprops.activeChapterIndex) {
+            console.log(nextprops.chaptersLight)
             this.updateToc(nextprops);
             if (this.mounted) {
                 this.drawToc(nextprops);

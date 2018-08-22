@@ -70,7 +70,7 @@ class LandingPageController extends Component{
 			previousState:'',
 		}
 
-		api.getContentsPreview()
+		/*api.getContentsPreview()
             .then(json => 
             	this.setState({
                 	content: json || "errorLoadingContent"},
@@ -130,6 +130,7 @@ class LandingPageController extends Component{
 					]
 				}))
             ))
+            */
 
 	}
 
