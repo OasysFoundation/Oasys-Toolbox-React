@@ -4,8 +4,8 @@ import Element from './Element';
 import ScrollView, {ScrollElement} from "../utils/scroller";
 import {ICON, flatten, isEmpty} from '../utils/trickBox'
 import {Container} from "reactstrap"
+import ConcludingContentPage from '../ConcludingContentPage'
 import {isElementEmpty} from "../utils/tools";
-
 
 class ContentView extends Component {
     constructor(props) {
@@ -97,7 +97,6 @@ class ContentView extends Component {
     }
 
     render() {
-        console.log('ooooo')
         const {allElementsinProject} = this;
         return (
             <ScrollView ref={scroller => this._scroller = scroller}>
@@ -119,6 +118,9 @@ class ContentView extends Component {
                                         </div>
                                     </ScrollElement>))
                                 }
+                                <ConcludingContentPage url="https://joinoasys.org"
+                                                       author="Mark22" title="Feet and Cotion"
+                                                       description="I am explaining to you how feet and cotion works." />
                             </React.Fragment>
                         </Container>
                         <center>

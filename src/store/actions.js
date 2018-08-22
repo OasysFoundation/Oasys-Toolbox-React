@@ -1,7 +1,7 @@
 //TODO use my mongo functions to do upsert, insert, find for STATE etc
 //use immutable
 import update from 'immutability-helper'
-import {moveEntry, withoutEntry, getObjectsByKey, saveToSessionStorage} from "../utils/trickBox";
+import {moveEntry, withoutEntry, getObjectsByKey, saveToSessionStorage, isEmpty} from "../utils/trickBox";
 import {initContent} from "../utils/tools";
 import uuidv4 from 'uuid/v4';
 import globals from '../utils/globals';
@@ -66,7 +66,7 @@ const actions = function (store) { //store for async stuff
             chapters.forEach(chapter => {
                 chapter.links = chapter.links
                     .filter(link => link.chapterId !== chapterId)
-            })
+            });
 
             clone.chapters = chapters;
             return clone
@@ -95,6 +95,10 @@ const actions = function (store) { //store for async stuff
 
             //more verbose, but performant (instead of Json.stringify)
             const currentChapterIdx = state.chapters.findIndex(chapter => chapter.id === elementChapter);
+
+            //chapter was deleted
+            if (!state.chapters[currentChapterIdx]) {return state}
+
             let elements = state.chapters[currentChapterIdx].elements;
 
             const elemIdx = elements.findIndex(el => el.id === id);

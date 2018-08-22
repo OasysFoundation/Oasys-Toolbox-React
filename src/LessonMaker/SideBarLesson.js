@@ -28,12 +28,12 @@ class SideBarLesson extends Component {
 
         this.onSettingsClose = this.onSettingsClose.bind(this);
         this.onSettingsSave = this.onSettingsSave.bind(this);
-        this.onSettingsShow = this.onSettingsShow.bind(this);
+        this.handleSettingsShow = this.handleSettingsShow.bind(this);
         this.onSwitchProject = this.onSwitchProject.bind(this);
         this.saveContent = this.saveContent.bind(this);
     }
 
-    onSettingsShow() {
+    handleSettingsShow() {
         this.setState({
             showSettingsDialog: true,
         });
@@ -68,13 +68,19 @@ class SideBarLesson extends Component {
     }
     saveContent() {
         //everything except the user props and isEditMode
-        const {user, isEditMode, ...project} = this.props.project
+        const {user, isEditMode, ...project} = this.props.project;
 
+        project.published = 0;
         api.postContent(project)
     }
 
     publishContent() {
         // api.publishContent()
+        //everything except the user props and isEditMode
+        const {user, isEditMode, ...project} = this.props.project;
+
+        project.published = 1;
+        api.postContent(project)
     }
 
     render() {
@@ -139,7 +145,7 @@ class SideBarLesson extends Component {
                             value={this.props.title || 'Untitled lesson'}
                             onChange={e => this.props.onChangeProjectTitle(e.target.value)}
                         />
-                        <i className="fas fa-align-right fa-lg fa-cog" onClick={this.onSettingsShow}></i>
+                        <i className="fas fa-align-right fa-lg fa-cog" onClick={this.handleSettingsShow}></i>
                     </Button>
                     <Button onClick={() => this.setState({showProjectsDialog: true})} className='sidebar-button'>
                         <div>Open Project</div>

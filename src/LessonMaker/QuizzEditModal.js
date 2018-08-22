@@ -88,7 +88,7 @@ class QuizzEditModal extends Component {
 
         const that = this;
         this.state.userCreatedChapters.forEach(function(chapter) {
-            that.props.onAddChapter(chapter.id, chapter.title, true);
+            that.props.onAddChapter(chapter.id, chapter.title);
         });
 
         this.setState({
