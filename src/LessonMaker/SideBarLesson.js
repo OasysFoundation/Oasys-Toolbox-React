@@ -151,6 +151,7 @@ class SideBarLesson extends Component {
 
                         <i className="fas fa-align-right fa-lg fa-save"></i>
                     </Button>
+
                     <Button onClick={this.publishContent} className='sidebar-button publish'>
                         <div>Publish</div>
                         <i className="fas fa-align-right fa-lg fa-globe-americas"></i>
@@ -177,13 +178,14 @@ const mapStoreToProps = (store) => ({project: store});
 
 // only take what you need
 export default connect(mapStoreToProps, actions)((propsFromStore) => {
-    const {project, onChangeProjectTitle, onChangeProjectTags, onChangeProjectDescription} = propsFromStore;
+    const {project, onDeleteChapter, onChangeProjectTitle, onChangeProjectTags, onChangeProjectDescription} = propsFromStore;
     const {title, tags, description} = project;
     return React.createElement(SideBarLesson, {
         project,
         title,
         tags,
         description,
+        onDeleteChapter,
         onChangeProjectTitle,
         onChangeProjectTags,
         onChangeProjectDescription
