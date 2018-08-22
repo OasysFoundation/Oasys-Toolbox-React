@@ -45,7 +45,7 @@ class Authentication extends Component {
             //updateStore:this.props.onChange,
         }
 
-        if (auth.doCheckLoggedIn()) {
+        if (auth.doGetCurrentUser()) {
             console.log('userID!')
             auth.doSignOut()
                 .then( () => history.push('/') )
@@ -112,14 +112,12 @@ class Authentication extends Component {
                     modalBody: "You have been logged in successfully",
                     showModal: true,
                 })
-                const {displayName, uid} = cbData.user
-                const userObj = {name: displayName, uid}
 
                 auth.doGetIdToken()
                     .then(token => that.props.setIdToken(token))
                     .catch(err => console.log('could not get id token', err))
 
-                that.props.onAuthSuccess(userObj);
+                that.props.onAuthSuccess(cbData.user);
                 that.setState({loginSuccess: true})
             })
             .catch(error => {

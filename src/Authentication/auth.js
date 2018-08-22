@@ -1,7 +1,7 @@
 import { auth } from './firebase';
 
 
-// window.auth = auth;
+window.auth = auth;
 // Sign Up
 export const doCreateUserWithEmailAndPassword = (email, password) =>
   auth.createUserWithEmailAndPassword(email, password);
@@ -35,7 +35,7 @@ export const doUpdateProfile= (username) =>
   auth.currentUser.updateProfile({displayName: username});
 
 // check if logged in
-export const doCheckLoggedIn= () =>
+export const doGetCurrentUser= () =>
   auth.currentUser
   
  // get display name
