@@ -10,10 +10,11 @@ const data = {
         idToken: null
     },
     title: "Physics101",
-    id: 'project_1245',
+    contentId: "6d7324c6-50ca-458e-ad46-cc9df4ee23e1",
+    // id: 'project_1245',
     isEditMode: true,
     description: 'LASDIADALAIDA',
-    tags: [], //has categories
+    tags: ["physics", "quantumstrangeness"], //has categories
     activeChapterIndex: 0,
     chapters: [
         {

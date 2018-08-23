@@ -11,7 +11,7 @@ const API = DEV && USE_REMOTE ? glb.API_DEV_REMOTE : (DEV && !USE_REMOTE ? glb.A
 
 // console.log(`process.env.NODE_ENV = ${process.env.NODE_ENV} so I app uses << ${API} >> to make API CALLS`)
 
-const BASE_URL = glb.API_PROD;
+const BASE_URL = glb.API_DEV_LOCAL;
 // const BASE_URL = glb.API_DEV_LOCAL;
 
 console.log('BACKEND API : ', BASE_URL)
@@ -58,6 +58,10 @@ const api = {
     },
     getContentsPreview() {
         const url = BASE_URL + 'getContentsPreview/';
+        return get(url);
+    },
+    getContentById(contentId) {
+        const url = BASE_URL + 'getContentById/' + contentId;
         return get(url);
     },
     getUserContentsPreview() {
