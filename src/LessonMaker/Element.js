@@ -36,6 +36,8 @@ class Element extends Component {
         this.onChangeVisibility = this.onChangeVisibility.bind(this);
         this.elementFinished = this.elementFinished.bind(this);
 
+        this.sensorRef = React.createRef();
+
         this.fromChapter = this.props.data.parentChapterID;
 
         this.state = {
@@ -158,6 +160,15 @@ class Element extends Component {
         // console.log('Element type ' + this.props.data.type + ' (' + this.props.data.id + ') is now ' + visStr);
     }
 
+    componentDidMount() {
+        if (this.sensorRef.current !== null) {
+            console.log(this.sensorRef.current.check().isVisible)
+        }
+        if (!this.props.isPreview) {
+
+        }
+    }
+
     //onClick={() => this.setState({isHovered: true})}
     render() {
         const {id, type} = this.props.data;
@@ -179,7 +190,7 @@ class Element extends Component {
                             :
                             <Card className="card-fancy has-shadow card content-view">
                                 <CardBody>
-                                    {this.props.isPreview && <VisibilitySensor onChange={this.onChangeVisibility}/>}
+                                    {!this.props.isPreview && <VisibilitySensor ref={this.sensorRef} onChange={this.onChangeVisibility}/>}
                                     {this.state.shouldFoldInView
 
                                         ? <Button color="primary"

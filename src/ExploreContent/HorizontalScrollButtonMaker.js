@@ -95,6 +95,7 @@ const styles= {
 	cardRatingsOuterDiv:{
 		display:"flex", 
 		justifyContent:"center",
+		marginTop: '3px',
 	},
 	rating: {
 		color: colors.SUMMERSUN, 
@@ -102,7 +103,7 @@ const styles= {
 	},
 	ratingCount: {
 		color: colors.RUST, 
-		marginLeft: '5px',
+		marginLeft: '0px',
 	}
 }
 
@@ -114,6 +115,8 @@ class HorizontalScrollButtonMaker extends Component{
 			currentTitle: "",
 			currentUsername: "",
 		}
+		this.refStars = React.createRef();
+		this.starStr = '';
 		this.toggleSmall = this.toggleSmall.bind(this);
 	}
 
@@ -135,7 +138,24 @@ class HorizontalScrollButtonMaker extends Component{
 			// 	null
 			// else if(value==="flag")
 			// 	null
-}
+	}
+
+	componentDidMount(){
+		if (this.refStars.current===null) { return; }
+		const radius = 40;
+
+		let text = this.starStr.split("");
+		let elem = this.refStars.current;
+		
+		let deg = 180 / text.length;
+		let origin = 275; 
+
+		text.forEach((ea) => {
+			ea = `<span style='color: ${colors.SUMMERSUN};text-shadow: 0px 0px 1px ${colors.RUST};height:${radius}px;position:absolute;transform:rotate(${origin}deg);transform-origin:0 100%'>${ea}</span>`;
+			elem.innerHTML += ea;
+			origin += deg;
+		});
+	}
 
 	render(){
 		
@@ -144,9 +164,10 @@ class HorizontalScrollButtonMaker extends Component{
 
 		// for type == card
 		let returnUrl="",
-			stars="",
 			starCount="",
 			userLink = "";
+
+		this.starStr = '';
 
 		if(this.props.type==="Tiles"){
 			hashLink=this.props.data.name
@@ -163,9 +184,9 @@ class HorizontalScrollButtonMaker extends Component{
 			if (rating){
 				for (let i = 0; i < 5; i++){
 					if(i<rating)
-						stars += blackStar
+						this.starStr += blackStar
 					else
-						stars += whiteStar 
+						this.starStr += whiteStar 
 				}
 				starCount = " (12)"
 			}
@@ -178,7 +199,7 @@ class HorizontalScrollButtonMaker extends Component{
 			margin:".3em .3em .3em .3em", 
 			backgroundColor: this.props.data.color,
 		}
-		
+
 		return(
 			this.props.type==="Tiles"
 			? (
@@ -245,14 +266,17 @@ class HorizontalScrollButtonMaker extends Component{
 	                  </ModalBody>
 	                </Modal>
 			        </CardBody>
-			        <a href={userLink} style={styles.cardImageOuterLink}>
 				        <CardBody>
-				        <CardText style={styles.cardRatingsOuterDiv}>
-				          <span style={styles.rating}>{stars}</span>
-				          <span style={styles.ratingCount}>{starCount}</span>
-				         </CardText>
+			        	<div style={{textAlign: 'center', marginTop: '-50px'}}>
+						  <div ref={this.refStars} style={{display: 'inline-block', marginBottom: '10px', color: '#ff0000'}}></div>
+						</div>
+				        <a href={userLink} style={styles.cardImageOuterLink}>
+					        <CardText style={styles.cardRatingsOuterDiv}>
+					          {/*<span style={styles.rating}>{this.starStr}</span>*/}
+					          <span style={styles.ratingCount}>{starCount}</span>
+					         </CardText>
+				        </a>
 				        </CardBody>
-			        </a>
 			      </Card>
 			    </div>
             )
