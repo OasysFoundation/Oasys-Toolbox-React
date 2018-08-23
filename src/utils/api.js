@@ -64,6 +64,10 @@ const api = {
         const url = BASE_URL + 'getContentById/' + contentId;
         return get(url);
     },
+    getContentByUserNameAndTitle(username, title) {
+        const url = BASE_URL + 'getContentByUserNameAndTitle/' + username + "/" + title;
+        return get(url);
+    },
     getUserContentsPreview() {
         const userId = getUserIdFromStore();
         const url = `${BASE_URL}getUserContentsPreview/${userId}`;

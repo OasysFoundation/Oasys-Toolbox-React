@@ -38,7 +38,7 @@ class Element extends Component {
 
         this.sensorRef = React.createRef();
 
-        this.fromChapter = this.props.data.parentChapterID;
+
 
         this.state = {
             isHovered: false,
@@ -71,7 +71,7 @@ class Element extends Component {
                     this.props.onChangeContent(
                         this.props.data.id,
                         this.state.tempContent,
-                        this.fromChapter);
+                        this.props.data.parentChapterID);
                 }
                 if (shouldUpdateChapterLinks) {
                     this.props.updateChapterLinks()
@@ -136,7 +136,7 @@ class Element extends Component {
         this.props.onChangeContent(
             this.props.data.id,
             this.state.tempContent,
-            this.fromChapter
+            this.props.data.parentChapterID
         )
     }
 
