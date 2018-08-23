@@ -106,7 +106,6 @@ class ContentView extends Component {
 
         console.log("ids", sendToChapterID, interactionElementID, "ids")
         if (isEmpty(sendToChapterID)) {
-            console.log('NULL ? quiz didnt give chapterID -> default next chapter');
             //scroll to next element or (if end of chapter, next elements chapter)
             const currentChapter = this.chapters[this.state.activeChapterIndex]
             const interactionElementIndex = currentChapter.elements.findIndex(el => el.id === interactionElementID);
@@ -237,21 +236,26 @@ class ContentView extends Component {
                                         </ScrollElement>))
                                     }
                                     </div>    
-                                }
-                                
+                                } 
 
                             </React.Fragment>
                         </Container>
                         <center>
+                        {this.state.showsContentCompletion? 
+                            null
+                            :
+                            <div>
                             {this.isLastChapter()? (
                                 <div onClick={this.goToCompletionScreen.bind(this)}>
-                                    FINISH EXPERIENCE
+                                    {ICON("icon-arrow-down", 40)}
                                 </div>
                                 ) : (
                                 <div onClick={() => this.goToNextChapter()}>
                                     {ICON("icon-arrow-down", 40)}
                                 </div>
                             )}
+                            </div>
+                        }
                         </center>
                     </main>
                 </div>
