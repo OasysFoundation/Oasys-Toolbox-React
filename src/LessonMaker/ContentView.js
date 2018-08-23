@@ -55,6 +55,11 @@ class ContentView extends Component {
     scrollTo = (name) => {
         this._scroller.scrollTo(name);
     }
+
+    goToCompletionScreen() {
+        // <ConcludingContentPage url="https://joinoasys.org" author="Mark22" title="Feet and Cotion" description="I am explaining to you how feet and cotion works." />
+    }
+
     goToNextChapter = () => {
         const idx = this.state.activeChapterIndex;
         //is there more chapters?
@@ -209,13 +214,10 @@ class ContentView extends Component {
                                         </div>
                                     </ScrollElement>))
                                 }
-                                <ConcludingContentPage url="https://joinoasys.org"
-                                                       author="Mark22" title="Feet and Cotion"
-                                                       description="I am explaining to you how feet and cotion works." />
                             </React.Fragment>
                         </Container>
                         <center>
-                            {this.isLastChapter? (
+                            {this.isLastChapter()? (
                                 <div onClick={() => this.goToNextChapter()}>
                                     FINISH EXPERIENCE
                                 </div>
