@@ -39,7 +39,8 @@ class ContentView extends Component {
         this.state = {
             //decides what elements are not HIDDEN in the SCROLLVIEW
             activeChapterID: this.chapters[0].id,
-            activeChapterIndex: 0
+            activeChapterIndex: 0,
+            showsContentCompletion: false
         }
         // this.chaptersSeenIDs = [this.state.activeChapterID];
 
@@ -69,6 +70,13 @@ class ContentView extends Component {
     scrollTo = (name) => {
         this._scroller.scrollTo(name);
     }
+
+    goToCompletionScreen() {
+        this.setState({
+            showsContentCompletion: true
+        });
+    }
+
     goToNextChapter = () => {
         const idx = this.state.activeChapterIndex;
         //is there more chapters?
@@ -98,7 +106,6 @@ class ContentView extends Component {
 
         console.log("ids", sendToChapterID, interactionElementID, "ids")
         if (isEmpty(sendToChapterID)) {
-            console.log('NULL ? quiz didnt give chapterID -> default next chapter');
             //scroll to next element or (if end of chapter, next elements chapter)
             const currentChapter = this.chapters[this.state.activeChapterIndex]
             const interactionElementIndex = currentChapter.elements.findIndex(el => el.id === interactionElementID);
@@ -226,22 +233,49 @@ class ContentView extends Component {
                                     : null
                                     ))
                                 }
-                                <ConcludingContentPage url="https://joinoasys.org"
+                                {this.state.showsContentCompletion? 
+                                    <ConcludingContentPage url="https://joinoasys.org"
                                                        author="Mark22" title="Feet and Cotion"
                                                        description="I am explaining to you how feet and cotion works." />
+                                    :
+                                    <div>
+                                    {allElementsinProject.map(el => (
+                                        <ScrollElement key={el.id} name={el.id}>
+                                            <div className="item" hidden={el.fromChapter !== this.state.activeChapterID}>
+                                                {!isElementEmpty(el)
+                                                &&
+                                                <Element 
+                                                    data={el} 
+                                                    id={el.id}
+                                                    isEditMode={false}
+                                                    onLearnerInteraction={this.goToChapter}
+                                                    onChangeVisibility={this.handleChangeElementVisibility}
+                                                />
+                                                }
+                                            </div>
+                                        </ScrollElement>))
+                                    }
+                                    </div>    
+                                } 
+
                             </React.Fragment>
                         </Container>
                         <center>
-                            {this.isLastChapter? (
-                                <div onClick={() => this.goToNextChapter()}>
-                                    FINISH EXPERIENCE
+                        {this.state.showsContentCompletion? 
+                            null
+                            :
+                            <div>
+                            {this.isLastChapter()? (
+                                <div onClick={this.goToCompletionScreen.bind(this)}>
+                                    {ICON("icon-arrow-down", 40)}
                                 </div>
                                 ) : (
                                 <div onClick={() => this.goToNextChapter()}>
                                     {ICON("icon-arrow-down", 40)}
                                 </div>
-                                )}
-                            
+                            )}
+                            </div>
+                        }
                         </center>
                     </main>
                 </div>
