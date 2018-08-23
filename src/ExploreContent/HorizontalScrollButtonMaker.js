@@ -234,7 +234,6 @@ class HorizontalScrollButtonMaker extends Component{
 					          </a>
 					          </CardSubtitle>
 				      </div>
-
 			          <div style={styles.verticalEllipsesOuterDiv} className="bruh">
 			          	<a onClick={this.toggleSmall.bind(this,this.props.data)} className="noTextDecoration"><FontAwesomeIcon icon="ellipsis-v" style={styles.ellipsisIcon}/></a>
 			          </div>
@@ -265,6 +264,11 @@ class HorizontalScrollButtonMaker extends Component{
 
 	                  </ModalBody>
 	                </Modal>
+			        </CardBody>
+			        <CardBody>
+			        	<center>
+			        	<img src={require('../assets/category-icons/005-atom.svg')} width='50px' height='50px'/>
+			        	</center>
 			        </CardBody>
 				        <CardBody>
 			        	<div style={{textAlign: 'center', marginTop: '-50px'}}>
