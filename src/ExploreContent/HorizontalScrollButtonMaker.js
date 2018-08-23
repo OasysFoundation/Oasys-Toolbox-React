@@ -298,8 +298,8 @@ class HorizontalScrollButtonMaker extends Component{
 			        </a>
 			        <div style={{position: 'absolute', bottom: '5px', left: '10px'}}>
 		            	<span style={styles.ratingCount}>
-		            		{starCount}
 		            		<i class="fas fa-star" style={{marginLeft: '5px'}}></i>
+		            		{starCount}
 		            	</span>
 			        </div>
 			        <div style={{position: 'absolute', bottom: '5px', right: '10px'}}>
