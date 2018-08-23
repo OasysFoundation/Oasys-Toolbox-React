@@ -9,6 +9,7 @@ import history from './history'
 import {connect} from "redux-zero/react";
 
 import {Button} from 'reactstrap';
+import colors from './utils/colors';
 
 
 const styles = {
@@ -19,6 +20,16 @@ const styles = {
     HorizontalScrollContainer: {
         width: "100%",
         maxWidth: "900px",
+    },
+    HorizontalScrollTitle:{
+        fontSize:"1.5rem",
+        fontFamily: "Charter-Bold,-apple-system, sans-serif",
+    },
+    HRDividingLine:{
+        marginTop: "0",
+        borderColor: colors.GULLGREY,
+        width:"100%",
+        marginRight:"100%",
     },
 }
 
@@ -115,34 +126,6 @@ class AccountPage extends Component {
         return check;
     }
 
-    loadDefaultPage(){
-        return(
-        <section className="bg-light rz-start rz-no-border-special-2" id="about" style={{paddingTop:"100px"}}>
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-10 mx-auto">
-                <h2 className="section-heading">
-                {"Welcome " + this.props.user.displayName}
-                </h2>
-                <hr />
-                <p className="text-faded lead mb-4" style={{fontSize: '1.3rem'}}>                                 
-                    We are excited to have you in the Oasys Community! 
-                </p>
-                <p className="text-faded lead mb-4" style={{fontSize: '1.3rem'}}>                                 
-                    Before you begin, learn <a href="/about">about Oasys</a> and how you could <a href="/">earn money</a> for the content you create.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
-                <Button size="lg" style={{margin: '1rem'}} color="primary" onClick={() => auth.doSignOut()}>Logout</Button>
-                <Button size="lg" style={{margin: '1rem'}} color="primary" onClick={() => window.location.href="/create"}> Create</Button>
-                <Button size="lg" style={{margin: '1rem'}} color="primary" onClick={() => window.location.href="/explore"}> Explore </Button>
-
-          </div>
-        </section>
-        )
-    }
     loadReccommended(){
         return(
         < div >
@@ -193,7 +176,7 @@ class AccountPage extends Component {
             <div>
                 {this.checkMobile()
                     ? (
-                        <div style={{marginTop:"100px"}}>
+                        <div>
                             <section style={styles.HorizontalScrollOuterCenterContainer}>
                                 <div style={styles.HorizontalScrollContainer}>
                                     <br/>
@@ -213,7 +196,7 @@ class AccountPage extends Component {
                         </div>
                     )
                     : (
-                        <div style={{marginTop:"50px"}}>
+                        <div>
                             <section style={styles.HorizontalScrollOuterCenterContainer}>
                                 <div style={styles.HorizontalScrollContainer}>
                                     <br/>
@@ -231,10 +214,6 @@ class AccountPage extends Component {
                         </div>
                     )
                 }
-                <div style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
-                    <Button size="lg" style={{margin: '3rem'}} color="primary" onClick={() => auth.doSignOut()}>{`LogOut ${this.props.user.displayName}`}</Button>
-                    <Button size="lg" color="primary" onClick={this.openCreate}> Create your own content!</Button>
-                </div>
             </div>
         )
     }
@@ -247,13 +226,11 @@ class AccountPage extends Component {
                   <div className="container">
                     <div className="row">
                       <div className="col-lg-10 mx-auto">
-                        <h2 className="section-heading">
-                        {"Welcome " + this.props.user.displayName}
-                        <Button size="sm" style={{margin: '1rem', backgroundColor:"#A2ABB8"}} color="black" onClick={() => auth.doSignOut()}>Logout</Button>
-
-                        </h2>
-                        <hr />
-
+                        <div style={styles.HorizontalScrollTitle}>
+                        {"Welcome " + this.props.user.displayName + "!"}
+                        <Button size="sm" style={{float:"right", backgroundColor:"#A2ABB8"}} color="black" onClick={() => auth.doSignOut()}>Logout</Button>
+                        <hr style={styles.HRDividingLine}/>
+                        </div>
                         <p className="text-faded lead mb-4" style={{fontSize: '1.3rem'}}>                                 
                           We are excited to have you in the Oasys Community! Feel free to learn more <a href="/about">about Oasys</a> and how you could <a href="/">earn money</a> for the content you create.
                         </p>
