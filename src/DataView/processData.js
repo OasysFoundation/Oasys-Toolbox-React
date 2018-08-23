@@ -108,7 +108,8 @@ function rearrangeData(rawdata) {
                 break;
             }
         }
-        console.log(questions)
+        
+        // console.log(questions)
 
         for (let k=0; k<nSlides; k++) {
             let slideNum = k + 1;
@@ -143,7 +144,9 @@ function rearrangeData(rawdata) {
         let nUsers = rawcontent.length;
         let nComments = rawcomment.length;
         let rating = rawrating.map(a=>a.rating);
-        console.log(rating)
+        
+        // console.log(rating)
+        
         if (rating.length===0) {
             rating = NaN;
         } else {
