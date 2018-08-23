@@ -197,7 +197,7 @@ class HorizontalScrollButtonMaker extends Component{
 					else
 						this.starStr += whiteStar 
 				}
-				starCount = "12"
+				starCount = "11"
 			}
 
 		}
@@ -291,10 +291,16 @@ class HorizontalScrollButtonMaker extends Component{
 				         </CardText>
 			        </a>
 			        <div style={{position: 'absolute', bottom: '5px', left: '10px'}}>
-		            	<span style={styles.ratingCount}>{starCount} ratings</span>
+		            	<span style={styles.ratingCount}>
+		            		{starCount}
+		            		<i class="fas fa-star" style={{marginLeft: '5px'}}></i>
+		            	</span>
 			        </div>
 			        <div style={{position: 'absolute', bottom: '5px', right: '10px'}}>
-		            	<span style={styles.ratingCount}>{playCount} learners</span>
+		            	<span style={styles.ratingCount}>
+		            		{playCount} 
+		            		<i class="fas fa-user-graduate" style={{marginLeft: '5px'}} alt="views"></i>
+		            	</span>
 			        </div>
 			        </CardBody>
 			      </Card>
