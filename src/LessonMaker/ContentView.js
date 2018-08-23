@@ -31,9 +31,9 @@ class ContentView extends Component {
             startTime: new Date(),
             endTime: null,
             quizzes: [],
-            contentId: this.state.content.contentId,
-            accessUserId: this.props.user.name,
-            contentUserId: this.props.content.userId,
+            //contentId: this.state.content.contentId,
+            //accessUserId: this.props.user.name,
+            //contentUserId: this.props.content.userId,
         };
     }
 

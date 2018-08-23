@@ -48,6 +48,7 @@ const styles= {
 		color:"#C6361D",
 		fontWeight: "bold",
 		whiteSpace:"initial",
+		cursor: 'pointer',
 	},
 	cardSubtitle:{
 		color: colors.RUST,
@@ -220,37 +221,33 @@ class HorizontalScrollButtonMaker extends Component{
             	</Button>
             )
             : (
-            	<div className="pn-ProductNav_Link" aria-selected="true">
+            	<div className="pn-ProductNav_Link" aria-selected="true" onClick={() => {
+			          		store.setState(this.props.data);
+			          		history.push(`/view/${this.props.data.username}/${this.props.data.title}/`)
+                        }} style={styles.cardTitleLink}>
 			      <Card style={{...styles.cardStyle,...styles.boxShadow}}>
 			        <CardBody style={styles.homeCardBody}>
 			          {/*<div style={{position: 'absolute', top: '20px', left: '40px'}}>
 				          <i className="fas fa-7x fa-flask" style={{color: hexToRgba(colors.VELVET, 0.1)}}></i>
 			          </div> */}
-			        	<a href={userLink} style={{width:"120px"}}>
-				          <div style={styles.titleAndSubtitle}>
-					          <CardTitle style={styles.cardTitle}>
-					          	<div style={{"cursor": "pointer"}} onClick={() => {
-					          		store.setState(this.props.data);
-					          		history.push(`/view/${this.props.data.user.displayName}/${this.props.data.title}/${this.props.data.contentId}`)
-                                }} style={styles.cardTitleLink}>
-					          	<div>
-					          	  <Truncate lines={4} >
-					          	 	{this.props.data.title}
-					              </Truncate>
-					              </div>
-					          	</div>
-					          </CardTitle>
-					          <CardSubtitle>
-					          <a href={returnUrl} style={styles.cardSubtitle}>
-					          	<div>
-					          	  <Truncate lines={1} >
-					          	 	by {this.props.data.userId}
-					              </Truncate>
-					            </div>
-					          </a>
-					          </CardSubtitle>
-					      </div>
-					    </a>
+			          <div style={styles.titleAndSubtitle}>
+				          <CardTitle style={styles.cardTitle}>
+				          	<div style={styles.cardTitleLink}>
+				          	  <Truncate lines={4} >
+				          	 	{this.props.data.title}
+				              </Truncate>
+				              </div>
+				          </CardTitle>
+				          <CardSubtitle>
+				          <a href={returnUrl} style={styles.cardSubtitle}>
+				          	<div style={styles.cardSubtitle}>
+				          	  <Truncate lines={1} >
+				          	 	by {this.props.data.username}
+				              </Truncate>
+				            </div>
+				          </a>
+				          </CardSubtitle>
+				      </div>
 			          <div style={styles.verticalEllipsesOuterDiv} className="bruh">
 			          	<a onClick={this.toggleSmall.bind(this,this.props.data)} className="noTextDecoration"><FontAwesomeIcon icon="ellipsis-v" style={styles.ellipsisIcon}/></a>
 			          </div>
@@ -283,34 +280,32 @@ class HorizontalScrollButtonMaker extends Component{
 	                </Modal>
 			        </CardBody>
 			        <CardBody>
-			        <a href={userLink}>
-				        <div style={{position: 'absolute',top:'116px',left:'49px'}}>
-				        	{this.props.data.iconName? 
-				        		<img src={require('../assets/category-icons/' + this.props.data.iconName)} width='70px' height='70px'/>
-				        	:
-				        		<img src={require('../assets/category-icons/005-atom.svg')} width='70px' height='70px'/>
-				        	}
-			        	</div>
-			        	<div style={{textAlign: 'center', marginTop: '-65px'}}>
-						  <div ref={this.refStars} style={{display: 'inline-block', marginBottom: '10px', color: '#ff0000'}}></div>
-						</div>
-				        <CardText style={styles.cardRatingsOuterDiv}>
-				          {/*<span style={styles.rating}>{this.starStr}</span>*/}
-				         </CardText>
+			        <div style={{position: 'absolute',top:'116px',left:'49px'}}>
+			        	{this.props.data.iconName? 
+			        		<img src={require('../assets/category-icons/' + this.props.data.iconName)} width='70px' height='70px'/>
+			        	:
+			        		<img src={require('../assets/category-icons/005-atom.svg')} width='70px' height='70px'/>
+			        	}
+		        	</div>
+		        	<div style={{textAlign: 'center', marginTop: '-65px'}}>
+					  <div ref={this.refStars} style={{display: 'inline-block', marginBottom: '10px', color: '#ff0000'}}></div>
+					</div>
+			        <CardText style={styles.cardRatingsOuterDiv}>
+			          {/*<span style={styles.rating}>{this.starStr}</span>*/}
+			         </CardText>
 
-				        <div style={{position: 'absolute', bottom: '5px', left: '10px'}}>
-			            	<span style={styles.ratingCount}>
-			            		<i class="fas fa-star" style={{marginRight: '5px'}}></i>
-			            		{starCount}
-			            	</span>
-				        </div>
-				        <div style={{position: 'absolute', bottom: '5px', right: '10px'}}>
-			            	<span style={styles.ratingCount}>
-			            		{playCount} 
-			            		<i class="fas fa-user-graduate" style={{marginLeft: '5px'}}></i>
-			            	</span>
-				        </div>
-				    </a>
+			        <div style={{position: 'absolute', bottom: '5px', left: '10px'}}>
+		            	<span style={styles.ratingCount}>
+		            		<i class="fas fa-star" style={{marginRight: '5px'}}></i>
+		            		{starCount}
+		            	</span>
+			        </div>
+			        <div style={{position: 'absolute', bottom: '5px', right: '10px'}}>
+		            	<span style={styles.ratingCount}>
+		            		{playCount} 
+		            		<i class="fas fa-user-graduate" style={{marginLeft: '5px'}}></i>
+		            	</span>
+			        </div>
 			        </CardBody>
 			      </Card>
 			    </div>
