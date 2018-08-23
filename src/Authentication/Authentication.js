@@ -303,11 +303,28 @@ class Authentication extends Component {
     }
 
     onLoginWithFacebook() {
-        auth.doSignInWithFacebook();
+        auth.doSignInWithFacebook().then(function(result) {
+        }).catch(function(error) {
+
+          that.setState({
+                modalTitle: "Login Error",
+                modalBody: error.message,
+                showModal: true,
+           });
+        });
     }
 
     onLoginWithGoogle() {
-        auth.doSignInWithGoogle();
+        const that = this;
+        auth.doSignInWithGoogle().then(function(result) {
+        }).catch(function(error) {
+
+          that.setState({
+                modalTitle: "Login Error",
+                modalBody: error.message,
+                showModal: true,
+           });
+        });
     }
 
     getLoginView() {
@@ -548,7 +565,6 @@ class Authentication extends Component {
                     </ModalBody>
                     <ModalFooter>
                         <Button color="secondary" onClick={this.closeModal}>Close</Button>
-                        <Button color="primary" onClick={this.goHome}>Home</Button>
                     </ModalFooter>
                 </Modal>
             </div>
