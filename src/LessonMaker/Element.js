@@ -151,25 +151,24 @@ class Element extends Component {
     }
 
     onChangeVisibility(isVisible) {
-        let visStr = 'invisible';
-        if (isVisible) {
-            visStr = 'visible'
-        }
-        console.log(visStr + " " + this.props.data)
-        this.props.onChangeVisibility({id: this.props.data.id, type: this.props.data.type});
+        this.props.onChangeVisibility({
+            id: this.props.data.id, 
+            type: this.props.data.type, 
+            visible: isVisible
+        });
         // console.log('Element type ' + this.props.data.type + ' (' + this.props.data.id + ') is now ' + visStr);
     }
 
     componentDidMount() {
+        // in case we ever need this - with the following we can query if the element is visible.
+        // right now, we are passively receiving the visibility info through onChangeVisibility
+        /*
         if (this.sensorRef.current !== null) {
             console.log(this.sensorRef.current.check().isVisible)
         }
-        if (!this.props.isPreview) {
-
-        }
+        */
     }
 
-    //onClick={() => this.setState({isHovered: true})}
     render() {
         const {id, type} = this.props.data;
 
