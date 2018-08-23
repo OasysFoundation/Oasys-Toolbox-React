@@ -15,6 +15,8 @@ import SidebarToc from "./SidebarToc";
 
 import api from '../utils/api'
 
+import IconSelectionModal from './IconSelectionModal'
+
 class SideBarLesson extends Component {
     constructor(props) {
         super(props);
@@ -83,14 +85,37 @@ class SideBarLesson extends Component {
         api.postContent(allData)
     }
 
+    onCloseIconSelectionModal() {
+        this.setState({
+            showsIconSelectionModal: false
+        })
+    }
+
+    onShowIconSelectionModal() {
+        console.log("click!");
+         this.setState({
+            showsIconSelectionModal: true
+        })
+    }
+
     render() {
         return (
             <div>
+                <IconSelectionModal isOpen={this.state.showsIconSelectionModal} onSelect={this.props.onChangeIconName} onClose={this.onCloseIconSelectionModal.bind(this)} />
                 <Modal isOpen={this.state.showSettingsDialog} toggle={this.onSettingsClose} backdrop={true}>
                     <ModalHeader>
                         Settings
                     </ModalHeader>
                     <ModalBody>
+                    <center>
+                        <div style={{position: 'relative', width:'100px', height:'100px', marginBottom:'20px'}} onClick={this.onShowIconSelectionModal.bind(this)}>
+                            <img src={require('../assets/category-icons/' + this.props.iconName)} width='100px' height='100px'/>
+                            <div style={{position:'absolute', top:'0', right:'0'}}>
+                                <i class="fas fa-align-right fa-lg fa-edit" onClick={this.onShowIconSelectionModal.bind(this)}></i>
+                            </div>
+                        </div>
+                        
+                    </center>
                         <Input
                             defaultValue={this.props.title}
                             onChange={e => this.title = e.target.value}
@@ -175,7 +200,7 @@ class SideBarLesson extends Component {
 
 SideBarLesson.propTypes = {
     title: PropTypes.string.isRequired,
-    tags: PropTypes.array.isRequired
+    tags: PropTypes.array.isRequired,
 };
 
 //TODO --> only take out project data (not auth etc)
@@ -184,16 +209,18 @@ const mapStoreToProps = (store) => ({project: store});
 
 // only take what you need
 export default connect(mapStoreToProps, actions)((propsFromStore) => {
-    const {project, onDeleteChapter, onChangeProjectTitle, onChangeProjectTags, onChangeProjectDescription} = propsFromStore;
-    const {title, tags, description} = project;
+    const {project, onDeleteChapter, onChangeProjectTitle, onChangeIconName, onChangeProjectTags, onChangeProjectDescription} = propsFromStore;
+    const {title, tags, description, iconName} = project;
     return React.createElement(SideBarLesson, {
         project,
         title,
         tags,
         description,
+        iconName,
         onDeleteChapter,
         onChangeProjectTitle,
         onChangeProjectTags,
-        onChangeProjectDescription
+        onChangeProjectDescription,
+        onChangeIconName
     });
 });

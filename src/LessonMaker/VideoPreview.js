@@ -18,26 +18,24 @@ class VideoPreview extends Component {
 
 	onPlay(){
 		if (!this.props.isEditMode) {
-			console.log('play: '  + this.props.elementId);
+			console.log('video ' + this.props.elementId + ' starts playing. Analytics to be implemented');
 		}
 	}
 
 	onPause(){
 		if (!this.props.isEditMode) {
-			console.log('pause: '  + this.props.elementId);
+			console.log('video ' + this.props.elementId + ' pauses. Analytics to be implemented');
 		}
 	}
 
 	onEnded(){
 		if (!this.props.isEditMode) {
-			console.log('end: '  + this.props.elementId);
+			console.log('video ' + this.props.elementId + ' ends. Analytics to be implemented');
 		}
 		this.props.onFinishedVideo();
 	}
 
 	render(){
-		console.log(this.props.data.cropStart)
-		// &modestbranding=1&showinfo=0
 		let youtubeConfig = {
       		playerVars: { 
       			showinfo: 1,

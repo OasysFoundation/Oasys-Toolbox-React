@@ -12,6 +12,8 @@ const data = {
     title: "Physics101",
     contentId: "6d7324c6-50ca-458e-ad46-cc9df4ee23e1",
     // id: 'project_1245',
+    iconName: "001-cells.svg",
+    // id: 'project_1245',
     isEditMode: true,
     description: 'LASDIADALAIDA',
     tags: ["physics", "quantumstrangeness"], //has categories
@@ -33,21 +35,21 @@ const data = {
             elements: [
                 {
                     parentChapterID: "chapter_124552",
-                    id: "embed678",
+                    id: "embed11",
                     type: 2,
                     content: {
                         id: ''
                     }
                 },
                 {
-                    id: "continue-element-0815",
+                    id: "continue12",
                     type: globals.EDIT_CONTINUE_ELEMENT,
                     content: {
                         action: 'chapter_124552'
                     }
                 },
                 {
-                    id: "schnuckeldi",
+                    id: "video13",
                     type: globals.EDIT_VIDEO,
                     content: {
                         url: 'https://www.youtube.com/watch?v=gcS04BI2sbk',
@@ -58,14 +60,14 @@ const data = {
                 {
                     parentChapterID: "chapter_124552",
 
-                    id: "d6363cb1-a398-4637-8528-5b28bf88c5a2",
+                    id: "text14",
                     type: globals.EDIT_QUILL,
                     content: "<p>HALLO 1</p>"
                 },
                 {
                     parentChapterID: "chapter_124552",
 
-                    id: "aaaaaa2222222",
+                    id: "quiz15",
                     type: globals.EDIT_QUIZ,
                     content: {
                         question: {
@@ -111,19 +113,9 @@ const data = {
                 },
                 {
                     parentChapterID: "chapter_124552",
-
-                    id: "aaaaaa222",
+                    id: "text16",
                     type: 0,
                     content: "HALLO 2"
-                },
-                {
-                    parentChapterID: "chapter_124552",
-
-                    id: "asdwasd2",
-                    type: 5,
-                    content: {
-                        imageUrl: "https://media0.giphy.com/media/l0NwFIAW8xo5VmDQc/giphy.gif"
-                    }
                 },
             ]
 
@@ -134,20 +126,25 @@ const data = {
             id: "chapter_99852",
             elements: [
                 {
-                    id: 'wodpsadasdasd',
+                    id: 'text21',
                     type: 0,
-                    content: "YOLO DOLO JOIHSADIOHOAISDHO SAIOHDOIAHSDOI ASHDOIAHD  BAAEMM JAYJAY WOOOHIIII"
+                    content: "Muffensausen"
                 },
                 {
-                    id: 'OKOOKOOOKOKOK',
+                    id: 'formula22',
                     type: 6,
                     content: ""
                 },
                 {
-                    id: 'uiuiiuriuiu',
+                    id: 'text22',
                     type: 0,
-                    content: "NEXT ELEMETE ER E E E "
-                }
+                    content: "Auch gibt es niemanden, der den Schmerz an sich liebt, sucht oder wünscht, nur, weil er Schmerz ist, es sei denn, es kommt zu zufälligen Umständen, in denen Mühen und Schmerz ihm große Freude bereiten können. Um ein triviales Beispiel zu nehmen, wer von uns unterzieht sich je anstrengender körperlicher Betätigung, außer um Vorteile daraus zu ziehen? Aber wer hat irgendein Recht, einen Menschen zu tadeln, der die Entscheidung trifft, eine Freude zu genießen, die keine unangenehmen Folgen hat, oder einen, der Schmerz vermeidet, welcher keine daraus resultierende Freude nach sich zieht?"
+                },
+                {
+                    id: "text23",
+                    type: 0,
+                    content: "HALLO"
+                },
             ],
             links: [
                 {
@@ -161,9 +158,9 @@ const data = {
             id: "chapter_100",
             elements: [
                 {
-                    id: 'wdadaaaappp',
+                    id: 'text31',
                     type: 0,
-                    content: "Chapter 333 JAMEAS BROWN ASHDOIAHD  BAAEMM JAYJAY WOOOHIIII"
+                    content: "Chapter 333 JAMEAS BROWN"
                 }
             ],
             links: [

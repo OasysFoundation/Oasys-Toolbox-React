@@ -83,6 +83,10 @@ const actions = function (store) { //store for async stuff
             return update(state, {user: {$set: user}})
         },
 
+        onChangeIconName(state, value) {
+            return update(state, {iconName: {$set: value}})
+        },
+
         onChangeProjectTitle(state, value) {
             return update(state, {title: {$set: value}})
         },
@@ -154,8 +158,6 @@ const actions = function (store) { //store for async stuff
                     if (elem.type === globals.EDIT_QUIZ || elem.type === globals.EDIT_CONTINUE_ELEMENT) {
 
                         if (elem.content.answers) {
-                            console.log('yeahh 2', elem.content.answers)
-
                             const answeractions = elem.content.answers
                                 .filter(answer => answer.action != null)
                                 .map(answerWithLink => answerWithLink.action)

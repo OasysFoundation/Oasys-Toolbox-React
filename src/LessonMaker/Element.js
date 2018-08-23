@@ -36,6 +36,8 @@ class Element extends Component {
         this.onChangeVisibility = this.onChangeVisibility.bind(this);
         this.elementFinished = this.elementFinished.bind(this);
 
+        this.sensorRef = React.createRef();
+
         this.fromChapter = this.props.data.parentChapterID;
 
         this.state = {
@@ -149,16 +151,24 @@ class Element extends Component {
     }
 
     onChangeVisibility(isVisible) {
-        let visStr = 'invisible';
-        if (isVisible) {
-            visStr = 'visible'
-        }
-        console.log(visStr + " " + this.props.data)
-        this.props.onChangeVisibility({id: this.props.data.id, type: this.props.data.type});
+        this.props.onChangeVisibility({
+            id: this.props.data.id, 
+            type: this.props.data.type, 
+            visible: isVisible
+        });
         // console.log('Element type ' + this.props.data.type + ' (' + this.props.data.id + ') is now ' + visStr);
     }
 
-    //onClick={() => this.setState({isHovered: true})}
+    componentDidMount() {
+        // in case we ever need this - with the following we can query if the element is visible.
+        // right now, we are passively receiving the visibility info through onChangeVisibility
+        /*
+        if (this.sensorRef.current !== null) {
+            console.log(this.sensorRef.current.check().isVisible)
+        }
+        */
+    }
+
     render() {
         const {id, type} = this.props.data;
 
@@ -179,7 +189,7 @@ class Element extends Component {
                             :
                             <Card className="card-fancy has-shadow card content-view">
                                 <CardBody>
-                                    {this.props.isPreview && <VisibilitySensor onChange={this.onChangeVisibility}/>}
+                                    {!this.props.isPreview && <VisibilitySensor ref={this.sensorRef} onChange={this.onChangeVisibility}/>}
                                     {this.state.shouldFoldInView
 
                                         ? <Button color="primary"

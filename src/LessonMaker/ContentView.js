@@ -81,6 +81,10 @@ class ContentView extends Component {
         //this.props.o
     }
 
+    isLastChapter() {
+        return (this.state.activeChapterIndex == this.chapters.length-1);
+    }
+
     goToElementinChapter(nextElementIndex) {
         const nextElementID = this.chapters[this.state.activeChapterIndex].elements[nextElementIndex].id
         this.scrollTo(nextElementID)
@@ -222,9 +226,16 @@ class ContentView extends Component {
                             </React.Fragment>
                         </Container>
                         <center>
-                            <div onClick={() => this.goToNextChapter()}>
-                                {ICON("icon-arrow-down", 40)}
-                            </div>
+                            {this.isLastChapter? (
+                                <div onClick={() => this.goToNextChapter()}>
+                                    FINISH EXPERIENCE
+                                </div>
+                                ) : (
+                                <div onClick={() => this.goToNextChapter()}>
+                                    {ICON("icon-arrow-down", 40)}
+                                </div>
+                                )}
+                            
                         </center>
                     </main>
                 </div>
