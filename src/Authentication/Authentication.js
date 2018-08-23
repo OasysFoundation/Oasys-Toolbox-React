@@ -303,6 +303,7 @@ class Authentication extends Component {
     }
 
     onLoginWithFacebook() {
+        const that = this;
         auth.doSignInWithFacebook().then(function(result) {
         }).catch(function(error) {
 
