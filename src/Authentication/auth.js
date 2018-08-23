@@ -1,4 +1,5 @@
 import { auth } from './firebase';
+import firebase from 'firebase'
 
 
 window.auth = auth;
@@ -9,6 +10,16 @@ export const doCreateUserWithEmailAndPassword = (email, password) =>
 // Sign In
 export const doSignInWithEmailAndPassword = (email, password) =>
   auth.signInWithEmailAndPassword(email, password);
+
+export const doSignInWithFacebook = function() {
+  var provider = new firebase.auth.FacebookAuthProvider();
+  return firebase.auth().signInWithPopup(provider);
+}
+
+export const doSignInWithGoogle = function() {
+  var provider = new firebase.auth.GoogleAuthProvider();
+  return firebase.auth().signInWithPopup(provider);
+}
 
 // Sign out
 export const doSignOut = () =>
