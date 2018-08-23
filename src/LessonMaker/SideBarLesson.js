@@ -68,21 +68,21 @@ class SideBarLesson extends Component {
             showProjectsDialog: false,
         });
     }
-    saveContent() {
-        //everything except the user props and isEditMode
-        const {user, isEditMode, ...project} = this.props.project;
 
-        project.published = 0;
-        api.postContent(project)
-    }
+    saveContent(flag) {
+        const {title, tags, description, contentId, user} = this.props.project;
 
-    publishContent() {
-        // api.publishContent()
-        //everything except the user props and isEditMode
-        const {user, isEditMode, ...project} = this.props.project;
+        const data = {
+            chapters: this.props.project.chapters
+        }
 
-        project.published = 1;
-        api.postContent(project)
+        const allData = {
+            title, tags, description, contentId, user,
+            published: flag, featured: flag,
+
+            data
+        }
+        api.postContent(allData)
     }
 
     onCloseIconSelectionModal() {
@@ -177,13 +177,13 @@ class SideBarLesson extends Component {
 
                         <i className="fas fa-align-right fa-lg fa-folder-open"></i>
                     </Button>
-                    <Button onClick={this.saveContent} className='sidebar-button'>
+                    <Button onClick={() => this.saveContent(0)} className='sidebar-button'>
                         <div>Save draft</div>
 
                         <i className="fas fa-align-right fa-lg fa-save"></i>
                     </Button>
 
-                    <Button onClick={this.publishContent} className='sidebar-button publish'>
+                    <Button onClick={() => this.saveContent(1)} className='sidebar-button publish'>
                         <div>Publish</div>
                         <i className="fas fa-align-right fa-lg fa-globe-americas"></i>
                     </Button>

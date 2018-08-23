@@ -5,6 +5,9 @@ import Truncate from 'react-truncate';
 
 import colors from '../utils/colors';
 
+import {connect} from "redux-zero/react";
+import actions from "../store/actions";
+
 const styles= {
 	cardStyle:{ 
 		width:"170px", 
@@ -119,6 +122,7 @@ class HorizontalScrollButtonMaker extends Component{
 		this.refStars = React.createRef();
 		this.starStr = '';
 		this.toggleSmall = this.toggleSmall.bind(this);
+		this.handleClick = this.handleClick.bind(this);
 	}
 
 	toggleSmall(data) {
@@ -129,12 +133,15 @@ class HorizontalScrollButtonMaker extends Component{
 	    });
   	}
   	handleClick(value){
+
+		console.log(this.props.data, "DATA at button")
   			if(value==="remix")
   				window.location.href  = `/create/${this.state.currentUsername}/${this.state.currentTitle}`
   			else if(value === "comments")
 				window.location.href  = `/comments/${this.state.currentUsername}/${this.state.currentTitle}`
-			else if(value==="user")
-				window.location.href  = `/user/${this.state.currentUsername}/`
+			else if(value==="content")
+				// window.location.href  = `/user/${this.state.currentUsername}/`
+				window.location.href  = `/content/`
 			// else if(value==="collection")
 			// 	null
 			// else if(value==="flag")
@@ -251,7 +258,7 @@ class HorizontalScrollButtonMaker extends Component{
 						  	<div style={{flex:1}}><FontAwesomeIcon icon="comment"/></div>
 	                      	<div style={{flex:3, textAlign:"left"}}>View Comments</div>
 						  </Button>
-						  <Button block color="light" onClick={this.handleClick.bind(this,"user")} style={styles.modalButton}>
+						  <Button block color="light" onClick={this.handleClick.bind(this,"content")} style={styles.modalButton}>
 						  	<div style={{flex:1}}><FontAwesomeIcon icon="user"/></div>
 	                      	<div style={{flex:3, textAlign:"left"}}>{"Go To " + this.state.currentUsername + "'s Page"}</div>
 						  </Button>

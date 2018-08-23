@@ -6,10 +6,21 @@ import {ICON, flatten, isEmpty} from '../utils/trickBox'
 import {Container} from "reactstrap"
 import ConcludingContentPage from '../ConcludingContentPage'
 import {isElementEmpty} from "../utils/tools";
+import api from '../utils/api'
 
 class ContentView extends Component {
     constructor(props) {
         super(props)
+
+        console.log(this.props.match.params.contentId, "contentId");
+
+        let project;
+        api.getContentById(this.props.match.params.contentId)
+            .then(content => {
+                console.log(content, 'content fetched')
+            })
+            .catch(err => console.log('error at getcontentbyid', err))
+
 
 
         this.chapters = JSON.parse(JSON.stringify(this.props.chapters));
