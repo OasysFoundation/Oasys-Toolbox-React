@@ -207,9 +207,10 @@ class ContentView extends Component {
                         <Container fluid className='main-width'>
                             <React.Fragment>
                                 {allElementsinProject.map(el => (
-
+                                    (el.fromChapter === this.state.activeChapterID)
+                                    ?
                                     <ScrollElement key={el.id} name={el.id}>
-                                        <div className="item" hidden={el.fromChapter !== this.state.activeChapterID}>
+                                        <div className="item">
                                             {!isElementEmpty(el)
                                             &&
                                             <Element 
@@ -221,7 +222,9 @@ class ContentView extends Component {
                                             />
                                             }
                                         </div>
-                                    </ScrollElement>))
+                                    </ScrollElement>
+                                    : null
+                                    ))
                                 }
                                 <ConcludingContentPage url="https://joinoasys.org"
                                                        author="Mark22" title="Feet and Cotion"
