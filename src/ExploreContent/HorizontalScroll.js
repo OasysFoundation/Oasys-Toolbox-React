@@ -21,16 +21,21 @@ const styles={
         height: "100%",
         outline: "none",
         padding: 0,
+        zIndex:-1
     },
     faderRight:{
         width: "5rem",
         backgroundImage: "linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgb(248, 248, 244) 100%)",
         height: "100%",
+        zIndex:-1
+
     },
     faderLeft:{
         width: "5rem",
         backgroundImage: "linear-gradient(to left, rgba(255, 255, 255, 0) 0%, rgb(248, 248, 244) 100%)",
         height: "100%",
+        zIndex:-1
+
     }
 }
 
@@ -337,10 +342,10 @@ class HorizontalScroll extends Component {
                         </button>
                     </div>
                     <div className="fade_Left">
-                        <button style={styles.fadeButton}>
+                        <div style={styles.fadeButton}>
                             <div style={styles.faderLeft}>
                             </div>
-                        </button>
+                        </div>
                     </div>
                     <button ref={this.pnAdvancerLeft} id="pnAdvancerLeft" className="pn-Advancer pn-Advancer_Left" type="button">
                         <svg className="pn-Advancer_Icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 551 1024"><path d="M445.44 38.183L-2.53 512l447.97 473.817 85.857-81.173-409.6-433.23v81.172l409.6-433.23L445.44 38.18z"/></svg>

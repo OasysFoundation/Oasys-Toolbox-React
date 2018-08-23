@@ -129,10 +129,13 @@
 
 .horizontal-scroll .pn-Advancer_Left {
   left: 0;
+  padding-right: 4rem;
+  z-index: -1;
 }
 
 .horizontal-scroll [data-overflowing="both"] ~ .pn-Advancer_Left, [data-overflowing="left"] ~ .pn-Advancer_Left {
   opacity: 1;
+  z-index: 20;
 }
 
 .horizontal-scroll .fade_Left{
@@ -142,10 +145,13 @@
   left:0;
   display:block; 
   height:100%;
+  z-index: -2;
 }
 
 .horizontal-scroll [data-overflowing="both"] ~ .fade_Left, [data-overflowing="left"] ~ .fade_Left {
   opacity: 1;
+  z-index: 10;
+
 }
 
 .horizontal-scroll .fade_Right{
@@ -155,18 +161,26 @@
   right:0;
   display:block; 
   height:100%;
+  z-index: -2;
+
 }
 
 .horizontal-scroll [data-overflowing="both"] ~ .fade_Right, [data-overflowing="right"] ~ .fade_Right {
   opacity: 1;
+  z-index: 10;
 }
 
 .horizontal-scroll .pn-Advancer_Right {
   right: 0;
+  padding-left: 4rem;
+  z-index: -1;
+
+
 }
 
 .horizontal-scroll [data-overflowing="both"] ~ .pn-Advancer_Right, [data-overflowing="right"] ~ .pn-Advancer_Right {
   opacity: 1;
+  z-index: 20;
 }
 
 .horizontal-scroll .pn-Advancer_Icon {

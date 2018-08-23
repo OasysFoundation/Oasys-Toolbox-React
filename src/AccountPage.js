@@ -32,8 +32,7 @@ class AccountPage extends Component {
             }],
             pageData: [],
             previousState: '',
-            loggedIn: !!props.user.uid,
-            readyToLoad:false,
+            noContent:false,
         };
 
         this.loadAccountPage = this.loadAccountPage.bind(this);
@@ -48,7 +47,7 @@ class AccountPage extends Component {
                     this.setState({
                         content: json || "errorLoadingContent"
                     })
-                    if(json)
+                    if(json && json.length)
                         this.setState({
                             pageData: [
                                 {
@@ -64,48 +63,46 @@ class AccountPage extends Component {
                             ],
                         })
                     else{
-                        const username = auth.doGetCurrentUser()?auth.doGetUsername():"test"
+                        this.setState({noContent:true})
+                        // const username = auth.doGetCurrentUser()?auth.doGetUsername():"test"
+                        // const samplePublication = [{
+                        //     title: "This is where your published content will show",
+                        //     userId: username,
+                        //     contentId: "test",
+                        //     rating: "5",
+                        // }]
 
-                        const samplePublication = [{
-                            title: "This is where your published content will show",
-                            userId: username,
-                            contentId: "test",
-                            rating: "5",
-                        }]
-
-                        const sampleDraft = [{
-                            title: "This is where your saved drafts will show",
-                            userId: username,
-                            contentId: "test",
-                            rating: "5",
-                        }]
-                        this.setState({
-                            pageData: [
-                                {
-                                    title: "My Publications",
-                                    data: samplePublication,
-                                    icon: "trophy",
-                                },
-                                {
-                                    title: "My Drafts",
-                                    data: sampleDraft,
-                                    icon: "code",
-                                },
-                            ],
-                        })
+                        // const sampleDraft = [{
+                        //     title: "This is where your saved drafts will show",
+                        //     userId: username,
+                        //     contentId: "test",
+                        //     rating: "5",
+                        // }]
+                        // this.setState({
+                        //     pageData: [
+                        //         {
+                        //             title: "My Publications",
+                        //         },
+                        //         {
+                        //             title: "My Drafts",
+                        //         },
+                        //     ],
+                        // })
                     }
 
-                    // this.setState({loggedIn: true,readyToLoad:true})
                 })
 
                 .catch(err => {
-                    console.log('error')
-                    this.state={loggedIn: false, readyToLoad:true}
+                    console.log(err)
                 })
         }
         catch (e){
-            this.state=({loggedIn: false, readyToLoad:true})
+            console.log(e)
         }
+    }
+
+    openCreate() {
+        window.location.href = "/create"
     }
 
     checkMobile() {
@@ -116,21 +113,53 @@ class AccountPage extends Component {
         return check;
     }
 
+    loadDefaultPage(){
+        return(
+        <section className="bg-light rz-start rz-no-border-special-2" id="about" style={{paddingTop:"100px"}}>
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-10 mx-auto">
+                <h2 className="section-heading">
+                {"Welcome " + this.props.user.displayName}
+                </h2>
+                <hr />
+                <p className="text-faded lead mb-4" style={{fontSize: '1.3rem'}}>                                 
+                    We are excited to have you in the Oasys Community! 
+                </p>
+                <p className="text-faded lead mb-4" style={{fontSize: '1.3rem'}}>                                 
+                    Before you begin, learn <a href="/about">about Oasys</a> and how you could <a href="/">earn money</a> for the content you create.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
+                <Button size="lg" style={{margin: '1rem'}} color="primary" onClick={() => auth.doSignOut()}>Logout</Button>
+                <Button size="lg" style={{margin: '1rem'}} color="primary" onClick={() => window.location.href="/create"}> Create</Button>
+                <Button size="lg" style={{margin: '1rem'}} color="primary" onClick={() => window.location.href="/explore"}> Explore </Button>
+
+          </div>
+        </section>
+        )
+    }
+
     loadAccountPage(){
         return(
             <div>
                 {this.checkMobile()
                     ? (
-                        <div>
+                        <div style={{marginTop:"100px"}}>
                             <section style={styles.HorizontalScrollOuterCenterContainer}>
                                 <div style={styles.HorizontalScrollContainer}>
                                     <br/>
                                     <ScrollableAnchor id={'searchResults'}>
                                         <div>
-                                            {this.state.pageData.map(dataObj =>
-                                                <HorizontalScroll key={dataObj.title} title={dataObj.title}
+                                            {this.state.pageData.length
+                                                ? this.state.pageData.map(dataObj =>
+                                                    <HorizontalScroll key={dataObj.title} title={dataObj.title}
                                                                   data={dataObj.data} id={dataObj.id} type="mobile"/>
-                                            )}
+                                                    )
+                                                : null
+                                            }
                                         </div>
                                     </ScrollableAnchor>
                                 </div>
@@ -156,6 +185,10 @@ class AccountPage extends Component {
                         </div>
                     )
                 }
+                <div style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
+                    <Button size="lg" style={{margin: '3rem'}} color="primary" onClick={() => auth.doSignOut()}>{`LogOut ${this.props.user.displayName}`}</Button>
+                    <Button size="lg" color="primary" onClick={this.openCreate}> Create your own content!</Button>
+                </div>
             </div>
         )
     }
@@ -166,13 +199,10 @@ class AccountPage extends Component {
             <div>
 
                 {
-                    this.state.readyToLoad 
-                        ? this.state.loggedIn
-                            ? this.loadAccountPage()
-                            : history.push('/auth')
-                        : null
+                    this.state.noContent
+                     ? this.loadDefaultPage()
+                     : this.loadAccountPage()
                 }
-                <Button style={{marginTop: '6rem'}} color="primary" onClick={() => auth.doSignOut()}>{`LogOut ${this.props.user.displayName}`}</Button>
             </div>
         )
     }

@@ -60,14 +60,17 @@ class Index extends Component {
             if (user) {
                 console.log('user here: ', user);
                 const {displayName, uid} = user;
-                store.setState({
-                    user:
-                        {
-                            displayName,
-                            uid,
-                            idToken: auth.currentUser.getIdToken(true).i
-                        }
-                })
+                const idToken =  auth.currentUser.getIdToken(true).then(function(idToken) {
+                    store.setState({
+                        user:
+                            {
+                                displayName,
+                                uid,
+                                idToken,
+                            }
+                    })
+                });
+                
                 // User is signed in.
             }
             else {
