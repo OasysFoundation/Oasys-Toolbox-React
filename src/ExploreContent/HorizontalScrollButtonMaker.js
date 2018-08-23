@@ -8,7 +8,7 @@ import colors from '../utils/colors';
 const styles= {
 	cardStyle:{ 
 		width:"170px", 
-		height:"150px", 
+		height:"220px", 
 		backgroundColor: colors.SNOW2, 
 		borderColor:"#F6F1DE", 
 		color: "#F6F1DE", 
@@ -20,7 +20,7 @@ const styles= {
 	},
 	homeCardBody:{
 		width:"100%", 
-		height:"80%", 
+		height:"40%", 
 		display:"flex", 
 		overflow:"hidden",
 		padding: "1.0rem",
@@ -104,6 +104,7 @@ const styles= {
 	ratingCount: {
 		color: colors.RUST, 
 		marginLeft: '0px',
+		fontSize: '12px',
 	}
 }
 
@@ -142,23 +143,24 @@ class HorizontalScrollButtonMaker extends Component{
 
 	componentDidMount(){
 		if (this.refStars.current===null) { return; }
-		const radius = 40;
+		const radius = 67;
 
 		let text = this.starStr.split("");
 		let elem = this.refStars.current;
-		
-		let deg = 180 / text.length;
-		let origin = 275; 
+
+		let pathLenDegree = 160;
+		let deg = pathLenDegree / text.length;
+		let origin = 280; 
 
 		text.forEach((ea) => {
-			ea = `<span style='color: ${colors.SUMMERSUN};text-shadow: 0px 0px 1px ${colors.RUST};height:${radius}px;position:absolute;transform:rotate(${origin}deg);transform-origin:0 100%'>${ea}</span>`;
+			ea = `<span style='font-size:25px;color: ${colors.SUMMERSUN};text-shadow: 0px 0px 1px ${colors.RUST};height:${radius}px;position:absolute;transform:rotate(${origin}deg);transform-origin:0 100%'>${ea}</span>`;
 			elem.innerHTML += ea;
 			origin += deg;
 		});
 	}
 
 	render(){
-		
+		let playCount = 666;
 		// for type == tiles
 		let hashLink, aTag = "";
 
@@ -188,7 +190,7 @@ class HorizontalScrollButtonMaker extends Component{
 					else
 						this.starStr += whiteStar 
 				}
-				starCount = " (12)"
+				starCount = "12"
 			}
 
 		}
@@ -266,21 +268,24 @@ class HorizontalScrollButtonMaker extends Component{
 	                </Modal>
 			        </CardBody>
 			        <CardBody>
-			        	<center>
-			        	<img src={require('../assets/category-icons/005-atom.svg')} width='50px' height='50px'/>
-			        	</center>
+			        <div style={{position: 'absolute',top:'115px',left:'50px'}}>
+			        	<img src={require('../assets/category-icons/005-atom.svg')} width='70px' height='70px'/>
+		        	</div>
+		        	<div style={{textAlign: 'center', marginTop: '-65px'}}>
+					  <div ref={this.refStars} style={{display: 'inline-block', marginBottom: '10px', color: '#ff0000'}}></div>
+					</div>
+			        <a href={userLink} style={styles.cardImageOuterLink}>
+				        <CardText style={styles.cardRatingsOuterDiv}>
+				          {/*<span style={styles.rating}>{this.starStr}</span>*/}
+				         </CardText>
+			        </a>
+			        <div style={{position: 'absolute', bottom: '5px', left: '10px'}}>
+		            	<span style={styles.ratingCount}>{starCount} ratings</span>
+			        </div>
+			        <div style={{position: 'absolute', bottom: '5px', right: '10px'}}>
+		            	<span style={styles.ratingCount}>{playCount} learners</span>
+			        </div>
 			        </CardBody>
-				        <CardBody>
-			        	<div style={{textAlign: 'center', marginTop: '-50px'}}>
-						  <div ref={this.refStars} style={{display: 'inline-block', marginBottom: '10px', color: '#ff0000'}}></div>
-						</div>
-				        <a href={userLink} style={styles.cardImageOuterLink}>
-					        <CardText style={styles.cardRatingsOuterDiv}>
-					          {/*<span style={styles.rating}>{this.starStr}</span>*/}
-					          <span style={styles.ratingCount}>{starCount}</span>
-					         </CardText>
-				        </a>
-				        </CardBody>
 			      </Card>
 			    </div>
             )
