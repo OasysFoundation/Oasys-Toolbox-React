@@ -269,7 +269,11 @@ class HorizontalScrollButtonMaker extends Component{
 			        </CardBody>
 			        <CardBody>
 			        <div style={{position: 'absolute',top:'115px',left:'50px'}}>
-			        	<img src={require('../assets/category-icons/005-atom.svg')} width='70px' height='70px'/>
+			        	{this.props.data.iconName? 
+			        		<img src={require('../assets/category-icons/' + this.props.data.iconName)} width='70px' height='70px'/>
+			        	:
+			        		<img src={require('../assets/category-icons/005-atom.svg')} width='70px' height='70px'/>}
+			        	}
 		        	</div>
 		        	<div style={{textAlign: 'center', marginTop: '-65px'}}>
 					  <div ref={this.refStars} style={{display: 'inline-block', marginBottom: '10px', color: '#ff0000'}}></div>
