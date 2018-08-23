@@ -110,7 +110,7 @@ class QuizzEditModal extends Component {
             const that = this;
             this.createNewChapter().then(function(newChapter) {
                 const newChapterIndex = that.chapterIndexForIdentifier(newChapter.id);
-                that.onSelectAction(identifier, newChapterIndex);
+                that.onSelectAction(newChapter.id, newChapterIndex);
             });
             return;
         }

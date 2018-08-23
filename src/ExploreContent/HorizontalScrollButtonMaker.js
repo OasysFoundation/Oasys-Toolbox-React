@@ -160,8 +160,8 @@ class HorizontalScrollButtonMaker extends Component{
 
 		let pathLenDegree = 160;
 		let deg = pathLenDegree / text.length;
-		let origin = 280;
 
+		let origin = 283;
 		text.forEach((ea) => {
 			ea = `<span style='font-size:25px;color: ${colors.SUMMERSUN};text-shadow: 0px 0px 1px ${colors.RUST};height:${radius}px;position:absolute;transform:rotate(${origin}deg);transform-origin:0 100%'>${ea}</span>`;
 			elem.innerHTML += ea;
@@ -200,7 +200,7 @@ class HorizontalScrollButtonMaker extends Component{
 					else
 						this.starStr += whiteStar
 				}
-				starCount = "11"
+				starCount = "11";
 			}
 
 		}
@@ -284,11 +284,11 @@ class HorizontalScrollButtonMaker extends Component{
 			        </CardBody>
 			        <CardBody>
 			        <a href={userLink}>
-				        <div style={{position: 'absolute',top:'115px',left:'50px'}}>
+				        <div style={{position: 'absolute',top:'116px',left:'49px'}}>
 				        	{this.props.data.iconName? 
 				        		<img src={require('../assets/category-icons/' + this.props.data.iconName)} width='70px' height='70px'/>
 				        	:
-				        		<img src={require('../assets/category-icons/005-atom.svg')} width='70px' height='70px'/>}
+				        		<img src={require('../assets/category-icons/005-atom.svg')} width='70px' height='70px'/>
 				        	}
 			        	</div>
 			        	<div style={{textAlign: 'center', marginTop: '-65px'}}>
@@ -297,16 +297,17 @@ class HorizontalScrollButtonMaker extends Component{
 				        <CardText style={styles.cardRatingsOuterDiv}>
 				          {/*<span style={styles.rating}>{this.starStr}</span>*/}
 				         </CardText>
+
 				        <div style={{position: 'absolute', bottom: '5px', left: '10px'}}>
 			            	<span style={styles.ratingCount}>
+			            		<i class="fas fa-star" style={{marginRight: '5px'}}></i>
 			            		{starCount}
-			            		<i class="fas fa-star" style={{marginLeft: '5px'}}></i>
 			            	</span>
 				        </div>
 				        <div style={{position: 'absolute', bottom: '5px', right: '10px'}}>
 			            	<span style={styles.ratingCount}>
 			            		{playCount} 
-			            		<i class="fas fa-user-graduate" style={{marginLeft: '5px'}} alt="views"></i>
+			            		<i class="fas fa-user-graduate" style={{marginLeft: '5px'}}></i>
 			            	</span>
 				        </div>
 				    </a>
