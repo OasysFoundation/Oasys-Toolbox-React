@@ -171,7 +171,7 @@ class Element extends Component {
 
     render() {
         const {id, type} = this.props.data;
-
+        console.log(this.props.isPreview)
         return (
             <center>
                 <div className='main-width'>
