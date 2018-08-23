@@ -79,6 +79,10 @@ const actions = function (store) { //store for async stuff
             return update(state, {user: {$set: user}})
         },
 
+        onChangeIconName(state, value) {
+            return update(state, {iconName: {$set: value}})
+        },
+
         onChangeProjectTitle(state, value) {
             return update(state, {title: {$set: value}})
         },

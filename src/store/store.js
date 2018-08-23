@@ -10,6 +10,7 @@ const data = {
         idToken: null
     },
     title: "Physics101",
+    iconName: "001-cells.svg",
     id: 'project_1245',
     isEditMode: true,
     description: 'LASDIADALAIDA',
