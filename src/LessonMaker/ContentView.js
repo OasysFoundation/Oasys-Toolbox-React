@@ -207,32 +207,13 @@ class ContentView extends Component {
 
     render() {
         const {allElementsinProject} = this;
+        console.log(this.props.isPreview)
         return (
             <ScrollView ref={scroller => this._scroller = scroller}>
                 <div className={this.props.isPreview ? null : "app-body"}>
                     <main className={this.props.isPreview ? null : "main"}>
                         <Container fluid className='main-width'>
                             <React.Fragment>
-                                {allElementsinProject.map(el => (
-                                    (el.fromChapter === this.state.activeChapterID)
-                                    ?
-                                    <ScrollElement key={el.id} name={el.id}>
-                                        <div className="item">
-                                            {!isElementEmpty(el)
-                                            &&
-                                            <Element 
-                                                data={el} 
-                                                id={el.id}
-                                                isEditMode={false}
-                                                onLearnerInteraction={this.goToChapter}
-                                                onChangeVisibility={this.handleChangeElementVisibility}
-                                            />
-                                            }
-                                        </div>
-                                    </ScrollElement>
-                                    : null
-                                    ))
-                                }
                                 {this.state.showsContentCompletion? 
                                     <ConcludingContentPage url="https://joinoasys.org"
                                                        author="Mark22" title="Feet and Cotion"
@@ -240,20 +221,25 @@ class ContentView extends Component {
                                     :
                                     <div>
                                     {allElementsinProject.map(el => (
+                                        (el.fromChapter === this.state.activeChapterID)
+                                        ?
                                         <ScrollElement key={el.id} name={el.id}>
-                                            <div className="item" hidden={el.fromChapter !== this.state.activeChapterID}>
+                                            <div className="item">
                                                 {!isElementEmpty(el)
                                                 &&
                                                 <Element 
                                                     data={el} 
                                                     id={el.id}
+                                                    isPreview={this.props.isPreview}
                                                     isEditMode={false}
                                                     onLearnerInteraction={this.goToChapter}
                                                     onChangeVisibility={this.handleChangeElementVisibility}
                                                 />
                                                 }
                                             </div>
-                                        </ScrollElement>))
+                                        </ScrollElement>
+                                        : null
+                                        ))
                                     }
                                     </div>    
                                 } 
