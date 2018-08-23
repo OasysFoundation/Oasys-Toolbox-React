@@ -132,6 +132,10 @@ html, body {
     z-index: 2999;
 }
 
+.oasys.app {
+    background-color: #f0f3f5;
+}
+
 .oasys .main {
     background: #f0f3f5;
     display: flex;
@@ -250,7 +254,8 @@ html, body {
 
 
 html:not([dir="rtl"]) .main {
-  margin-left: 30px; 
+  margin-left: 30px;
+  margin-right: 30px; 
 }
 /* ------------------ sidebar ----------------- */
 
