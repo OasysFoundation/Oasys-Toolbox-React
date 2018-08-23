@@ -92,22 +92,21 @@ class NextChapterSelection extends Component {
             const that = this;
             this.createNewChapter().then(function(newChapter) {
                 const newChapterIndex = that.chapterIndexForIdentifier(newChapter.id);
-                that.onSelectAction(identifier, newChapterIndex);
-                that.props.onAddChapter(identifier, that.chapterTitleForIdentifier(identifier));
+                that.onSelectAction(newChapter.id, newChapterIndex);
+                that.props.onAddChapter(newChapter.id, that.chapterTitleForIdentifier(newChapter.id));
             });
             return;
         }
 
 
         const newAction = this.getAllChapters()[chapterIndex].id;
-        console.log(newAction)
         this.props.onChange({
             action: newAction
         }, true, true);
     }
 
     onContinue() {
-
+        
     }
     
 
