@@ -26,11 +26,13 @@ class AccountPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            content: [],
+            contentUser: [],
+            contentReccommended: [],
             filteredContent: [{
                 title: "Loading"
             }],
-            pageData: [],
+            pageDataReccommended: [],
+            pageDataUser: [],
             previousState: '',
             noContent:false,
         };
@@ -41,57 +43,30 @@ class AccountPage extends Component {
     }
 
     componentDidMount() {
+        //User Contents
         try {
-            api.getUserContentsPreview(/*api.js knows userID from store, if logged in*/)
+            api.getUserContentsPreview()
                 .then(json => {
                     this.setState({
-                        content: json || "errorLoadingContent"
+                        contentUser: json || "errorLoadingContent"
                     })
                     if(json && json.length)
                         this.setState({
-                            pageData: [
+                            pageDataUser: [
                                 {
                                     title: "My Publications",
-                                    data: this.state.content.filter(content => content.published === 1),
-                                    icon: "trophy",
+                                    data: this.state.contentUser.filter(content => content.published === 1),
                                 },
                                 {
                                     title: "My Drafts",
-                                    data: this.state.content.filter(content => content.published !== 1),
-                                    icon: "code",
+                                    data: this.state.contentUser.filter(content => content.published !== 1),
                                 },
                             ],
                         })
                     else{
                         this.setState({noContent:true})
-                        // const username = auth.doGetCurrentUser()?auth.doGetUsername():"test"
-                        // const samplePublication = [{
-                        //     title: "This is where your published content will show",
-                        //     userId: username,
-                        //     contentId: "test",
-                        //     rating: "5",
-                        // }]
-
-                        // const sampleDraft = [{
-                        //     title: "This is where your saved drafts will show",
-                        //     userId: username,
-                        //     contentId: "test",
-                        //     rating: "5",
-                        // }]
-                        // this.setState({
-                        //     pageData: [
-                        //         {
-                        //             title: "My Publications",
-                        //         },
-                        //         {
-                        //             title: "My Drafts",
-                        //         },
-                        //     ],
-                        // })
                     }
-
                 })
-
                 .catch(err => {
                     console.log(err)
                 })
@@ -99,10 +74,37 @@ class AccountPage extends Component {
         catch (e){
             console.log(e)
         }
-    }
 
-    openCreate() {
-        window.location.href = "/create"
+        //Recommendations
+        try {
+            api.getContentsPreview()
+                .then(json => {
+                    console.log('getcontents', json)
+                    if (json && json.length) {
+                        this.setState({
+                                contentReccommended: json || "errorLoadingContent"
+                            },
+                            () => this.setState({
+                                    filteredContent: json,
+                                },
+                                () => this.setState({
+                                    pageDataReccommended: [
+                                        {
+                                            title: "Reccommended for you",
+                                            data: this.state.filteredContent,
+                                        },
+                                    ]
+                                }))
+                        )
+                    }
+                    else
+                        console.log("Mhh there is something strange going on. Email us at info@joinoasys.org if this continues!")
+                })
+        }
+        catch (error) {
+            console.log("Mhh there is something strange going on. Email us at info@joinoasys.org if this continues!")
+            console.log(error)
+        }
     }
 
     checkMobile() {
@@ -141,6 +143,50 @@ class AccountPage extends Component {
         </section>
         )
     }
+    loadReccommended(){
+        return(
+        < div >
+        {this.checkMobile()
+            ? (
+                <div className = "landingPage" >
+                    <section style = {styles.HorizontalScrollOuterCenterContainer}>
+                        <div style = {styles.HorizontalScrollContainer}>
+                            <br/>
+                            < ScrollableAnchor id = {'searchResults'} >
+                                < div >
+                                    {this.state.pageDataReccommended.map(dataObj =>
+                                        < HorizontalScroll key = {dataObj.title} title = {dataObj.title} data = {dataObj.data} type = "mobile" / >
+                                        )
+                                    }
+                                </div>
+                            < /ScrollableAnchor>
+                        < /div>
+                    < /section>
+                < /div>
+            )
+            : (
+                <div className = "landingPage" >
+                    <section style = {styles.HorizontalScrollOuterCenterContainer}>
+                        <div style = {styles.HorizontalScrollContainer}>
+                            <br/ >
+                            <ScrollableAnchor id = {'searchResults'} >
+                                <div >
+                                    {
+                                        this.state.pageDataReccommended.map(dataObj =>
+                                            < HorizontalScroll title = {dataObj.title} data = {dataObj.data} icon = {dataObj.icon}/>
+                                        )
+                                    }
+                                </div>
+                            < /ScrollableAnchor>
+
+                        < /div>
+                    < /section>
+                < /div>
+            )       
+        }
+    </div>
+    )
+    }
 
     loadAccountPage(){
         return(
@@ -153,8 +199,8 @@ class AccountPage extends Component {
                                     <br/>
                                     <ScrollableAnchor id={'searchResults'}>
                                         <div>
-                                            {this.state.pageData.length
-                                                ? this.state.pageData.map(dataObj =>
+                                            {this.state.pageDataUser.length
+                                                ? this.state.pageDataUser.map(dataObj =>
                                                     <HorizontalScroll key={dataObj.title} title={dataObj.title}
                                                                   data={dataObj.data} id={dataObj.id} type="mobile"/>
                                                     )
@@ -173,7 +219,7 @@ class AccountPage extends Component {
                                     <br/>
                                     <ScrollableAnchor id={'searchResults'}>
                                         <div>
-                                            {this.state.pageData.map(dataObj =>
+                                            {this.state.pageDataUser.map(dataObj =>
                                                 <HorizontalScroll key={dataObj.title} title={dataObj.title}
                                                                   data={dataObj.data} id={dataObj.id}
                                                                   icon={dataObj.icon}/>
@@ -197,12 +243,33 @@ class AccountPage extends Component {
         this.props.user.uid || history.push('/auth')
         return (
             <div>
+                <section className="bg-light rz-start rz-no-border-special-2" id="about" style={{paddingTop:"100px"}}>
+                  <div className="container">
+                    <div className="row">
+                      <div className="col-lg-10 mx-auto">
+                        <h2 className="section-heading">
+                        {"Welcome " + this.props.user.displayName}
+                        <Button size="sm" style={{margin: '1rem', backgroundColor:"#A2ABB8"}} color="black" onClick={() => auth.doSignOut()}>Logout</Button>
 
-                {
-                    this.state.noContent
-                     ? this.loadDefaultPage()
+                        </h2>
+                        <hr />
+
+                        <p className="text-faded lead mb-4" style={{fontSize: '1.3rem'}}>                                 
+                          We are excited to have you in the Oasys Community! Feel free to learn more <a href="/about">about Oasys</a> and how you could <a href="/">earn money</a> for the content you create.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  {this.loadReccommended()}
+                  { this.state.noContent
+                     ? null
                      : this.loadAccountPage()
-                }
+                  }
+                  <div style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
+                         <Button size="lg" style={{margin: '1rem'}} color="primary" onClick={() => window.location.href="/create"}> Create Content</Button>
+                        <Button size="lg" style={{margin: '1rem'}} color="primary" onClick={() => window.location.href="/explore"}> Home </Button>
+                  </div>
+                </section>
             </div>
         )
     }
