@@ -148,7 +148,7 @@ class ContentView extends Component {
         this.setState({
             lastTime:t2
         })
-        return tobj
+        return tobj;
     }
 
     postInteractionData(timeObj) {
