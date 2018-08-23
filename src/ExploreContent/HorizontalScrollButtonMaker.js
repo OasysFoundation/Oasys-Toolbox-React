@@ -200,7 +200,7 @@ class HorizontalScrollButtonMaker extends Component{
 					else
 						this.starStr += whiteStar
 				}
-				starCount = "12"
+				starCount = "11"
 			}
 
 		}
@@ -226,7 +226,8 @@ class HorizontalScrollButtonMaker extends Component{
 			          {/*<div style={{position: 'absolute', top: '20px', left: '40px'}}>
 				          <i className="fas fa-7x fa-flask" style={{color: hexToRgba(colors.VELVET, 0.1)}}></i>
 			          </div> */}
-			          <div style={styles.titleAndSubtitle}>
+			        	<a href={userLink} style={{width:"120px"}}>
+				          <div style={styles.titleAndSubtitle}>
 					          <CardTitle style={styles.cardTitle}>
 					          	<div style={{"cursor": "pointer"}} onClick={() => {
 					          		store.setState(this.props.data);
@@ -241,14 +242,15 @@ class HorizontalScrollButtonMaker extends Component{
 					          </CardTitle>
 					          <CardSubtitle>
 					          <a href={returnUrl} style={styles.cardSubtitle}>
-					          <div>
+					          	<div>
 					          	  <Truncate lines={1} >
 					          	 	by {this.props.data.userId}
 					              </Truncate>
-					              </div>
+					            </div>
 					          </a>
 					          </CardSubtitle>
-				      </div>
+					      </div>
+					    </a>
 			          <div style={styles.verticalEllipsesOuterDiv} className="bruh">
 			          	<a onClick={this.toggleSmall.bind(this,this.props.data)} className="noTextDecoration"><FontAwesomeIcon icon="ellipsis-v" style={styles.ellipsisIcon}/></a>
 			          </div>
@@ -281,27 +283,33 @@ class HorizontalScrollButtonMaker extends Component{
 	                </Modal>
 			        </CardBody>
 			        <CardBody>
-			        <div style={{position: 'absolute',top:'115px',left:'50px'}}>
-			        	{this.props.data.iconName?
-			        		<img src={require('../assets/category-icons/' + this.props.data.iconName)} width='70px' height='70px'/>
-			        	:
-			        		<img src={require('../assets/category-icons/005-atom.svg')} width='70px' height='70px'/>}
-			        	}
-		        	</div>
-		        	<div style={{textAlign: 'center', marginTop: '-65px'}}>
-					  <div ref={this.refStars} style={{display: 'inline-block', marginBottom: '10px', color: '#ff0000'}}></div>
-					</div>
-			        <a href={userLink} style={styles.cardImageOuterLink}>
+			        <a href={userLink}>
+				        <div style={{position: 'absolute',top:'115px',left:'50px'}}>
+				        	{this.props.data.iconName? 
+				        		<img src={require('../assets/category-icons/' + this.props.data.iconName)} width='70px' height='70px'/>
+				        	:
+				        		<img src={require('../assets/category-icons/005-atom.svg')} width='70px' height='70px'/>}
+				        	}
+			        	</div>
+			        	<div style={{textAlign: 'center', marginTop: '-65px'}}>
+						  <div ref={this.refStars} style={{display: 'inline-block', marginBottom: '10px', color: '#ff0000'}}></div>
+						</div>
 				        <CardText style={styles.cardRatingsOuterDiv}>
 				          {/*<span style={styles.rating}>{this.starStr}</span>*/}
 				         </CardText>
-			        </a>
-			        <div style={{position: 'absolute', bottom: '5px', left: '10px'}}>
-		            	<span style={styles.ratingCount}>{starCount} ratings</span>
-			        </div>
-			        <div style={{position: 'absolute', bottom: '5px', right: '10px'}}>
-		            	<span style={styles.ratingCount}>{playCount} learners</span>
-			        </div>
+				        <div style={{position: 'absolute', bottom: '5px', left: '10px'}}>
+			            	<span style={styles.ratingCount}>
+			            		{starCount}
+			            		<i class="fas fa-star" style={{marginLeft: '5px'}}></i>
+			            	</span>
+				        </div>
+				        <div style={{position: 'absolute', bottom: '5px', right: '10px'}}>
+			            	<span style={styles.ratingCount}>
+			            		{playCount} 
+			            		<i class="fas fa-user-graduate" style={{marginLeft: '5px'}} alt="views"></i>
+			            	</span>
+				        </div>
+				    </a>
 			        </CardBody>
 			      </Card>
 			    </div>
