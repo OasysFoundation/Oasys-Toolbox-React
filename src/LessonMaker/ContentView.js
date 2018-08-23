@@ -15,35 +15,13 @@ class ContentView extends Component {
     constructor(props) {
         super(props)
 
-        // console.log(this.props.match.params.contentId, "contentId");
-        //
-        // // let project;
-        // // api.getContentById(this.props.match.params.contentId)
-        // //     .then(content => {
-        // //         console.log(content, 'content fetched')
-        // //     })
-        // //     .catch(err => console.log('error at getcontentbyid', err))
-
-
-
-        this.chapters = JSON.parse(JSON.stringify(this.props.chapters));
-        //inject fromChapter prop to all elements;
-        this.chapters
-            .forEach(chapter => chapter.elements
-            //yes, I am mutating the element object, but it's not by reference!
-                .forEach(el => el.fromChapter = chapter.id));
-
-        //make an array with all the elements flat ==> so they can be scrolled scrollable
-        this.allElementsinProject = flatten(this.chapters.map(chapter => chapter.elements));
-
         this.state = {
-            //decides what elements are not HIDDEN in the SCROLLVIEW
-            activeChapterID: this.chapters[0].id,
-            activeChapterIndex: 0
+            chapters: null,
+            allElementsinProject: null,
         }
-        // this.chaptersSeenIDs = [this.state.activeChapterID];
 
         this.goToChapter = this.goToChapter.bind(this);
+        this.produceState = this.produceState.bind(this);
         this.foldElement = this.foldElement.bind(this);
         this.handleChangeElementVisibility = this.handleChangeElementVisibility.bind(this);
 
@@ -54,6 +32,39 @@ class ContentView extends Component {
             endTime: null,
             quizzes: [],
         };
+    }
+
+    componentDidMount() {
+        const that = this;
+        if (this.props.isPreview) {
+            try {
+                this.setState(() => that.produceState(that.props.chapters))
+            }
+            catch (error) {
+                console.log(error, ' error at props chapter @ Contentview')
+            }
+        }
+
+        else {
+            const contentId = this.props.match.params.contentId;
+            api.getContentById(contentId)
+                .then(project => {
+                    that.setState(() => that.produceState(project))
+                })
+                .catch(err => console.log('error at getcontentbyid', err))
+        }
+    }
+
+    produceState(chapterData) {
+        console.log(chapterData, 'chapterData')
+        const chapters = JSON.parse(JSON.stringify(chapterData))
+        const allElements = flatten(chapters.map(chapter => chapter.elements));
+        return {
+            chapters: chapters,
+            allElementsinProject: allElements,
+            activeChapterID: chapters[0].id,
+            activeChapterIndex: 0
+        }
     }
 
     foldElement(elemID) {
@@ -70,26 +81,28 @@ class ContentView extends Component {
         this._scroller.scrollTo(name);
     }
     goToNextChapter = () => {
+        const {chapters} = this.state;
+
         const idx = this.state.activeChapterIndex;
         //is there more chapters?
-        const nextIdx = (idx + 1) >= this.chapters.length ? idx : (idx + 1);
-        const nextID = this.chapters[nextIdx].id;
+        const nextIdx = (idx + 1) >= chapters.length ? idx : (idx + 1);
+        const nextID = chapters[nextIdx].id;
 
         // this.chaptersSeenIDs.push(nextID);
 
         this.setState({
             activeChapterIndex: nextIdx,
             activeChapterID: nextID
-        }, () => this.scrollTo(this.chapters[nextIdx].elements[0].id, {bottom: '5vh'}));
+        }, () => this.scrollTo(chapters[nextIdx].elements[0].id, {bottom: '5vh'}));
         //this.props.o
     }
 
     isLastChapter() {
-        return (this.state.activeChapterIndex == this.chapters.length-1);
+        return (this.state.activeChapterIndex == this.state.chapters.length - 1);
     }
 
     goToElementinChapter(nextElementIndex) {
-        const nextElementID = this.chapters[this.state.activeChapterIndex].elements[nextElementIndex].id
+        const nextElementID = this.state.chapters[this.state.activeChapterIndex].elements[nextElementIndex].id
         this.scrollTo(nextElementID)
 
     }
@@ -100,7 +113,7 @@ class ContentView extends Component {
         if (isEmpty(sendToChapterID)) {
             console.log('NULL ? quiz didnt give chapterID -> default next chapter');
             //scroll to next element or (if end of chapter, next elements chapter)
-            const currentChapter = this.chapters[this.state.activeChapterIndex]
+            const currentChapter = this.state.chapters[this.state.activeChapterIndex]
             const interactionElementIndex = currentChapter.elements.findIndex(el => el.id === interactionElementID);
             const isLastElement = currentChapter.elements.length - 1 <= interactionElementIndex
 
@@ -109,12 +122,12 @@ class ContentView extends Component {
             return
         }
         // this.chaptersSeenIDs.push(sendToChapterID);
-        const chapterIndex = this.chapters.findIndex(chapter => chapter.id === sendToChapterID);
+        const chapterIndex = this.state.chapters.findIndex(chapter => chapter.id === sendToChapterID);
         this.setState({
             activeChapterIndex: chapterIndex,
             activeChapterID: sendToChapterID
         }, () => {
-            this.scrollTo(this.chapters[chapterIndex].elements[0].id);
+            this.scrollTo(this.state.chapters[chapterIndex].elements[0].id);
 
             //highlight the active chapter in TOC while previewing
             //TODO not really working here...
@@ -130,7 +143,7 @@ class ContentView extends Component {
         var newArr = [...this.state.timing, newelement]
 
         this.setState({
-          timing: newArr
+            timing: newArr
         })
 
         let tobj = {
@@ -139,7 +152,7 @@ class ContentView extends Component {
             lastTime: t2
         }
         this.setState({
-            lastTime:t2
+            lastTime: t2
         })
         return tobj
     }
@@ -164,8 +177,8 @@ class ContentView extends Component {
             "contentId": this.state.content.contentId,
             "accessUserId": this.props.authUser.displayName,
             "contentUserId": this.state.content.userId,
-            "quizzes" : quizObj.quizzes,
-            "type" : "quizUpdate"
+            "quizzes": quizObj.quizzes,
+            "type": "quizUpdate"
         }
         //API.postUserContentAccess(data);
     }
@@ -199,7 +212,14 @@ class ContentView extends Component {
     }
 
     render() {
-        const {allElementsinProject} = this;
+
+        const that = this;
+        const {allElementsinProject} = this.state;
+
+        if (!allElementsinProject) {
+            return <div>...Loading Content</div>
+        }
+
         return (
             <ScrollView ref={scroller => this._scroller = scroller}>
                 <div className={this.props.isPreview ? null : "app-body"}>
@@ -209,11 +229,11 @@ class ContentView extends Component {
                                 {allElementsinProject.map(el => (
 
                                     <ScrollElement key={el.id} name={el.id}>
-                                        <div className="item" hidden={el.fromChapter !== this.state.activeChapterID}>
+                                        <div className="item" hidden={el.parentChapterID !== that.state.activeChapterID}>
                                             {!isElementEmpty(el)
                                             &&
-                                            <Element 
-                                                data={el} 
+                                            <Element
+                                                data={el}
                                                 id={el.id}
                                                 isEditMode={false}
                                                 onLearnerInteraction={this.goToChapter}
@@ -225,20 +245,20 @@ class ContentView extends Component {
                                 }
                                 <ConcludingContentPage url="https://joinoasys.org"
                                                        author="Mark22" title="Feet and Cotion"
-                                                       description="I am explaining to you how feet and cotion works." />
+                                                       description="I am explaining to you how feet and cotion works."/>
                             </React.Fragment>
                         </Container>
                         <center>
-                            {this.isLastChapter? (
+                            {this.isLastChapter ? (
                                 <div onClick={() => this.goToNextChapter()}>
                                     FINISH EXPERIENCE
                                 </div>
-                                ) : (
+                            ) : (
                                 <div onClick={() => this.goToNextChapter()}>
                                     {ICON("icon-arrow-down", 40)}
                                 </div>
-                                )}
-                            
+                            )}
+
                         </center>
                     </main>
                 </div>
