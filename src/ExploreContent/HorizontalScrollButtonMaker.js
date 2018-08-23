@@ -231,7 +231,7 @@ class HorizontalScrollButtonMaker extends Component{
 					          <CardTitle style={styles.cardTitle}>
 					          	<div style={{"cursor": "pointer"}} onClick={() => {
 					          		store.setState(this.props.data);
-					          		history.push('/view/')
+					          		history.push(`/view/${this.props.data.user.displayName}/${this.props.data.title}/${this.props.data.contentId}`)
                                 }} style={styles.cardTitleLink}>
 					          	<div>
 					          	  <Truncate lines={4} >

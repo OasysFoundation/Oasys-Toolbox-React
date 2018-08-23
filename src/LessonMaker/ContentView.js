@@ -24,7 +24,6 @@ class ContentView extends Component {
 
         this.goToChapter = this.goToChapter.bind(this);
         this.produceState = this.produceState.bind(this);
-        this.foldElement = this.foldElement.bind(this);
         this.handleChangeElementVisibility = this.handleChangeElementVisibility.bind(this);
 
         this.analytics = {
@@ -48,35 +47,29 @@ class ContentView extends Component {
         }
 
         else {
-            const contentId = this.props.match.params.contentId;
-            api.getContentById(contentId)
+            const {username, title} = this.props.match.params;
+            const chapterIndex = this.props.match.params.chapterIndex || 0;
+            console.log(chapterIndex, 'index')
+
+            api.getContentByUserNameAndTitle(username, title)
                 .then(project => {
-                    that.setState(() => that.produceState(project))
+                    console.log(project)
+                    that.setState(() => that.produceState(project[0].data.chapters, chapterIndex))
                 })
-                .catch(err => console.log('error at getcontentbyid', err))
+                .catch(err => console.log('error at contentview fetch ', err))
         }
     }
 
-    produceState(chapterData) {
+    produceState(chapterData, chapterIndex = 0) {
         console.log(chapterData, 'chapterData')
         const chapters = JSON.parse(JSON.stringify(chapterData))
         const allElements = flatten(chapters.map(chapter => chapter.elements));
         return {
             chapters: chapters,
             allElementsinProject: allElements,
-            activeChapterID: chapters[0].id,
-            activeChapterIndex: 0
+            activeChapterID: chapters[chapterIndex].id,
+            activeChapterIndex: chapterIndex
         }
-    }
-
-    foldElement(elemID) {
-        //set prop shouldFold
-        //set prop foldedTextonButton
-        //checks in render an replaces with
-    }
-
-    unFoldElement(elemID) {
-
     }
 
     scrollTo = (name) => {
