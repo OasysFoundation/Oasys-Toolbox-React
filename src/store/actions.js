@@ -72,8 +72,8 @@ const actions = function (store) { //store for async stuff
             return clone
         },
 
-        setCurrentProject(state, contentId) {
-
+        setCurrentProject(state, projectData) {
+            return projectData;
         },
 
         onUpdateUserInfo(state, firebaseLoginObj) {
