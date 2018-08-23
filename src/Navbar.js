@@ -29,8 +29,7 @@ const ITEMDICT = [
     {link: '/create', icon: 'fa-pencil-alt', label: 'Create'},
     {link: '/data', icon: 'fa-chart-bar', label: 'Analytics'},
     {link: '/about', icon: 'fa-info-circle', label: 'About'},
-    {link: '/account', icon: 'fa-user', label: 'Account'},
-    {link: '/user', icon: 'fa-user', label: 'Login'}
+    {link: '/auth', icon: 'fa-user', label: 'Login'}
 ];
 
 
@@ -422,7 +421,13 @@ class NavBar extends React.Component {
     render() {
 
         // if we know the user, display his name in navbar
-        ITEMDICT.forEach(item => item.link === '/user' ? ( item.label = auth.currentUser ? "Logout" : "Login") : null)
+        ITEMDICT.forEach(item => {
+            if (item.link === '/auth' || item.link === '/account') {
+                item.label = this.props.user.uid ? "Account" : "Login";
+                item.link = this.props.user.uid ? "/account" : "/auth";
+
+            }
+        })
 
         return (
             <div>

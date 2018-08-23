@@ -47,12 +47,12 @@ class Authentication extends Component {
             //updateStore:this.props.onChange,
         }
 
-        if (auth.doCheckLoggedIn()) {
-            console.log('userID!')
-            auth.doSignOut()
-                .then( () => history.push('/') )
-                .catch(err => console.log(err, 'problem signing out'))
-        }
+        // if (auth.doGetCurrentUser()) {
+        //     console.log('userID!')
+        //     auth.doSignOut()
+        //         .then( () => history.push('/') )
+        //         .catch(err => console.log(err, 'problem signing out'))
+        // }
 
         this.RegisterClicked = this.RegisterClicked.bind(this);
         this.LoginClicked = this.LoginClicked.bind(this);
@@ -114,14 +114,11 @@ class Authentication extends Component {
                     modalBody: "You have been logged in successfully",
                     showModal: true,
                 })
-                const {displayName, uid} = cbData.user
-                const userObj = {name: displayName, uid}
 
-                auth.doGetIdToken()
-                    .then(token => that.props.setIdToken(token))
-                    .catch(err => console.log('could not get id token', err))
+                // auth.doGetIdToken()
+                //     .then(token => that.props.setIdToken(token))
+                //     .catch(err => console.log('could not get id token', err))
 
-                that.props.onAuthSuccess(userObj);
                 that.setState({loginSuccess: true})
             })
             .catch(error => {
@@ -152,7 +149,7 @@ class Authentication extends Component {
                     auth.doGetIdToken()
                         .then(token => {
                             console.log(token, 'token')
-                            that.props.setIdToken(token)
+                            // that.props.setIdToken(token)
                             this.updateBackendonRegister(that)
                         })
                         .catch(err => console.log('could not get id token', err))
@@ -192,7 +189,6 @@ class Authentication extends Component {
                                 showModal: true,
                             })
 
-                            that.props.onAuthSuccess(userObject);
 
                             //for redirect
                             that.setState({loginSuccess: true})
@@ -580,8 +576,8 @@ class Authentication extends Component {
     }
 
     render() {
-        if (this.state.loginSuccess) {
-            return <Redirect to={"/user"} />
+        if (this.props.user.uid) {
+            return <Redirect to={"/account"} />
         }
 
         return (
@@ -604,10 +600,8 @@ class Authentication extends Component {
 }
 
 const mapStoreToProps = ({user}) => ({user});
-const neededActions = (store) => {
-    const {onAuthSuccess, setIdToken} = actions();
-    return {onAuthSuccess, setIdToken}
-};
+const neededActions = {};
+
 // export default connect(mapStoreToProps, neededActions)(LessonMaker);
 
 export default connect(mapStoreToProps, neededActions)(Authentication);

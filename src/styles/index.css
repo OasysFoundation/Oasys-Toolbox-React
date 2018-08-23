@@ -390,14 +390,14 @@ html:not([dir="rtl"]) .sidebar {
     margin-bottom: 20px;
 }
 
-.oasys .btn.preview-btn.delete-btn {
+.btn.preview-btn.delete-btn {
     background-color: #c6361d;
     width: 100px;
     margin-right: 50px;
     color: #f8f8f4;
 }
 
-.oasys .btn.preview-btn.delete-btn:hover {
+.btn.preview-btn.delete-btn:hover {
     background-color: #aa0000;
 }
 
@@ -517,6 +517,17 @@ html:not([dir="rtl"]) .sidebar {
 .oasys .landingPage .bruh:hover{
     text-decoration: none;
     color:#a2abb8;
+}
+
+.oasys .main-width.container-fluid {
+    padding: 0px;
+}
+
+
+/* ------------------- next chapter ------------------- */
+
+.oasys .next-chapter .input-group-append .btn {
+    z-index: 0;
 }
 
 /* ------------------- navbar ------------------- */

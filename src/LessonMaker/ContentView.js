@@ -31,6 +31,15 @@ class ContentView extends Component {
 
         this.goToChapter = this.goToChapter.bind(this);
         this.foldElement = this.foldElement.bind(this);
+        this.handleChangeElementVisibility = this.handleChangeElementVisibility.bind(this);
+
+        this.analytics = {
+            timing: [],
+            lastTime: new Date(),
+            startTime: new Date(),
+            endTime: null,
+            quizzes: [],
+        };
     }
 
     foldElement(elemID) {
@@ -100,6 +109,81 @@ class ContentView extends Component {
 
     }
 
+    updateTiming() {
+        const t1 = this.analytics.lastTime;
+        const t2 = new Date();
+        var newelement = {i: this.state.slideIdx, t: t2 - t1};
+        var newArr = [...this.state.timing, newelement]
+
+        this.setState({
+          timing: newArr
+        })
+
+        let tobj = {
+            startTime: this.state.startTime,
+            timing: newArr,
+            lastTime: t2
+        }
+        this.setState({
+            lastTime:t2
+        })
+        return tobj
+    }
+
+    postInteractionData(timeObj) {
+        const data = {
+            "accessTimes": timeObj.timing,
+            "startTime": timeObj.startTime,
+            "endTime": timeObj.endTime,
+            "contentId": this.state.content.contentId,
+            "accessUserId": this.props.authUser.displayName,
+            "contentUserId": this.state.content.userId
+        }
+        //API.postUserContentAccess(data);
+    }
+
+    postQuizData(quizObj) {
+        console.log(this.props.authUser.displayName);
+        const data = {
+            "startTime": quizObj.startTime,
+            "endTime": quizObj.endTime,
+            "contentId": this.state.content.contentId,
+            "accessUserId": this.props.authUser.displayName,
+            "contentUserId": this.state.content.userId,
+            "quizzes" : quizObj.quizzes,
+            "type" : "quizUpdate"
+        }
+        //API.postUserContentAccess(data);
+    }
+
+    handleNext() {
+        let idx = this.state.slideIdx + 1;
+        let tobj = this.updateTiming();
+        this.setState({slideIdx: idx});
+        let endTime = null;
+        if (idx === this.state.content.data.length - 1) {
+            endTime = new Date();
+            tobj.endTime = endTime;
+            this.setState(tobj);
+        } else {
+            tobj.endTime = this.state.endTime;
+        }
+        this.postInteractionData(tobj);
+    }
+
+    handlePrevious() {
+        let tobj = this.updateTiming();
+        tobj.endTime = this.state.endTime;
+        this.setState({
+            slideIdx: this.state.slideIdx - 1,
+        });
+        this.postInteractionData(tobj);
+    }
+
+    handleChangeElementVisibility(elem) {
+        console.log(elem);
+    }
+
     render() {
         const {allElementsinProject} = this;
         return (
@@ -114,9 +198,12 @@ class ContentView extends Component {
                                         <div className="item" hidden={el.fromChapter !== this.state.activeChapterID}>
                                             {!isElementEmpty(el)
                                             &&
-                                            <Element data={el} id={el.id}
-                                                     isEditMode={false}
-                                                     onLearnerInteraction={this.goToChapter}
+                                            <Element 
+                                                data={el} 
+                                                id={el.id}
+                                                isEditMode={false}
+                                                onLearnerInteraction={this.goToChapter}
+                                                onChangeVisibility={this.handleChangeElementVisibility}
                                             />
                                             }
                                         </div>

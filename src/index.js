@@ -43,18 +43,51 @@ import Authentication from "./Authentication/Authentication";
 // }
 
 import history from './history'
+import {auth} from "./Authentication/firebase";
+
 
 class Index extends Component {
     constructor(props) {
         super(props);
-        this.state={
-            category:"",
+        this.state = {
+            category: "",
         }
 
     }
 
-    handleChangeSearchBar(newVal){
-        this.setState({category:newVal})
+    componentDidMount() {
+        auth.onAuthStateChanged(function (user) {
+            if (user) {
+                console.log('user here: ', user);
+                const {displayName, uid} = user;
+                const idToken =  auth.currentUser.getIdToken(true).then(function(idToken) {
+                    store.setState({
+                        user:
+                            {
+                                displayName,
+                                uid,
+                                idToken,
+                            }
+                    })
+                });
+                
+                // User is signed in.
+            }
+            else {
+                store.setState({
+                    user:
+                        {
+                            displayName: null,
+                            uid: null,
+                            idToken: null
+                        }
+                })
+            }
+        });
+    }
+
+    handleChangeSearchBar(newVal) {
+        this.setState({category: newVal})
     }
 
     render() {
@@ -65,9 +98,10 @@ class Index extends Component {
                         <div>
                             {<Navbar onChange={this.handleChangeSearchBar.bind(this)}/>}
                             <Switch>
-                                <Route exact path="/" render={() => <LandingPageController category={this.state.category}/>}/>
-                                <Route exact path="/explore" render={() => <LandingPageController category={this.state.category}/>}/>
-                                <Route exact path="/user" render={() => <AccountPage/>}/>
+                                <Route exact path="/"
+                                       render={() => <LandingPageController category={this.state.category}/>}/>
+                                <Route exact path="/explore"
+                                       render={() => <LandingPageController category={this.state.category}/>}/>
                                 <Route exact path="/create" render={(props) => <LessonMaker {...props} />}/>
                                 {<Route exact path="/auth" render={(props) => <Authentication/>}/>}
                                 <Route exact path="/view" render={() => <ContentView project={store.getState()}/>}/>
@@ -108,8 +142,8 @@ class Index extends Component {
 
                                 {/*<Route component={NotFoundPage}/>*/}
                             </Switch>
-                            <Route path={"/*"} component={Footer} />
-=
+                            <Route path={"/*"} component={Footer}/>
+                            =
                         </div>
                     </Router>
                 </Provider>
@@ -119,9 +153,7 @@ class Index extends Component {
 }
 
 
-
 export default withRouter(Index);
-
 
 
 ReactDOM.render(<Index/>, document.getElementById('root'));
