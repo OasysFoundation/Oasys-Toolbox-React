@@ -124,14 +124,18 @@ class AccountPage extends Component {
                 </h2>
                 <hr />
                 <p className="text-faded lead mb-4" style={{fontSize: '1.3rem'}}>                                 
-                    This page will become visible once you have created your first piece of interactive, educational content!
+                    We are excited to have you in the Oasys Community! 
+                </p>
+                <p className="text-faded lead mb-4" style={{fontSize: '1.3rem'}}>                                 
+                    Before you begin, learn <a href="/about">about Oasys</a> and how you could <a href="/">earn money</a> for the content you create.
                 </p>
               </div>
             </div>
           </div>
           <div style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
-                <Button size="lg" style={{margin: '3rem'}} color="primary" onClick={() => auth.doSignOut()}>{`LogOut ${this.props.user.displayName}`}</Button>
-                <Button size="lg" color="primary" onClick={this.openCreate}> Create your own content!</Button>
+                <Button size="lg" style={{margin: '1rem'}} color="primary" onClick={() => auth.doSignOut()}>Logout</Button>
+                <Button size="lg" style={{margin: '1rem'}} color="primary" onClick={() => window.location.href="/create"}> Create</Button>
+                <Button size="lg" style={{margin: '1rem'}} color="primary" onClick={() => window.location.href="/explore"}> Explore </Button>
 
           </div>
         </section>
