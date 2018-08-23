@@ -7,6 +7,9 @@ import colors from '../utils/colors';
 
 import {connect} from "redux-zero/react";
 import actions from "../store/actions";
+import store from "../store/store"
+
+import history from '../history'
 
 const styles= {
 	cardStyle:{ 
@@ -225,13 +228,16 @@ class HorizontalScrollButtonMaker extends Component{
 			          </div> */}
 			          <div style={styles.titleAndSubtitle}>
 					          <CardTitle style={styles.cardTitle}>
-					          	<a href={userLink} style={styles.cardTitleLink}>
+					          	<div style={{"cursor": "pointer"}} onClick={() => {
+					          		store.setState(this.props.data);
+					          		history.push('/view/')
+                                }} style={styles.cardTitleLink}>
 					          	<div>
 					          	  <Truncate lines={4} >
 					          	 	{this.props.data.title}
 					              </Truncate>
 					              </div>
-					          	</a>
+					          	</div>
 					          </CardTitle>
 					          <CardSubtitle>
 					          <a href={returnUrl} style={styles.cardSubtitle}>

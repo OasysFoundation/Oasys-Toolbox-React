@@ -8,18 +8,21 @@ import ConcludingContentPage from '../ConcludingContentPage'
 import {isElementEmpty} from "../utils/tools";
 import api from '../utils/api'
 
+import {connect} from "redux-zero/react";
+import actions from "../store/actions";
+
 class ContentView extends Component {
     constructor(props) {
         super(props)
 
-        console.log(this.props.match.params.contentId, "contentId");
-
-        let project;
-        api.getContentById(this.props.match.params.contentId)
-            .then(content => {
-                console.log(content, 'content fetched')
-            })
-            .catch(err => console.log('error at getcontentbyid', err))
+        // console.log(this.props.match.params.contentId, "contentId");
+        //
+        // // let project;
+        // // api.getContentById(this.props.match.params.contentId)
+        // //     .then(content => {
+        // //         console.log(content, 'content fetched')
+        // //     })
+        // //     .catch(err => console.log('error at getcontentbyid', err))
 
 
 
@@ -255,5 +258,10 @@ ContentView.propTypes = {
 
 }
 
+const mapStoreToProps = ({chapters}) => ({chapters})
+const neededActions = (store) => {
+    const {onChangeActiveChapter} = actions();
+    return {onChangeActiveChapter}
+};
 
-export default ContentView;
+export default connect(mapStoreToProps, neededActions)(ContentView);
