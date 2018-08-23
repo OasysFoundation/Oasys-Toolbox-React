@@ -154,7 +154,8 @@ class Element extends Component {
         this.props.onChangeVisibility({
             id: this.props.data.id, 
             type: this.props.data.type, 
-            visible: isVisible
+            visible: isVisible,
+            time: new Date(),
         });
         // console.log('Element type ' + this.props.data.type + ' (' + this.props.data.id + ') is now ' + visStr);
     }
