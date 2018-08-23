@@ -36,7 +36,8 @@ class ContentView extends Component {
         this.state = {
             //decides what elements are not HIDDEN in the SCROLLVIEW
             activeChapterID: this.chapters[0].id,
-            activeChapterIndex: 0
+            activeChapterIndex: 0,
+            showsContentCompletion: false
         }
         // this.chaptersSeenIDs = [this.state.activeChapterID];
 
@@ -68,7 +69,9 @@ class ContentView extends Component {
     }
 
     goToCompletionScreen() {
-        // <ConcludingContentPage url="https://joinoasys.org" author="Mark22" title="Feet and Cotion" description="I am explaining to you how feet and cotion works." />
+        this.setState({
+            showsContentCompletion: true
+        });
     }
 
     goToNextChapter = () => {
@@ -208,36 +211,44 @@ class ContentView extends Component {
                     <main className={this.props.isPreview ? null : "main"}>
                         <Container fluid className='main-width'>
                             <React.Fragment>
-                                {allElementsinProject.map(el => (
-
-                                    <ScrollElement key={el.id} name={el.id}>
-                                        <div className="item" hidden={el.fromChapter !== this.state.activeChapterID}>
-                                            {!isElementEmpty(el)
-                                            &&
-                                            <Element 
-                                                data={el} 
-                                                id={el.id}
-                                                isEditMode={false}
-                                                onLearnerInteraction={this.goToChapter}
-                                                onChangeVisibility={this.handleChangeElementVisibility}
-                                            />
-                                            }
-                                        </div>
-                                    </ScrollElement>))
+                                {this.state.showsContentCompletion? 
+                                    <ConcludingContentPage url="https://joinoasys.org"
+                                                       author="Mark22" title="Feet and Cotion"
+                                                       description="I am explaining to you how feet and cotion works." />
+                                    :
+                                    <div>
+                                    {allElementsinProject.map(el => (
+                                        <ScrollElement key={el.id} name={el.id}>
+                                            <div className="item" hidden={el.fromChapter !== this.state.activeChapterID}>
+                                                {!isElementEmpty(el)
+                                                &&
+                                                <Element 
+                                                    data={el} 
+                                                    id={el.id}
+                                                    isEditMode={false}
+                                                    onLearnerInteraction={this.goToChapter}
+                                                    onChangeVisibility={this.handleChangeElementVisibility}
+                                                />
+                                                }
+                                            </div>
+                                        </ScrollElement>))
+                                    }
+                                    </div>    
                                 }
+                                
+
                             </React.Fragment>
                         </Container>
                         <center>
                             {this.isLastChapter()? (
-                                <div onClick={() => this.goToNextChapter()}>
+                                <div onClick={this.goToCompletionScreen.bind(this)}>
                                     FINISH EXPERIENCE
                                 </div>
                                 ) : (
                                 <div onClick={() => this.goToNextChapter()}>
                                     {ICON("icon-arrow-down", 40)}
                                 </div>
-                                )}
-                            
+                            )}
                         </center>
                     </main>
                 </div>
