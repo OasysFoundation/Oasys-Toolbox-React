@@ -160,56 +160,20 @@ class ContentView extends Component {
 
     }
 
-    updateTiming() {
-        const t1 = this.analytics.lastTime;
-        const t2 = new Date();
-        var newelement = {i: this.state.slideIdx, t: t2 - t1};
-        var newArr = [...this.state.timing, newelement]
-
-        this.setState({
-            timing: newArr
-        })
-
-        let tobj = {
-            startTime: this.state.startTime,
-            timing: newArr,
-            lastTime: t2
-        }
-        this.setState({
-            lastTime: t2
-        })
-        return tobj;
+    handleQuizAnswer(obj) {
+        // how to pass handler to quiz element only?
+        this.analytics.quizzes.push(obj);
+        let myAnalytics = JSON.parse(JSON.stringify(this.analytics));
+        myAnalytics.type = 'quizUpdate';
+        console.log('handleQuizAnswer: ' + myAnalytics);
+        //api.postUserContentAccess(myAnalytics);
     }
 
-    postInteractionData(timeObj) {
-        const data = {
-            "accessTimes": timeObj.timing,
-            "startTime": timeObj.startTime,
-            "endTime": timeObj.endTime,
-            "contentId": this.state.content.contentId,
-            "accessUserId": this.props.authUser.displayName,
-            "contentUserId": this.state.content.userId
-        }
-        //API.postUserContentAccess(data);
-    }
+    handleChangeElementVisibility(obj) {
+        this.analytics.accessTimes.push(obj);
+        console.log('handleChangeElementVisibility: ' + this.analytics);
+        //api.postUserContentAccess(this.analytics);
 
-    postQuizData(quizObj) {
-        console.log(this.props.authUser.displayName);
-        const data = {
-            "startTime": quizObj.startTime,
-            "endTime": quizObj.endTime,
-            "contentId": this.state.content.contentId,
-            "accessUserId": this.props.authUser.displayName,
-            "contentUserId": this.state.content.userId,
-            "quizzes": quizObj.quizzes,
-            "type": "quizUpdate"
-        }
-        //API.postUserContentAccess(data);
-    }
-
-    handleChangeElementVisibility(elem) {
-        this.analytics.accessTimes.push(elem);
-        //API.postUserContentAccess(this.analytics);
     }
 
     render() {
@@ -263,7 +227,7 @@ class ContentView extends Component {
                             {this.state.showsContentCompletion ?
                                 null
                                 :
-                                <div>
+                                <div className='pointer'>
                                     {this.isLastChapter() ? (
                                         <div onClick={this.goToCompletionScreen.bind(this)}>
                                             {ICON("icon-arrow-down", 40)}

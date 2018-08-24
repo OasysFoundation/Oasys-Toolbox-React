@@ -159,10 +159,10 @@ class HorizontalScrollButtonMaker extends Component{
 		let text = this.starStr.split("");
 		let elem = this.refStars.current;
 
-		let pathLenDegree = 160;
+		let pathLenDegree = 120;
 		let deg = pathLenDegree / text.length;
 
-		let origin = 283;
+		let origin = 298;
 		text.forEach((ea) => {
 			ea = `<span style='font-size:25px;color: ${colors.SUMMERSUN};text-shadow: 0px 0px 1px ${colors.RUST};height:${radius}px;position:absolute;transform:rotate(${origin}deg);transform-origin:0 100%'>${ea}</span>`;
 			elem.innerHTML += ea;

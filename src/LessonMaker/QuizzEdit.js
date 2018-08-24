@@ -27,6 +27,7 @@ class QuizzEdit extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            isPrepared: false,
             showsModalEditor: false,
         	question: props.data? props.data.question : "",
             answers: props.data? props.data.answers : [ // provides two empty answers as default for new quiz
@@ -57,6 +58,10 @@ class QuizzEdit extends Component {
             generalFeedback: props.data? props.data.feedback : null
         }
 
+        this.analytics = {
+            startTime: null,
+            endTime: null,
+        }
 
         this.onClickEditButton = this.onClickEditButton.bind(this);
         this.onSelectAnswer = this.onSelectAnswer.bind(this);
@@ -65,6 +70,7 @@ class QuizzEdit extends Component {
         this.onChangeData = this.onChangeData.bind(this);
         this.onClose = this.onClose.bind(this);
         this.onContinue = this.onContinue.bind(this);
+        this.prepare = this.prepare.bind(this);
     }
 
     onChangeData(data) {
@@ -105,7 +111,8 @@ class QuizzEdit extends Component {
             feedbackPopoverText: this.state.generalFeedback,
             feedbackPopoverTitle: feedback,
             feedbackPopoverAction: action
-        });
+        },
+        this.reportAnalytics(areSelectedOptionsCorrect));
     }
 
     areSelectedOptionsCorrect() {
@@ -121,10 +128,8 @@ class QuizzEdit extends Component {
     }
 
     onSelectAnswer(index) {
-
         const answers = this.state.answers;
         answers[index].isSelected = !answers[index].isSelected;
-
 
         this.setState({
             feedbackPopoverAnchor: null,
@@ -137,7 +142,8 @@ class QuizzEdit extends Component {
                     feedbackPopoverText: selectedAnswer.feedback,
                     feedbackPopoverTitle: selectedAnswer.correct? "Amazing, this is correct!" : "This is wrong…",
                     feedbackPopoverAction: selectedAnswer.action
-                });
+                },
+                this.reportAnalytics(selectedAnswer.correct);
             }
         });
     }
@@ -161,7 +167,26 @@ class QuizzEdit extends Component {
         return !this.isSingleChoice();
     }
 
-	
+    reportAnalytics(isCorrectAnswer){
+        if (this.analytics.endTime===null) {
+            // only report the user's first answer for now!
+            this.analytics.endTime = new Date();
+            let quizObj = {
+                type: this.state.quizType,
+                correct: isCorrectAnswer,
+                startTime: this.analytics.startTime,
+                duration: this.analytics.endTime - this.analytics.startTime,
+                id: this.props.id,
+            }
+            // report to handler in content view
+            // this.props.onQuizAnswer(quizObj)
+    }
+
+    prepare() {
+        this.setState({isPrepared: true});
+        this.analytics.startTime = new Date();
+    }
+
     render() {
 
         let gridTemplateColumns = '47% 47%';
@@ -185,46 +210,58 @@ class QuizzEdit extends Component {
             columnGap: '10px',
         }
 
-        const that = this; 
         return (
             <div>
-                <center>
-                {this.props.isEditMode? <Button color="primary" onClick={this.onClickEditButton}>Edit Quiz</Button> : null}
-                <h1>{this.state.question.title? this.state.question.title : "This quiz has no question, yet."}</h1>
-                {this.state.question.title? null : <p style={{marginBottom:'10px', maxWidth:'350px'}}>Click 'Edit Quiz' to edit the question and answers, and to chose between single choice or multiple choice.</p>}
-                <img src={this.state.question.image} alt="" style={{maxWidth:'80%'}}/>
-                
-            	<div style={gridContainerStyle}>
-            	   {this.state.answers.map((answer, index) => {
-                    return <QuizzButton 
-                                answer={answer} 
-                                key={"answer-id-" + index} 
-                                id={"answer-id-" + index} 
-                                showsSelectionIndicator={that.isMultipleChoice()} 
-                                isSelected={answer.isSelected} 
-                                index={index} 
-                                onSelect={this.onSelectAnswer}
-                                color={that.quizColors[index % that.quizColors.length]} 
-                            />
-                   })}
-            	</div>
-                {this.isMultipleChoice()? <Button color="primary" id="submit-multiple-choice-button" onClick={this.onClickSubmitButton.bind(this)}>Submit</Button> : null}
-                </center>
+                {this.state.isPrepared
+                ?
+                    <div>
+                    <center>
+                    {this.props.isEditMode? <Button color="primary" onClick={this.onClickEditButton}>Edit Quiz</Button> : null}
+                    <h1>{this.state.question.title? this.state.question.title : "This quiz has no question, yet."}</h1>
+                    {this.state.question.title? null : <p style={{marginBottom:'10px', maxWidth:'350px'}}>Click 'Edit Quiz' to edit the question and answers, and to chose between single choice or multiple choice.</p>}
+                    <img src={this.state.question.image} alt="" style={{maxWidth:'80%'}}/>
+                    
+                    <div style={gridContainerStyle}>
+                       {this.state.answers.map((answer, index) => {
+                        return <QuizzButton 
+                                    answer={answer} 
+                                    key={"answer-id-" + index} 
+                                    id={"answer-id-" + index} 
+                                    showsSelectionIndicator={this.isMultipleChoice()} 
+                                    isSelected={answer.isSelected} 
+                                    index={index} 
+                                    onSelect={this.onSelectAnswer}
+                                    color={this.quizColors[index % this.quizColors.length]} 
+                                />
+                       })}
+                    </div>
+                    {this.isMultipleChoice()? <Button color="primary" id="submit-multiple-choice-button" onClick={this.onClickSubmitButton.bind(this)}>Submit</Button> : null}
+                    </center>
 
-                {this.state.feedbackPopoverAnchor? 
-                (
-                  <Popover placement="top" isOpen={Boolean(this.state.feedbackPopoverAnchor)} target={this.state.feedbackPopoverAnchor} toggle={this.onCloseFeedbackPopover}>
-                  <PopoverHeader>{ this.state.feedbackPopoverTitle }</PopoverHeader>
-                  <PopoverBody>{this.state.feedbackPopoverText}</PopoverBody>
-                  <center>
-                  <Button color="primary" onClick={function() { that.onContinue(that.state.feedbackPopoverAction) }} style={{marginBottom: '15px'}}> Continue… </Button>
-                  </center>
-                  </Popover>
-                )
-                :
-                null
+                    {this.state.feedbackPopoverAnchor? 
+                    (
+                      <Popover placement="top" isOpen={Boolean(this.state.feedbackPopoverAnchor)} target={this.state.feedbackPopoverAnchor} toggle={this.onCloseFeedbackPopover}>
+                      <PopoverHeader>{ this.state.feedbackPopoverTitle }</PopoverHeader>
+                      <PopoverBody>{this.state.feedbackPopoverText}</PopoverBody>
+                      <center>
+                      <Button color="primary" onClick={()=>this.onContinue(this.state.feedbackPopoverAction) } style={{marginBottom: '15px'}}> Continue… </Button>
+                      </center>
+                      </Popover>
+                    )
+                    :
+                    null
+                    }
+                    </div>
+                : 
+                    <center>
+                    <Button 
+                        color="primary" 
+                        style={{fontSize: '1.3rem'}} 
+                        onClick={this.prepare}>
+                        Bring on the next question!
+                    </Button>
+                    </center>
                 }
-
 
                 <QuizzEditModal question={this.state.question} answers={JSON.parse(JSON.stringify(this.state.answers))} quizType={this.state.quizType} 
                 onChange={this.onChangeData} onClose={this.onClose} chapters={this.props.chapters} isOpen={this.state.showsModalEditor} onAddChapter={this.props.onAddChapter} />
