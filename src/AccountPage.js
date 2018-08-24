@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import HorizontalScroll from './ExploreContent/HorizontalScroll'
 import api from './utils/api'
-// import {getTagsForCategory} from "./utils/LandingPage";
 import ScrollableAnchor from 'react-scrollable-anchor'
 import * as auth from './Authentication/auth';
 import history from './history'
@@ -38,84 +37,41 @@ class AccountPage extends Component {
         super(props);
         this.state = {
             contentUser: [],
-            contentReccommended: [],
             filteredContent: [{
                 title: "Loading"
             }],
             pageDataReccommended: [],
             pageDataUser: [],
-            previousState: '',
-            noContent:false,
+            noContent:true,
+            doneLoading:false,
         };
-
         this.loadAccountPage = this.loadAccountPage.bind(this);
-
-
     }
 
-    componentDidMount() {
-        //User Contents
-        try {
-            api.getUserContentsPreview()
-                .then(json => {
-                    this.setState({
-                        contentUser: json || "errorLoadingContent"
-                    })
-                    if(json && json.length)
-                        this.setState({
-                            pageDataUser: [
-                                {
-                                    title: "My Publications",
-                                    data: this.state.contentUser.filter(content => content.published === 1),
-                                },
-                                {
-                                    title: "My Drafts",
-                                    data: this.state.contentUser.filter(content => content.published !== 1),
-                                },
-                            ],
-                        })
-                    else{
-                        this.setState({noContent:true})
-                    }
-                })
-                .catch(err => {
-                    console.log(err)
-                })
-        }
-        catch (e){
-            console.log(e)
-        }
-
-        //Recommendations
-        try {
-            api.getContentsPreview()
-                .then(json => {
-                    console.log('getcontents', json)
-                    if (json && json.length) {
-                        this.setState({
-                                contentReccommended: json || "errorLoadingContent"
-                            },
-                            () => this.setState({
-                                    filteredContent: json,
-                                },
-                                () => this.setState({
-                                    pageDataReccommended: [
-                                        {
-                                            title: "Reccommended for you",
-                                            data: this.state.filteredContent,
-                                        },
-                                    ]
-                                }))
-                        )
-                    }
-                    else
-                        console.log("Mhh there is something strange going on. Email us at info@joinoasys.org if this continues!")
-                })
-        }
-        catch (error) {
-            console.log("Mhh there is something strange going on. Email us at info@joinoasys.org if this continues!")
-            console.log(error)
-        }
+    componentDidMount(){
+   
+           // Recommendations for user
+           try {
+               api.getContentsPreview()
+                   .then(json => {
+                       if (json && json.length) {
+                           this.setState({
+                               pageDataReccommended: [
+                                   {
+                                       title: "Reccommended for you",
+                                       data: json,
+                                   },
+                               ]
+                           })
+                       }
+                       else
+                           console.log("Mhh there is something strange going on. Email us at info@joinoasys.org if this continues!")
+                   })
+           }
+           catch (error) {
+               console.log("Mhh there is something strange going on. Email us at info@joinoasys.org if this continues!")
+               console.log(error)
+           }
     }
 
     checkMobile() {
@@ -126,101 +82,91 @@ class AccountPage extends Component {
         return check;
     }
 
+    createHorizontalScrollersRec(value){
+        if(value === "mobile")
+            return(
+                <div>
+                    {this.state.pageDataReccommended.map(dataObj =>
+                        < HorizontalScroll key = {dataObj.title} title = {dataObj.title} data = {dataObj.data} type = "mobile" / >
+                        )
+                    }
+                </div>
+            )
+        else
+            return(
+                <div>
+                    {this.state.pageDataReccommended.map(dataObj =>
+                            < HorizontalScroll key = {dataObj.title} title = {dataObj.title} data = {dataObj.data}/ >
+                            )
+                    }
+                </div>
+            )
+    }
+
+    createHorizontalScrollersUser(value){
+        if(value === "mobile")
+            return(
+                <div>
+                    {this.state.pageDataUser.map(dataObj =>
+                        < HorizontalScroll key = {dataObj.title} title = {dataObj.title} data = {dataObj.data} type = "mobile" / >
+                        )
+                    }
+                </div>
+            )
+        else
+            return(
+                <div>
+                    {this.state.pageDataUser.map(dataObj =>
+                            < HorizontalScroll key = {dataObj.title} title = {dataObj.title} data = {dataObj.data}/ >
+                            )
+                    }
+                </div>
+            )
+    }
+                
+
     loadReccommended(){
         return(
-        < div >
-        {this.checkMobile()
-            ? (
-                <div className = "landingPage" >
-                    <section style = {styles.HorizontalScrollOuterCenterContainer}>
-                        <div style = {styles.HorizontalScrollContainer}>
-                            <br/>
-                            < ScrollableAnchor id = {'searchResults'} >
-                                < div >
-                                    {this.state.pageDataReccommended.map(dataObj =>
-                                        < HorizontalScroll key = {dataObj.title} title = {dataObj.title} data = {dataObj.data} type = "mobile" / >
-                                        )
-                                    }
-                                </div>
-                            < /ScrollableAnchor>
-                        < /div>
-                    < /section>
-                < /div>
-            )
-            : (
-                <div className = "landingPage" >
-                    <section style = {styles.HorizontalScrollOuterCenterContainer}>
-                        <div style = {styles.HorizontalScrollContainer}>
-                            <br/ >
-                            <ScrollableAnchor id = {'searchResults'} >
-                                <div >
-                                    {
-                                        this.state.pageDataReccommended.map(dataObj =>
-                                            < HorizontalScroll title = {dataObj.title} data = {dataObj.data} icon = {dataObj.icon}/>
-                                        )
-                                    }
-                                </div>
-                            < /ScrollableAnchor>
-
-                        < /div>
-                    < /section>
-                < /div>
-            )       
-        }
-    </div>
-    )
+            <div className = "landingPage" >
+                <section style = {styles.HorizontalScrollOuterCenterContainer}>
+                    <div style = {styles.HorizontalScrollContainer}>
+                        <br/>
+                        < ScrollableAnchor id = {'searchResults'} >
+                            < div >
+                            {this.checkMobile()
+                                ? this.createHorizontalScrollersRec("mobile")
+                                : this.createHorizontalScrollersRec("pc")
+                            }
+                            </div>
+                        < /ScrollableAnchor>
+                    < /div>
+                < /section>
+            < /div>            
+        )
     }
 
     loadAccountPage(){
         return(
             <div>
-                {this.checkMobile()
-                    ? (
-                        <div>
-                            <section style={styles.HorizontalScrollOuterCenterContainer}>
-                                <div style={styles.HorizontalScrollContainer}>
-                                    <br/>
-                                    <ScrollableAnchor id={'searchResults'}>
-                                        <div>
-                                            {this.state.pageDataUser.length
-                                                ? this.state.pageDataUser.map(dataObj =>
-                                                    <HorizontalScroll key={dataObj.title} title={dataObj.title}
-                                                                  data={dataObj.data} id={dataObj.id} type="mobile"/>
-                                                    )
-                                                : null
-                                            }
-                                        </div>
-                                    </ScrollableAnchor>
-                                </div>
-                            </section>
-                        </div>
-                    )
-                    : (
-                        <div>
-                            <section style={styles.HorizontalScrollOuterCenterContainer}>
-                                <div style={styles.HorizontalScrollContainer}>
-                                    <br/>
-                                    <ScrollableAnchor id={'searchResults'}>
-                                        <div>
-                                            {this.state.pageDataUser.map(dataObj =>
-                                                <HorizontalScroll key={dataObj.title} title={dataObj.title}
-                                                                  data={dataObj.data} id={dataObj.id}
-                                                                  icon={dataObj.icon}/>
-                                            )}
-                                        </div>
-                                    </ScrollableAnchor>
-                                </div>
-                            </section>
-                        </div>
-                    )
-                }
+                <section style={styles.HorizontalScrollOuterCenterContainer}>
+                    <div style={styles.HorizontalScrollContainer}>
+                        <br/>
+                        <ScrollableAnchor id={'searchResults'}>
+                            <div>
+                                {this.checkMobile()
+                                    ? this.createHorizontalScrollersUser("mobile")
+                                    : this.createHorizontalScrollersUser("pc")
+                                }
+                            </div>
+                        </ScrollableAnchor>
+                    </div>
+                </section>
             </div>
         )
     }
-    render() {
 
-        this.props.user.uid || history.push('/auth')
-        return (
+    hasLoaded(){
+        return(
             <div>
                 <section className="bg-light rz-start rz-no-border-special-2" id="about" style={{paddingTop:"100px"}}>
                   <div className="container">
@@ -248,6 +194,59 @@ class AccountPage extends Component {
                   </div>
                 </section>
             </div>
+        )
+    }
+
+    loadUserData(){
+       try {
+               api.getUserContentsPreview()
+                   .then(json => {
+                       this.setState({
+                           contentUser: json || "errorLoadingContent"
+                       })
+                       if(json && json.length)
+                           this.setState({
+                               pageDataUser: [
+                                   {
+                                       title: "My Publications",
+                                       data: this.state.contentUser.filter(content => content.published === 1),
+                                   },
+                                   {
+                                       title: "My Drafts",
+                                       data: this.state.contentUser.filter(content => content.published !== 1),
+                                   },
+                               ],
+                               noContent:false,
+                           })
+                       else{
+                           this.setState({noContent:true})
+                       }
+                       this.setState({doneLoading:true})
+                   })
+                   .catch(err => {
+                       console.log(err)
+                   })
+           }
+           catch (e){
+               console.log(e)
+           }
+    }
+
+    render() {
+        this.props.user.status===0
+            ? null
+            : this.props.user.status===1
+                ? history.push('/auth') 
+                : this.state.doneLoading
+                    ? null
+                    : this.loadUserData()
+        return (
+           <div>
+                {this.props.user.status!==0
+                    ? this.hasLoaded()
+                    : null
+                }
+           </div>
         )
     }
 }
