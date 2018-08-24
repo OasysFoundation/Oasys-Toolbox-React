@@ -26,14 +26,14 @@ const data = {
             title: "Heat and Motion",
             id: "chapter_124552",
             links: [
-                {
-                    eventId: "ASDASDAS",
-                    chapterId: "chapter_99852"
-                },
-                {
-                    eventId: "ASDAdddSDAS",
-                    chapterId: "chapter_100"
-                },
+                // {
+                //     eventId: "ASDASDAS",
+                //     chapterId: "chapter_99852"
+                // },
+                // {
+                //     eventId: "ASDAdddSDAS",
+                //     chapterId: "chapter_100"
+                // },
             ],
             elements: [
                 {
@@ -48,7 +48,7 @@ const data = {
                     id: "continue12",
                     type: globals.EDIT_CONTINUE_ELEMENT,
                     content: {
-                        action: 'chapter_124552'
+                        action: 'chapter_100'
                     }
                 },
                 {
@@ -150,10 +150,7 @@ const data = {
                 },
             ],
             links: [
-                {
-                    eventId: "jhhoawjdoaw",
-                    chapterId: "chapter_100"
-                },
+
             ],
         },
         {

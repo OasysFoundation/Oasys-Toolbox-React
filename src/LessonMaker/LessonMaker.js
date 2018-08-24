@@ -35,6 +35,8 @@ class LessonMaker extends Component {
             that.saveStatus()
         }, 20000);
 
+        this.props.updateChapterLinks();
+
     }
 
     componentWillUnmount() {
@@ -214,8 +216,8 @@ LessonMaker.propTypes = {
 
 const mapStoreToProps = ({chapters, activeChapterIndex, isEditMode}) => ({isEditMode, chapters, activeChapterIndex})
 const neededActions = (store) => {
-    const {onChangeActiveChapter, onDeleteChapter, onChangeChapterTitle, onToggleEditMode, mergeStoreWithSessionStorage} = actions();
-    return {onChangeActiveChapter, onDeleteChapter, onChangeChapterTitle, onToggleEditMode, mergeStoreWithSessionStorage}
+    const {onChangeActiveChapter, updateChapterLinks, onDeleteChapter, onChangeChapterTitle, onToggleEditMode, mergeStoreWithSessionStorage} = actions();
+    return {onChangeActiveChapter, updateChapterLinks, onDeleteChapter, onChangeChapterTitle, onToggleEditMode, mergeStoreWithSessionStorage}
 };
 
 export default connect(mapStoreToProps, neededActions)(LessonMaker);
