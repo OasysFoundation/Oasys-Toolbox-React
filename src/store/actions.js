@@ -71,6 +71,18 @@ const actions = function (store) { //store for async stuff
             clone.chapters = chapters;
             return clone
         },
+        onDeleteLinks(state,chapterId) {
+            // const chapters = JSON.parse(JSON.stringify(state)).chapters;
+            // //remove links
+            // chapters.forEach(chapter => {
+            //     chapter.links = chapter.links
+            //         .filter(link => link.chapterId !== chapterId)
+            // });
+            //
+            // clone.chapters = chapters;
+            // return clone
+
+        },
 
         setCurrentProject(state, projectData) {
             return projectData;
