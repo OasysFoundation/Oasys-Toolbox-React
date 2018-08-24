@@ -12,6 +12,7 @@ const data = {
         status:0,
     },
     title: "Physics101",
+    author: 'markus123',
     contentId: "6d7324c6-50ca-458e-ad46-cc9df4ee23e3",
     // id: 'project_1245',
     iconName: "001-cells.svg",
