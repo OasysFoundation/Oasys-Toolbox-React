@@ -29,18 +29,12 @@ class ContentView extends Component {
 
         this.maxUpdateAttempts = 5;
         this.numScheduledUpdates = 0;
-        this.analytics = {
+        this.analytics = { // credentials are set in componentDidMount
             accessTimes: [],
             startTime: new Date(),
             endTime: null,
+            contentId: null,
             quizzes: [],
-            //contentId: this.state.content.contentId,
-
-            //let's call this learnerId
-            //accessUserId: this.props.user.name,
-
-            //let's call this authorId
-            //contentUserId: this.props.content.userId,
         };
     }
 
@@ -165,6 +159,9 @@ class ContentView extends Component {
 
     postAnalytics = async function(n) {
         try {
+            if (this.analytics.contentId===null) {
+                throw new Error('content ID is not set');
+            }
             let response = await api.postUserContentAccess(this.analytics);
             this.numScheduledUpdates -= 1;
             return response;
@@ -176,7 +173,7 @@ class ContentView extends Component {
                 this.numScheduledUpdates -= 1;
                 return;
             } else {
-                return await setTimeout(()=>this.postAnalytics(n-1), 5000);
+                return await setTimeout(()=>this.postAnalytics(n-1), Math.trunc(30000 / (n-1)));
             }
         }
     }
