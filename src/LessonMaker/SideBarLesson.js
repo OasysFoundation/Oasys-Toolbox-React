@@ -109,7 +109,7 @@ class SideBarLesson extends Component {
                     <ModalBody>
                     <center>
                         <div style={{position: 'relative', width:'100px', height:'100px', marginBottom:'20px'}} onClick={this.onShowIconSelectionModal.bind(this)}>
-                            <img src={require('../assets/category-icons/' + this.props.iconName)} width='100px' height='100px'/>
+                            <img src={require('../assets/category-icons/' + this.props.iconName)} width='100px' height='100px' alt=''/>
                             <div style={{position:'absolute', top:'0', right:'0'}}>
                                 <i class="fas fa-align-right fa-lg fa-edit" onClick={this.onShowIconSelectionModal.bind(this)}></i>
                             </div>

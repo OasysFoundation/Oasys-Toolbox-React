@@ -233,6 +233,7 @@ class AccountPage extends Component {
     }
 
     render() {
+        // eslint-disable-next-line no-unused-expressions
         this.props.user.status===0
             ? null
             : this.props.user.status===1

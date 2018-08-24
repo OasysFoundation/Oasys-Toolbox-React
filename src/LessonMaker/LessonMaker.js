@@ -3,7 +3,7 @@ import {Container} from "reactstrap"
 import SideBarLesson from "./SideBarLesson";
 import posed, {PoseGroup} from 'react-pose';
 import PropTypes from 'prop-types';
-import {Button, FormText, Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
+import {Button, Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
 import {connect} from "redux-zero/react";
 
 import actions from "../store/actions";

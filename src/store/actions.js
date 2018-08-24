@@ -1,7 +1,7 @@
 //TODO use my mongo functions to do upsert, insert, find for STATE etc
 //use immutable
 import update from 'immutability-helper'
-import {moveEntry, withoutEntry, getObjectsByKey, saveToSessionStorage, isEmpty} from "../utils/trickBox";
+import {moveEntry, withoutEntry, getObjectsByKey, saveToSessionStorage} from "../utils/trickBox";
 import {initContent} from "../utils/tools";
 import uuidv4 from 'uuid/v4';
 import globals from '../utils/globals';

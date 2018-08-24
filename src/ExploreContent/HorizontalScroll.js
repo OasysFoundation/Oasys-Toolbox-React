@@ -273,6 +273,7 @@ class HorizontalScroll extends Component {
                 // cloning into array since HTMLCollection is updated dynamically
                 dragged = [].slice.call(_document.getElementsByClassName('dragscroll'));
                 for (i = 0; i < dragged.length;) {
+                    //eslint-disable-next-line no-loop-func
                     (function(el, lastClientX, lastClientY, pushed, scroller, cont){
                         (cont = el.container || el)[addEventListener](
                             mousedown,

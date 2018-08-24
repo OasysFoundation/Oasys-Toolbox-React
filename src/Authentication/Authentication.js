@@ -17,11 +17,11 @@ import {
     Row
 } from 'reactstrap';
 import api from '../utils/api'
-import actions from "../store/actions";
+//import actions from "../store/actions";
 import {connect} from "redux-zero/react";
 import {Redirect} from 'react-router';
 
-import history from '../history'
+//import history from '../history'
 
 
 const INITIAL_STATE = {

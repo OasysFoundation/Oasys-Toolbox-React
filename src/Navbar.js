@@ -8,7 +8,7 @@ import Logo_Small from './assets/images/brand/oasys_logo_small.png'
 
 import {connect} from "redux-zero/react";
 // import actions from "./store/actions";
-import {auth} from "./Authentication/firebase";
+//import {auth} from "./Authentication/firebase";
 
 // Styling
 import {

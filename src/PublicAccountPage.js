@@ -3,12 +3,12 @@ import HorizontalScroll from './ExploreContent/HorizontalScroll'
 import api from './utils/api'
 import {getTagsForCategory} from "./utils/LandingPage";
 import ScrollableAnchor from 'react-scrollable-anchor'
-import * as auth from './Authentication/auth';
-import history from './history'
+//import * as auth from './Authentication/auth';
+//import history from './history'
 
 import {connect} from "redux-zero/react";
 
-import {Button} from 'reactstrap';
+//import {Button} from 'reactstrap';
 import colors from './utils/colors';
 
 

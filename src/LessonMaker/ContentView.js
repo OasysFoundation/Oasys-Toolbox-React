@@ -127,7 +127,7 @@ class ContentView extends Component {
     }
 
     isLastChapter() {
-        return (this.state.activeChapterIndex == this.state.chapters.length - 1);
+        return (this.state.activeChapterIndex === this.state.chapters.length - 1);
     }
 
     goToElementinChapter(nextElementIndex) {

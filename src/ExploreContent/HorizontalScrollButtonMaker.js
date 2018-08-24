@@ -5,8 +5,8 @@ import Truncate from 'react-truncate';
 
 import colors from '../utils/colors';
 
-import {connect} from "redux-zero/react";
-import actions from "../store/actions";
+//import {connect} from "redux-zero/react";
+//import actions from "../store/actions";
 import store from "../store/store"
 
 import history from '../history'
@@ -177,8 +177,7 @@ class HorizontalScrollButtonMaker extends Component{
 
 		// for type == card
 		let returnUrl="",
-			starCount="",
-			userLink = "";
+			starCount="";
 
 		this.starStr = '';
 
@@ -189,7 +188,6 @@ class HorizontalScrollButtonMaker extends Component{
 				: <a onClick={this.props.positionChange.bind(this,hashLink)} className="pn-ProductNav_Link">{this.props.data.name}</a>
 		}
 		else{
-			userLink = `/user/${this.props.data.userId}/${this.props.data.contentId}`
 			returnUrl = "/user/"+this.props.data.userId;
 			let rating = this.props.data.rating;
 			let whiteStar = '\u2606';
@@ -282,9 +280,9 @@ class HorizontalScrollButtonMaker extends Component{
 			        <CardBody>
 			        <div style={{position: 'absolute',top:'116px',left:'49px'}}>
 			        	{this.props.data.iconName? 
-			        		<img src={require('../assets/category-icons/' + this.props.data.iconName)} width='70px' height='70px'/>
+			        		<img src={require('../assets/category-icons/' + this.props.data.iconName)} width='70px' height='70px' alt=''/>
 			        	:
-			        		<img src={require('../assets/category-icons/005-atom.svg')} width='70px' height='70px'/>
+			        		<img src={require('../assets/category-icons/005-atom.svg')} width='70px' height='70px' alt=''/>
 			        	}
 		        	</div>
 		        	<div style={{textAlign: 'center', marginTop: '-65px'}}>

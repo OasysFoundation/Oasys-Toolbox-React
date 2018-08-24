@@ -129,6 +129,13 @@ class Element extends Component {
     }
 
     componentDidMount() {
+        // in case we ever need this - with the following we can query if the element is visible.
+        // right now, we are passively receiving the visibility info through onChangeVisibility
+        /*
+        if (this.sensorRef.current !== null) {
+            console.log(this.sensorRef.current.check().isVisible)
+        }
+        */
     }
 
     componentWillUnmount() {
@@ -156,19 +163,9 @@ class Element extends Component {
             visible: isVisible,
             time: new Date(),
         }
-        
+
         this.props.onChangeVisibility(elemAnalytics);
         // console.log('Element type ' + this.props.data.type + ' (' + this.props.data.id + ') is now ' + visStr);
-    }
-
-    componentDidMount() {
-        // in case we ever need this - with the following we can query if the element is visible.
-        // right now, we are passively receiving the visibility info through onChangeVisibility
-        /*
-        if (this.sensorRef.current !== null) {
-            console.log(this.sensorRef.current.check().isVisible)
-        }
-        */
     }
 
     render() {
