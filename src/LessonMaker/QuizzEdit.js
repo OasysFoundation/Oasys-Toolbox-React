@@ -181,12 +181,7 @@ class QuizzEdit extends Component {
                 duration: this.analytics.endTime - this.analytics.startTime,
                 id: this.props.id,
             }
-<<<<<<< HEAD
             this.props.onQuizAnswer(quizObj);
-=======
-            // report to handler in content view
-            // this.props.onQuizAnswer(quizObj)
->>>>>>> 36395ce839a0409910329f0fa753a3d51f5df72a
         }
     }
 
