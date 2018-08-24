@@ -279,7 +279,8 @@ class QuizzEdit extends Component {
                                 answers={JSON.parse(JSON.stringify(this.state.answers))}
                                 quizType={this.state.quizType}
                                 onChange={this.onChangeData} onClose={this.onClose} chapters={this.props.chapters}
-                                isOpen={this.state.showsModalEditor} onAddChapter={this.props.onAddChapter}/>
+                                isOpen={this.state.showsModalEditor} onAddChapter={this.props.onAddChapter}
+                                activeChapterIndex={this.props.activeChapterIndex} />
             </div>
         )
     }
