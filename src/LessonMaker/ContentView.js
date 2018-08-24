@@ -159,8 +159,9 @@ class ContentView extends Component {
 
     postAnalytics = async function(n) {
         try {
-            if (this.analytics.contentId===null) {
-                throw new Error('content ID is not set');
+            if (!this.analytics.contentId || !this.analytics.accessUserId) {
+                console.error('content ID is not set');
+                return;
             }
             let response = await api.postUserContentAccess(this.analytics);
             this.numScheduledUpdates -= 1;
