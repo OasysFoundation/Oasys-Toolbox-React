@@ -12,6 +12,9 @@ import ElementAdder from './ElementAdder'
 import ContentView from './ContentView'
 import colors from '../utils/colors';
 
+import EndOfChapterElement from './EndOfChapterElement';
+import uuidv4 from 'uuid/v4';
+
 const Item = posed.div();
 
 class LessonMaker extends Component {
@@ -48,7 +51,7 @@ class LessonMaker extends Component {
         //api.saveContent
     }
 
-    handleChapterDeleteModal(){
+    handleChapterDeleteModal() {
         this.setState({
             showDeleteChapterDialog: true,
         });
@@ -61,14 +64,14 @@ class LessonMaker extends Component {
     }
 
     handleChapterDelete() {
-        const {chapters, activeChapterIndex} =  this.props;
+        const {chapters, activeChapterIndex} = this.props;
         this.handleChapterDeleteModalClose();
         const oldIndex = activeChapterIndex;
-        let index = activeChapterIndex === chapters.length-1 ? chapters.length -2 : activeChapterIndex;
+        let index = activeChapterIndex === chapters.length - 1 ? chapters.length - 2 : activeChapterIndex;
         // const currIdx = activeChapterIndex;
         console.log(this.props.activeChapterIndex, index)
 
-        if (chapters.length === 1 ) {
+        if (chapters.length === 1) {
             index = 0;
         }
 
@@ -79,40 +82,43 @@ class LessonMaker extends Component {
 
     }
 
-    renderChapterDeleteModal(){
-        const modal = (this.props.chapters.length===1)
-        ? (<React.Fragment>
-                <ModalHeader>
-                    Cannot delete chapter
-                </ModalHeader>
-                <ModalBody>
-                    <p>Sorry, but each lesson needs to have at least one chapter, so you 
-                    cannot delete this chapter.</p>
-                </ModalBody>
-                <ModalFooter>
-                    <Button color="primary" onClick={this.handleChapterDeleteModalClose}>OK</Button>
-                </ModalFooter>
-            </React.Fragment>
-        )
-        : (<React.Fragment>
-                <ModalHeader>
-                    Delete chapter?
-                </ModalHeader>
-                <ModalBody>
-                    <p>Are you sure you want to delete this chapter?</p>
-                </ModalBody>
-                <ModalFooter>
-                    <Button color="secondary" onClick={this.handleChapterDeleteModalClose}>Cancel</Button>
-                    <Button style={{backgroundColor: '#c6361d', color: colors.SNOW1}} onClick={this.handleChapterDelete}>Delete</Button>
-                </ModalFooter>
-            </React.Fragment>
-        )
+    renderChapterDeleteModal() {
+        const modal = (this.props.chapters.length === 1)
+            ? (<React.Fragment>
+                    <ModalHeader>
+                        Cannot delete chapter
+                    </ModalHeader>
+                    <ModalBody>
+                        <p>Sorry, but each lesson needs to have at least one chapter, so you
+                            cannot delete this chapter.</p>
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button color="primary" onClick={this.handleChapterDeleteModalClose}>OK</Button>
+                    </ModalFooter>
+                </React.Fragment>
+            )
+            : (<React.Fragment>
+                    <ModalHeader>
+                        Delete chapter?
+                    </ModalHeader>
+                    <ModalBody>
+                        <p>Are you sure you want to delete this chapter?</p>
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button color="secondary" onClick={this.handleChapterDeleteModalClose}>Cancel</Button>
+                        <Button style={{backgroundColor: '#c6361d', color: colors.SNOW1}}
+                                onClick={this.handleChapterDelete}>Delete</Button>
+                    </ModalFooter>
+                </React.Fragment>
+            )
         return modal;
-    }    
+    }
 
     render() {
         const activeChapter = this.props.chapters[this.props.activeChapterIndex];
-        if (!activeChapter) {return <div>No chapters found</div>}
+        if (!activeChapter) {
+            return <div>No chapters found</div>
+        }
         const {elements} = activeChapter;
         const emptyChapterAdder = elements.length > 0 ? null : <ElementAdder key={"filler"} idx={0}/>;
 
@@ -120,80 +126,98 @@ class LessonMaker extends Component {
             <div className="app-body">
                 <SideBarLesson/>
                 <main className="main">
-                    <Modal isOpen={this.state.showDeleteChapterDialog} toggle={this.handleChapterDeleteModalClose} backdrop={true}>
-                        { this.renderChapterDeleteModal() }
+                    <Modal isOpen={this.state.showDeleteChapterDialog} toggle={this.handleChapterDeleteModalClose}
+                           backdrop={true}>
+                        {this.renderChapterDeleteModal()}
                     </Modal>
 
                     <Container fluid className='main-width'>
                         <center>
 
 
-                                    <section className='main-width' style={{
-                                        display: 'flex',
-                                        marginTop: '1rem',
-                                        marginBottom: '1rem',
-                                        flex: 1,
-                                        flexDirection: 'row'
-                                    }}>
+                            <section className='main-width' style={{
+                                display: 'flex',
+                                marginTop: '1rem',
+                                marginBottom: '1rem',
+                                flex: 1,
+                                flexDirection: 'row'
+                            }}>
 
-                                        <div className="input-group-prepend">
-                                            <span className="input-group-text" id="basic-addon1">Chapter Title</span>
-                                        </div>
-                                        <input
-                                            type="text"
-                                            className="form-control header"
-                                            placeholder="Name your Chapter"
-                                            aria-label="Name this Chapter"
-                                            value={activeChapter.title}
-                                            onChange={(ev) => this.props.onChangeChapterTitle(ev.target.value)}
-                                            aria-describedby="basic-addon1"
-                                            style={{marginRight: '10px'}}
-                                        />
-                                        <button
-                                            type="button"
-                                            className="btn preview-btn delete-btn"
-                                            onClick={this.handleChapterDeleteModal}
-                                        >
-                                            Delete
-                                        </button>
-                                        <button
-                                            type="button"
-                                            className={this.props.isEditMode ? "btn btn-dark preview-btn" : "btn btn-light preview-btn"}
-                                            style={{width: '150px'}}
-                                            onClick={() => this.props.onToggleEditMode()}
-                                        >
-                                            <span className={this.props.isEditMode ? "icon-grid" : "icon-layers"}></span>
-                                            {"  "}
-                                            {this.props.isEditMode ? 'Preview' : '  Edit  '}
-                                        </button>
-                                    </section>
+                                <div className="input-group-prepend">
+                                    <span className="input-group-text" id="basic-addon1">Chapter Title</span>
+                                </div>
+                                <input
+                                    type="text"
+                                    className="form-control header"
+                                    placeholder="Name your Chapter"
+                                    aria-label="Name this Chapter"
+                                    value={activeChapter.title}
+                                    onChange={(ev) => this.props.onChangeChapterTitle(ev.target.value)}
+                                    aria-describedby="basic-addon1"
+                                    style={{marginRight: '10px'}}
+                                />
+                                <button
+                                    type="button"
+                                    className="btn preview-btn delete-btn"
+                                    onClick={this.handleChapterDeleteModal}
+                                >
+                                    Delete
+                                </button>
+                                <button
+                                    type="button"
+                                    className={this.props.isEditMode ? "btn btn-dark preview-btn" : "btn btn-light preview-btn"}
+                                    style={{width: '150px'}}
+                                    onClick={() => this.props.onToggleEditMode()}
+                                >
+                                    <span className={this.props.isEditMode ? "icon-grid" : "icon-layers"}></span>
+                                    {"  "}
+                                    {this.props.isEditMode ? 'Preview' : '  Edit  '}
+                                </button>
+                            </section>
                             {this.props.isEditMode
                                 ? (<React.Fragment>
-                                <PoseGroup>
-                                    {elements.map((el, idx) =>
-                                        <Item key={el.id}>
-                                            <Element
-                                                key={el.id}
-                                                data={el}
-                                                isPreview={true}
-                                            />
+                                    <PoseGroup>
+                                        {elements.map((el, idx) => {
+                                                if (el.type === 8) {
+                                                    return null
+                                                }
+                                                else {
+                                                    return (<Item key={el.id}>
+                                                        <Element
+                                                            key={el.id}
+                                                            data={el}
+                                                            isPreview={true}
+                                                        />
 
-                                            {/*SHORT FORM FOR --> isEditMode ? <Adder/> : null */}
-                                            {this.props.isEditMode && <ElementAdder key={el.id + 1} idx={idx}/>}
-                                        </Item>
-                                    )}
-                                </PoseGroup>
+                                                        {/*SHORT FORM FOR --> isEditMode ? <Adder/> : null */}
+                                                        {this.props.isEditMode && <ElementAdder key={el.id + 1} idx={idx}/>}
+                                                    </Item>)
+                                                }
 
-                            </React.Fragment>)
+                                            }
+                                        )}
+                                    </PoseGroup>
+                                    {/*if we already saved this extra element*/}
+                                    {elements[elements.length - 1].type === 8
+                                        ? <Element data={elements[elements.length - 1]} chapterID={activeChapter.id}/>
+                                        : <Element data={{
+                                            type: 8,
+                                            id: uuidv4(),
+                                            content: {action: null},
+                                            parentChapterId: activeChapter.id
+                                        }}/>
+                                    }
+
+                                </React.Fragment>)
 
 
-                            : <ContentView
+                                : <ContentView
                                     isPreview={true}
                                     chapters={this.props.chapters}
                                     onChangeActiveChapter={this.props.onChangeActiveChapter}/>
-                        }
+                            }
 
-                        {emptyChapterAdder}
+                            {emptyChapterAdder}
                         </center>
 
                     </Container>
@@ -217,7 +241,14 @@ LessonMaker.propTypes = {
 const mapStoreToProps = ({chapters, activeChapterIndex, isEditMode}) => ({isEditMode, chapters, activeChapterIndex})
 const neededActions = (store) => {
     const {onChangeActiveChapter, updateChapterLinks, onDeleteChapter, onChangeChapterTitle, onToggleEditMode, mergeStoreWithSessionStorage} = actions();
-    return {onChangeActiveChapter, updateChapterLinks, onDeleteChapter, onChangeChapterTitle, onToggleEditMode, mergeStoreWithSessionStorage}
+    return {
+        onChangeActiveChapter,
+        updateChapterLinks,
+        onDeleteChapter,
+        onChangeChapterTitle,
+        onToggleEditMode,
+        mergeStoreWithSessionStorage
+    }
 };
 
 export default connect(mapStoreToProps, neededActions)(LessonMaker);

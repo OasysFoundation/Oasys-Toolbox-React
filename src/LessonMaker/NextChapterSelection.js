@@ -6,7 +6,6 @@ import CreateNewChapterModal from './CreateNewChapterModal'
 
 //this is the new "Preview" Component
 class NextChapterSelection extends Component {
-
     
     state = {
         userCreatedChapters: [],
