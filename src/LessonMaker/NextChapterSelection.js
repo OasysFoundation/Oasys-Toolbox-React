@@ -106,7 +106,7 @@ class NextChapterSelection extends Component {
     }
 
     onContinue() {
-        
+        this.props.onLearnerInteraction(this.props.data.action, this.props.id);
     }
     
 
