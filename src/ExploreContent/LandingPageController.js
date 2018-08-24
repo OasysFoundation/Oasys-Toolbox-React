@@ -16,6 +16,12 @@ const styles = {
         width: "100%",
         maxWidth: "900px",
     },
+    mobileTopPadding:{
+        paddingTop:"100px"
+    },
+    pcTopPadding:{
+        paddingTop:"50px"
+    },
 }
 
 const tileColors = {
@@ -191,7 +197,7 @@ class LandingPageController extends Component {
         }
 
     }
-    
+
     changeSectionOrder(category) {
         let pageDataUpdate = this.state.pageData;
 
@@ -231,7 +237,7 @@ class LandingPageController extends Component {
         < div >
         {this.checkMobile()
             ? (
-            	<div className = "landingPage" >
+            	<div className = "landingPage" style={styles.mobileTopPadding}>
                 	<HeaderImage type = "mobile" / >
             		<section style = {styles.HorizontalScrollOuterCenterContainer}>
 	  					<div style = {styles.HorizontalScrollContainer}>
@@ -250,7 +256,7 @@ class LandingPageController extends Component {
         		< /div>
     		)
     		: (
-        		<div className = "landingPage" >
+        		<div className = "landingPage" style={styles.pcTopPadding} >
             		<HeaderImage type = "PC" / >
             		<section style = {styles.HorizontalScrollOuterCenterContainer}>
     					<div style = {styles.HorizontalScrollContainer}>

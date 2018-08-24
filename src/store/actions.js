@@ -148,7 +148,6 @@ const actions = function (store) { //store for async stuff
         },
 
         onChangeContent(state, id, value, elementChapter) {
-
             //more verbose, but performant (instead of Json.stringify)
             const currentChapterIdx = state.chapters.findIndex(chapter => chapter.id === elementChapter);
 
@@ -201,7 +200,7 @@ const actions = function (store) { //store for async stuff
         updateChapterLinks(state) {
             const clone = JSON.parse(JSON.stringify(state));
             // const allChapterIDs = clone.chapters.map(chap => chap.id)
-            clone.chapters = updateLinksInChapters_mutate(clone.chapters)
+            clone.chapters = updateLinksInChapters_mutate(clone.chapters);
             return clone;
         },
 
