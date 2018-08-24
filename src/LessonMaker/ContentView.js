@@ -119,7 +119,7 @@ class ContentView extends Component {
         this.setState({
             activeChapterIndex: nextIdx,
             activeChapterID: nextID
-        }, () => this.scrollTo(chapters[nextIdx].elements[0].id, {bottom: '5vh'}));
+        }, () => this.scrollTo('first'))//(chapters[nextIdx].elements[0].id, {top: '80vh'}));
         //this.props.o
     }
 
@@ -187,6 +187,9 @@ class ContentView extends Component {
 
         return (
             <ScrollView ref={scroller => this._scroller = scroller}>
+                <React.Fragment>
+                    {/*This extra ScrollElement on the top fixes the scrolling problem*/}
+                    <ScrollElement name={'first'}><div></div></ScrollElement>
                 <div className={this.props.isPreview ? null : "app-body"}>
                     <main className={this.props.isPreview ? null : "main"}>
                         <Container fluid className='main-width'>
@@ -243,6 +246,7 @@ class ContentView extends Component {
                         </center>
                     </main>
                 </div>
+                </React.Fragment>
             </ScrollView>
         );
     }
