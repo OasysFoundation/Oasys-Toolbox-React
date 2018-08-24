@@ -38,8 +38,6 @@ class Element extends Component {
 
         this.sensorRef = React.createRef();
 
-
-
         this.state = {
             isHovered: false,
             tempContent: this.props.data.content || getContentFromSessionStorage(this.props.data.id),
@@ -109,6 +107,7 @@ class Element extends Component {
                 render = <QuizzEdit {...params}
                                     chapters={this.props.chapters.map(c => ({title: c.title, id: c.id}))}
                                     onAddChapter={this.props.onAddChapter}
+                                    onQuizAnswer={this.props.onQuizAnswer}
                 />
                 break;
             case globals.EDIT_VIDEO:
@@ -151,12 +150,14 @@ class Element extends Component {
     }
 
     onChangeVisibility(isVisible) {
-        this.props.onChangeVisibility({
+        let elemAnalytics = {
             id: this.props.data.id, 
             type: this.props.data.type, 
             visible: isVisible,
             time: new Date(),
-        });
+        }
+        
+        this.props.onChangeVisibility(elemAnalytics);
         // console.log('Element type ' + this.props.data.type + ' (' + this.props.data.id + ') is now ' + visStr);
     }
 

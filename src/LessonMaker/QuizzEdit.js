@@ -71,6 +71,7 @@ class QuizzEdit extends Component {
         this.onClose = this.onClose.bind(this);
         this.onContinue = this.onContinue.bind(this);
         this.prepare = this.prepare.bind(this);
+        this.reportAnalytics = this.reportAnalytics.bind(this);
     }
 
     onChangeData(data) {
@@ -143,7 +144,8 @@ class QuizzEdit extends Component {
                     feedbackPopoverTitle: selectedAnswer.correct? "Amazing, this is correct!" : "This is wrong…",
                     feedbackPopoverAction: selectedAnswer.action
                 },
-                this.reportAnalytics(selectedAnswer.correct);
+                this.reportAnalytics(selectedAnswer.correct)
+                );
             }
         });
     }
@@ -178,8 +180,8 @@ class QuizzEdit extends Component {
                 duration: this.analytics.endTime - this.analytics.startTime,
                 id: this.props.id,
             }
-            // report to handler in content view
-            // this.props.onQuizAnswer(quizObj)
+            this.props.onQuizAnswer(quizObj);
+        }
     }
 
     prepare() {

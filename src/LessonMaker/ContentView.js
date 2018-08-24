@@ -25,7 +25,10 @@ class ContentView extends Component {
         this.goToChapter = this.goToChapter.bind(this);
         this.produceState = this.produceState.bind(this);
         this.handleChangeElementVisibility = this.handleChangeElementVisibility.bind(this);
+        this.handleQuizAnswer = this.handleQuizAnswer.bind(this);
 
+        this.maxUpdateAttempts = 5;
+        this.numScheduledUpdates = 0;
         this.analytics = {
             accessTimes: [],
             startTime: new Date(),
@@ -160,20 +163,36 @@ class ContentView extends Component {
 
     }
 
+    postAnalytics = async function(n) {
+        try {
+            let response = await api.postUserContentAccess(this.analytics);
+            this.numScheduledUpdates -= 1;
+            return response;
+        } catch(err) {
+            if (n === 1) {
+                console.log(err);
+            }
+            if (this.numScheduledUpdates > 1) {
+                this.numScheduledUpdates -= 1;
+                return;
+            } else {
+                return await setTimeout(()=>this.postAnalytics(n-1), 5000);
+            }
+        }
+    }
+
     handleQuizAnswer(obj) {
-        // how to pass handler to quiz element only?
         this.analytics.quizzes.push(obj);
-        let myAnalytics = JSON.parse(JSON.stringify(this.analytics));
-        myAnalytics.type = 'quizUpdate';
-        console.log('handleQuizAnswer: ' + myAnalytics);
-        //api.postUserContentAccess(myAnalytics);
+        console.log('handleQuizAnswer: ' + JSON.stringify(this.analytics));
+        this.numScheduledUpdates += 1;
+        this.postAnalytics(this.maxUpdateAttempts);
     }
 
     handleChangeElementVisibility(obj) {
         this.analytics.accessTimes.push(obj);
-        console.log('handleChangeElementVisibility: ' + this.analytics);
-        //api.postUserContentAccess(this.analytics);
-
+        console.log('handleChangeElementVisibility: ' + JSON.stringify(this.analytics));
+        this.numScheduledUpdates += 1;
+        this.postAnalytics(this.maxUpdateAttempts);
     }
 
     render() {
@@ -211,6 +230,7 @@ class ContentView extends Component {
                                                             isEditMode={false}
                                                             onLearnerInteraction={this.goToChapter}
                                                             onChangeVisibility={this.handleChangeElementVisibility}
+                                                            onQuizAnswer={this.handleQuizAnswer}
                                                         />
                                                         }
                                                     </div>
