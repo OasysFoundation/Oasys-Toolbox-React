@@ -224,13 +224,13 @@ class SideBarLesson extends Component {
                     </Button>
                     <Button onClick={() => this.saveContent(0)} className='sidebar-button'>
                         <div>Save draft</div>
-                        {this.state.isCurrentlySavingDraft? <ScaleLoader height={20} color='white' /> : null }
+                        {this.state.isCurrentlySavingDraft? <ScaleLoader height={15} color='white' /> : null }
                         <i className="fas fa-align-right fa-lg fa-save"></i>
                     </Button>
 
                     <Button onClick={() => this.saveContent(1)} className='sidebar-button publish'>
                         <div>Publish</div>
-                        {this.state.isCurrentlyPublishing? <ScaleLoader height={20} color='white' /> : null }
+                        {this.state.isCurrentlyPublishing? <ScaleLoader height={15} color='white' /> : null }
                         <i className="fas fa-align-right fa-lg fa-globe-americas"></i>
                     </Button>
                     <hr/>

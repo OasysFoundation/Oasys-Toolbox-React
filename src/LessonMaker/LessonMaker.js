@@ -12,6 +12,8 @@ import ElementAdder from './ElementAdder'
 import ContentView from './ContentView'
 import colors from '../utils/colors';
 
+import EditModalWarning from './EditModalWarning'
+
 const Item = posed.div();
 
 class LessonMaker extends Component {
@@ -118,6 +120,7 @@ class LessonMaker extends Component {
 
         return (
             <div className="app-body">
+                <EditModalWarning contentTitle={"Mark22 adventures"} isOpen={true}/>
                 <SideBarLesson/>
                 <main className="main">
                     <Modal isOpen={this.state.showDeleteChapterDialog} toggle={this.handleChapterDeleteModalClose} backdrop={true}>
