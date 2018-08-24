@@ -231,7 +231,7 @@ class HorizontalScrollButtonMaker extends Component{
 			          <div style={styles.titleAndSubtitle}>
 				          <CardTitle style={styles.cardTitle}>
 				          	<div style={styles.cardTitleLink}>
-				          	  <Truncate lines={4} >
+				          	  <Truncate lines={3} >
 				          	 	{this.props.data.title}
 				              </Truncate>
 				              </div>
