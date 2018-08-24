@@ -23,8 +23,6 @@ import Footer from "./Footer";
 import About from "./About"
 import LandingPageController from "./ExploreContent/LandingPageController"
 
-//import FontAwesomeImports from "./utils/FontAwesomeImports"
-
 import {Provider} from "redux-zero/react";
 
 import ConcludingContentPage from './ConcludingContentPage'
