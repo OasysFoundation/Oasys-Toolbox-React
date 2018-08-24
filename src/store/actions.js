@@ -6,6 +6,42 @@ import {initContent} from "../utils/tools";
 import uuidv4 from 'uuid/v4';
 import globals from '../utils/globals';
 
+
+
+function updateLinksInChapters_mutate(chapters) {
+    chapters.forEach(chapter => {
+        let continue_links = [];
+        let answer_links = [];
+        chapter.elements.forEach(elem => {
+            if (elem.type === globals.EDIT_QUIZ || elem.type === globals.EDIT_CONTINUE_ELEMENT) {
+
+                if (elem.content.answers) {
+                    const answeractions = elem.content.answers
+                        .filter(answer => answer.action != null)
+                        .map(answerWithLink => answerWithLink.action)
+                    answer_links.push(...answeractions)
+                }
+
+                else if (elem.content.action) {
+                    continue_links.push(elem.content.action);
+                }
+
+                const links = [...continue_links, ...answer_links]
+                //if a chapter was deleted before
+                // .filter(link => allChapterIDs.includes(link.chapterId));
+                chapter.links = links.map(function (link) {
+                    return {
+                        eventId: uuidv4(),
+                        chapterId: link
+                    }
+                });
+            }
+        })
+    });
+
+    return chapters;
+}
+
 const actions = function (store) { //store for async stuff
     return {
         //state variable gets inject into the action functions somehow through the connect(maptoprops, action)
@@ -116,7 +152,9 @@ const actions = function (store) { //store for async stuff
             const currentChapterIdx = state.chapters.findIndex(chapter => chapter.id === elementChapter);
 
             //chapter was deleted
-            if (!state.chapters[currentChapterIdx]) {return state}
+            if (!state.chapters[currentChapterIdx]) {
+                return state
+            }
 
             let elements = state.chapters[currentChapterIdx].elements;
 
@@ -161,45 +199,8 @@ const actions = function (store) { //store for async stuff
         //usually called after onChangeContent adds new actions
         updateChapterLinks(state) {
             const clone = JSON.parse(JSON.stringify(state));
-
-            const allChapterIDs = clone.chapters.map(chap => chap.id)
-
-            clone.chapters.forEach(chapter => {
-                let continue_links = [];
-                let answer_links = [];
-                chapter.elements.forEach(elem => {
-                    if (elem.type === globals.EDIT_QUIZ || elem.type === globals.EDIT_CONTINUE_ELEMENT) {
-
-                        if (elem.content.answers) {
-                            const answeractions = elem.content.answers
-                                .filter(answer => answer.action != null)
-                                .map(answerWithLink => answerWithLink.action)
-                            answer_links.push(...answeractions)
-                        }
-                        if (elem.content.action) {
-                            continue_links.push(elem.content.action);
-                        }
-
-
-                        const links = [...continue_links, ...answer_links]
-                            //if a chapter was deleted before
-                            .filter(link => allChapterIDs.includes(link.chapterId));
-
-
-                        chapter.links = links.map(function (link) {
-                            return {
-                                eventId: uuidv4(),
-                                chapterId: link
-                            }
-                        });
-
-                    }
-                })
-            })
-
-            console.log('updateChapterLinks')
-            console.log(state);
-            console.log(clone);
+            // const allChapterIDs = clone.chapters.map(chap => chap.id)
+            clone.chapters = updateLinksInChapters_mutate(clone.chapters);
             return clone;
         },
 
@@ -207,10 +208,10 @@ const actions = function (store) { //store for async stuff
             const clone = JSON.parse(JSON.stringify(state));
 
             const activeChapter = clone.chapters[state.activeChapterIndex];
-            activeChapter.links.push({
-                eventId: uuidv4(),
-                chapterId: uid
-            });
+            // activeChapter.links.push({
+            //     eventId: uuidv4(),
+            //     chapterId: uid
+            // });
             clone.chapters[state.activeChapterIndex] = activeChapter;
 
             clone.chapters.push(
@@ -224,8 +225,12 @@ const actions = function (store) { //store for async stuff
                 }
             );
 
+            clone.chapters = updateLinksInChapters_mutate(clone.chapters)
+
             return clone
         },
+
+
 
         onMoveElement(state, id, direction) {
             let elements = state.chapters[state.activeChapterIndex].elements;
@@ -251,6 +256,8 @@ const actions = function (store) { //store for async stuff
                 return state
             }
             clone.chapters[state.activeChapterIndex].elements = withoutEntry(elements, entryIdx);
+
+            clone.chapters = updateLinksInChapters_mutate(clone.chapters);
 
             return clone
         },
