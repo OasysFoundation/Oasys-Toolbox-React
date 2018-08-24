@@ -259,7 +259,6 @@ const actions = function (store) { //store for async stuff
             clone.chapters[state.activeChapterIndex].elements = withoutEntry(elements, entryIdx);
 
             clone.chapters = updateLinksInChapters_mutate(clone.chapters);
-
             return clone
         },
 
