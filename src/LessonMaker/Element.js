@@ -109,6 +109,7 @@ class Element extends Component {
                 render = <QuizzEdit {...params}
                                     chapters={this.props.chapters.map(c => ({title: c.title, id: c.id}))}
                                     onAddChapter={this.props.onAddChapter}
+                                    activeChapterIndex={this.props.activeChapterIndex}
                 />
                 break;
             case globals.EDIT_VIDEO:
@@ -121,10 +122,11 @@ class Element extends Component {
                 render = <NextChapterSelection {...params}
                                     chapters={this.props.chapters.map(c => ({title: c.title, id: c.id}))}
                                     onAddChapter={this.props.onAddChapter}
+                                    activeChapterIndex={this.props.activeChapterIndex}
                 />
                 break;
             default:
-                return (<div key={"1223"}>not yet implemented</div>)
+                return (<div key={"1223"}>not yet implemented :(</div>)
         }
         return render;
     }
