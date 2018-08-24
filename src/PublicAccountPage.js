@@ -186,9 +186,11 @@ class AccountPage extends Component {
 
     render() {
         const {username} = this.props.match.params
+        const paddingVal = (this.checkMobile() ? "120px" : "70px")
+
         return (
             <div>
-                <section className="bg-light rz-start rz-no-border-special-2" id="about" style={{paddingTop:"100px"}}>
+                <section className="bg-light rz-start rz-no-border-special-2" id="about" style={{paddingTop:paddingVal}}>
                   <div className="container">
                     <div className="row">
                       <div className="col-lg-10 mx-auto">
