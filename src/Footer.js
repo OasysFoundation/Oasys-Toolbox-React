@@ -26,7 +26,7 @@ class FooterPage extends React.Component {
                             <h6 className="text-uppercase font-weight-bold"><strong>Useful links</strong></h6>
                             <hr className="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style={{width: '60px'}}/>
                             <p><a href="/" className="dark-grey-text">Home</a></p>
-                            <p><a href="/user" className="dark-grey-text">Your Account</a></p>
+                            <p><a href="/account" className="dark-grey-text">Your Account</a></p>
                             <p><a href="/create" className="dark-grey-text">Create Content</a></p>
                         </Col>
                         <Col md="2" lg="2" xl="2" className="mb-4 dark-grey-text">
