@@ -12,7 +12,7 @@ const API = DEV && USE_REMOTE ? glb.API_DEV_REMOTE : (DEV && !USE_REMOTE ? glb.A
 // console.log(`process.env.NODE_ENV = ${process.env.NODE_ENV} so I app uses << ${API} >> to make API CALLS`)
 
 const BASE_URL = glb.API_PROD;
-// const BASE_URL = glb.API_DEV_LOCAL;
+//const BASE_URL = glb.API_DEV_LOCAL;
 
 console.log('BACKEND API : ', BASE_URL)
 
@@ -64,9 +64,17 @@ const api = {
         const url = BASE_URL + 'getContentById/' + contentId;
         return get(url);
     },
+    getContentByUserNameAndTitle(username, title) {
+        const url = BASE_URL + 'getContentByUserNameAndTitle/' + username + "/" + title;
+        return get(url);
+    },
     getUserContentsPreview() {
         const userId = getUserIdFromStore();
         const url = `${BASE_URL}getUserContentsPreview/${userId}`;
+        return get(url);
+    },
+    getUsersPublicContentsPreview(uid) {
+        const url = `${BASE_URL}contentsPreviewPublishedUserPage/${uid}`;
         return get(url);
     },
     getWalletIdForUser(userName) {

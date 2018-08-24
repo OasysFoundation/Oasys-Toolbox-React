@@ -38,8 +38,6 @@ class Element extends Component {
 
         this.sensorRef = React.createRef();
 
-        this.fromChapter = this.props.data.parentChapterID;
-
         this.state = {
             isHovered: false,
             tempContent: this.props.data.content || getContentFromSessionStorage(this.props.data.id),
@@ -71,7 +69,7 @@ class Element extends Component {
                     this.props.onChangeContent(
                         this.props.data.id,
                         this.state.tempContent,
-                        this.fromChapter);
+                        this.props.data.parentChapterID);
                 }
                 if (shouldUpdateChapterLinks) {
                     this.props.updateChapterLinks()
@@ -110,7 +108,7 @@ class Element extends Component {
                                     chapters={this.props.chapters.map(c => ({title: c.title, id: c.id}))}
                                     onAddChapter={this.props.onAddChapter}
                                     activeChapterIndex={this.props.activeChapterIndex}
-                />
+                                    onQuizAnswer={this.props.onQuizAnswer} />
                 break;
             case globals.EDIT_VIDEO:
                 render = <VideoEdit {...params} onFinishedVideo={this.elementFinished}/>
@@ -122,8 +120,7 @@ class Element extends Component {
                 render = <NextChapterSelection {...params}
                                     chapters={this.props.chapters.map(c => ({title: c.title, id: c.id}))}
                                     onAddChapter={this.props.onAddChapter}
-                                    activeChapterIndex={this.props.activeChapterIndex}
-                />
+                                    activeChapterIndex={this.props.activeChapterIndex} />
                 break;
             default:
                 return (<div key={"1223"}>not yet implemented :(</div>)
@@ -132,13 +129,20 @@ class Element extends Component {
     }
 
     componentDidMount() {
+        // in case we ever need this - with the following we can query if the element is visible.
+        // right now, we are passively receiving the visibility info through onChangeVisibility
+        /*
+        if (this.sensorRef.current !== null) {
+            console.log(this.sensorRef.current.check().isVisible)
+        }
+        */
     }
 
     componentWillUnmount() {
         this.props.onChangeContent(
             this.props.data.id,
             this.state.tempContent,
-            this.fromChapter
+            this.props.data.parentChapterID
         )
     }
 
@@ -153,22 +157,15 @@ class Element extends Component {
     }
 
     onChangeVisibility(isVisible) {
-        this.props.onChangeVisibility({
+        let elemAnalytics = {
             id: this.props.data.id, 
             type: this.props.data.type, 
-            visible: isVisible
-        });
-        // console.log('Element type ' + this.props.data.type + ' (' + this.props.data.id + ') is now ' + visStr);
-    }
-
-    componentDidMount() {
-        // in case we ever need this - with the following we can query if the element is visible.
-        // right now, we are passively receiving the visibility info through onChangeVisibility
-        /*
-        if (this.sensorRef.current !== null) {
-            console.log(this.sensorRef.current.check().isVisible)
+            visible: isVisible,
+            time: new Date(),
         }
-        */
+
+        this.props.onChangeVisibility(elemAnalytics);
+        // console.log('Element type ' + this.props.data.type + ' (' + this.props.data.id + ') is now ' + visStr);
     }
 
     render() {

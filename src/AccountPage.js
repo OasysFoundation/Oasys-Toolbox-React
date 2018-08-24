@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import HorizontalScroll from './ExploreContent/HorizontalScroll'
 import api from './utils/api'
-// import {getTagsForCategory} from "./utils/LandingPage";
 import ScrollableAnchor from 'react-scrollable-anchor'
 import * as auth from './Authentication/auth';
 import history from './history'
@@ -9,6 +8,7 @@ import history from './history'
 import {connect} from "redux-zero/react";
 
 import {Button} from 'reactstrap';
+import colors from './utils/colors';
 
 
 const styles = {
@@ -20,89 +20,58 @@ const styles = {
         width: "100%",
         maxWidth: "900px",
     },
+    HorizontalScrollTitle:{
+        fontSize:"1.5rem",
+        fontFamily: "Charter-Bold,-apple-system, sans-serif",
+    },
+    HRDividingLine:{
+        marginTop: "0",
+        borderColor: colors.GULLGREY,
+        width:"100%",
+        marginRight:"100%",
+    },
 }
 
 class AccountPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            content: [],
+            contentUser: [],
             filteredContent: [{
                 title: "Loading"
             }],
-            pageData: [],
-            previousState: '',
-            noContent:false,
+            pageDataReccommended: [],
+            pageDataUser: [],
+            noContent:true,
+            doneLoading:false,
         };
-
         this.loadAccountPage = this.loadAccountPage.bind(this);
-
-
     }
 
-    componentDidMount() {
-        try {
-            api.getUserContentsPreview(/*api.js knows userID from store, if logged in*/)
-                .then(json => {
-                    this.setState({
-                        content: json || "errorLoadingContent"
-                    })
-                    if(json && json.length)
-                        this.setState({
-                            pageData: [
-                                {
-                                    title: "My Publications",
-                                    data: this.state.content.filter(content => content.published === 1),
-                                    icon: "trophy",
-                                },
-                                {
-                                    title: "My Drafts",
-                                    data: this.state.content.filter(content => content.published !== 1),
-                                    icon: "code",
-                                },
-                            ],
-                        })
-                    else{
-                        this.setState({noContent:true})
-                        // const username = auth.doGetCurrentUser()?auth.doGetUsername():"test"
-                        // const samplePublication = [{
-                        //     title: "This is where your published content will show",
-                        //     userId: username,
-                        //     contentId: "test",
-                        //     rating: "5",
-                        // }]
-
-                        // const sampleDraft = [{
-                        //     title: "This is where your saved drafts will show",
-                        //     userId: username,
-                        //     contentId: "test",
-                        //     rating: "5",
-                        // }]
-                        // this.setState({
-                        //     pageData: [
-                        //         {
-                        //             title: "My Publications",
-                        //         },
-                        //         {
-                        //             title: "My Drafts",
-                        //         },
-                        //     ],
-                        // })
-                    }
-
-                })
-
-                .catch(err => {
-                    console.log(err)
-                })
-        }
-        catch (e){
-            console.log(e)
-        }
-    }
-
-    openCreate() {
-        window.location.href = "/create"
+    componentDidMount(){
+   
+           // Recommendations for user
+           try {
+               api.getContentsPreview()
+                   .then(json => {
+                       if (json && json.length) {
+                           this.setState({
+                               pageDataReccommended: [
+                                   {
+                                       title: "Reccommended for you",
+                                       data: json,
+                                   },
+                               ]
+                           })
+                       }
+                       else
+                           console.log("Mhh there is something strange going on. Email us at info@joinoasys.org if this continues!")
+                   })
+           }
+           catch (error) {
+               console.log("Mhh there is something strange going on. Email us at info@joinoasys.org if this continues!")
+               console.log(error)
+           }
     }
 
     checkMobile() {
@@ -113,97 +82,172 @@ class AccountPage extends Component {
         return check;
     }
 
-    loadDefaultPage(){
-        return(
-        <section className="bg-light rz-start rz-no-border-special-2" id="about" style={{paddingTop:"100px"}}>
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-10 mx-auto">
-                <h2 className="section-heading">
-                {"Welcome " + this.props.user.displayName}
-                </h2>
-                <hr />
-                <p className="text-faded lead mb-4" style={{fontSize: '1.3rem'}}>                                 
-                    We are excited to have you in the Oasys Community! 
-                </p>
-                <p className="text-faded lead mb-4" style={{fontSize: '1.3rem'}}>                                 
-                    Before you begin, learn <a href="/about">about Oasys</a> and how you could <a href="/">earn money</a> for the content you create.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
-                <Button size="lg" style={{margin: '1rem'}} color="primary" onClick={() => auth.doSignOut()}>Logout</Button>
-                <Button size="lg" style={{margin: '1rem'}} color="primary" onClick={() => window.location.href="/create"}> Create</Button>
-                <Button size="lg" style={{margin: '1rem'}} color="primary" onClick={() => window.location.href="/explore"}> Explore </Button>
+    createHorizontalScrollersRec(value){
+        if(value === "mobile")
+            return(
+                <div>
+                    {this.state.pageDataReccommended.map(dataObj =>
+                        < HorizontalScroll key = {dataObj.title} title = {dataObj.title} data = {dataObj.data} type = "mobile" / >
+                        )
+                    }
+                </div>
+            )
+        else
+            return(
+                <div>
+                    {this.state.pageDataReccommended.map(dataObj =>
+                            < HorizontalScroll key = {dataObj.title} title = {dataObj.title} data = {dataObj.data}/ >
+                            )
+                    }
+                </div>
+            )
+    }
 
-          </div>
-        </section>
+    createHorizontalScrollersUser(value){
+        if(value === "mobile")
+            return(
+                <div>
+                    {this.state.pageDataUser.map(dataObj =>
+                        < HorizontalScroll key = {dataObj.title} title = {dataObj.title} data = {dataObj.data} type = "mobile" / >
+                        )
+                    }
+                </div>
+            )
+        else
+            return(
+                <div>
+                    {this.state.pageDataUser.map(dataObj =>
+                            < HorizontalScroll key = {dataObj.title} title = {dataObj.title} data = {dataObj.data}/ >
+                            )
+                    }
+                </div>
+            )
+    }
+                
+
+    loadReccommended(){
+        return(
+            <div className = "landingPage" >
+                <section style = {styles.HorizontalScrollOuterCenterContainer}>
+                    <div style = {styles.HorizontalScrollContainer}>
+                        <br/>
+                        < ScrollableAnchor id = {'searchResults'} >
+                            < div >
+                            {this.checkMobile()
+                                ? this.createHorizontalScrollersRec("mobile")
+                                : this.createHorizontalScrollersRec("pc")
+                            }
+                            </div>
+                        < /ScrollableAnchor>
+                    < /div>
+                < /section>
+            < /div>            
         )
     }
 
     loadAccountPage(){
         return(
             <div>
-                {this.checkMobile()
-                    ? (
-                        <div style={{marginTop:"100px"}}>
-                            <section style={styles.HorizontalScrollOuterCenterContainer}>
-                                <div style={styles.HorizontalScrollContainer}>
-                                    <br/>
-                                    <ScrollableAnchor id={'searchResults'}>
-                                        <div>
-                                            {this.state.pageData.length
-                                                ? this.state.pageData.map(dataObj =>
-                                                    <HorizontalScroll key={dataObj.title} title={dataObj.title}
-                                                                  data={dataObj.data} id={dataObj.id} type="mobile"/>
-                                                    )
-                                                : null
-                                            }
-                                        </div>
-                                    </ScrollableAnchor>
-                                </div>
-                            </section>
-                        </div>
-                    )
-                    : (
-                        <div style={{marginTop:"50px"}}>
-                            <section style={styles.HorizontalScrollOuterCenterContainer}>
-                                <div style={styles.HorizontalScrollContainer}>
-                                    <br/>
-                                    <ScrollableAnchor id={'searchResults'}>
-                                        <div>
-                                            {this.state.pageData.map(dataObj =>
-                                                <HorizontalScroll key={dataObj.title} title={dataObj.title}
-                                                                  data={dataObj.data} id={dataObj.id}
-                                                                  icon={dataObj.icon}/>
-                                            )}
-                                        </div>
-                                    </ScrollableAnchor>
-                                </div>
-                            </section>
-                        </div>
-                    )
-                }
-                <div style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
-                    <Button size="lg" style={{margin: '3rem'}} color="primary" onClick={() => auth.doSignOut()}>{`LogOut ${this.props.user.displayName}`}</Button>
-                    <Button size="lg" color="primary" onClick={this.openCreate}> Create your own content!</Button>
-                </div>
+                <section style={styles.HorizontalScrollOuterCenterContainer}>
+                    <div style={styles.HorizontalScrollContainer}>
+                        <br/>
+                        <ScrollableAnchor id={'searchResults'}>
+                            <div>
+                                {this.checkMobile()
+                                    ? this.createHorizontalScrollersUser("mobile")
+                                    : this.createHorizontalScrollersUser("pc")
+                                }
+                            </div>
+                        </ScrollableAnchor>
+                    </div>
+                </section>
             </div>
         )
     }
-    render() {
 
-        this.props.user.uid || history.push('/auth')
-        return (
+    hasLoaded(){
+        return(
             <div>
-
-                {
-                    this.state.noContent
-                     ? this.loadDefaultPage()
+                <section className="bg-light rz-start rz-no-border-special-2" id="about" style={{paddingTop:"100px"}}>
+                  <div className="container">
+                    <div className="row">
+                      <div className="col-lg-10 mx-auto">
+                        <div style={styles.HorizontalScrollTitle}>
+                        {"Welcome " + this.props.user.displayName + "!"}
+                        <Button size="sm" style={{float:"right", backgroundColor:"#A2ABB8"}} color="black" onClick={() => auth.doSignOut()}>Logout</Button>
+                        <hr style={styles.HRDividingLine}/>
+                        </div>
+                        <p className="text-faded lead mb-4" style={{fontSize: '1.3rem'}}>                                 
+                          We are excited to have you in the Oasys Community! Feel free to learn more <a href="/about">about Oasys</a> and how you could <a href="/">earn money</a> for the content you create.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  {this.loadReccommended()}
+                  { this.state.noContent
+                     ? null
                      : this.loadAccountPage()
-                }
+                  }
+                  <div style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
+                         <Button size="lg" style={{margin: '1rem'}} color="primary" onClick={() => window.location.href="/create"}> Create Content</Button>
+                        <Button size="lg" style={{margin: '1rem'}} color="primary" onClick={() => window.location.href="/explore"}> Home </Button>
+                  </div>
+                </section>
             </div>
+        )
+    }
+
+    loadUserData(){
+       try {
+               api.getUserContentsPreview()
+                   .then(json => {
+                       this.setState({
+                           contentUser: json || "errorLoadingContent"
+                       })
+                       if(json && json.length)
+                           this.setState({
+                               pageDataUser: [
+                                   {
+                                       title: "My Publications",
+                                       data: this.state.contentUser.filter(content => content.published === 1),
+                                   },
+                                   {
+                                       title: "My Drafts",
+                                       data: this.state.contentUser.filter(content => content.published !== 1),
+                                   },
+                               ],
+                               noContent:false,
+                           })
+                       else{
+                           this.setState({noContent:true})
+                       }
+                       this.setState({doneLoading:true})
+                   })
+                   .catch(err => {
+                       console.log(err)
+                   })
+           }
+           catch (e){
+               console.log(e)
+           }
+    }
+
+    render() {
+        // eslint-disable-next-line no-unused-expressions
+        this.props.user.status===0
+            ? null
+            : this.props.user.status===1
+                ? history.push('/auth') 
+                : this.state.doneLoading
+                    ? null
+                    : this.loadUserData()
+        return (
+           <div>
+                {this.props.user.status!==0
+                    ? this.hasLoaded()
+                    : null
+                }
+           </div>
         )
     }
 }

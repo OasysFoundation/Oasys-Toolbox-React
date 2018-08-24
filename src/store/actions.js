@@ -1,7 +1,7 @@
 //TODO use my mongo functions to do upsert, insert, find for STATE etc
 //use immutable
 import update from 'immutability-helper'
-import {moveEntry, withoutEntry, getObjectsByKey, saveToSessionStorage, isEmpty} from "../utils/trickBox";
+import {moveEntry, withoutEntry, getObjectsByKey, saveToSessionStorage} from "../utils/trickBox";
 import {initContent} from "../utils/tools";
 import uuidv4 from 'uuid/v4';
 import globals from '../utils/globals';
@@ -71,6 +71,18 @@ const actions = function (store) { //store for async stuff
             clone.chapters = chapters;
             return clone
         },
+        // onDeleteLinks(state,chapterId) {
+        //     const chapters = JSON.parse(JSON.stringify(state)).chapters;
+        //     //remove links
+        //     chapters.forEach(chapter => {
+        //         chapter.links = chapter.links
+        //             .filter(link => link.chapterId !== chapterId)
+        //     });
+        //
+        //     clone.chapters = chapters;
+        //     return clone
+        //
+        // },
 
         setCurrentProject(state, projectData) {
             return projectData;
@@ -151,6 +163,8 @@ const actions = function (store) { //store for async stuff
         updateChapterLinks(state) {
             const clone = JSON.parse(JSON.stringify(state));
 
+            const allChapterIDs = clone.chapters.map(chap => chap.id)
+
             clone.chapters.forEach(chapter => {
                 let continue_links = [];
                 let answer_links = [];
@@ -166,7 +180,13 @@ const actions = function (store) { //store for async stuff
                         if (elem.content.action) {
                             continue_links.push(elem.content.action);
                         }
+
+
                         const links = [...continue_links, ...answer_links]
+                            //if a chapter was deleted before
+                            .filter(link => allChapterIDs.includes(link.chapterId));
+
+
                         chapter.links = links.map(function (link) {
                             return {
                                 eventId: uuidv4(),

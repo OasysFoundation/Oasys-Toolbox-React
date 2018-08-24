@@ -4,13 +4,16 @@ import globals from "../utils/globals";
 
 
 const data = {
+    //status 0 = unknown, 1 = loggedout, 2 = logged in
     user: {
         name: null,
         uid: null,
-        idToken: null
+        idToken: null,
+        status:0,
     },
     title: "Physics101",
-    contentId: "6d7324c6-50ca-458e-ad46-cc9df4ee23e1",
+    author: 'markus123',
+    contentId: "6d7324c6-50ca-458e-ad46-cc9df4ee23e3",
     // id: 'project_1245',
     iconName: "001-cells.svg",
     // id: 'project_1245',

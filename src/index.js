@@ -8,6 +8,7 @@ import {withRouter} from 'react-router'
 import LessonMaker from './LessonMaker/LessonMaker'
 import DataViewCreator from './DataView/DataViewCreator'
 import AccountPage from './AccountPage'
+import PublicAccountPage from './PublicAccountPage'
 
 import PrivacyPolicyPage from './PrivacyPolicyPage'
 
@@ -22,7 +23,7 @@ import Footer from "./Footer";
 import About from "./About"
 import LandingPageController from "./ExploreContent/LandingPageController"
 
-import FontAwesomeImports from "./utils/FontAwesomeImports"
+//import FontAwesomeImports from "./utils/FontAwesomeImports"
 
 import {Provider} from "redux-zero/react";
 
@@ -67,6 +68,7 @@ class Index extends Component {
                                 displayName,
                                 uid,
                                 idToken,
+                                status:2,
                             }
                     })
                 });
@@ -79,7 +81,8 @@ class Index extends Component {
                         {
                             displayName: null,
                             uid: null,
-                            idToken: null
+                            idToken: null,
+                            status:1,
                         }
                 })
             }
@@ -104,7 +107,7 @@ class Index extends Component {
                                        render={() => <LandingPageController category={this.state.category}/>}/>
                                 <Route exact path="/create" render={(props) => <LessonMaker {...props} />}/>
                                 {<Route exact path="/auth" render={(props) => <Authentication/>}/>}
-                                <Route exact path="/view" render={(props) => <ContentView {...props} chapters={store.getState().chapters}/>}/>
+                                <Route path="/view/:username/:title/:chapterIndex?" render={(props) => <ContentView {...props} chapters={store.getState().chapters}/>}/>
                                 <Route exact path="/learn" render={(props) => <LandingPageController {...props} />}/>
                                 <Route exact path="/create" render={(props) => <LessonMaker {...props} />}/>
                                 <Route exact path="/data" render={(props) => <DataViewCreator {...props} />}/>
@@ -128,7 +131,7 @@ class Index extends Component {
                                 {/*<Route path="/signup" component={SignupPage} />*/}
 
                                 {/*<Route path="/user/:username/:contentname" render={(props)=>(<ContentView authUser={this.state.authUser}/>)} />*/}
-                                {/*<Route path="/user/:username" component={UserPage}/>*/}
+                                {<Route path="/user/:username/:uid" component={PublicAccountPage}/>}
                                 {/*<Route path="/user" render={(props)=>(<MyAccountPage authUser={this.state.authUser}/>)} />*/}
                                 {/*<Route path="/forgotPassword" component={PasswordForget}/>*/}
                                 {/*<Route path="/resetPassword" component={PasswordReset}/>*/}
@@ -143,7 +146,6 @@ class Index extends Component {
                                 {/*<Route component={NotFoundPage}/>*/}
                             </Switch>
                             <Route path={"/*"} component={Footer}/>
-                            =
                         </div>
                     </Router>
                 </Provider>

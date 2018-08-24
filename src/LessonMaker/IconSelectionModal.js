@@ -73,7 +73,7 @@ class IconSelectionModal extends Component {
 	          <ModalBody>
 	          		<center>
 	        	 	{this.icons.map(function(iconName) {
-	        	 		return <img src={require('../assets/category-icons/'+iconName)} width='100px' style={{margin:'5px', cursor:'pointer'}} onClick={function() { that.props.onSelect(iconName); that.props.onClose(); }} />
+	        	 		return <img src={require('../assets/category-icons/'+iconName)} width='100px' style={{margin:'5px', cursor:'pointer'}} alt='' onClick={function() { that.props.onSelect(iconName); that.props.onClose(); }} />
 	        	 	})}
 	        	 	</center>
 		      </ModalBody>

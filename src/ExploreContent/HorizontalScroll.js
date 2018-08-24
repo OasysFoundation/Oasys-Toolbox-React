@@ -25,14 +25,14 @@ const styles={
     },
     faderRight:{
         width: "5rem",
-        backgroundImage: "linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgb(248, 248, 244) 100%)",
+        backgroundImage: "linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgb(240,243,245) 100%)",
         height: "100%",
         zIndex:-1
 
     },
     faderLeft:{
         width: "5rem",
-        backgroundImage: "linear-gradient(to left, rgba(255, 255, 255, 0) 0%, rgb(248, 248, 244) 100%)",
+        backgroundImage: "linear-gradient(to left, rgba(255, 255, 255, 0) 0%, rgb(240,243,245) 100%)",
         height: "100%",
         zIndex:-1
 
@@ -273,6 +273,7 @@ class HorizontalScroll extends Component {
                 // cloning into array since HTMLCollection is updated dynamically
                 dragged = [].slice.call(_document.getElementsByClassName('dragscroll'));
                 for (i = 0; i < dragged.length;) {
+                    //eslint-disable-next-line no-loop-func
                     (function(el, lastClientX, lastClientY, pushed, scroller, cont){
                         (cont = el.container || el)[addEventListener](
                             mousedown,

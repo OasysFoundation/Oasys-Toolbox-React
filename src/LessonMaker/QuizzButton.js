@@ -13,7 +13,6 @@ class QuizzButton extends Component {
     render() {
 
     	const quizAnswerWrapStyle = {
-            boxShadow: "2px 2px #AAAAAA",
             borderRadius: "6px 6px 6px 6px",
             padding: '2px',
             justifyContent: 'center',
@@ -37,11 +36,11 @@ class QuizzButton extends Component {
             color: '#F8F8F4',
             fontSize: '1.3rem',
             fontWeight: '600',
-            textShadow: '1px 1px #3E4B54',
+            textShadow: '0px 0px 1px #3E4B54',
         }
 
     	return (
-    		<div style={quizAnswerWrapStyle} onClick={this.onSelect} id={this.props.id}>
+    		<div className='has-shadow' style={quizAnswerWrapStyle} onClick={this.onSelect} id={this.props.id}>
                 <div style={quizAnswerStyle}>
     					{this.props.showsSelectionIndicator? <div style={{position:'absolute', top:'5px', right:'5px'}}> {this.props.isSelected? "✅" : "☑️"} </div> : null}    					
                         <div>{this.props.answer.title? this.props.answer.title : "Empty."}</div>

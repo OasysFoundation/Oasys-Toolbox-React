@@ -177,7 +177,12 @@ class LandingPageController extends Component {
         function stringHasSubstring(str, substr) {
             if (!str || !substr)
                 return
-            return str.toLowerCase().includes(substr.toLowerCase())
+            let returnVar = false;
+            for(let i = 0; i < str.length; i++){
+                if(str[i].toLowerCase().includes(substr.toLowerCase()))
+                    returnVar = true;
+            }
+            return returnVar 
         }
 
         return function (element) {
@@ -186,7 +191,7 @@ class LandingPageController extends Component {
         }
 
     }
-
+    
     changeSectionOrder(category) {
         let pageDataUpdate = this.state.pageData;
 
@@ -226,93 +231,47 @@ class LandingPageController extends Component {
         < div >
         {this.checkMobile()
             ? (
-            < div className = "landingPage" >
-                < HeaderImage
-        type = "mobile" / >
-            < section
-        style = {styles.HorizontalScrollOuterCenterContainer
-    }>
-    <
-        div
-        style = {styles.HorizontalScrollContainer
-    }>
-    <
-        br / >
-        < ScrollableAnchor
-        id = {'searchResults'} >
-            < div >
-            < HorizontalScroll
-        title = {"Tiles"}
-        data = {tiles}
-        positionChange = {this.changeSectionOrder.bind(this)
-    }
-        type = "mobile" / >
-            {this.state.pageData.map(dataObj =>
-            < HorizontalScroll
-        key = {dataObj.title
-    }
-        title = {dataObj.title
-    }
-        data = {dataObj.data
-    }
-        type = "mobile" / >
-    )
-    }
-    <
-        /div>
-        < /ScrollableAnchor>
+            	<div className = "landingPage" >
+                	<HeaderImage type = "mobile" / >
+            		<section style = {styles.HorizontalScrollOuterCenterContainer}>
+	  					<div style = {styles.HorizontalScrollContainer}>
+		    				<br/>
+		        			< ScrollableAnchor id = {'searchResults'} >
+			            		< div >
+						            < HorizontalScroll title = {"Tiles"} data = {tiles} positionChange = {this.changeSectionOrder.bind(this)} type = "mobile" / >
+						            {this.state.pageData.map(dataObj =>
+						            	< HorizontalScroll key = {dataObj.title} title = {dataObj.title} data = {dataObj.data} type = "mobile" / >
+						    			)
+						    		}
+			    				</div>
+		        			< /ScrollableAnchor>
+	        			< /div>
+        			< /section>
+        		< /div>
+    		)
+    		: (
+        		<div className = "landingPage" >
+            		<HeaderImage type = "PC" / >
+            		<section style = {styles.HorizontalScrollOuterCenterContainer}>
+    					<div style = {styles.HorizontalScrollContainer}>
+    						<br/ >
+        					<ScrollableAnchor id = {'searchResults'} >
+            					<div >
+						            < HorizontalScroll title = {"Tiles"} data = {tiles} positionChange = {this.changeSectionOrder.bind(this)} />
+							        {
+							            this.state.pageData.map(dataObj =>
+							            	< HorizontalScroll title = {dataObj.title} data = {dataObj.data} icon = {dataObj.icon}/>
+        								)
+        							}
+    							</div>
+        					< /ScrollableAnchor>
 
-        < /div>
-        < /section>
-        < /div>
-    )
-    :
-        (
-        < div
-        className = "landingPage" >
-            < HeaderImage
-        type = "PC" / >
-            < section
-        style = {styles.HorizontalScrollOuterCenterContainer
-    }>
-    <
-        div
-        style = {styles.HorizontalScrollContainer
-    }>
-    <
-        br / >
-        < ScrollableAnchor
-        id = {'searchResults'} >
-            < div >
-            < HorizontalScroll
-        title = {"Tiles"}
-        data = {tiles}
-        positionChange = {this.changeSectionOrder.bind(this)
-    }
-        />
-        {
-            this.state.pageData.map(dataObj =>
-            < HorizontalScroll
-            title = {dataObj.title
-        }
-            data = {dataObj.data
-        }
-            icon = {dataObj.icon
-        }
-            />
-        )
-        }
-    <
-        /div>
-        < /ScrollableAnchor>
-
-        < /div>
-        < /section>
-        < /div>
-    )
-    }
-    <
-        /div>
+        				< /div>
+        			< /section>
+        		< /div>
+    		)		
+    	}
+    </div>
     )
     }
 }
