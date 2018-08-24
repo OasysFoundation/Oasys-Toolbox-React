@@ -165,10 +165,11 @@ class AccountPage extends Component {
         )
     }
 
-    hasLoaded(){
+    hasLoaded(value){
+        const paddingVal = (value==="mobile" ? "120px" : "70px")
         return(
             <div>
-                <section className="bg-light rz-start rz-no-border-special-2" id="about" style={{paddingTop:"100px"}}>
+                <section className="bg-light rz-start rz-no-border-special-2" id="about" style={{paddingTop: paddingVal}}>
                   <div className="container">
                     <div className="row">
                       <div className="col-lg-10 mx-auto">
@@ -244,7 +245,9 @@ class AccountPage extends Component {
         return (
            <div>
                 {this.props.user.status!==0
-                    ? this.hasLoaded()
+                    ? this.checkMobile()
+                        ? this.hasLoaded("mobile")
+                        : this.hasLoaded("pc")
                     : null
                 }
            </div>

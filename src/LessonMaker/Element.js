@@ -72,7 +72,9 @@ class Element extends Component {
                         this.props.data.parentChapterID);
                 }
                 if (shouldUpdateChapterLinks) {
-                    this.props.updateChapterLinks()
+                    console.log("handle change element")
+                    console.log(value)
+                    this.props.updateChapterLinks();
                 }
             });
     };
@@ -170,7 +172,6 @@ class Element extends Component {
 
     render() {
         const {id, type} = this.props.data;
-        console.log(this.props.isPreview)
         return (
             <center>
                 <div className='main-width'>

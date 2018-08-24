@@ -84,6 +84,12 @@ class QuillEdit extends Component {
         let fontSize = ReactQuill.Quill.import('attributors/style/size');
         fontSize.whitelist = ['21px', '22px', '30px', 'small', 'normal', 'large', 'huge'];
         ReactQuill.Quill.register(fontSize, true);
+
+        this.onChange = this.onChange.bind(this);
+    }
+
+    onChange(content, delta, source, editor) {
+        this.props.onChange(content, false, false);
     }
 
     componentWillReceiveProps() {
@@ -150,7 +156,7 @@ class QuillEdit extends Component {
                 {/*{this.renderToolbar()}*/}
                 <ReactQuill
                     value={this.props.data}
-                    onChange={this.props.onChange}
+                    onChange={this.onChange}
                     ref="reactQuill"
                     modules={modules}
                     bounds={'quill-container-' + this.props.id}
