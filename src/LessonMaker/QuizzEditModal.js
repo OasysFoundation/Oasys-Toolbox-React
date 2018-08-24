@@ -110,7 +110,7 @@ class QuizzEditModal extends Component {
             const that = this;
             this.createNewChapter().then(function(newChapter) {
                 const newChapterIndex = that.chapterIndexForIdentifier(newChapter.id);
-                that.onSelectAction(newChapter.id, newChapterIndex);
+                that.onSelectAction(identifier, newChapterIndex);
             });
             return;
         }
@@ -302,7 +302,10 @@ class QuizzEditModal extends Component {
     }
 
     getAllChapters() {
-        return this.state.userCreatedChapters.concat(this.props.chapters);
+        const that = this;
+        return this.state.userCreatedChapters.concat(this.props.chapters.filter(function(element, index) {
+            return index!=that.props.activeChapterIndex;
+        }));
     }
 
     getActionMenuItems() {
