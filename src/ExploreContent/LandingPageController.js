@@ -177,7 +177,12 @@ class LandingPageController extends Component {
         function stringHasSubstring(str, substr) {
             if (!str || !substr)
                 return
-            return str.toLowerCase().includes(substr.toLowerCase())
+            let returnVar = false;
+            for(let i = 0; i < str.length; i++){
+                if(str[i].toLowerCase().includes(substr.toLowerCase()))
+                    returnVar = true;
+            }
+            return returnVar 
         }
 
         return function (element) {
@@ -186,7 +191,7 @@ class LandingPageController extends Component {
         }
 
     }
-
+    
     changeSectionOrder(category) {
         let pageDataUpdate = this.state.pageData;
 

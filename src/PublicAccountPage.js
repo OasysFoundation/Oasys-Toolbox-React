@@ -37,14 +37,11 @@ class AccountPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            contentUser: [],
-            contentReccommended: [],
             filteredContent: [{
                 title: "Loading"
             }],
             pageData: [],
-            previousState: '',
-            noContent:false,
+            noContent:true,
         };
 
         this.loadAccountPage = this.loadAccountPage.bind(this);
@@ -104,7 +101,8 @@ class AccountPage extends Component {
                                             title: "Web Dev",
                                             data: this.state.filteredContent.filter(this.correctCategory("Web Dev")),
                                         },
-                                    ]
+                                    ],
+                                    noContent:false,
                                 }))
                         )
                     }
@@ -122,7 +120,12 @@ class AccountPage extends Component {
         function stringHasSubstring(str, substr) {
             if (!str || !substr)
                 return
-            return str.toLowerCase().includes(substr.toLowerCase())
+            let returnVar = false;
+            for(let i = 0; i < str.length; i++){
+                if(str[i].toLowerCase().includes(substr.toLowerCase()))
+                    returnVar = true;
+            }
+            return returnVar 
         }
 
         return function (element) {
@@ -140,100 +143,49 @@ class AccountPage extends Component {
         return check;
     }
 
-    loadReccommended(){
-        return(
-        < div >
-        {this.checkMobile()
-            ? (
-                <div className = "landingPage" >
-                    <section style = {styles.HorizontalScrollOuterCenterContainer}>
-                        <div style = {styles.HorizontalScrollContainer}>
-                            <br/>
-                            < ScrollableAnchor id = {'searchResults'} >
-                                < div >
-                                    {this.state.pageDataReccommended.map(dataObj =>
-                                        < HorizontalScroll key = {dataObj.title} title = {dataObj.title} data = {dataObj.data} type = "mobile" / >
-                                        )
-                                    }
-                                </div>
-                            < /ScrollableAnchor>
-                        < /div>
-                    < /section>
-                < /div>
+    createHorizontalScrollers(value){
+        if(value === "mobile")
+            return(
+                <div>
+                    {this.state.pageData.map(dataObj =>
+                        < HorizontalScroll key = {dataObj.title} title = {dataObj.title} data = {dataObj.data} type = "mobile" / >
+                        )
+                    }
+                </div>
             )
-            : (
-                <div className = "landingPage" >
-                    <section style = {styles.HorizontalScrollOuterCenterContainer}>
-                        <div style = {styles.HorizontalScrollContainer}>
-                            <br/ >
-                            <ScrollableAnchor id = {'searchResults'} >
-                                <div >
-                                    {
-                                        this.state.pageDataReccommended.map(dataObj =>
-                                            < HorizontalScroll title = {dataObj.title} data = {dataObj.data} icon = {dataObj.icon}/>
-                                        )
-                                    }
-                                </div>
-                            < /ScrollableAnchor>
-
-                        < /div>
-                    < /section>
-                < /div>
-            )       
-        }
-    </div>
-    )
+        else
+            return(
+                <div>
+                    {this.state.pageData.map(dataObj =>
+                            < HorizontalScroll key = {dataObj.title} title = {dataObj.title} data = {dataObj.data}/ >
+                            )
+                    }
+                </div>
+            )
     }
 
     loadAccountPage(){
         return(
             <div>
-                {this.checkMobile()
-                    ? (
-                        <div>
-                            <section style={styles.HorizontalScrollOuterCenterContainer}>
-                                <div style={styles.HorizontalScrollContainer}>
-                                    <br/>
-                                    <ScrollableAnchor id={'searchResults'}>
-                                        <div>
-                                            {this.state.pageDataUser.length
-                                                ? this.state.pageData.map(dataObj =>
-                                                    <HorizontalScroll key={dataObj.title} title={dataObj.title}
-                                                                  data={dataObj.data} id={dataObj.id} type="mobile"/>
-                                                    )
-                                                : null
-                                            }
-                                        </div>
-                                    </ScrollableAnchor>
-                                </div>
-                            </section>
-                        </div>
-                    )
-                    : (
-                        <div>
-                            <section style={styles.HorizontalScrollOuterCenterContainer}>
-                                <div style={styles.HorizontalScrollContainer}>
-                                    <br/>
-                                    <ScrollableAnchor id={'searchResults'}>
-                                        <div>
-                                            {this.state.pageData.map(dataObj =>
-                                                <HorizontalScroll key={dataObj.title} title={dataObj.title}
-                                                                  data={dataObj.data} id={dataObj.id}
-                                                                  icon={dataObj.icon}/>
-                                            )}
-                                        </div>
-                                    </ScrollableAnchor>
-                                </div>
-                            </section>
-                        </div>
-                    )
-                }
+                <section style={styles.HorizontalScrollOuterCenterContainer}>
+                    <div style={styles.HorizontalScrollContainer}>
+                        <br/>
+                        <ScrollableAnchor id={'searchResults'}>
+                            <div>
+                                {this.checkMobile()
+                                    ? this.createHorizontalScrollers("mobile")
+                                    : this.createHorizontalScrollers("pc")
+                                }
+                            </div>
+                        </ScrollableAnchor>
+                    </div>
+                </section>
             </div>
         )
     }
-    render() {
 
-        this.props.user.uid || history.push('/auth')
+    render() {
+        const {username} = this.props.match.params
         return (
             <div>
                 <section className="bg-light rz-start rz-no-border-special-2" id="about" style={{paddingTop:"100px"}}>
@@ -241,13 +193,9 @@ class AccountPage extends Component {
                     <div className="row">
                       <div className="col-lg-10 mx-auto">
                         <div style={styles.HorizontalScrollTitle}>
-                        {"Welcome " + this.props.user.displayName + "!"}
-                        <Button size="sm" style={{float:"right", backgroundColor:"#A2ABB8"}} color="black" onClick={() => auth.doSignOut()}>Logout</Button>
+                        {username + "'s Content"}
                         <hr style={styles.HRDividingLine}/>
                         </div>
-                        <p className="text-faded lead mb-4" style={{fontSize: '1.3rem'}}>                                 
-                          We are excited to have you in the Oasys Community! Feel free to learn more <a href="/about">about Oasys</a> and how you could <a href="/">earn money</a> for the content you create.
-                        </p>
                       </div>
                     </div>
                   </div>
@@ -255,10 +203,6 @@ class AccountPage extends Component {
                      ? null
                      : this.loadAccountPage()
                   }
-                  <div style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
-                         <Button size="lg" style={{margin: '1rem'}} color="primary" onClick={() => window.location.href="/create"}> Create Content</Button>
-                        <Button size="lg" style={{margin: '1rem'}} color="primary" onClick={() => window.location.href="/explore"}> Home </Button>
-                  </div>
                 </section>
             </div>
         )
