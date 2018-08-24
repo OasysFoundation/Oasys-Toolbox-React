@@ -32,7 +32,11 @@ class ContentView extends Component {
             endTime: null,
             quizzes: [],
             //contentId: this.state.content.contentId,
+
+            //let's call this learnerId
             //accessUserId: this.props.user.name,
+
+            //let's call this authorId
             //contentUserId: this.props.content.userId,
         };
     }
@@ -54,12 +58,30 @@ class ContentView extends Component {
             console.log(chapterIndex, 'index')
 
             api.getContentByUserNameAndTitle(username, title)
-                .then(project => {
-                    console.log(project)
-                    that.setState(() => that.produceState(project[0].data.chapters, chapterIndex))
+                .then(results => {
+                    const project = results[0]
+                    console.log(project);
+                    const {contentId, uid: author} = project;
+                    that.analytics.contentId = contentId;
+                    that.analytics.contentUserId = author;
+                    if (that.props.user.uid) {
+                        that.analytics.accessUserId = that.props.user.uid;
+                    }
+                    //else wait for componentWillReceiveProps
+                    console.log(that.analytics, "analytics @ mount")
+
+                    that.setState(() => that.produceState(project.data.chapters, chapterIndex))
                 })
                 .catch(err => console.log('error at contentview fetch ', err))
         }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        // console.log('props @ ', Date.now(), nextProps.user);
+
+        //firebase auth takes longer if loading the link directly per URL
+        this.analytics.accessUserId = nextProps.user.uid;
+        console.log(this.analytics, "analytics")
     }
 
     produceState(chapterData, chapterIndex = 0) {
@@ -267,13 +289,13 @@ ContentView.defaultProps = {
 }
 
 ContentView.propTypes = {
-    chapters: PropTypes.object.isRequired,
+    chapters: PropTypes.array.isRequired,
     onChangeActiveChapter: PropTypes.func.isRequired,
     isPreview: PropTypes.bool.isRequired
 
 }
 
-const mapStoreToProps = ({chapters}) => ({chapters})
+const mapStoreToProps = ({chapters, user}) => ({chapters, user})
 const neededActions = (store) => {
     const {onChangeActiveChapter} = actions();
     return {onChangeActiveChapter}
