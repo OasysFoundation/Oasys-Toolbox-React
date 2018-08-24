@@ -8,6 +8,7 @@ import {withRouter} from 'react-router'
 import LessonMaker from './LessonMaker/LessonMaker'
 import DataViewCreator from './DataView/DataViewCreator'
 import AccountPage from './AccountPage'
+import PublicAccountPage from './PublicAccountPage'
 
 import PrivacyPolicyPage from './PrivacyPolicyPage'
 
@@ -67,6 +68,7 @@ class Index extends Component {
                                 displayName,
                                 uid,
                                 idToken,
+                                status:2,
                             }
                     })
                 });
@@ -79,7 +81,8 @@ class Index extends Component {
                         {
                             displayName: null,
                             uid: null,
-                            idToken: null
+                            idToken: null,
+                            status:1,
                         }
                 })
             }
@@ -128,7 +131,7 @@ class Index extends Component {
                                 {/*<Route path="/signup" component={SignupPage} />*/}
 
                                 {/*<Route path="/user/:username/:contentname" render={(props)=>(<ContentView authUser={this.state.authUser}/>)} />*/}
-                                {/*<Route path="/user/:username" component={UserPage}/>*/}
+                                {<Route path="/user/:username/:uid" component={PublicAccountPage}/>}
                                 {/*<Route path="/user" render={(props)=>(<MyAccountPage authUser={this.state.authUser}/>)} />*/}
                                 {/*<Route path="/forgotPassword" component={PasswordForget}/>*/}
                                 {/*<Route path="/resetPassword" component={PasswordReset}/>*/}
