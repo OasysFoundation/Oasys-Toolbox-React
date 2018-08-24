@@ -112,7 +112,6 @@ const actions = function (store) { //store for async stuff
         },
 
         onChangeContent(state, id, value, elementChapter) {
-
             //more verbose, but performant (instead of Json.stringify)
             const currentChapterIdx = state.chapters.findIndex(chapter => chapter.id === elementChapter);
 
@@ -197,6 +196,10 @@ const actions = function (store) { //store for async stuff
                     }
                 })
             })
+
+            console.log('updateChapterLinks')
+            console.log(state);
+            console.log(clone);
             return clone;
         },
 
