@@ -109,7 +109,7 @@ class Index extends Component {
                                        render={() => <LandingPageController category={this.state.category}/>}/>
                                 <Route exact path="/create" render={(props) => <LessonMaker {...props} />}/>
                                 {<Route exact path="/auth" render={(props) => <Authentication/>}/>}
-                                <Route path="/view/:username/:title/:chapterIndex?" render={(props) => <ContentView {...props} chapters={store.getState().chapters}/>}/>
+                                <Route path="/view/:username/:title/:uid/:contentId/:chapterIndex?" render={(props) => <ContentView {...props} chapters={store.getState().chapters}/>}/>
                                 <Route exact path="/learn" render={(props) => <LandingPageController {...props} />}/>
                                 <Route exact path="/create" render={(props) => <LessonMaker {...props} />}/>
                                 <Route exact path="/data" render={(props) => <DataViewCreator {...props} />}/>

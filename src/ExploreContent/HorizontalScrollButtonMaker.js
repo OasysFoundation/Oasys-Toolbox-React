@@ -193,7 +193,7 @@ class HorizontalScrollButtonMaker extends Component{
 				: <a onClick={this.props.positionChange.bind(this,hashLink)} className="pn-ProductNav_Link">{this.props.data.name}</a>
 		}
 		else{
-			returnUrl = "/user/"+this.props.data.userId;
+			returnUrl = "/user/"+this.props.data.username+"/"+this.props.data.uid;
 			let rating = this.props.data.rating;
 			let whiteStar = '\u2606';
 			let blackStar = '\u2605';
@@ -219,7 +219,7 @@ class HorizontalScrollButtonMaker extends Component{
             : (
             	<div className="pn-ProductNav_Link" aria-selected="true" onClick={() => {
 			          		store.setState(this.props.data);
-			          		history.push(`/view/${this.props.data.username}/${this.props.data.title}/`)
+			          		history.push(`/view/${this.props.data.username}/${this.props.data.title}/${this.props.data.uid}/${this.props.data.contentId}`)
                         }} style={styles.cardTitleLink}>
 			      <Card style={{...styles.cardStyle,...styles.boxShadow}}>
 			        <CardBody style={styles.homeCardBody}>

@@ -202,6 +202,8 @@ class ContentView extends Component {
             return <div>...Loading Content</div>
         }
 
+         const {username, title, uid, contentId} = this.props.match.params;
+
         return (
             <ScrollView ref={scroller => this._scroller = scroller}>
                 <React.Fragment>
@@ -212,8 +214,9 @@ class ContentView extends Component {
                         <Container fluid className='main-width'>
                             <React.Fragment>
                                 {this.state.showsContentCompletion ?
-                                    <ConcludingContentPage url="https://joinoasys.org"
-                                                           author="Mark22" title="Feet and Cotion"
+                                    <ConcludingContentPage uid={uid} url="https://joinoasys.org"
+                                                           author={username} title={title}
+                                                           contentId={contentId}
                                                            description="I am explaining to you how feet and cotion works."/>
                                     :
                                     <div>
