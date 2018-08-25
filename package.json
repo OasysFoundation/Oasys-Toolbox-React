@@ -67,7 +67,6 @@
     "taucharts": "^0.9.4",
     "taucharts-react": "^1.1.0",
     "uuid": "^3.3.2",
-    "why-did-you-update": "^0.1.1",
     "yarn": "^1.7.0"
   },
   "scripts": {
@@ -78,6 +77,7 @@
     "deploy": "npm run build && firebase deploy"
   },
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^5.2.0"
+    "@fortawesome/fontawesome-free": "^5.2.0",
+    "why-did-you-update": "^0.1.1"
   }
 }

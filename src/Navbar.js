@@ -245,6 +245,8 @@ class NavBar extends React.Component {
             selectedOption: null,
             contentTitles: [],
         };
+        this.doRender = false;
+
         api.getContentsPreview()
             .then(json => {
                 if (json) {
@@ -292,6 +294,7 @@ class NavBar extends React.Component {
             isOpen: !this.state.isOpen,
             isHidden: !this.state.isHidden,
         });
+        this.doRender = true;
     }
 
     checkMobile() {
@@ -417,6 +420,14 @@ class NavBar extends React.Component {
         );
     }
 
+    shouldComponentUpdate(nextProps) {
+        // prevent unnecessary re-renders
+        if (this.doRender) { 
+            this.doRender = false;
+            return true;
+        }
+        return false;
+    }
 
     render() {
 

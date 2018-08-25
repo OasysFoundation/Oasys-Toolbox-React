@@ -44,6 +44,10 @@ import Authentication from "./Authentication/Authentication";
 import history from './history'
 import {auth} from "./Authentication/firebase";
 
+// check if there are components that are rendered unnecessarily
+const {whyDidYouUpdate} = require('why-did-you-update');
+whyDidYouUpdate(React);
+
 
 class Index extends Component {
     constructor(props) {

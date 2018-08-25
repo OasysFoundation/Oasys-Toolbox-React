@@ -88,6 +88,7 @@ class HeaderImage extends Component {
         super(props);
         this.state = {
             imageLoading: true,
+            windowWidth: window.innerWidth,
         };
     }
 
@@ -188,6 +189,11 @@ class HeaderImage extends Component {
                 }
             </div>
         )
+    }
+
+    shouldComponentUpdate(nextProps) {
+        // prevent unnecessary re-renders
+        return false;
     }
 
     render() {
