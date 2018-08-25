@@ -45,8 +45,8 @@ import history from './history'
 import {auth} from "./Authentication/firebase";
 
 // check if there are components that are rendered unnecessarily
-const {whyDidYouUpdate} = require('why-did-you-update');
-whyDidYouUpdate(React);
+// const {whyDidYouUpdate} = require('why-did-you-update');
+// whyDidYouUpdate(React);
 
 
 class Index extends Component {
@@ -61,7 +61,7 @@ class Index extends Component {
     componentDidMount() {
         auth.onAuthStateChanged(function (user) {
             if (user) {
-                console.log('user here: ', user);
+                //console.log('user here: ', user);
                 const {displayName, uid} = user;
                 const idToken =  auth.currentUser.getIdToken(true).then(function(idToken) {
                     store.setState({
@@ -119,7 +119,9 @@ class Index extends Component {
                                 <Route exact path="/conclusion"
                                        render={(props) => <ConcludingContentPage url="https://joinoasys.org"
                                                                                  author="Mark22" title="Feet and Cotion"
-                                                                                 description="I am explaining to you how feet and cotion works." {...props} />}/>
+                                                                                 description="I am explaining to you how feet and cotion works." {...props} 
+                                                           />}
+                                />
                                 <Route exact path="/bitmoji" render={(props) => <Bitmoji {...props} />}/>
                                 {/*<Route path="/data" render={(props)=>( this.state.authUser ? <DataViewCreator authUser={this.state.authUser} /> : null)} />*/}
                                 {/*<Route path="/data/preview" render={(props)=>( this.state.authUser ? <DataViewCreator authUser={this.state.authUser} /> : null)} />*/}

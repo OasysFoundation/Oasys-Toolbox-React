@@ -193,6 +193,9 @@ class HeaderImage extends Component {
 
     shouldComponentUpdate(nextProps) {
         // prevent unnecessary re-renders
+        if (this.state.imageLoading) {
+            return true;
+        }
         return false;
     }
 

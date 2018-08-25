@@ -196,17 +196,10 @@ class HorizontalScrollButtonMaker extends Component{
 			returnUrl = "/user/"+this.props.data.userId;
 			let rating = this.props.data.rating;
 			let whiteStar = '\u2606';
-			let blackStar = '\u2605'
-			if (rating){
-				for (let i = 0; i < 5; i++){
-					if(i<rating)
-						this.starStr += blackStar
-					else
-						this.starStr += whiteStar
-				}
-				starCount = "11";
-			}
-
+			let blackStar = '\u2605';
+			let ratingRounded = Math.round(rating.mean);
+			this.starStr = blackStar.repeat(ratingRounded) + whiteStar.repeat(5-ratingRounded);
+			starCount = this.props.data.rating.count;
 		}
 
 		const containedStyle = {

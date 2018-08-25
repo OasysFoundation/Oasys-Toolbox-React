@@ -120,6 +120,8 @@ class DataDetails extends Component {
     optsDuration.scales.xAxes[0].scaleLabel.display = true;
     optsDuration.scales.xAxes[0].scaleLabel.labelString = 'Time [min:sec]';
 
+    console.log(this.props.data)
+
 		return (
 			<div>
 

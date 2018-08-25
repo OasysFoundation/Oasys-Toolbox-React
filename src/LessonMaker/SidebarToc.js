@@ -109,8 +109,8 @@ class SidebarToc extends Component {
         if (nextprops.chaptersLight.length !==  this.props.chaptersLight.length) { isChanged = true; }
         for (let i=0; i<nextprops.chaptersLight.length; i++) {
             if (isChanged) { break; }
-            console.log(this.props.chaptersLight[i].title)
-            console.log(nextprops.chaptersLight[i].title)
+            //console.log(this.props.chaptersLight[i].title)
+            //console.log(nextprops.chaptersLight[i].title)
             if (nextprops.chaptersLight[i].title !== this.props.chaptersLight[i].title) { isChanged=true; break; }
             if (nextprops.chaptersLight[i].id !== this.props.chaptersLight[i].id) { isChanged=true; break; }
             if (nextprops.chaptersLight[i].links.length!==this.props.chaptersLight[i].links.length) { isChanged=true; break; }
