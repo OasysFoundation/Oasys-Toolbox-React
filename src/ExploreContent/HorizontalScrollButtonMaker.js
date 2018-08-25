@@ -170,6 +170,11 @@ class HorizontalScrollButtonMaker extends Component{
 		});
 	}
 
+	shouldComponentUpdate(nextProps) {
+		// prevent any re-renders
+		return false;
+	}
+
 	render(){
 		let playCount = 666;
 		// for type == tiles

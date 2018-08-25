@@ -35,6 +35,17 @@ class VideoPreview extends Component {
 		this.props.onFinishedVideo();
 	}
 
+    shouldComponentUpdate(nextProps) {
+        // prevent unnecessary re-renders
+        const check1 = (this.props.data.cropStart === nextProps.data.cropStart);
+        const check2 = (this.props.data.cropEnd === nextProps.data.cropEnd);
+        const check3 = (this.props.data.url === nextProps.data.url);
+        if (check1 && check2 && check3) { 
+            return false;
+        }
+        return true;
+    }
+
 	render(){
 		let youtubeConfig = {
       		playerVars: { 
