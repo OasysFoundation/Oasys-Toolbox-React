@@ -162,36 +162,7 @@ class About extends Component{
         </section>
 
 
-        <section className="bg-light rz-no-border-special-2 bg-white" id="about">
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-10 mx-auto">
-                <h2 className="section-heading">Invest</h2>
-                <hr />
-                <p className="lead mb-0">
-                  Everyone can be a part of the Oasys Project.
-                  <br />
-                  <br /> 
-                  The JOBS ACT of 2012 allows private companies (us) to sell equity to everyday people. After our seed round, we will be raising money through this new regulation. We will aim to list securities bought through our crowdfunding rounds on alternate trading systems, giving investors near instant liquidity after the initial lockup period.
-                  <br />
-                  <br />
-                  We will also be awarding equity to developers and content creators who bring valuable content onto our platform. Join the investor mailing list to stay tuned! 
-                </p>
-                <div className="col-12 col-md-5 mb-2 mx-auto">
-                  <form action="https://interactivelearning.us12.list-manage.com/subscribe/post?u=41cb0bc0776297ab2392d8c32&id=28c3666981" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" className="validate" target="_blank" noValidate>
-                    <br />
-                    <br />
-                    <button type="submit" className="btn btn-block btn-lg btn-primary button2 pl-0 pr-0 mx-auto">Be an Investor </button>
-                  </form>
-                </div>
-                <br />
-                <br />
-                <br />
-                <br />
-              </div>
-            </div>
-          </div>
-        </section>
+       
       </div>
     );
   }
