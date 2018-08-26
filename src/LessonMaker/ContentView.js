@@ -101,6 +101,9 @@ class ContentView extends Component {
         this.setState({
             showsContentCompletion: true
         });
+        this.analytics.endTime = new Date();
+        this.numScheduledUpdates += 1;
+        this.postAnalytics(this.maxUpdateAttempts);
     }
 
     goToNextChapter = () => {

@@ -115,7 +115,6 @@ class DataViewCreator extends Component {
             type: this.props.data.type, 
             visible: isVisible,
             time: new Date(),
-        check if content finish screen posts an endTime
     	*/
 
     	this.data = rearrangeData(this.rawdata);
