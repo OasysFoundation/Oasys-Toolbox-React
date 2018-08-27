@@ -141,7 +141,7 @@ class DataViewCreator extends Component {
     }
 
 	render(){
-		const paddingVal = (isMobile() ? "60px" : "10px")
+		const paddingVal = (isMobile() ? "60px" : "10px");
 		return ( 
 			<div className="app-body">
                 <main className="main dataview">

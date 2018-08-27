@@ -201,7 +201,7 @@ class ContentOverview extends Component {
     render() {
         return (
             <div className='app-body'>
-                <main className='main'>
+                <main className='main' style={{marginLeft: '0px'}}>
                     <Container fluid className='main-width'>
                         {this.state.lesson !== null
                             ? <div className='content-overview'>
