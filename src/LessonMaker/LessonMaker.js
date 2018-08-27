@@ -70,6 +70,7 @@ class LessonMaker extends Component {
         console.log('saving status....')
         //api.saveContent
     }
+
     //
     // onSelectAction(identifier, optionsIndex) {
     //     console.log(this.choices);
@@ -159,7 +160,7 @@ class LessonMaker extends Component {
 
 
         return (
-            <div className="app-body" style={{paddingTop:paddingVal}}>
+            <div className="app-body" style={{paddingTop: paddingVal}}>
                 <EditModalWarning contentTitle={"Mark22 adventures"} isOpen={false}/>
                 <SideBarLesson/>
                 <main className="main">
@@ -215,6 +216,9 @@ class LessonMaker extends Component {
                                 ? (<React.Fragment>
                                     <PoseGroup>
                                         {elements.map((el, idx) => {
+                                                // if (elements[elements.length - 1].type === globals.EDIT_CONTINUE_ELEMENT) {
+                                                //     return
+                                                // }
                                                 return (<Item key={el.id}>
                                                     <Element
                                                         key={el.id}
@@ -230,12 +234,20 @@ class LessonMaker extends Component {
                                     </PoseGroup>
 
                                     {/*<SelectionDropdown onSelect={this.onSelectAction} identifier={"action-correct"}*/}
-                                                       {/*default={this.state.childChoice.text}*/}
-                                                       {/*options={this.choices.map(choice => choice.text)}/>*/}
+                                    {/*default={this.state.childChoice.text}*/}
+                                    {/*options={this.choices.map(choice => choice.text)}/>*/}
+
+                                    {/*checks if there are elements first, then inserts ContinueButton at end*/}
+                                    {
+                                        elements[elements.length - 1]
+
+                                            ? (elements[elements.length - 1].type !== globals.EDIT_CONTINUE_ELEMENT
+                                                    ? this.props.onAddElement(globals.EDIT_CONTINUE_ELEMENT, elements.length - 1)
+                                                    : null)
 
 
-                                    {/*if we already saved this extra element*/}
-                                    {/*{elements[elements.length - 1].type === globals.EDIT_CHAPTEREND*/}
+                                            : null
+                                    }
                                     {/*? <Element */}
                                     {/*data={elements[elements.length - 1]} chapterID={activeChapter.id} />*/}
 

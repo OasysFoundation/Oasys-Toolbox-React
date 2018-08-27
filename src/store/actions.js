@@ -279,7 +279,7 @@ const actions = function (store) { //store for async stuff
             })
         },
 
-        onAddElement(state, typeSelected, atIdx, isLastElement = false) {
+        onAddElement(state, typeSelected, atIdx) {
             const clone = JSON.parse(JSON.stringify(state));
             let elements = clone.chapters[state.activeChapterIndex].elements;
             const newElem = {
