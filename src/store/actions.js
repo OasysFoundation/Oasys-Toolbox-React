@@ -258,8 +258,25 @@ const actions = function (store) { //store for async stuff
             clone.chapters[state.activeChapterIndex].elements = withoutEntry(elements, entryIdx);
 
             clone.chapters = updateLinksInChapters_mutate(clone.chapters);
-
             return clone
+        },
+
+        onInsertLastElement(state) {
+            const clone = JSON.parse(JSON.stringify(state));
+            clone.chapters[state.activeChapterIndex].lastElement = {childCoice: 2};
+            return clone
+        },
+
+        onChangeLastElementChild(state, childChoice) {
+            return update(state, {
+                chapters: {
+                    [state.activeChapterIndex] : {
+                        lastElement: {
+                            childChoice: {$set: childChoice}
+                        }
+                    }
+                }
+            })
         },
 
         onAddElement(state, typeSelected, atIdx) {
@@ -272,6 +289,10 @@ const actions = function (store) { //store for async stuff
                 timestamp: Date.now(),
                 parentChapterID: clone.chapters[state.activeChapterIndex].id
             };
+            //
+            // if (isLastElement) {
+            //     newElem
+            // }
 
             clone.chapters[state.activeChapterIndex].elements = [
                 ...elements.slice(0, atIdx + 1),

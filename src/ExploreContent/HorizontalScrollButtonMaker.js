@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Card, CardText, CardBody, CardTitle, CardSubtitle, Modal, ModalBody, ModalHeader } from 'reactstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Truncate from 'react-truncate';
 
 import colors from '../utils/colors';
@@ -170,6 +170,11 @@ class HorizontalScrollButtonMaker extends Component{
 		});
 	}
 
+	shouldComponentUpdate(nextProps) {
+		// prevent any re-renders
+		return false;
+	}
+
 	render(){
 		let playCount = 666;
 		// for type == tiles
@@ -188,20 +193,13 @@ class HorizontalScrollButtonMaker extends Component{
 				: <a onClick={this.props.positionChange.bind(this,hashLink)} className="pn-ProductNav_Link">{this.props.data.name}</a>
 		}
 		else{
-			returnUrl = "/user/"+this.props.data.userId;
+			returnUrl = "/user/"+this.props.data.username+"/"+this.props.data.uid;
 			let rating = this.props.data.rating;
 			let whiteStar = '\u2606';
-			let blackStar = '\u2605'
-			if (rating){
-				for (let i = 0; i < 5; i++){
-					if(i<rating)
-						this.starStr += blackStar
-					else
-						this.starStr += whiteStar
-				}
-				starCount = "11";
-			}
-
+			let blackStar = '\u2605';
+			let ratingRounded = Math.round(rating.mean);
+			this.starStr = blackStar.repeat(ratingRounded) + whiteStar.repeat(5-ratingRounded);
+			starCount = this.props.data.rating.count;
 		}
 
 		const containedStyle = {
@@ -221,7 +219,7 @@ class HorizontalScrollButtonMaker extends Component{
             : (
             	<div className="pn-ProductNav_Link" aria-selected="true" onClick={() => {
 			          		store.setState(this.props.data);
-			          		history.push(`/view/${this.props.data.username}/${this.props.data.title}/`)
+			          		history.push(`/view/${this.props.data.username}/${this.props.data.title}/${this.props.data.uid}/${this.props.data.contentId}`)
                         }} style={styles.cardTitleLink}>
 			      <Card style={{...styles.cardStyle,...styles.boxShadow}}>
 			        <CardBody style={styles.homeCardBody}>
@@ -231,7 +229,7 @@ class HorizontalScrollButtonMaker extends Component{
 			          <div style={styles.titleAndSubtitle}>
 				          <CardTitle style={styles.cardTitle}>
 				          	<div style={styles.cardTitleLink}>
-				          	  <Truncate lines={4} >
+				          	  <Truncate lines={3} >
 				          	 	{this.props.data.title}
 				              </Truncate>
 				              </div>

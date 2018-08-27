@@ -207,8 +207,8 @@ class SideBarLesson extends Component {
 
                 </Modal>
 
-                <AppSidebar fixed display="lg">
-                    <Button className='sidebar-button title '>
+                <AppSidebar fixed display="lg" >
+                    <Button className='sidebar-button title'>
                         <input
                             className='form-control'
                             // defaultValue='Untitled lesson'

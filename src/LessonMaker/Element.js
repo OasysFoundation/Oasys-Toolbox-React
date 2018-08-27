@@ -23,6 +23,7 @@ import {
 import 'react-quill/dist/quill.snow.css';
 import actions from "../store/actions";
 import {connect} from "redux-zero/react";
+import EndOfChapterElement from "./EndOfChapterElement";
 // import {isElementEmpty, initContent} from "../tools";
 
 
@@ -124,6 +125,15 @@ class Element extends Component {
                                     onAddChapter={this.props.onAddChapter}
                                     activeChapterIndex={this.props.activeChapterIndex} />
                 break;
+
+                //DON't use this ... also not a good solution
+            // case globals.EDIT_CHAPTEREND:
+            //     render = <EndOfChapterElement chapters={this.props.chapters.map(c => ({title: c.title, id: c.id}))}
+            //                                   onAddChapter={this.props.onAddChapter}
+            //                                   activeChapterIndex={this.props.activeChapterIndex}
+            //                                   parentChapterId={this.props.parentChapterId}
+            //                                   {...params}/>
+            //     break;
             default:
                 return (<div key={"1223"}>not yet implemented :(</div>)
         }
@@ -157,6 +167,11 @@ class Element extends Component {
         // const contentUpdated = nextprops.data.timestamp > this.state.timestamp
         // this.setState({tempContent: contentUpdated, timestamp: Date.now()})
     }
+
+    shouldComponentUpdate(nextProps) {
+        return true;
+    }
+
 
     onChangeVisibility(isVisible) {
         let elemAnalytics = {

@@ -30,8 +30,8 @@ class QuizzEdit extends Component {
         this.state = {
             isPrepared: false,
             showsModalEditor: false,
-            question: props.data ? props.data.question : "",
-            answers: props.data ? props.data.answers : [ // provides two empty answers as default for new quiz
+            question: props.data ? props.data.question || "" : "",
+            answers: props.data ? props.data.answers || [] : [ // provides two empty answers as default for new quiz
                 {
                     "title": "",
                     "image": "",
@@ -49,7 +49,7 @@ class QuizzEdit extends Component {
                     "isSelected": false
                 }
             ],
-            quizType: props.data ? props.data.quizType : "single-choice",
+            quizType: props.data ? props.data.quizType || "single-choice" : "single-choice",
             showsPageSelectionDropDown: false,
             selectingImageForIndex: 0,
             feedbackPopoverAnchor: null,
@@ -215,7 +215,7 @@ class QuizzEdit extends Component {
 
         return (
             <div>
-                {this.state.isPrepared
+                {(this.state.isPrepared || this.props.isEditMode)
                     ?
                     <div>
                         <center>

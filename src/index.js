@@ -23,8 +23,6 @@ import Footer from "./Footer";
 import About from "./About"
 import LandingPageController from "./ExploreContent/LandingPageController"
 
-//import FontAwesomeImports from "./utils/FontAwesomeImports"
-
 import {Provider} from "redux-zero/react";
 
 import ConcludingContentPage from './ConcludingContentPage'
@@ -32,6 +30,7 @@ import ConcludingContentPage from './ConcludingContentPage'
 
 import store from "./store/store";
 import ContentView from "./LessonMaker/ContentView";
+import ContentOverview from './ContentOverview';
 
 import Bitmoji from './utils/Bitmoji'
 import Authentication from "./Authentication/Authentication";
@@ -46,6 +45,10 @@ import Authentication from "./Authentication/Authentication";
 import history from './history'
 import {auth} from "./Authentication/firebase";
 
+// check if there are components that are rendered unnecessarily
+// const {whyDidYouUpdate} = require('why-did-you-update');
+// whyDidYouUpdate(React);
+
 
 class Index extends Component {
     constructor(props) {
@@ -59,7 +62,7 @@ class Index extends Component {
     componentDidMount() {
         auth.onAuthStateChanged(function (user) {
             if (user) {
-                console.log('user here: ', user);
+                //console.log('user here: ', user);
                 const {displayName, uid} = user;
                 const idToken =  auth.currentUser.getIdToken(true).then(function(idToken) {
                     store.setState({
@@ -107,9 +110,9 @@ class Index extends Component {
                                        render={() => <LandingPageController category={this.state.category}/>}/>
                                 <Route exact path="/create" render={(props) => <LessonMaker {...props} />}/>
                                 {<Route exact path="/auth" render={(props) => <Authentication/>}/>}
-                                <Route path="/view/:username/:title/:chapterIndex?" render={(props) => <ContentView {...props} chapters={store.getState().chapters}/>}/>
+                                <Route exact path="/view/:username/:title/:uid/:contentId/" render={(props) => <ContentOverview {...props} />}/>
+                                <Route path="/view/:username/:title/:uid/:contentId/:chapterIndex?" render={(props) => <ContentView {...props} chapters={store.getState().chapters}/>}/>
                                 <Route exact path="/learn" render={(props) => <LandingPageController {...props} />}/>
-                                <Route exact path="/create" render={(props) => <LessonMaker {...props} />}/>
                                 <Route exact path="/data" render={(props) => <DataViewCreator {...props} />}/>
                                 <Route exact path="/about" render={(props) => <About {...props} />}/>
                                 <Route exact path="/account" render={(props) => <AccountPage {...props} />}/>
@@ -117,7 +120,9 @@ class Index extends Component {
                                 <Route exact path="/conclusion"
                                        render={(props) => <ConcludingContentPage url="https://joinoasys.org"
                                                                                  author="Mark22" title="Feet and Cotion"
-                                                                                 description="I am explaining to you how feet and cotion works." {...props} />}/>
+                                                                                 description="I am explaining to you how feet and cotion works." {...props} 
+                                                           />}
+                                />
                                 <Route exact path="/bitmoji" render={(props) => <Bitmoji {...props} />}/>
                                 {/*<Route path="/data" render={(props)=>( this.state.authUser ? <DataViewCreator authUser={this.state.authUser} /> : null)} />*/}
                                 {/*<Route path="/data/preview" render={(props)=>( this.state.authUser ? <DataViewCreator authUser={this.state.authUser} /> : null)} />*/}

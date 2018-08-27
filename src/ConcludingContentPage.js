@@ -13,6 +13,8 @@ import RatingBar from './RatingBar'
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 import SocialSharingButtons from './SocialSharingButtons'
+import api from './utils/api'
+
 
 // check if emojis are rendered or not
 function supportsEmoji() {
@@ -27,7 +29,8 @@ class ConcludingContentPage extends Component {
 		hovered: false,
 		selectedRating: null,
 		showsFeedbackForm: false,
-		randomGif: null
+		randomGif: null,
+		submitRatingVal: "",
 	}
 
 	componentDidMount() {
@@ -36,10 +39,11 @@ class ConcludingContentPage extends Component {
 		});
 	}
 
-	onSelectRating(rating) {
+	onSelectRating(rating,val) {
 		this.setState({
 			selectedRating: null,
-			showsFeedbackForm: true
+			showsFeedbackForm: true,
+			submitRatingVal: val,
 		}, function() {
 			this.setState({
 				selectedRating: rating
@@ -51,6 +55,23 @@ class ConcludingContentPage extends Component {
 		this.setState({
 			showsFeedbackForm: false
 		});
+	}
+
+	onSubmitFeedbackForm() {
+		const ratingData = {
+			uid: this.props.uid, 
+			contentId: this.props.contentId, 
+			rating : this.state.submitRatingVal,
+		}
+
+		api.postRating(ratingData)
+			.then(results => {
+				console.log(results);
+				this.setState({
+					showsFeedbackForm: false
+				})
+				})
+			.catch(err => console.log("error at rate ", err))
 	}
 
 	successGifs = [
@@ -95,7 +116,7 @@ class ConcludingContentPage extends Component {
 			          </ModalBody>
 			          <ModalFooter>
 			            <Button color="secondary" onClick={this.onCloseFeedbackForm.bind(this)}>Cancel</Button>
-						<Button color="primary" onClick={this.onCloseFeedbackForm.bind(this)}>Submit Feedback</Button>			            
+						<Button color="primary" onClick={this.onSubmitFeedbackForm.bind(this)}>Submit Feedback</Button>			            
 			          </ModalFooter>
 			        </Modal>
 
