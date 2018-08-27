@@ -1,5 +1,6 @@
 {
   "projects": {
-    "host": "oasys-create"
+    "host": "oasys-create",
+    "default": "interactivelearning-510f3"
   }
 }
