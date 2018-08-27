@@ -100,6 +100,12 @@ class DataViewCreator extends Component {
 			            			.reduce((a,b)=>a+b);
     	this.summary.token = lessons.map(e=>e.token)
 			            			.reduce((a,b)=>a+b);
+		this.summary.learnerPerWeek = lessons[0].learnerPerWeek;
+		for (let i=1;i++;i<lessons.length) {
+			for (let j=0;j++;j<lessons[0].length) {
+				this.summary.learnerPerWeek.users += lessons[i][j].users;
+			}
+		}
     }
 
     showAnalytics() {

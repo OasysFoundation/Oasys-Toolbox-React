@@ -121,6 +121,7 @@ class DataDetails extends Component {
     optsDuration.scales.xAxes[0].scaleLabel.labelString = 'Time [min:sec]';
 
     console.log(this.props.data)
+    console.log(this.props.data.learnerPerWeek[0].week.toLocaleDateString('en-US'))
 
 		return (
 			<div>
