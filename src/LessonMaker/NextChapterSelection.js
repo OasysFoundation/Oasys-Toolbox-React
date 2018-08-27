@@ -46,7 +46,7 @@ class NextChapterSelection extends Component {
     getActionMenuItems() {
         var menuItems = this.getAllChapters().map(function(element) { return "Go to " + element.title + "…"});
         menuItems.push("Create new Chapter…");
-        // menuItems.push("Finish Lesson");
+        menuItems.push("End Lesson");
         return menuItems;
     }
 
@@ -89,8 +89,6 @@ class NextChapterSelection extends Component {
     }
 
     onSelectAction(identifier, chapterIndex) {
-
-        console.log(identifier, chapterIndex, "id, idx")
 
         if (chapterIndex >= this.getAllChapters().length) {
             const that = this;
