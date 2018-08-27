@@ -128,11 +128,11 @@ class HorizontalScrollButtonMaker extends Component{
 		this.handleClick = this.handleClick.bind(this);
 	}
 
-	toggleSmall(data) {
+	toggleSmall() {
 	    this.setState({
 	      small: !this.state.small,
-	      currentTitle: data.title,
-	      currentUsername: data.userId,
+	      currentTitle: this.props.data.title,
+	      currentUsername: this.props.data.userId,
 	    });
   	}
   	handleClick(value){
@@ -244,7 +244,7 @@ class HorizontalScrollButtonMaker extends Component{
 				          </CardSubtitle>
 				      </div>
 			          <div style={styles.verticalEllipsesOuterDiv} className="bruh">
-			          	<a onClick={this.toggleSmall.bind(this,this.props.data)} className="noTextDecoration"><i className="fas fa-ellipsis-v faAlignRight" style={styles.ellipsisIcon}/></a>
+			          	<a onClick={e=>{this.toggleSmall(); e.stopPropagation(); }} className="noTextDecoration"><i className="fas fa-ellipsis-v faAlignRight" style={styles.ellipsisIcon}/></a>
 			          </div>
 			          <Modal isOpen={this.state.small} toggle={this.toggleSmall}
 	                       className={'modal-sm ' + this.props.className} style={styles.modalOuterDiv}>
