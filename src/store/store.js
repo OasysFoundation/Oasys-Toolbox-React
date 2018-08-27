@@ -13,6 +13,7 @@ const initData = {
     },
     title: 'Untitled Project',
     iconName: "001-cells.svg",
+    author: null,
 
     contentId: uuidv4(),
     isEditMode: true,

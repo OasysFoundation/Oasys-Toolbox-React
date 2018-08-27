@@ -7,7 +7,6 @@ import uuidv4 from 'uuid/v4';
 import globals from '../utils/globals';
 
 
-
 function updateLinksInChapters_mutate(chapters) {
     chapters.forEach(chapter => {
         let continue_links = [];
@@ -120,8 +119,16 @@ const actions = function (store) { //store for async stuff
         //
         // },
 
-        setCurrentProject(state, projectData) {
+        openProject(state, projectData) {
             return projectData;
+        },
+
+        remixProject(state, projectData, user = {name: null, uid: null, idToken: null, status: 0}) {
+            const clone = JSON.parse(JSON.stringify(projectData));
+            clone.user = user;
+            clone.author = user.name + " - remixed content from " + projectData.author;
+            clone.contentId = uuidv4()
+            return clone;
         },
 
         onUpdateUserInfo(state, firebaseLoginObj) {
@@ -231,7 +238,6 @@ const actions = function (store) { //store for async stuff
         },
 
 
-
         onMoveElement(state, id, direction) {
             let elements = state.chapters[state.activeChapterIndex].elements;
             const entryIdx = elements.findIndex(el => el.id === id);
@@ -270,7 +276,7 @@ const actions = function (store) { //store for async stuff
         onChangeLastElementChild(state, childChoice) {
             return update(state, {
                 chapters: {
-                    [state.activeChapterIndex] : {
+                    [state.activeChapterIndex]: {
                         lastElement: {
                             childChoice: {$set: childChoice}
                         }
