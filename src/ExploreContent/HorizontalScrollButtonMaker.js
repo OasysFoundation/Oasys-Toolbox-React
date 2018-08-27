@@ -245,7 +245,7 @@ class HorizontalScrollButtonMaker extends Component{
 				          </CardSubtitle>
 				      </div>
 			          <div style={styles.verticalEllipsesOuterDiv} className="bruh">
-			          	<a onClick={this.toggleSmall.bind(this,this.props.data)} className="noTextDecoration"><FontAwesomeIcon icon="ellipsis-v" style={styles.ellipsisIcon}/></a>
+			          	<a onClick={this.toggleSmall.bind(this,this.props.data)} className="noTextDecoration"><i className="fas fa-ellipsis-v faAlignRight marginRight5 " style={styles.ellipsisIcon}/></a>
 			          </div>
 			          <Modal isOpen={this.state.small} toggle={this.toggleSmall}
 	                       className={'modal-sm ' + this.props.className} style={styles.modalOuterDiv}>
