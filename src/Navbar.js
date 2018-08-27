@@ -436,7 +436,7 @@ class NavBar extends React.Component {
             if (item.link === '/auth' || item.link === '/account') {
                 item.label = this.props.user.uid ? "Account" : "Login";
                 item.link = this.props.user.uid ? "/account" : "/auth";
-
+                
             }
         })
 

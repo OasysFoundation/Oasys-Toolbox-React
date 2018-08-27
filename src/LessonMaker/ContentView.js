@@ -10,6 +10,7 @@ import api from '../utils/api'
 
 import {connect} from "redux-zero/react";
 import actions from "../store/actions";
+import withLoader from './withLoader'
 
 class ContentView extends Component {
     constructor(props) {
@@ -66,6 +67,8 @@ class ContentView extends Component {
                     }
                     //else wait for componentWillReceiveProps
                     //console.log(that.analytics, "analytics @ mount")
+
+                    console.log(project, "contentview data")
 
                     that.setState(() => that.produceState(project.data.chapters, chapterIndex))
                 })
@@ -251,6 +254,7 @@ class ContentView extends Component {
                             </React.Fragment>
                         </Container>
                         <center>
+                            {/*THIS IS NOW DONE in else*/}
                             {this.state.showsContentCompletion ?
                                 null
                                 :
@@ -259,14 +263,19 @@ class ContentView extends Component {
                                         <div onClick={this.goToCompletionScreen.bind(this)}>
                                             {ICON("icon-arrow-down", 40)}
                                         </div>
-                                    ) : (
-                                        <div onClick={() => this.goToNextChapter()}>
-                                            {ICON("icon-arrow-down", 40)}
-                                        </div>
-                                    )}
+                                    ) : null
+
+
+                                    //     (
+                                    //     <div onClick={() => this.goToNextChapter()}>
+                                    //         {ICON("icon-arrow-down", 40)}
+                                    //     </div>
+                                    // )
+                                    }
 
                                 </div>
                             }
+
                         </center>
                     </main>
                 </div>
@@ -293,4 +302,4 @@ const neededActions = (store) => {
     return {onChangeActiveChapter}
 };
 
-export default connect(mapStoreToProps, neededActions)(ContentView);
+export default connect(mapStoreToProps, neededActions)(withLoader('user', 'uid')(ContentView));

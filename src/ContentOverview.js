@@ -115,7 +115,7 @@ class ContentOverview extends Component {
     handleClick(value) {
         if (value === "remix") {
             this.props.remixProject(this.state.lesson, this.props.user);
-            history.push(`/create/${this.props.user.name || "anonymous"}/${this.props.match.params.title}/`)
+            history.push(`/create/${this.props.user.displayName || "anonymous"}/${this.props.match.params.title}/`)
         }
         // window.location.href  = `/create/${this.state.currentUsername}/${this.state.currentTitle}`
         else if (value === "comments")
@@ -126,6 +126,9 @@ class ContentOverview extends Component {
 
     handleStartContent() {
         const {title, username, uid, contentId} = this.state.lesson;
+
+        this.props.remixProject(this.state.lesson, this.props.user);
+
         window.location.href = `/view/${username}/${title}/${uid}/${contentId}/0`;
     }
 

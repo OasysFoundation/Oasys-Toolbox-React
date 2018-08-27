@@ -188,7 +188,7 @@ class LandingPageController extends Component {
                 if(str[i].toLowerCase().includes(substr.toLowerCase()))
                     returnVar = true;
             }
-            return returnVar 
+            return returnVar
         }
 
         return function (element) {
@@ -238,7 +238,7 @@ class LandingPageController extends Component {
         {this.checkMobile()
             ? (
             	<div className = "landingPage" style={styles.mobileTopPadding}>
-                	<HeaderImage type = "mobile" / >
+                	<HeaderImage type = "mobile" />
             		<section style = {styles.HorizontalScrollOuterCenterContainer}>
 	  					<div style = {styles.HorizontalScrollContainer}>
 		    				<br/>
@@ -275,7 +275,7 @@ class LandingPageController extends Component {
         				< /div>
         			< /section>
         		< /div>
-    		)		
+    		)
     	}
     </div>
     )

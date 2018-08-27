@@ -288,7 +288,7 @@ class QuizzEditModal extends Component {
                 return currentChapter;
             }
             return result; 
-        }).title;
+        }, {}).title;
     }
 
     chapterIndexForIdentifier(identifier) {

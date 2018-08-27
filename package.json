@@ -41,6 +41,7 @@
     "rangeslider-js": "^3.1.2",
     "react": "^16.4.0",
     "react-chartjs-2": "^2.7.4",
+    "react-display-name": "^0.2.4",
     "react-dom": "^16.4.0",
     "react-iframe": "^1.2.0",
     "react-katex": "^2.0.2",
