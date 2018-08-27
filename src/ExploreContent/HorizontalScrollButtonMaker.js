@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Button, Card, CardText, CardBody, CardTitle, CardSubtitle, Modal, ModalBody, ModalHeader } from 'reactstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Truncate from 'react-truncate';
 
 import colors from '../utils/colors';
@@ -245,30 +244,30 @@ class HorizontalScrollButtonMaker extends Component{
 				          </CardSubtitle>
 				      </div>
 			          <div style={styles.verticalEllipsesOuterDiv} className="bruh">
-			          	<a onClick={this.toggleSmall.bind(this,this.props.data)} className="noTextDecoration"><i className="fas fa-ellipsis-v faAlignRight marginRight5 " style={styles.ellipsisIcon}/></a>
+			          	<a onClick={this.toggleSmall.bind(this,this.props.data)} className="noTextDecoration"><i className="fas fa-ellipsis-v faAlignRight" style={styles.ellipsisIcon}/></a>
 			          </div>
 			          <Modal isOpen={this.state.small} toggle={this.toggleSmall}
 	                       className={'modal-sm ' + this.props.className} style={styles.modalOuterDiv}>
 	                  <ModalHeader toggle={this.toggleSmall} style={styles.modalHeader}>{this.state.currentTitle}</ModalHeader>
 	                  <ModalBody style={styles.modalBody}>
 	                      <Button block color="light" onClick={this.handleClick.bind(this,"remix")} style={styles.modalButton}>
-	                      	<div style={{flex:1}}><FontAwesomeIcon icon="pencil-alt"/></div>
+	                      	<div style={{flex:1}}><i className="fas fa-pencil-alt"/></div>
 	                      	<div style={{flex:3, textAlign:"left"}}>Remix</div>
 	                      </Button>
 						  <Button block color="light" onClick={this.handleClick.bind(this,"comments")} style={styles.modalButton}>
-						  	<div style={{flex:1}}><FontAwesomeIcon icon="comment"/></div>
+						  	<div style={{flex:1}}><i className="fas fa-comment" /></div>
 	                      	<div style={{flex:3, textAlign:"left"}}>View Comments</div>
 						  </Button>
 						  <Button block color="light" onClick={this.handleClick.bind(this,"content")} style={styles.modalButton}>
-						  	<div style={{flex:1}}><FontAwesomeIcon icon="user"/></div>
+						  	<div style={{flex:1}}><i className="fas fa-user"/></div>
 	                      	<div style={{flex:3, textAlign:"left"}}>{"Go To " + this.state.currentUsername + "'s Page"}</div>
 						  </Button>
 						  <Button block color="light" onClick={this.handleClick.bind(this,"collection")} style={styles.modalButton}>
-						  	<div style={{flex:1}}><FontAwesomeIcon icon="layer-group"/></div>
+						  	<div style={{flex:1}}><i className="fas fa-layer-group"/></div>
 	                      	<div style={{flex:3, textAlign:"left"}}>Create New Collection</div>
 						  </Button>
 						  <Button block color="light" onClick={this.handleClick.bind(this,"flag")} style={styles.modalButton}>
-						  	<div style={{flex:1}}><FontAwesomeIcon icon="flag"/></div>
+						  	<div style={{flex:1}}><i className="fas fa-flag"/></div>
 	                      	<div style={{flex:3, textAlign:"left"}}>Flag as Inappropriate</div>
 						  </Button>
 
