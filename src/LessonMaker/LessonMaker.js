@@ -120,7 +120,7 @@ class LessonMaker extends Component {
 
         return (
             <div className="app-body">
-                <EditModalWarning contentTitle={"Mark22 adventures"} isOpen={true}/>
+                <EditModalWarning contentTitle={"Mark22 adventures"} isOpen={false}/>
                 <SideBarLesson/>
                 <main className="main">
                     <Modal isOpen={this.state.showDeleteChapterDialog} toggle={this.handleChapterDeleteModalClose} backdrop={true}>
