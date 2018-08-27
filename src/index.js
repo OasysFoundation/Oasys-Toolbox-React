@@ -30,6 +30,7 @@ import ConcludingContentPage from './ConcludingContentPage'
 
 import store from "./store/store";
 import ContentView from "./LessonMaker/ContentView";
+import ContentOverview from './ContentOverview';
 
 import Bitmoji from './utils/Bitmoji'
 import Authentication from "./Authentication/Authentication";
@@ -109,9 +110,9 @@ class Index extends Component {
                                        render={() => <LandingPageController category={this.state.category}/>}/>
                                 <Route exact path="/create" render={(props) => <LessonMaker {...props} />}/>
                                 {<Route exact path="/auth" render={(props) => <Authentication/>}/>}
+                                <Route exact path="/view/:username/:title/:uid/:contentId/" render={(props) => <ContentOverview {...props} />}/>
                                 <Route path="/view/:username/:title/:uid/:contentId/:chapterIndex?" render={(props) => <ContentView {...props} chapters={store.getState().chapters}/>}/>
                                 <Route exact path="/learn" render={(props) => <LandingPageController {...props} />}/>
-                                <Route exact path="/create" render={(props) => <LessonMaker {...props} />}/>
                                 <Route exact path="/data" render={(props) => <DataViewCreator {...props} />}/>
                                 <Route exact path="/about" render={(props) => <About {...props} />}/>
                                 <Route exact path="/account" render={(props) => <AccountPage {...props} />}/>

@@ -118,7 +118,7 @@ class DataViewCreator extends Component {
     	*/
 
     	this.data = rearrangeData(this.rawdata);
-    	console.log(this.data)
+    	console.log(this.data);
 
     	let lessons = [];
     	this.data.contents.forEach((content,idx) => {
