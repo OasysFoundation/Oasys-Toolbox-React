@@ -76,7 +76,7 @@ class DataOverview extends Component {
 			          <tr 
 			          	onClick={e=>this.onChangeData(-1)} 
 			          	style={{cursor: 'pointer'}}
-			          	className={this.state.activeId==='all' ? 'active' : ''}
+			          	className={this.state.activeId===-1 ? 'active' : ''}
 			          >
 			            <td><strong>All lessons</strong></td>
 			            <td><strong>
@@ -102,7 +102,7 @@ class DataOverview extends Component {
 			          <tr 
 			          	onClick={f=>this.onChangeData(e.idx)} 
 			          	style={{cursor: 'pointer'}} 
-			          	className={this.state.activeId===e.id ? 'active' : ''}
+			          	className={this.state.activeId===e.idx ? 'active' : ''}
 			          	key={e.id}
 			          >
 			            <td>{e.title}</td>
