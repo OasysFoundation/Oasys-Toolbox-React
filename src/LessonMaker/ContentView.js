@@ -57,7 +57,7 @@ class ContentView extends Component {
             api.getContentByUserNameAndTitle(username, title)
                 .then(results => {
                     const project = results[0]
-                    console.log(project);
+                    //console.log(project);
                     const {contentId, uid: author} = project;
                     that.analytics.contentId = contentId;
                     that.analytics.contentUserId = author;
@@ -65,7 +65,7 @@ class ContentView extends Component {
                         that.analytics.accessUserId = that.props.user.uid;
                     }
                     //else wait for componentWillReceiveProps
-                    console.log(that.analytics, "analytics @ mount")
+                    //console.log(that.analytics, "analytics @ mount")
 
                     that.setState(() => that.produceState(project.data.chapters, chapterIndex))
                 })
@@ -78,7 +78,7 @@ class ContentView extends Component {
 
         //firebase auth takes longer if loading the link directly per URL
         this.analytics.accessUserId = nextProps.user.uid;
-        console.log(this.analytics, "analytics")
+        //console.log(this.analytics, "analytics")
     }
 
     produceState(chapterData, chapterIndex = 0) {
@@ -101,6 +101,9 @@ class ContentView extends Component {
         this.setState({
             showsContentCompletion: true
         });
+        this.analytics.endTime = new Date();
+        this.numScheduledUpdates += 1;
+        this.postAnalytics(this.maxUpdateAttempts);
     }
 
     goToNextChapter = () => {
@@ -181,14 +184,14 @@ class ContentView extends Component {
 
     handleQuizAnswer(obj) {
         this.analytics.quizzes.push(obj);
-        console.log('handleQuizAnswer: ' + JSON.stringify(this.analytics));
+        //console.log('handleQuizAnswer: ' + JSON.stringify(this.analytics));
         this.numScheduledUpdates += 1;
         this.postAnalytics(this.maxUpdateAttempts);
     }
 
     handleChangeElementVisibility(obj) {
         this.analytics.accessTimes.push(obj);
-        console.log('handleChangeElementVisibility: ' + JSON.stringify(this.analytics));
+        //console.log('handleChangeElementVisibility: ' + JSON.stringify(this.analytics));
         this.numScheduledUpdates += 1;
         this.postAnalytics(this.maxUpdateAttempts);
     }
@@ -202,6 +205,8 @@ class ContentView extends Component {
             return <div>...Loading Content</div>
         }
 
+         const {username, title, uid, contentId} = this.props.match.params;
+
         return (
             <ScrollView ref={scroller => this._scroller = scroller}>
                 <React.Fragment>
@@ -212,8 +217,9 @@ class ContentView extends Component {
                         <Container fluid className='main-width'>
                             <React.Fragment>
                                 {this.state.showsContentCompletion ?
-                                    <ConcludingContentPage url="https://joinoasys.org"
-                                                           author="Mark22" title="Feet and Cotion"
+                                    <ConcludingContentPage uid={uid} url="https://joinoasys.org"
+                                                           author={username} title={title}
+                                                           contentId={contentId}
                                                            description="I am explaining to you how feet and cotion works."/>
                                     :
                                     <div>

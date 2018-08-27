@@ -555,3 +555,50 @@ html:not([dir="rtl"]) .sidebar {
     margin-top: 0 !important;
 }
 
+/* ------------------- content overview ------------------- */
+
+.oasys .content-overview .tag {
+    background-color: #f8f8f4;
+    border: 1px solid #c3c8d4;
+    padding: 5px 10px;
+    margin: 0px 5px 0px 0px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.oasys .content-overview .tag:hover{
+    background-color: #9f5032;
+    border: 1px solid #3e4b54;
+    color: #f4f4e8;
+}
+
+.oasys .content-overview .action-button {
+    background-color: #f8f8f4;
+    border: 1px solid #c3c8d4;
+    padding: 5px 10px;
+    margin: 0px 5px 5px 0px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.oasys .content-overview .action-button:hover{
+    background-color: #9f5032;
+    border: 1px solid #3e4b54;
+    color: #f4f4e8;
+}
+
+
+.oasys .content-overview .start-button {
+    background-color: #c6361d;
+    border: 1px solid #3e4b54;
+    padding: 5px 10px;
+    margin-top: 20px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #f4f4e8;
+}
+
+.oasys .content-overview .start-button:hover {
+    background-color: #a61600;
+    border: 1px solid #a61600;
+}

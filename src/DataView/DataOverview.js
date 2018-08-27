@@ -24,7 +24,7 @@ class DataOverview extends Component {
 	
 	render(){
 		return (
-			<div className='table'>
+			<div>
 				<h3 style={{marginBottom: '0px'}}>
 					Summary
 					<sup><i className="far fa-question-circle margin-right5 medgrey" data-tip='tooltip' data-for='summary'></i></sup>
@@ -36,7 +36,7 @@ class DataOverview extends Component {
 				</h3>
 				<hr style={{marginTop: '0px', borderColor: colors.GULLGREY}}/>
 
-				<Table responsive striped className='has-shadow' style={{border: '1px solid #c8ced3'}}>
+				<Table responsive striped className='table has-shadow' style={{border: '1px solid #c8ced3'}}>
 		          <thead>
 		          <tr>
 		            <th>
@@ -74,25 +74,39 @@ class DataOverview extends Component {
 		          </thead>
 		          <tbody>
 			          <tr 
-			          	onClick={e=>this.onChangeData('all')} 
+			          	onClick={e=>this.onChangeData(-1)} 
 			          	style={{cursor: 'pointer'}}
 			          	className={this.state.activeId==='all' ? 'active' : ''}
 			          >
 			            <td><strong>All lessons</strong></td>
-			            <td><strong>{(this.props.data.map(e=>e.rating).reduce((a,b)=>a+b,0)/this.props.data.length).toFixed(1)}</strong></td>
-			            <td><strong>{this.props.data.map(e=>e.learner).reduce((a,b)=>a+b)}</strong></td>
-			            <td><strong>{this.props.data.map(e=>e.token).reduce((a,b)=>a+b)}</strong></td>
+			            <td><strong>
+			            	{(this.props.data
+			            		.map(e=>e.rating)
+			            		.filter(e=>!isNaN(e))
+			            		.reduce((a,b,idx,arr)=>a+b/arr.length,0))
+			            		.toFixed(1)}
+		            	</strong></td>
+			            <td><strong>
+			            	{this.props.data
+			            		.map(e=>e.learner)
+			            		.reduce((a,b)=>a+b)}
+		            	</strong></td>
+			            <td><strong>
+			            	{this.props.data
+			            		.map(e=>e.token)
+			            		.reduce((a,b)=>a+b)}
+		            	</strong></td>
 			            <td></td>
 			          </tr>
 		          	{this.props.data.map(e=>
 			          <tr 
-			          	onClick={f=>this.onChangeData(e.id)} 
+			          	onClick={f=>this.onChangeData(e.idx)} 
 			          	style={{cursor: 'pointer'}} 
 			          	className={this.state.activeId===e.id ? 'active' : ''}
 			          	key={e.id}
 			          >
 			            <td>{e.title}</td>
-			            <td>{e.rating}</td>
+			            <td>{isNaN(e.rating) ? 'N/A' : e.rating}</td>
 			            <td>{e.learner}</td>
 			            <td>{e.token}</td>
 			            <td>{e.published.toLocaleDateString("en-US", dateOptions)}</td>

@@ -1,7 +1,5 @@
 import React from 'react';
 import { Col, Container, Row, Footer } from 'mdbreact';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
 
 class FooterPage extends React.Component {
     render(){
@@ -26,16 +24,16 @@ class FooterPage extends React.Component {
                             <h6 className="text-uppercase font-weight-bold"><strong>Useful links</strong></h6>
                             <hr className="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style={{width: '60px'}}/>
                             <p><a href="/" className="dark-grey-text">Home</a></p>
-                            <p><a href="/user" className="dark-grey-text">Your Account</a></p>
+                            <p><a href="/account" className="dark-grey-text">Your Account</a></p>
                             <p><a href="/create" className="dark-grey-text">Create Content</a></p>
                         </Col>
                         <Col md="2" lg="2" xl="2" className="mb-4 dark-grey-text">
                             <h6 className="text-uppercase font-weight-bold"><strong>Follow us</strong></h6>
                             <hr className="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style={{width: '60px'}}/>
                             <div style={{fontSize:"1rem"}}>
-                            <p><a href="https://github.com/OasysFoundation" className="dark-grey-text" style={{color:"#27363E"}}><FontAwesomeIcon icon={['fab', 'github']} className="faAlignRight marginRight5" size="lg"/></a></p>
-                            <p><a href="https://twitter.com/OasysOrg" className="dark-grey-text" style={{color:"#27363E"}}><FontAwesomeIcon icon={['fab', 'twitter']} className="faAlignRight marginRight5" size="lg"/></a></p>
-                            <p><a href="https://www.instagram.com/oasyseducation/" className="dark-grey-text" style={{color:"#27363E"}}><FontAwesomeIcon icon={['fab', 'instagram']} className="faAlignRight marginRight5" size="lg"/></a></p>
+                            <p><a href="https://github.com/OasysFoundation" className="dark-grey-text" style={{color:"#27363E"}}><i class="fab fa-github faAlignRight marginRight5 fa-lg" size="lg"/></a></p>
+                            <p><a href="https://twitter.com/OasysOrg" className="dark-grey-text" style={{color:"#27363E"}}><i class="fab fa-twitter faAlignRight marginRight5 fa-lg" size="lg"/></a></p>
+                            <p><a href="https://www.instagram.com/oasyseducation/" className="dark-grey-text" style={{color:"#27363E"}}><i class="fab fa-instagram faAlignRight marginRight5 fa-lg" size="lg"/></a></p>
                             </div>
                         </Col>
                         <Col md="4" lg="3" xl="3" className="mb-4 dark-grey-text">

@@ -15,10 +15,10 @@ class RatingBar extends Component {
         const that = this;
         return (
             <div>
-            	{this.ratings.map(function(ratingComponent) {
+            	{this.ratings.map(function(ratingComponent,index) {
             		return <Button 
                             style={{borderRadius: '50%', width:'50px', height:'50px', fontSize:'26px', margin:'5px'}}
-                            onClick={function() {that.props.onSelectRating(ratingComponent)} }
+                            onClick={function() {that.props.onSelectRating(ratingComponent,index+1)} }
                             ><center>{ ratingComponent }</center></Button>	
             	})}
             </div>

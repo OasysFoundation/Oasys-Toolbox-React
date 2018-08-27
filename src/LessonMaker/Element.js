@@ -168,6 +168,11 @@ class Element extends Component {
         // this.setState({tempContent: contentUpdated, timestamp: Date.now()})
     }
 
+    shouldComponentUpdate(nextProps) {
+        return true;
+    }
+
+
     onChangeVisibility(isVisible) {
         let elemAnalytics = {
             id: this.props.data.id, 

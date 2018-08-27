@@ -17,12 +17,20 @@ import api from '../utils/api'
 
 import IconSelectionModal from './IconSelectionModal'
 
+import { ScaleLoader } from 'react-spinners';
+
+import Snackbar from '@material-ui/core/Snackbar';
+import SnackbarContent from '@material-ui/core/SnackbarContent';
+
 class SideBarLesson extends Component {
     constructor(props) {
         super(props);
         this.state = {
             showSettingsDialog: false,
             showProjectsDialog: false,
+            isCurrentlySavingDraft: false,
+            isCurrentlyPublishing: false,
+            snackbarMessage: null
         }
         this.title = null;
         this.tags = null;
@@ -82,7 +90,38 @@ class SideBarLesson extends Component {
 
             data
         }
-        api.postContent(allData)
+        
+        if (flag == 0) {
+            this.setState({
+                isCurrentlySavingDraft: true
+            });
+        } else {
+            this.setState({
+                isCurrentlyPublishing: true
+            });
+        }
+        
+
+        const that = this;
+        api.postContent(allData).then(function() {
+            
+            that.setState({
+                isCurrentlySavingDraft: false,
+                isCurrentlyPublishing: false,
+                snackbarMessage: flag? "Published Successfully ✅" : "Saved Draft Successfully ✅"
+            });
+
+        }).catch(function(error) {
+
+
+            const errorMessage = flag? "Could not publish." : "Could not save draft."
+
+            that.setState({
+                isCurrentlySavingDraft: false,
+                isCurrentlyPublishing: false,
+                snackbarMessage: "Error: " + errorMessage + " (" + error + ") 😭"
+            });
+        });
     }
 
     onCloseIconSelectionModal() {
@@ -96,6 +135,12 @@ class SideBarLesson extends Component {
          this.setState({
             showsIconSelectionModal: true
         })
+    }
+
+    onCloseSnackBar() {
+        this.setState({
+            snackbarMessage: null
+        });
     }
 
     render() {
@@ -162,8 +207,8 @@ class SideBarLesson extends Component {
 
                 </Modal>
 
-                <AppSidebar fixed display="lg">
-                    <Button className='sidebar-button title '>
+                <AppSidebar fixed display="lg" >
+                    <Button className='sidebar-button title'>
                         <input
                             className='form-control'
                             // defaultValue='Untitled lesson'
@@ -179,12 +224,13 @@ class SideBarLesson extends Component {
                     </Button>
                     <Button onClick={() => this.saveContent(0)} className='sidebar-button'>
                         <div>Save draft</div>
-
+                        {this.state.isCurrentlySavingDraft? <ScaleLoader height={15} color='white' /> : null }
                         <i className="fas fa-align-right fa-lg fa-save"></i>
                     </Button>
 
                     <Button onClick={() => this.saveContent(1)} className='sidebar-button publish'>
                         <div>Publish</div>
+                        {this.state.isCurrentlyPublishing? <ScaleLoader height={15} color='white' /> : null }
                         <i className="fas fa-align-right fa-lg fa-globe-americas"></i>
                     </Button>
                     <hr/>
@@ -192,6 +238,25 @@ class SideBarLesson extends Component {
                     <AppSidebarFooter/>
                     <AppSidebarMinimizer/>
                 </AppSidebar>
+
+                <Snackbar
+                  anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                  }}
+                  open={Boolean(this.state.snackbarMessage)}
+                  autoHideDuration={6000}
+                  onClose={this.onCloseSnackBar.bind(this)}
+                >
+                    <SnackbarContent
+                      aria-describedby="client-snackbar"
+                      message={
+                        <span id="client-snackbar">
+                          {this.state.snackbarMessage}
+                        </span>
+                      }
+                    />
+                </Snackbar>
             </div>
         )
     }

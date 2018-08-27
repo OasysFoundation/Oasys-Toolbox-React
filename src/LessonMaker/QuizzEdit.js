@@ -215,7 +215,7 @@ class QuizzEdit extends Component {
 
         return (
             <div>
-                {this.state.isPrepared
+                {(this.state.isPrepared || this.props.isEditMode)
                     ?
                     <div>
                         <center>
