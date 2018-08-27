@@ -22,7 +22,7 @@ const globals = {
 	EDIT_IMAGE: 5,
 	EDIT_FORMULA: 6,
 	EDIT_CONTINUE_ELEMENT: 7,
-	EDIT_CHAPTEREND: 8,
+	// EDIT_CHAPTEREND: 8,
 	// for module editor
 	IF_START : 0, // for module component logic: immediately after if command
 	IF_COND  : 1, // for module component logic: inside if condition (but not immediately after if command)
