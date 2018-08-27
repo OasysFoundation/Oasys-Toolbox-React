@@ -14,6 +14,8 @@ import colors from '../utils/colors';
 
 import EndOfChapterElement from './EndOfChapterElement';
 import uuidv4 from 'uuid/v4';
+import globals from "../utils/globals";
+import {isEmpty} from "../utils/trickBox";
 
 const Item = posed.div();
 
@@ -22,7 +24,24 @@ class LessonMaker extends Component {
         super(props);
         this.state = {
             showDeleteChapterDialog: false,
-        }
+
+        };
+
+        // this.choices = [
+        //     {
+        //         el: <QuizzEdit {...someProps}/>,
+        //         text: "Quiz"
+        //     },
+        //     {
+        //         el: <NextChapterSelection {...someProps}/>,
+        //         text: "Link To Chapter"
+        //     },
+        //     {
+        //         el: <div> || Done ||</div>,
+        //         text: "Finish Lesson"
+        //     }
+        // ];
+
         // props.mergeStoreWithSessionStorage();
         this.handleChapterDeleteModal = this.handleChapterDeleteModal.bind(this);
         this.handleChapterDeleteModalClose = this.handleChapterDeleteModalClose.bind(this);
@@ -50,6 +69,12 @@ class LessonMaker extends Component {
         console.log('saving status....')
         //api.saveContent
     }
+    //
+    // onSelectAction(identifier, optionsIndex) {
+    //     console.log(this.choices);
+    //     this.setState({childChoice: this.choices[optionsIndex]})
+    //     this.props.onChangeLastElementChild(optionsIndex);
+    // }
 
     handleChapterDeleteModal() {
         this.setState({
@@ -178,35 +203,39 @@ class LessonMaker extends Component {
                                 ? (<React.Fragment>
                                     <PoseGroup>
                                         {elements.map((el, idx) => {
-                                                if (el.type === 8) {
-                                                    return null
-                                                }
-                                                else {
-                                                    return (<Item key={el.id}>
-                                                        <Element
-                                                            key={el.id}
-                                                            data={el}
-                                                            isPreview={true}
-                                                        />
+                                                return (<Item key={el.id}>
+                                                    <Element
+                                                        key={el.id}
+                                                        data={el}
+                                                        isPreview={true}
+                                                    />
 
-                                                        {/*SHORT FORM FOR --> isEditMode ? <Adder/> : null */}
-                                                        {this.props.isEditMode && <ElementAdder key={el.id + 1} idx={idx}/>}
-                                                    </Item>)
-                                                }
-
+                                                    {/*SHORT FORM FOR --> isEditMode ? <Adder/> : null */}
+                                                    {this.props.isEditMode && <ElementAdder key={el.id + 1} idx={idx}/>}
+                                                </Item>)
                                             }
                                         )}
                                     </PoseGroup>
+
+                                    {/*<SelectionDropdown onSelect={this.onSelectAction} identifier={"action-correct"}*/}
+                                                       {/*default={this.state.childChoice.text}*/}
+                                                       {/*options={this.choices.map(choice => choice.text)}/>*/}
+
+
                                     {/*if we already saved this extra element*/}
-                                    {elements[elements.length - 1].type === 8
-                                        ? <Element data={elements[elements.length - 1]} chapterID={activeChapter.id}/>
-                                        : <Element data={{
-                                            type: 8,
-                                            id: uuidv4(),
-                                            content: {action: null},
-                                            parentChapterId: activeChapter.id
-                                        }}/>
-                                    }
+                                    {/*{elements[elements.length - 1].type === globals.EDIT_CHAPTEREND*/}
+                                    {/*? <Element */}
+                                    {/*data={elements[elements.length - 1]} chapterID={activeChapter.id} />*/}
+
+                                    {/*create the last element if it isn't ...so it's in store as well*/}
+                                    {/*: this.props.onAddElement(globals.EDIT_CHAPTEREND, elements.length-1)*/}
+                                    {/*: <Element data={{*/}
+                                    {/*type: 8,*/}
+                                    {/*id: uuidv4(),*/}
+                                    {/*content: {action: null},*/}
+                                    {/*parentChapterId: activeChapter.id*/}
+                                    {/*}}/>*/}
+                                    {/*}*/}
 
                                 </React.Fragment>)
 
@@ -240,9 +269,11 @@ LessonMaker.propTypes = {
 
 const mapStoreToProps = ({chapters, activeChapterIndex, isEditMode}) => ({isEditMode, chapters, activeChapterIndex})
 const neededActions = (store) => {
-    const {onChangeActiveChapter, updateChapterLinks, onDeleteChapter, onChangeChapterTitle, onToggleEditMode, mergeStoreWithSessionStorage} = actions();
+    const {onChangeActiveChapter, onChangeLastElementChild, onAddElement, updateChapterLinks, onDeleteChapter, onChangeChapterTitle, onToggleEditMode, mergeStoreWithSessionStorage} = actions();
     return {
         onChangeActiveChapter,
+        onChangeLastElementChild,
+        onAddElement,
         updateChapterLinks,
         onDeleteChapter,
         onChangeChapterTitle,
