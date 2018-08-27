@@ -58,7 +58,7 @@ class AccountPage extends Component {
                            this.setState({
                                pageDataReccommended: [
                                    {
-                                       title: "Reccommended for you",
+                                       title: "Recommended for you",
                                        data: json,
                                    },
                                ]
