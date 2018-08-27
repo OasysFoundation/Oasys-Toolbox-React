@@ -119,13 +119,14 @@ const actions = function (store) { //store for async stuff
         //
         // },
 
-        openProject(state, projectData) {
+        setProjectInLessonMaker(state, projectData) {
             return projectData;
         },
 
         remixProject(state, projectData, user = {name: null, uid: null, idToken: null, status: 0}) {
             const clone = JSON.parse(JSON.stringify(projectData));
             clone.user = user;
+            clone.chapters = projectData.data.chapters;
             clone.author = user.name + " - remixed content from " + projectData.author;
             clone.contentId = uuidv4()
             return clone;
