@@ -34,6 +34,8 @@ import ContentOverview from './ContentOverview';
 
 import Bitmoji from './utils/Bitmoji'
 import Authentication from "./Authentication/Authentication";
+
+import ScrollToTop from './ScrollToTop';
 // import {Redirect} from 'react-router'
 
 //logs unnecessary rerenders in the console
@@ -100,10 +102,11 @@ class Index extends Component {
         return (
             <div className="oasys app">
                 <Provider store={store}>
-                    <Router history={history}>
+                    <Router history={history} onUpdate={() => window.scrollTo(0, 0)}>
                         <div>
                             {<Navbar onChange={this.handleChangeSearchBar.bind(this)}/>}
                             <Switch>
+                            <ScrollToTop>
                                 <Route exact path="/"
                                        render={() => <LandingPageController category={this.state.category}/>}/>
                                 <Route exact path="/explore"
@@ -149,6 +152,7 @@ class Index extends Component {
 
 
                                 {/*<Route component={NotFoundPage}/>*/}
+                            </ScrollToTop>
                             </Switch>
                             <Route path={"/*"} component={Footer}/>
                         </div>
