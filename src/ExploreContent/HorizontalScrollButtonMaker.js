@@ -6,9 +6,9 @@ import colors from '../utils/colors';
 
 //import {connect} from "redux-zero/react";
 //import actions from "../store/actions";
-// import store from "../store/store"
+import store from "../store/store"
 
-// import history from '../history'
+import history from '../history'
 
 const styles= {
 	cardStyle:{
@@ -177,7 +177,10 @@ class HorizontalScrollButtonMaker extends Component{
             	</Button>
             )
             : (
-            	<div className="pn-ProductNav_Link" aria-selected="true"  style={styles.cardTitleLink}>
+            	<div className="pn-ProductNav_Link" aria-selected="true"  onClick={() => {
+			          		store.setState(this.props.data);
+			          		history.push(`/view/${this.props.data.username}/${this.props.data.title}/${this.props.data.uid}/${this.props.data.contentId}`)
+                        }} style={styles.cardTitleLink}>
 			      <Card style={{...styles.cardStyle,...styles.boxShadow}}>
 			        <CardBody style={styles.homeCardBody}>
 			          {/*<div style={{position: 'absolute', top: '20px', left: '40px'}}>
@@ -202,7 +205,7 @@ class HorizontalScrollButtonMaker extends Component{
 				          </CardSubtitle>
 				      </div>
 			          <div style={styles.verticalEllipsesOuterDiv} className="bruh">
-			          	<a onClick={() => this.props.toggleOpen(this.props.data.title,this.props.data.username)} className="noTextDecoration"><i className="fas fa-ellipsis-v faAlignRight" style={styles.ellipsisIcon}/></a>
+			          	<a onClick={(e) => {e.stopPropagation(); this.props.toggleOpen(this.props.data.title,this.props.data.username, this.props.data.contentId, this.props.data.uid)}} className="noTextDecoration"><i className="fas fa-ellipsis-v faAlignRight" style={styles.ellipsisIcon}/></a>
 			          </div>
 			        </CardBody>
 			        <CardBody>

@@ -94,6 +94,9 @@ class LandingPageController extends Component {
             open:false,
             currentTitle:"",
             currentUsername:"",
+            uid:"",
+            contentId:"",
+
         }
 
         this.toggleOpen = this.toggleOpen.bind(this)
@@ -247,11 +250,13 @@ class LandingPageController extends Component {
     }
 
 
-    toggleOpen(title,username) {
+    toggleOpen(title,username,contentId,uid) {
         this.setState({
           open: !this.state.open,
           currentTitle: title,
           currentUsername: username,
+          contentId: contentId,
+          uid: uid,
         });
     }
     toggleClosed(){
@@ -262,15 +267,14 @@ class LandingPageController extends Component {
 
 
     handleClick(value){
-
         console.log(this.props.data, "DATA at button")
             if(value==="remix")
-                window.location.href  = `/create/${this.state.currentUsername}/${this.state.currentTitle}`
+                window.location.href  = `/create/${this.state.currentUsername}/${this.state.currentTitle}/${this.state.uid}/${this.state.contentId}`
             else if(value === "comments")
-                window.location.href  = `/comments/${this.state.currentUsername}/${this.state.currentTitle}`
-            else if(value==="content")
+                window.location.href  = `/comments/${this.state.currentUsername}/${this.state.currentTitle}/${this.state.uid}/${this.state.contentId}`
+            else if(value==="user")
                 // window.location.href  = `/user/${this.state.currentUsername}/`
-                window.location.href  = `/content/`
+                window.location.href  = `/user/${this.state.currentUsername}/${this.state.uid}`
             // else if(value==="collection")
             //  null
             // else if(value==="flag")
@@ -335,7 +339,7 @@ class LandingPageController extends Component {
                     <div style={{flex:1}}><i className="fas fa-comment" /></div>
                     <div style={{flex:3, textAlign:"left"}}>View Comments</div>
                   </Button>
-                  <Button block color="light" onClick={this.handleClick.bind(this,"content")} style={styles.modalButton}>
+                  <Button block color="light" onClick={this.handleClick.bind(this,"user")} style={styles.modalButton}>
                     <div style={{flex:1}}><i className="fas fa-user"/></div>
                     <div style={{flex:3, textAlign:"left"}}>{"Go To " + this.state.currentUsername + "'s Page"}</div>
                   </Button>
