@@ -1,15 +1,51 @@
 import createStore from "redux-zero";
 import globals from "../utils/globals";
 // import DEFAULT from "state";
+import uuidv4 from 'uuid/v4';
 
 
-const data = {
+const initData = {
+    user: {
+        name: null,
+        uid: null,
+        idToken: null,
+        status: 0,
+    },
+    title: 'Untitled Project',
+    iconName: "001-cells.svg",
+    author: null,
+
+    contentId: uuidv4(),
+    isEditMode: true,
+    description: 'no description here yet',
+    activeChapterIndex: 0,
+    tags: [],
+    chapters: [
+        {
+            title: "Untitled Chapter",
+            id: uuidv4(),
+            links: [
+                // {
+                //     eventId: "ASDASDAS",
+                //     chapterId: "chapter_99852"
+                // },
+                // {
+                //     eventId: "ASDAdddSDAS",
+                //     chapterId: "chapter_100"
+                // },
+            ],
+            elements: []
+        }
+    ]
+};
+
+const mockData = {
     //status 0 = unknown, 1 = loggedout, 2 = logged in
     user: {
         name: null,
         uid: null,
         idToken: null,
-        status:0,
+        status: 0,
     },
     title: "Physics101",
     author: 'markus123',
@@ -149,9 +185,7 @@ const data = {
                     content: "HALLO"
                 },
             ],
-            links: [
-
-            ],
+            links: [],
         },
         {
             title: "3rd ! CHAPT",
@@ -163,19 +197,19 @@ const data = {
                     content: "Chapter 333 JAMEAS BROWN"
                 }
             ],
-            links: [
-            ],
+            links: [],
         }
     ]
 }
 
 //elements evolved from reptiles to mammals and know their father now
-data.chapters.forEach(chapter => chapter.elements.forEach(el => el.parentChapterID = chapter.id));
-data.chapters.forEach(chapter => chapter.elements.forEach(el => el.timestamp = 50000));
-data.chapters.forEach(chapter => chapter.timestamp = 50000);
+mockData.chapters.forEach(chapter => chapter.elements.forEach(el => el.parentChapterID = chapter.id));
+mockData.chapters.forEach(chapter => chapter.elements.forEach(el => el.timestamp = 50000));
+mockData.chapters.forEach(chapter => chapter.timestamp = 50000);
 
-const store = createStore(data);
+const store = createStore(initData);
 
 window.store = store;
+
 
 export default store;
