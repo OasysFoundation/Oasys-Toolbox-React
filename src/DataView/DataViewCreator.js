@@ -61,6 +61,7 @@ class DataViewCreator extends Component {
 		this.state = {
 			currentDataIdx: -1, // -1 means summary
 			lessons: [],
+			summaryDone: false,
 		};
 		this.onChangeData = this.onChangeData.bind(this);
 	}
@@ -100,6 +101,7 @@ class DataViewCreator extends Component {
 				this.summary.learnerPerWeek.users += lessons[i][j].users;
 			}
 		}
+		this.setState({summaryDone: true});
     }
 
     showAnalytics() {
@@ -186,14 +188,17 @@ class DataViewCreator extends Component {
 								onChangeData={this.onChangeData}
 								data={this.state.lessons}
 							/>
-
-							<DataDetails 
-								contentTitle={this.state.contentTitle} 
-								data={this.state.currentDataIdx===-1
-									  ? this.summary
-									  : this.state.lessons[this.state.currentDataIdx]
-							    }
-							/>
+							{this.state.summaryDone
+							?
+								<DataDetails 
+									contentTitle={this.state.contentTitle} 
+									data={this.state.currentDataIdx===-1
+										  ? this.summary
+										  : this.state.lessons[this.state.currentDataIdx]
+								    }
+								/>
+							:   null
+							}
 						</React.Fragment>
 						}
 
