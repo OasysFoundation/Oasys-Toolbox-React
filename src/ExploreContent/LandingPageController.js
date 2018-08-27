@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import api from '../utils/api'
 import {getTagsForCategory} from "../utils/LandingPage";
 import ScrollableAnchor from 'react-scrollable-anchor'
-
+import { Button, Modal, ModalBody, ModalHeader } from 'reactstrap';
 import HorizontalScroll from './HorizontalScroll'
 import HeaderImage from './HeaderImage'
 
@@ -22,6 +22,21 @@ const styles = {
     },
     pcTopPadding:{
         paddingTop:"50px"
+    },
+    modalOuterDiv:{
+        fontFamily:"Raleway-Regular",
+    },
+    modalHeader:{
+        fontSize:"2.5em"
+    },
+    modalBody:{
+        display: "flex",
+        flexDirection: "column",
+        fontSize:"1.5em",
+    },
+    modalButton:{
+        display:"flex",
+        padding:"1em",
     },
 }
 
@@ -76,7 +91,14 @@ class LandingPageController extends Component {
             pageData: [],
             previousState: '',
             loadSuccessful: false,
+            open:false,
+            currentTitle:"",
+            currentUsername:"",
         }
+
+        this.toggleOpen = this.toggleOpen.bind(this)
+        this.toggleClosed = this.toggleClosed.bind(this)
+
     }
 
     componentDidMount() {
@@ -224,6 +246,37 @@ class LandingPageController extends Component {
         }
     }
 
+
+    toggleOpen(title,username) {
+        this.setState({
+          open: !this.state.open,
+          currentTitle: title,
+          currentUsername: username,
+        });
+    }
+    toggleClosed(){
+        this.setState({
+          open: !this.state.open,
+      });
+    }
+
+
+    handleClick(value){
+
+        console.log(this.props.data, "DATA at button")
+            if(value==="remix")
+                window.location.href  = `/create/${this.state.currentUsername}/${this.state.currentTitle}`
+            else if(value === "comments")
+                window.location.href  = `/comments/${this.state.currentUsername}/${this.state.currentTitle}`
+            else if(value==="content")
+                // window.location.href  = `/user/${this.state.currentUsername}/`
+                window.location.href  = `/content/`
+            // else if(value==="collection")
+            //  null
+            // else if(value==="flag")
+            //  null
+    }
+
     render() {
 
         return (
@@ -237,9 +290,9 @@ class LandingPageController extends Component {
 		    				<br/>
 		        			< ScrollableAnchor id = {'searchResults'} >
 			            		< div >
-						            < HorizontalScroll title = {"Tiles"} data = {tiles} positionChange = {this.changeSectionOrder.bind(this)} type = "mobile" / >
+						            < HorizontalScroll title = {"Tiles"} data = {tiles} positionChange = {this.changeSectionOrder.bind(this)} type = "mobile"/ >
 						            {this.state.pageData.map(dataObj =>
-						            	< HorizontalScroll key = {dataObj.title} title = {dataObj.title} data = {dataObj.data} type = "mobile" / >
+						            	< HorizontalScroll key = {dataObj.title} title = {dataObj.title} data = {dataObj.data} type = "mobile" toggleOpen={this.toggleOpen}/ >
 						    			)
 						    		}
 			    				</div>
@@ -259,7 +312,7 @@ class LandingPageController extends Component {
 						            < HorizontalScroll title = {"Tiles"} data = {tiles} positionChange = {this.changeSectionOrder.bind(this)} />
 							        {
 							            this.state.pageData.map(dataObj =>
-							            	< HorizontalScroll title = {dataObj.title} data = {dataObj.data} icon = {dataObj.icon}/>
+							            	< HorizontalScroll title = {dataObj.title} data = {dataObj.data} icon = {dataObj.icon} toggleOpen={this.toggleOpen}/>
         								)
         							}
     							</div>
@@ -270,6 +323,33 @@ class LandingPageController extends Component {
         		< /div>
     		)
     	}
+        <Modal isOpen={this.state.open} toggle={this.toggleClosed}
+                           className={'modal-sm ' + this.props.className} style={styles.modalOuterDiv}>
+              <ModalHeader toggle={this.toggleClosed} style={styles.modalHeader}>{this.state.currentTitle}</ModalHeader>
+              <ModalBody style={styles.modalBody}>
+                  <Button block color="light" onClick={this.handleClick.bind(this,"remix")} style={styles.modalButton}>
+                    <div style={{flex:1}}><i className="fas fa-pencil-alt"/></div>
+                    <div style={{flex:3, textAlign:"left"}}>Remix</div>
+                  </Button>
+                  <Button block color="light" onClick={this.handleClick.bind(this,"comments")} style={styles.modalButton}>
+                    <div style={{flex:1}}><i className="fas fa-comment" /></div>
+                    <div style={{flex:3, textAlign:"left"}}>View Comments</div>
+                  </Button>
+                  <Button block color="light" onClick={this.handleClick.bind(this,"content")} style={styles.modalButton}>
+                    <div style={{flex:1}}><i className="fas fa-user"/></div>
+                    <div style={{flex:3, textAlign:"left"}}>{"Go To " + this.state.currentUsername + "'s Page"}</div>
+                  </Button>
+                  <Button block color="light" onClick={this.handleClick.bind(this,"collection")} style={styles.modalButton}>
+                    <div style={{flex:1}}><i className="fas fa-layer-group"/></div>
+                    <div style={{flex:3, textAlign:"left"}}>Create New Collection</div>
+                  </Button>
+                  <Button block color="light" onClick={this.handleClick.bind(this,"flag")} style={styles.modalButton}>
+                    <div style={{flex:1}}><i className="fas fa-flag"/></div>
+                    <div style={{flex:3, textAlign:"left"}}>Flag as Inappropriate</div>
+                  </Button>
+
+              </ModalBody>
+            </Modal>
     </div>
     )
     }

@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import { Button, Card, CardText, CardBody, CardTitle, CardSubtitle, Modal, ModalBody, ModalHeader } from 'reactstrap';
+import { Button, Card, CardText, CardBody, CardTitle, CardSubtitle} from 'reactstrap';
 import Truncate from 'react-truncate';
 
 import colors from '../utils/colors';
 
 //import {connect} from "redux-zero/react";
 //import actions from "../store/actions";
-import store from "../store/store"
+// import store from "../store/store"
 
-import history from '../history'
+// import history from '../history'
 
 const styles= {
 	cardStyle:{
@@ -64,21 +64,6 @@ const styles= {
 		float: "right",
 		color: colors.RUST,
 	},
-	modalOuterDiv:{
-		fontFamily:"Raleway-Regular",
-	},
-	modalHeader:{
-		fontSize:"2.5em"
-	},
-	modalBody:{
-		display: "flex",
-		flexDirection: "column",
-		fontSize:"1.5em",
-	},
-	modalButton:{
-		display:"flex",
-		padding:"1em",
-	},
 	cardImageOuterLink:{
 		textDecoration:"none",
 	},
@@ -124,31 +109,7 @@ class HorizontalScrollButtonMaker extends Component{
 		}
 		this.refStars = React.createRef();
 		this.starStr = '';
-		this.toggleSmall = this.toggleSmall.bind(this);
-		this.handleClick = this.handleClick.bind(this);
-	}
 
-	toggleSmall() {
-	    this.setState({
-	      small: !this.state.small,
-	      currentTitle: this.props.data.title,
-	      currentUsername: this.props.data.userId,
-	    });
-  	}
-  	handleClick(value){
-
-		console.log(this.props.data, "DATA at button")
-  			if(value==="remix")
-  				window.location.href  = `/create/${this.state.currentUsername}/${this.state.currentTitle}`
-  			else if(value === "comments")
-				window.location.href  = `/comments/${this.state.currentUsername}/${this.state.currentTitle}`
-			else if(value==="content")
-				// window.location.href  = `/user/${this.state.currentUsername}/`
-				window.location.href  = `/content/`
-			// else if(value==="collection")
-			// 	null
-			// else if(value==="flag")
-			// 	null
 	}
 
 	componentDidMount(){
@@ -216,10 +177,7 @@ class HorizontalScrollButtonMaker extends Component{
             	</Button>
             )
             : (
-            	<div className="pn-ProductNav_Link" aria-selected="true" onClick={() => {
-			          		store.setState(this.props.data);
-			          		history.push(`/view/${this.props.data.username}/${this.props.data.title}/${this.props.data.uid}/${this.props.data.contentId}`)
-                        }} style={styles.cardTitleLink}>
+            	<div className="pn-ProductNav_Link" aria-selected="true"  style={styles.cardTitleLink}>
 			      <Card style={{...styles.cardStyle,...styles.boxShadow}}>
 			        <CardBody style={styles.homeCardBody}>
 			          {/*<div style={{position: 'absolute', top: '20px', left: '40px'}}>
@@ -244,35 +202,8 @@ class HorizontalScrollButtonMaker extends Component{
 				          </CardSubtitle>
 				      </div>
 			          <div style={styles.verticalEllipsesOuterDiv} className="bruh">
-			          	<a onClick={e=>{this.toggleSmall(); e.stopPropagation(); }} className="noTextDecoration"><i className="fas fa-ellipsis-v faAlignRight" style={styles.ellipsisIcon}/></a>
+			          	<a onClick={() => this.props.toggleOpen(this.props.data.title,this.props.data.username)} className="noTextDecoration"><i className="fas fa-ellipsis-v faAlignRight" style={styles.ellipsisIcon}/></a>
 			          </div>
-			          <Modal isOpen={this.state.small} toggle={this.toggleSmall}
-	                       className={'modal-sm ' + this.props.className} style={styles.modalOuterDiv}>
-	                  <ModalHeader toggle={this.toggleSmall} style={styles.modalHeader}>{this.state.currentTitle}</ModalHeader>
-	                  <ModalBody style={styles.modalBody}>
-	                      <Button block color="light" onClick={this.handleClick.bind(this,"remix")} style={styles.modalButton}>
-	                      	<div style={{flex:1}}><i className="fas fa-pencil-alt"/></div>
-	                      	<div style={{flex:3, textAlign:"left"}}>Remix</div>
-	                      </Button>
-						  <Button block color="light" onClick={this.handleClick.bind(this,"comments")} style={styles.modalButton}>
-						  	<div style={{flex:1}}><i className="fas fa-comment" /></div>
-	                      	<div style={{flex:3, textAlign:"left"}}>View Comments</div>
-						  </Button>
-						  <Button block color="light" onClick={this.handleClick.bind(this,"content")} style={styles.modalButton}>
-						  	<div style={{flex:1}}><i className="fas fa-user"/></div>
-	                      	<div style={{flex:3, textAlign:"left"}}>{"Go To " + this.state.currentUsername + "'s Page"}</div>
-						  </Button>
-						  <Button block color="light" onClick={this.handleClick.bind(this,"collection")} style={styles.modalButton}>
-						  	<div style={{flex:1}}><i className="fas fa-layer-group"/></div>
-	                      	<div style={{flex:3, textAlign:"left"}}>Create New Collection</div>
-						  </Button>
-						  <Button block color="light" onClick={this.handleClick.bind(this,"flag")} style={styles.modalButton}>
-						  	<div style={{flex:1}}><i className="fas fa-flag"/></div>
-	                      	<div style={{flex:3, textAlign:"left"}}>Flag as Inappropriate</div>
-						  </Button>
-
-	                  </ModalBody>
-	                </Modal>
 			        </CardBody>
 			        <CardBody>
 			        <div style={{position: 'absolute',top:'116px',left:'49px'}}>
@@ -302,10 +233,10 @@ class HorizontalScrollButtonMaker extends Component{
 		            	</span>
 			        </div>
 			        </CardBody>
-			      </Card>
+			      </Card>	       
 			    </div>
             )
-		)
+          )
 	}
 }
 
