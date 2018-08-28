@@ -4,6 +4,8 @@ import history from '../history'
 import api from '../utils/api'
 import {connect} from "redux-zero/react";
 import actions from "../store/actions";
+import Snackbar from '@material-ui/core/Snackbar';
+import SnackbarContent from '@material-ui/core/SnackbarContent';
 
 const styles = {
     mobileTopPadding:{
@@ -35,9 +37,12 @@ class ContentTileMenuModal extends Component {
      constructor(props) {
         super(props);
         this.state = {
-            lesson: null
+            lesson: null,
+            showSnackbar:false,
+            snackbarMessage:"",
         };
         this.handleClick = this.handleClick.bind(this);
+        this.toggle = this.toggle.bind(this)
     }
 
     componentDidMount() {
@@ -56,48 +61,83 @@ class ContentTileMenuModal extends Component {
 
     handleClick(value) {
       if (value === "remix") {
-           this.props.remixProject(this.state.lesson, this.props.user);
-            history.push(`/create/${this.props.user.displayName || "anonymous"}/${this.props.data.title}/${this.props.data.uid}/${this.props.data.contentId}/`)
+          this.props.remixProject(this.state.lesson, this.props.user);
+          history.push(`/create/${this.props.user.displayName || "anonymous"}/${this.props.data.title}/${this.props.data.uid}/${this.props.data.contentId}/`)
         }
         // window.location.href  = `/create/${this.state.currentUsername}/${this.state.currentTitle}`
-        else if (value === "comments")
-            window.location.href = `/comments/${this.props.data.username}/${this.props.data.title}`
-        else if (value === "content")
-            window.location.href = `/content/`
+        // else if (value === "comments")
+        //     window.location.href = `/comments/${this.props.data.username}/${this.props.data.title}`
+      else if (value === "user") {            
+          history.push(`/user/${this.props.user.displayName || "anonymous"}/${this.props.data.uid}`) 
+          this.toggle();
+        }        
+      else if (value === "flag")
+          this.setState({
+            showSnackbar:true,
+            snackbarMessage:"Thank you for notifying us about this content."
+          }) 
+          this.toggle();
+
     }
+
+    onCloseSnackBar() {
+        this.setState({
+            snackbarMessage: "",
+            showSnackbar:false,
+        });
+    }
+
 
 
     render() {
     	
         return (
             <div>
-              <Modal isOpen={this.props.isOpen} toggle={this.toggle.bind(this)}
+              <Modal isOpen={this.props.isOpen} toggle={this.toggle}
                            className={'modal-sm ' + this.props.className} style={styles.modalOuterDiv}>
-              <ModalHeader toggle={this.toggle.bind(this)} style={styles.modalHeader}>{this.props.data.title}</ModalHeader>
+              <ModalHeader toggle={this.toggle} style={styles.modalHeader}>{this.props.data.title}</ModalHeader>
               <ModalBody style={styles.modalBody}>
-                  <Button block color="light" onClick={this.handleClick.bind(this,"remix")} style={styles.modalButton}>
+                  <Button block color="light" onClick={()=>this.handleClick("remix")} style={styles.modalButton}>
                     <div style={{flex:1}}><i className="fas fa-pencil-alt"/></div>
                     <div style={{flex:3, textAlign:"left"}}>Remix</div>
                   </Button>
-                  {/*<Button block color="light" onClick={this.handleClick.bind(this,"comments")} style={styles.modalButton}>
+                  {/*<Button block color="light" onClick={()=>this.handleClick.("comments")} style={styles.modalButton}>
                                       <div style={{flex:1}}><i className="fas fa-comment" /></div>
                                       <div style={{flex:3, textAlign:"left"}}>View Comments</div>
                                     </Button>*/}
-                  <Button block color="light" onClick={this.handleClick.bind(this,"user")} style={styles.modalButton}>
+                  <Button block color="light" onClick={()=>this.handleClick("user")} style={styles.modalButton}>
                     <div style={{flex:1}}><i className="fas fa-user"/></div>
                     <div style={{flex:3, textAlign:"left"}}>{"Go To " + this.props.data.username + "'s Page"}</div>
                   </Button>
-                 { /*<Button block color="light" onClick={this.handleClick.bind(this,"collection")} style={styles.modalButton}>
+                 { /*<Button block color="light" onClick={()=>this.handleClick("collection")} style={styles.modalButton}>
                                      <div style={{flex:1}}><i className="fas fa-layer-group"/></div>
                                      <div style={{flex:3, textAlign:"left"}}>Create New Collection</div>
                                    </Button>*/}
-                  <Button block color="light" onClick={this.handleClick.bind(this,"flag")} style={styles.modalButton}>
+                  <Button block color="light" onClick={()=>this.handleClick("flag")} style={styles.modalButton}>
                     <div style={{flex:1}}><i className="fas fa-flag"/></div>
                     <div style={{flex:3, textAlign:"left"}}>Flag as Inappropriate</div>
                   </Button>
 
               </ModalBody>
               </Modal>
+              <Snackbar
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'left',
+                    }}
+                    open={this.state.showSnackbar}
+                    autoHideDuration={6000}
+                    onClose={this.onCloseSnackBar.bind(this)}
+                >
+                    <SnackbarContent
+                        aria-describedby="client-snackbar"
+                        message={
+                            <span id="client-snackbar">
+                          {this.state.snackbarMessage}
+                        </span>
+                        }
+                    />
+                </Snackbar>
             </div>
         )
     }
