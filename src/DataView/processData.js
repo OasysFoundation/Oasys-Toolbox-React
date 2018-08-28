@@ -64,7 +64,7 @@ function rearrangeData(rawdata) {
         // we have an array of objects, where attrib accessTimes is an array of objects 
         // from which we extract slide number i. Then we take the max across all of these slide numbers.
         let nSlides = Math.max(...rawcontent.map(o=>o.accessTimes).reduce((p,q)=>p.concat(q),[],{i:0}).map(r=>r.i));
-        let tcontent = rawcontent.filter(content => 'quizzes' in content);
+        //let tcontent = rawcontent.filter(content => 'quizzes' in content);
 
         // needs to be changed
         let nQuizzes = 100;

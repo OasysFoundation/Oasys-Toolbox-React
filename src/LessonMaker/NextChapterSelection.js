@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import SelectionDropdown from './SelectionDropdown'
 import uuidv4 from "uuid/v4"
-import { Button } from 'reactstrap';
+//import { Button } from 'reactstrap';
 import CreateNewChapterModal from './CreateNewChapterModal'
 import {ICON} from "../utils/trickBox";
 
@@ -39,7 +39,7 @@ class NextChapterSelection extends Component {
     getAllChapters() {
         const that = this;
         return this.state.userCreatedChapters.concat(this.props.chapters.filter(function(element, index) {
-            return index!=that.props.activeChapterIndex;
+            return index!==that.props.activeChapterIndex;
         }));
     }
 

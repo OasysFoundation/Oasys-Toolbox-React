@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+//import PropTypes from 'prop-types';
 import {Container} from 'reactstrap';
-import {Button, Card, CardText, CardBody, CardTitle, CardSubtitle, Modal, ModalBody, ModalHeader} from 'reactstrap';
+import {Button, Card, CardBody, CardTitle, CardSubtitle} from 'reactstrap';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
 import api from './utils/api';
@@ -217,9 +217,9 @@ class ContentOverview extends Component {
 }
 
 const mapStoreToProps = ({user}) => ({user})
-const neededActions = (store) => {
+/*const neededActions = (store) => {
     const {remixProject} = actions();
     return {remixProject}
-};
+};*/
 
 export default connect(mapStoreToProps, actions)(ContentOverview);
