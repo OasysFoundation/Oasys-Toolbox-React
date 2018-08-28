@@ -103,8 +103,8 @@ class ContentOverview extends Component {
     }
 
     componentDidMount() {
-        const {username, title} = this.props.match.params;
-        api.getContentByUserNameAndTitle(username, title)
+        const {uid, contentId} = this.props.match.params;
+        api.getContent(uid, contentId)
             .then(results => {
                 const project = results[0];
                 this.setState({lesson: project});
@@ -115,7 +115,7 @@ class ContentOverview extends Component {
     handleClick(value) {
         if (value === "remix") {
             this.props.remixProject(this.state.lesson, this.props.user);
-            history.push(`/create/${this.props.user.displayName || "anonymous"}/${this.props.match.params.title}/`)
+            history.push(`/create/${this.props.user.displayName || "anonymous"}/${this.props.match.params.title}/${this.props.match.params.uid}/${this.props.match.params.contentId}/`)
         }
         // window.location.href  = `/create/${this.state.currentUsername}/${this.state.currentTitle}`
         else if (value === "comments")
