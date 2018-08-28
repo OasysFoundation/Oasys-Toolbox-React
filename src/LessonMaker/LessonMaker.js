@@ -29,22 +29,6 @@ class LessonMaker extends Component {
             showDeleteChapterDialog: false,
 
         };
-
-        // this.choices = [
-        //     {
-        //         el: <QuizzEdit {...someProps}/>,
-        //         text: "Quiz"
-        //     },
-        //     {
-        //         el: <NextChapterSelection {...someProps}/>,
-        //         text: "Link To Chapter"
-        //     },
-        //     {
-        //         el: <div> || Done ||</div>,
-        //         text: "Finish Lesson"
-        //     }
-        // ];
-
         // props.mergeStoreWithSessionStorage();
         this.handleChapterDeleteModal = this.handleChapterDeleteModal.bind(this);
         this.handleChapterDeleteModalClose = this.handleChapterDeleteModalClose.bind(this);
