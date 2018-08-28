@@ -114,7 +114,7 @@ class Index extends Component {
                                 <Route exact path="/create/:username?/:title?/:uid?/:contentId?" render={(props) => <LessonMaker {...props} />}/>
                                 {<Route exact path="/auth" render={(props) => <Authentication/>}/>}
                                 <Route exact path="/view/:username/:title/:uid/:contentId/" render={(props) => <ContentOverview {...props} />}/>
-                                <Route path="/view/:username/:title/:uid/:contentId/:chapterIndex?" render={(props) => <ContentView {...props} chapters={store.getState().chapters}/>}/>
+                                <Route path="/view/:username/:title/:uid/:contentId/:chapterIndex" render={(props) => <ContentView {...props} chapters={store.getState().chapters}/>}/>
                                 <Route exact path="/learn" render={(props) => <LandingPageController {...props} />}/>
                                 <Route exact path="/data" render={(props) => <DataViewCreator {...props} />}/>
                                 <Route exact path="/about" render={(props) => <About {...props} />}/>
