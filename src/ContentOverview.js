@@ -217,9 +217,9 @@ class ContentOverview extends Component {
 }
 
 const mapStoreToProps = ({user}) => ({user})
-/*const neededActions = (store) => {
+const neededActions = (store) => {
     const {remixProject} = actions();
     return {remixProject}
-};*/
+};
 
-export default connect(mapStoreToProps, actions)(ContentOverview);
+export default connect(mapStoreToProps, neededActions)(ContentOverview);
