@@ -41,6 +41,7 @@ function updateLinksInChapters_mutate(chapters) {
     return chapters;
 }
 
+
 const actions = function (store) { //store for async stuff
     return {
         //state variable gets inject into the action functions somehow through the connect(maptoprops, action)
@@ -84,6 +85,12 @@ const actions = function (store) { //store for async stuff
         //         }
         //     )
         // },
+
+        instantUpdateElements(state, shouldUpdateNow = false) {
+            return update(state, {
+                shouldInstantUpdate: {$set: shouldUpdateNow}
+            })
+        },
 
         setIdToken(state, idtoken) {
             return update(state, {

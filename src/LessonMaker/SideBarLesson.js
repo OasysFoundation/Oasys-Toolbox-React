@@ -46,6 +46,7 @@ class SideBarLesson extends Component {
     }
 
     handleSettingsShow() {
+
         this.setState({
             showSettingsDialog: true,
         });
@@ -93,49 +94,60 @@ class SideBarLesson extends Component {
     }
 
     saveContent(flag) {
-        const {title, tags, description, contentId, user} = this.props.project;
-        const data = {
-            chapters: this.props.project.chapters
-        }
+        console.log(this.props)
 
-        const allData = {
-            title, tags, description, contentId, user,
-            published: flag, featured: flag,
+        this.props.instantUpdateElements(true);
 
-            data
-        }
+        //wait until elements instant update and update the store
+        //otherwise content is inside tempContent...for performance reasons
+        window.setTimeout(() => {
+            const {title, tags, description, contentId, user} = this.props.project;
+            const data = {
+                chapters: this.props.project.chapters
+            }
 
-        if (flag === 0) {
-            this.setState({
-                isCurrentlySavingDraft: true
+
+            const allData = {
+                title, tags, description, contentId, user,
+                published: flag, featured: flag,
+
+                data
+            }
+
+            if (flag === 0) {
+                this.setState({
+                    isCurrentlySavingDraft: true
+                });
+            } else {
+                this.setState({
+                    isCurrentlyPublishing: true
+                });
+            }
+
+
+            const that = this;
+            api.postContent(allData).then(function () {
+
+                that.setState({
+                    isCurrentlySavingDraft: false,
+                    isCurrentlyPublishing: false,
+                    snackbarMessage: flag ? "Published Successfully ✅" : "Saved Draft Successfully ✅"
+                });
+
+            }).catch(function (error) {
+
+
+                const errorMessage = flag ? "Could not publish." : "Could not save draft."
+
+                that.setState({
+                    isCurrentlySavingDraft: false,
+                    isCurrentlyPublishing: false,
+                    snackbarMessage: "Error: " + errorMessage + " (" + error + ") 😭"
+                });
             });
-        } else {
-            this.setState({
-                isCurrentlyPublishing: true
-            });
-        }
 
+        }, 800)
 
-        const that = this;
-        api.postContent(allData).then(function () {
-
-            that.setState({
-                isCurrentlySavingDraft: false,
-                isCurrentlyPublishing: false,
-                snackbarMessage: flag ? "Published Successfully ✅" : "Saved Draft Successfully ✅"
-            });
-
-        }).catch(function (error) {
-
-
-            const errorMessage = flag ? "Could not publish." : "Could not save draft."
-
-            that.setState({
-                isCurrentlySavingDraft: false,
-                isCurrentlyPublishing: false,
-                snackbarMessage: "Error: " + errorMessage + " (" + error + ") 😭"
-            });
-        });
     }
 
     onCloseIconSelectionModal() {
@@ -295,7 +307,7 @@ const mapStoreToProps = (store) => ({project: store});
 
 // only take what you need
 export default connect(mapStoreToProps, actions)((propsFromStore) => {
-    const {project, onDeleteChapter, onChangeProjectTitle, onChangeIconName, onChangeProjectTags, onChangeProjectDescription} = propsFromStore;
+    const {project, onDeleteChapter, instantUpdateElements, onChangeProjectTitle, onChangeIconName, onChangeProjectTags, onChangeProjectDescription} = propsFromStore;
     const {title, tags, description, iconName} = project;
     return React.createElement(SideBarLesson, {
         project,
@@ -304,6 +316,7 @@ export default connect(mapStoreToProps, actions)((propsFromStore) => {
         description,
         iconName,
         onDeleteChapter,
+        instantUpdateElements,
         onChangeProjectTitle,
         onChangeProjectTags,
         onChangeProjectDescription,

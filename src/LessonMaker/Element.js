@@ -163,14 +163,26 @@ class Element extends Component {
     }
 
     componentWillReceiveProps(nextprops) {
+
+        console.log('instant Update!');
+
+        if (nextprops.shouldInstantUpdate) {
+            this.props.onChangeContent(
+                this.props.data.id,
+                this.state.tempContent,
+                this.props.data.parentChapterID
+            )
+
+            this.props.instantUpdateElements(false);
+        }
         // console.log(nextprops, 'nextprops!!')
         // const contentUpdated = nextprops.data.timestamp > this.state.timestamp
         // this.setState({tempContent: contentUpdated, timestamp: Date.now()})
     }
 
-    shouldComponentUpdate(nextProps) {
-        return true;
-    }
+    // shouldComponentUpdate(nextProps) {
+    //     return true;
+    // }
 
 
     onChangeVisibility(isVisible) {
@@ -235,7 +247,7 @@ Element.propTypes = {
     data: PropTypes.object.isRequired,
 };
 
-const mapStoreToProps = ({chapters, isEditMode, activeChapterIndex}) => ({chapters, activeChapterIndex, isEditMode});
+const mapStoreToProps = ({chapters, shouldInstantUpdate, isEditMode, activeChapterIndex}) => ({chapters, shouldInstantUpdate, activeChapterIndex, isEditMode});
 
 // Element.defaultPropTypes = {
 //     data: function (props, propName) {
@@ -248,8 +260,8 @@ const mapStoreToProps = ({chapters, isEditMode, activeChapterIndex}) => ({chapte
 
 //don't need anything!
 const neededActions = (store) => {
-    const {onChangeContent, updateChapterLinks, onAddChapter} = actions();
-    return {onChangeContent, updateChapterLinks, onAddChapter}
+    const {onChangeContent, updateChapterLinks, instantUpdateElements, onAddChapter} = actions();
+    return {onChangeContent, updateChapterLinks, instantUpdateElements, onAddChapter}
 };
 
 //IMPORTANT!! the project data is in the project obj, the rest of the store (action functions) is just flat there
