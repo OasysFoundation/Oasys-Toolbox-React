@@ -7,6 +7,9 @@ import HorizontalScroll from './HorizontalScroll'
 import HeaderImage from './HeaderImage'
 
 import { isMobile } from '../utils/tools'
+import store from "../store/store"
+
+import history from '../history'
 
 const styles = {
     HorizontalScrollOuterCenterContainer: {
@@ -96,6 +99,7 @@ class LandingPageController extends Component {
             currentUsername:"",
             uid:"",
             contentId:"",
+            data:{},
 
         }
 
@@ -250,13 +254,14 @@ class LandingPageController extends Component {
     }
 
 
-    toggleOpen(title,username,contentId,uid) {
+    toggleOpen(data) {
         this.setState({
           open: !this.state.open,
-          currentTitle: title,
-          currentUsername: username,
-          contentId: contentId,
-          uid: uid,
+          currentTitle: data.title,
+          currentUsername: data.username,
+          contentId: data.contentId,
+          uid: data.uid,
+          data: data,
         });
     }
     toggleClosed(){
@@ -268,8 +273,10 @@ class LandingPageController extends Component {
 
     handleClick(value){
         console.log(this.props.data, "DATA at button")
-            if(value==="remix")
-                window.location.href  = `/create/${this.state.currentUsername}/${this.state.currentTitle}/${this.state.uid}/${this.state.contentId}`
+            if(value==="remix"){
+                store.setState(this.state.data);
+                history.push(`/create/${this.state.data.username}/${this.state.data.title}/${this.state.data.uid}/${this.state.data.contentId}`)
+            }
             else if(value === "comments")
                 window.location.href  = `/comments/${this.state.currentUsername}/${this.state.currentTitle}/${this.state.uid}/${this.state.contentId}`
             else if(value==="user")

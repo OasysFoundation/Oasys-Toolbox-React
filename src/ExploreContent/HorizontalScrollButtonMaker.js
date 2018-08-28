@@ -136,13 +136,13 @@ class HorizontalScrollButtonMaker extends Component{
 	}
 
 	render(){
-		let playCount = 666;
 		// for type == tiles
 		let hashLink, aTag = "";
 
 		// for type == card
 		let returnUrl="",
-			starCount="";
+			starCount="",
+			playCount="";
 
 		this.starStr = '';
 
@@ -160,6 +160,7 @@ class HorizontalScrollButtonMaker extends Component{
 			let ratingRounded = Math.round(rating.mean);
 			this.starStr = blackStar.repeat(ratingRounded) + whiteStar.repeat(5-ratingRounded);
 			starCount = this.props.data.rating.count;
+			playCount = this.props.data.views
 		}
 
 		const containedStyle = {
@@ -205,7 +206,7 @@ class HorizontalScrollButtonMaker extends Component{
 				          </CardSubtitle>
 				      </div>
 			          <div style={styles.verticalEllipsesOuterDiv} className="bruh">
-			          	<a onClick={(e) => {e.stopPropagation(); this.props.toggleOpen(this.props.data.title,this.props.data.username, this.props.data.contentId, this.props.data.uid)}} className="noTextDecoration"><i className="fas fa-ellipsis-v faAlignRight" style={styles.ellipsisIcon}/></a>
+			          	<a onClick={(e) => {e.stopPropagation(); this.props.toggleOpen(this.props.data)}} className="noTextDecoration"><i className="fas fa-ellipsis-v faAlignRight" style={styles.ellipsisIcon}/></a>
 			          </div>
 			        </CardBody>
 			        <CardBody>
