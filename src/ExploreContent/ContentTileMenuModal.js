@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Button, Modal, ModalBody, ModalHeader } from 'reactstrap';
 import history from '../history'
+import api from '../utils/api'
+import {connect} from "redux-zero/react";
+import actions from "../store/actions";
 
 const styles = {
     mobileTopPadding:{
@@ -29,7 +32,23 @@ const styles = {
 
 //this is the new "Preview" Component
 class ContentTileMenuModal extends Component {
+     constructor(props) {
+        super(props);
+        this.state = {
+            lesson: null
+        };
+        this.handleClick = this.handleClick.bind(this);
+    }
 
+    componentDidMount() {
+        const {uid, contentId} = this.props.data;
+        api.getContent(uid, contentId)
+            .then(results => {
+                const project = results[0];
+                this.setState({lesson: project});
+            })
+            .catch(err => console.log(err))
+    }
 
     toggle() {
       this.props.onClose();
@@ -37,7 +56,8 @@ class ContentTileMenuModal extends Component {
 
     handleClick(value) {
       if (value === "remix") {
-            history.push(`/create/${this.props.data.username || "anonymous"}/${this.props.data.title}/`)
+           this.props.remixProject(this.state.lesson, this.props.user);
+            history.push(`/create/${this.props.user.displayName || "anonymous"}/${this.props.data.title}/${this.props.data.uid}/${this.props.data.contentId}/`)
         }
         // window.location.href  = `/create/${this.state.currentUsername}/${this.state.currentTitle}`
         else if (value === "comments")
@@ -59,18 +79,18 @@ class ContentTileMenuModal extends Component {
                     <div style={{flex:1}}><i className="fas fa-pencil-alt"/></div>
                     <div style={{flex:3, textAlign:"left"}}>Remix</div>
                   </Button>
-                  <Button block color="light" onClick={this.handleClick.bind(this,"comments")} style={styles.modalButton}>
-                    <div style={{flex:1}}><i className="fas fa-comment" /></div>
-                    <div style={{flex:3, textAlign:"left"}}>View Comments</div>
-                  </Button>
+                  {/*<Button block color="light" onClick={this.handleClick.bind(this,"comments")} style={styles.modalButton}>
+                                      <div style={{flex:1}}><i className="fas fa-comment" /></div>
+                                      <div style={{flex:3, textAlign:"left"}}>View Comments</div>
+                                    </Button>*/}
                   <Button block color="light" onClick={this.handleClick.bind(this,"user")} style={styles.modalButton}>
                     <div style={{flex:1}}><i className="fas fa-user"/></div>
                     <div style={{flex:3, textAlign:"left"}}>{"Go To " + this.props.data.username + "'s Page"}</div>
                   </Button>
-                  <Button block color="light" onClick={this.handleClick.bind(this,"collection")} style={styles.modalButton}>
-                    <div style={{flex:1}}><i className="fas fa-layer-group"/></div>
-                    <div style={{flex:3, textAlign:"left"}}>Create New Collection</div>
-                  </Button>
+                 { /*<Button block color="light" onClick={this.handleClick.bind(this,"collection")} style={styles.modalButton}>
+                                     <div style={{flex:1}}><i className="fas fa-layer-group"/></div>
+                                     <div style={{flex:3, textAlign:"left"}}>Create New Collection</div>
+                                   </Button>*/}
                   <Button block color="light" onClick={this.handleClick.bind(this,"flag")} style={styles.modalButton}>
                     <div style={{flex:1}}><i className="fas fa-flag"/></div>
                     <div style={{flex:3, textAlign:"left"}}>Flag as Inappropriate</div>
@@ -87,4 +107,11 @@ ContentTileMenuModal.propTypes = {
 
 }
 
-export default ContentTileMenuModal;
+const mapStoreToProps = ({user}) => ({user})
+const neededActions = (store) => {
+    const {remixProject} = actions();
+    return {remixProject}
+};
+
+export default connect(mapStoreToProps, neededActions)(ContentTileMenuModal);
+
