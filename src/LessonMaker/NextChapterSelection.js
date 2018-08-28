@@ -21,7 +21,11 @@ class NextChapterSelection extends Component {
                 return currentChapter;
             }
             return result; 
-        }).title;
+        }, '').title;
+
+        if (identifier == 'end-lesson') {
+            return "End Lesson";
+        }
 
         return title? title : "No Chapter Selected";
     }
@@ -90,13 +94,20 @@ class NextChapterSelection extends Component {
 
     onSelectAction(identifier, chapterIndex) {
 
-        if (chapterIndex >= this.getAllChapters().length) {
+        if (chapterIndex == this.getAllChapters().length) {
             const that = this;
             this.createNewChapter().then(function(newChapter) {
                 const newChapterIndex = that.chapterIndexForIdentifier(newChapter.id);
                 that.onSelectAction(newChapter.id, newChapterIndex);
                 that.props.onAddChapter(newChapter.id, that.chapterTitleForIdentifier(newChapter.id));
             });
+            return;
+        }
+
+        if (chapterIndex == this.getAllChapters().length+1) {
+            this.props.onChange({
+                action: "end-lesson"
+            }, true, true);
             return;
         }
 
