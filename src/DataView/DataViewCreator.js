@@ -75,11 +75,14 @@ class DataViewCreator extends Component {
     componentWillReceiveProps(nextProps) {
         //firebase auth takes longer if loading the link directly per URL
 
-        console.log(nextProps, 'nextprops here')
         if (!nextProps.user.uid) {
             return
-
 		}
+
+		api.getUserContentsPreview().then(result => {
+        	console.log(result, 'getusercontentspreview')
+		});
+
         api.getContentsForCreator(nextProps.user).then(result => {
         	console.log(result, 'getcontentsforcreator')
             this.rawdata['contents'] = result;
@@ -137,7 +140,6 @@ class DataViewCreator extends Component {
     	*/
 
     	this.data = rearrangeData(this.rawdata);
-    	console.log(this.data);
 
     	let lessons = [];
     	this.data.contents.forEach((content,idx) => {
@@ -154,7 +156,6 @@ class DataViewCreator extends Component {
 				id: Math.random(36).toString(),
     		});
     	});
-
     	this.setState({lessons: lessons});
     	this.getSummary(lessons);
     }
@@ -192,7 +193,7 @@ class DataViewCreator extends Component {
 								<h3>
 									No lessons created yet
 								</h3>
-									{this.props.user.displayName===undefined
+									{this.props.user.displayName!==undefined
 									?
 										<p>You need to <a href="/create">create a lesson</a> to see analytics here.</p>
 									:
