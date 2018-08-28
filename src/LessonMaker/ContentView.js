@@ -11,6 +11,7 @@ import api from '../utils/api'
 import {connect} from "redux-zero/react";
 import actions from "../store/actions";
 import withLoader from './withLoader'
+import history from "../history";
 
 class ContentView extends Component {
     constructor(props) {
@@ -137,7 +138,7 @@ class ContentView extends Component {
     }
 
     goToChapter = (sendToChapterID, interactionElementID) => {
-        console.log("ids", sendToChapterID, interactionElementID, "ids")
+        console.log("ids", sendToChapterID, interactionElementID, this.state.chapters, "ids")
         if (isEmpty(sendToChapterID)) {
             //scroll to next element or (if end of chapter, next elements chapter)
             const currentChapter = this.state.chapters[this.state.activeChapterIndex]
@@ -156,10 +157,23 @@ class ContentView extends Component {
         }, () => {
             this.scrollTo(this.state.chapters[chapterIndex].elements[0].id);
 
+
+            //yet another edge case whaahahaa
+            if (this.props.match) {
+                this.changePagination(chapterIndex)
+            }
+
+            // this.props.match.params.chapterIndex = chapterIndex.toString();
             //highlight the active chapter in TOC while previewing
             //TODO not really working here...
             this.props.onChangeActiveChapter(sendToChapterID)
         });
+
+    }
+
+    changePagination = (chapterIndex) => {
+        const {username, title, uid, contentId} = this.props.match.path;
+        history.push(`/view/${username}/${title}/${uid}/${contentId}/${chapterIndex}`)
 
     }
 
@@ -200,7 +214,7 @@ class ContentView extends Component {
     }
 
     showConcludingContentPage() {
-        const {uid, username, contentId, title} = this.props.params;
+        const {uid, username, contentId, title} = this.props.match.params;
         return <ConcludingContentPage uid={uid} url="https://joinoasys.org"
                                       author={username} title={title}
                                       contentId={contentId}
