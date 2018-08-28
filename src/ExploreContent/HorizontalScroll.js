@@ -210,16 +210,19 @@ class HorizontalScroll extends Component {
         // var count = 0;
         function moveIndicator(item, color) {
             console.log(item)
-            var textPosition = item.getBoundingClientRect();
-            var container = pnProductNavContents.getBoundingClientRect().left;
-            var distance = textPosition.left - container;
-             var scroll = pnProductNavContents.scrollLeft;
-            pnIndicator.style.transform = "translateX(" + (distance + scroll) + "px) scaleX(" + textPosition.width * 0.01 + ")";
-            // count = count += 100;
-            // pnIndicator.style.transform = "translateX(" + count + "px)";
-            
-            if (color) {
-                pnIndicator.style.backgroundColor = color;
+            console.log(item.nodeName)
+            if(item.nodeName === "A"){
+                var textPosition = item.getBoundingClientRect();
+                var container = pnProductNavContents.getBoundingClientRect().left;
+                var distance = textPosition.left - container;
+                var scroll = pnProductNavContents.scrollLeft;
+                pnIndicator.style.transform = "translateX(" + (distance + scroll) + "px) scaleX(" + textPosition.width * 0.01 + ")";
+                // count = count += 100;
+                // pnIndicator.style.transform = "translateX(" + count + "px)";
+                
+                if (color) {
+                    pnIndicator.style.backgroundColor = color;
+                }
             }
         }
 
