@@ -91,7 +91,7 @@ class SideBarLesson extends Component {
             data
         }
         
-        if (flag == 0) {
+        if (flag === 0) {
             this.setState({
                 isCurrentlySavingDraft: true
             });

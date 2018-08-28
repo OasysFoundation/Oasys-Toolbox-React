@@ -38,7 +38,7 @@ function getUserIdFromStore() {
 const api = {
     getContentsForCreator: function (user) {
         // this returns all analytics info
-        const url = BASE_URL + 'getAllContentsForCreator/' + user.displayName;
+        const url = BASE_URL + 'getAllContentsForCreator/' + user.uid;
         return get(url);
     },
     getCommentsForCreator: function (user) {

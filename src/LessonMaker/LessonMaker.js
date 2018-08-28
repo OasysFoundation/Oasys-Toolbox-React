@@ -12,10 +12,10 @@ import ElementAdder from './ElementAdder'
 import ContentView from './ContentView'
 import colors from '../utils/colors';
 
-import EndOfChapterElement from './EndOfChapterElement';
-import uuidv4 from 'uuid/v4';
+//import EndOfChapterElement from './EndOfChapterElement';
+//import uuidv4 from 'uuid/v4';
 import globals from "../utils/globals";
-import {isEmpty} from "../utils/trickBox";
+//import {isEmpty} from "../utils/trickBox";
 import EditModalWarning from './EditModalWarning'
 
 import { isMobile } from '../utils/tools'

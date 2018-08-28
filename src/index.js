@@ -1,7 +1,7 @@
 import {Component} from 'react';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import registerServiceWorker from './utils/registerServiceWorker';
+//import registerServiceWorker from './utils/registerServiceWorker';
 import {Router, Route, Switch} from 'react-router-dom';
 
 import {withRouter} from 'react-router'
@@ -34,6 +34,8 @@ import ContentOverview from './ContentOverview';
 
 import Bitmoji from './utils/Bitmoji'
 import Authentication from "./Authentication/Authentication";
+
+import ScrollToTop from './ScrollToTop';
 // import {Redirect} from 'react-router'
 
 //logs unnecessary rerenders in the console
@@ -100,18 +102,19 @@ class Index extends Component {
         return (
             <div className="oasys app">
                 <Provider store={store}>
-                    <Router history={history}>
+                    <Router history={history} onUpdate={() => window.scrollTo(0, 0)}>
                         <div>
                             {<Navbar onChange={this.handleChangeSearchBar.bind(this)}/>}
                             <Switch>
+                            <ScrollToTop>
                                 <Route exact path="/"
                                        render={() => <LandingPageController category={this.state.category}/>}/>
                                 <Route exact path="/explore"
                                        render={() => <LandingPageController category={this.state.category}/>}/>
-                                <Route exact path="/create/:username?/:title?" render={(props) => <LessonMaker {...props} />}/>
+                                <Route exact path="/create/:username?/:title?/:uid?/:contentId?" render={(props) => <LessonMaker {...props} />}/>
                                 {<Route exact path="/auth" render={(props) => <Authentication/>}/>}
                                 <Route exact path="/view/:username/:title/:uid/:contentId/" render={(props) => <ContentOverview {...props} />}/>
-                                <Route path="/view/:username/:title/:uid/:contentId/:chapterIndex?" render={(props) => <ContentView {...props} chapters={store.getState().chapters}/>}/>
+                                <Route path="/view/:username/:title/:uid/:contentId/:chapterIndex" render={(props) => <ContentView {...props} chapters={store.getState().chapters}/>}/>
                                 <Route exact path="/learn" render={(props) => <LandingPageController {...props} />}/>
                                 <Route exact path="/data" render={(props) => <DataViewCreator {...props} />}/>
                                 <Route exact path="/about" render={(props) => <About {...props} />}/>
@@ -149,6 +152,7 @@ class Index extends Component {
 
 
                                 {/*<Route component={NotFoundPage}/>*/}
+                            </ScrollToTop>
                             </Switch>
                             <Route path={"/*"} component={Footer}/>
                         </div>
@@ -164,4 +168,4 @@ export default withRouter(Index);
 
 
 ReactDOM.render(<Index/>, document.getElementById('root'));
-registerServiceWorker();
+//registerServiceWorker();

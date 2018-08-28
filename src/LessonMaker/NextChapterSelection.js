@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import SelectionDropdown from './SelectionDropdown'
 import uuidv4 from "uuid/v4"
-import { Button } from 'reactstrap';
+//import { Button } from 'reactstrap';
 import CreateNewChapterModal from './CreateNewChapterModal'
+import {ICON} from "../utils/trickBox";
 
 //this is the new "Preview" Component
 class NextChapterSelection extends Component {
@@ -38,7 +39,7 @@ class NextChapterSelection extends Component {
     getAllChapters() {
         const that = this;
         return this.state.userCreatedChapters.concat(this.props.chapters.filter(function(element, index) {
-            return index!=that.props.activeChapterIndex;
+            return index!==that.props.activeChapterIndex;
         }));
     }
 
@@ -124,7 +125,10 @@ class NextChapterSelection extends Component {
                             <SelectionDropdown onSelect={this.onSelectAction.bind(this)} identifier={Math.random().toString()} default={(action!=null && action!=="")? this.chapterTitleForIdentifier(action) : "No Action"} options={this.getActionMenuItems()}/>
                             </div>
                         ) : (
-                            <Button color="primary" onClick={function() { that.onContinue(action) }} style={{marginBottom: '15px'}}> Continue… </Button>
+
+                        <div onClick={function() { that.onContinue(action) }} style={{marginBottom: '15px'}}>
+                            {ICON("icon-arrow-down", 40)}
+                        </div>
                         )
                     }
                 </center>

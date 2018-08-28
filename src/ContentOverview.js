@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+//import PropTypes from 'prop-types';
 import {Container} from 'reactstrap';
-import {Button, Card, CardText, CardBody, CardTitle, CardSubtitle, Modal, ModalBody, ModalHeader} from 'reactstrap';
+import {Button, Card, CardBody, CardTitle, CardSubtitle} from 'reactstrap';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
 import api from './utils/api';
@@ -115,7 +115,7 @@ class ContentOverview extends Component {
     handleClick(value) {
         if (value === "remix") {
             this.props.remixProject(this.state.lesson, this.props.user);
-            history.push(`/create/${this.props.user.name || "anonymous"}/${this.props.match.params.title}/`)
+            history.push(`/create/${this.props.user.displayName || "anonymous"}/${this.props.match.params.title}/`)
         }
         // window.location.href  = `/create/${this.state.currentUsername}/${this.state.currentTitle}`
         else if (value === "comments")
@@ -126,6 +126,9 @@ class ContentOverview extends Component {
 
     handleStartContent() {
         const {title, username, uid, contentId} = this.state.lesson;
+
+        this.props.remixProject(this.state.lesson, this.props.user);
+
         window.location.href = `/view/${username}/${title}/${uid}/${contentId}/0`;
     }
 
@@ -198,7 +201,7 @@ class ContentOverview extends Component {
     render() {
         return (
             <div className='app-body'>
-                <main className='main'>
+                <main className='main' style={{marginLeft: '0px'}}>
                     <Container fluid className='main-width'>
                         {this.state.lesson !== null
                             ? <div className='content-overview'>
@@ -214,9 +217,9 @@ class ContentOverview extends Component {
 }
 
 const mapStoreToProps = ({user}) => ({user})
-const neededActions = (store) => {
+/*const neededActions = (store) => {
     const {remixProject} = actions();
     return {remixProject}
-};
+};*/
 
 export default connect(mapStoreToProps, actions)(ContentOverview);

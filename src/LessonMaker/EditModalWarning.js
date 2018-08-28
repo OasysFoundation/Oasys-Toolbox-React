@@ -7,8 +7,6 @@ import { Modal, ModalHeader, ModalBody, ModalFooter, Button  } from 'reactstrap'
 class EditModalWarning extends Component {
 
 	render() {
-		const that = this;
-
 		return (
 			<Modal isOpen={this.props.isOpen} toggle={this.props.onClose} backdrop={true}>
             

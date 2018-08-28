@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import { Container } from 'reactstrap';
+
+
 import {connect} from 'redux-zero/react';
 
 import DataOverview from './DataOverview';
@@ -61,6 +63,7 @@ class DataViewCreator extends Component {
 		this.state = {
 			currentDataIdx: -1, // -1 means summary
 			lessons: [],
+			summaryDone: false,
 		};
 		this.onChangeData = this.onChangeData.bind(this);
 	}
@@ -69,21 +72,36 @@ class DataViewCreator extends Component {
 		this.setState({currentDataIdx:idx});
 	}
 
+    componentWillReceiveProps(nextProps) {
+        //firebase auth takes longer if loading the link directly per URL
+
+        console.log(nextProps, 'nextprops here')
+        if (!nextProps.user.uid) {
+            return
+
+		}
+        api.getContentsForCreator(nextProps.user).then(result => {
+        	console.log(result, 'getcontentsforcreator')
+            this.rawdata['contents'] = result;
+            if (this.rawdata['ratings']!==[]) { this.showAnalytics(); }
+        }).catch(err => console.log(err));
+
+        api.getRatingsForCreator(nextProps.user).then(result => {
+            console.log(result, 'getratingsforcreator')
+            this.rawdata['ratings'] = result;
+            if (this.rawdata['contents']!==[]) { this.showAnalytics(); }
+        }).catch(err => console.log(err));
+        //console.log(this.analytics, "analytics")
+    }
+
+/*
     componentDidMount() {
     	if (this.props.user.displayName===undefined) {
     		console.log('ERROR: undefined user');
     		return;
     	}
-    	api.getContentsForCreator(this.props.user).then(result => {
-    		this.rawdata['contents'] = result;
-    		if (this.rawdata['ratings']!==[]) { this.showAnalytics(); }
-        }).catch(err => console.log(err));
 
-		api.getRatingsForCreator(this.props.user).then(result => {
-    		this.rawdata['ratings'] = result;
-    		if (this.rawdata['contents']!==[]) { this.showAnalytics(); }
-        }).catch(err => console.log(err));
-    }
+    }*/
 
     getSummary(lessons) {
     	this.summary.rating = lessons.map(e=>e.rating)
@@ -94,6 +112,13 @@ class DataViewCreator extends Component {
 			            			.reduce((a,b)=>a+b);
     	this.summary.token = lessons.map(e=>e.token)
 			            			.reduce((a,b)=>a+b);
+		this.summary.learnerPerWeek = lessons[0].learnerPerWeek;
+		for (let i=1;i++;i<lessons.length) {
+			for (let j=0;j++;j<lessons[0].length) {
+				this.summary.learnerPerWeek.users += lessons[i][j].users;
+			}
+		}
+		this.setState({summaryDone: true});
     }
 
     showAnalytics() {
@@ -135,7 +160,7 @@ class DataViewCreator extends Component {
     }
 
 	render(){
-		const paddingVal = (isMobile() ? "60px" : "10px")
+		const paddingVal = (isMobile() ? "60px" : "10px");
 		return ( 
 			<div className="app-body">
                 <main className="main dataview">
@@ -180,14 +205,17 @@ class DataViewCreator extends Component {
 								onChangeData={this.onChangeData}
 								data={this.state.lessons}
 							/>
-
-							<DataDetails 
-								contentTitle={this.state.contentTitle} 
-								data={this.state.currentDataIdx===-1
-									  ? this.summary
-									  : this.state.lessons[this.state.currentDataIdx]
-							    }
-							/>
+							{this.state.summaryDone
+							?
+								<DataDetails 
+									contentTitle={this.state.contentTitle} 
+									data={this.state.currentDataIdx===-1
+										  ? this.summary
+										  : this.state.lessons[this.state.currentDataIdx]
+								    }
+								/>
+							:   null
+							}
 						</React.Fragment>
 						}
 
