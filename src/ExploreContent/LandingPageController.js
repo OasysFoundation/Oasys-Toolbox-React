@@ -299,18 +299,18 @@ class LandingPageController extends Component {
             		<section style = {styles.HorizontalScrollOuterCenterContainer}>
 	  					<div style = {styles.HorizontalScrollContainer}>
 		    				<br/>
-		        			< ScrollableAnchor id = {'searchResults'} >
-			            		< div >
-						            < HorizontalScroll title = {"Tiles"} data = {tiles} positionChange = {this.changeSectionOrder.bind(this)} type = "mobile"/ >
+		        			<ScrollableAnchor id = {'searchResults'} >
+			            		<div>
+						            <HorizontalScroll title = {"Tiles"} data = {tiles} positionChange = {this.changeSectionOrder.bind(this)} type = "mobile"/ >
 						            {this.state.pageData.map(dataObj =>
-						            	< HorizontalScroll key = {dataObj.title} title = {dataObj.title} data = {dataObj.data} type = "mobile" toggleOpen={this.toggleOpen}/ >
+						            	<HorizontalScroll key = {dataObj.title} title = {dataObj.title} data = {dataObj.data} type = "mobile" toggleOpen={this.toggleOpen}/ >
 						    			)
 						    		}
 			    				</div>
-		        			< /ScrollableAnchor>
-	        			< /div>
-        			< /section>
-        		< /div>
+		        			</ScrollableAnchor>
+	        			</div>
+        			</section>
+        		</div>
     		)
     		: (
         		<div className = "landingPage" style={styles.pcTopPadding} >
@@ -320,19 +320,19 @@ class LandingPageController extends Component {
     						<br/ >
         					<ScrollableAnchor id = {'searchResults'} >
             					<div >
-						            < HorizontalScroll title = {"Tiles"} data = {tiles} positionChange = {this.changeSectionOrder.bind(this)} />
+						            <HorizontalScroll title = {"Tiles"} data = {tiles} positionChange = {this.changeSectionOrder.bind(this)} />
 							        {
 							            this.state.pageData.map(dataObj =>
-							            	< HorizontalScroll title = {dataObj.title} data = {dataObj.data} icon = {dataObj.icon} toggleOpen={this.toggleOpen}/>
+							            	<HorizontalScroll title = {dataObj.title} data = {dataObj.data} icon = {dataObj.icon} toggleOpen={this.toggleOpen}/>
         								)
         							}
     							</div>
-        					< /ScrollableAnchor>
+        					</ScrollableAnchor>
 
-        				< /div>
-        			< /section>
-        		< /div>
-    		)
+        				</div>
+        			</section>
+        		</div>
+    		)		
     	}
         <Modal isOpen={this.state.open} toggle={this.toggleClosed}
                            className={'modal-sm ' + this.props.className} style={styles.modalOuterDiv}>

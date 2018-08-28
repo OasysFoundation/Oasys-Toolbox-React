@@ -80,7 +80,7 @@ class AccountPage extends Component {
             return(
                 <div>
                     {this.state.pageDataReccommended.map(dataObj =>
-                        < HorizontalScroll key = {dataObj.title} title = {dataObj.title} data = {dataObj.data} type = "mobile" / >
+                        <HorizontalScroll key = {dataObj.title} title = {dataObj.title} data = {dataObj.data} type = "mobile" / >
                         )
                     }
                 </div>
