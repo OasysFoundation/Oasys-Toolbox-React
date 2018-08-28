@@ -163,7 +163,7 @@ class ContentView extends Component {
 
     }
 
-    postAnalytics = async function(n) {
+    postAnalytics = async function (n) {
         try {
             if (!this.analytics.contentId || !this.analytics.accessUserId) {
                 console.error('content ID is not set');
@@ -172,7 +172,7 @@ class ContentView extends Component {
             let response = await api.postUserContentAccess(this.analytics);
             this.numScheduledUpdates -= 1;
             return response;
-        } catch(err) {
+        } catch (err) {
             if (n === 1) {
                 console.log(err);
             }
@@ -180,7 +180,7 @@ class ContentView extends Component {
                 this.numScheduledUpdates -= 1;
                 return;
             } else {
-                return await setTimeout(()=>this.postAnalytics(n-1), Math.trunc(30000 / (n-1)));
+                return await setTimeout(() => this.postAnalytics(n - 1), Math.trunc(30000 / (n - 1)));
             }
         }
     }
@@ -199,6 +199,14 @@ class ContentView extends Component {
         this.postAnalytics(this.maxUpdateAttempts);
     }
 
+    showConcludingContentPage() {
+        const {uid, username, contentId, title} = this.props.params;
+        return <ConcludingContentPage uid={uid} url="https://joinoasys.org"
+                                      author={username} title={title}
+                                      contentId={contentId}
+                                      description="I am explaining to you how feet and cotion works."/>
+    }
+
     render() {
 
         const that = this;
@@ -208,77 +216,75 @@ class ContentView extends Component {
             return <div>...Loading Content</div>
         }
 
-         const {username, title, uid, contentId} = this.props.match.params;
 
         return (
             <ScrollView ref={scroller => this._scroller = scroller}>
                 <React.Fragment>
                     {/*This extra ScrollElement on the top fixes the scrolling problem*/}
-                    <ScrollElement name={'first'}><div></div></ScrollElement>
-                <div className={this.props.isPreview ? null : "app-body"}>
-                    <main className={this.props.isPreview ? null : "main"}>
-                        <Container fluid className='main-width'>
-                            <React.Fragment>
+                    <ScrollElement name={'first'}>
+                        <div></div>
+                    </ScrollElement>
+                    <div className={this.props.isPreview ? null : "app-body"}>
+                        <main className={this.props.isPreview ? null : "main"}>
+                            <Container fluid className='main-width'>
+                                <React.Fragment>
+                                    {this.state.showsContentCompletion  && !this.props.isPreview?
+                                        this.showConcludingContentPage()
+                                        :
+                                        <div>
+                                            {allElementsinProject.map(el => (
+                                                (el.parentChapterID === that.state.activeChapterID)
+                                                    ?
+                                                    <ScrollElement key={el.id} name={el.id}>
+                                                        <div className="item">
+                                                            {!isElementEmpty(el)
+                                                            &&
+                                                            <Element
+                                                                data={el}
+                                                                id={el.id}
+                                                                isPreview={this.props.isPreview}
+                                                                isEditMode={false}
+                                                                onLearnerInteraction={this.goToChapter}
+                                                                onChangeVisibility={this.handleChangeElementVisibility}
+                                                                onQuizAnswer={this.handleQuizAnswer}
+                                                            />
+                                                            }
+                                                        </div>
+                                                    </ScrollElement>
+                                                    : null
+                                            ))
+                                            }
+                                        </div>
+                                    }
+
+                                </React.Fragment>
+                            </Container>
+                            <center>
+                                {/*THIS IS NOW DONE in else*/}
                                 {this.state.showsContentCompletion ?
-                                    <ConcludingContentPage uid={uid} url="https://joinoasys.org"
-                                                           author={username} title={title}
-                                                           contentId={contentId}
-                                                           description="I am explaining to you how feet and cotion works."/>
+                                    null
                                     :
-                                    <div>
-                                        {allElementsinProject.map(el => (
-                                            (el.parentChapterID === that.state.activeChapterID)
-                                                ?
-                                                <ScrollElement key={el.id} name={el.id}>
-                                                    <div className="item">
-                                                        {!isElementEmpty(el)
-                                                        &&
-                                                        <Element
-                                                            data={el}
-                                                            id={el.id}
-                                                            isPreview={this.props.isPreview}
-                                                            isEditMode={false}
-                                                            onLearnerInteraction={this.goToChapter}
-                                                            onChangeVisibility={this.handleChangeElementVisibility}
-                                                            onQuizAnswer={this.handleQuizAnswer}
-                                                        />
-                                                        }
-                                                    </div>
-                                                </ScrollElement>
-                                                : null
-                                        ))
+                                    <div className='pointer'>
+                                        {this.isLastChapter() ? (
+                                            <div onClick={this.goToCompletionScreen.bind(this)}>
+                                                {ICON("icon-arrow-down", 40)}
+                                            </div>
+                                        ) : null
+
+
+                                            //     (
+                                            //     <div onClick={() => this.goToNextChapter()}>
+                                            //         {ICON("icon-arrow-down", 40)}
+                                            //     </div>
+                                            // )
                                         }
+
                                     </div>
                                 }
 
-                            </React.Fragment>
-                        </Container>
-                        <center>
-                            {/*THIS IS NOW DONE in else*/}
-                            {this.state.showsContentCompletion ?
-                                null
-                                :
-                                <div className='pointer'>
-                                    {this.isLastChapter() ? (
-                                        <div onClick={this.goToCompletionScreen.bind(this)}>
-                                            {ICON("icon-arrow-down", 40)}
-                                        </div>
-                                    ) : null
-
-
-                                    //     (
-                                    //     <div onClick={() => this.goToNextChapter()}>
-                                    //         {ICON("icon-arrow-down", 40)}
-                                    //     </div>
-                                    // )
-                                    }
-
-                                </div>
-                            }
-
-                        </center>
-                    </main>
-                </div>
+                            </center>
+                        </main>
+                    </div>
                 </React.Fragment>
             </ScrollView>
         );
@@ -302,4 +308,4 @@ const neededActions = (store) => {
     return {onChangeActiveChapter}
 };
 
-export default connect(mapStoreToProps, neededActions)(withLoader('user', 'uid')(ContentView));
+export default connect(mapStoreToProps, neededActions)(ContentView);
