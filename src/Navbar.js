@@ -415,6 +415,9 @@ class NavBar extends React.Component {
     }
 
     shouldComponentUpdate(nextProps) {
+        if (nextProps.user.uid) {
+            return true;
+        }
         // prevent unnecessary re-renders
         if (this.doRender) { 
             this.doRender = false;
