@@ -73,8 +73,7 @@ class DataViewCreator extends Component {
 
     componentWillReceiveProps(nextProps) {
         //firebase auth takes longer if loading the link directly per URL
-
-        console.log(nextProps, 'nextprops here')
+        console.log(nextProps.user.uid)
         if (!nextProps.user.uid) {
             return
         }
@@ -101,29 +100,17 @@ class DataViewCreator extends Component {
         }).catch(err => console.log(err));
 
         api.getContentsForCreator(nextProps.user).then(result => {
-            console.log(result, 'getcontentsforcreator')
             this.rawdata['contents'] = result;
             this.apiSuccessCount++;
             if (this.apiSuccessCount===3) { this.showAnalytics(); }
         }).catch(err => console.log(err));
 
         api.getRatingsForCreator(nextProps.user).then(result => {
-            console.log(result, 'getratingsforcreator')
             this.rawdata['ratings'] = result.map(obj => obj.rating);
             this.apiSuccessCount++;
             if (this.apiSuccessCount===3) { this.showAnalytics(); }
         }).catch(err => console.log(err));
-        //console.log(this.analytics, "analytics")
     }
-
-    /*
-        componentDidMount() {
-            if (this.props.user.displayName===undefined) {
-                console.log('ERROR: undefined user');
-                return;
-            }
-
-        }*/
 
     getSummary(lessons) {
         this.summary.rating = lessons.map(e => e.rating)
@@ -157,9 +144,8 @@ class DataViewCreator extends Component {
             visible: isVisible,
             time: new Date(),
         */
-
+        console.log(' precomputing analytics ');
         this.data = rearrangeData(this.rawdata);
-        console.log(this.data);
 
         let lessons = [];
         this.data.contents.forEach((content, idx) => {
@@ -176,6 +162,9 @@ class DataViewCreator extends Component {
                 id: Math.random(36).toString(),
             });
         });
+
+        console.log(this.data);
+        console.log(lessons);
 
         this.setState({lessons: lessons});
         this.getSummary(lessons);
@@ -209,19 +198,34 @@ class DataViewCreator extends Component {
 						</center>
 						*/}
 
-                        {(this.state.lessons.length === 0)
+                        {this.apiSuccessCount<3
                             ?
-                            <div>
-                                <h3>
-                                    No lessons created yet
-                                </h3>
-                                {this.props.user.displayName !== undefined
-                                    ?
-                                    <p>You need to <a href="/create">create a lesson</a> to see analytics here.</p>
-                                    :
-                                    <p>Please <a href="/account">log in</a> to see your analytics.</p>
+                            <h3>
+                                Loading analytics...
+                            </h3>
+                            :
+                            <h3>Analytics</h3>
+                        }
+                        {/*<React.Fragment>
+                                {this.state.lessons.length === 0
+                                ?
+                                    <h3>
+                                        Loading analytics...
+                                    </h3>
+                                :
+                                    <React.Fragment>
+                                    <h3>
+                                        No lessons created yet
+                                    </h3>
+                                    {this.props.user.displayName !== undefined
+                                        ?
+                                        <p>You need to <a href="/create">create a lesson</a> to see analytics here.</p>
+                                        :
+                                        <p>Please <a href="/account">log in</a> to see your analytics.</p>
+                                    }
+                                    </React.Fragment>
                                 }
-                            </div>
+                                    </React.Fragment>
                             :
                             <React.Fragment>
                                 <DataOverview
@@ -240,7 +244,7 @@ class DataViewCreator extends Component {
                                     : null
                                 }
                             </React.Fragment>
-                        }
+                        */}
 
                     </Container>
                 </main>
