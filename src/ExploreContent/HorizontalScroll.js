@@ -94,7 +94,7 @@ class HorizontalScroll extends Component {
 
             // Set the indicator
             if(this.props.title==="Tiles")
-                moveIndicator(pnProductNav.querySelector("[aria-selected=\"true\"]"), underlineOnSelectionColours[0])
+                moveIndicator(pnProductNavContents.querySelector("[aria-selected=\"true\"]"), underlineOnSelectionColours[0])
 
             // Handle the scroll of the horizontal container
             var last_known_scroll_position = 0;
@@ -209,6 +209,7 @@ class HorizontalScroll extends Component {
 
         // var count = 0;
         function moveIndicator(item, color) {
+            console.log(item)
             var textPosition = item.getBoundingClientRect();
             var container = pnProductNavContents.getBoundingClientRect().left;
             var distance = textPosition.left - container;
