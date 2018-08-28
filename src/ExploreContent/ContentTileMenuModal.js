@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Modal, ModalBody, ModalHeader } from 'reactstrap';
+import history from '../history'
 
 const styles = {
     mobileTopPadding:{
@@ -31,11 +32,18 @@ class ContentTileMenuModal extends Component {
 
 
     toggle() {
-
+      this.props.onClose();
     }
 
-    handleClick() {
-
+    handleClick(value) {
+      if (value === "remix") {
+            history.push(`/create/${this.props.data.username || "anonymous"}/${this.props.data.title}/`)
+        }
+        // window.location.href  = `/create/${this.state.currentUsername}/${this.state.currentTitle}`
+        else if (value === "comments")
+            window.location.href = `/comments/${this.props.data.username}/${this.props.data.title}`
+        else if (value === "content")
+            window.location.href = `/content/`
     }
 
 

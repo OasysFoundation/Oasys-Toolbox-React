@@ -137,7 +137,7 @@ class HorizontalScrollButtonMaker extends Component{
 
 	shouldComponentUpdate(nextProps) {
 		// prevent any re-renders
-		return false;
+		return true;
 	}
 
 	toggleMenu() {
@@ -249,7 +249,7 @@ class HorizontalScrollButtonMaker extends Component{
 			        </div>
 			        </CardBody>
 			      </Card>	
-			      <ContentTileMenuModal isOpen={this.state.showsTileMenu} data={this.props.data} />       
+			      <ContentTileMenuModal isOpen={this.state.showsTileMenu} data={this.props.data} onClose={this.toggleMenu.bind(this)} />       
 			    </div>
             )
           )
