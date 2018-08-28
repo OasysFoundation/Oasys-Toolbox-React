@@ -13,7 +13,7 @@ class DataOverview extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			activeId: 'all',
+			activeId: -1,
 		}
 	}
 
@@ -23,6 +23,7 @@ class DataOverview extends Component {
 	}
 	
 	render(){
+		console.log(this.props.data)
 		return (
 			<div>
 				<h3 style={{marginBottom: '0px'}}>
@@ -109,7 +110,7 @@ class DataOverview extends Component {
 			            <td>{isNaN(e.rating) ? 'N/A' : e.rating}</td>
 			            <td>{e.learner}</td>
 			            <td>{e.token}</td>
-			            <td>{e.published.toLocaleDateString("en-US", dateOptions)}</td>
+			            <td>{e.published}</td>
 			          </tr>
 		          	)}
 		          </tbody>

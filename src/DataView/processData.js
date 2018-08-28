@@ -98,7 +98,7 @@ function rearrangeData(rawdata) {
     }
     rawdata = sanitize(rawdata);
     let data = initData(options);
-
+    return data;
     let uniqueContentIds = Array.from(new Set(rawdata.contents.map(o=>o.contentId)));
 
     if (uniqueContentIds.length===0) { 

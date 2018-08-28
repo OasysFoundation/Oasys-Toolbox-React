@@ -79,6 +79,7 @@ class DataViewCreator extends Component {
         }
 
         api.getUserContentsPreview().then(results => {
+            console.log(results)
             let lessons = [];
             results.forEach((lesson,idx)=>{
                 lessons.push({
@@ -86,11 +87,11 @@ class DataViewCreator extends Component {
                     idx: idx,
                     rating: lesson.rating.mean,
                     title: lesson.title,
-                    learner: 0,
+                    learner: lesson.views,
                     learnerPerWeek: [],
                     token: 0,
                     tokenPerWeek: [],
-                    published: new Date(1963, 1, 1),
+                    published: new Date(lesson.birthday).toLocaleDateString("en-US"),
                 });
             });
             this.setState({lessons: lessons});
@@ -113,19 +114,21 @@ class DataViewCreator extends Component {
     }
 
     getSummary(lessons) {
-        this.summary.rating = lessons.map(e => e.rating)
-            .filter(e => !isNaN(e))
-            .reduce((a, b, idx, arr) => a + b / arr.length, 0)
-            .toFixed(1);
-        this.summary.learner = lessons.map(e => e.learner)
-            .reduce((a, b) => a + b);
-        this.summary.token = lessons.map(e => e.token)
-            .reduce((a, b) => a + b);
-        this.summary.learnerPerWeek = lessons[0].learnerPerWeek;
-        for (let i = 1; i++; i < lessons.length) {
-            for (let j = 0; j++; j < lessons[0].length) {
-                this.summary.learnerPerWeek.users += lessons[i][j].users;
-            }
+        if (lessons.length>0) {
+            this.summary.rating = lessons.map(e => e.rating)
+                .filter(e => !isNaN(e))
+                .reduce((a, b, idx, arr) => a + b / arr.length, 0)
+                .toFixed(1);
+            this.summary.learner = lessons.map(e => e.learner)
+                .reduce((a, b) => a + b);
+            this.summary.token = lessons.map(e => e.token)
+                .reduce((a, b) => a + b);
+            this.summary.learnerPerWeek = lessons[0].learnerPerWeek;
+            lessons.forEach(lesson=>{
+                lesson.learnerPerWeek.forEach((week,idx)=>{
+                    this.summary.learnerPerWeek[idx].users += week.users;
+                })
+            })
         }
         this.setState({summaryDone: true});
     }
@@ -144,30 +147,22 @@ class DataViewCreator extends Component {
             visible: isVisible,
             time: new Date(),
         */
-        console.log(' precomputing analytics ');
+
         this.data = rearrangeData(this.rawdata);
 
-        let lessons = [];
-        this.data.contents.forEach((content, idx) => {
-            lessons.push({
-                title: content.id,
-                rating: content.rating,
-                learner: content.users,
-                learnerPerWeek: content.usersPerWeek,
-                questions: content.questions,
-                timeSpent: [],
-                token: 0,
-                published: new Date(1963, 1, 1),
-                idx: idx,
-                id: Math.random(36).toString(),
-            });
+        let lessons = JSON.parse(JSON.stringify(this.state.lessons));
+        this.data.contents.forEach(content => {
+            // update this.state.lessons
+            let lessonIdx = this.state.lessons.findIndex(lesson=>lesson.id===content.id);
+            let lesson = lessons[lessonIdx];
+            lesson.learnerPerWeek = content.usersPerWeek;
         });
-
+        console.log(this.rawdata);
         console.log(this.data);
-        console.log(lessons);
-
-        this.setState({lessons: lessons});
+        console.log(this.state.lessons);
+        
         this.getSummary(lessons);
+        this.setState({lessons: lessons});
     }
 
     render() {
@@ -198,54 +193,34 @@ class DataViewCreator extends Component {
 						</center>
 						*/}
 
-                        {this.apiSuccessCount<3
-                            ?
-                            <h3>
-                                Loading analytics...
-                            </h3>
-                            :
-                            <h3>Analytics</h3>
-                        }
-                        {/*<React.Fragment>
-                                {this.state.lessons.length === 0
+                        { this.props.user.displayName === undefined
+                            ? <p>Please <a href="/account">log in</a> to see your analytics.</p>
+                            : this.apiSuccessCount<3
                                 ?
-                                    <h3>
-                                        Loading analytics...
-                                    </h3>
+                                <h3>
+                                    Loading analytics...
+                                </h3>
                                 :
-                                    <React.Fragment>
-                                    <h3>
-                                        No lessons created yet
-                                    </h3>
-                                    {this.props.user.displayName !== undefined
-                                        ?
-                                        <p>You need to <a href="/create">create a lesson</a> to see analytics here.</p>
-                                        :
-                                        <p>Please <a href="/account">log in</a> to see your analytics.</p>
-                                    }
+                                this.state.lessons.length===0
+                                    ? <p>You need to <a href="/create">create a lesson</a> to see analytics here.</p>
+                                    : <React.Fragment>
+                                        <DataOverview
+                                            onChangeData={this.onChangeData}
+                                            data={this.state.lessons}
+                                        />
+                                        {/*this.state.summaryDone
+                                            ?
+                                            <DataDetails
+                                                contentTitle={this.state.contentTitle}
+                                                data={this.state.currentDataIdx === -1
+                                                    ? this.summary
+                                                    : this.state.lessons[this.state.currentDataIdx]
+                                                }
+                                            />
+                                            : null
+                                        */}
                                     </React.Fragment>
-                                }
-                                    </React.Fragment>
-                            :
-                            <React.Fragment>
-                                <DataOverview
-                                    onChangeData={this.onChangeData}
-                                    data={this.state.lessons}
-                                />
-                                {this.state.summaryDone
-                                    ?
-                                    <DataDetails
-                                        contentTitle={this.state.contentTitle}
-                                        data={this.state.currentDataIdx === -1
-                                            ? this.summary
-                                            : this.state.lessons[this.state.currentDataIdx]
-                                        }
-                                    />
-                                    : null
-                                }
-                            </React.Fragment>
-                        */}
-
+                        }
                     </Container>
                 </main>
             </div>
