@@ -137,7 +137,7 @@ class ContentView extends Component {
     }
 
     goToChapter = (sendToChapterID, interactionElementID) => {
-        console.log("ids", sendToChapterID, interactionElementID, "ids")
+        console.log("ids", sendToChapterID, interactionElementID, this.state.chapters, "ids")
         if (isEmpty(sendToChapterID)) {
             //scroll to next element or (if end of chapter, next elements chapter)
             const currentChapter = this.state.chapters[this.state.activeChapterIndex]
@@ -200,7 +200,7 @@ class ContentView extends Component {
     }
 
     showConcludingContentPage() {
-        const {uid, username, contentId, title} = this.props.params;
+        const {uid, username, contentId, title} = this.props.match.params;
         return <ConcludingContentPage uid={uid} url="https://joinoasys.org"
                                       author={username} title={title}
                                       contentId={contentId}
