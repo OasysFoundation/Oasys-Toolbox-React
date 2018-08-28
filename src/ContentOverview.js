@@ -11,6 +11,9 @@ import {connect} from "redux-zero/react";
 import actions from "./store/actions";
 
 import history from './history'
+import Snackbar from '@material-ui/core/Snackbar';
+import SnackbarContent from '@material-ui/core/SnackbarContent';
+
 
 const styles = {
     cardStyle: {
@@ -95,10 +98,10 @@ class ContentOverview extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            lesson: null
+            lesson: null,
+            showSnackbar:false,
+            snackbarMessage:"",
         };
-        this.handleStartContent = this.handleStartContent.bind(this);
-        this.handleClick = this.handleClick.bind(this);
 
     }
 
@@ -118,10 +121,19 @@ class ContentOverview extends Component {
             history.push(`/create/${this.props.user.displayName || "anonymous"}/${this.props.match.params.title}/${this.props.match.params.uid}/${this.props.match.params.contentId}/`)
         }
         // window.location.href  = `/create/${this.state.currentUsername}/${this.state.currentTitle}`
-        else if (value === "comments")
-            window.location.href = `/comments/${this.state.currentUsername}/${this.state.currentTitle}`
-        else if (value === "content")
-            window.location.href = `/content/`
+        // else if (value === "comments")
+        //     window.location.href = `/comments/${this.state.currentUsername}/${this.state.currentTitle}`
+        // else if (value === "content")
+        //     window.location.href = `/content/`
+        else if (value === "user") {            
+          history.push(`/user/${this.props.user.displayName || "anonymous"}/${this.props.match.params.uid}`) 
+        }        
+          else if (value === "flag"){
+              this.setState({
+                showSnackbar:true,
+                snackbarMessage:"Thank you for notifying us about this content."
+              }) 
+          }
     }
 
     handleStartContent() {
@@ -132,6 +144,12 @@ class ContentOverview extends Component {
         window.location.href = `/view/${username}/${title}/${uid}/${contentId}/0`;
     }
 
+    onCloseSnackBar() {
+        this.setState({
+            snackbarMessage: "",
+            showSnackbar:false,
+        });
+    }
 
     renderOverview() {
         const lesson = this.state.lesson;
@@ -171,22 +189,22 @@ class ContentOverview extends Component {
                             </p>
 
 
-                            <Button onClick={this.handleStartContent} className='start-button'>
+                            <Button onClick={()=>this.handleStartContent()} className='start-button'>
                                 Start learning
                             </Button>
                         </div>
                         <div style={{marginTop: '30px'}}>
-                            <Button block color="light" onClick={this.handleClick.bind(this, "remix")}
+                            <Button block color="light" onClick={()=>this.handleClick("remix")}
                                     className='action-button'>
                                 <FontAwesomeIcon icon="pencil-alt"/>
                                 Remix
                             </Button>
-                            <Button block color="light" onClick={this.handleClick.bind(this, "comments")}
+                            <Button block color="light" onClick={()=>this.handleClick("user")}
                                     className='action-button'>
                                 <FontAwesomeIcon icon="comment"/>
-                                View Comments
+                                {"Go To " + lesson.username + "'s Page"}
                             </Button>
-                            <Button block color="light" onClick={this.handleClick.bind(this, "flag")}
+                            <Button block color="light" onClick={()=>this.handleClick("flag")}
                                     className='action-button'>
                                 <FontAwesomeIcon icon="flag"/>
                                 Flag as Inappropriate
@@ -211,6 +229,24 @@ class ContentOverview extends Component {
                         }
                     </Container>
                 </main>
+                <Snackbar
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'left',
+                    }}
+                    open={this.state.showSnackbar}
+                    autoHideDuration={6000}
+                    onClose={()=>this.onCloseSnackBar()}
+                >
+                    <SnackbarContent
+                        aria-describedby="client-snackbar"
+                        message={
+                            <span id="client-snackbar">
+                          {this.state.snackbarMessage}
+                        </span>
+                        }
+                    />
+                </Snackbar>
             </div>
         );
     }

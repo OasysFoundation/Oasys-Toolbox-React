@@ -41,8 +41,7 @@ class ContentTileMenuModal extends Component {
             showSnackbar:false,
             snackbarMessage:"",
         };
-        this.handleClick = this.handleClick.bind(this);
-        this.toggle = this.toggle.bind(this)
+
     }
 
     componentDidMount() {
@@ -71,13 +70,13 @@ class ContentTileMenuModal extends Component {
           history.push(`/user/${this.props.user.displayName || "anonymous"}/${this.props.data.uid}`) 
           this.toggle();
         }        
-      else if (value === "flag")
+      else if (value === "flag"){
           this.setState({
             showSnackbar:true,
             snackbarMessage:"Thank you for notifying us about this content."
           }) 
           this.toggle();
-
+      }
     }
 
     onCloseSnackBar() {
@@ -93,9 +92,9 @@ class ContentTileMenuModal extends Component {
     	
         return (
             <div>
-              <Modal isOpen={this.props.isOpen} toggle={this.toggle}
+              <Modal isOpen={this.props.isOpen} toggle={()=>this.toggle()}
                            className={'modal-sm ' + this.props.className} style={styles.modalOuterDiv}>
-              <ModalHeader toggle={this.toggle} style={styles.modalHeader}>{this.props.data.title}</ModalHeader>
+              <ModalHeader toggle={()=>this.toggle()} style={styles.modalHeader}>{this.props.data.title}</ModalHeader>
               <ModalBody style={styles.modalBody}>
                   <Button block color="light" onClick={()=>this.handleClick("remix")} style={styles.modalButton}>
                     <div style={{flex:1}}><i className="fas fa-pencil-alt"/></div>
@@ -127,7 +126,7 @@ class ContentTileMenuModal extends Component {
                     }}
                     open={this.state.showSnackbar}
                     autoHideDuration={6000}
-                    onClose={this.onCloseSnackBar.bind(this)}
+                    onClose={()=>this.onCloseSnackBar()}
                 >
                     <SnackbarContent
                         aria-describedby="client-snackbar"
