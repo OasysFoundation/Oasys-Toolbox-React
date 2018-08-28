@@ -15,6 +15,8 @@ function rearrangeData(rawdata) {
 
     let nWeeks = 8;
     let uniqueContentIds = Array.from(new Set(rawdata.contents.map(o=>o.contentId)));
+
+    console.log(uniqueContentIds, 'contentIds')
     let data = {
         contents: [],
         usersPerWeek: [],

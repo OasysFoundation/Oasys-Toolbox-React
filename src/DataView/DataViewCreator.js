@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import { Container } from 'reactstrap';
+
+
 import {connect} from 'redux-zero/react';
 
 import DataOverview from './DataOverview';
@@ -70,21 +72,36 @@ class DataViewCreator extends Component {
 		this.setState({currentDataIdx:idx});
 	}
 
+    componentWillReceiveProps(nextProps) {
+        //firebase auth takes longer if loading the link directly per URL
+
+        console.log(nextProps, 'nextprops here')
+        if (!nextProps.user.uid) {
+            return
+
+		}
+        api.getContentsForCreator(nextProps.user).then(result => {
+        	console.log(result, 'getcontentsforcreator')
+            this.rawdata['contents'] = result;
+            if (this.rawdata['ratings']!==[]) { this.showAnalytics(); }
+        }).catch(err => console.log(err));
+
+        api.getRatingsForCreator(nextProps.user).then(result => {
+            console.log(result, 'getratingsforcreator')
+            this.rawdata['ratings'] = result;
+            if (this.rawdata['contents']!==[]) { this.showAnalytics(); }
+        }).catch(err => console.log(err));
+        //console.log(this.analytics, "analytics")
+    }
+
+/*
     componentDidMount() {
     	if (this.props.user.displayName===undefined) {
     		console.log('ERROR: undefined user');
     		return;
     	}
-    	api.getContentsForCreator(this.props.user).then(result => {
-    		this.rawdata['contents'] = result;
-    		if (this.rawdata['ratings']!==[]) { this.showAnalytics(); }
-        }).catch(err => console.log(err));
 
-		api.getRatingsForCreator(this.props.user).then(result => {
-    		this.rawdata['ratings'] = result;
-    		if (this.rawdata['contents']!==[]) { this.showAnalytics(); }
-        }).catch(err => console.log(err));
-    }
+    }*/
 
     getSummary(lessons) {
     	this.summary.rating = lessons.map(e=>e.rating)
