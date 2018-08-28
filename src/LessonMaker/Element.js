@@ -23,7 +23,7 @@ import {
 import 'react-quill/dist/quill.snow.css';
 import actions from "../store/actions";
 import {connect} from "redux-zero/react";
-import EndOfChapterElement from "./EndOfChapterElement";
+//import EndOfChapterElement from "./EndOfChapterElement";
 // import {isElementEmpty, initContent} from "../tools";
 
 

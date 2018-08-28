@@ -304,7 +304,7 @@ class QuizzEditModal extends Component {
     getAllChapters() {
         const that = this;
         return this.state.userCreatedChapters.concat(this.props.chapters.filter(function(element, index) {
-            return index!=that.props.activeChapterIndex;
+            return index!==that.props.activeChapterIndex;
         }));
     }
 
