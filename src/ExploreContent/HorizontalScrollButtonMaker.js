@@ -10,6 +10,8 @@ import store from "../store/store"
 
 import history from '../history'
 
+import ContentTileMenuModal from './ContentTileMenuModal'
+
 const styles= {
 	cardStyle:{
 		width:"170px",
@@ -100,19 +102,22 @@ const styles= {
 }
 
 class HorizontalScrollButtonMaker extends Component{
-	constructor(props){
+	constructor(props) { 
 		super(props)
 		this.state={
 			small: false,
 			currentTitle: "",
 			currentUsername: "",
+			showsTileMenu: false
 		}
 		this.refStars = React.createRef();
 		this.starStr = '';
 
+		this.toggleMenu = this.toggleMenu.bind(this);
+
 	}
 
-	componentDidMount(){
+	componentDidMount() {
 		if (this.refStars.current===null) { return; }
 		const radius = 67;
 
@@ -132,10 +137,16 @@ class HorizontalScrollButtonMaker extends Component{
 
 	shouldComponentUpdate(nextProps) {
 		// prevent any re-renders
-		return false;
+		return true;
 	}
 
-	render(){
+	toggleMenu() {
+		this.setState({
+			showsTileMenu: !this.state.showsTileMenu
+		});
+	}
+
+	render() {
 		// for type == tiles
 		let hashLink, aTag = "";
 
@@ -206,7 +217,7 @@ class HorizontalScrollButtonMaker extends Component{
 				          </CardSubtitle>
 				      </div>
 			          <div style={styles.verticalEllipsesOuterDiv} className="bruh">
-			          	<a onClick={(e) => {e.stopPropagation(); this.props.toggleOpen(this.props.data)}} className="noTextDecoration"><i className="fas fa-ellipsis-v faAlignRight" style={styles.ellipsisIcon}/></a>
+			          	<a onClick={(e) => { e.stopPropagation(); this.toggleMenu(); }} className="noTextDecoration"><i className="fas fa-ellipsis-v faAlignRight" style={styles.ellipsisIcon}/></a>
 			          </div>
 			        </CardBody>
 			        <CardBody>
@@ -237,7 +248,8 @@ class HorizontalScrollButtonMaker extends Component{
 		            	</span>
 			        </div>
 			        </CardBody>
-			      </Card>	       
+			      </Card>	
+			      <ContentTileMenuModal isOpen={this.state.showsTileMenu} data={this.props.data} onClose={this.toggleMenu.bind(this)} />       
 			    </div>
             )
           )

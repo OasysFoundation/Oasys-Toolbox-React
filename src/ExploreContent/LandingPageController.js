@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import api from '../utils/api'
 import {getTagsForCategory} from "../utils/LandingPage";
 import ScrollableAnchor from 'react-scrollable-anchor'
-import { Button, Modal, ModalBody, ModalHeader } from 'reactstrap';
 import HorizontalScroll from './HorizontalScroll'
 import HeaderImage from './HeaderImage'
 
@@ -334,33 +333,6 @@ class LandingPageController extends Component {
         		</div>
     		)		
     	}
-        <Modal isOpen={this.state.open} toggle={this.toggleClosed}
-                           className={'modal-sm ' + this.props.className} style={styles.modalOuterDiv}>
-              <ModalHeader toggle={this.toggleClosed} style={styles.modalHeader}>{this.state.currentTitle}</ModalHeader>
-              <ModalBody style={styles.modalBody}>
-                  <Button block color="light" onClick={this.handleClick.bind(this,"remix")} style={styles.modalButton}>
-                    <div style={{flex:1}}><i className="fas fa-pencil-alt"/></div>
-                    <div style={{flex:3, textAlign:"left"}}>Remix</div>
-                  </Button>
-                  <Button block color="light" onClick={this.handleClick.bind(this,"comments")} style={styles.modalButton}>
-                    <div style={{flex:1}}><i className="fas fa-comment" /></div>
-                    <div style={{flex:3, textAlign:"left"}}>View Comments</div>
-                  </Button>
-                  <Button block color="light" onClick={this.handleClick.bind(this,"user")} style={styles.modalButton}>
-                    <div style={{flex:1}}><i className="fas fa-user"/></div>
-                    <div style={{flex:3, textAlign:"left"}}>{"Go To " + this.state.currentUsername + "'s Page"}</div>
-                  </Button>
-                  <Button block color="light" onClick={this.handleClick.bind(this,"collection")} style={styles.modalButton}>
-                    <div style={{flex:1}}><i className="fas fa-layer-group"/></div>
-                    <div style={{flex:3, textAlign:"left"}}>Create New Collection</div>
-                  </Button>
-                  <Button block color="light" onClick={this.handleClick.bind(this,"flag")} style={styles.modalButton}>
-                    <div style={{flex:1}}><i className="fas fa-flag"/></div>
-                    <div style={{flex:3, textAlign:"left"}}>Flag as Inappropriate</div>
-                  </Button>
-
-              </ModalBody>
-            </Modal>
     </div>
     )
     }
