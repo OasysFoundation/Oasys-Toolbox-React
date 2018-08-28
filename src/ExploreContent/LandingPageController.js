@@ -235,18 +235,18 @@ class LandingPageController extends Component {
             		<section style = {styles.HorizontalScrollOuterCenterContainer}>
 	  					<div style = {styles.HorizontalScrollContainer}>
 		    				<br/>
-		        			< ScrollableAnchor id = {'searchResults'} >
-			            		< div >
-						            < HorizontalScroll title = {"Tiles"} data = {tiles} positionChange = {this.changeSectionOrder.bind(this)} type = "mobile" / >
+		        			<ScrollableAnchor id = {'searchResults'} >
+			            		<div>
+						            <HorizontalScroll title = {"Tiles"} data = {tiles} positionChange = {this.changeSectionOrder.bind(this)} type = "mobile" / >
 						            {this.state.pageData.map(dataObj =>
-						            	< HorizontalScroll key = {dataObj.title} title = {dataObj.title} data = {dataObj.data} type = "mobile" / >
+						            	<HorizontalScroll key = {dataObj.title} title = {dataObj.title} data = {dataObj.data} type = "mobile" / >
 						    			)
 						    		}
 			    				</div>
-		        			< /ScrollableAnchor>
-	        			< /div>
-        			< /section>
-        		< /div>
+		        			</ScrollableAnchor>
+	        			</div>
+        			</section>
+        		</div>
     		)
     		: (
         		<div className = "landingPage" style={styles.pcTopPadding} >
@@ -256,18 +256,18 @@ class LandingPageController extends Component {
     						<br/ >
         					<ScrollableAnchor id = {'searchResults'} >
             					<div >
-						            < HorizontalScroll title = {"Tiles"} data = {tiles} positionChange = {this.changeSectionOrder.bind(this)} />
+						            <HorizontalScroll title = {"Tiles"} data = {tiles} positionChange = {this.changeSectionOrder.bind(this)} />
 							        {
 							            this.state.pageData.map(dataObj =>
-							            	< HorizontalScroll title = {dataObj.title} data = {dataObj.data} icon = {dataObj.icon}/>
+							            	<HorizontalScroll title = {dataObj.title} data = {dataObj.data} icon = {dataObj.icon}/>
         								)
         							}
     							</div>
-        					< /ScrollableAnchor>
+        					</ScrollableAnchor>
 
-        				< /div>
-        			< /section>
-        		< /div>
+        				</div>
+        			</section>
+        		</div>
     		)		
     	}
     </div>
