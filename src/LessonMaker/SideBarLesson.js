@@ -17,7 +17,7 @@ import api from '../utils/api'
 
 import IconSelectionModal from './IconSelectionModal'
 
-import { ScaleLoader } from 'react-spinners';
+import {ScaleLoader} from 'react-spinners';
 
 import Snackbar from '@material-ui/core/Snackbar';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
@@ -27,6 +27,7 @@ class SideBarLesson extends Component {
         super(props);
         this.state = {
             showSettingsDialog: false,
+            showPublishModal: false,
             showProjectsDialog: false,
             isCurrentlySavingDraft: false,
             isCurrentlyPublishing: false,
@@ -41,6 +42,7 @@ class SideBarLesson extends Component {
         this.handleSettingsShow = this.handleSettingsShow.bind(this);
         this.onSwitchProject = this.onSwitchProject.bind(this);
         this.saveContent = this.saveContent.bind(this);
+        this.publishOrSaveContent = this.publishOrSaveContent.bind(this);
     }
 
     handleSettingsShow() {
@@ -52,6 +54,7 @@ class SideBarLesson extends Component {
     onSettingsClose() {
         this.setState({
             showSettingsDialog: false,
+            showPublishModal: false,
         });
     }
 
@@ -77,9 +80,20 @@ class SideBarLesson extends Component {
         });
     }
 
+    publishOrSaveContent() {
+        if (this.state.showPublishModal && this.title && this.description && this.tags) {
+            this.saveContent(1)
+            this.setState({showPublishModal: false})
+        } else if (this.state.showSettingsDialog) {
+            this.onSettingsSave()
+        } else {
+            //keep up the dialog or cancel
+            null
+        }
+    }
+
     saveContent(flag) {
         const {title, tags, description, contentId, user} = this.props.project;
-
         const data = {
             chapters: this.props.project.chapters
         }
@@ -90,7 +104,7 @@ class SideBarLesson extends Component {
 
             data
         }
-        
+
         if (flag === 0) {
             this.setState({
                 isCurrentlySavingDraft: true
@@ -100,21 +114,21 @@ class SideBarLesson extends Component {
                 isCurrentlyPublishing: true
             });
         }
-        
+
 
         const that = this;
-        api.postContent(allData).then(function() {
-            
+        api.postContent(allData).then(function () {
+
             that.setState({
                 isCurrentlySavingDraft: false,
                 isCurrentlyPublishing: false,
-                snackbarMessage: flag? "Published Successfully ✅" : "Saved Draft Successfully ✅"
+                snackbarMessage: flag ? "Published Successfully ✅" : "Saved Draft Successfully ✅"
             });
 
-        }).catch(function(error) {
+        }).catch(function (error) {
 
 
-            const errorMessage = flag? "Could not publish." : "Could not save draft."
+            const errorMessage = flag ? "Could not publish." : "Could not save draft."
 
             that.setState({
                 isCurrentlySavingDraft: false,
@@ -132,7 +146,7 @@ class SideBarLesson extends Component {
 
     onShowIconSelectionModal() {
         console.log("click!");
-         this.setState({
+        this.setState({
             showsIconSelectionModal: true
         })
     }
@@ -146,21 +160,26 @@ class SideBarLesson extends Component {
     render() {
         return (
             <div>
-                <IconSelectionModal isOpen={this.state.showsIconSelectionModal} onSelect={this.props.onChangeIconName} onClose={this.onCloseIconSelectionModal.bind(this)} />
-                <Modal isOpen={this.state.showSettingsDialog} toggle={this.onSettingsClose} backdrop={true}>
+                <IconSelectionModal isOpen={this.state.showsIconSelectionModal} onSelect={this.props.onChangeIconName}
+                                    onClose={this.onCloseIconSelectionModal.bind(this)}/>
+                <Modal isOpen={this.state.showSettingsDialog || this.state.showPublishModal}
+                       toggle={this.onSettingsClose} backdrop={true}>
                     <ModalHeader>
                         Settings
                     </ModalHeader>
                     <ModalBody>
-                    <center>
-                        <div style={{position: 'relative', width:'100px', height:'100px', marginBottom:'20px'}} onClick={this.onShowIconSelectionModal.bind(this)}>
-                            <img src={require('../assets/category-icons/' + this.props.iconName)} width='100px' height='100px' alt=''/>
-                            <div style={{position:'absolute', top:'0', right:'0'}}>
-                                <i class="fas fa-align-right fa-lg fa-edit" onClick={this.onShowIconSelectionModal.bind(this)}></i>
+                        <center>
+                            <div style={{position: 'relative', width: '100px', height: '100px', marginBottom: '20px'}}
+                                 onClick={this.onShowIconSelectionModal.bind(this)}>
+                                <img src={require('../assets/category-icons/' + this.props.iconName)} width='100px'
+                                     height='100px' alt=''/>
+                                <div style={{position: 'absolute', top: '0', right: '0'}}>
+                                    <i class="fas fa-align-right fa-lg fa-edit"
+                                       onClick={this.onShowIconSelectionModal.bind(this)}></i>
+                                </div>
                             </div>
-                        </div>
-                        
-                    </center>
+
+                        </center>
                         <Input
                             defaultValue={this.props.title}
                             onChange={e => this.title = e.target.value}
@@ -189,25 +208,27 @@ class SideBarLesson extends Component {
                     </ModalBody>
                     <ModalFooter>
                         <Button color="secondary" onClick={this.onSettingsClose}>Cancel</Button>
-                        <Button color="primary" onClick={this.onSettingsSave}>Save</Button>
+                        <Button color="primary" onClick={this.publishOrSaveContent}>{this.state.showPublishModal ? 'Publish' : 'Save Settings'}</Button>
 
                     </ModalFooter>
                 </Modal>
 
-                <Modal isOpen={this.state.showProjectsDialog} toggle={() => this.setState({showProjectsDialog: false})} backdrop={true}>
+                <Modal isOpen={this.state.showProjectsDialog} toggle={() => this.setState({showProjectsDialog: false})}
+                       backdrop={true}>
                     <ModalHeader> Your Projects </ModalHeader>
                     <ModalBody>
                         --EMBED Robbies project page here ---
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="secondary" onClick={() => this.setState({showProjectsDialog: false})}>Cancel</Button>
-                        <Button color="primary" onClick={this.onSwitchProject}>Save</Button>
+                        <Button color="secondary"
+                                onClick={() => this.setState({showProjectsDialog: false})}>Cancel</Button>
+                        <Button color="primary" onClick={this.onSwitchProject}>Open</Button>
                     </ModalFooter>
 
 
                 </Modal>
 
-                <AppSidebar fixed display="lg" >
+                <AppSidebar fixed display="lg">
                     <Button className='sidebar-button title'>
                         <input
                             className='form-control'
@@ -224,13 +245,13 @@ class SideBarLesson extends Component {
                     </Button>
                     <Button onClick={() => this.saveContent(0)} className='sidebar-button'>
                         <div>Save draft</div>
-                        {this.state.isCurrentlySavingDraft? <ScaleLoader height={15} color='white' /> : null }
+                        {this.state.isCurrentlySavingDraft ? <ScaleLoader height={15} color='white'/> : null}
                         <i className="fas fa-align-right fa-lg fa-save"></i>
                     </Button>
 
-                    <Button onClick={() => this.saveContent(1)} className='sidebar-button publish'>
+                    <Button onClick={() => this.setState({showPublishModal: true})} className='sidebar-button publish'>
                         <div>Publish</div>
-                        {this.state.isCurrentlyPublishing? <ScaleLoader height={15} color='white' /> : null }
+                        {this.state.isCurrentlyPublishing ? <ScaleLoader height={15} color='white'/> : null}
                         <i className="fas fa-align-right fa-lg fa-globe-americas"></i>
                     </Button>
                     <hr/>
@@ -240,21 +261,21 @@ class SideBarLesson extends Component {
                 </AppSidebar>
 
                 <Snackbar
-                  anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'left',
-                  }}
-                  open={Boolean(this.state.snackbarMessage)}
-                  autoHideDuration={6000}
-                  onClose={this.onCloseSnackBar.bind(this)}
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'left',
+                    }}
+                    open={Boolean(this.state.snackbarMessage)}
+                    autoHideDuration={6000}
+                    onClose={this.onCloseSnackBar.bind(this)}
                 >
                     <SnackbarContent
-                      aria-describedby="client-snackbar"
-                      message={
-                        <span id="client-snackbar">
+                        aria-describedby="client-snackbar"
+                        message={
+                            <span id="client-snackbar">
                           {this.state.snackbarMessage}
                         </span>
-                      }
+                        }
                     />
                 </Snackbar>
             </div>
