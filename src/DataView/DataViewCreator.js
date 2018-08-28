@@ -47,24 +47,23 @@ class DataViewCreator extends Component {
 
     constructor(props) {
         super(props);
-        this.rawdata = {
-            contents: [],
-            ratings: [],
-        };
-
-        this.summary = {
-            'title': 'All lessons',
-            'rating': 0,
-            'learner': 0,
-            'published': 0,
-            'id': 'all',
-        }
-
         this.state = {
             currentDataIdx: -1, // -1 means summary
             lessons: [],
             summaryDone: false,
         };
+        this.rawdata = {
+            contents: [],
+            ratings: [],
+        };
+        this.summary = {
+            'title': 'All lessons',
+            'rating': 0,
+            'learner': 0,
+            'id': 'all',
+        }
+        this.contentOverview = [];
+        this.apiSuccessCount = 0;
         this.onChangeData = this.onChangeData.bind(this);
     }
 
@@ -78,22 +77,41 @@ class DataViewCreator extends Component {
         console.log(nextProps, 'nextprops here')
         if (!nextProps.user.uid) {
             return
-
         }
+
+        api.getUserContentsPreview().then(results => {
+            let lessons = [];
+            results.forEach((lesson,idx)=>{
+                lessons.push({
+                    id: lesson.contentId,
+                    idx: idx,
+                    rating: lesson.rating.mean,
+                    title: lesson.title,
+                    learner: 0,
+                    learnerPerWeek: [],
+                    token: 0,
+                    tokenPerWeek: [],
+                    published: new Date(1963, 1, 1),
+                });
+            });
+            this.setState({lessons: lessons});
+            this.contentOverview = results;
+            this.apiSuccessCount++;
+            if (this.apiSuccessCount===3) { this.showAnalytics(); }
+        }).catch(err => console.log(err));
+
         api.getContentsForCreator(nextProps.user).then(result => {
             console.log(result, 'getcontentsforcreator')
             this.rawdata['contents'] = result;
-            if (this.rawdata['ratings'] !== []) {
-                this.showAnalytics();
-            }
+            this.apiSuccessCount++;
+            if (this.apiSuccessCount===3) { this.showAnalytics(); }
         }).catch(err => console.log(err));
 
         api.getRatingsForCreator(nextProps.user).then(result => {
             console.log(result, 'getratingsforcreator')
             this.rawdata['ratings'] = result.map(obj => obj.rating);
-            if (this.rawdata['contents'] !== []) {
-                this.showAnalytics();
-            }
+            this.apiSuccessCount++;
+            if (this.apiSuccessCount===3) { this.showAnalytics(); }
         }).catch(err => console.log(err));
         //console.log(this.analytics, "analytics")
     }
@@ -197,7 +215,7 @@ class DataViewCreator extends Component {
                                 <h3>
                                     No lessons created yet
                                 </h3>
-                                {this.props.user.displayName === undefined
+                                {this.props.user.displayName !== undefined
                                     ?
                                     <p>You need to <a href="/create">create a lesson</a> to see analytics here.</p>
                                     :
