@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Button} from 'reactstrap';
-import {Input, FormText, Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
+import {Input, FormText, ListGroup, ListGroupItem, Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
 
 import {
     AppSidebar,
@@ -31,11 +31,17 @@ class SideBarLesson extends Component {
             showProjectsDialog: false,
             isCurrentlySavingDraft: false,
             isCurrentlyPublishing: false,
-            snackbarMessage: null
+            snackbarMessage: null,
+            data:[],
+            doneLoading:false,
+            activeTab: 1,
         }
+
         this.title = null;
         this.tags = null;
         this.description = null;
+
+        this.toggle = this.toggle.bind(this);
 
         this.onSettingsClose = this.onSettingsClose.bind(this);
         this.onSettingsSave = this.onSettingsSave.bind(this);
@@ -43,6 +49,37 @@ class SideBarLesson extends Component {
         this.onSwitchProject = this.onSwitchProject.bind(this);
         this.saveContent = this.saveContent.bind(this);
         this.publishOrSaveContent = this.publishOrSaveContent.bind(this);
+    }
+
+    componentDidMount(){
+        try {
+               api.getUserContentsPreview()
+                   .then(json => {
+                       if(json && json.length){
+                           this.setState({
+                               data:json,
+                           })
+                        }
+                       else{
+                            console.log("Failed to find content")
+                       }
+                       this.setState({doneLoading:true})
+                   })
+                   .catch(err => {
+                       console.log(err)
+                   })
+           }
+           catch (e){
+               console.log(e)
+           }
+    }
+
+    toggle(tab) {
+        if (this.state.activeTab !== tab) {
+          this.setState({
+            activeTab: tab
+          });
+        }
     }
 
     handleSettingsShow() {
@@ -228,8 +265,30 @@ class SideBarLesson extends Component {
                 <Modal isOpen={this.state.showProjectsDialog} toggle={() => this.setState({showProjectsDialog: false})}
                        backdrop={true}>
                     <ModalHeader> Your Projects </ModalHeader>
-                    <ModalBody>
-                        --EMBED Robbies project page here ---
+                    <ModalBody style={{height: "20rem", overflow:"scroll"}}>
+                    {this.state.doneLoading
+                        ? this.state.data && this.state.data.length
+                            ? (
+                                <ListGroup id="list-tab" role="tablist">
+                                    <ListGroupItem color="success">Saved Drafts</ListGroupItem>
+                                   {
+                                    this.state.data.map((data,idx) =>
+                                        data.published!==1
+                                     ? <ListGroupItem key={idx} onClick={() => this.toggle(idx)} action active={this.state.activeTab === idx} >{data.title}</ListGroupItem>
+                                     : null
+                                    )} 
+                                <ListGroupItem color="success">Published Work</ListGroupItem>
+                                   {this.state.data.map((data,idx) =>
+                                    data.published===1  
+                                     ? <ListGroupItem key={idx} onClick={() => this.toggle(idx)} action active={this.state.activeTab === idx}>{data.title}</ListGroupItem>
+                                     : null
+                                    )} 
+                                </ListGroup>
+                                )
+                            : "No Contents"
+                        : "Loading.."
+                    }
+                    
                     </ModalBody>
                     <ModalFooter>
                         <Button color="secondary"
