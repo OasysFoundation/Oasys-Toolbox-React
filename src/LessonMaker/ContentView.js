@@ -52,11 +52,11 @@ class ContentView extends Component {
         }
 
         else {
-            const {username, title} = this.props.match.params;
+            const {uid, contentId} = this.props.match.params;
             const chapterIndex = this.props.match.params.chapterIndex || 0;
             console.log(chapterIndex, 'index')
 
-            api.getContentByUserNameAndTitle(username, title)
+            api.getContent(uid, contentId)
                 .then(results => {
                     const project = results[0]
                     //console.log(project);

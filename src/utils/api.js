@@ -49,8 +49,8 @@ const api = {
         const url = BASE_URL + 'getAllRatings/' + user.displayName;
         return get(url);
     },
-    getContent(userName, contentName) { //ES6 Object destructuring
-        const url = `${BASE_URL}user/${userName}/${contentName}`;
+    getContent(uid, contentId) { //ES6 Object destructuring
+        const url = `${BASE_URL}user/${uid}/${contentId}`;
         return get(url);
     },
     getCommentsForContent(userId, contentId, slideNumber) { 
@@ -65,10 +65,10 @@ const api = {
         const url = BASE_URL + 'getContentById/' + contentId;
         return get(url);
     },
-    getContentByUserNameAndTitle(username, title) {
-        const url = BASE_URL + 'getContentByUserNameAndTitle/' + username + "/" + title;
-        return get(url);
-    },
+    // getContentByUserNameAndTitle(username, title) {
+    //     const url = BASE_URL + 'getContentByUserNameAndTitle/' + username + "/" + title;
+    //     return get(url);
+    // },
     getUserContentsPreview() {
         const userId = getUserIdFromStore();
         const url = `${BASE_URL}getUserContentsPreview/${userId}`;
