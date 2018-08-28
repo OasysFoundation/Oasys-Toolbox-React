@@ -1,7 +1,7 @@
 import {Component} from 'react';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import registerServiceWorker from './utils/registerServiceWorker';
+//import registerServiceWorker from './utils/registerServiceWorker';
 import {Router, Route, Switch} from 'react-router-dom';
 
 import {withRouter} from 'react-router'
@@ -168,4 +168,4 @@ export default withRouter(Index);
 
 
 ReactDOM.render(<Index/>, document.getElementById('root'));
-registerServiceWorker();
+//registerServiceWorker();
