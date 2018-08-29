@@ -44,9 +44,54 @@ class AccountPage extends Component {
             pageDataReccommended: [],
             pageDataUser: [],
             noContent:true,
-            doneLoading:false,
         };
         this.loadAccountPage = this.loadAccountPage.bind(this);
+        this.getData = this.getData.bind(this);
+
+        if (this.props.user.uid) {
+            this.getData(this.props);
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (!nextProps.user.uid) {
+            return;
+        }
+        this.getData(nextProps);
+    }
+
+    getData(nextProps) {
+       try {
+               api.getUserContentsPreview()
+                   .then(json => {
+                       this.setState({
+                           contentUser: json || "errorLoadingContent"
+                       })
+                       if(json && json.length)
+                           this.setState({
+                               pageDataUser: [
+                                   {
+                                       title: "My Publications",
+                                       data: this.state.contentUser.filter(content => content.published === 1),
+                                   },
+                                   {
+                                       title: "My Drafts",
+                                       data: this.state.contentUser.filter(content => content.published !== 1),
+                                   },
+                               ],
+                               noContent:false,
+                           })
+                       else{
+                           this.setState({noContent:true})
+                       }
+                   })
+                   .catch(err => {
+                       console.log(err)
+                   })
+           }
+           catch (e){
+               console.log(e)
+           }
     }
 
     componentDidMount(){
@@ -188,65 +233,20 @@ class AccountPage extends Component {
                      : this.loadAccountPage()
                   }
                   <div style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
-                         <Button size="lg" style={{margin: '1rem'}} color="primary" onClick={() => window.location.href="/create"}> Create Content</Button>
-                        <Button size="lg" style={{margin: '1rem'}} color="primary" onClick={() => window.location.href="/explore"}> Home </Button>
+                         <Button size="lg" style={{margin: '1rem'}} color="primary" onClick={() =>history.push("/create")}> Create Content</Button>
+                        <Button size="lg" style={{margin: '1rem'}} color="primary" onClick={() => history.push("/explore")}> Home </Button>
                   </div>
                 </section>
             </div>
         )
     }
 
-    loadUserData() {
-       try {
-               api.getUserContentsPreview()
-                   .then(json => {
-                       this.setState({
-                           contentUser: json || "errorLoadingContent"
-                       })
-                       if(json && json.length)
-                           this.setState({
-                               pageDataUser: [
-                                   {
-                                       title: "My Publications",
-                                       data: this.state.contentUser.filter(content => content.published === 1),
-                                   },
-                                   {
-                                       title: "My Drafts",
-                                       data: this.state.contentUser.filter(content => content.published !== 1),
-                                   },
-                               ],
-                               noContent:false,
-                           })
-                       else{
-                           this.setState({noContent:true})
-                       }
-                       this.setState({doneLoading:true})
-                   })
-                   .catch(err => {
-                       console.log(err)
-                   })
-           }
-           catch (e){
-               console.log(e)
-           }
-    }
-
     render() {
-        // eslint-disable-next-line no-unused-expressions
-        this.props.user.status===0
-            ? null
-            : this.props.user.status===1
-                ? history.push('/auth') 
-                : this.state.doneLoading
-                    ? null
-                    : this.loadUserData()
         return (
            <div>
-                {this.props.user.status!==0
-                    ? isMobile()
+                {isMobile()
                         ? this.hasLoaded("mobile")
                         : this.hasLoaded("pc")
-                    : null
                 }
            </div>
         )

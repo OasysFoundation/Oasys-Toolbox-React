@@ -9,7 +9,6 @@ const initData = {
         name: null,
         uid: null,
         idToken: null,
-        status: 0,
     },
     title: 'Untitled Project',
     iconName: "001-cells.svg",
@@ -40,12 +39,10 @@ const initData = {
 };
 
 const mockData = {
-    //status 0 = unknown, 1 = loggedout, 2 = logged in
     user: {
         name: null,
         uid: null,
         idToken: null,
-        status: 0,
     },
     title: "Physics101",
     author: 'markus123',

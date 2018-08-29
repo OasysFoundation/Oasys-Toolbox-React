@@ -134,7 +134,7 @@ const actions = function (store) { //store for async stuff
             return {...state, ...projectData};
         },
 
-        remixProject(state, projectData, user = {name: null, uid: null, idToken: null, status: 0}) {
+        remixProject(state, projectData, user = {name: null, uid: null, idToken: null}) {
             const clone = JSON.parse(JSON.stringify(projectData));
             clone.user = user;
             clone.chapters = projectData.data.chapters;
