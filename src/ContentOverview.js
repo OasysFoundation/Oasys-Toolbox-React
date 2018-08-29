@@ -128,7 +128,7 @@ class ContentOverview extends Component {
         // else if (value === "content")
         //     window.location.href = `/content/`
         else if (value === "user") {            
-          history.push(`/user/${this.props.user.displayName || "anonymous"}/${this.props.match.params.uid}`) 
+          history.push(`/user/${this.props.match.params.username || "anonymous"}/${this.props.match.params.uid}`) 
         }        
           else if (value === "flag"){
               this.setState({
