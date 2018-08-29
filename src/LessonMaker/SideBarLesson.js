@@ -49,9 +49,22 @@ class SideBarLesson extends Component {
         this.onSwitchProject = this.onSwitchProject.bind(this);
         this.saveContent = this.saveContent.bind(this);
         this.publishOrSaveContent = this.publishOrSaveContent.bind(this);
+
+        this.getData = this.getData.bind(this);
+
+        if (this.props.project.user.uid) {
+            this.getData(this.props);
+        }
     }
 
-    componentDidMount(){
+    componentWillReceiveProps(nextProps) {
+        if (!nextProps.project.user.uid) {
+            return;
+        }
+        this.getData(nextProps);
+    }
+
+    getData(nextProps){
         try {
                api.getUserContentsPreview()
                    .then(json => {
