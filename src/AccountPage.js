@@ -31,6 +31,9 @@ const styles = {
         width:"100%",
         marginRight:"100%",
     },
+    paddingForHeaderSection:{
+        padding:"10px",
+    },
 }
 
 class AccountPage extends Component {
@@ -207,10 +210,10 @@ class AccountPage extends Component {
         const paddingVal = (value==="mobile" ? "120px" : "70px")
         return(
             <div>
-                <section className="bg-light rz-start rz-no-border-special-2" id="about" style={{paddingTop: paddingVal}}>
-                  <div className="container">
-                    <div className="row">
-                      <div className="col-lg-10 mx-auto">
+                <section id="about" style={{paddingTop: paddingVal}}>
+                    <div className="row" style={styles.HorizontalScrollOuterCenterContainer}>
+                      <div style={styles.HorizontalScrollContainer}>
+                      <div style={styles.paddingForHeaderSection}>
                         <div style={styles.HorizontalScrollTitle}>
                         {"Welcome " + this.props.user.displayName + "!"}
                         <Button 
