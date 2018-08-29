@@ -11,6 +11,7 @@ class VideoEdit extends Component {
         super(props);
         this.onChangeUrl = this.onChangeUrl.bind(this);
         this.onChangeCrop = this.onChangeCrop.bind(this);
+        this.props.onStartLoading();
     }
 
     isValidYouTubeUrl(url) {
@@ -49,6 +50,7 @@ class VideoEdit extends Component {
                     data={this.props.data} 
                     elementId={this.props.id} 
                     isEditMode={this.props.isEditMode}
+                    onLoad={this.props.onCompletedLoading}
                    />)
                 : (<VideoEditCropper 
                     data={this.props.data} 
