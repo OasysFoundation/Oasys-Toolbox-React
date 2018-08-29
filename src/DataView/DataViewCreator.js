@@ -12,36 +12,6 @@ import {rearrangeData} from './processData';
 import {isEmpty} from '../utils/trickBox'
 import {isMobile} from '../utils/tools'
 
-/*
-const allLessons = [
-	{
-		'title': 'Bullshit detector',
-		'rating': 4.4,
-		'learner': 100,
-		'token': 5,
-		'published': new Date(),
-		'id': Math.random(36).toString(),
-	},
-	{
-		'title': 'Energy is esoteric',
-		'rating': 4.2,
-		'learner': 200,
-		'token': 2,
-		'published': new Date(),
-		'id': Math.random(36).toString(),
-
-	},
-	{
-		'title': 'Atoms are not atomic',
-		'rating': 4.3,
-		'learner': 1000,
-		'token': 200,
-		'published': new Date(),
-		'id': Math.random(36).toString(),
-	},
-];
-*/
-
 
 class DataViewCreator extends Component {
 
@@ -50,15 +20,11 @@ class DataViewCreator extends Component {
         this.options = {
             nWeeks: 8,
             now: new Date(),
-        }
-        this.state = {
-            currentDataIdx: -1, // -1 means summary
-            lessons: [],
-            processingDone: false,
         };
         this.rawdata = {
             contents: [],
             ratings: [],
+            comments: [],
         };
         this.summary = {
             'title': 'All lessons',
@@ -66,14 +32,18 @@ class DataViewCreator extends Component {
             'learner': 0,
             'id': 'all',
         }
+        this.state = {
+            currentDataIdx: -1, // -1 means summary
+            lessons: [],
+            processingDone: false,
+        };
         this.lessons = [];
-        this.contentOverview = [];
         this.apiSuccessCount = 0;
         this.onChangeData = this.onChangeData.bind(this);
         this.getData = this.getData.bind(this);
 
         if (this.props.user.uid) {
-            this.getData(this.props)
+            this.getData(this.props);
         }
     }
 
@@ -104,9 +74,9 @@ class DataViewCreator extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (!nextProps.user.uid) {
-            return
+            return;
         }
-        this.getData(nextProps)
+        this.getData(nextProps);
     }
 
     getData(nextProps) {
@@ -122,7 +92,6 @@ class DataViewCreator extends Component {
                 lessons.push(lesson);
             });
             this.lessons = lessons;
-            this.contentOverview = results;
             this.apiSuccessCount++;
 
             console.log(results, this.apiSuccessCount)
@@ -152,29 +121,6 @@ class DataViewCreator extends Component {
         }).catch(err => console.log(err));
     }
 
-    /*getSummary(lessons) {
-        if (lessons.length>0) {
-            this.summary.rating = lessons.map(e => e.rating)
-                .filter(e => !isNaN(e))
-                .reduce((a, b, idx, arr) => a + b / arr.length, 0)
-                .toFixed(1);
-            this.summary.learner = lessons.map(e => e.learner)
-                .reduce((a, b) => a + b);
-            this.summary.token = lessons.map(e => e.token)
-                .reduce((a, b) => a + b);
-            this.summary.learnerPerWeek = lessons[0].learnerPerWeek;
-            lessons.forEach(lesson=>{
-                lesson.learnerPerWeek.forEach((week,idx)=>{
-                    this.summary.learnerPerWeek[idx].users += week.users;
-                })
-            })
-        }
-
-        console.log({rawdata: this.rawdata});
-        console.log({data: this.data});
-        console.log({lessons: lessons});
-        console.log({summary: this.summary});
-    }*/
 
     showAnalytics() {
         /* TODO
@@ -204,8 +150,7 @@ class DataViewCreator extends Component {
 
     render() {
         const paddingVal = (isMobile() ? "60px" : "10px");
-        console.log(this.state.lessons)
-        console.log(this.state.currentDataIdx)
+
         return (
             <div className="app-body">
                 <main className="main dataview">
