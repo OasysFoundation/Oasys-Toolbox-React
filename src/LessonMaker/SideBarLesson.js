@@ -316,7 +316,7 @@ class SideBarLesson extends Component {
                         <i className="fas fa-align-right fa-lg fa-cog" onClick={this.handleSettingsShow}></i>
                     </Button>
                     <Button onClick={() => this.setState({showProjectsDialog: true})} className='sidebar-button'>
-                        <div>Open Project</div>
+                        <div>Open Lesson</div>
 
                         <i className="fas fa-align-right fa-lg fa-folder-open"></i>
                     </Button>
