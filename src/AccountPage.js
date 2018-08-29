@@ -168,7 +168,12 @@ class AccountPage extends Component {
                       <div className="col-lg-10 mx-auto">
                         <div style={styles.HorizontalScrollTitle}>
                         {"Welcome " + this.props.user.displayName + "!"}
-                        <Button size="sm" style={{float:"right", backgroundColor:"#A2ABB8"}} color="black" onClick={() => auth.doSignOut()}>Logout</Button>
+                        <Button 
+                          style={{float:"right", backgroundColor: colors.GHOST, fontFamily: 'JafBernino-Regular'}} 
+                          onClick={() => auth.doSignOut()}
+                        >
+                          Logout
+                        </Button>
                         <hr style={styles.HRDividingLine}/>
                         </div>
                         <p className="text-faded lead mb-4" style={{fontSize: '1.3rem'}}>                                 
