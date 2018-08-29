@@ -44,6 +44,7 @@ class Element extends Component {
             tempContent: this.props.data.content || getContentFromSessionStorage(this.props.data.id),
             timestamp: Date.now(),
             shouldFoldInView: false,
+            isLoadedCompletely: false
         };
     }
 
@@ -141,6 +142,9 @@ class Element extends Component {
     }
 
     componentDidMount() {
+        this.setState({
+            isLoadedCompletely: true
+        })
         // in case we ever need this - with the following we can query if the element is visible.
         // right now, we are passively receiving the visibility info through onChangeVisibility
         /*
@@ -205,6 +209,7 @@ class Element extends Component {
                     <section onMouseEnter={() => this.setState({isHovered: true})}
                              onMouseLeave={() => this.setState({isHovered: false})}
                     >
+                    {this.state.isLoadedCompletely? <div>LOADED (Debugging for Frederik, will be removed after)</div> : <div>LOADINGGGGGG</div>}
                         {this.props.isEditMode ?
                             <FadeableCard
                                 id={id}
