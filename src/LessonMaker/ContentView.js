@@ -215,10 +215,9 @@ class ContentView extends Component {
 
     showConcludingContentPage() {
         const {uid, username, contentId, title} = this.props.match.params;
-        const displayName = this.props.user.displayName;
         var url = this.removeLastComponentOfUrl(window.location.href);
         return <ConcludingContentPage uid={uid} url={url}
-                                      author={displayName} title={title}
+                                      author={username} title={title}
                                       contentId={contentId}
                                       description="Explore Interactive Content – Learn Science and Technology through Experimentation and Play!"/>
     }
