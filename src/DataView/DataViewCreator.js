@@ -178,7 +178,7 @@ class DataViewCreator extends Component {
 						*/}
 
                         {isEmpty(this.props.user.displayName)
-                            ? <p>Please <a href="/account">log in</a> to see your analytics.</p>
+                            ? <p>Please <a href="/auth">log in</a> to see your analytics.</p>
                             : this.apiSuccessCount < 3
                                 ?
                                 <h3>

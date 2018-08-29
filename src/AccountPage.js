@@ -9,6 +9,7 @@ import {connect} from "redux-zero/react";
 
 import {Button} from 'reactstrap';
 import colors from './utils/colors';
+import {isEmpty} from './utils/trickBox'
 
 import { isMobile } from './utils/tools'
 
@@ -215,7 +216,7 @@ class AccountPage extends Component {
                       <div style={styles.HorizontalScrollContainer}>
                       <div style={styles.paddingForHeaderSection}>
                         <div style={styles.HorizontalScrollTitle}>
-                        {"Welcome " + this.props.user.displayName + "!"}
+                        {"Welcome" + (this.props.user.displayName ? (" " + this.props.user.displayName) : "")+ "!"}
                         <Button 
                           style={{float:"right", backgroundColor: colors.GHOST, fontFamily: 'JafBernino-Regular'}} 
                           onClick={() => auth.doSignOut()}
@@ -247,9 +248,12 @@ class AccountPage extends Component {
     render() {
         return (
            <div>
-                {isMobile()
+                {isEmpty(this.props.user.displayName)
+                  ? history.push('/auth')
+                  : (isMobile()
                         ? this.hasLoaded("mobile")
                         : this.hasLoaded("pc")
+                    )
                 }
            </div>
         )
