@@ -249,6 +249,9 @@ class NavBar extends React.Component {
         };
         this.doRender = false;
 
+    }
+
+    componentDidMount(){
         api.getContentsPreview()
             .then(json => {
                 if (json) {
