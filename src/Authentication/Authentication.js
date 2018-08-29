@@ -365,19 +365,22 @@ class Authentication extends Component {
                                                     <Button color="primary" className="px-4"
                                                             onClick={this.RegisterClicked}>Register</Button>
                                                 </Col>
-                                                <Col xs="6">
-                                                    <Button color="link" className="px-0"
-                                                            onClick={this.ForgotPasswordClicked}>Forgot
-                                                        password?</Button>
-                                                </Col>
-                                                <Col xs="6" className="text-right">
-                                                    <Button color="link" className="px-0"
-                                                            onClick={this.ResetPasswordClicked}>Reset Password</Button>
-                                                </Col>
+                                                {/*
+                                                    <Col xs="6">
+                                                        <Button color="link" className="px-0"
+                                                                onClick={this.ForgotPasswordClicked}>Forgot/Reset
+                                                            password</Button>
+                                                    </Col>
+                                                    <Col xs="6" className="text-right">
+                                                        <Button color="link" className="px-0"
+                                                                onClick={this.ResetPasswordClicked}>Reset Password</Button>
+                                                    </Col>
+                                                                                           */}
                                             </Row>
                                             <br />
                                             <Button color="primary" block onClick={this.onLoginWithFacebook.bind(this)}>Login with Facebook</Button>
                                             <Button color="primary" block onClick={this.onLoginWithGoogle.bind(this)}>Login with Google</Button>
+                                            <Button color="primary" block onClick={this.ForgotPasswordClicked}>Forgot/Reset Password</Button>
                                         </Form>
                                     </CardBody>
                                 </Card>
