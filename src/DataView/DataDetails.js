@@ -151,6 +151,7 @@ class DataDetails extends Component {
           </CardBody>
         </Card>
 
+      {/*
 				<Card className='has-shadow marginBottom20'>
           <CardBody>
             <div className="chart-wrapper">
@@ -160,6 +161,8 @@ class DataDetails extends Component {
             </div>
           </CardBody>
         </Card>
+      */}
+      
       {/*
         <Card className='has-shadow marginBottom20'>
           <CardBody>

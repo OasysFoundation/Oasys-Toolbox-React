@@ -65,6 +65,9 @@ const styles= {
 		flex: "1",
 		float: "right",
 		color: colors.RUST,
+		padding: '10px',
+		marginTop: '-10px',
+		marginRight: '-10px',
 	},
 	cardImageOuterLink:{
 		textDecoration:"none",

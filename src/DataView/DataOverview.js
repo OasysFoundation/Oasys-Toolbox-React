@@ -53,13 +53,14 @@ class DataOverview extends Component {
                     		How many learners have accessed this lesson
                     	</ReactTooltip>
                     </th>
-		            <th>
+		            {/*<th>
 		            	Rewards
 		            	<sup><i className="far fa-question-circle margin-right5 medgrey" data-tip='tooltip' data-for='token-help'></i></sup>
                     	<ReactTooltip id='token-help'> 
                     		Amount of OAS tokens you have earned with this lesson
                     	</ReactTooltip>
                 	</th>
+                	*/}
 		            <th>
 		            	Birthday
 		            	<sup><i className="far fa-question-circle margin-right5 medgrey" data-tip='tooltip' data-for='birthday-help'></i></sup>
@@ -88,11 +89,12 @@ class DataOverview extends Component {
 			            		.map(e=>e.learner)
 			            		.reduce((a,b)=>a+b)}
 		            	</strong></td>
-			            <td><strong>
+			            {/*<td><strong>
 			            	{this.props.data
 			            		.map(e=>e.token)
 			            		.reduce((a,b)=>a+b)}
 		            	</strong></td>
+                		*/}
 			            <td></td>
 			          </tr>
 		          	{this.props.data.map(e=>
@@ -105,7 +107,7 @@ class DataOverview extends Component {
 			            <td>{e.title}</td>
 			            <td>{isNaN(e.rating) ? 'N/A' : e.rating}</td>
 			            <td>{e.learner}</td>
-			            <td>{e.token}</td>
+			            {/* 	<td>{e.token}</td> */}
 			            <td>{e.published}</td>
 			          </tr>
 		          	)}
