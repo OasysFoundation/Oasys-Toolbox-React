@@ -23,7 +23,6 @@ class DataOverview extends Component {
 	}
 	
 	render(){
-		console.log(this.props.data)
 		return (
 			<div>
 				<h3 style={{marginBottom: '0px'}}>

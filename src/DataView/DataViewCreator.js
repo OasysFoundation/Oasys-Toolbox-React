@@ -47,10 +47,14 @@ class DataViewCreator extends Component {
 
     constructor(props) {
         super(props);
+        this.options = {
+            nWeeks: 8,
+            now: new Date(),
+        }
         this.state = {
             currentDataIdx: -1, // -1 means summary
             lessons: [],
-            summaryDone: false,
+            processingDone: false,
         };
         this.rawdata = {
             contents: [],
@@ -62,6 +66,7 @@ class DataViewCreator extends Component {
             'learner': 0,
             'id': 'all',
         }
+        this.lessons = [];
         this.contentOverview = [];
         this.apiSuccessCount = 0;
         this.onChangeData = this.onChangeData.bind(this);
@@ -71,30 +76,44 @@ class DataViewCreator extends Component {
         this.setState({currentDataIdx: idx});
     }
 
+    initLessonData(){
+        const nWeeks = this.options.nWeeks;
+        let lesson = {
+            learnerPerWeek: [],
+            tokenPerWeek: [],
+            commentsPerWeek: [],
+            learner: 0,
+            token: 0,
+            comments: 0,
+            rating: NaN,
+        }
+        for (let i=0; i<nWeeks; i++) {
+            let t = new Date();
+            t.setTime(this.options.now.getTime() - (nWeeks-i-1)*60*60*24*1000*7);
+            lesson.learnerPerWeek.push({week: t, learner: 0});
+            lesson.tokenPerWeek.push({week: t, rewards: 0});
+            lesson.commentsPerWeek.push({week: t, comments: 0});
+        }
+        return lesson;
+    }
+
     componentWillReceiveProps(nextProps) {
-        //firebase auth takes longer if loading the link directly per URL
-        console.log(nextProps.user.uid)
         if (!nextProps.user.uid) {
             return
         }
 
         api.getUserContentsPreview().then(results => {
-            console.log(results)
             let lessons = [];
-            results.forEach((lesson,idx)=>{
-                lessons.push({
-                    id: lesson.contentId,
-                    idx: idx,
-                    rating: lesson.rating.mean,
-                    title: lesson.title,
-                    learner: lesson.views,
-                    learnerPerWeek: [],
-                    token: 0,
-                    tokenPerWeek: [],
-                    published: new Date(lesson.birthday).toLocaleDateString("en-US"),
-                });
+            results.forEach((result,idx)=>{
+                let lesson = this.initLessonData();
+                lesson.id = result.contentId;
+                lesson.idx = idx;
+                lesson.title = result.title;
+                lesson.views = result.view;
+                lesson.published = new Date(result.birthday).toLocaleDateString("en-US");
+                lessons.push(lesson);
             });
-            this.setState({lessons: lessons});
+            this.lessons = lessons;
             this.contentOverview = results;
             this.apiSuccessCount++;
             if (this.apiSuccessCount===3) { this.showAnalytics(); }
@@ -107,13 +126,13 @@ class DataViewCreator extends Component {
         }).catch(err => console.log(err));
 
         api.getRatingsForCreator(nextProps.user).then(result => {
-            this.rawdata['ratings'] = result.map(obj => obj.rating);
+            this.rawdata['ratings'] = result;
             this.apiSuccessCount++;
             if (this.apiSuccessCount===3) { this.showAnalytics(); }
         }).catch(err => console.log(err));
     }
 
-    getSummary(lessons) {
+    /*getSummary(lessons) {
         if (lessons.length>0) {
             this.summary.rating = lessons.map(e => e.rating)
                 .filter(e => !isNaN(e))
@@ -130,8 +149,12 @@ class DataViewCreator extends Component {
                 })
             })
         }
-        this.setState({summaryDone: true});
-    }
+
+        console.log({rawdata: this.rawdata});
+        console.log({data: this.data});
+        console.log({lessons: lessons});
+        console.log({summary: this.summary});
+    }*/
 
     showAnalytics() {
         /* TODO
@@ -147,26 +170,22 @@ class DataViewCreator extends Component {
             visible: isVisible,
             time: new Date(),
         */
-
-        this.data = rearrangeData(this.rawdata);
-
-        let lessons = JSON.parse(JSON.stringify(this.state.lessons));
-        this.data.contents.forEach(content => {
-            // update this.state.lessons
-            let lessonIdx = this.state.lessons.findIndex(lesson=>lesson.id===content.id);
-            let lesson = lessons[lessonIdx];
-            lesson.learnerPerWeek = content.usersPerWeek;
+        let summary = this.initLessonData();
+        summary.idx = -1; // special index -1 is reserved for summary
+        summary.rating = 0;
+        let data = rearrangeData(this.rawdata, this.lessons, summary, this.options);
+        this.summary = data.summary;
+        this.setState({
+            lessons: data.lessons,
+            processingDone: true,
         });
-        console.log(this.rawdata);
-        console.log(this.data);
-        console.log(this.state.lessons);
-        
-        this.getSummary(lessons);
-        this.setState({lessons: lessons});
+        console.log(data)
     }
 
     render() {
         const paddingVal = (isMobile() ? "60px" : "10px");
+        console.log(this.state.lessons)
+        console.log(this.state.currentDataIdx)
         return (
             <div className="app-body">
                 <main className="main dataview">
@@ -208,7 +227,7 @@ class DataViewCreator extends Component {
                                             onChangeData={this.onChangeData}
                                             data={this.state.lessons}
                                         />
-                                        {/*this.state.summaryDone
+                                        {this.state.processingDone
                                             ?
                                             <DataDetails
                                                 contentTitle={this.state.contentTitle}
@@ -218,7 +237,7 @@ class DataViewCreator extends Component {
                                                 }
                                             />
                                             : null
-                                        */}
+                                        }
                                     </React.Fragment>
                         }
                     </Container>

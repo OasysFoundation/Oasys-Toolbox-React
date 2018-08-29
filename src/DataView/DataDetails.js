@@ -104,30 +104,35 @@ class DataDetails extends Component {
     let optsDuration = JSON.parse(JSON.stringify(options));
     let optsScore = JSON.parse(JSON.stringify(options));
 
-		optsUser.title.text = 'Learners';
-    optsUser.scales.yAxes[0].scaleLabel.labelString = 'Learners';
+		optsUser.title.text = 'Learner';
+    optsUser.scales.yAxes[0].scaleLabel.labelString = 'Learner';
 
     optsRewards.title.text = 'Rewards';
     optsRewards.scales.yAxes[0].scaleLabel.labelString = 'Rewards';
 
     optsScore.title.text = 'Average score from questions';
-    optsScore.scales.yAxes[0].scaleLabel.labelString = 'Learners';
+    optsScore.scales.yAxes[0].scaleLabel.labelString = 'Learner';
     optsScore.scales.xAxes[0].scaleLabel.display = true;
     optsScore.scales.xAxes[0].scaleLabel.labelString = 'Score';
 
     optsDuration.title.text = 'Average time spent with lesson';
-    optsDuration.scales.yAxes[0].scaleLabel.labelString = 'Learners';
+    optsDuration.scales.yAxes[0].scaleLabel.labelString = 'Learner';
     optsDuration.scales.xAxes[0].scaleLabel.display = true;
     optsDuration.scales.xAxes[0].scaleLabel.labelString = 'Time [min:sec]';
+    
+    let learnerData = JSON.parse(JSON.stringify(barData));
+    learnerData.labels = this.props.data.learnerPerWeek.map(e=>e.week.toLocaleDateString("en-US"));
+    learnerData.datasets[0].data = this.props.data.learnerPerWeek.map(e=>e.learner);
 
-    console.log(this.props.data)
-    console.log(this.props.data.learnerPerWeek[0].week.toLocaleDateString('en-US'))
+    let tokenData = JSON.parse(JSON.stringify(barData));
+    tokenData.labels = this.props.data.tokenPerWeek.map(e=>e.week.toLocaleDateString("en-US"));
+    tokenData.datasets[0].data = this.props.data.tokenPerWeek.map(e=>e.token);
 
 		return (
 			<div>
 
         <h3 style={{marginBottom: '0px', marginTop: '30px'}}>
-          {(this.props.data.id==='all')
+          {(this.props.data.idx===-1)
           ? ('Details for all lessons')
           : ('Details for lesson ' + this.props.data.title)
           }
@@ -138,7 +143,7 @@ class DataDetails extends Component {
           <CardBody>
             <div className="chart-wrapper">
             	<center>
-              	<Bar data={barData} options={optsUser} height={chartHeight} />
+              	<Bar data={learnerData} options={optsUser} height={chartHeight} />
               </center>
             </div>
           </CardBody>
@@ -148,12 +153,12 @@ class DataDetails extends Component {
           <CardBody>
             <div className="chart-wrapper">
             	<center>
-              	<Bar data={barData} options={optsRewards} height={chartHeight} />
+              	<Bar data={tokenData} options={optsRewards} height={chartHeight} />
               </center>
             </div>
           </CardBody>
         </Card>
-
+      {/*
         <Card className='has-shadow marginBottom20'>
           <CardBody>
             <div className="chart-wrapper">
@@ -173,14 +178,7 @@ class DataDetails extends Component {
             </div>
           </CardBody>
         </Card>
-
-        {/* If a specific lesson is selected, we could also show the following:
-              - learners per slide
-              - feedback per slide
-              - quiz questions/answers
-              - time per question as distribution
-        */}
-
+      */}
 			</div>
 		)
 	}
