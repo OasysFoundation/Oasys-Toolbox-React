@@ -310,8 +310,10 @@ class SideBarLesson extends Component {
                         <input
                             className='form-control'
                             // defaultValue='Untitled lesson'
-                            value={this.props.title || 'Untitled lesson'}
+                            value={this.props.title}
+                            placeholder={'Untitled lesson'}
                             onChange={e => this.props.onChangeProjectTitle(e.target.value)}
+                            onBlur={e=>e.target.value==='' ? e.target.value='Untitled lesson' : null}
                         />
                         <i className="fas fa-align-right fa-lg fa-cog" onClick={this.handleSettingsShow}></i>
                     </div>
