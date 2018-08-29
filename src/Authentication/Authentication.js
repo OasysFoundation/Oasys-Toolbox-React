@@ -132,14 +132,14 @@ class Authentication extends Component {
 
 
     RegisterSubmitted() {
-        if (this.state.username.indexOf('-') > -1) {
+        if (this.state.username && this.state.username.indexOf('-') > -1) {
             this.setState({
                 modalTitle: "Error",
                 modalBody: "Usernames cannot contain hyphens (-)",
                 showModal: true,
             });
         }
-        else {
+        else if(this.state.username && this.state.email && this.state.password && this.state.confirmPassword){
             let that = this;
             auth.doCreateUserWithEmailAndPassword(that.state.email, that.state.password)
                 .then(authUser => {
@@ -213,24 +213,26 @@ class Authentication extends Component {
     }
 
     ForgotPasswordSubmitted() {
-        auth.doPasswordReset(this.state.email)
-        //SUCCESS
-            .then(() => {
-                this.setState({
-                    modalTitle: "Success",
-                    modalBody: "Your password has been reset! Please check your email to get your new password.",
-                    showModal: true,
+        if(this.state.email){
+            auth.doPasswordReset(this.state.email)
+            //SUCCESS
+                .then(() => {
+                    this.setState({
+                        modalTitle: "Success",
+                        modalBody: "Your password has been reset! Please check your email to get your new password.",
+                        showModal: true,
+                    })
+                    //this.state.updateStore();
                 })
-                //this.state.updateStore();
-            })
-            // FAILURE
-            .catch(error => {
-                this.setState({
-                    modalTitle: "Error",
-                    modalBody: error.message,
-                    showModal: true,
+                // FAILURE
+                .catch(error => {
+                    this.setState({
+                        modalTitle: "Error",
+                        modalBody: error.message,
+                        showModal: true,
+                    });
                 });
-            });
+        }
     }
 
     ResetPasswordSubmitted() {
