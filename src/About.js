@@ -89,7 +89,7 @@ class About extends Component{
               <div className="col-lg-8 mx-auto">
                 <img src={pedagogy} alt="img error" align="right" className="svg" style={{height: "100px",width:"auto", marginLeft: '20px', marginTop: '40px'}} />
                 <h3 style={{marginTop: '10px'}}>Pedagogy over Popularity</h3>
-                <p className="lead mb-0">Content creators are rewarded fairly based on how well their contents teach a knowledge concept. Our machine learning models estimate the educational value each content brings to the platform. Rewards are distributed via a blockchain-based token system - this ensures easy and secure payouts globally. This also raises the average quality of contents over time.</p>
+                <p className="lead mb-0">Content creators are rewarded fairly based on how well their contents teach a concept. We are working on machine learning models to estimate the educational value each content brings to the platform. Rewards will be distributed via a blockchain-based token system - this ensures easy and secure payouts globally. This also raises the average quality of contents over time.</p>
               </div>
             </div>  
           </div>

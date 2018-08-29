@@ -225,7 +225,7 @@ class AccountPage extends Component {
                         <hr style={styles.HRDividingLine}/>
                         </div>
                         <p className="text-faded lead mb-4" style={{fontSize: '1.3rem'}}>                                 
-                          We are excited to have you in the Oasys Community! Feel free to learn more <a href="/about">about Oasys</a> and how you could <a href="/">earn money</a> for the content you create.
+                          We are excited to have you in the Oasys Community! Feel free to learn more <a href="/about">about Oasys</a>.
                         </p>
                       </div>
                     </div>
