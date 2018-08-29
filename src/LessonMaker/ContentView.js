@@ -172,7 +172,7 @@ class ContentView extends Component {
     }
 
     changePagination = (chapterIndex) => {
-        const {username, title, uid, contentId} = this.props.match.path;
+        const {username, title, uid, contentId} = this.props.match.params;
         history.push(`/view/${username}/${title}/${uid}/${contentId}/${chapterIndex}`)
 
     }
