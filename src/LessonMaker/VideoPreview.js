@@ -72,6 +72,7 @@ class VideoPreview extends Component {
 	                  onPlay={this.onPlay}
 	                  onPause={this.onPause}
 	                  onEnded={this.onEnded}
+	                  onReady={this.props.onLoad}
 	                />
                 </div>
             </div>

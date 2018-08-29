@@ -33,6 +33,8 @@ class ImageEdit extends Component {
         this.onClickButton = this.onClickButton.bind(this);
         this.closeModalImgageSelection= this.closeModalImgageSelection.bind(this);
         this.onSelectImage = this.onSelectImage.bind(this);
+
+        this.props.onStartLoading();
     }
 
     saveCurrentState() {
@@ -92,7 +94,6 @@ class ImageEdit extends Component {
     }
 
     render() {
-    	
         return (
             <div>
 
@@ -114,9 +115,10 @@ class ImageEdit extends Component {
 
             	{this.state.imageUrl? 
                     (
-                        <ProgressiveImage src={this.state.imageUrl} placeholder='https://media3.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy-downsized.gif' style={{maxWidth:'550px'}} >
-                             {(src) => <img src={src} alt='' style={{maxWidth:'100%'}} />}
-                        </ProgressiveImage>
+                        <img
+                          src={this.state.imageUrl}
+                          onLoad={this.props.onCompletedLoading}
+                        />
                     ) : <p>Search for GIFs and images above.</p>}
                 {this.state.didStartSearch? <GridLoader size={30} /> : null}
             	</center>
