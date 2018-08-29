@@ -5,9 +5,6 @@ import ReactTooltip from 'react-tooltip';
 
 import colors from '../utils/colors';
 
-const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
-
-
 class DataOverview extends Component {
 
 	constructor(props) {

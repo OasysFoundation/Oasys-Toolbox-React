@@ -1,15 +1,4 @@
 
-function wrapTiming(x) {
-    let a = [];
-    for (let i=0; i<x.length; i++) {
-        if (x[i].i < a.length) {
-            a[x[i].i].time = a[x[i].i].time + x[i].t;
-        } else {
-            a.push({slide: x[i].i, time: x[i].t});
-        }
-    }
-    return a;
-}
 
 function sanitize(rawdata) {
     if (rawdata.comments===undefined) {

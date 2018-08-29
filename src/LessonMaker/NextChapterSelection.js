@@ -23,7 +23,7 @@ class NextChapterSelection extends Component {
             return result; 
         }, '').title;
 
-        if (identifier == 'end-lesson') {
+        if (identifier === 'end-lesson') {
             return "End Lesson";
         }
 
@@ -94,7 +94,7 @@ class NextChapterSelection extends Component {
 
     onSelectAction(identifier, chapterIndex) {
 
-        if (chapterIndex == this.getAllChapters().length) {
+        if (chapterIndex === this.getAllChapters().length) {
             const that = this;
             this.createNewChapter().then(function(newChapter) {
                 const newChapterIndex = that.chapterIndexForIdentifier(newChapter.id);
@@ -104,7 +104,7 @@ class NextChapterSelection extends Component {
             return;
         }
 
-        if (chapterIndex == this.getAllChapters().length+1) {
+        if (chapterIndex === this.getAllChapters().length+1) {
             this.props.onChange({
                 action: "end-lesson"
             }, true, true);

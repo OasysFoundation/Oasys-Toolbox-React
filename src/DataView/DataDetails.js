@@ -31,6 +31,7 @@ const barData = {
   ],
 };
 
+/*
 const durationData = {
   labels: ['0:00','5:00','10:00','15:00','20:00','25:00','30:00'],
   datasets: [
@@ -60,6 +61,7 @@ const scoreData = {
     },
   ],
 };
+*/
 
 let options = {
   tooltips: {
