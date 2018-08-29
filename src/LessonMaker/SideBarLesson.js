@@ -306,7 +306,7 @@ class SideBarLesson extends Component {
                 </Modal>
 
                 <AppSidebar fixed display="lg">
-                    <Button className='sidebar-button title'>
+                    <div className='sidebar-button title btn btn-secondary'>
                         <input
                             className='form-control'
                             // defaultValue='Untitled lesson'
@@ -314,7 +314,7 @@ class SideBarLesson extends Component {
                             onChange={e => this.props.onChangeProjectTitle(e.target.value)}
                         />
                         <i className="fas fa-align-right fa-lg fa-cog" onClick={this.handleSettingsShow}></i>
-                    </Button>
+                    </div>
                     <Button onClick={() => this.setState({showProjectsDialog: true})} className='sidebar-button'>
                         <div>Open Lesson</div>
 

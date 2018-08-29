@@ -336,6 +336,7 @@ html:not([dir="rtl"]) .sidebar {
     margin-right: 5px;
     padding: 3px;
     height: 25px;
+    width: 150px; /* whoever deleted this last time, please don't. otherwise firefox does not render properly */
 }
 
 .oasys .modal-header .close {
@@ -518,9 +519,10 @@ html:not([dir="rtl"]) .sidebar {
     cursor: pointer;
 }
 
-/*.oasys .pn-ProductNav {
+.oasys .pn-ProductNav {
     overflow-x: hidden;
-}*/
+}
+
 .oasys .landingPage .noTextDecoration,  .oasys .landingPage .noTextDecoration:hover{
     text-decoration: none;
     color:#a2abb8;
