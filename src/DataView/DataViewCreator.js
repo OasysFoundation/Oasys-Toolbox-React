@@ -9,7 +9,7 @@ import DataDetails from './DataDetails';
 import api from '../utils/api';
 
 import {rearrangeData} from './processData';
-
+import {isEmpty} from '../utils/trickBox'
 import {isMobile} from '../utils/tools'
 
 /*
@@ -70,13 +70,18 @@ class DataViewCreator extends Component {
         this.contentOverview = [];
         this.apiSuccessCount = 0;
         this.onChangeData = this.onChangeData.bind(this);
+        this.getData = this.getData.bind(this);
+
+        if (this.props.user.uid) {
+            this.getData(this.props)
+        }
     }
 
     onChangeData(idx) {
         this.setState({currentDataIdx: idx});
     }
 
-    initLessonData(){
+    initLessonData() {
         const nWeeks = this.options.nWeeks;
         let lesson = {
             learnerPerWeek: [],
@@ -87,9 +92,9 @@ class DataViewCreator extends Component {
             comments: 0,
             rating: NaN,
         }
-        for (let i=0; i<nWeeks; i++) {
+        for (let i = 0; i < nWeeks; i++) {
             let t = new Date();
-            t.setTime(this.options.now.getTime() - (nWeeks-i-1)*60*60*24*1000*7);
+            t.setTime(this.options.now.getTime() - (nWeeks - i - 1) * 60 * 60 * 24 * 1000 * 7);
             lesson.learnerPerWeek.push({week: t, learner: 0});
             lesson.tokenPerWeek.push({week: t, rewards: 0});
             lesson.commentsPerWeek.push({week: t, comments: 0});
@@ -101,10 +106,13 @@ class DataViewCreator extends Component {
         if (!nextProps.user.uid) {
             return
         }
+        this.getData(nextProps)
+    }
 
+    getData(nextProps) {
         api.getUserContentsPreview().then(results => {
             let lessons = [];
-            results.forEach((result,idx)=>{
+            results.forEach((result, idx) => {
                 let lesson = this.initLessonData();
                 lesson.id = result.contentId;
                 lesson.idx = idx;
@@ -116,19 +124,31 @@ class DataViewCreator extends Component {
             this.lessons = lessons;
             this.contentOverview = results;
             this.apiSuccessCount++;
-            if (this.apiSuccessCount===3) { this.showAnalytics(); }
+
+            console.log(results, this.apiSuccessCount)
+            if (this.apiSuccessCount === 3) {
+                this.showAnalytics();
+            }
         }).catch(err => console.log(err));
 
         api.getContentsForCreator(nextProps.user).then(result => {
             this.rawdata['contents'] = result;
             this.apiSuccessCount++;
-            if (this.apiSuccessCount===3) { this.showAnalytics(); }
+            console.log(result, this.apiSuccessCount)
+
+            if (this.apiSuccessCount === 3) {
+                this.showAnalytics();
+            }
         }).catch(err => console.log(err));
 
         api.getRatingsForCreator(nextProps.user).then(result => {
             this.rawdata['ratings'] = result;
             this.apiSuccessCount++;
-            if (this.apiSuccessCount===3) { this.showAnalytics(); }
+            console.log(result, this.apiSuccessCount)
+
+            if (this.apiSuccessCount === 3) {
+                this.showAnalytics();
+            }
         }).catch(err => console.log(err));
     }
 
@@ -212,15 +232,15 @@ class DataViewCreator extends Component {
 						</center>
 						*/}
 
-                        { this.props.user.displayName === undefined
+                        {isEmpty(this.props.user.displayName)
                             ? <p>Please <a href="/account">log in</a> to see your analytics.</p>
-                            : this.apiSuccessCount<3
+                            : this.apiSuccessCount < 3
                                 ?
                                 <h3>
                                     Loading analytics...
                                 </h3>
                                 :
-                                this.state.lessons.length===0
+                                this.state.lessons.length === 0
                                     ? <p>You need to <a href="/create">create a lesson</a> to see analytics here.</p>
                                     : <React.Fragment>
                                         <DataOverview
