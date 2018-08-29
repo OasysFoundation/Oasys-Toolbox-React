@@ -107,6 +107,9 @@ class SidebarToc extends Component {
         let isChanged = false;
         // yes: we have to MANUALLY compare if the objects are the same because somehow JSON.stringify does not WORK!
         if (nextprops.chaptersLight.length !==  this.props.chaptersLight.length) { isChanged = true; }
+        if (nextprops.activeChapterIndex !==  this.props.activeChapterIndex) { isChanged = true; }
+
+
         for (let i=0; i<nextprops.chaptersLight.length; i++) {
             if (isChanged) { break; }
             //console.log(this.props.chaptersLight[i].title)

@@ -256,6 +256,10 @@ html, body {
     margin-top: 0px;
 }
 
+.oasys .main .SocialMediaShareButton {
+    cursor: pointer;
+}
+
 
 html:not([dir="rtl"]) .main {
   margin-left: 60px;
@@ -508,6 +512,10 @@ html:not([dir="rtl"]) .sidebar {
 .oasys .card.content-view {
     padding-top: 30px;
     border: none;
+}
+
+.oasys .main .icon-arrow-down {
+    cursor: pointer;
 }
 
 /*.oasys .pn-ProductNav {

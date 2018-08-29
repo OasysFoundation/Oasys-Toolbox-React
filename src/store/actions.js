@@ -127,7 +127,11 @@ const actions = function (store) { //store for async stuff
         // },
 
         setProjectInLessonMaker(state, projectData) {
-            return projectData;
+            if (projectData.data) {
+                projectData.chapters = projectData.data.chapters;
+            }
+
+            return {...state, ...projectData};
         },
 
         remixProject(state, projectData, user = {name: null, uid: null, idToken: null, status: 0}) {
