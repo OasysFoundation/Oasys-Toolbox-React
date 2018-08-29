@@ -215,10 +215,18 @@ class ContentView extends Component {
 
     showConcludingContentPage() {
         const {uid, username, contentId, title} = this.props.match.params;
-        return <ConcludingContentPage uid={uid} url="https://joinoasys.org"
-                                      author={username} title={title}
+        const displayName = this.props.user.displayName;
+        var url = this.removeLastComponentOfUrl(window.location.href);
+        return <ConcludingContentPage uid={uid} url={url}
+                                      author={displayName} title={title}
                                       contentId={contentId}
-                                      description="I am explaining to you how feet and cotion works."/>
+                                      description="Explore Interactive Content – Learn Science and Technology through Experimentation and Play!"/>
+    }
+
+    removeLastComponentOfUrl(url) {
+        const array = url.split("/");
+        array.pop();
+        return array.join("/");
     }
 
     render() {
