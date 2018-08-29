@@ -11,7 +11,7 @@ import QuizzEdit from './QuizzEdit'
 import VideoEdit from './VideoEdit'
 import EmbedEdit from './EmbedEdit'
 import NextChapterSelection from './NextChapterSelection'
-
+import { PacmanLoader } from 'react-spinners';
 
 import {getContentFromSessionStorage} from "../utils/trickBox";
 import {
@@ -44,7 +44,7 @@ class Element extends Component {
             tempContent: this.props.data.content || getContentFromSessionStorage(this.props.data.id),
             timestamp: Date.now(),
             shouldFoldInView: false,
-            isLoadedCompletely: false
+            isLoading: false
         };
     }
 
@@ -92,7 +92,9 @@ class Element extends Component {
             isHovered,
             isEditMode: this.props.isEditMode,
             onChange: this.handleChange.bind(this),
-            onLearnerInteraction: this.props.onLearnerInteraction
+            onLearnerInteraction: this.props.onLearnerInteraction,
+            onCompletedLoading: this.onCompletedLoading.bind(this),
+            onStartLoading: this.onStartLoading.bind(this)
         }
 
         let render = <div>NO ELEMENT TYPE YET HERE</div>;
@@ -142,9 +144,6 @@ class Element extends Component {
     }
 
     componentDidMount() {
-        this.setState({
-            isLoadedCompletely: true
-        })
         // in case we ever need this - with the following we can query if the element is visible.
         // right now, we are passively receiving the visibility info through onChangeVisibility
         /*
@@ -201,6 +200,18 @@ class Element extends Component {
         // console.log('Element type ' + this.props.data.type + ' (' + this.props.data.id + ') is now ' + visStr);
     }
 
+    onCompletedLoading() {
+        this.setState({
+            isLoading: false
+        });
+    }
+
+    onStartLoading() {
+        this.setState({
+            isLoading: true
+        });   
+    }
+
     render() {
         const {id, type} = this.props.data;
         return (
@@ -209,7 +220,6 @@ class Element extends Component {
                     <section onMouseEnter={() => this.setState({isHovered: true})}
                              onMouseLeave={() => this.setState({isHovered: false})}
                     >
-                    {this.state.isLoadedCompletely? <div>LOADED (Debugging for Frederik, will be removed after)</div> : <div>LOADINGGGGGG</div>}
                         {this.props.isEditMode ?
                             <FadeableCard
                                 id={id}
@@ -222,6 +232,8 @@ class Element extends Component {
                             <Card className="card-fancy has-shadow card content-view">
                                 <CardBody>
                                     {!this.props.isPreview && <VisibilitySensor ref={this.sensorRef} onChange={this.onChangeVisibility}/>}
+                                    {this.state.isLoading? <div style={{top:'0px', right:'0px', width:'100%', height:'100%', position:'absolute'}}> <PacmanLoader /></div> : null}
+                                    <div style={{opacity: this.state.isLoading? 0.5 : 1.0}}>
                                     {this.state.shouldFoldInView
 
                                         ? <Button color="primary"
@@ -231,6 +243,7 @@ class Element extends Component {
 
                                         : this.typeToComponent(type)
                                     }
+                                    </div>
                                 </CardBody>
                                 {/*<hr/>*/}
                             </Card>

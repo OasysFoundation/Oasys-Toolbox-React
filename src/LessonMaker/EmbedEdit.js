@@ -83,6 +83,7 @@ class EmbedEdit extends Component {
     constructor(props) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
+        this.props.onStartLoading();
     }
 
     handleChange(selectedOption) {
@@ -138,6 +139,7 @@ class EmbedEdit extends Component {
                         position="relative"
                         allowFullScreen
                         styles={customIframeStyles}
+                        onLoad={this.props.onCompletedLoading}
                     />
                    </div>
                 : null
