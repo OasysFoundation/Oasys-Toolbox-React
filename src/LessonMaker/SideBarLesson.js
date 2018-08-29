@@ -74,12 +74,14 @@ class SideBarLesson extends Component {
            }
     }
 
-    toggle(tab) {
+    toggle(tab, contentId) {
         if (this.state.activeTab !== tab) {
           this.setState({
             activeTab: tab
           });
         }
+
+        this.onSwitchProject(contentId)
     }
 
     handleSettingsShow() {
@@ -112,10 +114,14 @@ class SideBarLesson extends Component {
         });
     }
 
-    onSwitchProject() {
+    onSwitchProject(contentId) {
         this.setState({
             showProjectsDialog: false,
         });
+
+        const project = this.state.data.find(d => d.contentId === contentId)
+
+        this.props.setProjectInLessonMaker(project)
     }
 
     publishOrSaveContent() {
@@ -274,13 +280,13 @@ class SideBarLesson extends Component {
                                    {
                                     this.state.data.map((data,idx) =>
                                         data.published!==1
-                                     ? <ListGroupItem key={idx} onClick={() => this.toggle(idx)} action active={this.state.activeTab === idx} >{data.title}</ListGroupItem>
+                                     ? <ListGroupItem key={data.contentId} onClick={() => this.toggle(idx, data.contentId)} action active={this.state.activeTab === idx} >{data.title}</ListGroupItem>
                                      : null
                                     )} 
                                 <ListGroupItem color="success">Published Work</ListGroupItem>
                                    {this.state.data.map((data,idx) =>
                                     data.published===1  
-                                     ? <ListGroupItem key={idx} onClick={() => this.toggle(idx)} action active={this.state.activeTab === idx}>{data.title}</ListGroupItem>
+                                     ? <ListGroupItem key={data.contentId} onClick={() => this.toggle(idx, data.contentId)} action active={this.state.activeTab === idx}>{data.title}</ListGroupItem>
                                      : null
                                     )} 
                                 </ListGroup>
@@ -366,7 +372,7 @@ const mapStoreToProps = (store) => ({project: store});
 
 // only take what you need
 export default connect(mapStoreToProps, actions)((propsFromStore) => {
-    const {project, onDeleteChapter, instantUpdateElements, onChangeProjectTitle, onChangeIconName, onChangeProjectTags, onChangeProjectDescription} = propsFromStore;
+    const {project, setProjectInLessonMaker, onDeleteChapter, instantUpdateElements, onChangeProjectTitle, onChangeIconName, onChangeProjectTags, onChangeProjectDescription} = propsFromStore;
     const {title, tags, description, iconName} = project;
     return React.createElement(SideBarLesson, {
         project,
@@ -375,6 +381,7 @@ export default connect(mapStoreToProps, actions)((propsFromStore) => {
         description,
         iconName,
         onDeleteChapter,
+        setProjectInLessonMaker,
         instantUpdateElements,
         onChangeProjectTitle,
         onChangeProjectTags,
