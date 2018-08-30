@@ -39,7 +39,7 @@ class ImageEdit extends Component {
 
     saveCurrentState() {
         const data = {imageUrl: this.state.imageUrl};
-        this.props.onChange(data);
+        this.props.onChange(data, false, true);
     }
 
     searchTerm = null;
