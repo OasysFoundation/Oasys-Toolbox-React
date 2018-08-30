@@ -18,8 +18,8 @@ class EditModalWarning extends Component {
 	          		Fixing typos or adding small explanations should be no problem however. But if you plan to make big changes, consider <i>remixing</i> this content instead.
 		      </ModalBody>
               <ModalFooter>
-                <Button color="secondary" onClick={this.onEditAnyway}>Edit Anyway</Button>
-                <Button color="primary" onClick={this.onRemix}>Remix Content</Button>
+                <Button color="secondary" onClick={this.props.onClose}>Edit Anyway</Button>
+                <Button color="primary" onClick={this.props.onRemix}>Remix Content</Button>
               </ModalFooter>
 			</Modal>
 		);

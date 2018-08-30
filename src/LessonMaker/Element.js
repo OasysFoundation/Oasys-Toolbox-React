@@ -232,7 +232,7 @@ class Element extends Component {
                             <Card className="card-fancy has-shadow card content-view">
                                 <CardBody>
                                     {!this.props.isPreview && <VisibilitySensor ref={this.sensorRef} onChange={this.onChangeVisibility}/>}
-                                    {this.state.isLoading? <div style={{top:'0px', right:'0px', width:'100%', height:'100%', position:'absolute'}}> <PacmanLoader /></div> : null}
+                                    {this.state.isLoading? <div style={{display:"flex", justifyContents:"center", alignItems:"center"}} > <PacmanLoader /></div> : null}
                                     <div style={{opacity: this.state.isLoading? 0.5 : 1.0}}>
                                     {this.state.shouldFoldInView
 
