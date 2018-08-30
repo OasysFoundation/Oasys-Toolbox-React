@@ -68,7 +68,7 @@ export function sortIntoTocLevels(tocInfo, chapters, mainPath) {
         // console.log(idx + ": " + prevElem + " - " + nextElem + " --> " + poslevs);
         // for now, always take the first possible level. Can there be none?
         if (poslevs.length===0) {
-            console.log("TOC: Cannot find placement for all elements off the longest path.");
+            //console.log("TOC: Cannot find placement for all elements off the longest path.");
             poslevs = [mainPath.length];
         }
         const elem = {
@@ -124,28 +124,25 @@ export function reorderX(tocInfo) {
             }
             done.push(ti[j].level);
             let allonlvl = tocInfo.filter(e=>e.level===ti[j].level);
-
-            console.log('level ' + ti[j].level)
-            console.log('  ' + ti[j].title)
-            if (allonlvl.length>0) {
-                allonlvl.forEach(e=>console.log('    ' + e.title + ': ' + e.level))
-            }
-
+            console.log('allonlvl')
+            console.log(ti[j]);
+            console.log(allonlvl)
             // let myx = allonlvl.map(e => e.x);
+            // need to position all elements that this one is pointing to such that the arrows can be drawn vertically
             for (let k=0; k<allonlvl.length; k++) {
                 let elem = allonlvl[k];
                 let otherElems = tocInfo.filter(e => e.linkIdx.indexOf(elem.idx) >= 0);
                 let otherXmin = otherElems.map(e => e.x / e.nElems);
                 let otherXmax = otherElems.map(e => (e.x+1) / e.nElems);
-                elem.xmin = elem.x / elem.nElems;
-                elem.xmax = (elem.x+1) / elem.nElems;
-                console.log(elem.xmin, ...otherXmin)
-                console.log(elem.xmax, ...otherXmax)
+                elem.xmin = elem.x / elem.nElems;  // in [0,1]
+                elem.xmax = (elem.x+1) / elem.nElems; // in [0,1]
                 if (elem.xmax > Math.max(...otherXmin) && elem.xmin < Math.min(...otherXmax)) {
                     //console.log("nothing to do...")
                 } else {
                     // easiest solution for now: push element onto its own level
-                    console.log('clash!')
+                    console.log('clash:')
+                    console.log('   this:  ' + elem.title + ' ' + elem.level + '[' + (elem.xmin) + ', ' + (elem.xmax) + ']');
+                    console.log(otherElems);
                     tocInfo.map(e => e.level > elem.level ? e.level++ : e.level)
                     elem.level += 1;
                     elem.xmin = 0;
@@ -157,11 +154,7 @@ export function reorderX(tocInfo) {
             }
         }
     }
-
-    tocInfo.forEach((e,i)=>
-        console.log('  iteration ' + i + ', level ' + e.level)
-    );
-    
+    console.log(tocInfo)
     return tocInfo;
 }
 
@@ -187,13 +180,14 @@ export function insertArrowLocs(tocInfo, opt) {
                     let offset = opt.arrowOffset;
                     let sign = true;
                     let newLoc = loc;
-                    while (arrowLocs[k].indexOf(newLoc) >= 0) {
-                        // change arrow location on clash
-                        sign ? newLoc = loc + offset : newLoc = loc - offset;
-                        sign = !sign;
-                        if (sign) {
-                            offset += opt.arrowOffset;
+                    for (let l=0; l<100; l++) {
+                        if (arrowLocs[k].indexOf(newLoc) === 0) {
+                            break;
                         }
+                        // change arrow location on clash
+                        let sign = (l%2===0) ? 1 : -1;
+                        let offidx = Math.floor(l/2)+1;
+                        offset = opt.arrowOffset*sign*offidx;
                     }
                     loc = newLoc;
                     arrowLocs[k].push(loc);
@@ -244,31 +238,55 @@ export function drawChapters(tocInfo, chapters, opt) {
     return activeElem;
 }
 
+function getYcoordsForLevels(l1,l2,opt) {
+    let y1 = l1 * (opt.gapy + opt.rectHeight);
+    let y2 = l2 * (opt.gapy + opt.rectHeight);
+    if (y2<y1) {
+        y1 -= 1;
+        y2 += opt.rectHeight + 1;
+    } else {
+        y1 += opt.rectHeight + 1;
+        y2 -= 1;
+    }
+    return [y1, y2];
+}
+
 export function drawConnections(tocInfo, opt, activeElem){
     let arrowToDraw = [];
     for (let i=0; i<tocInfo.length; i++) {
         let links = tocInfo[i].linkIdx;
+        console.log(tocInfo[i])
         for (let j=0; j<links.length; j++) {
             let elem = tocInfo.filter(e=>e.idx === links[j])[0];
             if (elem===undefined) {
                 continue;
             }
-            let y1 = tocInfo[i].level * (opt.gapy + opt.rectHeight);
-            let y2 = elem.level * (opt.gapy + opt.rectHeight);
+            let ycoords = getYcoordsForLevels(tocInfo[i].level, elem.level, opt);
             let x = Math.round(opt.totalWidth*tocInfo[i].xarrow[j]);
-            if (y2<y1) {
-                y1 -= 1;
-                y2 += opt.rectHeight + 1;
-            } else {
-                y1 += opt.rectHeight + 1;
-                y2 -= 1;
-            }
             let level1 = Math.min(tocInfo[i].level,elem.level);
             let level2 = Math.max(tocInfo[i].level,elem.level);
             for (let k=1; k<level2-level1; k++) {
-                drawTunnel(level1+k,x,activeElem,opt);
+                let elemsOnLevel = tocInfo.filter(e=>e.level===level1+k);
+                let doDrawTunnel = true;
+                elemsOnLevel.forEach(el=>{
+                    if (Math.abs(el.xmin*opt.totalWidth-x)<3 || Math.abs(el.xmax*opt.totalWidth-x)<3) {
+                        doDrawTunnel = false;
+                    }
+                });
+                if (doDrawTunnel) {
+                    drawTunnel(level1+k,x,activeElem,opt);
+                } else {
+                    //let ty = getYcoordsForLevels(level1+k,level1+k+1,opt);
+                    let ty = [(level1+k) * (opt.gapy + opt.rectHeight) - 0.5*opt.gapy,
+                            (level1+k+1) * (opt.gapy + opt.rectHeight) - 0.5*opt.gapy];
+                    if (level1<level2)  {
+                        ty.reverse();
+                    }
+                    drawArrow(x,ty[0],ty[1],opt,true,false);
+                }
             }
-            arrowToDraw.push({x:x,y1:y1,y2:y2});
+            arrowToDraw.push({x:x,y1:ycoords[0],y2:ycoords[1]});
+            console.log({x:x,y1:ycoords[0],y2:ycoords[1]})
         }
     }
     arrowToDraw.forEach(e=>drawArrow(e.x,e.y1,e.y2,opt));
@@ -302,23 +320,27 @@ export function svgBezier(x1,x2,y1,y2,colorFill,colorStroke) {
 }
 
 
-export function drawArrow(x,y1,y2,opt) {
+export function drawArrow(x,y1,y2,opt,noTip=false,dash=true) {
     let reverse = false;
     if (y1<y2) {
         let color = opt.arrowColor;
         if (Math.abs(y2-y1)>opt.rectHeight) {
             color = opt.arrowLongColor;
         }
-        document.getElementById(opt.tocId).appendChild(svgArrow(x, y1-3, y2, color, reverse, opt));
-        document.getElementById(opt.tocId).appendChild(svgPoly(x, y2-6, y2+4, color, reverse, opt));
+        document.getElementById(opt.tocId).appendChild(svgArrow(x, y1-3, y2, color, reverse, dash, opt));
+        if (!noTip) {
+            document.getElementById(opt.tocId).appendChild(svgPoly(x, y2-6, y2+4, color, reverse, opt));
+        }
     } else {
         reverse = true; 
         let color = opt.arrowColorReverse;
         if (Math.abs(y2-y1)>opt.rectHeight) {
             color = opt.arrowLongColorReverse;
         }
-        document.getElementById(opt.tocId).appendChild(svgArrow(x, y1+3, y2, color, reverse, opt));
-        document.getElementById(opt.tocId).appendChild(svgPoly(x, y2-6, y2+4, color, reverse, opt));
+        document.getElementById(opt.tocId).appendChild(svgArrow(x, y1+3, y2, color, reverse, dash, opt));
+        if (!noTip) {
+            document.getElementById(opt.tocId).appendChild(svgPoly(x, y2-6, y2+4, color, reverse, opt));
+        }
     }
 }
 
@@ -387,7 +409,7 @@ export function svgPoly(x,y1,y2,color,reverse,opt) {
     return poly;
 }
 
-export function svgArrow(x,y1,y2,color,reverse,opt) {
+export function svgArrow(x,y1,y2,color,reverse,dash,opt) {
     let line = document.createElementNS(NS, 'line');
     line.setAttribute('x1',x);
     line.setAttribute('x2',x);
@@ -398,11 +420,15 @@ export function svgArrow(x,y1,y2,color,reverse,opt) {
     if (reverse) {
         let dashDraw = opt.gapy+4;
         let dashGap  = opt.rectHeight+5;
-        line.setAttribute('stroke-dasharray', dashDraw.toString() + ' ' + dashGap.toString());
+        if (dash) {
+            line.setAttribute('stroke-dasharray', dashDraw.toString() + ' ' + dashGap.toString());
+        }
     } else {
         let dashDraw = opt.gapy-5;
         let dashGap  = opt.rectHeight+5;
-        line.setAttribute('stroke-dasharray', dashDraw.toString() + ' ' + dashGap.toString());
+        if (dash) {
+            line.setAttribute('stroke-dasharray', dashDraw.toString() + ' ' + dashGap.toString());
+        }
     }
     // poly.setAttribute('stroke', colorStroke);
     return line;

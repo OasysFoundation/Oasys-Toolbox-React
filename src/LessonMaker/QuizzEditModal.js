@@ -367,7 +367,7 @@ class QuizzEditModal extends Component {
         return (
             <div>
 
-                <input style={{display: "none"}} type="file" accept="image/*" onChange={this.onSelectImage} ref="fileUploader" onkeyup={function(e){if(e.keyCode===27) this.blur(),e.stopPropagation()}}/>
+                <input style={{display: "none"}} type="file" accept="image/*" onChange={this.onSelectImage} ref="fileUploader" onKeyUp={function(e){if(e.keyCode===27) this.blur(),e.stopPropagation()}}/>
 
                 <Modal isOpen={this.props.isOpen} toggle={this.onClose} backdrop={true}>
                 

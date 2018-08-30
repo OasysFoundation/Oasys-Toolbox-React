@@ -60,8 +60,14 @@ class SidebarToc extends Component {
                 throw new Error('Chapter object must have links array as property (can be empty)!');
             }
             e.linkIdx = [];
-            e.links.map(f => e.linkIdx.push(idobj[f.chapterId]));
+            e.isEnd = false;
+            e.links.map(f => {
+                idobj[f.chapterId]===undefined
+                ? e.isEnd = true
+                : e.linkIdx.push(idobj[f.chapterId]);
+            });
         });
+        console.log(this.chaptersExt)
         let mainPath = tocjs.longestPath(this.chaptersExt);
         let tocInfo = tocjs.prepareToc(mainPath, this.chaptersExt);
 
