@@ -43,9 +43,9 @@ class SideBarLesson extends Component {
             showsEditDialog: false
         }
 
-        this.title = null;
-        this.tags = null;
-        this.description = null;
+        this.title = props.title;
+        this.tags = props.tags;
+        this.description = props.description;
 
         this.toggle = this.toggle.bind(this);
 
@@ -135,17 +135,27 @@ class SideBarLesson extends Component {
     }
 
     onSwitchProject(contentId) {
-        this.setState({
-            showProjectsDialog: false,
-            showsEditDialog: true
-        });
 
         const project = this.state.data.find(d => d.contentId === contentId)
+
+        this.setState({
+            showProjectsDialog: false,
+            showsEditDialog: (project.published===1)
+        });
+
+        
 
         this.props.setProjectInLessonMaker(project)
     }
 
     publishOrSaveContent() {
+
+        console.log("Title: "+this.title);
+        console.log("Desc: "+this.description);
+        console.log("Tag: "+this.tags);
+
+
+
         if (this.state.showPublishModal && this.title && this.description && this.tags) {
             this.saveContent(1)
             this.setState({showPublishModal: false})
