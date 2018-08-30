@@ -270,7 +270,7 @@ class NavBar extends React.Component {
                         contentTitles.push({
                             'label': label, 
                             'value': value, 
-                            'url': '/user/' + obj.userId + '/' + obj.title,
+                            'url': '/view/' + obj.username + '/' + obj.title + '/' + obj.userId + '/' + obj.contentId,
                         });
                     });
                     this.setState({
