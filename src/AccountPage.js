@@ -76,11 +76,11 @@ class AccountPage extends Component {
                                pageDataUser: [
                                    {
                                        title: "My Publications",
-                                       data: this.state.contentUser.filter(content => content.published === 1),
+                                       data: this.state.contentUser.filter(content => content.published === 1).reverse(),
                                    },
                                    {
                                        title: "My Drafts",
-                                       data: this.state.contentUser.filter(content => content.published !== 1),
+                                       data: this.state.contentUser.filter(content => content.published !== 1).reverse(),
                                    },
                                ],
                                noContent:false,
