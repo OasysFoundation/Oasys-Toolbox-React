@@ -69,6 +69,23 @@ class ContentTileMenuModal extends Component {
       else if (value === "user") {            
           history.push(`/user/${this.props.data.username || "anonymous"}/${this.props.data.uid}`) 
           this.toggle();
+        }  
+        else if (value === "delete") {
+          const deleteData = {
+            "uid": this.props.data.uid,
+            "contentId": this.props.data.contentId,
+          }
+          api.deleteContent(deleteData)
+            .then(results => {
+                this.setState({
+                  showSnackbar:true,
+                  snackbarMessage:"Deleted Successfully"
+                })
+                this.toggle();
+ 
+            })
+            .catch(err => {console.log(err);this.toggle();})
+
         }        
       else if (value === "flag"){
           this.setState({
@@ -116,6 +133,13 @@ class ContentTileMenuModal extends Component {
                     <div style={{flex:1}}><i className="fas fa-flag"/></div>
                     <div style={{flex:3, textAlign:"left"}}>Flag as Inappropriate</div>
                   </Button>
+                  { this.props.deletable
+                    ?(<Button block color="light" onClick={()=>this.handleClick("delete")} style={styles.modalButton}>
+                                          <div style={{flex:1}}><i className="fas fa-trash-alt"/></div>
+                                          <div style={{flex:3, textAlign:"left"}}>Delete Content</div>
+                                        </Button>)
+                    : null
+                }
 
               </ModalBody>
               </Modal>

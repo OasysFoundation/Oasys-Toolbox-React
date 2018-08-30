@@ -150,7 +150,7 @@ class AccountPage extends Component {
             return(
                 <div>
                     {this.state.pageDataUser.map(dataObj =>
-                        <HorizontalScroll key = {dataObj.title} title = {dataObj.title} data = {dataObj.data} type = "mobile" />
+                        <HorizontalScroll key = {dataObj.title} title = {dataObj.title} data = {dataObj.data} type = "mobile" deletable={true}/>
                         )
                     }
                 </div>
@@ -159,7 +159,7 @@ class AccountPage extends Component {
             return(
                 <div>
                     {this.state.pageDataUser.map(dataObj =>
-                            <HorizontalScroll key = {dataObj.title} title = {dataObj.title} data = {dataObj.data} />
+                            <HorizontalScroll key = {dataObj.title} title = {dataObj.title} data = {dataObj.data} deletable={true}/>
                             )
                     }
                 </div>

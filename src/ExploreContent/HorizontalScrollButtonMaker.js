@@ -252,7 +252,7 @@ class HorizontalScrollButtonMaker extends Component{
 			        </div>
 			        </CardBody>
 			      </Card>	
-			      <ContentTileMenuModal isOpen={this.state.showsTileMenu} data={this.props.data} onClose={this.toggleMenu.bind(this)} />       
+			      <ContentTileMenuModal isOpen={this.state.showsTileMenu} data={this.props.data} onClose={this.toggleMenu.bind(this)} deletable={this.props.deletable}/>       
 			    </div>
             )
           )
