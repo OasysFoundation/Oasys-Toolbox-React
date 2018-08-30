@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
-import ReactTooltip from "react-tooltip"
+import ReactTooltip from 'react-tooltip';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
+import {connect} from 'redux-zero/react';
 
 import * as tocjs from '../assets/scripts/toc.js'
-import actions from "../store/actions";
-import {connect} from "redux-zero/react";
-
+import actions from '../store/actions';
+import colors from '../utils/colors';
 
 class SidebarToc extends Component {
 
@@ -22,18 +22,18 @@ class SidebarToc extends Component {
             textpadx: 10,
             textpady: 5,
             arrowOffset: 0.05, // in percent of total width
-            arrowColor: '#C3C8D4',
-            arrowLongColor: '#F4EFB6',
-            arrowColorReverse: '#A47D90',
-            arrowLongColorReverse: '#a34079', //A34079
+            arrowColor: colors.GULLGREY,
+            arrowLongColor: colors.GHOST,
+            arrowColorReverse: colors.GULLGREY,
+            arrowLongColorReverse: colors.GHOST,
             arrowStroke: 4,
             backgroundColor: '#2f353a',
             rectColorStart: '#3f51d5',
-            rectColorEnd: '#3f51d5',
             rectColorActiveFill: '#626970',
             rectColorDefaultFill: '#3E4B54',
             rectColorDefaultStroke: '#626970',
             textColor: '#eeeeee',
+            textColorEnd: '#ff8888',
             myOrange: '#C85C0D',
             handleClick: this.handleChangeChapter,
             handleHover: this.handleMouserOver,
@@ -86,6 +86,7 @@ class SidebarToc extends Component {
     }
 
     handleChangeChapter(id) {
+        console.log('changing to chapter ' + id)
         this.props.onChangeActiveChapter(id);
     }
 
@@ -125,8 +126,11 @@ class SidebarToc extends Component {
             if (nextprops.chaptersLight[i].title !== this.props.chaptersLight[i].title) { isChanged=true; break; }
             if (nextprops.chaptersLight[i].id !== this.props.chaptersLight[i].id) { isChanged=true; break; }
             if (nextprops.chaptersLight[i].links.length!==this.props.chaptersLight[i].links.length) { isChanged=true; break; }
-            for (let j=0; j<nextprops.chaptersLight[i].links; j++) {
-                if (nextprops.chaptersLight[i].links[j].id !== this.props.chaptersLight[i].links[j].id) {isChanged=true; break; }
+            for (let j=0; j<nextprops.chaptersLight[i].links.length; j++) {
+                if (nextprops.chaptersLight[i].links[j].chapterId !== this.props.chaptersLight[i].links[j].chapterId) {
+                    isChanged=true; 
+                    break; 
+                }
             }
         }
         if (isChanged) {

@@ -119,11 +119,12 @@ export function reorderX(tocInfo) {
     for (let i=1; i<=maxPrio; i++) {
         let ti = tocInfo.filter(e=>e.prio === i);
         for (let j=0; j<ti.length; j++) {
-            if (done.indexOf(ti[j].level) >= 0) {
-                continue;
-            }
-            done.push(ti[j].level);
-            let allonlvl = tocInfo.filter(e=>e.level===ti[j].level);
+            //if (done.indexOf(ti[j].level) >= 0) {
+            //    continue;
+            //}
+            let currentLevel = ti[j].level;
+            done.push(currentLevel);
+            let allonlvl = tocInfo.filter(e=>e.level===currentLevel);
             // let myx = allonlvl.map(e => e.x);
             // need to position all elements that this one is pointing to such that the arrows can be drawn vertically
             for (let k=0; k<allonlvl.length; k++) {
@@ -143,6 +144,14 @@ export function reorderX(tocInfo) {
                     elem.xmax = 1;
                     elem.nElems = 1;
                     elem.x = 0;
+                    // change x positioning for all other elements that were on the same level
+                    let allonlvl = tocInfo.filter(e=>e.level===currentLevel);
+                    allonlvl.forEach((e,idx)=>{
+                        e.xmin = idx / allonlvl.length;
+                        e.xmax = (idx+1) / allonlvl.length;
+                        e.nElems = allonlvl.length;
+                        e.x = idx;
+                    });
                     // console.log("min/max for " + elem.title + "(" + myXmin + ", " + myXmax + ")");
                     // console.log(otherXmin);
                     // console.log(otherXmax);
@@ -150,6 +159,7 @@ export function reorderX(tocInfo) {
             }
         }
     }
+    console.log(tocInfo)
     return tocInfo;
 }
 
@@ -208,6 +218,7 @@ export function drawChapters(tocInfo, chapters, opt) {
                 width: opt.totalWidth, 
                 text: chapters[elems[0].idx].title,
                 active: chapters[elems[0].idx].active,
+                isEnd: chapters[elems[0].idx].isEnd,
             };
             if (info.active) { activeElem = info; }
             document.getElementById(opt.tocId).appendChild(svgRect(info,elems[0].id,opt));
@@ -221,6 +232,7 @@ export function drawChapters(tocInfo, chapters, opt) {
                     width: rectWidth, 
                     text: chapters[elems[j].idx].title,
                     active: chapters[elems[j].idx].active,
+                    isEnd: chapters[elems[0].idx].isEnd,
                 };
                 if (info.active) { activeElem = info; }
                 document.getElementById(opt.tocId).appendChild(svgRect(info,elems[j].id,opt));
@@ -261,8 +273,10 @@ export function drawConnections(tocInfo, opt, activeElem){
             let level2 = Math.max(tocInfo[i].level,elem.level);
             for (let k=1; k<level2-level1; k++) {
                 let elemsOnLevel = tocInfo.filter(e=>e.level===level1+k);
+                console.log('  level ' + (level1+k));
                 let doDrawTunnel = true;
                 elemsOnLevel.forEach(el=>{
+                    console.log('    elem ' + el.title + ': ' + el.xmin*opt.totalWidth + ', ' + el.xmax*opt.totalWidth);
                     if (Math.abs(el.xmin*opt.totalWidth-x)<3 || Math.abs(el.xmax*opt.totalWidth-x)<3) {
                         doDrawTunnel = false;
                     }
@@ -271,8 +285,8 @@ export function drawConnections(tocInfo, opt, activeElem){
                     drawTunnel(level1+k,x,activeElem,opt);
                 } else {
                     //let ty = getYcoordsForLevels(level1+k,level1+k+1,opt);
-                    let ty = [(level1+k) * (opt.gapy + opt.rectHeight) - 0.5*opt.gapy,
-                            (level1+k+1) * (opt.gapy + opt.rectHeight) - 0.5*opt.gapy];
+                    let ty = [(level1+k) * (opt.gapy + opt.rectHeight) - opt.gapy,
+                            (level1+k+1) * (opt.gapy + opt.rectHeight) - opt.gapy];
                     if (level1<level2)  {
                         ty.reverse();
                     }
@@ -384,6 +398,10 @@ export function svgText(obj,idx,opt) {
     svg.setAttribute('data-for', 'toc-'+idx);
     txt.style.cursor = 'pointer';
     txt.textContent = obj.text;
+
+    if (obj.isEnd) {
+        txt.setAttribute('fill', opt.textColorEnd);
+    }
 
     svg.addEventListener("click", function(){opt.handleClick(idx)}, false);
 
