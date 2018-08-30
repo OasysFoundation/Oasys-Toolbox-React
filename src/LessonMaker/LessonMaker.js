@@ -194,9 +194,6 @@ class LessonMaker extends Component {
                                 ? (<React.Fragment>
                                     <PoseGroup>
                                         {elements.map((el, idx) => {
-                                                // if (elements[elements.length - 1].type === globals.EDIT_CONTINUE_ELEMENT) {
-                                                //     return
-                                                // }
                                                 return (<Item key={el.id}>
                                                     <Element
                                                         key={el.id}
@@ -205,7 +202,7 @@ class LessonMaker extends Component {
                                                     />
 
                                                     {/*SHORT FORM FOR --> isEditMode ? <Adder/> : null */}
-                                                    {this.props.isEditMode && <ElementAdder key={el.id + 1} idx={idx}/>}
+                                                    {(this.props.isEditMode && (idx<elements.length-1 || elements.length===1)) && <ElementAdder key={el.id + 1} idx={idx}/>}
                                                 </Item>)
                                             }
                                         )}
@@ -217,14 +214,9 @@ class LessonMaker extends Component {
 
                                     {/*checks if there are elements first, then inserts ContinueButton at end*/}
                                     {
-                                        elements[elements.length - 1]
-
-                                            ? (elements[elements.length - 1].type !== globals.EDIT_CONTINUE_ELEMENT
-                                                    ? this.props.onAddElement(globals.EDIT_CONTINUE_ELEMENT, elements.length - 1)
-                                                    : null)
-
-
-                                            : null
+                                        (elements.length===0 || (elements[elements.length - 1].type !== globals.EDIT_CONTINUE_ELEMENT)
+                                            ? this.props.onAddElement(globals.EDIT_CONTINUE_ELEMENT, elements.length - 1)
+                                            : null)
                                     }
                                     {/*? <Element */}
                                     {/*data={elements[elements.length - 1]} chapterID={activeChapter.id} />*/}

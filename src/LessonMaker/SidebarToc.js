@@ -64,8 +64,10 @@ class SidebarToc extends Component {
         });
         let mainPath = tocjs.longestPath(this.chaptersExt);
         let tocInfo = tocjs.prepareToc(mainPath, this.chaptersExt);
+
         tocInfo = tocjs.sortIntoTocLevels(tocInfo, this.chaptersExt, mainPath);
         tocInfo = tocjs.reorderX(tocInfo);
+
         this.tocInfo = tocjs.insertArrowLocs(tocInfo, this.opt);
 
         let nLevels = 1 + Math.max(...this.tocInfo.map(e => e.level));
