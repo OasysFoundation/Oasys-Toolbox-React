@@ -429,7 +429,7 @@ class NavBar extends React.Component {
     }
 
     shouldComponentUpdate(nextProps) {
-        if (nextProps.user.uid) {
+        if (nextProps.user.uid!==this.props.user.uid) {
             return true;
         }
         // prevent unnecessary re-renders
