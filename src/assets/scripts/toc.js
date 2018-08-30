@@ -74,7 +74,7 @@ export function sortIntoTocLevels(tocInfo, chapters, mainPath) {
         const elem = {
             idx: idx,
             id: chapters[idx].id,
-            level: poslevs[0],
+            level: poslevs[0],  
             next: chapters[idx].linkIdx.filter(e=>e>idx),
             prev: chapters[idx].linkIdx.filter(e=>e<idx),
             title: chapters[idx].title,
@@ -124,9 +124,6 @@ export function reorderX(tocInfo) {
             }
             done.push(ti[j].level);
             let allonlvl = tocInfo.filter(e=>e.level===ti[j].level);
-            console.log('allonlvl')
-            console.log(ti[j]);
-            console.log(allonlvl)
             // let myx = allonlvl.map(e => e.x);
             // need to position all elements that this one is pointing to such that the arrows can be drawn vertically
             for (let k=0; k<allonlvl.length; k++) {
@@ -140,13 +137,12 @@ export function reorderX(tocInfo) {
                     //console.log("nothing to do...")
                 } else {
                     // easiest solution for now: push element onto its own level
-                    console.log('clash:')
-                    console.log('   this:  ' + elem.title + ' ' + elem.level + '[' + (elem.xmin) + ', ' + (elem.xmax) + ']');
-                    console.log(otherElems);
                     tocInfo.map(e => e.level > elem.level ? e.level++ : e.level)
                     elem.level += 1;
                     elem.xmin = 0;
                     elem.xmax = 1;
+                    elem.nElems = 1;
+                    elem.x = 0;
                     // console.log("min/max for " + elem.title + "(" + myXmin + ", " + myXmax + ")");
                     // console.log(otherXmin);
                     // console.log(otherXmax);
@@ -154,7 +150,6 @@ export function reorderX(tocInfo) {
             }
         }
     }
-    console.log(tocInfo)
     return tocInfo;
 }
 
@@ -177,11 +172,11 @@ export function insertArrowLocs(tocInfo, opt) {
                 if (arrowLocs[k] === undefined) {
                     arrowLocs[k] = [loc];
                 } else {
-                    let offset = opt.arrowOffset;
+                    let offset = 0;
                     let sign = true;
                     let newLoc = loc;
-                    for (let l=0; l<100; l++) {
-                        if (arrowLocs[k].indexOf(newLoc) === 0) {
+                    for (let l=0; l<10; l++) {
+                        if ((newLoc+offset)>0 && arrowLocs[k].indexOf(newLoc+offset) === -1) {
                             break;
                         }
                         // change arrow location on clash
@@ -189,7 +184,7 @@ export function insertArrowLocs(tocInfo, opt) {
                         let offidx = Math.floor(l/2)+1;
                         offset = opt.arrowOffset*sign*offidx;
                     }
-                    loc = newLoc;
+                    loc = newLoc+offset;
                     arrowLocs[k].push(loc);
                 }
             }
@@ -255,7 +250,6 @@ export function drawConnections(tocInfo, opt, activeElem){
     let arrowToDraw = [];
     for (let i=0; i<tocInfo.length; i++) {
         let links = tocInfo[i].linkIdx;
-        console.log(tocInfo[i])
         for (let j=0; j<links.length; j++) {
             let elem = tocInfo.filter(e=>e.idx === links[j])[0];
             if (elem===undefined) {
@@ -286,7 +280,6 @@ export function drawConnections(tocInfo, opt, activeElem){
                 }
             }
             arrowToDraw.push({x:x,y1:ycoords[0],y2:ycoords[1]});
-            console.log({x:x,y1:ycoords[0],y2:ycoords[1]})
         }
     }
     arrowToDraw.forEach(e=>drawArrow(e.x,e.y1,e.y2,opt));
