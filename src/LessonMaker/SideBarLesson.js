@@ -150,12 +150,6 @@ class SideBarLesson extends Component {
 
     publishOrSaveContent() {
 
-        console.log("Title: "+this.title);
-        console.log("Desc: "+this.description);
-        console.log("Tag: "+this.tags);
-
-
-
         if (this.state.showPublishModal && this.title && this.description && this.tags) {
             this.saveContent(1)
             this.setState({showPublishModal: false})
