@@ -47,6 +47,10 @@ class SideBarLesson extends Component {
         this.tags = props.tags;
         this.description = props.description;
 
+        console.log("Tags"+ this.tags);
+        console.log("description"+ this.description);
+        console.log("title"+ this.title);
+
         this.toggle = this.toggle.bind(this);
 
         this.onSettingsClose = this.onSettingsClose.bind(this);
@@ -64,6 +68,7 @@ class SideBarLesson extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
+
         if (!nextProps.project.user.uid) {
             return;
         }
@@ -71,26 +76,26 @@ class SideBarLesson extends Component {
     }
 
     getData(nextProps){
-        try {
-               api.getUserContentsPreview()
-                   .then(json => {
-                       if(json && json.length){
-                           this.setState({
-                               data:json,
-                           })
-                        }
-                       else{
-                            console.log("Failed to find content")
-                       }
-                       this.setState({doneLoading:true})
+
+        this.title = nextProps.title;
+        this.tags = nextProps.tags;
+        this.description = nextProps.description;
+
+        api.getUserContentsPreview()
+           .then(json => {
+               if(json && json.length){
+                   this.setState({
+                       data:json,
                    })
-                   .catch(err => {
-                       console.log(err)
-                   })
-           }
-           catch (e){
-               console.log(e)
-           }
+                }
+               else{
+                    console.log("Failed to find content")
+               }
+               this.setState({doneLoading:true})
+           })
+           .catch(err => {
+               console.log(err)
+           })
     }
 
     toggle(tab, contentId) {
@@ -143,18 +148,17 @@ class SideBarLesson extends Component {
             showsEditDialog: (project.published===1)
         });
 
-        
-
         this.props.setProjectInLessonMaker(project)
     }
 
     publishOrSaveContent() {
 
-        console.log("Title: "+this.title);
-        console.log("Desc: "+this.description);
-        console.log("Tag: "+this.tags);
+        console.log("Tags"+ this.tags);
+        console.log("description"+ this.description);
+        console.log("title"+ this.title);
 
 
+        this.onSettingsSave();
 
         if (this.state.showPublishModal && this.title && this.description && this.tags) {
             this.saveContent(1)

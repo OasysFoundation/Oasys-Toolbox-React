@@ -382,7 +382,7 @@ class Authentication extends Component {
                                             <br />
                                             <Button color="primary" block onClick={this.onLoginWithFacebook.bind(this)}>Login with Facebook</Button>
                                             <Button color="primary" block onClick={this.onLoginWithGoogle.bind(this)}>Login with Google</Button>
-                                            <Button color="primary" block onClick={this.ForgotPasswordClicked}>Forgot/Reset Password</Button>
+                                            <Button color="secondary" block onClick={this.ForgotPasswordClicked}>Forgot/Reset Password</Button>
                                         </Form>
                                     </CardBody>
                                 </Card>
