@@ -73,7 +73,6 @@ class Index extends Component {
                                 displayName,
                                 uid,
                                 idToken,
-                                status:2,
                             }
                     })
                 });
@@ -87,7 +86,6 @@ class Index extends Component {
                             displayName: null,
                             uid: null,
                             idToken: null,
-                            status:1,
                         }
                 })
             }

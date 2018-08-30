@@ -19,6 +19,8 @@ import SnackbarContent from '@material-ui/core/SnackbarContent';
 import EditModalWarning from './EditModalWarning'
 import colors from '../utils/colors';
 import api from '../utils/api'
+import {isEmpty} from '../utils/trickBox'
+
 
 
 class SideBarLesson extends Component {
@@ -88,6 +90,8 @@ class SideBarLesson extends Component {
            })
            .catch(err => {
                console.log(err)
+               this.setState({doneLoading:true})
+
            })
     }
 
@@ -349,27 +353,29 @@ class SideBarLesson extends Component {
                        backdrop={true}>
                     <ModalHeader> Your Projects </ModalHeader>
                     <ModalBody style={{height: "20rem", overflow:"scroll"}}>
-                    {this.state.doneLoading
-                        ? this.state.data && this.state.data.length
-                            ? (
-                                <ListGroup id="list-tab" role="tablist">
-                                    <ListGroupItem color="success">Saved Drafts</ListGroupItem>
-                                   {
-                                    this.state.data.map((data,idx) =>
-                                        data.published!==1
-                                     ? <ListGroupItem key={data.contentId} onClick={() => this.toggle(idx, data.contentId)} action active={this.state.activeTab === idx} >{data.title}</ListGroupItem>
-                                     : null
-                                    )} 
-                                <ListGroupItem color="success">Published Work</ListGroupItem>
-                                   {this.state.data.map((data,idx) =>
-                                    data.published===1  
-                                     ? <ListGroupItem key={data.contentId} onClick={() => this.toggle(idx, data.contentId)} action active={this.state.activeTab === idx}>{data.title}</ListGroupItem>
-                                     : null
-                                    )} 
-                                </ListGroup>
-                                )
-                            : "No Contents"
-                        : "Loading.."
+                    {!isEmpty(this.props.project.user.uid)
+                        ?this.state.doneLoading
+                            ? (this.state.data && this.state.data.length
+                                ? (
+                                    <ListGroup id="list-tab" role="tablist">
+                                        <ListGroupItem color="success">Saved Drafts</ListGroupItem>
+                                       {
+                                        this.state.data.map((data,idx) =>
+                                            data.published!==1
+                                         ? <ListGroupItem key={data.contentId} onClick={() => this.toggle(idx, data.contentId)} action active={this.state.activeTab === idx} >{data.title}</ListGroupItem>
+                                         : null
+                                        )} 
+                                    <ListGroupItem color="success">Published Work</ListGroupItem>
+                                       {this.state.data.map((data,idx) =>
+                                        data.published===1  
+                                         ? <ListGroupItem key={data.contentId} onClick={() => this.toggle(idx, data.contentId)} action active={this.state.activeTab === idx}>{data.title}</ListGroupItem>
+                                         : null
+                                        )} 
+                                    </ListGroup>
+                                    )
+                                : "No Contents")
+                            : "Loading.."
+                        : "Please log in"
                     }
                     
                     </ModalBody>
