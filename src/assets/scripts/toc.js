@@ -159,7 +159,7 @@ export function reorderX(tocInfo) {
             }
         }
     }
-    console.log(tocInfo)
+    //console.log(tocInfo)
     return tocInfo;
 }
 
@@ -183,7 +183,6 @@ export function insertArrowLocs(tocInfo, opt) {
                     arrowLocs[k] = [loc];
                 } else {
                     let offset = 0;
-                    let sign = true;
                     let newLoc = loc;
                     for (let l=0; l<10; l++) {
                         if ((newLoc+offset)>0 && arrowLocs[k].indexOf(newLoc+offset) === -1) {
@@ -273,10 +272,10 @@ export function drawConnections(tocInfo, opt, activeElem){
             let level2 = Math.max(tocInfo[i].level,elem.level);
             for (let k=1; k<level2-level1; k++) {
                 let elemsOnLevel = tocInfo.filter(e=>e.level===level1+k);
-                console.log('  level ' + (level1+k));
+                //console.log('  level ' + (level1+k));
                 let doDrawTunnel = true;
                 elemsOnLevel.forEach(el=>{
-                    console.log('    elem ' + el.title + ': ' + el.xmin*opt.totalWidth + ', ' + el.xmax*opt.totalWidth);
+                    //console.log('    elem ' + el.title + ': ' + el.xmin*opt.totalWidth + ', ' + el.xmax*opt.totalWidth);
                     if (Math.abs(el.xmin*opt.totalWidth-x)<3 || Math.abs(el.xmax*opt.totalWidth-x)<3) {
                         doDrawTunnel = false;
                     }

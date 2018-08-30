@@ -181,7 +181,9 @@ class QuizzEdit extends Component {
                 duration: this.analytics.endTime - this.analytics.startTime,
                 id: this.props.id,
             }
-            this.props.onQuizAnswer(quizObj);
+            if (!this.props.isEditMode) {
+                this.props.onQuizAnswer(quizObj);
+            }
         }
     }
 

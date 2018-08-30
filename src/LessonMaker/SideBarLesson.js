@@ -2,29 +2,24 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Button} from 'reactstrap';
 import {Input, FormText, ListGroup, ListGroupItem, Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
-
+//can I push?
 import {
     AppSidebar,
     AppSidebarFooter,
     AppSidebarMinimizer,
 } from '@coreui/react';
-
+import uuidv4 from 'uuid/v4';
 import {connect} from "redux-zero/react";
 import actions from "../store/actions";
 import SidebarToc from "./SidebarToc";
-
-import api from '../utils/api'
-
 import IconSelectionModal from './IconSelectionModal'
-
 import {ScaleLoader} from 'react-spinners';
-
 import Snackbar from '@material-ui/core/Snackbar';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
-
 import EditModalWarning from './EditModalWarning'
+import colors from '../utils/colors';
+import api from '../utils/api'
 
-import uuidv4 from 'uuid/v4';
 
 class SideBarLesson extends Component {
     constructor(props) {
@@ -40,16 +35,14 @@ class SideBarLesson extends Component {
             data:[],
             doneLoading:false,
             activeTab: 1,
-            showsEditDialog: false
+            showsEditDialog: false,
+            errorTitle: true,
+            errorDescription: true,
         }
 
         this.title = props.title;
         this.tags = props.tags.join(" ");
         this.description = props.description;
-
-        console.log("Tags"+ this.tags);
-        console.log("description"+ this.description);
-        console.log("title"+ this.title);
 
         this.toggle = this.toggle.bind(this);
 
@@ -125,8 +118,6 @@ class SideBarLesson extends Component {
 
     onSettingsSave() {
 
-        console.log(this.tags);
-
         if (this.tags != null) {
             this.props.onChangeProjectTags(this.tags.split(" "));
         }
@@ -156,26 +147,18 @@ class SideBarLesson extends Component {
 
     publishOrSaveContent() {
 
-        console.log("Tags"+ this.tags);
-        console.log("description"+ this.description);
-        console.log("title"+ this.title);
-
-
         this.onSettingsSave();
 
-        if (this.state.showPublishModal && this.title && this.description && this.tags) {
-            this.saveContent(1)
-            this.setState({showPublishModal: false})
+        if (this.state.showPublishModal && this.title && this.description) {
+            this.saveContent(1);
+            this.setState({showPublishModal: false});
         } 
-        else if (this.state.showSaveModal && this.title && this.description && this.tags) {
-            this.saveContent(0)
-            this.setState({showSaveModal: false})
+        else if (this.state.showSaveModal && this.title && this.description) {
+            this.saveContent(0);
+            this.setState({showSaveModal: false});
         }
         else if (this.state.showSettingsDialog) {
-            this.onSettingsSave()
-        } else {
-            //keep up the dialog or cancel
-            null
+            this.onSettingsSave();
         }
     }
 
@@ -271,6 +254,34 @@ class SideBarLesson extends Component {
         this.onCloseEditWarning();
     }
 
+    checkTitleChange(e) {
+        if (e.target.value.length>40) {
+            e.target.value = e.target.value.substring(0,40);
+            return;
+        }
+        let title = e.target.value.trim();
+        if (title.length===0) {
+            this.setState({errorTitle: true});
+        } else {
+            this.setState({errorTitle: false});
+            this.title = e.target.value;
+        }
+    }
+
+    checkDescriptionChange(e) {
+        if (e.target.value.length>500) {
+            e.target.value = e.target.value.substring(0,500);
+            return;
+        }
+        let description = e.target.value.trim();
+        if (description.length===0) {
+            this.setState({errorDescription: true});
+        } else {
+            this.setState({errorDescription: false});
+            this.description = e.target.value;
+        }
+    }
+
     render() {
         return (
             <div>
@@ -288,7 +299,7 @@ class SideBarLesson extends Component {
                                 <img src={require('../assets/category-icons/' + this.props.iconName)} width='100px'
                                      height='100px' alt=''/>
                                 <div style={{position: 'absolute', top: '0', right: '0'}}>
-                                    <i class="fas fa-align-right fa-lg fa-edit"
+                                    <i className="fas fa-align-right fa-lg fa-edit"
                                        onClick={this.onShowIconSelectionModal.bind(this)}></i>
                                 </div>
                             </div>
@@ -296,23 +307,31 @@ class SideBarLesson extends Component {
                         </center>
                         <Input
                             defaultValue={this.props.title}
-                            onChange={e => this.title = e.target.value}
+                            onChange={e=>this.checkTitleChange(e)} 
+                            style={{borderColor: this.state.errorTitle?colors.VELVET:colors.GULLGREY}}
                         />
-                        <FormText color="muted" style={{marginBottom: '10px'}}>
-                            The title for this lesson may have 40 characters at most.
+                        <FormText 
+                            color={this.state.errorTitle?'danger':'muted'}
+                            style={{marginBottom: '10px'}}>
+                            The title is for this lesson is required and may have 40 characters at most.
                         </FormText>
                         <Input
                             type='textarea'
+                            style={{borderColor: this.state.errorDescription?colors.VELVET:colors.GULLGREY}}
                             rows='4'
                             defaultValue={this.props.description}
-                            onChange={e => this.description = e.target.value}
+                            onChange={e=>this.checkDescriptionChange(e)} 
+                            placeholder='Please add a description'
                         />
-                        <FormText color="muted" style={{marginBottom: '10px'}}>
-                            The description will be shown to the learner before they start the lesson.
+                        <FormText 
+                            color={this.state.errorDescription?'danger':'muted'}
+                            style={{marginBottom: '10px'}}>
+                            The description is required and may have 500 characters at most.
                         </FormText>
                         <Input
                             defaultValue={this.props.tags.join(" ")}
                             onChange={e => this.tags = e.target.value}
+                            placeholder='Please add tags separated by space'
                         />
                         <FormText color="muted">
                             Tags are being used to inform the learner about the context. For example. you can use
@@ -323,7 +342,6 @@ class SideBarLesson extends Component {
                     <ModalFooter>
                         <Button color="secondary" onClick={this.onSettingsClose}>Cancel</Button>
                         <Button color="primary" onClick={this.publishOrSaveContent}>{this.state.showPublishModal ? 'Publish' : this.state.showSaveModal ? 'Save Draft': 'Save Settings'}</Button>
-
                     </ModalFooter>
                 </Modal>
 
