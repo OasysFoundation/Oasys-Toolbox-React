@@ -214,8 +214,8 @@ class LessonMaker extends Component {
 
                                     {/*checks if there are elements first, then inserts ContinueButton at end*/}
                                     {
-                                        (elements.length===0 || (elements[elements.length - 1].type !== globals.EDIT_CONTINUE_ELEMENT)
-                                            ? this.props.onAddElement(globals.EDIT_CONTINUE_ELEMENT, elements.length - 1)
+                                        (elements.length>=1 && (elements[elements.length - 1].type !== globals.EDIT_CONTINUE_ELEMENT)
+                                            ? this.props.onAddElement(globals.EDIT_CONTINUE_ELEMENT, elements.length)
                                             : null)
                                     }
                                     {/*? <Element */}

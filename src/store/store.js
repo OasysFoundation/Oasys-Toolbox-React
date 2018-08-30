@@ -17,9 +17,9 @@ const initData = {
     featured: 0,
     contentId: uuidv4(),
     isEditMode: true,
-    description: 'Please add a description of your content (Required)',
+    description: '',
     activeChapterIndex: 0,
-    tags: ['Please add tags separated by space (Required)'],
+    tags: [],
     chapters: [
         {
             title: "Untitled Chapter",
