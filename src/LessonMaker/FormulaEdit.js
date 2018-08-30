@@ -26,6 +26,7 @@ class FormulaEdit extends Component {
 		this.setState({
             formula: element.target.value
         });
+		this.props.onChange(element.target.value)
 	}
 	
     render() {
@@ -34,7 +35,8 @@ class FormulaEdit extends Component {
 
         return (
             <div>
-                {this.props.isEditMode? (
+                {this.props.isEditMode
+                    ? (
                 	<InputGroup>
     			        <InputGroupAddon addonType="prepend">🏎</InputGroupAddon>
     			        <Input placeholder="formula" onChange={this.onChangedSearchTerm}/>

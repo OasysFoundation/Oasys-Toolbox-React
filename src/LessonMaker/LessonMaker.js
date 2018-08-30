@@ -183,7 +183,13 @@ class LessonMaker extends Component {
                                     type="button"
                                     className={this.props.isEditMode ? "btn btn-dark preview-btn" : "btn btn-light preview-btn"}
                                     style={{width: '150px'}}
-                                    onClick={() => this.props.onToggleEditMode()}
+                                    onClick={() => {
+                                        this.props.instantUpdateElements(true)
+                                        setTimeout(() => {
+                                            this.props.onToggleEditMode()
+                                        }, 250);
+
+                                    }}
                                 >
                                     <span className={this.props.isEditMode ? "icon-grid" : "icon-layers"}></span>
                                     {"  "}
@@ -263,13 +269,14 @@ LessonMaker.propTypes = {
 
 const mapStoreToProps = ({chapters, activeChapterIndex, isEditMode}) => ({isEditMode, chapters, activeChapterIndex})
 const neededActions = (store) => {
-    const {onChangeActiveChapter, onChangeLastElementChild, onAddElement, updateChapterLinks, onDeleteChapter, onChangeChapterTitle, onToggleEditMode, mergeStoreWithSessionStorage} = actions();
+    const {onChangeActiveChapter, instantUpdateElements, onChangeLastElementChild, onAddElement, updateChapterLinks, onDeleteChapter, onChangeChapterTitle, onToggleEditMode, mergeStoreWithSessionStorage} = actions();
     return {
         onChangeActiveChapter,
         onChangeLastElementChild,
         onAddElement,
         updateChapterLinks,
         onDeleteChapter,
+        instantUpdateElements,
         onChangeChapterTitle,
         onToggleEditMode,
         mergeStoreWithSessionStorage
