@@ -135,12 +135,15 @@ class SideBarLesson extends Component {
     }
 
     onSwitchProject(contentId) {
-        this.setState({
-            showProjectsDialog: false,
-            showsEditDialog: true
-        });
 
         const project = this.state.data.find(d => d.contentId === contentId)
+
+        this.setState({
+            showProjectsDialog: false,
+            showsEditDialog: (project.published===1)
+        });
+
+        
 
         this.props.setProjectInLessonMaker(project)
     }

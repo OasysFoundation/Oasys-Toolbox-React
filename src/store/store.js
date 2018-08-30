@@ -13,7 +13,8 @@ const initData = {
     title: 'Please title your content (Required)',
     iconName: "001-cells.svg",
     author: null,
-
+    published: 0,
+    featured: 0,
     contentId: uuidv4(),
     isEditMode: true,
     description: 'Please add a description of your content (Required)',
