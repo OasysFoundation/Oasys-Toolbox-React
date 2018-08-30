@@ -150,6 +150,10 @@ class SideBarLesson extends Component {
 
     publishOrSaveContent() {
 
+        this.props.onChangeProjectTitle(this.title);
+        this.props.onChangeProjectDescription(this.description);
+        this.props.onChangeProjectTags(this.tags);
+
         if (this.state.showPublishModal && this.title && this.description && this.tags) {
             this.saveContent(1)
             this.setState({showPublishModal: false})
