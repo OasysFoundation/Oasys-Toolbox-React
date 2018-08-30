@@ -20,6 +20,8 @@ import api from '../utils/api'
 //import actions from "../store/actions";
 import {connect} from "redux-zero/react";
 import {Redirect} from 'react-router';
+import {isEmpty} from '../utils/trickBox'
+
 
 //import history from '../history'
 
@@ -556,7 +558,7 @@ class Authentication extends Component {
     }
 
     render() {
-        if (this.props.user.uid) {
+        if (!isEmpty(this.props.user.uid)){
             return <Redirect to={"/account"} />
         }
 

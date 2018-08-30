@@ -248,7 +248,7 @@ class AccountPage extends Component {
     render() {
         return (
            <div>
-                {isEmpty(this.props.user.displayName)
+                {isEmpty(this.props.user.uid)
                   ? history.push('/auth')
                   : (isMobile()
                         ? this.hasLoaded("mobile")
