@@ -321,7 +321,7 @@ class NavBar extends React.Component {
                 options: selectOptions,
             },
             {
-                label: 'Content',
+                label: 'Contents',
                 options: this.state.contentTitles,
             },
         ];

@@ -225,7 +225,7 @@ class ContentOverview extends Component {
     }
 
     render() {
-        const {uid, username, contentId, title} = this.props.match.params;
+        const {username, title} = this.props.match.params;
         var url = this.removeLastComponentOfUrl(window.location.href);
         return (
             <div className='app-body'>
