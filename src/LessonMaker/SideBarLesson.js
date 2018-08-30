@@ -22,6 +22,10 @@ import {ScaleLoader} from 'react-spinners';
 import Snackbar from '@material-ui/core/Snackbar';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 
+import EditModalWarning from './EditModalWarning'
+
+import uuidv4 from 'uuid/v4';
+
 class SideBarLesson extends Component {
     constructor(props) {
         super(props);
@@ -36,6 +40,7 @@ class SideBarLesson extends Component {
             data:[],
             doneLoading:false,
             activeTab: 1,
+            showsEditDialog: false
         }
 
         this.title = null;
@@ -132,6 +137,7 @@ class SideBarLesson extends Component {
     onSwitchProject(contentId) {
         this.setState({
             showProjectsDialog: false,
+            showsEditDialog: true
         });
 
         const project = this.state.data.find(d => d.contentId === contentId)
@@ -230,6 +236,22 @@ class SideBarLesson extends Component {
         this.setState({
             snackbarMessage: null
         });
+    }
+
+    onCloseEditWarning() {
+        this.setState({
+            showsEditDialog: false
+        })
+    }
+
+    onRemix() {
+        const project = JSON.parse(JSON.stringify(this.props.project));
+        project.contentId = uuidv4();
+        project.title = project.title + " [Remixed]";
+
+        this.props.setProjectInLessonMaker(project);
+
+        this.onCloseEditWarning();
     }
 
     render() {
@@ -377,6 +399,9 @@ class SideBarLesson extends Component {
                         }
                     />
                 </Snackbar>
+
+                <EditModalWarning isOpen={this.state.showsEditDialog} contentTitle={this.props.title} onClose={this.onCloseEditWarning.bind(this)} onRemix={this.onRemix.bind(this)}/>
+
             </div>
         )
     }
