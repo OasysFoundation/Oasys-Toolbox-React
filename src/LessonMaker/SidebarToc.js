@@ -65,6 +65,7 @@ class SidebarToc extends Component {
                 idobj[f.chapterId]===undefined
                 ? e.isEnd = true
                 : e.linkIdx.push(idobj[f.chapterId]);
+                return null;
             });
         });
         console.log(this.chaptersExt)

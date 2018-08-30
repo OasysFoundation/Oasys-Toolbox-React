@@ -173,9 +173,6 @@ class SideBarLesson extends Component {
         }
         else if (this.state.showSettingsDialog) {
             this.onSettingsSave()
-        } else {
-            //keep up the dialog or cancel
-            null
         }
     }
 

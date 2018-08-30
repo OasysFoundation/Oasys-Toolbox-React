@@ -183,7 +183,6 @@ export function insertArrowLocs(tocInfo, opt) {
                     arrowLocs[k] = [loc];
                 } else {
                     let offset = 0;
-                    let sign = true;
                     let newLoc = loc;
                     for (let l=0; l<10; l++) {
                         if ((newLoc+offset)>0 && arrowLocs[k].indexOf(newLoc+offset) === -1) {

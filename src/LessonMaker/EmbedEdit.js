@@ -2,9 +2,6 @@ import React, {Component} from 'react';
 import Iframe from 'react-iframe';
 import Select from 'react-select';
 import sha256 from 'js-sha256';
-import {Input} from 'reactstrap';
-import isUrl from 'is-url';
-
 
 import interactives from '../assets/json/concord-interactives.json';
 
