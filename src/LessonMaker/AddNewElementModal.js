@@ -22,6 +22,7 @@ class AddNewElementModal extends Component {
 		globals.EDIT_QUIZ,
 		globals.EDIT_VIDEO,
 		globals.EDIT_EMBED,
+		globals.EDIT_IFRAME,
 	]
 	
 
@@ -41,6 +42,8 @@ class AddNewElementModal extends Component {
             //	return "Game";
             case globals.EDIT_EMBED:
             	return "Simulation";
+            case globals.EDIT_IFRAME:
+                return "IFrame";
             default:
                 return "Yet unknown element."
         }
