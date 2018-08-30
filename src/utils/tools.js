@@ -18,6 +18,9 @@ const typeToInit = {
     [globals.EDIT_CONTINUE_ELEMENT]: {
         action: ''
     },
+    [globals.EDIT_IFRAME]: {
+        id: '',
+    },
     // [globals.EDIT_CHAPTEREND]: {
     //     childChoice: 2,
     // }
