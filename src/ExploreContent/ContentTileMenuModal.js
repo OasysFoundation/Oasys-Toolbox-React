@@ -82,9 +82,18 @@ class ContentTileMenuModal extends Component {
                   snackbarMessage:"Deleted Successfully"
                 })
                 this.toggle();
+                window.location.reload();
+
  
             })
-            .catch(err => {console.log(err);this.toggle();})
+            .catch(err => {
+              console.log(err);
+              this.setState({
+                  showSnackbar:true,
+                  snackbarMessage:"An error occured"
+                })
+              this.toggle();
+            })
 
         }        
       else if (value === "flag"){
