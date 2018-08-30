@@ -242,6 +242,7 @@ class LessonMaker extends Component {
 
                                 : <ContentView
                                     isPreview={true}
+                                    activeChapterIndex={this.props.activeChapterIndex}
                                     chapters={this.props.chapters}
                                     onChangeActiveChapter={this.props.onChangeActiveChapter}/>
                             }

@@ -82,10 +82,18 @@ class ContentView extends Component {
 
         //firebase auth takes longer if loading the link directly per URL
         this.analytics.accessUserId = nextProps.user.uid;
+
+        console.log(nextProps, 'contentview')
+        if (nextProps.activeChapterIndex != null && this.props.isPreview) {
+            this.setState({
+                activeChapterIndex: nextProps.activeChapterIndex,
+                activeChapterID: nextProps.chapters[nextProps.activeChapterIndex].id
+            })
+        }
         //console.log(this.analytics, "analytics")
     }
 
-    produceState(chapterData, chapterIndex = 0) {
+    produceState(chapterData, chapterIndex = this.props.activeChapterIndex || 0) {
         console.log(chapterData, 'chapterData')
         const chapters = JSON.parse(JSON.stringify(chapterData))
         const allElements = flatten(chapters.map(chapter => chapter.elements));
