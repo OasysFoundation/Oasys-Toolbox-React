@@ -24,6 +24,7 @@ import NextChapterSelection from './NextChapterSelection'
 
 import actions from "../store/actions";
 import colors from '../utils/colors';
+import IFrameEmbed from "./IFrameEmbed";
 //import EndOfChapterElement from "./EndOfChapterElement";
 // import {isElementEmpty, initContent} from "../tools";
 
@@ -122,6 +123,9 @@ class Element extends Component {
                 break;
             case globals.EDIT_EMBED:
                 render = <EmbedEdit {...params}/>
+                break;
+            case globals.EDIT_IFRAME:
+                render = <IFrameEmbed {...params}/>
                 break;
             case globals.EDIT_CONTINUE_ELEMENT:
                 render = <NextChapterSelection {...params}
@@ -272,15 +276,6 @@ Element.propTypes = {
 };
 
 const mapStoreToProps = ({chapters, shouldInstantUpdate, isEditMode, activeChapterIndex}) => ({chapters, shouldInstantUpdate, activeChapterIndex, isEditMode});
-
-// Element.defaultPropTypes = {
-//     data: function (props, propName) {
-//         // console.log(props, propName, props.data.type, 'proptype check', typeof props.data.content,  typeof initContent(props['type']));
-//         if (isEmpty(props.data.content) || typeof props.data.content !== typeof initContent(props.data.type)) {
-//             return new Error('' + props.data.id + " , " + props.data.type + " " + "Content does not fit Content Type @ Element")
-//         }
-//     }
-// };
 
 //don't need anything!
 const neededActions = (store) => {
