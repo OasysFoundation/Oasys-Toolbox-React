@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Button} from 'reactstrap';
 import {Input, FormText, ListGroup, ListGroupItem, Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
-
+//can I push?
 import {
     AppSidebar,
     AppSidebarFooter,
@@ -173,9 +173,6 @@ class SideBarLesson extends Component {
         }
         else if (this.state.showSettingsDialog) {
             this.onSettingsSave()
-        } else {
-            //keep up the dialog or cancel
-            null
         }
     }
 
