@@ -12,6 +12,7 @@ import {connect} from "redux-zero/react";
 import actions from "../store/actions";
 import withLoader from './withLoader'
 import history from "../history";
+import globals from "../utils/globals";
 
 class ContentView extends Component {
     constructor(props) {
@@ -28,6 +29,8 @@ class ContentView extends Component {
         this.produceState = this.produceState.bind(this);
         this.handleChangeElementVisibility = this.handleChangeElementVisibility.bind(this);
         this.handleQuizAnswer = this.handleQuizAnswer.bind(this);
+        this.isLastChapter = this.isLastChapter.bind(this);
+        this.goToCompletionScreen = this.goToCompletionScreen.bind(this);
 
         this.maxUpdateAttempts = 5;
         this.numScheduledUpdates = 0;
@@ -53,7 +56,7 @@ class ContentView extends Component {
 
         else {
             const {uid, contentId} = this.props.match.params;
-            const chapterIndex = this.props.match.params.chapterIndex || 0;
+            const chapterIndex = parseInt(this.props.match.params.chapterIndex) || 0;
             console.log(chapterIndex, 'index')
 
             api.getContent(uid, contentId)
@@ -119,6 +122,10 @@ class ContentView extends Component {
     }
 
     goToNextChapter = () => {
+        if (this.isLastChapter()) {
+            this.goToCompletionScreen()
+            return
+        }
         const {chapters} = this.state;
 
         const idx = this.state.activeChapterIndex;
@@ -146,6 +153,13 @@ class ContentView extends Component {
     }
 
     goToChapter = (sendToChapterID, interactionElementID) => {
+
+        console.log('check', this.isLastChapter())
+        if (this.isLastChapter()) {
+            this.goToCompletionScreen()
+            return
+        }
+
         console.log("ids", sendToChapterID, interactionElementID, this.state.chapters, "ids")
         if (isEmpty(sendToChapterID)) {
             //scroll to next element or (if end of chapter, next elements chapter)
@@ -257,13 +271,15 @@ class ContentView extends Component {
                         <main className={this.props.isPreview ? null : "main"}>
                             <Container fluid className='main-width'>
                                 <React.Fragment>
-                                    {this.state.showsContentCompletion  && !this.props.isPreview?
-                                        this.showConcludingContentPage()
+                                    {this.state.showsContentCompletion  && !this.props.isPreview
+                                        ? this.showConcludingContentPage()
                                         :
                                         <div>
                                             {allElementsinProject.map(el => (
-                                                (el.parentChapterID === that.state.activeChapterID)
-                                                    ?
+                                                el.parentChapterID === that.state.activeChapterID
+                                                    && (this.isLastChapter() ? el.type !== globals.EDIT_CONTINUE_ELEMENT : true)
+
+                                                &&
                                                     <ScrollElement key={el.id} name={el.id}>
                                                         <div className="item">
                                                             {!isElementEmpty(el)
@@ -280,7 +296,6 @@ class ContentView extends Component {
                                                             }
                                                         </div>
                                                     </ScrollElement>
-                                                    : null
                                             ))
                                             }
                                         </div>
@@ -294,19 +309,11 @@ class ContentView extends Component {
                                     null
                                     :
                                     <div className='pointer'>
-                                        {this.isLastChapter() ? (
+                                        {this.isLastChapter() && (
                                             <div onClick={this.goToCompletionScreen.bind(this)}>
                                                 {ICON("icon-arrow-down", 40)}
                                             </div>
-                                        ) : null
-
-
-                                            //     (
-                                            //     <div onClick={() => this.goToNextChapter()}>
-                                            //         {ICON("icon-arrow-down", 40)}
-                                            //     </div>
-                                            // )
-                                        }
+                                        )}
 
                                     </div>
                                 }
