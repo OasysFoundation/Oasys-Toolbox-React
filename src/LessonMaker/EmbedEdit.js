@@ -121,7 +121,7 @@ class EmbedEdit extends Component {
                             styles={customSelectStyles}
                           />
                           {embedElem
-                           ? <p style={{margin: '10px 0px 15px 10px'}}>{embedElem.about.join(' ')}</p>
+                           ? <p style={{margin: '10px 0px 15px 10px'}}>{embedElem.about.length>0?embedElem.about.join(' '):null}</p>
                            : null
                           }
                     </div>
