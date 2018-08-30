@@ -249,16 +249,30 @@ class NavBar extends React.Component {
         };
         this.doRender = false;
 
+    }
+
+    componentDidMount(){
         api.getContentsPreview()
             .then(json => {
                 if (json) {
-                    let titles = json.map(obj => obj.title);
-                    let userIds = json.map(obj => obj.userId);
                     let contentTitles = [];
-                    for (let i = 0; i < titles.length && i < userIds.length; i++) {
-                        let newUrl = "/user/" + userIds[i] + "/" + titles[i]
-                        contentTitles.push({"label": titles[i], "value": titles[i], "url": newUrl})
-                    }
+                    json.forEach(obj=>{
+                        let label = <span>
+                            {obj.title}
+                            <em> by {obj.username} </em><br/>
+                            <span style={{marginTop:'-8px', 'fontSize': '0.8rem'}}>
+                                {obj.tags.map(tag=>
+                                    <span style={{marginRight: '5px', padding: '2px', backgroundColor: '#eeeeee'}}>{tag}</span>
+                                )}
+                            </span>
+                        </span>
+                        let value = obj.title + ' ' + obj.username + ' ' + obj.tags.join(' ');
+                        contentTitles.push({
+                            'label': label, 
+                            'value': value, 
+                            'url': '/view/' + obj.username + '/' + obj.title + '/' + obj.userId + '/' + obj.contentId,
+                        });
+                    });
                     this.setState({
                         contentTitles: contentTitles,
                     })

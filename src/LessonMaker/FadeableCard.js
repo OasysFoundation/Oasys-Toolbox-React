@@ -53,7 +53,9 @@ class FadeableCard extends Component {
             <div>
                 <Fade timeout={300} in={this.state.shouldFade}>
                     <Card className={this.state.isOpen ? "card-fancy has-shadow" : "card-fancy has-shadow minimized"}>
-                            <section style={styling.cardActions} > 
+                        {type===globals.EDIT_CONTINUE_ELEMENT
+                            ? null
+                            : <section style={styling.cardActions} > 
                                 {/*Quill has to render but is hidden if not Quill, bc QUILL is hacky and searches for a toolbar ID*/}
                                 {ToolbarQuill(id, type === globals.EDIT_QUILL && isEditMode)}
                                 <div className='card-hint'>
@@ -87,7 +89,7 @@ class FadeableCard extends Component {
                                     </a>
                                 </div>
                             </section>
-
+                        }
                         {/*</CardHeader>*/}
                         <Collapse isOpen={this.state.isOpen} id="collapseExample">
                             <CardBody>

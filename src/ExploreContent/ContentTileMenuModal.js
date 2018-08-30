@@ -67,7 +67,7 @@ class ContentTileMenuModal extends Component {
         // else if (value === "comments")
         //     window.location.href = `/comments/${this.props.data.username}/${this.props.data.title}`
       else if (value === "user") {            
-          history.push(`/user/${this.props.user.displayName || "anonymous"}/${this.props.data.uid}`) 
+          history.push(`/user/${this.props.data.username || "anonymous"}/${this.props.data.uid}`) 
           this.toggle();
         }        
       else if (value === "flag"){

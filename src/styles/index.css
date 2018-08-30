@@ -519,9 +519,9 @@ html:not([dir="rtl"]) .sidebar {
     cursor: pointer;
 }
 
-.oasys .pn-ProductNav {
+/*.oasys .pn-ProductNav {
     overflow-x: hidden;
-}
+}*/
 
 .oasys .landingPage .noTextDecoration,  .oasys .landingPage .noTextDecoration:hover{
     text-decoration: none;

@@ -9,6 +9,7 @@ import {connect} from "redux-zero/react";
 
 import {Button} from 'reactstrap';
 import colors from './utils/colors';
+import {isEmpty} from './utils/trickBox'
 
 import { isMobile } from './utils/tools'
 
@@ -31,6 +32,9 @@ const styles = {
         width:"100%",
         marginRight:"100%",
     },
+    paddingForHeaderSection:{
+        padding:"10px",
+    },
 }
 
 class AccountPage extends Component {
@@ -44,9 +48,54 @@ class AccountPage extends Component {
             pageDataReccommended: [],
             pageDataUser: [],
             noContent:true,
-            doneLoading:false,
         };
         this.loadAccountPage = this.loadAccountPage.bind(this);
+        this.getData = this.getData.bind(this);
+
+        if (this.props.user.uid) {
+            this.getData(this.props);
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (!nextProps.user.uid) {
+            return;
+        }
+        this.getData(nextProps);
+    }
+
+    getData(nextProps) {
+       try {
+               api.getUserContentsPreview()
+                   .then(json => {
+                       this.setState({
+                           contentUser: json || "errorLoadingContent"
+                       })
+                       if(json && json.length)
+                           this.setState({
+                               pageDataUser: [
+                                   {
+                                       title: "My Publications",
+                                       data: this.state.contentUser.filter(content => content.published === 1).reverse(),
+                                   },
+                                   {
+                                       title: "My Drafts",
+                                       data: this.state.contentUser.filter(content => content.published !== 1).reverse(),
+                                   },
+                               ],
+                               noContent:false,
+                           })
+                       else{
+                           this.setState({noContent:true})
+                       }
+                   })
+                   .catch(err => {
+                       console.log(err)
+                   })
+           }
+           catch (e){
+               console.log(e)
+           }
     }
 
     componentDidMount(){
@@ -162,12 +211,12 @@ class AccountPage extends Component {
         const paddingVal = (value==="mobile" ? "120px" : "70px")
         return(
             <div>
-                <section className="bg-light rz-start rz-no-border-special-2" id="about" style={{paddingTop: paddingVal}}>
-                  <div className="container">
-                    <div className="row">
-                      <div className="col-lg-10 mx-auto">
+                <section id="about" style={{paddingTop: paddingVal}}>
+                    <div className="row" style={styles.HorizontalScrollOuterCenterContainer}>
+                      <div style={styles.HorizontalScrollContainer}>
+                      <div style={styles.paddingForHeaderSection}>
                         <div style={styles.HorizontalScrollTitle}>
-                        {"Welcome " + this.props.user.displayName + "!"}
+                        {"Welcome" + (this.props.user.displayName ? (" " + this.props.user.displayName) : "")+ "!"}
                         <Button 
                           style={{float:"right", backgroundColor: colors.GHOST, fontFamily: 'JafBernino-Regular'}} 
                           onClick={() => auth.doSignOut()}
@@ -177,7 +226,7 @@ class AccountPage extends Component {
                         <hr style={styles.HRDividingLine}/>
                         </div>
                         <p className="text-faded lead mb-4" style={{fontSize: '1.3rem'}}>                                 
-                          We are excited to have you in the Oasys Community! Feel free to learn more <a href="/about">about Oasys</a> and how you could <a href="/">earn money</a> for the content you create.
+                          We are excited to have you in the Oasys Community! Feel free to learn more <a href="/about">about Oasys</a>.
                         </p>
                       </div>
                     </div>
@@ -188,65 +237,23 @@ class AccountPage extends Component {
                      : this.loadAccountPage()
                   }
                   <div style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
-                         <Button size="lg" style={{margin: '1rem'}} color="primary" onClick={() => window.location.href="/create"}> Create Content</Button>
-                        <Button size="lg" style={{margin: '1rem'}} color="primary" onClick={() => window.location.href="/explore"}> Home </Button>
+                         <Button size="lg" style={{margin: '1rem'}} color="primary" onClick={() =>history.push("/create")}> Create Content</Button>
+                        <Button size="lg" style={{margin: '1rem'}} color="primary" onClick={() => history.push("/explore")}> Home </Button>
                   </div>
                 </section>
             </div>
         )
     }
 
-    loadUserData() {
-       try {
-               api.getUserContentsPreview()
-                   .then(json => {
-                       this.setState({
-                           contentUser: json || "errorLoadingContent"
-                       })
-                       if(json && json.length)
-                           this.setState({
-                               pageDataUser: [
-                                   {
-                                       title: "My Publications",
-                                       data: this.state.contentUser.filter(content => content.published === 1),
-                                   },
-                                   {
-                                       title: "My Drafts",
-                                       data: this.state.contentUser.filter(content => content.published !== 1),
-                                   },
-                               ],
-                               noContent:false,
-                           })
-                       else{
-                           this.setState({noContent:true})
-                       }
-                       this.setState({doneLoading:true})
-                   })
-                   .catch(err => {
-                       console.log(err)
-                   })
-           }
-           catch (e){
-               console.log(e)
-           }
-    }
-
     render() {
-        // eslint-disable-next-line no-unused-expressions
-        this.props.user.status===0
-            ? null
-            : this.props.user.status===1
-                ? history.push('/auth') 
-                : this.state.doneLoading
-                    ? null
-                    : this.loadUserData()
         return (
            <div>
-                {this.props.user.status!==0
-                    ? isMobile()
+                {isEmpty(this.props.user.displayName)
+                  ? history.push('/auth')
+                  : (isMobile()
                         ? this.hasLoaded("mobile")
                         : this.hasLoaded("pc")
-                    : null
+                    )
                 }
            </div>
         )

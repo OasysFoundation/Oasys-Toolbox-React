@@ -71,7 +71,7 @@ export function sortIntoTocLevels(tocInfo, chapters, mainPath) {
             console.log("TOC: Cannot find placement for all elements off the longest path.");
             poslevs = [mainPath.length];
         }
-        addTocInfo.push({
+        const elem = {
             idx: idx,
             id: chapters[idx].id,
             level: poslevs[0],
@@ -79,7 +79,8 @@ export function sortIntoTocLevels(tocInfo, chapters, mainPath) {
             prev: chapters[idx].linkIdx.filter(e=>e<idx),
             title: chapters[idx].title,
             linkIdx: chapters[idx].linkIdx,
-        });
+        }
+        addTocInfo.push(elem);
     }
     tocInfo.push(...addTocInfo);
     // find final element and make sure it is at the highest level
@@ -123,6 +124,13 @@ export function reorderX(tocInfo) {
             }
             done.push(ti[j].level);
             let allonlvl = tocInfo.filter(e=>e.level===ti[j].level);
+
+            console.log('level ' + ti[j].level)
+            console.log('  ' + ti[j].title)
+            if (allonlvl.length>0) {
+                allonlvl.forEach(e=>console.log('    ' + e.title + ': ' + e.level))
+            }
+
             // let myx = allonlvl.map(e => e.x);
             for (let k=0; k<allonlvl.length; k++) {
                 let elem = allonlvl[k];
@@ -131,10 +139,13 @@ export function reorderX(tocInfo) {
                 let otherXmax = otherElems.map(e => (e.x+1) / e.nElems);
                 elem.xmin = elem.x / elem.nElems;
                 elem.xmax = (elem.x+1) / elem.nElems;
+                console.log(elem.xmin, ...otherXmin)
+                console.log(elem.xmax, ...otherXmax)
                 if (elem.xmax > Math.max(...otherXmin) && elem.xmin < Math.min(...otherXmax)) {
                     //console.log("nothing to do...")
                 } else {
                     // easiest solution for now: push element onto its own level
+                    console.log('clash!')
                     tocInfo.map(e => e.level > elem.level ? e.level++ : e.level)
                     elem.level += 1;
                     elem.xmin = 0;
@@ -147,6 +158,10 @@ export function reorderX(tocInfo) {
         }
     }
 
+    tocInfo.forEach((e,i)=>
+        console.log('  iteration ' + i + ', level ' + e.level)
+    );
+    
     return tocInfo;
 }
 

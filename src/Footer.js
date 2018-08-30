@@ -17,7 +17,7 @@ class FooterPage extends React.Component {
                             <h6 className="text-uppercase font-weight-bold"><strong>Oasys Education</strong></h6>
                             <hr className="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style={{width: '60px'}}/>
                             <p><a href="/about" className="dark-grey-text">About</a></p>
-                            <p><a href="/terms-of-service" className="dark-grey-text">Terms of Service</a></p>
+                            {/*<p><a href="/terms-of-service" className="dark-grey-text">Terms of Service</a></p>*/}
                             <p><a href="/privacy" className="dark-grey-text">Privacy Policy</a></p>
                         </Col>
                         <Col md="3" lg="2" xl="2" className="mb-4 dark-grey-text">

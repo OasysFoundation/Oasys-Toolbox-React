@@ -32,6 +32,7 @@ class SideBarLesson extends Component {
         this.state = {
             showSettingsDialog: false,
             showPublishModal: false,
+            showSaveModal:false,
             showProjectsDialog: false,
             isCurrentlySavingDraft: false,
             isCurrentlyPublishing: false,
@@ -54,9 +55,22 @@ class SideBarLesson extends Component {
         this.onSwitchProject = this.onSwitchProject.bind(this);
         this.saveContent = this.saveContent.bind(this);
         this.publishOrSaveContent = this.publishOrSaveContent.bind(this);
+
+        this.getData = this.getData.bind(this);
+
+        if (this.props.project.user.uid) {
+            this.getData(this.props);
+        }
     }
 
-    componentDidMount(){
+    componentWillReceiveProps(nextProps) {
+        if (!nextProps.project.user.uid) {
+            return;
+        }
+        this.getData(nextProps);
+    }
+
+    getData(nextProps){
         try {
                api.getUserContentsPreview()
                    .then(json => {
@@ -100,6 +114,7 @@ class SideBarLesson extends Component {
         this.setState({
             showSettingsDialog: false,
             showPublishModal: false,
+            showSaveModal: false,
         });
     }
 
@@ -134,7 +149,12 @@ class SideBarLesson extends Component {
         if (this.state.showPublishModal && this.title && this.description && this.tags) {
             this.saveContent(1)
             this.setState({showPublishModal: false})
-        } else if (this.state.showSettingsDialog) {
+        } 
+        else if (this.state.showSaveModal && this.title && this.description && this.tags) {
+            this.saveContent(0)
+            this.setState({showSaveModal: false})
+        }
+        else if (this.state.showSettingsDialog) {
             this.onSettingsSave()
         } else {
             //keep up the dialog or cancel
@@ -239,7 +259,7 @@ class SideBarLesson extends Component {
             <div>
                 <IconSelectionModal isOpen={this.state.showsIconSelectionModal} onSelect={this.props.onChangeIconName}
                                     onClose={this.onCloseIconSelectionModal.bind(this)}/>
-                <Modal isOpen={this.state.showSettingsDialog || this.state.showPublishModal}
+                <Modal isOpen={this.state.showSettingsDialog || this.state.showPublishModal || this.state.showSaveModal}
                        toggle={this.onSettingsClose} backdrop={true}>
                     <ModalHeader>
                         Settings
@@ -285,7 +305,7 @@ class SideBarLesson extends Component {
                     </ModalBody>
                     <ModalFooter>
                         <Button color="secondary" onClick={this.onSettingsClose}>Cancel</Button>
-                        <Button color="primary" onClick={this.publishOrSaveContent}>{this.state.showPublishModal ? 'Publish' : 'Save Settings'}</Button>
+                        <Button color="primary" onClick={this.publishOrSaveContent}>{this.state.showPublishModal ? 'Publish' : this.state.showSaveModal ? 'Save Draft': 'Save Settings'}</Button>
 
                     </ModalFooter>
                 </Modal>
@@ -332,8 +352,10 @@ class SideBarLesson extends Component {
                         <input
                             className='form-control'
                             // defaultValue='Untitled lesson'
-                            value={this.props.title || 'Untitled lesson'}
+                            value={this.props.title}
+                            placeholder={'Untitled lesson'}
                             onChange={e => this.props.onChangeProjectTitle(e.target.value)}
+                            onBlur={e=>e.target.value==='' ? e.target.value='Untitled lesson' : null}
                         />
                         <i className="fas fa-align-right fa-lg fa-cog" onClick={this.handleSettingsShow}></i>
                     </div>
@@ -342,7 +364,7 @@ class SideBarLesson extends Component {
 
                         <i className="fas fa-align-right fa-lg fa-folder-open"></i>
                     </Button>
-                    <Button onClick={() => this.saveContent(0)} className='sidebar-button'>
+                    <Button onClick={() => this.setState({showSaveModal:true})} className='sidebar-button'>
                         <div>Save draft</div>
                         {this.state.isCurrentlySavingDraft ? <ScaleLoader height={15} color='white'/> : null}
                         <i className="fas fa-align-right fa-lg fa-save"></i>

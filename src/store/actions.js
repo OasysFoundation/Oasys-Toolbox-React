@@ -134,7 +134,7 @@ const actions = function (store) { //store for async stuff
             return {...state, ...projectData};
         },
 
-        remixProject(state, projectData, user = {name: null, uid: null, idToken: null, status: 0}) {
+        remixProject(state, projectData, user = {name: null, uid: null, idToken: null}) {
             const clone = JSON.parse(JSON.stringify(projectData));
             clone.user = user;
             clone.chapters = projectData.data.chapters;
@@ -307,15 +307,15 @@ const actions = function (store) { //store for async stuff
                 timestamp: Date.now(),
                 parentChapterID: clone.chapters[state.activeChapterIndex].id
             };
-            //
-            // if (isLastElement) {
-            //     newElem
-            // }
+            
+            if (elements.length===1) {
+                atIdx -= 1;
+            }
 
             clone.chapters[state.activeChapterIndex].elements = [
-                ...elements.slice(0, atIdx + 1),
+                ...elements.slice(0, atIdx+1),
                 newElem,
-                ...elements.slice(atIdx + 1)
+                ...elements.slice(atIdx+1)
             ];
             console.log("ELEME", clone.chapters[state.activeChapterIndex].elements)
             return clone

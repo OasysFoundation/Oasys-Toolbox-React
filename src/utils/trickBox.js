@@ -89,7 +89,7 @@ const moveEntry = function (array, entryIndex, change) {
         throw new Error('entryIndex or change are is not an integer')
     }
     const nextIndex = entryIndex + change;
-    if (nextIndex < 0 || nextIndex >= array.length) {
+    if (nextIndex < 0 || nextIndex >= array.length - 1) {
         return array;
     }
     const others = withoutEntry(array, entryIndex);

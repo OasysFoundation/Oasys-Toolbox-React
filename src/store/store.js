@@ -9,17 +9,16 @@ const initData = {
         name: null,
         uid: null,
         idToken: null,
-        status: 0,
     },
-    title: 'Untitled Project',
+    title: 'Please title your content (Required)',
     iconName: "001-cells.svg",
     author: null,
 
     contentId: uuidv4(),
     isEditMode: true,
-    description: 'no description here yet',
+    description: 'Please add a description of your content (Required)',
     activeChapterIndex: 0,
-    tags: [],
+    tags: ['Please add space separated tags (Required)'],
     chapters: [
         {
             title: "Untitled Chapter",
@@ -40,12 +39,10 @@ const initData = {
 };
 
 const mockData = {
-    //status 0 = unknown, 1 = loggedout, 2 = logged in
     user: {
         name: null,
         uid: null,
         idToken: null,
-        status: 0,
     },
     title: "Physics101",
     author: 'markus123',

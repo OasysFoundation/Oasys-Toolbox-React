@@ -131,8 +131,8 @@ class NextChapterSelection extends Component {
                 <center>
                     <CreateNewChapterModal isOpen={this.state.showsCreateNewChapterDialog} onClose={this.onCloseNewChapterCreationDialog.bind(this)} onCreateNewChapter={this.onCreateNewChapter.bind(this)} />
                     {this.props.isEditMode? (
-                            <div>
-                            <h3>Continue to…</h3>
+                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '20px'}}>
+                            <span style={{fontStyle: 'italic', fontSize: '1.1rem', color: '#666666', marginRight: '20px'}}>Continue to…</span>
                             <SelectionDropdown onSelect={this.onSelectAction.bind(this)} identifier={Math.random().toString()} default={(action!=null && action!=="")? this.chapterTitleForIdentifier(action) : "No Action"} options={this.getActionMenuItems()}/>
                             </div>
                         ) : (

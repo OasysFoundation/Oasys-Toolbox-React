@@ -13,6 +13,8 @@ import actions from "./store/actions";
 import history from './history'
 import Snackbar from '@material-ui/core/Snackbar';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
+import SocialSharingButtons from './SocialSharingButtons'
+
 
 
 const styles = {
@@ -126,7 +128,7 @@ class ContentOverview extends Component {
         // else if (value === "content")
         //     window.location.href = `/content/`
         else if (value === "user") {            
-          history.push(`/user/${this.props.user.displayName || "anonymous"}/${this.props.match.params.uid}`) 
+          history.push(`/user/${this.props.match.params.username || "anonymous"}/${this.props.match.params.uid}`) 
         }        
           else if (value === "flag"){
               this.setState({
@@ -216,7 +218,15 @@ class ContentOverview extends Component {
         )
     }
 
+    removeLastComponentOfUrl(url) {
+        const array = url.split("/");
+        array.pop();
+        return array.join("/");
+    }
+
     render() {
+        const {uid, username, contentId, title} = this.props.match.params;
+        var url = this.removeLastComponentOfUrl(window.location.href);
         return (
             <div className='app-body'>
                 <main className='main' style={{marginLeft: '0px'}}>
@@ -227,6 +237,8 @@ class ContentOverview extends Component {
                             </div>
                             : <div>...Loading Content</div>
                         }
+                      <SocialSharingButtons url={url} author={username} title={title} description={this.state.lesson!==null ? this.state.lesson.description : "Loading.."} />
+
                     </Container>
                 </main>
                 <Snackbar

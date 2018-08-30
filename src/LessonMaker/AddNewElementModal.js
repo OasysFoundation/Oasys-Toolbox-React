@@ -11,7 +11,7 @@ import QuizIcon from '../assets/element_icons/quiz.png'
 import SystemIcon from '../assets/element_icons/system.png'
 import TextIcon from '../assets/element_icons/text.png'
 import VideoIcon from '../assets/element_icons/video.png'
-import ContinueIcon from '../assets/element_icons/continue.png'
+//import ContinueIcon from '../assets/element_icons/continue.png'
 
 class AddNewElementModal extends Component {
 
@@ -22,7 +22,6 @@ class AddNewElementModal extends Component {
 		globals.EDIT_QUIZ,
 		globals.EDIT_VIDEO,
 		globals.EDIT_EMBED,
-        globals.EDIT_CONTINUE_ELEMENT
 	]
 	
 
@@ -42,8 +41,6 @@ class AddNewElementModal extends Component {
             //	return "Game";
             case globals.EDIT_EMBED:
             	return "Simulation";
-            case globals.EDIT_CONTINUE_ELEMENT:
-                return "Link to Chapter"
             default:
                 return "Yet unknown element."
         }
@@ -68,8 +65,6 @@ class AddNewElementModal extends Component {
             //	return GameIcon;
             case globals.EDIT_EMBED:
             	return SystemIcon;
-            case globals.EDIT_CONTINUE_ELEMENT:
-                return ContinueIcon;
 
             default:
                 return null;

@@ -132,14 +132,14 @@ class Authentication extends Component {
 
 
     RegisterSubmitted() {
-        if (this.state.username.indexOf('-') > -1) {
+        if (this.state.username && this.state.username.indexOf('-') > -1) {
             this.setState({
                 modalTitle: "Error",
                 modalBody: "Usernames cannot contain hyphens (-)",
                 showModal: true,
             });
         }
-        else {
+        else if(this.state.username && this.state.email && this.state.password && this.state.confirmPassword){
             let that = this;
             auth.doCreateUserWithEmailAndPassword(that.state.email, that.state.password)
                 .then(authUser => {
@@ -213,24 +213,26 @@ class Authentication extends Component {
     }
 
     ForgotPasswordSubmitted() {
-        auth.doPasswordReset(this.state.email)
-        //SUCCESS
-            .then(() => {
-                this.setState({
-                    modalTitle: "Success",
-                    modalBody: "Your password has been reset! Please check your email to get your new password.",
-                    showModal: true,
+        if(this.state.email){
+            auth.doPasswordReset(this.state.email)
+            //SUCCESS
+                .then(() => {
+                    this.setState({
+                        modalTitle: "Success",
+                        modalBody: "Your password has been reset! Please check your email to get your new password.",
+                        showModal: true,
+                    })
+                    //this.state.updateStore();
                 })
-                //this.state.updateStore();
-            })
-            // FAILURE
-            .catch(error => {
-                this.setState({
-                    modalTitle: "Error",
-                    modalBody: error.message,
-                    showModal: true,
+                // FAILURE
+                .catch(error => {
+                    this.setState({
+                        modalTitle: "Error",
+                        modalBody: error.message,
+                        showModal: true,
+                    });
                 });
-            });
+        }
     }
 
     ResetPasswordSubmitted() {
@@ -365,19 +367,22 @@ class Authentication extends Component {
                                                     <Button color="primary" className="px-4"
                                                             onClick={this.RegisterClicked}>Register</Button>
                                                 </Col>
-                                                <Col xs="6">
-                                                    <Button color="link" className="px-0"
-                                                            onClick={this.ForgotPasswordClicked}>Forgot
-                                                        password?</Button>
-                                                </Col>
-                                                <Col xs="6" className="text-right">
-                                                    <Button color="link" className="px-0"
-                                                            onClick={this.ResetPasswordClicked}>Reset Password</Button>
-                                                </Col>
+                                                {/*
+                                                    <Col xs="6">
+                                                        <Button color="link" className="px-0"
+                                                                onClick={this.ForgotPasswordClicked}>Forgot/Reset
+                                                            password</Button>
+                                                    </Col>
+                                                    <Col xs="6" className="text-right">
+                                                        <Button color="link" className="px-0"
+                                                                onClick={this.ResetPasswordClicked}>Reset Password</Button>
+                                                    </Col>
+                                                                                           */}
                                             </Row>
                                             <br />
                                             <Button color="primary" block onClick={this.onLoginWithFacebook.bind(this)}>Login with Facebook</Button>
                                             <Button color="primary" block onClick={this.onLoginWithGoogle.bind(this)}>Login with Google</Button>
+                                            <Button color="primary" block onClick={this.ForgotPasswordClicked}>Forgot/Reset Password</Button>
                                         </Form>
                                     </CardBody>
                                 </Card>
