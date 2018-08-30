@@ -187,7 +187,7 @@ class SideBarLesson extends Component {
         //wait until elements instant update and update the store
         //otherwise content is inside tempContent...for performance reasons
         window.setTimeout(() => {
-            const {title, tags, description, contentId, user} = this.props.project;
+            const {title, tags, description, contentId, user, iconName} = this.props.project;
             const data = {
                 chapters: this.props.project.chapters
             }
@@ -195,7 +195,7 @@ class SideBarLesson extends Component {
 
             const allData = {
                 title, tags, description, contentId, user,
-                published: flag, featured: flag,
+                published: flag, featured: flag, iconName, 
 
                 data
             }
