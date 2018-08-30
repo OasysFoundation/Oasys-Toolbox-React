@@ -10,7 +10,7 @@ const initData = {
         uid: null,
         idToken: null,
     },
-    title: 'Please title your content (Required)',
+    title: 'Untitled Lesson',
     iconName: "001-cells.svg",
     author: null,
     published: 0,
@@ -19,21 +19,12 @@ const initData = {
     isEditMode: true,
     description: 'Please add a description of your content (Required)',
     activeChapterIndex: 0,
-    tags: ['Please add space separated tags (Required)'],
+    tags: ['Please add tags separated by space (Required)'],
     chapters: [
         {
             title: "Untitled Chapter",
             id: uuidv4(),
-            links: [
-                // {
-                //     eventId: "ASDASDAS",
-                //     chapterId: "chapter_99852"
-                // },
-                // {
-                //     eventId: "ASDAdddSDAS",
-                //     chapterId: "chapter_100"
-                // },
-            ],
+            links: [],
             elements: []
         }
     ]
