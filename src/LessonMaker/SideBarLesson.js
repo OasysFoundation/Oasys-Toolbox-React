@@ -44,7 +44,7 @@ class SideBarLesson extends Component {
         }
 
         this.title = props.title;
-        this.tags = props.tags;
+        this.tags = props.tags.join(" ");
         this.description = props.description;
 
         console.log("Tags"+ this.tags);
@@ -78,7 +78,7 @@ class SideBarLesson extends Component {
     getData(nextProps){
 
         this.title = nextProps.title;
-        this.tags = nextProps.tags;
+        this.tags = nextProps.tags.join(" ");;
         this.description = nextProps.description;
 
         api.getUserContentsPreview()
@@ -124,6 +124,9 @@ class SideBarLesson extends Component {
     }
 
     onSettingsSave() {
+
+        console.log(this.tags);
+
         if (this.tags != null) {
             this.props.onChangeProjectTags(this.tags.split(" "));
         }
