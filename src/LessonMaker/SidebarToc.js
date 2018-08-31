@@ -62,9 +62,9 @@ class SidebarToc extends Component {
             e.linkIdx = [];
             e.isEnd = false;
             e.links.map(f => {
-                idobj[f.chapterId]===undefined
+                idobj[f]===undefined
                 ? e.isEnd = true
-                : e.linkIdx.push(idobj[f.chapterId]);
+                : e.linkIdx.push(idobj[f]);
                 return null;
             });
         });
@@ -128,7 +128,7 @@ class SidebarToc extends Component {
             if (nextprops.chaptersLight[i].id !== this.props.chaptersLight[i].id) { isChanged=true; break; }
             if (nextprops.chaptersLight[i].links.length!==this.props.chaptersLight[i].links.length) { isChanged=true; break; }
             for (let j=0; j<nextprops.chaptersLight[i].links.length; j++) {
-                if (nextprops.chaptersLight[i].links[j].chapterId !== this.props.chaptersLight[i].links[j].chapterId) {
+                if (nextprops.chaptersLight[i].links[j] !== this.props.chaptersLight[i].links[j]) {
                     isChanged=true; 
                     break; 
                 }
@@ -184,7 +184,12 @@ export default connect(mapStoreToProps, actions)((propsFromStore) => {
 
 
 
-const mapStoreToProps = ({activeChapterIndex, chapters}) => ({chaptersLight: chapters.map(c => ({title:c.title, id: c.id, links: c.links})) , activeChapterIndex});
+const mapStoreToProps = ({activeChapterIndex, chapters}) => ({
+    chaptersLight: chapters.map(c => ({
+        title:c.title, id: c.id, links: [...new Set(c.links.map(e=>e.chapterId))]
+    })), 
+    activeChapterIndex
+});
 
 /*
 const neededActions = (store) => {
