@@ -108,10 +108,6 @@ class ContentView extends Component {
         }
     }
 
-    scrollTo = (name) => {
-        this._scroller.scrollTo(name);
-    }
-
     goToCompletionScreen() {
         this.setState({
             showsContentCompletion: true
@@ -138,7 +134,7 @@ class ContentView extends Component {
         this.setState({
             activeChapterIndex: nextIdx,
             activeChapterID: nextID
-        }, () => this.scrollTo('first'))//(chapters[nextIdx].elements[0].id, {top: '80vh'}));
+        })//(chapters[nextIdx].elements[0].id, {top: '80vh'}));
         //this.props.o
     }
 
@@ -148,8 +144,6 @@ class ContentView extends Component {
 
     goToElementinChapter(nextElementIndex) {
         const nextElementID = this.state.chapters[this.state.activeChapterIndex].elements[nextElementIndex].id
-        this.scrollTo(nextElementID)
-
     }
 
     goToChapter = (sendToChapterID, interactionElementID) => {
@@ -162,7 +156,6 @@ class ContentView extends Component {
 
         console.log("ids", sendToChapterID, interactionElementID, this.state.chapters, "ids")
         if (isEmpty(sendToChapterID)) {
-            //scroll to next element or (if end of chapter, next elements chapter)
             const currentChapter = this.state.chapters[this.state.activeChapterIndex]
             const interactionElementIndex = currentChapter.elements.findIndex(el => el.id === interactionElementID);
             const isLastElement = currentChapter.elements.length - 1 <= interactionElementIndex
@@ -177,9 +170,6 @@ class ContentView extends Component {
             activeChapterIndex: chapterIndex,
             activeChapterID: sendToChapterID
         }, () => {
-            this.scrollTo(this.state.chapters[chapterIndex].elements[0].id);
-
-
             //yet another edge case whaahahaa
             if (this.props.match) {
                 this.changePagination(chapterIndex)
@@ -261,12 +251,9 @@ class ContentView extends Component {
 
 
         return (
-            <ScrollView ref={scroller => this._scroller = scroller}>
                 <React.Fragment>
                     {/*This extra ScrollElement on the top fixes the scrolling problem*/}
-                    <ScrollElement name={'first'}>
-                        <div></div>
-                    </ScrollElement>
+
                     <div className={this.props.isPreview ? null : "app-body"}>
                         <main className={this.props.isPreview ? null : "main"}>
                             <Container fluid className='main-width'>
@@ -280,7 +267,6 @@ class ContentView extends Component {
                                                     && (this.isLastChapter() ? el.type !== globals.EDIT_CONTINUE_ELEMENT : true)
 
                                                 &&
-                                                    <ScrollElement key={el.id} name={el.id}>
                                                         <div className="item">
                                                             {!isElementEmpty(el)
                                                             &&
@@ -295,7 +281,6 @@ class ContentView extends Component {
                                                             />
                                                             }
                                                         </div>
-                                                    </ScrollElement>
                                             ))
                                             }
                                         </div>
@@ -322,7 +307,6 @@ class ContentView extends Component {
                         </main>
                     </div>
                 </React.Fragment>
-            </ScrollView>
         );
     }
 }

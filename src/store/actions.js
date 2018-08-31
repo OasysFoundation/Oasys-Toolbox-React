@@ -186,7 +186,6 @@ const actions = function (store) { //store for async stuff
                 console.log('no element found on change content -- maybe handlechange fired, but element in Chapter that is not active')
                 return
             }
-            ;
 
             return update(state, {
                 chapters: {
