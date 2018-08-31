@@ -139,118 +139,120 @@ class LessonMaker extends Component {
 
         return (
             <div className="app-body" style={{paddingTop: paddingVal}}>
-                <EditModalWarning contentTitle={"Mark22 adventures"} isOpen={false}/>
+                <EditModalWarning contentTitle={this.props.title} isOpen={false}/>
                 <SideBarLesson/>
-                <main className="main">
-                    <Modal isOpen={this.state.showDeleteChapterDialog} toggle={this.handleChapterDeleteModalClose}
-                           backdrop={true}>
-                        {this.renderChapterDeleteModal()}
-                    </Modal>
+                <div className="create">
+                    <main className="main">
+                        <Modal isOpen={this.state.showDeleteChapterDialog} toggle={this.handleChapterDeleteModalClose}
+                               backdrop={true}>
+                            {this.renderChapterDeleteModal()}
+                        </Modal>
 
-                    <Container fluid className='main-width'>
-                        <center>
-
-
-                            <section className='main-width' style={{
-                                display: 'flex',
-                                marginTop: '1rem',
-                                marginBottom: '1rem',
-                                flex: 1,
-                                flexDirection: 'row'
-                            }}>
-
-                                <div className="input-group-prepend">
-                                    <span className="input-group-text" id="basic-addon1">Chapter Title</span>
-                                </div>
-                                <input
-                                    type="text"
-                                    className="form-control header"
-                                    placeholder="Name your Chapter"
-                                    aria-label="Name this Chapter"
-                                    value={activeChapter.title}
-                                    onChange={(ev) => this.props.onChangeChapterTitle(ev.target.value)}
-                                    aria-describedby="basic-addon1"
-                                    style={{marginRight: '10px'}}
-                                />
-                                <button
-                                    type="button"
-                                    className="btn preview-btn delete-btn"
-                                    onClick={this.handleChapterDeleteModal}
-                                >
-                                    Delete
-                                </button>
-                                <button
-                                    type="button"
-                                    className={this.props.isEditMode ? "btn btn-dark preview-btn" : "btn btn-light preview-btn"}
-                                    style={{width: '150px'}}
-                                    onClick={() => {
-                                        this.props.instantUpdateElements(true)
-                                        setTimeout(() => {
-                                            this.props.onToggleEditMode()
-                                        }, 250);
-
-                                    }}
-                                >
-                                    <span className={this.props.isEditMode ? "icon-grid" : "icon-layers"}></span>
-                                    {"  "}
-                                    {this.props.isEditMode ? 'Preview' : '  Edit  '}
-                                </button>
-                            </section>
-                            {this.props.isEditMode
-                                ? (<React.Fragment>
-                                    <PoseGroup>
-                                        {elements.map((el, idx) => {
-                                                return (<Item key={el.id}>
-                                                    {(this.props.isEditMode && elements.length===1) && <ElementAdder key={el.id + 1} idx={idx}/>}
-                                                    <Element
-                                                        key={el.id}
-                                                        data={el}
-                                                        isPreview={true}
-                                                    />
-                                                    {(this.props.isEditMode && (idx<elements.length-1)) && <ElementAdder key={el.id + 1} idx={idx}/>}
-                                                </Item>)
-                                            }
-                                        )}
-                                    </PoseGroup>
-
-                                    {/*<SelectionDropdown onSelect={this.onSelectAction} identifier={"action-correct"}*/}
-                                    {/*default={this.state.childChoice.text}*/}
-                                    {/*options={this.choices.map(choice => choice.text)}/>*/}
-
-                                    {/*checks if there are elements first, then inserts ContinueButton at end*/}
-                                    {
-                                        (elements.length===0 || (elements[elements.length - 1].type !== globals.EDIT_CONTINUE_ELEMENT)
-                                            ? this.props.onAddElement(globals.EDIT_CONTINUE_ELEMENT, elements.length)
-                                            : null)
-                                    }
-                                    {/*? <Element */}
-                                    {/*data={elements[elements.length - 1]} chapterID={activeChapter.id} />*/}
-
-                                    {/*create the last element if it isn't ...so it's in store as well*/}
-                                    {/*: this.props.onAddElement(globals.EDIT_CHAPTEREND, elements.length-1)*/}
-                                    {/*: <Element data={{*/}
-                                    {/*type: 8,*/}
-                                    {/*id: uuidv4(),*/}
-                                    {/*content: {action: null},*/}
-                                    {/*parentChapterId: activeChapter.id*/}
-                                    {/*}}/>*/}
-                                    {/*}*/}
-
-                                </React.Fragment>)
+                        <Container fluid className='main-width'>
+                            <center>
 
 
-                                : <ContentView
-                                    isPreview={true}
-                                    activeChapterIndex={this.props.activeChapterIndex}
-                                    chapters={this.props.chapters}
-                                    onChangeActiveChapter={this.props.onChangeActiveChapter}/>
-                            }
+                                <section className='main-width' style={{
+                                    display: 'flex',
+                                    marginTop: '1rem',
+                                    marginBottom: '1rem',
+                                    flex: 1,
+                                    flexDirection: 'row'
+                                }}>
 
-                            {emptyChapterAdder}
-                        </center>
+                                    <div className="input-group-prepend">
+                                        <span className="input-group-text" id="basic-addon1">Chapter Title</span>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        className="form-control header"
+                                        placeholder="Name your Chapter"
+                                        aria-label="Name this Chapter"
+                                        value={activeChapter.title}
+                                        onChange={(ev) => this.props.onChangeChapterTitle(ev.target.value)}
+                                        aria-describedby="basic-addon1"
+                                        style={{marginRight: '10px'}}
+                                    />
+                                    <button
+                                        type="button"
+                                        className="btn preview-btn delete-btn"
+                                        onClick={this.handleChapterDeleteModal}
+                                    >
+                                        Delete
+                                    </button>
+                                    <button
+                                        type="button"
+                                        className={this.props.isEditMode ? "btn btn-dark preview-btn" : "btn btn-light preview-btn"}
+                                        style={{width: '150px'}}
+                                        onClick={() => {
+                                            this.props.instantUpdateElements(true)
+                                            setTimeout(() => {
+                                                this.props.onToggleEditMode()
+                                            }, 250);
 
-                    </Container>
-                </main>
+                                        }}
+                                    >
+                                        <span className={this.props.isEditMode ? "icon-grid" : "icon-layers"}></span>
+                                        {"  "}
+                                        {this.props.isEditMode ? 'Preview' : '  Edit  '}
+                                    </button>
+                                </section>
+                                {this.props.isEditMode
+                                    ? (<React.Fragment>
+                                        <PoseGroup>
+                                            {elements.map((el, idx) => {
+                                                    return (<Item key={el.id}>
+                                                        {(this.props.isEditMode && elements.length===1) && <ElementAdder key={el.id + 1} idx={idx}/>}
+                                                        <Element
+                                                            key={el.id}
+                                                            data={el}
+                                                            isPreview={true}
+                                                        />
+                                                        {(this.props.isEditMode && (idx<elements.length-1)) && <ElementAdder key={el.id + 1} idx={idx}/>}
+                                                    </Item>)
+                                                }
+                                            )}
+                                        </PoseGroup>
+
+                                        {/*<SelectionDropdown onSelect={this.onSelectAction} identifier={"action-correct"}*/}
+                                        {/*default={this.state.childChoice.text}*/}
+                                        {/*options={this.choices.map(choice => choice.text)}/>*/}
+
+                                        {/*checks if there are elements first, then inserts ContinueButton at end*/}
+                                        {
+                                            (elements.length===0 || (elements[elements.length - 1].type !== globals.EDIT_CONTINUE_ELEMENT)
+                                                ? this.props.onAddElement(globals.EDIT_CONTINUE_ELEMENT, elements.length)
+                                                : null)
+                                        }
+                                        {/*? <Element */}
+                                        {/*data={elements[elements.length - 1]} chapterID={activeChapter.id} />*/}
+
+                                        {/*create the last element if it isn't ...so it's in store as well*/}
+                                        {/*: this.props.onAddElement(globals.EDIT_CHAPTEREND, elements.length-1)*/}
+                                        {/*: <Element data={{*/}
+                                        {/*type: 8,*/}
+                                        {/*id: uuidv4(),*/}
+                                        {/*content: {action: null},*/}
+                                        {/*parentChapterId: activeChapter.id*/}
+                                        {/*}}/>*/}
+                                        {/*}*/}
+
+                                    </React.Fragment>)
+
+
+                                    : <ContentView
+                                        isPreview={true}
+                                        activeChapterIndex={this.props.activeChapterIndex}
+                                        chapters={this.props.chapters}
+                                        onChangeActiveChapter={this.props.onChangeActiveChapter}/>
+                                }
+
+                                {emptyChapterAdder}
+                            </center>
+
+                        </Container>
+                    </main>
+                </div>
             </div>
         )
     }
@@ -267,7 +269,7 @@ LessonMaker.propTypes = {
     activeChapterIndex: PropTypes.number
 };
 
-const mapStoreToProps = ({chapters, activeChapterIndex, isEditMode}) => ({isEditMode, chapters, activeChapterIndex})
+const mapStoreToProps = ({chapters, activeChapterIndex, isEditMode, title}) => ({isEditMode, chapters, activeChapterIndex, title})
 const neededActions = (store) => {
     const {onChangeActiveChapter, instantUpdateElements, onChangeLastElementChild, onAddElement, updateChapterLinks, onDeleteChapter, onChangeChapterTitle, onToggleEditMode, mergeStoreWithSessionStorage} = actions();
     return {

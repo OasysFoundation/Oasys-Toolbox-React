@@ -14,12 +14,12 @@ import history from './history'
 import Snackbar from '@material-ui/core/Snackbar';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 import SocialSharingButtons from './SocialSharingButtons'
+import { isMobile } from './utils/tools'
 
 
 
 const styles = {
     cardStyle: {
-        width: '100%',
         backgroundColor: colors.SNOW2,
         borderColor: "#F6F1DE",
         color: "#F6F1DE",
@@ -225,11 +225,12 @@ class ContentOverview extends Component {
     }
 
     render() {
+        const paddingVal = (isMobile()===true ? "80px" : "30px")
         const {username, title} = this.props.match.params;
         var url = this.removeLastComponentOfUrl(window.location.href);
         return (
             <div className='app-body'>
-                <main className='main' style={{marginLeft: '0px'}}>
+                <main className='main' style={{marginLeft: '0px', paddingTop:paddingVal}}>
                     <Container fluid className='main-width'>
                         {this.state.lesson !== null
                             ? <div className='content-overview'>
