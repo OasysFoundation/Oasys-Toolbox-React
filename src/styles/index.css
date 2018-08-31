@@ -589,8 +589,7 @@ html:not([dir="rtl"]) .sidebar {
 .oasys .content-overview .tag {
     background-color: #f8f8f4;
     border: 1px solid #c3c8d4;
-    padding: 5px 10px;
-    margin: 0px 5px 0px 0px;
+    margin: 3px 3px 3px 3px;
     border-radius: 3px;
     cursor: pointer;
 }
