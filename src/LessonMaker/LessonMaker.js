@@ -139,7 +139,7 @@ class LessonMaker extends Component {
 
         return (
             <div className="app-body" style={{paddingTop: paddingVal}}>
-                <EditModalWarning contentTitle={"Mark22 adventures"} isOpen={false}/>
+                <EditModalWarning contentTitle={this.props.title} isOpen={false}/>
                 <SideBarLesson/>
                 <main className="main">
                     <Modal isOpen={this.state.showDeleteChapterDialog} toggle={this.handleChapterDeleteModalClose}
@@ -267,7 +267,7 @@ LessonMaker.propTypes = {
     activeChapterIndex: PropTypes.number
 };
 
-const mapStoreToProps = ({chapters, activeChapterIndex, isEditMode}) => ({isEditMode, chapters, activeChapterIndex})
+const mapStoreToProps = ({chapters, activeChapterIndex, isEditMode, title}) => ({isEditMode, chapters, activeChapterIndex, title})
 const neededActions = (store) => {
     const {onChangeActiveChapter, instantUpdateElements, onChangeLastElementChild, onAddElement, updateChapterLinks, onDeleteChapter, onChangeChapterTitle, onToggleEditMode, mergeStoreWithSessionStorage} = actions();
     return {

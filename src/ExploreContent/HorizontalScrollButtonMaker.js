@@ -114,6 +114,7 @@ class HorizontalScrollButtonMaker extends Component{
 			showsTileMenu: false
 		}
 		this.refStars = React.createRef();
+		this.refUserLink = React.createRef();
 		this.starStr = '';
 
 		this.toggleMenu = this.toggleMenu.bind(this);
@@ -136,6 +137,7 @@ class HorizontalScrollButtonMaker extends Component{
 			elem.innerHTML += ea;
 			origin += deg;
 		});
+		this.refUserLink.current.addEventListener('click',e=>e.stopPropagation());
 	}
 
 	shouldComponentUpdate(nextProps) {
@@ -210,7 +212,7 @@ class HorizontalScrollButtonMaker extends Component{
 				              </div>
 				          </CardTitle>
 				          <CardSubtitle>
-				          <a href={returnUrl} style={styles.cardSubtitle}>
+				          <a href={returnUrl} style={styles.cardSubtitle} ref={this.refUserLink}>
 				          	<div style={styles.cardSubtitle}>
 				          	  <Truncate lines={1} >
 				          	 	by {this.props.data.username}

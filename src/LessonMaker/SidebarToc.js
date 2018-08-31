@@ -180,10 +180,6 @@ export default connect(mapStoreToProps, actions)((propsFromStore) => {
 });
 */
 
-
-
-
-
 const mapStoreToProps = ({activeChapterIndex, chapters}) => ({
     chaptersLight: chapters.map(c => ({
         title:c.title, id: c.id, links: [...new Set(c.links.map(e=>e.chapterId))]
