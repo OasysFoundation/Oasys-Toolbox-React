@@ -461,6 +461,11 @@ class SideBarLesson extends Component {
                         />
                         <i className="fas fa-align-right fa-lg fa-cog" onClick={this.handleSettingsShow}></i>
                     </div>
+                    <Button onClick={this.props.createNewProject} className='sidebar-button'>
+                        <div>New Lesson</div>
+
+                        <i className="fas fa-align-right fa-lg fa-folder-plus"></i>
+                    </Button>
                     <Button onClick={() => this.setState({showProjectsDialog: true})} className='sidebar-button'>
                         <div>Open Lesson</div>
 
@@ -521,11 +526,13 @@ const mapStoreToProps = (store) => ({project: store});
 
 // only take what you need
 export default connect(mapStoreToProps, actions)((propsFromStore) => {
-    const {project, setProjectInLessonMaker, onDeleteChapter, instantUpdateElements, onChangeProjectTitle, onChangeIconName, onChangeProjectTags, onChangeProjectDescription} = propsFromStore;
+    const {project, setProjectInLessonMaker, onDeleteChapter, createNewProject,
+        instantUpdateElements, onChangeProjectTitle, onChangeIconName, onChangeProjectTags, onChangeProjectDescription} = propsFromStore;
     const {title, tags, description, iconName} = project;
     return React.createElement(SideBarLesson, {
         project,
         title,
+        createNewProject,
         tags,
         description,
         iconName,

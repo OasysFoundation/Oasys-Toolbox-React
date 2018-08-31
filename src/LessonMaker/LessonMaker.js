@@ -29,41 +29,21 @@ class LessonMaker extends Component {
             showDeleteChapterDialog: false,
 
         };
-        // props.mergeStoreWithSessionStorage();
         this.handleChapterDeleteModal = this.handleChapterDeleteModal.bind(this);
         this.handleChapterDeleteModalClose = this.handleChapterDeleteModalClose.bind(this);
         this.handleChapterDelete = this.handleChapterDelete.bind(this);
         this.renderChapterDeleteModal = this.renderChapterDeleteModal.bind(this);
         this.renderPreviewButton = this.renderPreviewButton.bind(this);
+        props.restoreStateFromSession();
     }
 
     componentDidMount() {
-        // this.inhaleSessionStorage();
-        //api.getProjectsForUser().then()
-        const that = this;
-        this.autoSaver = setInterval(function () {
-            that.saveStatus()
-        }, 20000);
-
         this.props.updateChapterLinks();
-
     }
 
     componentWillUnmount() {
         clearInterval(this.autoSaver);
     }
-
-    saveStatus() {
-        console.log('saving status....')
-        //api.saveContent
-    }
-
-    //
-    // onSelectAction(identifier, optionsIndex) {
-    //     console.log(this.choices);
-    //     this.setState({childChoice: this.choices[optionsIndex]})
-    //     this.props.onChangeLastElementChild(optionsIndex);
-    // }
 
     handleChapterDeleteModal() {
         this.setState({
@@ -159,7 +139,6 @@ class LessonMaker extends Component {
         const paddingVal = (isMobile() ? "60px" : "10px")
         const headerSeparation = (isMobile() ? "10px" : "50px")
 
-
         return (
             <div className="app-body" style={{paddingTop: paddingVal}}>
                 <EditModalWarning contentTitle={this.props.title} isOpen={false}/>
@@ -173,7 +152,6 @@ class LessonMaker extends Component {
 
                         <Container fluid className='main-width'>
                             <center>
-
                                 <section className='main-width' style={{
                                     display: 'flex',
                                     marginTop: '1rem',
@@ -282,9 +260,13 @@ LessonMaker.propTypes = {
 
 const mapStoreToProps = ({chapters, activeChapterIndex, isEditMode, title}) => ({isEditMode, chapters, activeChapterIndex, title})
 const neededActions = (store) => {
-    const {onChangeActiveChapter, instantUpdateElements, onChangeLastElementChild, onAddElement, updateChapterLinks, onDeleteChapter, onChangeChapterTitle, onToggleEditMode, mergeStoreWithSessionStorage} = actions();
+    const {onChangeActiveChapter,
+        restoreStateFromSession,
+        instantUpdateElements, onChangeLastElementChild, onAddElement, updateChapterLinks,
+        onDeleteChapter, onChangeChapterTitle, onToggleEditMode, mergeStoreWithSessionStorage} = actions();
     return {
         onChangeActiveChapter,
+        restoreStateFromSession,
         onChangeLastElementChild,
         onAddElement,
         updateChapterLinks,
