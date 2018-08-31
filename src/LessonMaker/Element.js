@@ -40,6 +40,7 @@ class Element extends Component {
         this.elementFinished = this.elementFinished.bind(this);
 
         this.sensorRef = React.createRef();
+        this.autoSaver = Date.now();
 
         this.state = {
             isHovered: false,
@@ -53,6 +54,12 @@ class Element extends Component {
     //glue function between LessonMaker and Quill to add ID
     handleChange = (value, shouldUpdateChapterLinks = false, shouldInstantUpdate = false) => {
 
+
+        if (Date.now() - this.autoSaver > 5000) {
+            console.log('5 second save')
+            this.autoSaver = Date.now();
+            shouldInstantUpdate = true
+        }
         // const equal = JSON.stringify(value) === JSON.stringify(this.props.data.content)
         // console.log(value === this.props.data.content, equal, "EQUAL")
         //

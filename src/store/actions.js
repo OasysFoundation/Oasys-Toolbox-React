@@ -1,7 +1,14 @@
 //TODO use my mongo functions to do upsert, insert, find for STATE etc
 //use immutable
 import update from 'immutability-helper'
-import {moveEntry, withoutEntry, getObjectsByKey, saveToSessionStorage, saveStateToSession} from "../utils/trickBox";
+import {
+    moveEntry,
+    withoutEntry,
+    getObjectsByKey,
+    saveToSessionStorage,
+    saveToSession,
+    restoreFromSession
+} from "../utils/trickBox";
 import {initContent} from "../utils/tools";
 import uuidv4 from 'uuid/v4';
 import globals from '../utils/globals';
@@ -50,6 +57,10 @@ const actions = function (store) { //store for async stuff
             return update(state, {isEditMode: {$set: !state.isEditMode}})
         },
 
+        restoreStateFromSession(state) {
+            return restoreFromSession()
+        },
+
         mergeStoreWithSessionStorage(state) {
             const clone = JSON.parse(JSON.stringify(state));
             //deep searches data and returns 1D array with objects that have an ID property
@@ -76,16 +87,6 @@ const actions = function (store) { //store for async stuff
             console.log('new store version', clone)
             return clone;
         },
-
-        // onAuthSuccess(state, userObj) {
-        //     return update(state, {
-        //             user: {
-        //                 uid: {$set: userObj.uid},
-        //                 name: {$set: userObj.name}
-        //             }
-        //         }
-        //     )
-        // },
 
         instantUpdateElements(state, shouldUpdateNow = false) {
             return update(state, {
@@ -114,21 +115,9 @@ const actions = function (store) { //store for async stuff
             clone.chapters = chapters;
             return clone
         },
-        // onDeleteLinks(state,chapterId) {
-        //     const chapters = JSON.parse(JSON.stringify(state)).chapters;
-        //     //remove links
-        //     chapters.forEach(chapter => {
-        //         chapter.links = chapter.links
-        //             .filter(link => link.chapterId !== chapterId)
-        //     });
-        //
-        //     clone.chapters = chapters;
-        //     return clone
-        //
-        // },
 
         createNewProject(state) {
-            saveStateToSession(state)
+            saveToSession(state)
 
             const preserve = {
                 user: state.user,
@@ -180,6 +169,9 @@ const actions = function (store) { //store for async stuff
 
         onChangeContent(state, id, value, elementChapter) {
             //more verbose, but performant (instead of Json.stringify)
+
+            saveToSession(state);
+
             const currentChapterIdx = state.chapters.findIndex(chapter => chapter.id === elementChapter);
 
             //chapter was deleted
@@ -223,10 +215,6 @@ const actions = function (store) { //store for async stuff
             chap.timestamp = Date.now();
             return clone
         },
-        onAddLink(InteractionElementData, toChapterID) {
-            //remove link if exists in answer
-        },
-
         //usually called after onChangeContent adds new actions
         updateChapterLinks(state) {
             const clone = JSON.parse(JSON.stringify(state));
@@ -310,6 +298,8 @@ const actions = function (store) { //store for async stuff
         },
 
         onAddElement(state, typeSelected, atIdx) {
+
+            console.log('creating element : ', typeSelected)
             const clone = JSON.parse(JSON.stringify(state));
             let elements = clone.chapters[state.activeChapterIndex].elements;
             const newElem = {

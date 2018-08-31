@@ -34,6 +34,8 @@ class LessonMaker extends Component {
         this.handleChapterDeleteModalClose = this.handleChapterDeleteModalClose.bind(this);
         this.handleChapterDelete = this.handleChapterDelete.bind(this);
         this.renderChapterDeleteModal = this.renderChapterDeleteModal.bind(this);
+
+        props.restoreStateFromSession();
     }
 
     componentDidMount() {
@@ -56,13 +58,6 @@ class LessonMaker extends Component {
         console.log('saving status....')
         //api.saveContent
     }
-
-    //
-    // onSelectAction(identifier, optionsIndex) {
-    //     console.log(this.choices);
-    //     this.setState({childChoice: this.choices[optionsIndex]})
-    //     this.props.onChangeLastElementChild(optionsIndex);
-    // }
 
     handleChapterDeleteModal() {
         this.setState({
@@ -219,9 +214,9 @@ class LessonMaker extends Component {
 
                                     {/*checks if there are elements first, then inserts ContinueButton at end*/}
                                     {
-                                        (elements.length===0 || (elements[elements.length - 1].type !== globals.EDIT_CONTINUE_ELEMENT)
-                                            ? this.props.onAddElement(globals.EDIT_CONTINUE_ELEMENT, elements.length)
-                                            : null)
+                                        // (elements.length===0 || (elements[elements.length - 1].type !== globals.EDIT_CONTINUE_ELEMENT)
+                                        //     ? this.props.onAddElement(globals.EDIT_CONTINUE_ELEMENT, elements.length)
+                                        //     : null)
                                     }
                                     {/*? <Element */}
                                     {/*data={elements[elements.length - 1]} chapterID={activeChapter.id} />*/}
@@ -269,9 +264,13 @@ LessonMaker.propTypes = {
 
 const mapStoreToProps = ({chapters, activeChapterIndex, isEditMode}) => ({isEditMode, chapters, activeChapterIndex})
 const neededActions = (store) => {
-    const {onChangeActiveChapter, instantUpdateElements, onChangeLastElementChild, onAddElement, updateChapterLinks, onDeleteChapter, onChangeChapterTitle, onToggleEditMode, mergeStoreWithSessionStorage} = actions();
+    const {onChangeActiveChapter,
+        restoreStateFromSession,
+        instantUpdateElements, onChangeLastElementChild, onAddElement, updateChapterLinks,
+        onDeleteChapter, onChangeChapterTitle, onToggleEditMode, mergeStoreWithSessionStorage} = actions();
     return {
         onChangeActiveChapter,
+        restoreStateFromSession,
         onChangeLastElementChild,
         onAddElement,
         updateChapterLinks,
