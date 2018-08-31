@@ -231,11 +231,12 @@ class Element extends Component {
                                 id={id}
                                 type={type}
                                 isEditMode={this.props.isEditMode}
+
                             >
                                 {this.typeToComponent(type)}
                             </FadeableCard>
                             :
-                            <Card className="card-fancy has-shadow card content-view">
+                            <Card className='card-fancy has-shadow card content-view'>
                                 <CardBody>
                                     {!this.props.isPreview && <VisibilitySensor ref={this.sensorRef} onChange={this.onChangeVisibility}/>}
                                     { this.state.isLoading

@@ -74,7 +74,7 @@ class ElementAdder extends Component {
                     {this.props.nElems<=1 
 
                     ?
-                      <span className='help-text' style={{color: '#626970', marginLeft: '15px'}}>You can add more content by clicking or tapping the plus icon.</span>
+                      <span className='help-text' style={{color: '#626970', marginLeft: '15px', fontSize: '1.1rem'}}>You can add more content by clicking or tapping the plus icon.</span>
                     : null
                     }
                     

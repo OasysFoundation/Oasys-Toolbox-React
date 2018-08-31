@@ -129,11 +129,17 @@ class NextChapterSelection extends Component {
         return (
             <div className='next-chapter'>
                 <center>
+                    <hr/>
                     <CreateNewChapterModal isOpen={this.state.showsCreateNewChapterDialog} onClose={this.onCloseNewChapterCreationDialog.bind(this)} onCreateNewChapter={this.onCreateNewChapter.bind(this)} />
-                    {this.props.isEditMode? (
+                    {this.props.isEditMode ? (
                             <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '20px'}}>
                             <span style={{fontStyle: 'italic', fontSize: '1.1rem', color: '#666666', marginRight: '20px'}}>Continue to…</span>
-                            <SelectionDropdown onSelect={this.onSelectAction.bind(this)} identifier={Math.random().toString()} default={(action!=null && action!=="")? this.chapterTitleForIdentifier(action) : "No Action"} options={this.getActionMenuItems()}/>
+                            <SelectionDropdown 
+                                onSelect={this.onSelectAction.bind(this)} 
+                                identifier={Math.random().toString()} 
+                                default={(action!=null && action!=="")? this.chapterTitleForIdentifier(action) : "End Lesson"} 
+                                options={this.getActionMenuItems()}
+                            />
                             </div>
                         ) : (
 

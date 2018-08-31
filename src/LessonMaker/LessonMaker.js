@@ -201,14 +201,13 @@ class LessonMaker extends Component {
                                     <PoseGroup>
                                         {elements.map((el, idx) => {
                                                 return (<Item key={el.id}>
+                                                    {(this.props.isEditMode && elements.length===1) && <ElementAdder key={el.id + 1} idx={idx}/>}
                                                     <Element
                                                         key={el.id}
                                                         data={el}
                                                         isPreview={true}
                                                     />
-
-                                                    {/*SHORT FORM FOR --> isEditMode ? <Adder/> : null */}
-                                                    {(this.props.isEditMode && (idx<elements.length-1 || elements.length===1)) && <ElementAdder key={el.id + 1} idx={idx}/>}
+                                                    {(this.props.isEditMode && (idx<elements.length-1)) && <ElementAdder key={el.id + 1} idx={idx}/>}
                                                 </Item>)
                                             }
                                         )}
@@ -220,7 +219,7 @@ class LessonMaker extends Component {
 
                                     {/*checks if there are elements first, then inserts ContinueButton at end*/}
                                     {
-                                        (elements.length>=1 && (elements[elements.length - 1].type !== globals.EDIT_CONTINUE_ELEMENT)
+                                        (elements.length===0 || (elements[elements.length - 1].type !== globals.EDIT_CONTINUE_ELEMENT)
                                             ? this.props.onAddElement(globals.EDIT_CONTINUE_ELEMENT, elements.length)
                                             : null)
                                     }

@@ -16,7 +16,7 @@ const typeToInit = {
     [globals.EDIT_FORMULA]: '',
     [globals.EDIT_FORMULA]: '',
     [globals.EDIT_CONTINUE_ELEMENT]: {
-        action: ''
+        action: 'end-lesson'
     },
     [globals.EDIT_IFRAME]: {
         id: '',

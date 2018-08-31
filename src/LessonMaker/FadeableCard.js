@@ -48,11 +48,12 @@ class FadeableCard extends Component {
 
     render() {
         let {type, id, isEditMode} = this.props;
+        const extraClass = (type===globals.EDIT_CONTINUE_ELEMENT) ? 'continue' : '';
         //for debugging
         return (
             <div>
                 <Fade timeout={300} in={this.state.shouldFade}>
-                    <Card className={this.state.isOpen ? "card-fancy has-shadow" : "card-fancy has-shadow minimized"}>
+                    <Card className={this.state.isOpen ? "card-fancy has-shadow "+extraClass : "card-fancy has-shadow minimized"}>
                         {type===globals.EDIT_CONTINUE_ELEMENT
                             ? null
                             : <section style={styling.cardActions} > 
