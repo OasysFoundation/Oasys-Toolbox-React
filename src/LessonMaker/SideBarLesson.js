@@ -175,7 +175,7 @@ class SideBarLesson extends Component {
             for (let j=0;j<endings.length;j++) {
                 this.props.project.chapters.forEach((chapter,chidx)=>
                    chapter.links.forEach(link=>{ 
-                        const newidx = chids.findIndex(link.chapterId);
+                        const newidx = chids.findIndex(el=>el===link.chapterId);
                         if (newidx===endings[j]){
                             tendings.push(chidx)
                         }

@@ -10,7 +10,7 @@ const initData = {
         uid: null,
         idToken: null,
     },
-    title: 'Untitled Lesson',
+    title: '',
     iconName: "001-cells.svg",
     author: null,
     published: 0,
