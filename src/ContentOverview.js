@@ -20,7 +20,6 @@ import { isMobile } from './utils/tools'
 
 const styles = {
     cardStyle: {
-        width: '100%',
         backgroundColor: colors.SNOW2,
         borderColor: "#F6F1DE",
         color: "#F6F1DE",
@@ -231,7 +230,7 @@ class ContentOverview extends Component {
         var url = this.removeLastComponentOfUrl(window.location.href);
         return (
             <div className='app-body'>
-                <main className='main' style={{marginLeft: '0px', padding:paddingVal}}>
+                <main className='main' style={{marginLeft: '0px', paddingTop:paddingVal}}>
                     <Container fluid className='main-width'>
                         {this.state.lesson !== null
                             ? <div className='content-overview'>
