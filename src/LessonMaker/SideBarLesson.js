@@ -40,6 +40,7 @@ class SideBarLesson extends Component {
             showsEditDialog: false,
             errorTitle: true,
             errorDescription: true,
+            errorConsistency: false,
         }
 
         this.title = props.title;
@@ -132,9 +133,6 @@ class SideBarLesson extends Component {
         if (this.description != null) {
             this.props.onChangeProjectDescription(this.description);
         }
-        this.setState({
-            showSettingsDialog: false,
-        });
     }
 
     onSwitchProject(contentId) {
@@ -149,9 +147,58 @@ class SideBarLesson extends Component {
         this.props.setProjectInLessonMaker(project)
     }
 
+    hasStoryConsistency(){
+        // check if the lesson has at least one ending, and if the ending is reachable from the start
+        let endings = [];
+        this.props.project.chapters.forEach((chapter,chidx)=>
+            chapter.links.forEach(link=>{
+                if (link.chapterId==='end-lesson'){
+                    endings.push(chidx)
+                }
+            })
+        );
+        // replace current chapter idx with the idx of the chapter that links to current chapter 
+        // until we have reached the beginning
+        const chids = this.props.project.chapters.map(ch=>ch.id);
+        for (let i=0;i<100;i++) {
+            if (endings.indexOf(0)>=0) {
+                return true;
+            }
+            let tendings = [];
+            for (let j=0;j<endings.length;j++) {
+                this.props.project.chapters.forEach((chapter,chidx)=>
+                   chapter.links.forEach(link=>{ 
+                        const newidx = chids.findIndex(link.chapterId);
+                        if (newidx===endings[j]){
+                            tendings.push(chidx)
+                        }
+                    })
+                );
+            }
+            endings = tendings;
+            if (tendings.length===0) {
+                break;
+            }
+        }
+        return false;
+    }
+
     publishOrSaveContent() {
 
         this.onSettingsSave();
+
+        if (this.state.errorTile || this.state.errorDescription) {
+            return;
+        }
+
+        if (!this.hasStoryConsistency()) {
+            this.setState({
+                errorConsistency: true,
+            })
+            return;
+        }
+
+        this.setState({ showSettingsDialog: false});
 
         if (this.state.showPublishModal && this.title && this.description) {
             this.saveContent(1);
@@ -298,7 +345,7 @@ class SideBarLesson extends Component {
                     </ModalHeader>
                     <ModalBody>
                         <center>
-                            <div style={{position: 'relative', width: '100px', height: '100px', marginBottom: '20px'}}
+                            <div style={{position: 'relative', width: '100px', height: '100px', marginBottom: '20px', cursor: 'pointer'}}
                                  onClick={this.onShowIconSelectionModal.bind(this)}>
                                 <img src={require('../assets/category-icons/' + this.props.iconName)} width='100px'
                                      height='100px' alt=''/>
@@ -342,6 +389,15 @@ class SideBarLesson extends Component {
                             subject areas like 'physics' or 'maths', or describe the type of experience, e.g.
                             'storyline' or 'simulation'.
                         </FormText>
+                        {this.state.errorConsistency
+                            ? <FormText color='danger'>
+                                Attention: your current lesson is inconsistent. 
+                                That means that either there is no ending (none of the chapters ends the lesson), 
+                                or that the end of the lesson is not reachable from the beginning. To prevent frustrating your learners,
+                                please ensure that they can successfully finish the lesson before saving it.
+                              </FormText>
+                            : null
+                        }
                     </ModalBody>
                     <ModalFooter>
                         <Button color="secondary" onClick={this.onSettingsClose}>Cancel</Button>
