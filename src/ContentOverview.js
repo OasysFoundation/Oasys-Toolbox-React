@@ -186,23 +186,23 @@ class ContentOverview extends Component {
                                 Average rating: {lesson.rating.mean} <br/>
                                 Number of ratings: {lesson.rating.count}
                             </p>
-                            <p>
+                            <div>
                                 {lesson.tags.map(tag => <span className='tag'>{tag}</span>)}
-                            </p>
+                            </div>
 
 
                             <Button onClick={()=>this.handleStartContent()} className='start-button'>
                                 Start learning
                             </Button>
                         </div>
-                        <div style={{marginTop: '30px'}}>
+                        <div style={{marginTop: '30px', maxWidth:"150px"}}>
                             <Button block color="light" onClick={()=>this.handleClick("remix")}
                                     className='action-button'>
                                 <FontAwesomeIcon icon="pencil-alt"/>
                                 Remix
                             </Button>
                             <Button block color="light" onClick={()=>this.handleClick("user")}
-                                    className='action-button'>
+                                    className='action-button' style={{overflow:"hidden"}}>
                                 <FontAwesomeIcon icon="comment"/>
                                 {"Go To " + lesson.username + "'s Page"}
                             </Button>
