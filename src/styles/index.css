@@ -206,6 +206,7 @@ html, body {
 
 .oasys .form-control.header {
     font-weight: bold;
+    min-width: 125px;
 }
 
 .oasys .bgprimary {
@@ -413,7 +414,6 @@ html:not([dir="rtl"]) .sidebar {
 .btn.preview-btn.delete-btn {
     background-color: #c6361d;
     width: 100px;
-    margin-right: 50px;
     color: #f8f8f4;
 }
 

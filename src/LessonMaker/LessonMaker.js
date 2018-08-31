@@ -34,6 +34,7 @@ class LessonMaker extends Component {
         this.handleChapterDeleteModalClose = this.handleChapterDeleteModalClose.bind(this);
         this.handleChapterDelete = this.handleChapterDelete.bind(this);
         this.renderChapterDeleteModal = this.renderChapterDeleteModal.bind(this);
+        this.renderPreviewButton = this.renderPreviewButton.bind(this);
     }
 
     componentDidMount() {
@@ -95,6 +96,27 @@ class LessonMaker extends Component {
 
     }
 
+    renderPreviewButton(){
+        return(
+             <button
+                type="button"
+                className={this.props.isEditMode ? "btn btn-dark preview-btn" : "btn btn-light preview-btn"}
+                style={{width: '150px'}}
+                onClick={() => {
+                    this.props.instantUpdateElements(true)
+                    setTimeout(() => {
+                        this.props.onToggleEditMode()
+                    }, 250);
+
+                }}
+            >
+                <span className={this.props.isEditMode ? "icon-grid" : "icon-layers"}></span>
+                {"  "}
+                {this.props.isEditMode ? 'Preview' : '  Edit  '}
+            </button>
+        )
+    }
+
     renderChapterDeleteModal() {
         const modal = (this.props.chapters.length === 1)
             ? (<React.Fragment>
@@ -135,6 +157,7 @@ class LessonMaker extends Component {
         const {elements} = activeChapter;
         const emptyChapterAdder = elements.length > 0 ? null : <ElementAdder key={"filler"} idx={0}/>;
         const paddingVal = (isMobile() ? "60px" : "10px")
+        const headerSeparation = (isMobile() ? "10px" : "50px")
 
 
         return (
@@ -151,7 +174,6 @@ class LessonMaker extends Component {
                         <Container fluid className='main-width'>
                             <center>
 
-
                                 <section className='main-width' style={{
                                     display: 'flex',
                                     marginTop: '1rem',
@@ -159,7 +181,6 @@ class LessonMaker extends Component {
                                     flex: 1,
                                     flexDirection: 'row'
                                 }}>
-
                                     <div className="input-group-prepend">
                                         <span className="input-group-text" id="basic-addon1">Chapter Title</span>
                                     </div>
@@ -176,26 +197,16 @@ class LessonMaker extends Component {
                                     <button
                                         type="button"
                                         className="btn preview-btn delete-btn"
+                                        style={{marginRight:headerSeparation}}
                                         onClick={this.handleChapterDeleteModal}
                                     >
                                         Delete
                                     </button>
-                                    <button
-                                        type="button"
-                                        className={this.props.isEditMode ? "btn btn-dark preview-btn" : "btn btn-light preview-btn"}
-                                        style={{width: '150px'}}
-                                        onClick={() => {
-                                            this.props.instantUpdateElements(true)
-                                            setTimeout(() => {
-                                                this.props.onToggleEditMode()
-                                            }, 250);
-
-                                        }}
-                                    >
-                                        <span className={this.props.isEditMode ? "icon-grid" : "icon-layers"}></span>
-                                        {"  "}
-                                        {this.props.isEditMode ? 'Preview' : '  Edit  '}
-                                    </button>
+                                    {isMobile()
+                                        ? null
+                                        :this.renderPreviewButton()
+                                    }
+                                   
                                 </section>
                                 {this.props.isEditMode
                                     ? (<React.Fragment>
