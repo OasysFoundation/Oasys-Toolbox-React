@@ -212,7 +212,7 @@ class AccountPage extends Component {
         return(
             <div>
                 <section id="about" style={{paddingTop: paddingVal}}>
-                    <div className="row" style={styles.HorizontalScrollOuterCenterContainer}>
+                    <div style={styles.HorizontalScrollOuterCenterContainer}>
                       <div style={styles.HorizontalScrollContainer}>
                       <div style={styles.paddingForHeaderSection}>
                         <div style={styles.HorizontalScrollTitle}>
