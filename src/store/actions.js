@@ -1,10 +1,11 @@
 //TODO use my mongo functions to do upsert, insert, find for STATE etc
 //use immutable
 import update from 'immutability-helper'
-import {moveEntry, withoutEntry, getObjectsByKey, saveToSessionStorage} from "../utils/trickBox";
+import {moveEntry, withoutEntry, getObjectsByKey, saveToSessionStorage, saveStateToSession} from "../utils/trickBox";
 import {initContent} from "../utils/tools";
 import uuidv4 from 'uuid/v4';
 import globals from '../utils/globals';
+import {initData} from "../utils/types";
 
 
 function updateLinksInChapters_mutate(chapters) {
@@ -125,6 +126,17 @@ const actions = function (store) { //store for async stuff
         //     return clone
         //
         // },
+
+        createNewProject(state) {
+            saveStateToSession(state)
+
+            const preserve = {
+                user: state.user,
+                author: state.user.name
+            }
+            //initData overrides current state, except non-Lesson related data (eg userinfo)
+            return {...state, ...initData, ...preserve}
+        },
 
         setProjectInLessonMaker(state, projectData) {
             if (projectData.data) {

@@ -14,7 +14,13 @@ const saveToSessionStorage = function(id, value) {
         globals.SESSIONSTORAGE_KEY + id,
         JSON.stringify({content: value, timestamp: Date.now()})
     )
-}
+};
+
+
+const saveStateToSession
+    = (state) => sessionStorage
+    .setItem(globals.SESSIONSTORAGE_KEY, JSON.stringify(state))
+
 
 const getContentFromSessionStorage = function(id) {
     if (isEmpty(id)) {
@@ -167,7 +173,7 @@ function substringInObjCount(obj, substr) {
 
 
 
-export {Unwrap, Wrap, ICON,
+export {saveStateToSession, Unwrap, Wrap, ICON,
     NUcheck, substringInObjCount, saveToSessionStorage, getContentFromSessionStorage,
     flatten, CATEGORIES,
     getTagsForCategory, typeToIcon,
