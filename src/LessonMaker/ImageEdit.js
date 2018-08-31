@@ -118,6 +118,7 @@ class ImageEdit extends Component {
                         <img
                           src={this.state.imageUrl}
                           onLoad={this.props.onCompletedLoading}
+                          style={{maxWidth:'100%'}}
                         />
                     ) : <p>Search for GIFs and images above.</p>}
                 {this.state.didStartSearch? <GridLoader size={30} /> : null}

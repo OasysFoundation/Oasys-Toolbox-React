@@ -24,7 +24,7 @@ const customIframeStyles = {
 }
 
 function getConcordEmbeddables(){
-    const CONCORD_URL = 'http://lab.concord.org/embeddable.html#';
+    const CONCORD_URL = '//lab.concord.org/embeddable.html#';
     const concordIgnore = [
         'basic-examples', 
         'benchmarks', 

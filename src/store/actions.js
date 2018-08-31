@@ -203,7 +203,6 @@ const actions = function (store) { //store for async stuff
 
         onChangeActiveChapter(state, id) {
             const index = state.chapters.findIndex(chapter => chapter.id.toString() === id.toString());
-            // console.log("new active chapter idx:  ", index)
             return update(state, {activeChapterIndex: {$set: index}})
         },
 
