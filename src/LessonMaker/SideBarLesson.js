@@ -111,6 +111,13 @@ class SideBarLesson extends Component {
         this.setState({
             showSettingsDialog: true,
         });
+
+        if (!this.hasStoryConsistency()) {
+            this.setState({ errorConsistency: true });
+        }
+
+        this.checkTitleChange(this.props.title);
+        this.checkDescriptionChange(this.props.description);
     }
 
     onSettingsClose() {
@@ -187,7 +194,7 @@ class SideBarLesson extends Component {
 
         this.onSettingsSave();
 
-        if (this.state.errorTile || this.state.errorDescription) {
+        if (this.state.errorTitle || this.state.errorDescription) {
             return;
         }
 
@@ -305,31 +312,29 @@ class SideBarLesson extends Component {
         this.onCloseEditWarning();
     }
 
-    checkTitleChange(e) {
-        if (e.target.value.length>40) {
-            e.target.value = e.target.value.substring(0,40);
-            return;
+    checkTitleChange(value) {
+        if (value.length>40) {
+            value = value.substring(0,40);
         }
-        let title = e.target.value.trim();
+        let title = value.trim();
         if (title.length===0) {
             this.setState({errorTitle: true});
         } else {
             this.setState({errorTitle: false});
-            this.title = e.target.value;
+            this.title = title;
         }
     }
 
-    checkDescriptionChange(e) {
-        if (e.target.value.length>500) {
-            e.target.value = e.target.value.substring(0,500);
-            return;
+    checkDescriptionChange(value) {
+        if (value.length>500) {
+            value = value.substring(0,500);
         }
-        let description = e.target.value.trim();
+        let description = value.trim();
         if (description.length===0) {
             this.setState({errorDescription: true});
         } else {
             this.setState({errorDescription: false});
-            this.description = e.target.value;
+            this.description = description;
         }
     }
 
@@ -358,7 +363,7 @@ class SideBarLesson extends Component {
                         </center>
                         <Input
                             defaultValue={this.props.title}
-                            onChange={e=>this.checkTitleChange(e)} 
+                            onChange={e=>this.checkTitleChange(e.target.value)} 
                             style={{borderColor: this.state.errorTitle?colors.VELVET:colors.GULLGREY}}
                         />
                         <FormText 
@@ -371,7 +376,7 @@ class SideBarLesson extends Component {
                             style={{borderColor: this.state.errorDescription?colors.VELVET:colors.GULLGREY}}
                             rows='4'
                             defaultValue={this.props.description}
-                            onChange={e=>this.checkDescriptionChange(e)} 
+                            onChange={e=>this.checkDescriptionChange(e.target.value)} 
                             placeholder='Please add a description'
                         />
                         <FormText 
