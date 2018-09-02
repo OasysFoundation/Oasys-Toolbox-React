@@ -41,10 +41,6 @@ class LessonMaker extends Component {
         this.props.updateChapterLinks();
     }
 
-    componentWillUnmount() {
-        clearInterval(this.autoSaver);
-    }
-
     handleChapterDeleteModal() {
         this.setState({
             showDeleteChapterDialog: true,
@@ -138,6 +134,11 @@ class LessonMaker extends Component {
         const emptyChapterAdder = elements.length > 0 ? null : <ElementAdder key={"filler"} idx={0}/>;
         const paddingVal = (isMobile() ? "60px" : "10px")
         const headerSeparation = (isMobile() ? "10px" : "50px")
+
+
+        if (elements.filter(e => e.type === globals.EDIT_CONTINUE_ELEMENT).length > 1) {
+            this.props.onDeleteElement(elements.find(e=> e.type === globals.EDIT_CONTINUE_ELEMENT ).id)
+        }
 
         return (
             <div className="app-body" style={{paddingTop: paddingVal}}>
@@ -263,12 +264,13 @@ const neededActions = (store) => {
     const {onChangeActiveChapter,
         restoreStateFromSession,
         instantUpdateElements, onChangeLastElementChild, onAddElement, updateChapterLinks,
-        onDeleteChapter, onChangeChapterTitle, onToggleEditMode, mergeStoreWithSessionStorage} = actions();
+        onDeleteChapter, onDeleteElement, onChangeChapterTitle, onToggleEditMode, mergeStoreWithSessionStorage} = actions();
     return {
         onChangeActiveChapter,
         restoreStateFromSession,
         onChangeLastElementChild,
         onAddElement,
+        onDeleteElement,
         updateChapterLinks,
         onDeleteChapter,
         instantUpdateElements,

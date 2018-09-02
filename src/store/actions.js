@@ -58,7 +58,8 @@ const actions = function (store) { //store for async stuff
         },
 
         restoreStateFromSession(state) {
-            return restoreFromSession()
+
+            return {...state, ...restoreFromSession()}
         },
 
         mergeStoreWithSessionStorage(state) {
