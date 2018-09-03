@@ -1,4 +1,4 @@
-import {superstruct} from 'superstruct'
+//import {superstruct} from 'superstruct'
 import isEmail from 'is-email'
 import isUuid from 'is-uuid'
 import isUrl from 'is-url'
@@ -204,29 +204,29 @@ mockData.chapters.forEach(chapter => chapter.elements.forEach(el => el.timestamp
 mockData.chapters.forEach(chapter => chapter.timestamp = 50000);
 
 
-const struct = superstruct({
-    types: {
-        email: value => isEmail(value) && value.length < 256,
-        uuid: value => isUuid.v4(value),
-        displayName: value => typeof value === "string" && value.length > 3,
-        url: value => isUrl(value)
+// const struct = superstruct({
+//     types: {
+//         email: value => isEmail(value) && value.length < 256,
+//         uuid: value => isUuid.v4(value),
+//         displayName: value => typeof value === "string" && value.length > 3,
+//         url: value => isUrl(value)
 
-    },
-})
+//     },
+// })
 
-const Chapter = struct({
+// const Chapter = struct({
 
-})
+// })
 
-const User = struct({
-    name: 'displayName',
-    id: 'uuid'
-})
+// const User = struct({
+//     name: 'displayName',
+//     id: 'uuid'
+// })
 
-const Element = struct({
-    id: 'uuid',
-    type: 'number',
-    content: 'object'
-}, {
-    id: uuidv4()
-})
+// const Element = struct({
+//     id: 'uuid',
+//     type: 'number',
+//     content: 'object'
+// }, {
+//     id: uuidv4()
+// })

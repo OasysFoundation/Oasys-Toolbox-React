@@ -14,19 +14,22 @@ import PropTypes from 'prop-types';
 class FormulaEdit extends Component {
 
     constructor(props) {
+        
         super(props);
-        this.state = {
-        	formula: null
-        }
 
-        this.onChangedSearchTerm = this.onChangedSearchTerm.bind(this);
+        this.state = {
+        	formula: this.props.data? this.props.data.formula : null
+        };
+
+        this.onChangedFormula = this.onChangedFormula.bind(this);
     }
 
-	onChangedSearchTerm(element) {
+	onChangedFormula(element) {
 		this.setState({
             formula: element.target.value
         });
-		this.props.onChange(element.target.value)
+        const data = {formula: element.target.value};
+        this.props.onChange(data, false, true);
 	}
 	
     render() {
@@ -39,7 +42,7 @@ class FormulaEdit extends Component {
                     ? (
                 	<InputGroup>
     			        <InputGroupAddon addonType="prepend">🏎</InputGroupAddon>
-    			        <Input placeholder="formula" onChange={this.onChangedSearchTerm}/>
+    			        <Input value={this.state.formula} placeholder="formula" onChange={this.onChangedFormula}/>
     		        </InputGroup>
                     )
                     :

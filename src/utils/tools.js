@@ -13,7 +13,9 @@ const typeToInit = {
     },
     [globals.EDIT_SYSTEM]: '',
     [globals.EDIT_IMAGE]: '',
-    [globals.EDIT_FORMULA]: '',
+    [globals.EDIT_FORMULA]: {
+        formula: ''
+    },
     [globals.EDIT_FORMULA]: '',
     [globals.EDIT_CONTINUE_ELEMENT]: {
         action: 'end-lesson'
