@@ -50,7 +50,7 @@ class FormulaEdit extends Component {
                 }
             	<center>
             	{formula
-                ? <div className='math-renderview'>
+                ? <div className={this.props.isEditMode ? 'math-renderview' : ''}>
                     <BlockMath 
                         math={formula}
                         renderError={(error) => {
