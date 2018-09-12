@@ -82,7 +82,7 @@ class Quiz extends Component {
             answers: data.answers,
             quizType: data.quizType
         }, function () {
-            that.props.onChange({
+            that.props.handleChange({
                 question: that.state.question,
                 answers: that.state.answers,
                 quizType: that.state.quizType
@@ -159,7 +159,7 @@ class Quiz extends Component {
 
     onContinue(nextChapterId) {
         this.onCloseFeedbackPopover();
-        this.props.onLearnerInteraction(nextChapterId, this.props.id);
+        this.props.handleLearnerInteraction(nextChapterId, this.props.id);
     }
 
     isSingleChoice() {
@@ -182,7 +182,7 @@ class Quiz extends Component {
                 id: this.props.id,
             }
             if (!this.props.isEditMode) {
-                this.props.onQuizAnswer(quizObj);
+                this.props.handleQuizAnswer(quizObj);
             }
         }
     }
@@ -281,7 +281,7 @@ class Quiz extends Component {
                                 answers={JSON.parse(JSON.stringify(this.state.answers))}
                                 quizType={this.state.quizType}
                                 onChange={this.onChangeData} onClose={this.onClose} chapters={this.props.chapters}
-                                isOpen={this.state.showsModalEditor} onAddChapter={this.props.onAddChapter}
+                                isOpen={this.state.showsModalEditor} handleAddChapter={this.props.handleAddChapter}
                                 activeChapterIndex={this.props.activeChapterIndex} />
             </div>
         )

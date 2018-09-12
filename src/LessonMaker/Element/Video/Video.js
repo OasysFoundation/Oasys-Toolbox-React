@@ -11,7 +11,7 @@ class Video extends Component {
         super(props);
         this.onChangeUrl = this.onChangeUrl.bind(this);
         this.onChangeCrop = this.onChangeCrop.bind(this);
-        this.props.onStartLoading();
+        this.props.handleStartLoading();
     }
 
     isValidYouTubeUrl(url) {
@@ -31,7 +31,7 @@ class Video extends Component {
         if (this.isValidYouTubeUrl(url)) {
             const {cropStart, cropEnd} = this.props.data;
             const data  = {url, cropStart, cropEnd};
-            this.props.onChange(data, false, true);
+            this.props.handleChange(data, false, true);
         }
     }
 
@@ -39,7 +39,7 @@ class Video extends Component {
         const {url} = this.props.data;
         const data  = {url, cropStart, cropEnd};
         
-        this.props.onChange(data, false, true);
+        this.props.handleChange(data, false, true);
     }
 
     renderVideo(){
@@ -50,7 +50,7 @@ class Video extends Component {
                     data={this.props.data} 
                     elementId={this.props.id} 
                     isEditMode={this.props.isEditMode}
-                    onLoad={this.props.onCompletedLoading}
+                    onLoad={this.props.handleCompletedLoading}
                    />)
                 : (<VideoEditCropper 
                     data={this.props.data} 

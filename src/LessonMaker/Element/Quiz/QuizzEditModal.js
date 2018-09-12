@@ -77,7 +77,7 @@ class QuizzEditModal extends Component {
 
 
     onSave() {
-        this.props.onChange({
+        this.props.handleChange({
             question: this.state.question,
             answers: this.state.answers,
             quizType: this.state.quizType,
@@ -88,7 +88,7 @@ class QuizzEditModal extends Component {
 
         const that = this;
         this.state.userCreatedChapters.forEach(function(chapter) {
-            that.props.onAddChapter(chapter.id, chapter.title);
+            that.props.handleAddChapter(chapter.id, chapter.title);
         });
 
         this.setState({

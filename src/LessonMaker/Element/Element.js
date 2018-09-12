@@ -1,25 +1,17 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {connect} from "redux-zero/react";
-import 'react-quill/dist/quill.snow.css';
-
-import {
-    Card,
-    CardBody,
-    Button
-} from 'reactstrap';
+import {connect} from 'redux-zero/react';
+import { Card, CardBody, Button } from 'reactstrap';
 
 import {getContentFromSessionStorage} from '../../utils/trickBox';
 import globals from '../../utils/globals';
-
-import actions from "../../store/actions";
-import colors from '../../utils/colors';
+import actions from '../../store/actions';
 
 import ViewCard from './ViewCard';
 import EditCard from './EditCard';
-
 import ElementLogic from './ElementLogic';
 
+// import element types to use
 import Text from './Text/Text';
 import Image from './Image/Image';
 import Formula from './Formula/Formula';
@@ -64,8 +56,7 @@ class Element extends Component {
         };
     }
 
-    // glue function between LessonMaker and Quill to add ID
-    handleChange = (value) => {
+    handleChange(value){
         let shouldUpdateChapterLinks = false;
         let shouldInstantUpdate = false;
         const now = Date.now();
@@ -83,7 +74,7 @@ class Element extends Component {
                     this.props.updateChapterLinks();
                 }
             });
-    };
+    }
 
     handleChangeContent() {
         this.props.onChangeContent(
@@ -122,13 +113,13 @@ class Element extends Component {
         this.setState({shouldFoldInView: value});
     }
 
-    onCompletedLoading() {
+    handleCompletedLoading() {
         this.setState({
             isLoading: false
         });
     }
 
-    onStartLoading() {
+    handleStartLoading() {
         this.setState({
             isLoading: true
         });   
@@ -142,14 +133,14 @@ class Element extends Component {
             data: this.state.tempContent,
             isHovered: this.state.isHovered,
             isEditMode: this.props.isEditMode,
-            onChange: this.handleChange.bind(this),
-            onLearnerInteraction: this.props.onLearnerInteraction,
-            onCompletedLoading: this.onCompletedLoading.bind(this),
-            onStartLoading: this.onStartLoading.bind(this),
             chapters: this.props.chapters.map(c => ({title: c.title, id: c.id})),
-            onAddChapter: this.props.onAddChapter,
             activeChapterIndex: this.props.activeChapterIndex,
-            onQuizAnswer: this.props.onQuizAnswer,
+            handleChange: this.handleChange.bind(this),
+            handleLearnerInteraction: this.props.handleLearnerInteraction,
+            handleCompletedLoading: this.handleCompletedLoading.bind(this),
+            handleStartLoading: this.handleStartLoading.bind(this),
+            handleAddChapter: this.props.handleAddChapter,
+            handleQuizAnswer: this.props.handleQuizAnswer,
             onFinishedVideo: this.handleElementFinished,
         }
 
@@ -186,16 +177,11 @@ class Element extends Component {
                     <section onMouseEnter={() => this.setState({isHovered: true})}
                              onMouseLeave={() => this.setState({isHovered: false})}
                     >
-                        {/* does not work!?
-                        <ElementLogic {...props} render={(data, isEditMode, isLoading, shouldFoldInView, handleFoldInView) => (
-                            isEditMode 
-                            ? <EditCard {...props}> {this.typeToComponent(this.props.data.type)} </EditCard>
-                            : <ViewCard {...props}> {this.typeToComponent(this.props.data.type)} </ViewCard>
-                        )}/> */}
-                        {this.props.isEditMode 
-                        ? <EditCard {...props}> {this.typeToComponent(this.props.data.type)} </EditCard>
-                        : <ViewCard {...props}> {this.typeToComponent(this.props.data.type)} </ViewCard>
-                        }
+                        <ElementLogic {...props} render={(logicProps) => (
+                            this.props.isEditMode 
+                            ? <EditCard {...logicProps}> {this.typeToComponent(this.props.data.type)} </EditCard>
+                            : <ViewCard {...logicProps}> {this.typeToComponent(this.props.data.type)} </ViewCard>
+                        )}/> 
                     </section>
                 </div>
             </center>
@@ -214,8 +200,8 @@ Element.propTypes = {
 const mapStoreToProps = ({chapters, shouldInstantUpdate, isEditMode, activeChapterIndex}) => ({chapters, shouldInstantUpdate, isEditMode, activeChapterIndex});
 
 const neededActions = (store) => {
-    const {onChangeContent, updateChapterLinks, instantUpdateElements, onAddChapter} = actions();
-    return {onChangeContent, updateChapterLinks, instantUpdateElements, onAddChapter}
+    const {onChangeContent, updateChapterLinks, instantUpdateElements, handleAddChapter} = actions();
+    return {onChangeContent, updateChapterLinks, instantUpdateElements, handleAddChapter}
 };
 
 //IMPORTANT!! the project data is in the project obj, the rest of the store (action functions) is just flat there

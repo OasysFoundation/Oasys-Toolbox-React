@@ -6,6 +6,7 @@ import katex from 'katex';
 import ToolbarQuill from './ToolbarQuill'
 
 import 'katex/dist/katex.min.css';
+import 'react-quill/dist/quill.snow.css';
 
 import './assets/QuillEdit.css';
 import textBoldIcon from './assets/quillBoldIcon.png';
@@ -82,11 +83,11 @@ class Text extends Component {
         fontSize.whitelist = ['21px', '22px', '30px', 'small', 'normal', 'large', 'huge'];
         ReactQuill.Quill.register(fontSize, true);
 
-        this.onChange = this.onChange.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
 
-    onChange(content, delta, source, editor) {
-        this.props.onChange(content, false, false);
+    handleChange(content, delta, source, editor) {
+        this.props.handleChange(content, false, false);
     }
 
     componentWillReceiveProps() {
@@ -153,7 +154,7 @@ class Text extends Component {
                 {/*{this.renderToolbar()}*/}
                 <ReactQuill
                     value={this.props.data}
-                    onChange={this.onChange}
+                    onChange={this.handleChange}
                     ref="reactQuill"
                     modules={modules}
                     bounds={'quill-container-' + this.props.id}

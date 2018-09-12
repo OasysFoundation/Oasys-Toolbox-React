@@ -34,12 +34,12 @@ class Image extends Component {
         this.closeModalImgageSelection= this.closeModalImgageSelection.bind(this);
         this.onSelectImage = this.onSelectImage.bind(this);
 
-        this.props.onStartLoading();
+        this.props.handleStartLoading();
     }
 
     saveCurrentState() {
         const data = {imageUrl: this.state.imageUrl};
-        this.props.onChange(data, false, true);
+        this.props.handleChange(data, false, true);
     }
 
     searchTerm = null;
@@ -117,7 +117,7 @@ class Image extends Component {
                     (
                         <img
                           src={this.state.imageUrl}
-                          onLoad={this.props.onCompletedLoading}
+                          onLoad={this.props.handleCompletedLoading}
                           style={{maxWidth:'100%'}}
                         />
                     ) : <p>Search for GIFs and images above.</p>}

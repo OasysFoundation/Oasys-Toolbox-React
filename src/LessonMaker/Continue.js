@@ -100,13 +100,13 @@ class Continue extends Component {
             this.createNewChapter().then(function(newChapter) {
                 const newChapterIndex = that.chapterIndexForIdentifier(newChapter.id);
                 that.onSelectAction(newChapter.id, newChapterIndex);
-                that.props.onAddChapter(newChapter.id, that.chapterTitleForIdentifier(newChapter.id));
+                that.props.handleAddChapter(newChapter.id, that.chapterTitleForIdentifier(newChapter.id));
             });
             return;
         }
 
         if (chapterIndex === this.getAllChapters().length+1) {
-            this.props.onChange({
+            this.props.handleChange({
                 action: "end-lesson"
             }, true, true);
             return;
@@ -114,13 +114,13 @@ class Continue extends Component {
 
 
         const newAction = this.getAllChapters()[chapterIndex].id;
-        this.props.onChange({
+        this.props.handleChange({
             action: newAction
         }, true, true);
     }
 
     onContinue() {
-        this.props.onLearnerInteraction(this.props.data.action, this.props.id);
+        this.props.handleLearnerInteraction(this.props.data.action, this.props.id);
     }
     
 

@@ -31,7 +31,7 @@ class Iframe extends Component {
     constructor(props) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
-        this.props.onStartLoading();
+        this.props.handleStartLoading();
 
         this.state = {
             iframeURL: props.data.id || null
@@ -44,7 +44,7 @@ class Iframe extends Component {
             ? this.setState({iframeURL: selectedOption.value})
             : this.setState({iframeURL: null})
 
-        this.props.onChange({
+        this.props.handleChange({
             id: selectedOption.value,
         }, false, true);
     }
@@ -71,7 +71,7 @@ class Iframe extends Component {
                         position="relative"
                         allowFullScreen
                         styles={customIframeStyles}
-                        onLoad={this.props.onCompletedLoading}
+                        onLoad={this.props.handleCompletedLoading}
                     />
                 </div>
                 }

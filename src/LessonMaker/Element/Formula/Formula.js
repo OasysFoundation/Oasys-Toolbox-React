@@ -29,7 +29,7 @@ class Formula extends Component {
             formula: element.target.value
         });
         const data = {formula: element.target.value};
-        this.props.onChange(data, false, true);
+        this.props.handleChange(data, false, true);
 	}
 	
     render() {

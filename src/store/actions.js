@@ -222,7 +222,7 @@ const actions = function (store) { //store for async stuff
             return clone;
         },
 
-        onAddChapter(state, uid, title = "|| Untitled Chapter ||") {
+        handleAddChapter(state, uid, title = "|| Untitled Chapter ||") {
             const clone = JSON.parse(JSON.stringify(state));
 
             const activeChapter = clone.chapters[state.activeChapterIndex];

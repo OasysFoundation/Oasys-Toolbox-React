@@ -8,8 +8,9 @@ class ElementLogic extends Component {
 
     render() {
         const {data, isEditMode, isLoading, shouldFoldInView, handleFoldInView} = this.props;
+        const logicProps = {data, isEditMode, isLoading, shouldFoldInView, handleFoldInView};
         return (
-            this.props.render(data, isEditMode, isLoading, shouldFoldInView, handleFoldInView)
+            this.props.render(logicProps)
         );
     }
 }
