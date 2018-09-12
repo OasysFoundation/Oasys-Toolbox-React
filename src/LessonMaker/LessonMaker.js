@@ -7,7 +7,7 @@ import {Button, Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
 import {connect} from "redux-zero/react";
 
 import actions from "../store/actions";
-import Element from "./Element";
+import Element from "./Element/Element";
 import ElementAdder from './ElementAdder'
 import ContentView from './ContentView'
 import colors from '../utils/colors';
@@ -192,13 +192,12 @@ class LessonMaker extends Component {
                                         <PoseGroup>
                                             {elements.map((el, idx) => {
                                                     return (<Item key={el.id}>
-                                                        {(this.props.isEditMode && elements.length===1) && <ElementAdder key={el.id + 1} idx={idx}/>}
-                                                        <Element
-                                                            key={el.id}
-                                                            data={el}
-                                                            isPreview={true}
-                                                        />
-                                                        {(this.props.isEditMode && (idx<elements.length-1)) && <ElementAdder key={el.id + 1} idx={idx}/>}
+                                                        {(elements.length===1) && <ElementAdder key={el.id + 1} idx={idx}/>}
+
+                                                        <Element key={el.id} data={el} isPreview={true}>
+                                                        </Element>
+                                                        
+                                                        {(idx<elements.length-1) && <ElementAdder key={el.id + 1} idx={idx}/>}
                                                     </Item>)
                                                 }
                                             )}

@@ -13,7 +13,16 @@ const globals = {
 	API_DEV_REMOTE:'https://death.joinoasys.org/',
 	OASYS_API_BASE: 'https://api.joinoasys.org/',
 	OASYS_APP_BASE: 'https://joinoasys.org/',
-	// types of editors
+
+	// EDIT_CHAPTEREND: 8,
+	// for module editor
+	IF_START : 0, // for module component logic: immediately after if command
+	IF_COND  : 1, // for module component logic: inside if condition (but not immediately after if command)
+	IF_BODY  : 2, // for module component logic: inside if body (also, prior to next if command)
+	BOOL_DISABLED : 0, // for module component logic
+	BOOL_ENABLED : 1, // for module component logic
+
+	// leave this here for now for compatibilty reasons
 	EDIT_QUILL: 0,
 	EDIT_QUIZ: 1,
 	EDIT_EMBED: 2,
@@ -23,15 +32,6 @@ const globals = {
 	EDIT_FORMULA: 6,
 	EDIT_CONTINUE_ELEMENT: 7,
 	EDIT_IFRAME: 8,
-	// EDIT_CHAPTEREND: 8,
-	// for module editor
-	IF_START : 0, // for module component logic: immediately after if command
-	IF_COND  : 1, // for module component logic: inside if condition (but not immediately after if command)
-	IF_BODY  : 2, // for module component logic: inside if body (also, prior to next if command)
-	BOOL_DISABLED : 0, // for module component logic
-	BOOL_ENABLED : 1, // for module component logic
 };
-
-
 
 export default globals;

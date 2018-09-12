@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 
 
 //this is the new "Preview" Component
-class FormulaEdit extends Component {
+class Formula extends Component {
 
     constructor(props) {
         
@@ -72,12 +72,12 @@ class FormulaEdit extends Component {
     }
 }
 
-FormulaEdit.modules = {
+Formula.modules = {
     toolbar: null
 }
 
-FormulaEdit.propTypes = {
+Formula.propTypes = {
     isEditable: PropTypes.bool
 }
 
-export default FormulaEdit;
+export default Formula;

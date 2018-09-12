@@ -10,15 +10,15 @@ import { Nav, NavItem, NavLink } from 'reactstrap';
 import classnames from 'classnames';
 
 
-import colors from '../utils/colors'
-import globals from '../utils/globals'
+import colors from '../../../utils/colors'
+import globals from '../../../utils/globals'
 
 import uuidv4 from "uuid/v4"
 
-import SelectionDropdown from './SelectionDropdown'
-import CreateNewChapterModal from './CreateNewChapterModal'
-import mapStoreToProps from "../store/mapStoreToProps";
-import actions from "../store/actions";
+import SelectionDropdown from '../../SelectionDropdown'
+import CreateNewChapterModal from '../../CreateNewChapterModal'
+import mapStoreToProps from "../../../store/mapStoreToProps";
+import actions from "../../../store/actions";
 import {connect} from "redux-zero/react";
 const ICON = function(className, fontSize=globals.ICON_FONTSIZE_NORMAL) {
     return <i style={{fontSize:fontSize}} className={className}> </i>;

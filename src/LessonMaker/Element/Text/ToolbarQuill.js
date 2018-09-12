@@ -1,7 +1,6 @@
-// import graphIcon from '../assets/icons/graph.jpg';
-import React from 'react'
-import textBiggerIcon from '../assets/icons/quillTextBigIcon.png';
-import textSmallerIcon from '../assets/icons/quillTextSmallIcon.png';
+import React from 'react';
+import textBiggerIcon from './assets/quillTextBigIcon.png';
+import textSmallerIcon from './assets/quillTextSmallIcon.png';
 
 export default function ToolBarQuill(id, isShown = true) {
     return (

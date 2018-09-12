@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import SelectionDropdown from './SelectionDropdown'
-import uuidv4 from "uuid/v4"
+import SelectionDropdown from './SelectionDropdown';
+import uuidv4 from 'uuid/v4';
 //import { Button } from 'reactstrap';
-import CreateNewChapterModal from './CreateNewChapterModal'
-import {ICON} from "../utils/trickBox";
+import CreateNewChapterModal from './CreateNewChapterModal';
+import {ICON} from '../utils/trickBox';
 
-//this is the new "Preview" Component
-class NextChapterSelection extends Component {
+// This component is weird: It implements continue in ContentView, and AddNewChappter in EditView
+// ----> REFACTOR
+class Continue extends Component {
     
     state = {
         userCreatedChapters: [],
@@ -154,4 +155,4 @@ class NextChapterSelection extends Component {
     }
 }
 
-export default NextChapterSelection;
+export default Continue;

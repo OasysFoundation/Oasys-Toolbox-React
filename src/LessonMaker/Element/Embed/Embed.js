@@ -3,7 +3,7 @@ import Iframe from 'react-iframe';
 import Select from 'react-select';
 import sha256 from 'js-sha256';
 
-import interactives from '../assets/json/concord-interactives.json';
+import interactives from './assets/concord-interactives.json';
 
 /*
 
@@ -78,7 +78,7 @@ function getConcordEmbeddables(){
 const concordSims = getConcordEmbeddables();
 
 
-class EmbedEdit extends Component {
+class Embed extends Component {
 
     constructor(props) {
         super(props);
@@ -150,4 +150,4 @@ class EmbedEdit extends Component {
 }
 
 
-export default EmbedEdit;
+export default Embed;

@@ -7,15 +7,12 @@ import ToolbarQuill from './ToolbarQuill'
 
 import 'katex/dist/katex.min.css';
 
-import '../styles/QuillEdit.css';
-// import graphIcon from '../assets/icons/graph.jpg';
-// import textBiggerIcon from '../assets/icons/quillTextBigIcon.png';
-// import textSmallerIcon from '../assets/icons/quillTextSmallIcon.png';
-import textBoldIcon from '../assets/icons/quillBoldIcon.png';
-import textItalicIcon from '../assets/icons/quillItalicIcon.png';
-import textLinkIcon from '../assets/icons/quillLinkIcon.png';
-import textQuoteIcon from '../assets/icons/quillQuoteIcon.png';
-import textColorIcon from '../assets/icons/quillColorIcon.png';
+import './assets/QuillEdit.css';
+import textBoldIcon from './assets/quillBoldIcon.png';
+import textItalicIcon from './assets/quillItalicIcon.png';
+import textLinkIcon from './assets/quillLinkIcon.png';
+import textQuoteIcon from './assets/quillQuoteIcon.png';
+import textColorIcon from './assets/quillColorIcon.png';
 
 let Embed = Quill.import('blots/embed');
 
@@ -64,7 +61,7 @@ function insertGraph() {
     this.quill.setSelection(cursorPosition.index + 1)
 }
 
-class QuillEdit extends Component {
+class Text extends Component {
     constructor(props) {
         super(props);
         this.mounted = false;
@@ -166,8 +163,8 @@ class QuillEdit extends Component {
     }
 }
 
-QuillEdit.propTypes = {
+Text.propTypes = {
     placeholder: PropTypes.string,
 }
 
-export default QuillEdit;
+export default Text;

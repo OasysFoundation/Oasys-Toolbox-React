@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import VideoEditCropper from './VideoEditCropper';
 import VideoPreview from './VideoPreview';
 
-class VideoEdit extends Component {
+class Video extends Component {
 
     constructor(props) {
         super(props);
@@ -83,4 +83,4 @@ class VideoEdit extends Component {
     }
 }
 
-export default VideoEdit;
+export default Video;

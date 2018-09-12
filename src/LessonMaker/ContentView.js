@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import Element from './Element';
+import Element from './Element/Element';
 import ScrollView, {ScrollElement} from "../utils/scroller";
 import {ICON, flatten, isEmpty} from '../utils/trickBox'
 import {Container} from "reactstrap"
@@ -13,6 +13,8 @@ import actions from "../store/actions";
 import withLoader from './withLoader'
 import history from "../history";
 import globals from "../utils/globals";
+
+import ViewCard from './Element/ViewCard';
 
 class ContentView extends Component {
     constructor(props) {
@@ -278,7 +280,8 @@ class ContentView extends Component {
                                                                 onLearnerInteraction={this.goToChapter}
                                                                 onChangeVisibility={this.handleChangeElementVisibility}
                                                                 onQuizAnswer={this.handleQuizAnswer}
-                                                            />
+                                                            >
+                                                            </Element>
                                                             }
                                                         </div>
                                             ))

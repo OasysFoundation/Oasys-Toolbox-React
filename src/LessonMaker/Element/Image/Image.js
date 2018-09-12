@@ -5,7 +5,7 @@ import { InputGroup, InputGroupAddon, Input } from 'reactstrap';
 import { Button } from 'reactstrap';
 
 import PropTypes from 'prop-types';
-import api from '../utils/api'
+import api from '../../../utils/api';
 
 import ImageSelectionModal from './ImageSelectionModal'
 
@@ -16,7 +16,7 @@ import { GridLoader } from 'react-spinners';
 import ProgressiveImage from 'react-progressive-image';
 
 //this is the new "Preview" Component
-class ImageEdit extends Component {
+class Image extends Component {
 
     constructor(props) {
         super(props);
@@ -130,12 +130,12 @@ class ImageEdit extends Component {
     }
 }
 
-ImageEdit.modules = {
+Image.modules = {
     toolbar: null
 }
 
-ImageEdit.propTypes = {
+Image.propTypes = {
     isEditable: PropTypes.bool
 }
 
-export default ImageEdit;
+export default Image;

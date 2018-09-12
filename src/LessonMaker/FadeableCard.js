@@ -9,7 +9,7 @@ import {
     Fade
 } from 'reactstrap';
 
-import ToolbarQuill from './ToolbarQuill'
+import ToolbarQuill from './Element/Text/ToolbarQuill'
 import actions from "../store/actions";
 import { connect } from "redux-zero/react";
 

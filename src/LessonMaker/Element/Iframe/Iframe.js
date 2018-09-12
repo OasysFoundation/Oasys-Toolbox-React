@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Iframe from 'react-iframe';
+import {Iframe as IframeReact} from 'react-iframe';
 //import Select from 'react-select';
 //import sha256 from 'js-sha256';
 import {Input} from 'reactstrap';
@@ -26,7 +26,7 @@ const customIframeStyles = {
     top: '0'
 }
 
-class IFrameEmbed extends Component {
+class Iframe extends Component {
 
     constructor(props) {
         super(props);
@@ -61,7 +61,7 @@ class IFrameEmbed extends Component {
                 }
                 {this.state.iframeURL &&
                 <div style={{position: 'relative', width: '100%', height: '0', paddingBottom: '75%'}}>
-                    <Iframe
+                    <IframeReact
                         url={this.props.data.id || this.state.iframeURL}
                         width="100%"
                         height="100%"
@@ -81,4 +81,4 @@ class IFrameEmbed extends Component {
 }
 
 
-export default IFrameEmbed;
+export default Iframe;

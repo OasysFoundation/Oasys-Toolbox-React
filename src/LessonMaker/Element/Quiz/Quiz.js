@@ -8,7 +8,7 @@ import {Popover, PopoverHeader, PopoverBody} from 'reactstrap';
 
 import PropTypes from 'prop-types';
 
-import colors, {hexToRgba} from '../utils/colors'
+import colors, {hexToRgba} from '../../../utils/colors'
 
 import QuizzEditModal from './QuizzEditModal'
 import QuizzButton from './QuizzButton'
@@ -17,7 +17,7 @@ import QuizzButton from './QuizzButton'
 
 
 //this is the new "Preview" Component
-class QuizzEdit extends Component {
+class Quiz extends Component {
     quizColors = [
         hexToRgba(colors.MOUNTBATTEN, 0.8),
         hexToRgba(colors.PURPLE, 0.8),
@@ -288,20 +288,20 @@ class QuizzEdit extends Component {
     }
 }
 
-QuizzEdit
+Quiz
     .modules = {
     toolbar: null
 }
 
-QuizzEdit
+Quiz
     .propTypes = {
     isEditable: PropTypes.bool
 }
 
-QuizzEdit
+Quiz
     .defaultProps = {
     answers: [],
     question: ""
 }
 
-export default QuizzEdit;
+export default Quiz;
