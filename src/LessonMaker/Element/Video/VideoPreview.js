@@ -32,7 +32,6 @@ class VideoPreview extends Component {
 		if (!this.props.isEditMode) {
 			console.log('video ' + this.props.elementId + ' ends. Analytics to be implemented');
 		}
-		this.props.onFinishedVideo();
 	}
 
     shouldComponentUpdate(nextProps) {

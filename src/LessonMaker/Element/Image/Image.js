@@ -39,7 +39,7 @@ class Image extends Component {
 
     saveCurrentState() {
         const data = {imageUrl: this.state.imageUrl};
-        this.props.handleChange(data, false, true);
+        this.props.handleUpdate(data, false, true);
     }
 
     searchTerm = null;
@@ -96,7 +96,6 @@ class Image extends Component {
     render() {
         return (
             <div>
-
                 {this.props.isEditMode? (
                 	<InputGroup style={{marginBottom:'20px'}}>
     			        <InputGroupAddon addonType="prepend">🖼</InputGroupAddon>
@@ -112,16 +111,15 @@ class Image extends Component {
                 }
             	
                 <center>
-
-            	{this.state.imageUrl? 
-                    (
-                        <img
-                          src={this.state.imageUrl}
-                          onLoad={this.props.handleCompletedLoading}
-                          style={{maxWidth:'100%'}}
-                        />
-                    ) : <p>Search for GIFs and images above.</p>}
-                {this.state.didStartSearch? <GridLoader size={30} /> : null}
+                	{this.state.imageUrl? 
+                        (
+                            <img
+                              src={this.state.imageUrl}
+                              onLoad={this.props.handleReady}
+                              style={{maxWidth:'100%'}}
+                            />
+                        ) : <p>Search for GIFs and images above.</p>}
+                    {this.state.didStartSearch? <GridLoader size={30} /> : null}
             	</center>
 
                 <ImageSelectionModal isOpen={this.state.showsImageSelectionPopover} images={this.state.images} gifs={this.state.gifs} onClose={this.closeModalImgageSelection} onSelect={this.onSelectImage} />

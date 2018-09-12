@@ -77,7 +77,7 @@ class QuizzEditModal extends Component {
 
 
     onSave() {
-        this.props.handleChange({
+        this.props.handleUpdate({
             question: this.state.question,
             answers: this.state.answers,
             quizType: this.state.quizType,

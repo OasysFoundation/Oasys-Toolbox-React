@@ -87,7 +87,7 @@ class Embed extends Component {
     }
 
     handleChange(selectedOption) {
-        this.props.handleChange({
+        this.props.handleUpdate({
             id: selectedOption.value,
         }, false, true);
     }
@@ -139,7 +139,7 @@ class Embed extends Component {
                         position="relative"
                         allowFullScreen
                         styles={customIframeStyles}
-                        onLoad={this.props.handleCompletedLoading}
+                        onLoad={this.props.handleReady}
                     />
                    </div>
                 : null

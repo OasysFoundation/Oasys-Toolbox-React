@@ -41,8 +41,19 @@ class Element extends Component {
     constructor(props) {
         super(props);
 
+        // define event handlers that elements can use as hooks
+        this.handlers = [
+            'handleMounted',
+            'handleStartLoading', // this is probably a duplicate of handleMounted
+            'handleReady',
+            'handleUpdate',
+            'handleChapterChange',
+            'handleAddChapter',
+            'handleFinished',
+        ];
+        this.handlers.forEach(h => h.bind(this));
+
         this.handleChangeVisibility = this.handleChangeVisibility.bind(this);
-        this.handleElementFinished = this.handleElementFinished.bind(this);
         this.handleFoldInView = this.handleFoldInView.bind(this);
 
         this.timeLastSaved = Date.now();
@@ -56,7 +67,7 @@ class Element extends Component {
         };
     }
 
-    handleChange(value){
+    handleUpdate(value){
         let shouldUpdateChapterLinks = false;
         let shouldInstantUpdate = false;
         const now = Date.now();
@@ -76,6 +87,10 @@ class Element extends Component {
             });
     }
 
+    handleMounted() {
+
+    }
+
     handleChangeContent() {
         this.props.onChangeContent(
             this.props.data.id,
@@ -88,7 +103,7 @@ class Element extends Component {
         this.handleChangeContent();
     }
 
-    handleElementFinished() {
+    handleFinished() {
         this.setState({shouldFoldInView: true})
     }
 
@@ -113,10 +128,13 @@ class Element extends Component {
         this.setState({shouldFoldInView: value});
     }
 
-    handleCompletedLoading() {
+    handleReady() {
         this.setState({
             isLoading: false
         });
+    }
+
+    handleFinished() {
     }
 
     handleStartLoading() {
@@ -135,14 +153,12 @@ class Element extends Component {
             isEditMode: this.props.isEditMode,
             chapters: this.props.chapters.map(c => ({title: c.title, id: c.id})),
             activeChapterIndex: this.props.activeChapterIndex,
-            handleChange: this.handleChange.bind(this),
-            handleLearnerInteraction: this.props.handleLearnerInteraction,
-            handleCompletedLoading: this.handleCompletedLoading.bind(this),
-            handleStartLoading: this.handleStartLoading.bind(this),
-            handleAddChapter: this.props.handleAddChapter,
-            handleQuizAnswer: this.props.handleQuizAnswer,
-            onFinishedVideo: this.handleElementFinished,
         }
+        // add event handlers that elements can use as hooks
+        props['handleQuizAnswer'] = this.props.handleQuizAnswer;
+        this.handlers.forEach(h =>
+            props[h] = this[h]
+        );
 
         // need this map for now (for backwards compatibility)
         // to get rid of the map, we need to store the map's values in the db instead of the keys
@@ -156,7 +172,7 @@ class Element extends Component {
         elemMap[globals.EDIT_IFRAME] = 'Iframe';
         elemMap[globals.EDIT_CONTINUE_ELEMENT] = 'Continue';
 
-        let elemRender = <div key={"1234567890"}> Could not render element {elemType} (unknown)</div>;
+        let elemRender = <div key={"1234567890"}> Could not render element {elemType} (unknown) </div>;
         if (elemType in elemMap) {
             elemRender = React.createElement(elementTypes[elemMap[elemType]], props, null);
         } 

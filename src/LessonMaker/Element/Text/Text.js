@@ -87,7 +87,7 @@ class Text extends Component {
     }
 
     handleChange(content, delta, source, editor) {
-        this.props.handleChange(content, false, false);
+        this.props.handleUpdate(content, false, false);
     }
 
     componentWillReceiveProps() {

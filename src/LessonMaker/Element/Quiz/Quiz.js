@@ -82,7 +82,7 @@ class Quiz extends Component {
             answers: data.answers,
             quizType: data.quizType
         }, function () {
-            that.props.handleChange({
+            that.props.handleUpdate({
                 question: that.state.question,
                 answers: that.state.answers,
                 quizType: that.state.quizType
@@ -159,7 +159,7 @@ class Quiz extends Component {
 
     onContinue(nextChapterId) {
         this.onCloseFeedbackPopover();
-        this.props.handleLearnerInteraction(nextChapterId, this.props.id);
+        this.props.handleChapterChange(nextChapterId, this.props.id);
     }
 
     isSingleChoice() {

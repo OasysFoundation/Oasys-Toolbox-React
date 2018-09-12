@@ -277,7 +277,7 @@ class ContentView extends Component {
                                                                 id={el.id}
                                                                 isPreview={this.props.isPreview}
                                                                 isEditMode={false}
-                                                                handleLearnerInteraction={this.goToChapter}
+                                                                handleChapterChange={this.goToChapter}
                                                                 onChangeVisibility={this.handleChangeElementVisibility}
                                                                 handleQuizAnswer={this.handleQuizAnswer}
                                                             >

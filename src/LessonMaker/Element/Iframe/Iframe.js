@@ -44,7 +44,7 @@ class Iframe extends Component {
             ? this.setState({iframeURL: selectedOption.value})
             : this.setState({iframeURL: null})
 
-        this.props.handleChange({
+        this.props.handleUpdate({
             id: selectedOption.value,
         }, false, true);
     }
@@ -71,7 +71,7 @@ class Iframe extends Component {
                         position="relative"
                         allowFullScreen
                         styles={customIframeStyles}
-                        onLoad={this.props.handleCompletedLoading}
+                        onLoad={this.props.handleReady}
                     />
                 </div>
                 }
