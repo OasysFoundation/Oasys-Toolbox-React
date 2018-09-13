@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'redux-zero/react';
 import { Card, CardBody, Button } from 'reactstrap';
+import Snackbar from '@material-ui/core/Snackbar';
+import SnackbarContent from '@material-ui/core/SnackbarContent';
 
 import {getContentFromSessionStorage} from '../../utils/trickBox';
 import globals from '../../utils/globals';
@@ -36,6 +38,10 @@ elementTypes['Continue'] = Continue
 // Save at most every SAVE_INTERVAL ms. 
 const SAVE_INTERVAL = 0;
 
+handleActions = {
+    snackBarMessage: 
+}
+
 class Element extends Component {
 
     constructor(props) {
@@ -43,6 +49,7 @@ class Element extends Component {
 
         // define event handlers that elements can use as hooks
         this.handlers = [
+            'handleInit',
             'handleMounted',
             'handleStartLoading', // this is probably a duplicate of handleMounted
             'handleReady',
@@ -67,29 +74,51 @@ class Element extends Component {
         };
     }
 
-    handleUpdate(value){
-        let shouldUpdateChapterLinks = false;
-        let shouldInstantUpdate = false;
-        const now = Date.now();
-        if (now - this.timeLastSaved > SAVE_INTERVAL) {
-            this.timeLastSaved = now;
-            shouldInstantUpdate = true;
-        }
-        this.setState(
-            () => ({tempContent: value, timestamp: now}),
-            () => {
-                if (shouldInstantUpdate) {
-                    this.handleChangeContent();
-                }
-                if (shouldUpdateChapterLinks) {
-                    this.props.updateChapterLinks();
-                }
-            });
+    handleInit() {
+
     }
 
     handleMounted() {
 
     }
+
+    handleStartLoading() {
+        this.setState({
+            isLoading: true
+        });   
+    }
+
+    handleReady() {
+        this.setState({
+            isLoading: false
+        });
+    }
+
+    handleUpdate(value){
+        this.setState(
+            () => ({tempContent: value, timestamp: now}),
+            () => {
+                if (now - this.timeLastSaved > SAVE_INTERVAL) {
+                    this.timeLastSaved = now;
+                    this.handleChangeContent();
+                }
+            });
+    }
+
+    handleChapterChange() {
+
+    }
+
+    handleAddChapter() {
+
+    }
+
+    handleFinished() {
+        this.handleChangeContent();
+        this.setState({shouldFoldInView: true});
+    }
+
+    // other handlers
 
     handleChangeContent() {
         this.props.onChangeContent(
@@ -97,21 +126,6 @@ class Element extends Component {
             this.state.tempContent,
             this.props.data.parentChapterID
         );
-    }
-
-    componentWillUnmount() {
-        this.handleChangeContent();
-    }
-
-    handleFinished() {
-        this.setState({shouldFoldInView: true})
-    }
-
-    componentWillReceiveProps(nextprops) {
-        if (nextprops.shouldInstantUpdate) {
-            this.handleChangeContent();
-            this.props.instantUpdateElements(false);
-        }
     }
 
     handleChangeVisibility(isVisible) {
@@ -128,21 +142,16 @@ class Element extends Component {
         this.setState({shouldFoldInView: value});
     }
 
-    handleReady() {
-        this.setState({
-            isLoading: false
-        });
+    componentWillUnmount() {
+        this.handleFinished(); 
     }
 
-    handleFinished() {
+    componentWillReceiveProps(nextprops) {
+        if (nextprops.shouldInstantUpdate) {
+            this.handleChangeContent();
+            this.props.instantUpdateElements(false);
+        }
     }
-
-    handleStartLoading() {
-        this.setState({
-            isLoading: true
-        });   
-    }
-
 
     typeToComponent(elemType) {
         const props = {
@@ -161,7 +170,7 @@ class Element extends Component {
         );
 
         // need this map for now (for backwards compatibility)
-        // to get rid of the map, we need to store the map's values in the db instead of the keys
+        // to get rid of the map, we need to store the map's values in the db instead of the map's keys
         const elemMap = {};
         elemMap[globals.EDIT_QUILL] = 'Text';
         elemMap[globals.EDIT_IMAGE] = 'Image';
