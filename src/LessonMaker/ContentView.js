@@ -254,8 +254,6 @@ class ContentView extends Component {
 
         return (
                 <React.Fragment>
-                    {/*This extra ScrollElement on the top fixes the scrolling problem*/}
-
                     <div className={this.props.isPreview ? null : "app-body"}>
                         <main className={this.props.isPreview ? null : "main"}>
                             <Container fluid className='main-width'>
@@ -280,6 +278,7 @@ class ContentView extends Component {
                                                                 handleChapterChange={this.goToChapter}
                                                                 onChangeVisibility={this.handleChangeElementVisibility}
                                                                 handleQuizAnswer={this.handleQuizAnswer}
+                                                                sendSnackBarMessage={this.props.sendSnackBarMessage}
                                                             >
                                                             </Element>
                                                             }

@@ -44,9 +44,7 @@ class Iframe extends Component {
             ? this.setState({iframeURL: selectedOption.value})
             : this.setState({iframeURL: null})
 
-        this.props.handleUpdate({
-            id: selectedOption.value,
-        }, false, true);
+        this.props.handleUpdate({type: 'save', value: { id: selectedOption.value}});
     }
 
     render() {

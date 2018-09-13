@@ -82,11 +82,11 @@ class Quiz extends Component {
             answers: data.answers,
             quizType: data.quizType
         }, function () {
-            that.props.handleUpdate({
+            this.props.handleUpdate({type: 'save', value: {
                 question: that.state.question,
                 answers: that.state.answers,
                 quizType: that.state.quizType
-            }, true, true)
+            }});
         });
     }
 

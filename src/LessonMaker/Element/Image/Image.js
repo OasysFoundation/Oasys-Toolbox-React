@@ -39,7 +39,7 @@ class Image extends Component {
 
     saveCurrentState() {
         const data = {imageUrl: this.state.imageUrl};
-        this.props.handleUpdate(data, false, true);
+        this.props.handleUpdate({type: 'save', value: data});
     }
 
     searchTerm = null;

@@ -31,15 +31,14 @@ class Video extends Component {
         if (this.isValidYouTubeUrl(url)) {
             const {cropStart, cropEnd} = this.props.data;
             const data  = {url, cropStart, cropEnd};
-            this.props.handleUpdate(data, false, true);
+            this.props.handleUpdate({type: 'save', value: data});
         }
     }
 
     onChangeCrop(cropStart, cropEnd) {
         const {url} = this.props.data;
         const data  = {url, cropStart, cropEnd};
-        
-        this.props.handleUpdate(data, false, true);
+        this.props.handleUpdate({type: 'save', value: data});
     }
 
     renderVideo(){
