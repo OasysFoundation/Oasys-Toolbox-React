@@ -14,8 +14,6 @@ import actions from "../store/actions";
 import SidebarToc from "./SidebarToc";
 import IconSelectionModal from './IconSelectionModal'
 import {ScaleLoader} from 'react-spinners';
-import Snackbar from '@material-ui/core/Snackbar';
-import SnackbarContent from '@material-ui/core/SnackbarContent';
 import EditModalWarning from './EditModalWarning'
 import colors from '../utils/colors';
 import api from '../utils/api'
@@ -26,6 +24,7 @@ import {isEmpty} from '../utils/trickBox'
 class SideBarLesson extends Component {
     constructor(props) {
         super(props);
+        console.log(props)
         this.state = {
             showSettingsDialog: false,
             showPublishModal: false,
@@ -33,7 +32,6 @@ class SideBarLesson extends Component {
             showProjectsDialog: false,
             isCurrentlySavingDraft: false,
             isCurrentlyPublishing: false,
-            snackbarMessage: null,
             data:[],
             doneLoading:false,
             activeTab: 1,
@@ -251,26 +249,21 @@ class SideBarLesson extends Component {
                 });
             }
 
-
-            const that = this;
-            api.postContent(allData).then(function () {
-
-                that.setState({
+            api.postContent(allData).then(() => {
+                this.setState({
                     isCurrentlySavingDraft: false,
                     isCurrentlyPublishing: false,
-                    snackbarMessage: flag ? "Published Successfully ✅" : "Saved Draft Successfully ✅"
                 });
-
-            }).catch(function (error) {
-
-
-                const errorMessage = flag ? "Could not publish." : "Could not save draft."
-
-                that.setState({
+                const snackbarMessage = flag ? "Published Successfully ✅" : "Saved Draft Successfully ✅";
+                this.props.sendSnackBarMessage(snackbarMessage);
+            }).catch((error) => {
+                this.setState({
                     isCurrentlySavingDraft: false,
                     isCurrentlyPublishing: false,
-                    snackbarMessage: "Error: " + errorMessage + " (" + error + ") 😭"
                 });
+                const errorMessage = flag ? "Error: Could not publish" : "Error: Could not save draft";
+                this.props.sendSnackBarMessage(errorMessage);
+                console.log(error);
             });
 
         }, 800)
@@ -288,12 +281,6 @@ class SideBarLesson extends Component {
         this.setState({
             showsIconSelectionModal: true
         })
-    }
-
-    onCloseSnackBar() {
-        this.setState({
-            snackbarMessage: null
-        });
     }
 
     onCloseEditWarning() {
@@ -488,60 +475,9 @@ class SideBarLesson extends Component {
                     <AppSidebarMinimizer/>
                 </AppSidebar>
 
-                <Snackbar
-                    anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'left',
-                    }}
-                    open={Boolean(this.state.snackbarMessage)}
-                    autoHideDuration={6000}
-                    onClose={this.onCloseSnackBar.bind(this)}
-                >
-                    <SnackbarContent
-                        aria-describedby="client-snackbar"
-                        message={
-                            <span id="client-snackbar">
-                          {this.state.snackbarMessage}
-                        </span>
-                        }
-                    />
-                </Snackbar>
-
                 <EditModalWarning isOpen={this.state.showsEditDialog} contentTitle={this.props.title} onClose={this.onCloseEditWarning.bind(this)} onRemix={this.onRemix.bind(this)}/>
 
             </div>
         )
     }
 }
-
-
-SideBarLesson.propTypes = {
-    title: PropTypes.string.isRequired,
-    tags: PropTypes.array.isRequired,
-};
-
-//TODO --> only take out project data (not auth etc)
-const mapStoreToProps = (store) => ({project: store});
-
-
-// only take what you need
-export default connect(mapStoreToProps, actions)((propsFromStore) => {
-    const {project, setProjectInLessonMaker, onDeleteChapter, createNewProject,
-        instantUpdateElements, onChangeProjectTitle, onChangeIconName, onChangeProjectTags, onChangeProjectDescription} = propsFromStore;
-    const {title, tags, description, iconName} = project;
-    return React.createElement(SideBarLesson, {
-        project,
-        title,
-        createNewProject,
-        tags,
-        description,
-        iconName,
-        onDeleteChapter,
-        setProjectInLessonMaker,
-        instantUpdateElements,
-        onChangeProjectTitle,
-        onChangeProjectTags,
-        onChangeProjectDescription,
-        onChangeIconName
-    });
-});

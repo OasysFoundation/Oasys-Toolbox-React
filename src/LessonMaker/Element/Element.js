@@ -38,8 +38,8 @@ elementTypes['Continue'] = Continue
 // Save at most every SAVE_INTERVAL ms. 
 const SAVE_INTERVAL = 0;
 
-handleActions = {
-    snackBarMessage: 
+const elementActions = {
+    snackBarMessage: null, 
 }
 
 class Element extends Component {
@@ -58,7 +58,7 @@ class Element extends Component {
             'handleAddChapter',
             'handleFinished',
         ];
-        this.handlers.forEach(h => h.bind(this));
+        this.handlers.forEach(h => this[h].bind(this));
 
         this.handleChangeVisibility = this.handleChangeVisibility.bind(this);
         this.handleFoldInView = this.handleFoldInView.bind(this);
@@ -95,6 +95,7 @@ class Element extends Component {
     }
 
     handleUpdate(value){
+        const now = Date.now();
         this.setState(
             () => ({tempContent: value, timestamp: now}),
             () => {

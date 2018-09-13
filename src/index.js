@@ -24,6 +24,8 @@ import About from "./About"
 import LandingPageController from "./ExploreContent/LandingPageController"
 
 import {Provider} from "redux-zero/react";
+import Snackbar from '@material-ui/core/Snackbar';
+import SnackbarContent from '@material-ui/core/SnackbarContent';
 
 import ConcludingContentPage from './ConcludingContentPage'
 
@@ -56,9 +58,11 @@ class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            category: "",
+            category: '',
+            snackBarMessage: null,
         }
-
+        this.onCloseSnackBar = this.onCloseSnackBar.bind(this);
+        this.handleSnackBarMessage = this.handleSnackBarMessage.bind(this);
     }
 
     componentDidMount() {
@@ -96,60 +100,84 @@ class Index extends Component {
         this.setState({category: newVal})
     }
 
+    onCloseSnackBar() {
+        this.setState({
+            snackBarMessage: null
+        });
+    }
+
+    handleSnackBarMessage() {
+        this.setState({
+            snackBarMessage: null
+        });
+    }
+
     render() {
+        const props = {
+            sendSnackBarMessage: this.handleSnackBarMessage,
+        }
+
         return (
             <div className="oasys app">
                 <Provider store={store}>
                     <Router history={history} onUpdate={() => window.scrollTo(0, 0)}>
                         <div>
+
                             {<Navbar onChange={this.handleChangeSearchBar.bind(this)}/>}
+
+                            <Snackbar
+                                anchorOrigin={{
+                                    vertical: 'bottom',
+                                    horizontal: 'left',
+                                }}
+                                open={Boolean(this.state.snackBarMessage)}
+                                autoHideDuration={6000}
+                                onClose={this.onCloseSnackBar}
+                            >
+                                <SnackbarContent
+                                    aria-describedby="client-snackbar"
+                                    message={
+                                        <span id="client-snackbar">
+                                      {this.state.snackBarMessage}
+                                    </span>
+                                    }
+                                />
+                            </Snackbar>
+
                             <Switch>
                             <ScrollToTop>
-                                <Route exact path="/"
-                                       render={() => <LandingPageController category={this.state.category}/>}/>
-                                <Route exact path="/explore"
-                                       render={() => <LandingPageController category={this.state.category}/>}/>
-                                <Route exact path="/create/:username?/:title?/:uid?/:contentId?" render={(props) => <LessonMaker {...props} />}/>
-                                {<Route exact path="/auth" render={(props) => <Authentication/>}/>}
-                                <Route exact path="/view/:username/:title/:uid/:contentId/" render={(props) => <ContentOverview {...props} />}/>
-                                <Route path="/view/:username/:title/:uid/:contentId/:chapterIndex" render={(props) => <ContentView {...props} chapters={store.getState().chapters}/>}/>
-                                <Route exact path="/learn" render={(props) => <LandingPageController {...props} />}/>
-                                <Route exact path="/data" render={(props) => <DataViewCreator {...props} />}/>
-                                <Route exact path="/about" render={(props) => <About {...props} />}/>
-                                <Route exact path="/account" render={(props) => <AccountPage {...props} />}/>
-                                <Route exact path="/privacy" render={(props) => <PrivacyPolicyPage {...props} />}/>
-                                <Route exact path="/conclusion"
-                                       render={(props) => <ConcludingContentPage url="https://joinoasys.org"
-                                                                                 author="Mark22" title="Feet and Cotion"
-                                                                                 description="I am explaining to you how feet and cotion works." {...props} 
-                                                           />}
-                                />
-                                <Route exact path="/bitmoji" render={(props) => <Bitmoji {...props} />}/>
-                                {/*<Route path="/data" render={(props)=>( this.state.authUser ? <DataViewCreator authUser={this.state.authUser} /> : null)} />*/}
-                                {/*<Route path="/data/preview" render={(props)=>( this.state.authUser ? <DataViewCreator authUser={this.state.authUser} /> : null)} />*/}
-                                {/*<Route path="/explore" render={(props)=>( this.state.authUser ? <ContentSelection authUser={this.state.authUser} /> : null)} />*/}
-                                {/*<Route path="/create/:userId/:contentId" render={(props)=>(<Editor authUser={this.state.authUser} {...props}/>)} />*/}
-                                {/*<Route path="/create" render={(props)=>(<Editor authUser={this.state.authUser}/>)} />*/}
+                                <Route exact path="/auth" render={(routerProps) => 
+                                    <Authentication {...routerProps} {...props} />}/>
 
-                                {/*<Route path="/games/:name" component={GameEmbedder} />*/}
-                                {/*<Route path="/games" component={ContentViewTest} />*/}
-                                {/*<Route path="/login" component={LoginPage} />*/}
-                                {/*<Route path="/signup" component={SignupPage} />*/}
+                                <Route exact path="/" render={(routerProps) => 
+                                    <LandingPageController {...routerProps} {...props} category={this.state.category}/>}/>
+                                <Route exact path="/explore" render={(routerProps) => 
+                                    <LandingPageController {...routerProps} {...props} category={this.state.category}/>}/>
+                                <Route exact path="/learn" render={(routerProps) => 
+                                    <LandingPageController {...routerProps} {...props} />}/>
 
-                                {/*<Route path="/user/:username/:contentname" render={(props)=>(<ContentView authUser={this.state.authUser}/>)} />*/}
-                                {<Route path="/user/:username/:uid" component={PublicAccountPage}/>}
-                                {/*<Route path="/user" render={(props)=>(<MyAccountPage authUser={this.state.authUser}/>)} />*/}
-                                {/*<Route path="/forgotPassword" component={PasswordForget}/>*/}
-                                {/*<Route path="/resetPassword" component={PasswordReset}/>*/}
+                                <Route exact path="/data" render={(routerProps) => 
+                                    <DataViewCreator {...routerProps} {...props} />}/>
+                                <Route exact path="/about" render={(routerProps) => 
+                                    <About {...routerProps} {...props} />}/>
+                                <Route exact path="/privacy" render={(routerProps) => 
+                                    <PrivacyPolicyPage {...routerProps} {...props} />}/>
 
-                                {/*<Route path="/wallet" component={Wallet}/>*/}
+                                <Route exact path="/account" render={(routerProps) => 
+                                    <AccountPage {...routerProps} {...props} />}/>
+                                <Route path="/user/:username/:uid" render={(routerProps) => 
+                                    <PublicAccountPage {...routerProps} {...props} />}/>
+                                <Route exact path="/bitmoji" render={(routerProps) => 
+                                    <Bitmoji  {...routerProps} {...props} />}/>
 
-                                {/*<Route path="/help" component={Help}/>*/}
-
-                                {/*<Route path="/comments/:userId/:contentId" render={(props)=>(<Comment name={this.state.authUser}/>)} />*/}
-
-
-                                {/*<Route component={NotFoundPage}/>*/}
+                                <Route exact path="/create/:username?/:title?/:uid?/:contentId?" render={(routerProps) => 
+                                    <LessonMaker {...routerProps} {...props} />}/>
+                                <Route exact path="/view/:username/:title/:uid/:contentId/" render={(routerProps) => 
+                                    <ContentOverview {...routerProps} {...props} />}/>
+                                <Route path="/view/:username/:title/:uid/:contentId/:chapterIndex" render={(routerProps) => 
+                                    <ContentView {...routerProps} {...props} chapters={store.getState().chapters}/>}/>
+                                <Route exact path="/conclusion" render={(routerProps) => 
+                                    <ConcludingContentPage  {...routerProps} {...props} />}/>
                             </ScrollToTop>
                             </Switch>
                             <Route path={"/*"} component={Footer}/>
