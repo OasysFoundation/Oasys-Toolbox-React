@@ -119,6 +119,9 @@ class EndOfChapterEdit extends Component {
         this.props.handleAction({type: 'changeChapter', value: this.props.data.action});
     }
     
+    componentDidMount() {
+        this.props.handleReady();
+    }
 
     render() {
         const action = this.props.data? this.props.data.action : null;

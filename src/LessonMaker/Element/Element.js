@@ -4,8 +4,10 @@ import {connect} from 'redux-zero/react';
 import { Card, CardBody, Button } from 'reactstrap';
 import Snackbar from '@material-ui/core/Snackbar';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
+import { PacmanLoader } from 'react-spinners';
 
 import {getContentFromSessionStorage} from '../../utils/trickBox';
+import colors from '../../utils/colors';
 import globals from '../../utils/globals';
 import actions from '../../store/actions';
 import { capitalize } from '../../utils/tools';
@@ -53,7 +55,6 @@ class Element extends Component {
 
         // define event handlers that elements can use as hooks
         this.handlers = [
-            'handleStartLoading',
             'handleReady',
             'handleAction',
             'handleAddChapter',
@@ -69,7 +70,7 @@ class Element extends Component {
             tempContent: this.props.data.content || getContentFromSessionStorage(this.props.data.id),
             timestamp: Date.now(),
             shouldFoldInView: false,
-            isLoading: false
+            isReady: false
         };
     }
 
@@ -114,27 +115,9 @@ class Element extends Component {
         this.executeAction(action);
     }
 
-    // need to abstract away
-    handleStartLoading(action) {
-        this.handleAction(action);
-        this.setState({
-            isLoading: true
-        });   
-    }
-
-    // need to abstract away
-    handleReady(action) {
-        this.handleAction(action);
-        this.setState({
-            isLoading: false
-        });
-    }
-
-    // need to abstract away
-    handleFinished(action) {
-        this.handleAction(action);
-        this.handleChangeContent();
-        this.setState({shouldFoldInView: true});
+    handleReady() {
+        console.log('ready!');
+        this.setState({ isReady: true });
     }
 
     // TODO
@@ -168,7 +151,8 @@ class Element extends Component {
     }   
 
     componentWillUnmount() {
-        this.handleFinished(); 
+        this.handleChangeContent();
+        this.setState({shouldFoldInView: true});
     }
 
     componentWillReceiveProps(nextprops) {
@@ -190,6 +174,8 @@ class Element extends Component {
             isEditMode: this.props.isEditMode,
             chapters: this.props.chapters.map(c => ({title: c.title, id: c.id})),
             activeChapterIndex: this.props.activeChapterIndex,
+            handleReady: this.handleReady,
+
         }
         // add event handlers that elements can use as hooks
         props['handleQuizAnswer'] = this.props.handleQuizAnswer;
@@ -221,9 +207,9 @@ class Element extends Component {
         const props = {
             data: this.props.data,
             isEditMode: this.props.isEditMode,
-            isLoading: this.state.isLoading,
             shouldFoldInView: this.state.shouldFoldInView,
             handleFoldInView: this.handleFoldInView,
+            handleReady: this.handleReady,
         }
         return (
             <center>
@@ -231,11 +217,18 @@ class Element extends Component {
                     <section onMouseEnter={() => this.setState({isHovered: true})}
                              onMouseLeave={() => this.setState({isHovered: false})}
                     >
-                        <ElementLogic {...props} render={(logicProps) => (
+                     
+                     <ElementLogic 
+                        style={this.state.isReady?{display:'inline'}:{display:'none'}} {...props} 
+                        render={(logicProps) => (
                             this.props.isEditMode 
                             ? <EditCard {...logicProps}> {this.typeToComponent(this.props.data.type, 'edit')} </EditCard>
                             : <ViewCard {...logicProps}> {this.typeToComponent(this.props.data.type, 'view')} </ViewCard>
-                        )}/> 
+                    )}/>
+
+                     <div style={this.state.isReady?{display:'none'}:{display:'inline'}} {...props} > 
+                        <PacmanLoader color={colors.BLUESTEEL} />
+                      </div>
                     </section>
                 </div>
             </center>

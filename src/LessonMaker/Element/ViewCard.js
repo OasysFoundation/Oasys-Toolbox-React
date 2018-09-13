@@ -24,7 +24,7 @@ class ViewCard extends Component {
                 <CardBody>
                     {!this.props.isPreview && <VisibilitySensor ref={this.sensorRef} onChange={this.onChangeVisibility}/>}
                     
-                    <div style={{opacity: this.props.isLoading? 0.5 : 1.0}}>
+                    <div>
                     {this.props.shouldFoldInView
                         ? <Button color="primary"
                                   onClick={() => this.props.handleFoldInView(false)}>

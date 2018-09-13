@@ -13,8 +13,6 @@ class EditCard extends Component {
 
     constructor(props) {
         super(props);
-        console.log(this.props.isEditMode);
-        console.log(this.props.isLoading)
     }
 
     render(){
