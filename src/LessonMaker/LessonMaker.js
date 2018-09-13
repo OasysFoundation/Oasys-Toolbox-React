@@ -27,7 +27,6 @@ class LessonMaker extends Component {
         super(props);
         this.state = {
             showDeleteChapterDialog: false,
-
         };
         this.handleChapterDeleteModal = this.handleChapterDeleteModal.bind(this);
         this.handleChapterDeleteModalClose = this.handleChapterDeleteModalClose.bind(this);

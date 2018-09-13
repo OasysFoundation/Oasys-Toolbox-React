@@ -4,8 +4,6 @@ import {connect} from 'redux-zero/react';
 import { Card, CardBody, Button } from 'reactstrap';
 import Snackbar from '@material-ui/core/Snackbar';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
-import { PacmanLoader } from 'react-spinners';
-
 import {getContentFromSessionStorage} from '../../utils/trickBox';
 import colors from '../../utils/colors';
 import globals from '../../utils/globals';
@@ -15,6 +13,7 @@ import { capitalize } from '../../utils/tools';
 import ViewCard from './ViewCard';
 import EditCard from './EditCard';
 import ElementLogic from './ElementLogic';
+import Loader from './Loader';
 
 // import element types to use
 import EndOfChapterView from '../EndOfChapterView';
@@ -59,7 +58,6 @@ class Element extends Component {
         this.handlers = [
             'handleReady',
             'handleAction',
-            'handleAddChapter',
         ];
         this.handlers.forEach(h => this[h] = this[h].bind(this));
         this.handleChangeVisibility = this.handleChangeVisibility.bind(this);
@@ -76,12 +74,17 @@ class Element extends Component {
             },
             save: (value) => {
                 const now = Date.now();
+                const update = (value === undefined) ? {} : {content: value, timestamp: now};
                 this.setState(
-                    () => ({tempContent: value, timestamp: now}),
+                    () => (update),
                     () => {
                         if (now - this.timeLastSaved > SAVE_INTERVAL) {
                             this.timeLastSaved = now;
-                            this.handleChangeContent();
+                            this.props.onChangeContent(
+                                this.props.data.id,
+                                this.state.content,
+                                this.props.data.parentChapterID
+                            );
                         }
                 });
             },
@@ -91,8 +94,7 @@ class Element extends Component {
         }
 
         this.state = {
-            isHovered: false,
-            tempContent: this.props.data.content || getContentFromSessionStorage(this.props.data.id),
+            content: this.props.data.content || getContentFromSessionStorage(this.props.data.id),
             timestamp: Date.now(),
             shouldFoldInView: false,
             isReady: false
@@ -122,18 +124,6 @@ class Element extends Component {
     }
 
     // other handlers - still need to refactor below
-    handleAddChapter(action) {
-        this.handleAction(action);
-    }
-
-    handleChangeContent() {
-        this.props.onChangeContent(
-            this.props.data.id,
-            this.state.tempContent,
-            this.props.data.parentChapterID
-        );
-    }
-
     handleChangeVisibility(isVisible) {
         let elemAnalytics = {
             id: this.props.data.id, 
@@ -149,13 +139,13 @@ class Element extends Component {
     }   
 
     componentWillUnmount() {
-        this.handleChangeContent();
+        this.handleAction({type: 'save', value: undefined});
         this.setState({shouldFoldInView: true});
     }
 
     componentWillReceiveProps(nextprops) {
         if (nextprops.shouldInstantUpdate) {
-            this.handleChangeContent();
+            this.handleAction({type: 'save', value: undefined});
             this.props.instantUpdateElements(false);
         }
     }
@@ -167,8 +157,7 @@ class Element extends Component {
         const props = {
             key: this.props.data.id,
             id: this.props.data.id,
-            data: this.state.tempContent,
-            isHovered: this.state.isHovered,
+            data: this.state.content,
             isEditMode: this.props.isEditMode,
             chapters: this.props.chapters.map(c => ({title: c.title, id: c.id})),
             activeChapterIndex: this.props.activeChapterIndex,
@@ -212,22 +201,15 @@ class Element extends Component {
         return (
             <center>
                 <div className='main-width'>
-                    <section onMouseEnter={() => this.setState({isHovered: true})}
-                             onMouseLeave={() => this.setState({isHovered: false})}
-                    >
-                     
                      <ElementLogic 
-                        style={this.state.isReady?{display:'inline'}:{display:'none'}} {...props} 
+                        {...props} 
+                        style={this.state.isReady?{display:'inline'}:{display:'none'}} 
                         render={(logicProps) => (
                             this.props.isEditMode 
                             ? <EditCard {...logicProps}> {this.typeToComponent(this.props.data.type, 'edit')} </EditCard>
                             : <ViewCard {...logicProps}> {this.typeToComponent(this.props.data.type, 'view')} </ViewCard>
                     )}/>
-
-                     <div style={this.state.isReady?{display:'none'}:{display:'inline'}} {...props} > 
-                        <PacmanLoader color={colors.BLUESTEEL} />
-                      </div>
-                    </section>
+                    <Loader isReady={this.state.isReady} />
                 </div>
             </center>
         );
