@@ -65,24 +65,17 @@ class Element extends Component {
 
         this.timeLastSaved = Date.now();
 
-        this.state = {
-            isHovered: false,
-            tempContent: this.props.data.content || getContentFromSessionStorage(this.props.data.id),
-            timestamp: Date.now(),
-            shouldFoldInView: false,
-            isReady: false
-        };
-    }
-
-    executeAction(action) {
-        const actionDict = {
+        // actionDict defines the set of possible actions that each individual edit/view component has access to.
+        // an action can be executed by calling this.props.handleAction(action) from the edit/view component.
+        // action must be an object which has properties type and value, where type is any of the properties of actionDict.
+        this.actionDict = {
             notify: (value) => {
                 this.props.sendSnackBarMessage(value)
             },
             save: (value) => {
                 const now = Date.now();
                 this.setState(
-                    () => ({tempContent: action.value, timestamp: now}),
+                    () => ({tempContent: value, timestamp: now}),
                     () => {
                         if (now - this.timeLastSaved > SAVE_INTERVAL) {
                             this.timeLastSaved = now;
@@ -94,7 +87,18 @@ class Element extends Component {
                 this.props.handleChapterChange(value, undefined);
             },
         }
-        actionDict[action.type](action.value);
+
+        this.state = {
+            isHovered: false,
+            tempContent: this.props.data.content || getContentFromSessionStorage(this.props.data.id),
+            timestamp: Date.now(),
+            shouldFoldInView: false,
+            isReady: false
+        };
+    }
+
+    executeAction(action) {
+        this.actionDict[action.type](action.value);
     }
 
     handleAction(action) {
@@ -116,17 +120,14 @@ class Element extends Component {
     }
 
     handleReady() {
-        console.log('ready!');
         this.setState({ isReady: true });
     }
 
-    // TODO
+    // other handlers
+
     handleAddChapter(action) {
         this.handleAction(action);
     }
-
-
-    // other handlers
 
     handleChangeContent() {
         this.props.onChangeContent(
