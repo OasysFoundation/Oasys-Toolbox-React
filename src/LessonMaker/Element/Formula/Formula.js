@@ -29,7 +29,7 @@ class Formula extends Component {
             formula: element.target.value
         });
         const data = {formula: element.target.value};
-        this.props.handleUpdate({type: 'save', value: data});
+        this.props.handleAction({type: 'save', value: data});
 	}
 	
     render() {

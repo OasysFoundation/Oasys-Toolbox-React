@@ -33,13 +33,13 @@ class Image extends Component {
         this.onClickButton = this.onClickButton.bind(this);
         this.closeModalImgageSelection= this.closeModalImgageSelection.bind(this);
         this.onSelectImage = this.onSelectImage.bind(this);
-
+        
         this.props.handleStartLoading();
     }
 
     saveCurrentState() {
         const data = {imageUrl: this.state.imageUrl};
-        this.props.handleUpdate({type: 'save', value: data});
+        this.props.handleAction({type: 'save', value: data});
     }
 
     searchTerm = null;

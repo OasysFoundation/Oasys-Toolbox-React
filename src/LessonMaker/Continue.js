@@ -106,17 +106,17 @@ class Continue extends Component {
         }
 
         if (chapterIndex === this.getAllChapters().length+1) {
-            this.props.handleUpdate({type: 'save', value: {action: 'end-lesson'}});
+            this.props.handleAction({type: 'save', value: {action: 'end-lesson'}});
             return;
         }
 
 
         const newAction = this.getAllChapters()[chapterIndex].id;
-        this.props.handleUpdate({type: 'save', value: {action: newAction}});
+        this.props.handleAction({type: 'save', value: {action: newAction}});
     }
 
     onContinue() {
-        this.props.handleChapterChange(this.props.data.action, this.props.id);
+        this.props.handleAction({type: 'changeChapter', value: this.props.data.action});
     }
     
 

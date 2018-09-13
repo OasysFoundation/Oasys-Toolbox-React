@@ -45,16 +45,12 @@ class Element extends Component {
 
         // define event handlers that elements can use as hooks
         this.handlers = [
-            'handleInit',
-            'handleMounted',
-            'handleStartLoading', // this is probably a duplicate of handleMounted
+            'handleStartLoading',
             'handleReady',
-            'handleUpdate',
-            'handleChapterChange',
+            'handleAction',
             'handleAddChapter',
-            'handleFinished',
         ];
-        this.handlers.forEach(h => this[h].bind(this));
+        this.handlers.forEach(h => this[h] = this[h].bind(this));
 
         this.handleChangeVisibility = this.handleChangeVisibility.bind(this);
         this.handleFoldInView = this.handleFoldInView.bind(this);
@@ -71,85 +67,75 @@ class Element extends Component {
     }
 
     executeAction(action) {
-        if (action.type === 'notify') {
-            this.props.sendSnackBarMessage(action.value);
+        const actionDict = {
+            notify: (value) => {
+                this.props.sendSnackBarMessage(value)
+            },
+            save: (value) => {
+                const now = Date.now();
+                this.setState(
+                    () => ({tempContent: action.value, timestamp: now}),
+                    () => {
+                        if (now - this.timeLastSaved > SAVE_INTERVAL) {
+                            this.timeLastSaved = now;
+                            this.handleChangeContent();
+                        }
+                    });
+                },
+            changeChapter: (value) => {
+                this.props.handleChapterChange(value, undefined);
+            },
         }
-        if (action.type === 'save') {
-            const now = Date.now();
-            this.setState(
-                () => ({tempContent: action.value, timestamp: now}),
-                () => {
-                    if (now - this.timeLastSaved > SAVE_INTERVAL) {
-                        this.timeLastSaved = now;
-                        this.handleChangeContent();
-                    }
-                });
-        }
+        actionDict[action.type](action.value);
     }
 
-    executeActions(actions) {
+    handleAction(action) {
         /*
-            executeActions gets called by all element handlers. it expects either an array of actions or one action.
-            an action is an object that contains properties "type" and "value".
+            handleAction gets called by all element handlers. 
+            it expects an action that is an object that contains properties "type" and "value".
         */
-        if (!(Array.isArray(actions))) {
-            // if we only get one action, cast it into an array with one element
-            actions = [actions];
+        if (action===undefined || !('type' in action) || !('value' in action)) {
+            console.log('Could not execute element action. A valid action is an object with properties "type" and "value".');
+            console.log(action);
+            return;
         }
-        for (let action in actions) {
-            if (!('type' in action) || !('value' in action)) {
-                console.log('Could not execute element action. A valid action is an object with properties "type" and "value".');
-                console.log(action);
-                continue;
-            }
-            if (typeof(action.type)!=='string') {
-                console.log('Could not execute element action. Its "type" must be a string.');
-                console.log(action);
-                continue;
-            }
-            this.executeAction(action);
+        if (typeof(action.type)!=='string') {
+            console.log('Could not execute element action. Its "type" must be a string.');
+            console.log(action);
+            return;
         }
+        console.log(this)
+        this.executeAction(action);
     }
 
-    handleInit(actions) {
-        this.executeAction(actions);
-    }
-
-    handleMounted(actions) {
-        this.executeAction(actions);
-    }
-
-    handleStartLoading(actions) {
-        this.executeAction(actions);
+    // need to abstract away
+    handleStartLoading(action) {
+        this.handleAction(action);
         this.setState({
             isLoading: true
         });   
     }
 
-    handleReady(actions) {
-        this.executeAction(actions);
+    // need to abstract away
+    handleReady(action) {
+        this.handleAction(action);
         this.setState({
             isLoading: false
         });
     }
 
-    handleUpdate(actions){
-        this.executeAction(actions);
-    }
-
-    handleChapterChange(actions) {
-        this.executeAction(actions);
-    }
-
-    handleAddChapter(actions) {
-        this.executeAction(actions);
-    }
-
-    handleFinished(actions) {
-        this.executeAction(actions);
+    // need to abstract away
+    handleFinished(action) {
+        this.handleAction(action);
         this.handleChangeContent();
         this.setState({shouldFoldInView: true});
     }
+
+    // TODO
+    handleAddChapter(action) {
+        this.handleAction(action);
+    }
+
 
     // other handlers
 
@@ -173,7 +159,7 @@ class Element extends Component {
 
     handleFoldInView(value) {
         this.setState({shouldFoldInView: value});
-    }
+    }   
 
     componentWillUnmount() {
         this.handleFinished(); 

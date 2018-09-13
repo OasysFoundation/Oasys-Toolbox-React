@@ -87,7 +87,7 @@ class Embed extends Component {
     }
 
     handleChange(selectedOption) {
-        this.props.handleUpdate({type: 'save', value: {id: selectedOption.value}});
+        this.props.handleAction({type: 'save', value: {id: selectedOption.value}});
     }
 
     render() {
