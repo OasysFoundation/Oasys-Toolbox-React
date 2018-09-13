@@ -62,7 +62,7 @@ function insertGraph() {
     this.quill.setSelection(cursorPosition.index + 1)
 }
 
-class Text extends Component {
+class TextEdit extends Component {
     constructor(props) {
         super(props);
         this.mounted = false;
@@ -168,4 +168,4 @@ Text.propTypes = {
     placeholder: PropTypes.string,
 }
 
-export default Text;
+export default TextEdit;

@@ -7,7 +7,7 @@ import {ICON} from '../utils/trickBox';
 
 // This component is weird: It implements continue in ContentView, and AddNewChappter in EditView
 // ----> REFACTOR
-class Continue extends Component {
+class EndOfChapterView extends Component {
     
     state = {
         userCreatedChapters: [],
@@ -151,4 +151,4 @@ class Continue extends Component {
     }
 }
 
-export default Continue;
+export default EndOfChapterView;

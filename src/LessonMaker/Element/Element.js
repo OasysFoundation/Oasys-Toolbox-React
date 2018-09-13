@@ -8,32 +8,40 @@ import SnackbarContent from '@material-ui/core/SnackbarContent';
 import {getContentFromSessionStorage} from '../../utils/trickBox';
 import globals from '../../utils/globals';
 import actions from '../../store/actions';
+import { capitalize } from '../../utils/tools';
 
 import ViewCard from './ViewCard';
 import EditCard from './EditCard';
 import ElementLogic from './ElementLogic';
 
 // import element types to use
-import Text from './Text/Text';
+import EndOfChapterView from '../EndOfChapterView';
+import EndOfChapterEdit from '../EndOfChapterEdit';
+import TextView from './Text/TextView';
+import TextEdit from './Text/TextEdit';
+/*<
 import Image from './Image/Image';
 import Formula from './Formula/Formula';
 import Quiz from './Quiz/Quiz';
 import Video from './Video/Video';
 import Embed from './Embed/Embed';
 import Iframe from './Iframe/Iframe';
-import Continue from '../Continue';
+*/
 
 // Define which element types to use here. we need the awkward mapping in elementTypes because
 // React.CreateElement does not accept components as strings... improvement suggestions??
 let elementTypes = {};
-elementTypes['Text'] = Text;
-elementTypes['Image'] = Image;
+elementTypes['TextView'] = TextView;
+elementTypes['TextEdit'] = TextEdit;
+elementTypes['EndOfChapterView'] = EndOfChapterView;
+elementTypes['EndOfChapterEdit'] = EndOfChapterEdit;
+/* elementTypes['Image'] = Image;
 elementTypes['Formula'] = Formula;
 elementTypes['Quiz'] = Quiz;
 elementTypes['Video'] = Video;
-elementTypes['Embed'] = Embed
-elementTypes['Iframe'] = Iframe
-elementTypes['Continue'] = Continue
+elementTypes['Embed'] = Embed;
+elementTypes['Iframe'] = Iframe;
+*/
 
 // Save at most every SAVE_INTERVAL ms. 
 const SAVE_INTERVAL = 0;
@@ -51,7 +59,6 @@ class Element extends Component {
             'handleAddChapter',
         ];
         this.handlers.forEach(h => this[h] = this[h].bind(this));
-
         this.handleChangeVisibility = this.handleChangeVisibility.bind(this);
         this.handleFoldInView = this.handleFoldInView.bind(this);
 
@@ -80,8 +87,8 @@ class Element extends Component {
                             this.timeLastSaved = now;
                             this.handleChangeContent();
                         }
-                    });
-                },
+                });
+            },
             changeChapter: (value) => {
                 this.props.handleChapterChange(value, undefined);
             },
@@ -104,7 +111,6 @@ class Element extends Component {
             console.log(action);
             return;
         }
-        console.log(this)
         this.executeAction(action);
     }
 
@@ -172,7 +178,10 @@ class Element extends Component {
         }
     }
 
-    typeToComponent(elemType) {
+    typeToComponent(elemType, renderType) {
+        /*
+        renderType must be either 'view' or 'edit'
+        */
         const props = {
             key: this.props.data.id,
             id: this.props.data.id,
@@ -198,11 +207,12 @@ class Element extends Component {
         elemMap[globals.EDIT_VIDEO] = 'Video';
         elemMap[globals.EDIT_EMBED] = 'Embed';
         elemMap[globals.EDIT_IFRAME] = 'Iframe';
-        elemMap[globals.EDIT_CONTINUE_ELEMENT] = 'Continue';
+        elemMap[globals.EDIT_CONTINUE_ELEMENT] = 'EndOfChapter';
 
         let elemRender = <div key={"1234567890"}> Could not render element {elemType} (unknown) </div>;
         if (elemType in elemMap) {
-            elemRender = React.createElement(elementTypes[elemMap[elemType]], props, null);
+            const elemName = elemMap[elemType]+capitalize(renderType);
+            elemRender = React.createElement(elementTypes[elemName], props, null);
         } 
         return elemRender;
     }
@@ -223,8 +233,8 @@ class Element extends Component {
                     >
                         <ElementLogic {...props} render={(logicProps) => (
                             this.props.isEditMode 
-                            ? <EditCard {...logicProps}> {this.typeToComponent(this.props.data.type)} </EditCard>
-                            : <ViewCard {...logicProps}> {this.typeToComponent(this.props.data.type)} </ViewCard>
+                            ? <EditCard {...logicProps}> {this.typeToComponent(this.props.data.type, 'edit')} </EditCard>
+                            : <ViewCard {...logicProps}> {this.typeToComponent(this.props.data.type, 'view')} </ViewCard>
                         )}/> 
                     </section>
                 </div>

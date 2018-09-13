@@ -24,14 +24,14 @@ const globals = {
 
 	// leave this here for now for compatibilty reasons
 	EDIT_QUILL: 0,
-	EDIT_QUIZ: 1,
-	EDIT_EMBED: 2,
-	EDIT_VIDEO: 3,
-	EDIT_SYSTEM: 4,
-	EDIT_IMAGE: 5,
-	EDIT_FORMULA: 6,
+	//EDIT_QUIZ: 1,
+	//EDIT_EMBED: 2,
+	//EDIT_VIDEO: 3,
+	//EDIT_SYSTEM: 4,
+	//EDIT_IMAGE: 5,
+	//EDIT_FORMULA: 6,
 	EDIT_CONTINUE_ELEMENT: 7,
-	EDIT_IFRAME: 8,
+	//EDIT_IFRAME: 8,
 };
 
 export default globals;
