@@ -106,9 +106,9 @@ class Index extends Component {
         });
     }
 
-    handleSnackBarMessage() {
+    handleSnackBarMessage(msg) {
         this.setState({
-            snackBarMessage: null
+            snackBarMessage: msg,
         });
     }
 

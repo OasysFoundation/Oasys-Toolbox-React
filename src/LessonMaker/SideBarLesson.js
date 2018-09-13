@@ -41,8 +41,8 @@ class SideBarLesson extends Component {
             errorConsistency: false,
         }
 
-        this.title = props.title;
-        this.tags = props.tags.join(" ");
+        this.title = props.project.title;
+        this.tags = props.project.tags.join(" ");
         this.description = props.description;
 
         this.toggle = this.toggle.bind(this);
@@ -71,8 +71,8 @@ class SideBarLesson extends Component {
 
     getData(nextProps){
 
-        this.title = nextProps.title;
-        this.tags = nextProps.tags.join(" ");;
+        this.title = nextProps.project.title;
+        this.tags = nextProps.project.tags.join(" ");;
         this.description = nextProps.description;
 
         api.getUserContentsPreview()
@@ -114,7 +114,7 @@ class SideBarLesson extends Component {
             this.setState({ errorConsistency: true });
         }
 
-        this.checkTitleChange(this.props.title);
+        this.checkTitleChange(this.props.project.title);
         this.checkDescriptionChange(this.props.description);
     }
 
@@ -339,7 +339,7 @@ class SideBarLesson extends Component {
                         <center>
                             <div style={{position: 'relative', width: '100px', height: '100px', marginBottom: '20px', cursor: 'pointer'}}
                                  onClick={this.onShowIconSelectionModal.bind(this)}>
-                                <img src={require('../assets/category-icons/' + this.props.iconName)} width='100px'
+                                <img src={require('../assets/category-icons/' + this.props.project.iconName)} width='100px'
                                      height='100px' alt=''/>
                                 <div style={{position: 'absolute', top: '0', right: '0'}}>
                                     <i className="fas fa-align-right fa-lg fa-edit"
@@ -349,7 +349,7 @@ class SideBarLesson extends Component {
 
                         </center>
                         <Input
-                            defaultValue={this.props.title}
+                            defaultValue={this.props.project.title}
                             onChange={e=>this.checkTitleChange(e.target.value)} 
                             style={{borderColor: this.state.errorTitle?colors.VELVET:colors.GULLGREY}}
                         />
@@ -372,7 +372,7 @@ class SideBarLesson extends Component {
                             The description is required and may have 500 characters at most.
                         </FormText>
                         <Input
-                            defaultValue={this.props.tags.join(" ")}
+                            defaultValue={this.props.project.tags.join(" ")}
                             onChange={e => this.tags = e.target.value}
                             placeholder='Please add tags separated by space'
                         />
@@ -441,7 +441,7 @@ class SideBarLesson extends Component {
                         <input
                             className='form-control'
                             // defaultValue='Untitled lesson'
-                            value={this.props.title}
+                            value={this.props.project.title}
                             placeholder={'Untitled lesson'}
                             onChange={e => this.props.onChangeProjectTitle(e.target.value)}
                             onBlur={e=>e.target.value==='' ? e.target.value='Untitled lesson' : null}
@@ -475,9 +475,22 @@ class SideBarLesson extends Component {
                     <AppSidebarMinimizer/>
                 </AppSidebar>
 
-                <EditModalWarning isOpen={this.state.showsEditDialog} contentTitle={this.props.title} onClose={this.onCloseEditWarning.bind(this)} onRemix={this.onRemix.bind(this)}/>
+                <EditModalWarning isOpen={this.state.showsEditDialog} contentTitle={this.props.project.title} onClose={this.onCloseEditWarning.bind(this)} onRemix={this.onRemix.bind(this)}/>
 
             </div>
         )
     }
 }
+
+
+SideBarLesson.propTypes = {
+    title: PropTypes.string.isRequired,
+    tags: PropTypes.array.isRequired,
+};
+
+const mapStoreToProps = (store) => ({project: store});
+const neededActions = (store) => {
+    const {setProjectInLessonMaker, onDeleteChapter, createNewProject, instantUpdateElements, onChangeProjectTitle, onChangeIconName, onChangeProjectTags, onChangeProjectDescription} = actions();
+    return {setProjectInLessonMaker, onDeleteChapter, createNewProject, instantUpdateElements, onChangeProjectTitle, onChangeIconName, onChangeProjectTags, onChangeProjectDescription}
+};
+export default connect(mapStoreToProps, neededActions)(SideBarLesson);
