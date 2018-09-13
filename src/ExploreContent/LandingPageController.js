@@ -300,9 +300,20 @@ class LandingPageController extends Component {
 		    				<br/>
 		        			<ScrollableAnchor id = {'searchResults'} >
 			            		<div>
-						            <HorizontalScroll title = {"Tiles"} data = {tiles} positionChange = {this.changeSectionOrder.bind(this)} type = "mobile"/ >
+						            <HorizontalScroll 
+                                        sendSnackBarMessage={this.props.sendSnackBarMessage}
+                                        title = {"Tiles"} 
+                                        data = {tiles} 
+                                        positionChange = {this.changeSectionOrder.bind(this)} 
+                                        type = "mobile"/ >
 						            {this.state.pageData.map(dataObj =>
-						            	<HorizontalScroll key = {dataObj.title} title = {dataObj.title} data = {dataObj.data} type = "mobile" toggleOpen={this.toggleOpen}/ >
+						            	<HorizontalScroll 
+                                            sendSnackBarMessage={this.props.sendSnackBarMessage}
+                                            key = {dataObj.title} 
+                                            title = {dataObj.title} 
+                                            data = {dataObj.data} 
+                                            type = "mobile" 
+                                            toggleOpen={this.toggleOpen}/ >
 						    			)
 						    		}
 			    				</div>
@@ -319,10 +330,19 @@ class LandingPageController extends Component {
     						<br/ >
         					<ScrollableAnchor id = {'searchResults'} >
             					<div >
-						            <HorizontalScroll title = {"Tiles"} data = {tiles} positionChange = {this.changeSectionOrder.bind(this)} />
+						            <HorizontalScroll 
+                                        sendSnackBarMessage={this.props.sendSnackBarMessage}
+                                        title = {"Tiles"} 
+                                        data = {tiles} 
+                                        positionChange = {this.changeSectionOrder.bind(this)} />
 							        {
 							            this.state.pageData.map(dataObj =>
-							            	<HorizontalScroll title = {dataObj.title} data = {dataObj.data} icon = {dataObj.icon} toggleOpen={this.toggleOpen}/>
+							            	<HorizontalScroll 
+                                                sendSnackBarMessage={this.props.sendSnackBarMessage}
+                                                title = {dataObj.title} 
+                                                data = {dataObj.data} 
+                                                icon = {dataObj.icon} 
+                                                toggleOpen={this.toggleOpen}/>
         								)
         							}
     							</div>

@@ -4,8 +4,6 @@ import history from '../history'
 import api from '../utils/api'
 import {connect} from "redux-zero/react";
 import actions from "../store/actions";
-import Snackbar from '@material-ui/core/Snackbar';
-import SnackbarContent from '@material-ui/core/SnackbarContent';
 
 const styles = {
     mobileTopPadding:{
@@ -38,8 +36,6 @@ class ContentTileMenuModal extends Component {
         super(props);
         this.state = {
             lesson: null,
-            showSnackbar:false,
-            snackbarMessage:"",
         };
 
     }
@@ -77,42 +73,22 @@ class ContentTileMenuModal extends Component {
           }
           api.deleteContent(deleteData)
             .then(results => {
-                this.setState({
-                  showSnackbar:true,
-                  snackbarMessage:"Deleted Successfully"
-                })
+              this.props.sendSnackBarMessage('Deleted Successfully');
                 this.toggle();
                 window.location.reload();
-
- 
             })
             .catch(err => {
               console.log(err);
-              this.setState({
-                  showSnackbar:true,
-                  snackbarMessage:"An error occured"
-                })
+              this.props.sendSnackBarMessage('An error occured');
               this.toggle();
             })
 
         }        
       else if (value === "flag"){
-          this.setState({
-            showSnackbar:true,
-            snackbarMessage:"Thank you for notifying us about this content."
-          }) 
+          this.props.sendSnackBarMessage('Thank you for notifying us about this content');
           this.toggle();
       }
     }
-
-    onCloseSnackBar() {
-        this.setState({
-            snackbarMessage: "",
-            showSnackbar:false,
-        });
-    }
-
-
 
     render() {
     	
@@ -152,24 +128,6 @@ class ContentTileMenuModal extends Component {
 
               </ModalBody>
               </Modal>
-              <Snackbar
-                    anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'left',
-                    }}
-                    open={this.state.showSnackbar}
-                    autoHideDuration={6000}
-                    onClose={()=>this.onCloseSnackBar()}
-                >
-                    <SnackbarContent
-                        aria-describedby="client-snackbar"
-                        message={
-                            <span id="client-snackbar">
-                          {this.state.snackbarMessage}
-                        </span>
-                        }
-                    />
-                </Snackbar>
             </div>
         )
     }

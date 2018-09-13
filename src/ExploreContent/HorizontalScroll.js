@@ -335,7 +335,16 @@ class HorizontalScroll extends Component {
                     <nav ref={this.pnProductNav} id="pnProductNav" className="pn-ProductNav">    
                         <div ref={this.pnProductNavContents} id="pnProductNavContents" className="pn-ProductNav_Contents" style={styles.HorizontalFade}>
                             {this.props.data.map((myData,index)=>{
-                                    return (<HorizontalScrollButtonMaker key={index} data={myData} type={this.props.title} positionChange={this.props.positionChange} icon={this.props.icon} toggleOpen={this.props.toggleOpen} deletable={this.props.deletable}/>)
+                                    return (<HorizontalScrollButtonMaker 
+                                                key={index} 
+                                                data={myData} 
+                                                type={this.props.title} 
+                                                positionChange={this.props.positionChange} 
+                                                icon={this.props.icon} 
+                                                toggleOpen={this.props.toggleOpen} 
+                                                deletable={this.props.deletable}
+                                                sendSnackBarMessage={this.props.sendSnackBarMessage}
+                                    />)
                                 })}
                             <span ref={this.pnIndicator} id="pnIndicator" className="pn-ProductNav_Indicator"></span>
                         </div>

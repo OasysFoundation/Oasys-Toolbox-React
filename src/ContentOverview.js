@@ -11,8 +11,6 @@ import {connect} from "redux-zero/react";
 import actions from "./store/actions";
 
 import history from './history'
-import Snackbar from '@material-ui/core/Snackbar';
-import SnackbarContent from '@material-ui/core/SnackbarContent';
 import SocialSharingButtons from './SocialSharingButtons'
 import { isMobile } from './utils/tools'
 
@@ -101,8 +99,6 @@ class ContentOverview extends Component {
         super(props);
         this.state = {
             lesson: null,
-            showSnackbar:false,
-            snackbarMessage:"",
         };
 
     }
@@ -129,12 +125,8 @@ class ContentOverview extends Component {
         //     window.location.href = `/content/`
         else if (value === "user") {            
           history.push(`/user/${this.props.match.params.username || "anonymous"}/${this.props.match.params.uid}`) 
-        }        
-          else if (value === "flag"){
-              this.setState({
-                showSnackbar:true,
-                snackbarMessage:"Thank you for notifying us about this content."
-              }) 
+        } else if (value === "flag"){
+            this.props.sendSnackBarMessage('Thank you for notifying us about this content.');
           }
     }
 
@@ -144,13 +136,6 @@ class ContentOverview extends Component {
         this.props.remixProject(this.state.lesson, this.props.user);
 
         window.location.href = `/view/${username}/${title}/${uid}/${contentId}/0`;
-    }
-
-    onCloseSnackBar() {
-        this.setState({
-            snackbarMessage: "",
-            showSnackbar:false,
-        });
     }
 
     renderOverview() {
@@ -242,24 +227,6 @@ class ContentOverview extends Component {
 
                     </Container>
                 </main>
-                <Snackbar
-                    anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'left',
-                    }}
-                    open={this.state.showSnackbar}
-                    autoHideDuration={6000}
-                    onClose={()=>this.onCloseSnackBar()}
-                >
-                    <SnackbarContent
-                        aria-describedby="client-snackbar"
-                        message={
-                            <span id="client-snackbar">
-                          {this.state.snackbarMessage}
-                        </span>
-                        }
-                    />
-                </Snackbar>
             </div>
         );
     }
