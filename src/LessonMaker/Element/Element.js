@@ -30,8 +30,10 @@ import Embed from './Embed/Embed';
 import Iframe from './Iframe/Iframe';
 */
 
-// Define which element types to use here. we need the awkward mapping in elementTypes because
-// React.CreateElement does not accept components as strings... improvement suggestions??
+// Define which element types to use here (definitions in globals should not have to be used any more). 
+// For now, we have to manually import ElementView and ElementEdit for each of the elements.
+// We also need to make a somewhat awkward mapping in elementTypes because React.CreateElement does not 
+// accept components as strings in its first argument (see typeToComponent)... not clear if there is a better way to do this?!
 let elementTypes = {};
 elementTypes['TextView'] = TextView;
 elementTypes['TextEdit'] = TextEdit;
@@ -97,10 +99,6 @@ class Element extends Component {
         };
     }
 
-    executeAction(action) {
-        this.actionDict[action.type](action.value);
-    }
-
     handleAction(action) {
         /*
             handleAction gets called by all element handlers. 
@@ -116,15 +114,14 @@ class Element extends Component {
             console.log(action);
             return;
         }
-        this.executeAction(action);
+        this.actionDict[action.type](action.value);
     }
 
     handleReady() {
         this.setState({ isReady: true });
     }
 
-    // other handlers
-
+    // other handlers - still need to refactor below
     handleAddChapter(action) {
         this.handleAction(action);
     }
