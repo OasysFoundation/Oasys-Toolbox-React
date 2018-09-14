@@ -9,9 +9,8 @@ import LessonMaker from './LessonMaker/LessonMaker'
 import DataViewCreator from './DataView/DataViewCreator'
 import AccountPage from './AccountPage'
 import PublicAccountPage from './PublicAccountPage'
-
 import PrivacyPolicyPage from './PrivacyPolicyPage'
-
+import Snackbar from './Snackbar'
 import "simple-line-icons/css/simple-line-icons.css"
 import "./assets/fontAwesome/css/all.min.css"
 import "./styles/coreui/coreui.css"
@@ -24,11 +23,8 @@ import About from "./About"
 import LandingPageController from "./ExploreContent/LandingPageController"
 
 import {Provider} from "redux-zero/react";
-import Snackbar from '@material-ui/core/Snackbar';
-import SnackbarContent from '@material-ui/core/SnackbarContent';
 
 import ConcludingContentPage from './ConcludingContentPage'
-
 
 import store from "./store/store";
 import ContentView from "./LessonMaker/ContentView";
@@ -59,10 +55,11 @@ class Index extends Component {
         super(props);
         this.state = {
             category: '',
-            snackBarMessage: null,
         }
-        this.onCloseSnackBar = this.onCloseSnackBar.bind(this);
-        this.handleSnackBarMessage = this.handleSnackBarMessage.bind(this);
+    }
+
+    handleChangeSearchBar(newVal) {
+        this.setState({category: newVal})
     }
 
     componentDidMount() {
@@ -96,27 +93,7 @@ class Index extends Component {
         });
     }
 
-    handleChangeSearchBar(newVal) {
-        this.setState({category: newVal})
-    }
-
-    onCloseSnackBar() {
-        this.setState({
-            snackBarMessage: null
-        });
-    }
-
-    handleSnackBarMessage(msg) {
-        this.setState({
-            snackBarMessage: msg,
-        });
-    }
-
     render() {
-        const props = {
-            sendSnackBarMessage: this.handleSnackBarMessage,
-        }
-
         return (
             <div className="oasys app">
                 <Provider store={store}>
@@ -125,59 +102,44 @@ class Index extends Component {
 
                             {<Navbar onChange={this.handleChangeSearchBar.bind(this)}/>}
 
-                            <Snackbar
-                                anchorOrigin={{
-                                    vertical: 'bottom',
-                                    horizontal: 'left',
-                                }}
-                                open={Boolean(this.state.snackBarMessage)}
-                                autoHideDuration={6000}
-                                onClose={this.onCloseSnackBar}
-                            >
-                                <SnackbarContent
-                                    aria-describedby="client-snackbar"
-                                    message={
-                                        <span id="client-snackbar">
-                                      {this.state.snackBarMessage}
-                                    </span>
-                                    }
-                                />
-                            </Snackbar>
+                            <Snackbar/>
 
                             <Switch>
                             <ScrollToTop>
+
                                 <Route exact path="/auth" render={(routerProps) => 
-                                    <Authentication {...routerProps} {...props} />}/>
+                                    <Authentication {...routerProps} />}/>
 
                                 <Route exact path="/" render={(routerProps) => 
-                                    <LandingPageController {...routerProps} {...props} category={this.state.category}/>}/>
+                                    <LandingPageController {...routerProps} category={this.state.category}/>}/>
                                 <Route exact path="/explore" render={(routerProps) => 
-                                    <LandingPageController {...routerProps} {...props} category={this.state.category}/>}/>
+                                    <LandingPageController {...routerProps} category={this.state.category}/>}/>
                                 <Route exact path="/learn" render={(routerProps) => 
-                                    <LandingPageController {...routerProps} {...props} />}/>
+                                    <LandingPageController {...routerProps} />}/>
 
                                 <Route exact path="/data" render={(routerProps) => 
-                                    <DataViewCreator {...routerProps} {...props} />}/>
+                                    <DataViewCreator {...routerProps} />}/>
                                 <Route exact path="/about" render={(routerProps) => 
-                                    <About {...routerProps} {...props} />}/>
+                                    <About {...routerProps} />}/>
                                 <Route exact path="/privacy" render={(routerProps) => 
-                                    <PrivacyPolicyPage {...routerProps} {...props} />}/>
+                                    <PrivacyPolicyPage {...routerProps} />}/>
 
                                 <Route exact path="/account" render={(routerProps) => 
-                                    <AccountPage {...routerProps} {...props} />}/>
+                                    <AccountPage {...routerProps} />}/>
                                 <Route path="/user/:username/:uid" render={(routerProps) => 
-                                    <PublicAccountPage {...routerProps} {...props} />}/>
+                                    <PublicAccountPage {...routerProps} />}/>
                                 <Route exact path="/bitmoji" render={(routerProps) => 
-                                    <Bitmoji  {...routerProps} {...props} />}/>
+                                    <Bitmoji  {...routerProps} />}/>
 
                                 <Route exact path="/create/:username?/:title?/:uid?/:contentId?" render={(routerProps) => 
-                                    <LessonMaker {...routerProps} {...props} />}/>
+                                    <LessonMaker {...routerProps} />}/>
                                 <Route exact path="/view/:username/:title/:uid/:contentId/" render={(routerProps) => 
-                                    <ContentOverview {...routerProps} {...props} />}/>
+                                    <ContentOverview {...routerProps} />}/>
                                 <Route path="/view/:username/:title/:uid/:contentId/:chapterIndex" render={(routerProps) => 
-                                    <ContentView {...routerProps} {...props} chapters={store.getState().chapters}/>}/>
+                                    <ContentView {...routerProps} chapters={store.getState().chapters}/>}/>
                                 <Route exact path="/conclusion" render={(routerProps) => 
-                                    <ConcludingContentPage  {...routerProps} {...props} />}/>
+                                    <ConcludingContentPage  {...routerProps} />}/>
+
                             </ScrollToTop>
                             </Switch>
                             <Route path={"/*"} component={Footer}/>
@@ -189,9 +151,7 @@ class Index extends Component {
     }
 }
 
-
-export default withRouter(Index);
-
-
 ReactDOM.render(<Index/>, document.getElementById('root'));
 //registerServiceWorker();
+
+export default withRouter(Index);

@@ -278,7 +278,6 @@ class ContentView extends Component {
                                                                 handleChapterChange={this.goToChapter}
                                                                 onChangeVisibility={this.handleChangeElementVisibility}
                                                                 handleQuizAnswer={this.handleQuizAnswer}
-                                                                sendSnackBarMessage={this.props.sendSnackBarMessage}
                                                             >
                                                             </Element>
                                                             }

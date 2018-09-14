@@ -46,6 +46,19 @@ elementTypes['Embed'] = Embed;
 elementTypes['Iframe'] = Iframe;
 */
 
+// need this map for now (for backwards compatibility)
+// to get rid of the map, we need to store the map's values in the db instead of the map's keys
+const elemMap = {};
+elemMap[globals.EDIT_QUILL] = 'Text';
+elemMap[globals.EDIT_IMAGE] = 'Image';
+elemMap[globals.EDIT_FORMULA] = 'Formula';
+elemMap[globals.EDIT_QUIZ] = 'Quiz';
+elemMap[globals.EDIT_VIDEO] = 'Video';
+elemMap[globals.EDIT_EMBED] = 'Embed';
+elemMap[globals.EDIT_IFRAME] = 'Iframe';
+elemMap[globals.EDIT_CONTINUE_ELEMENT] = 'EndOfChapter';
+
+
 // Save at most every SAVE_INTERVAL ms. 
 const SAVE_INTERVAL = 0;
 
@@ -58,11 +71,10 @@ class Element extends Component {
         this.handlers = [
             'handleReady',
             'handleAction',
+            'handleFoldInView',
+            'handleChangeVisibility',
         ];
         this.handlers.forEach(h => this[h] = this[h].bind(this));
-        this.handleChangeVisibility = this.handleChangeVisibility.bind(this);
-        this.handleFoldInView = this.handleFoldInView.bind(this);
-
         this.timeLastSaved = Date.now();
 
         // actionDict defines the set of possible actions that each individual edit/view component has access to.
@@ -151,9 +163,7 @@ class Element extends Component {
     }
 
     typeToComponent(elemType, renderType) {
-        /*
-        renderType must be either 'view' or 'edit'
-        */
+        /* renderType must be either 'view' or 'edit' */
         const props = {
             key: this.props.data.id,
             id: this.props.data.id,
@@ -169,18 +179,6 @@ class Element extends Component {
         this.handlers.forEach(h =>
             props[h] = this[h]
         );
-
-        // need this map for now (for backwards compatibility)
-        // to get rid of the map, we need to store the map's values in the db instead of the map's keys
-        const elemMap = {};
-        elemMap[globals.EDIT_QUILL] = 'Text';
-        elemMap[globals.EDIT_IMAGE] = 'Image';
-        elemMap[globals.EDIT_FORMULA] = 'Formula';
-        elemMap[globals.EDIT_QUIZ] = 'Quiz';
-        elemMap[globals.EDIT_VIDEO] = 'Video';
-        elemMap[globals.EDIT_EMBED] = 'Embed';
-        elemMap[globals.EDIT_IFRAME] = 'Iframe';
-        elemMap[globals.EDIT_CONTINUE_ELEMENT] = 'EndOfChapter';
 
         let elemRender = <div key={"1234567890"}> Could not render element {elemType} (unknown) </div>;
         if (elemType in elemMap) {
@@ -227,8 +225,8 @@ Element.propTypes = {
 const mapStoreToProps = ({chapters, shouldInstantUpdate, isEditMode, activeChapterIndex}) => ({chapters, shouldInstantUpdate, isEditMode, activeChapterIndex});
 
 const neededActions = (store) => {
-    const {onChangeContent, updateChapterLinks, instantUpdateElements, handleAddChapter} = actions();
-    return {onChangeContent, updateChapterLinks, instantUpdateElements, handleAddChapter}
+    const {onChangeContent, updateChapterLinks, instantUpdateElements, handleAddChapter, sendSnackBarMessage} = actions();
+    return {onChangeContent, updateChapterLinks, instantUpdateElements, handleAddChapter, sendSnackBarMessage}
 };
 
 //IMPORTANT!! the project data is in the project obj, the rest of the store (action functions) is just flat there

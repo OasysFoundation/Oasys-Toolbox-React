@@ -320,7 +320,14 @@ const actions = function (store) { //store for async stuff
             ];
             console.log("ELEME", clone.chapters[state.activeChapterIndex].elements)
             return clone
-        }
+        },
+
+        sendSnackBarMessage(state, message) {
+            if (typeof(message)==='string') {
+                return update(state, {snackBarMessage: {$set: message}})
+            }
+            return state
+        },
     }
 }
 

@@ -219,8 +219,6 @@ class SideBarLesson extends Component {
     }
 
     saveContent(flag) {
-        console.log(this.props)
-
         this.props.instantUpdateElements(true);
 
         //wait until elements instant update and update the store
@@ -248,7 +246,6 @@ class SideBarLesson extends Component {
                     isCurrentlyPublishing: true
                 });
             }
-
             api.postContent(allData).then(() => {
                 this.setState({
                     isCurrentlySavingDraft: false,
@@ -490,7 +487,7 @@ SideBarLesson.propTypes = {
 
 const mapStoreToProps = (store) => ({project: store});
 const neededActions = (store) => {
-    const {setProjectInLessonMaker, onDeleteChapter, createNewProject, instantUpdateElements, onChangeProjectTitle, onChangeIconName, onChangeProjectTags, onChangeProjectDescription} = actions();
-    return {setProjectInLessonMaker, onDeleteChapter, createNewProject, instantUpdateElements, onChangeProjectTitle, onChangeIconName, onChangeProjectTags, onChangeProjectDescription}
+    const {setProjectInLessonMaker, onDeleteChapter, createNewProject, instantUpdateElements, onChangeProjectTitle, onChangeIconName, onChangeProjectTags, onChangeProjectDescription, sendSnackBarMessage} = actions();
+    return {setProjectInLessonMaker, onDeleteChapter, createNewProject, instantUpdateElements, onChangeProjectTitle, onChangeIconName, onChangeProjectTags, onChangeProjectDescription, sendSnackBarMessage}
 };
 export default connect(mapStoreToProps, neededActions)(SideBarLesson);

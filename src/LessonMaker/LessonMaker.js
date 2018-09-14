@@ -142,7 +142,7 @@ class LessonMaker extends Component {
         return (
             <div className="app-body" style={{paddingTop: paddingVal}}>
                 <EditModalWarning contentTitle={this.props.title} isOpen={false}/>
-                <SideBarLesson sendSnackBarMessage={this.props.sendSnackBarMessage}/>
+                <SideBarLesson />
                 <div className="create">
                     <main className="main">
                         <Modal isOpen={this.state.showDeleteChapterDialog} toggle={this.handleChapterDeleteModalClose}
@@ -197,7 +197,6 @@ class LessonMaker extends Component {
                                                             key={el.id} 
                                                             data={el} 
                                                             isPreview={true}
-                                                            sendSnackBarMessage={this.props.sendSnackBarMessage}
                                                         />
                                                         {(idx<elements.length-1) && <ElementAdder key={el.id + 1} idx={idx}/>}
                                                     </Item>)
