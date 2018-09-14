@@ -1,31 +1,31 @@
-
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import MaterialSnackbar from '@material-ui/core/Snackbar';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
-import {connect} from 'redux-zero/react';
 
-import actions from './store/actions';
-import store from "./store/store";
+/*
+This is a wrapper around Material UI Snackbar 
+*/
+class Snackbar extends React.Component {
 
-class MySnackbar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            snackBarMessage: null,
+            message: null,
         }
         this.onCloseSnackBar = this.onCloseSnackBar.bind(this);
     }
 
     componentWillReceiveProps(props) {
-        console.log(props)
         this.setState({
-            snackBarMessage: props.snackBarMessage,
+            message: props.message,
         });
     }
 
     onCloseSnackBar() {
         this.setState({
-            snackBarMessage: null
+            message: null
         });
     }
 
@@ -36,15 +36,15 @@ class MySnackbar extends React.Component {
                     vertical: 'bottom',
                     horizontal: 'left',
                 }}
-                open={Boolean(this.state.snackBarMessage)}
-                autoHideDuration={6000}
+                open={this.state.message ? true : false}
+                autoHideDuration={this.props.autoHideDuration}
                 onClose={this.onCloseSnackBar}
             >
                 <SnackbarContent
                     aria-describedby="client-snackbar"
                     message={
                         <span id="client-snackbar">
-                      {this.state.snackBarMessage}
+                      {this.state.message}
                     </span>
                     }
                 />
@@ -53,10 +53,14 @@ class MySnackbar extends React.Component {
     }
 }
 
+    
+Snackbar.propTypes = {
+    message: PropTypes.string,
+    autoHideDuration: PropTypes.number,
+}
 
-const mapStoreToProps = ({snackBarMessage}) => ({snackBarMessage});
-const neededActions = (store) => {
-    const {} = actions();
-    return {}
-};
-export default connect(mapStoreToProps, neededActions)(MySnackbar);
+Snackbar.defaultProps = {
+    autoHideDuration: 6000,
+}
+
+export default Snackbar;

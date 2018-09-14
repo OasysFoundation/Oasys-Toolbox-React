@@ -2,7 +2,12 @@ import {Component} from 'react';
 import React from 'react';
 import ReactDOM from 'react-dom';
 //import registerServiceWorker from './utils/registerServiceWorker';
-import {Router, Route, Switch} from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
+import {connect} from 'redux-zero/react';
+import { Provider } from 'redux-zero/react';
+
+import actions from './store/actions';
+import store from "./store/store";
 
 import {withRouter} from 'react-router'
 import LessonMaker from './LessonMaker/LessonMaker'
@@ -22,11 +27,8 @@ import Footer from "./Footer";
 import About from "./About"
 import LandingPageController from "./ExploreContent/LandingPageController"
 
-import {Provider} from "redux-zero/react";
-
 import ConcludingContentPage from './ConcludingContentPage'
 
-import store from "./store/store";
 import ContentView from "./LessonMaker/ContentView";
 import ContentOverview from './ContentOverview';
 
@@ -49,6 +51,17 @@ import {auth} from "./Authentication/firebase";
 // const {whyDidYouUpdate} = require('why-did-you-update');
 // whyDidYouUpdate(React);
 
+/*const WithStore = connect(
+  ({snackBarMessage}) => ({snackBarMessage}),
+  null
+)({children,snackBarMessage}) => children(snackBarMessage);*/
+
+
+// this connects the snackbar to the store explicitly, so the snackbar component itself doesn't need to know about it.
+const SnackbarStore = connect(
+  ({ snackBarMessage }) => ({ snackBarMessage }), 
+  dispatch => ({ dispatch }),
+)(({ children, snackBarMessage }) => children(snackBarMessage));
 
 class Index extends Component {
     constructor(props) {
@@ -100,9 +113,10 @@ class Index extends Component {
                     <Router history={history} onUpdate={() => window.scrollTo(0, 0)}>
                         <div>
 
-                            {<Navbar onChange={this.handleChangeSearchBar.bind(this)}/>}
-
-                            <Snackbar/>
+                            <Navbar onChange={this.handleChangeSearchBar.bind(this)}/>
+                            <SnackbarStore>
+                                { snackBarMessage => <Snackbar message={snackBarMessage}/> }
+                            </SnackbarStore>
 
                             <Switch>
                             <ScrollToTop>
