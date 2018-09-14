@@ -252,14 +252,14 @@ class SideBarLesson extends Component {
                     isCurrentlyPublishing: false,
                 });
                 const snackbarMessage = flag ? "Published Successfully ✅" : "Saved Draft Successfully ✅";
-                this.props.sendSnackBarMessage(snackbarMessage);
+                this.props.sendSnackbarMessage(snackbarMessage);
             }).catch((error) => {
                 this.setState({
                     isCurrentlySavingDraft: false,
                     isCurrentlyPublishing: false,
                 });
                 const errorMessage = flag ? "Error: Could not publish" : "Error: Could not save draft";
-                this.props.sendSnackBarMessage(errorMessage);
+                this.props.sendSnackbarMessage(errorMessage);
                 console.log(error);
             });
 
@@ -487,7 +487,7 @@ SideBarLesson.propTypes = {
 
 const mapStoreToProps = (store) => ({project: store});
 const neededActions = (store) => {
-    const {setProjectInLessonMaker, onDeleteChapter, createNewProject, instantUpdateElements, onChangeProjectTitle, onChangeIconName, onChangeProjectTags, onChangeProjectDescription, sendSnackBarMessage} = actions();
-    return {setProjectInLessonMaker, onDeleteChapter, createNewProject, instantUpdateElements, onChangeProjectTitle, onChangeIconName, onChangeProjectTags, onChangeProjectDescription, sendSnackBarMessage}
+    const {setProjectInLessonMaker, onDeleteChapter, createNewProject, instantUpdateElements, onChangeProjectTitle, onChangeIconName, onChangeProjectTags, onChangeProjectDescription, sendSnackbarMessage} = actions();
+    return {setProjectInLessonMaker, onDeleteChapter, createNewProject, instantUpdateElements, onChangeProjectTitle, onChangeIconName, onChangeProjectTags, onChangeProjectDescription, sendSnackbarMessage}
 };
 export default connect(mapStoreToProps, neededActions)(SideBarLesson);

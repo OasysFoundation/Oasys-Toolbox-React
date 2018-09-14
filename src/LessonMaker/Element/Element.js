@@ -82,7 +82,7 @@ class Element extends Component {
         // action must be an object which has properties type and value, where type is any of the properties of actionDict.
         this.actionDict = {
             notify: (value) => {
-                this.props.sendSnackBarMessage(value)
+                this.props.sendSnackbarMessage(value)
             },
             save: (value) => {
                 const now = Date.now();
@@ -225,8 +225,8 @@ Element.propTypes = {
 const mapStoreToProps = ({chapters, shouldInstantUpdate, isEditMode, activeChapterIndex}) => ({chapters, shouldInstantUpdate, isEditMode, activeChapterIndex});
 
 const neededActions = (store) => {
-    const {onChangeContent, updateChapterLinks, instantUpdateElements, handleAddChapter, sendSnackBarMessage} = actions();
-    return {onChangeContent, updateChapterLinks, instantUpdateElements, handleAddChapter, sendSnackBarMessage}
+    const {onChangeContent, updateChapterLinks, instantUpdateElements, handleAddChapter, sendSnackbarMessage} = actions();
+    return {onChangeContent, updateChapterLinks, instantUpdateElements, handleAddChapter, sendSnackbarMessage}
 };
 
 //IMPORTANT!! the project data is in the project obj, the rest of the store (action functions) is just flat there

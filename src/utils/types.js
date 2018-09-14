@@ -26,7 +26,7 @@ export const initData = {
     isEditMode: true,
     description: '',
     activeChapterIndex: 0,
-    snackBarMessage: null,
+    snackbarMessage: null,
     tags: [],
     chapters: [
         {

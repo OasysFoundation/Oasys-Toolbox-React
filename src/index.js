@@ -36,6 +36,7 @@ import Bitmoji from './utils/Bitmoji'
 import Authentication from "./Authentication/Authentication";
 
 import ScrollToTop from './ScrollToTop';
+import InjectFromStore from './InjectFromStore';
 // import {Redirect} from 'react-router'
 
 //logs unnecessary rerenders in the console
@@ -46,22 +47,6 @@ import ScrollToTop from './ScrollToTop';
 
 import history from './history'
 import {auth} from "./Authentication/firebase";
-
-// check if there are components that are rendered unnecessarily
-// const {whyDidYouUpdate} = require('why-did-you-update');
-// whyDidYouUpdate(React);
-
-/*const WithStore = connect(
-  ({snackBarMessage}) => ({snackBarMessage}),
-  null
-)({children,snackBarMessage}) => children(snackBarMessage);*/
-
-
-// this connects the snackbar to the store explicitly, so the snackbar component itself doesn't need to know about it.
-const SnackbarStore = connect(
-  ({ snackBarMessage }) => ({ snackBarMessage }), 
-  dispatch => ({ dispatch }),
-)(({ children, snackBarMessage }) => children(snackBarMessage));
 
 class Index extends Component {
     constructor(props) {
@@ -114,9 +99,10 @@ class Index extends Component {
                         <div>
 
                             <Navbar onChange={this.handleChangeSearchBar.bind(this)}/>
-                            <SnackbarStore>
-                                { snackBarMessage => <Snackbar message={snackBarMessage}/> }
-                            </SnackbarStore>
+
+                            <InjectFromStore select={(state)=>({message:state.snackbarMessage})}>
+                                { (props) => <Snackbar message={props.message}/> }
+                            </InjectFromStore>
 
                             <Switch>
                             <ScrollToTop>

@@ -322,9 +322,9 @@ const actions = function (store) { //store for async stuff
             return clone
         },
 
-        sendSnackBarMessage(state, message) {
+        sendSnackbarMessage(state, message) {
             if (typeof(message)==='string') {
-                return update(state, {snackBarMessage: {$set: message}})
+                return update(state, {snackbarMessage: {$set: message}})
             }
             return state
         },
