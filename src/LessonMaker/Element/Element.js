@@ -8,7 +8,7 @@ import { capitalize } from '../../utils/tools';
 
 import ViewCard from './ViewCard';
 import EditCard from './EditCard';
-import ElementLogic from './ElementLogic';
+import UnknownElement from './UnknownElement';
 
 // import element types to use
 import EndOfChapterView from '../EndOfChapterView';
@@ -64,11 +64,7 @@ class Element extends Component {
         super(props);
 
         // define event handlers that elements can use as hooks
-        this.handlers = [
-            'handleAction',
-            'handleChangeVisibility',
-        ];
-        this.handlers.forEach(h => this[h] = this[h].bind(this));
+        this.handleAction = this.handleAction.bind(this);
         this.timeLastSaved = Date.now();
 
         // actionDict defines the set of possible actions that each individual edit/view component has access to.
@@ -123,7 +119,40 @@ class Element extends Component {
         this.actionDict[action.type](action.value);
     }
 
-    // other handlers - still need to refactor below
+    componentWillReceiveProps(nextprops) {
+        // do we really need shouldInstantUpdate still?
+        if (nextprops.shouldInstantUpdate) {
+            this.handleAction({type: 'save', value: undefined});
+            this.props.instantUpdateElements(false);
+        }
+    }
+
+    componentWillUnmount() {
+        this.handleAction({type: 'save', value: undefined});
+    }
+
+    typeToComponent(elemType, renderType) {
+        /* renderType must be either 'view' or 'edit' */
+        const props = {
+            key: this.props.data.id,
+            type: elemType,
+            id: this.props.data.id,
+            data: this.state.content,
+            chapters: this.props.chapters.map(c => ({title: c.title, id: c.id})),
+            activeChapterIndex: this.props.activeChapterIndex,
+            handleReady: this.props.handleReady,
+            handleQuizAnswer: this.props.handleQuizAnswer,
+        }
+
+        if (elemType in elemMap) {
+            const elemName = elemMap[elemType]+capitalize(renderType);
+            return React.createElement(elementTypes[elemName], props, null);
+        } else {
+            return React.createElement(UnknownElement, props, null);
+        }
+    }
+
+    // analytics. need to refactor
     handleChangeVisibility(isVisible) {
         let elemAnalytics = {
             id: this.props.data.id, 
@@ -133,42 +162,6 @@ class Element extends Component {
         }
         console.log(elemAnalytics)
         this.props.onChangeVisibility(elemAnalytics);
-    }
-
-    componentWillUnmount() {
-        this.handleAction({type: 'save', value: undefined});
-    }
-
-    componentWillReceiveProps(nextprops) {
-        if (nextprops.shouldInstantUpdate) {
-            this.handleAction({type: 'save', value: undefined});
-            this.props.instantUpdateElements(false);
-        }
-    }
-
-    typeToComponent(elemType, renderType) {
-        /* renderType must be either 'view' or 'edit' */
-        const props = {
-            key: this.props.data.id,
-            id: this.props.data.id,
-            data: this.state.content,
-            chapters: this.props.chapters.map(c => ({title: c.title, id: c.id})),
-            activeChapterIndex: this.props.activeChapterIndex,
-            handleReady: this.props.handleReady,
-
-        }
-        // add event handlers that elements can use as hooks
-        props['handleQuizAnswer'] = this.props.handleQuizAnswer;
-        this.handlers.forEach(h =>
-            props[h] = this[h]
-        );
-
-        let elemRender = <div key={"1234567890"}> Could not render element {elemType} (unknown) </div>;
-        if (elemType in elemMap) {
-            const elemName = elemMap[elemType]+capitalize(renderType);
-            elemRender = React.createElement(elementTypes[elemName], props, null);
-        } 
-        return elemRender;
     }
 
     render() {
