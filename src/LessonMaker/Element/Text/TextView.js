@@ -90,17 +90,6 @@ class TextView extends Component {
         this.props.handleAction({type: 'save', value: content});
     }
 
-    componentWillReceiveProps() {
-        if (this.mounted) {
-            if (this.props.isEditMode) {
-                this.refs.reactQuill.getEditor().enable();
-            } else {
-                this.refs.reactQuill.getEditor().disable();
-            }
-        }
-        return true;
-    }
-
     componentDidMount() {
         window.katex = katex;
         window.d3 = require('d3');
@@ -159,6 +148,7 @@ class TextView extends Component {
                     ref="reactQuill"
                     modules={modules}
                     bounds={'quill-container-' + this.props.id}
+                    readOnly={true}
                 />
             </div>
         )

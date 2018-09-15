@@ -181,7 +181,6 @@ class Element extends Component {
     render() {
         const props = {
             data: this.props.data,
-            isEditMode: this.props.isEditMode,
             shouldFoldInView: this.state.shouldFoldInView,
             handleFoldInView: this.handleFoldInView,
             handleReady: this.props.handleReady,

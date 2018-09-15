@@ -130,24 +130,20 @@ class EndOfChapterEdit extends Component {
             <div className='next-chapter'>
                 <center>
                     <hr/>
-                    <CreateNewChapterModal isOpen={this.state.showsCreateNewChapterDialog} onClose={this.onCloseNewChapterCreationDialog.bind(this)} onCreateNewChapter={this.onCreateNewChapter.bind(this)} />
-                    {this.props.isEditMode ? (
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '20px'}}>
-                            <span style={{fontStyle: 'italic', fontSize: '1.1rem', color: '#666666', marginRight: '20px'}}>Continue to…</span>
-                            <SelectionDropdown 
-                                onSelect={this.onSelectAction.bind(this)} 
-                                identifier={Math.random().toString()} 
-                                default={(action!=null && action!=="")? this.chapterTitleForIdentifier(action) : "End Lesson"} 
-                                options={this.getActionMenuItems()}
-                            />
-                            </div>
-                        ) : (
-
-                        <div onClick={function() { that.onContinue(action) }} style={{marginBottom: '15px'}}>
-                            {ICON("icon-arrow-down", 40)}
-                        </div>
-                        )
-                    }
+                    <CreateNewChapterModal 
+                        isOpen={this.state.showsCreateNewChapterDialog} 
+                        onClose={this.onCloseNewChapterCreationDialog.bind(this)} 
+                        onCreateNewChapter={this.onCreateNewChapter.bind(this)} 
+                    />
+                    <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '20px'}}>
+                        <span style={{fontStyle: 'italic', fontSize: '1.1rem', color: '#666666', marginRight: '20px'}}>Continue to…</span>
+                        <SelectionDropdown 
+                            onSelect={this.onSelectAction.bind(this)} 
+                            identifier={Math.random().toString()} 
+                            default={(action!=null && action!=="")? this.chapterTitleForIdentifier(action) : "End Lesson"} 
+                            options={this.getActionMenuItems()}
+                        />
+                    </div>
                 </center>
             </div>
         )
