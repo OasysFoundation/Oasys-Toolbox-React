@@ -158,7 +158,6 @@ class Element extends Component {
             key: this.props.data.id,
             id: this.props.data.id,
             data: this.state.content,
-            isEditMode: this.props.isEditMode,
             chapters: this.props.chapters.map(c => ({title: c.title, id: c.id})),
             activeChapterIndex: this.props.activeChapterIndex,
             handleReady: this.props.handleReady,
@@ -188,13 +187,9 @@ class Element extends Component {
         return (
             <center>
                 <div className='main-width'>
-                     <ElementLogic 
-                        {...props} 
-                        render={(logicProps) => (
-                            this.props.isEditMode 
-                            ? <EditCard {...logicProps}> {this.typeToComponent(this.props.data.type, 'edit')} </EditCard>
-                            : <ViewCard {...logicProps}> {this.typeToComponent(this.props.data.type, 'view')} </ViewCard>
-                    )}/>
+                    {this.props.isEditMode 
+                    ? <EditCard {...props}> {this.typeToComponent(this.props.data.type, 'edit')} </EditCard>
+                    : <ViewCard {...props}> {this.typeToComponent(this.props.data.type, 'view')} </ViewCard>}
                 </div>
             </center>
         );
