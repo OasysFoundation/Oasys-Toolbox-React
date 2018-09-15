@@ -132,6 +132,7 @@ class Element extends Component {
             visible: isVisible,
             time: new Date(),
         }
+        console.log(elemAnalytics)
         this.props.onChangeVisibility(elemAnalytics);
     }
 
@@ -178,7 +179,6 @@ class Element extends Component {
     }
 
     render() {
-        console.log(this.props.handleReady)
         const props = {
             data: this.props.data,
             isEditMode: this.props.isEditMode,
