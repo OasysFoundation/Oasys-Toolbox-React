@@ -73,6 +73,8 @@ class Element extends Component {
             content: this.props.data.content || getContentFromSessionStorage(this.props.data.id),
             timestamp: Date.now(),
         };
+
+        this.handleChangeVisibility = this.handleChangeVisibility.bind(this);
     }
 
     componentWillReceiveProps(nextprops) {
@@ -82,9 +84,9 @@ class Element extends Component {
         }
     }
 
-    typeToComponent(elemType, renderType) {
+    typeToComponent(elemType, logicProps, renderType) {
         /* renderType must be either 'view' or 'edit' */
-        const props = {
+        const props = Object.assign({
             key: this.props.data.id,
             type: elemType,
             id: this.props.data.id,
@@ -93,7 +95,7 @@ class Element extends Component {
             activeChapterIndex: this.props.activeChapterIndex,
             handleReady: this.props.handleReady,
             handleQuizAnswer: this.props.handleQuizAnswer,
-        }
+        }, logicProps);
 
         if (elemType in elemMap) {
             const elemName = elemMap[elemType]+capitalize(renderType);
@@ -137,7 +139,7 @@ class Element extends Component {
                         <Card className='card-fancy has-shadow card content-view'>
                             <CardBody>
                                 {!this.props.isPreview && <VisibilitySensor ref={this.sensorRef} onChange={this.handleChangeVisibility}/>}
-                                {this.typeToComponent(this.props.data.type, logicProps, 'edit')}
+                                {this.typeToComponent(this.props.data.type, logicProps, 'view')}
                             </CardBody>
                         </Card>
                       )}/>

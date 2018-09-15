@@ -100,19 +100,10 @@ class EndOfChapterView extends Component {
             this.createNewChapter().then(function(newChapter) {
                 const newChapterIndex = that.chapterIndexForIdentifier(newChapter.id);
                 that.onSelectAction(newChapter.id, newChapterIndex);
-                that.props.handleAddChapter(newChapter.id, that.chapterTitleForIdentifier(newChapter.id));
             });
             return;
         }
 
-        if (chapterIndex === this.getAllChapters().length+1) {
-            this.props.handleAction({type: 'save', value: {action: 'end-lesson'}});
-            return;
-        }
-
-
-        const newAction = this.getAllChapters()[chapterIndex].id;
-        this.props.handleAction({type: 'save', value: {action: newAction}});
     }
 
     onContinue() {

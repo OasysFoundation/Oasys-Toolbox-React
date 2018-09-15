@@ -83,11 +83,6 @@ class TextView extends Component {
         fontSize.whitelist = ['21px', '22px', '30px', 'small', 'normal', 'large', 'huge'];
         ReactQuill.Quill.register(fontSize, true);
 
-        this.handleChange = this.handleChange.bind(this);
-    }
-
-    handleChange(content, delta, source, editor) {
-        this.props.handleAction({type: 'save', value: content});
     }
 
     componentDidMount() {
@@ -144,7 +139,6 @@ class TextView extends Component {
                 {/*{this.renderToolbar()}*/}
                 <ReactQuill
                     value={this.props.data}
-                    onChange={this.handleChange}
                     ref="reactQuill"
                     modules={modules}
                     bounds={'quill-container-' + this.props.id}

@@ -26,6 +26,7 @@ class ViewLogic extends Component {
     }
 
     handleAction(action) {
+        console.log(action)
         isValidAction(action) ? this.actionDict[action.type](action.value) : null;
     }
 
