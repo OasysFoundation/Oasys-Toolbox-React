@@ -6,17 +6,9 @@ import {
     Button
 } from 'reactstrap';
 
-import { PacmanLoader } from 'react-spinners';
 import VisibilitySensor from 'react-visibility-sensor';
 
-import colors from '../../utils/colors';
-import globals from '../../utils/globals';
-
 class ViewCard extends Component {
-
-    constructor(props) {
-        super(props);
-    }
 
     render(){
         return(

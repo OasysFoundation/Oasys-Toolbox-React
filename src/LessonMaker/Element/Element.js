@@ -1,11 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'redux-zero/react';
-import { Card, CardBody, Button } from 'reactstrap';
-import Snackbar from '@material-ui/core/Snackbar';
-import SnackbarContent from '@material-ui/core/SnackbarContent';
 import {getContentFromSessionStorage} from '../../utils/trickBox';
-import colors from '../../utils/colors';
 import globals from '../../utils/globals';
 import actions from '../../store/actions';
 import { capitalize } from '../../utils/tools';

@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Element from './Element/Element';
 import ShowChildrenWhenReady from './ShowChildrenWhenReady';
-import ScrollView, {ScrollElement} from "../utils/scroller";
 import {ICON, flatten, isEmpty} from '../utils/trickBox'
 import {Container} from "reactstrap"
 import ConcludingContentPage from '../ConcludingContentPage'
@@ -11,11 +10,9 @@ import api from '../utils/api'
 
 import {connect} from "redux-zero/react";
 import actions from "../store/actions";
-import withLoader from './withLoader'
 import history from "../history";
 import globals from "../utils/globals";
 
-import ViewCard from './Element/ViewCard';
 
 class ContentView extends Component {
     constructor(props) {
@@ -59,7 +56,7 @@ class ContentView extends Component {
 
         else {
             const {uid, contentId} = this.props.match.params;
-            const chapterIndex = parseInt(this.props.match.params.chapterIndex) || 0;
+            const chapterIndex = parseInt(this.props.match.params.chapterIndex, 10) || 0;
             console.log(chapterIndex, 'index')
 
             api.getContent(uid, contentId)
@@ -142,7 +139,7 @@ class ContentView extends Component {
     }
 
     isLastChapter() {
-        return (this.state.activeChapterIndex === this.state.chapters.length - 1);
+        //return (this.state.activeChapterIndex === this.state.chapters.length - 1);
     }
 
     goToElementinChapter(nextElementIndex) {

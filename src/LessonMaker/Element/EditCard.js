@@ -1,19 +1,8 @@
 import React, {Component} from 'react';
 
-import {
-    Card,
-    CardBody,
-    Button
-} from 'reactstrap';
-
-import FadeableCard from '../FadeableCard'
-import globals from '../../utils/globals';
+import FadeableCard from '../FadeableCard';
 
 class EditCard extends Component {
-
-    constructor(props) {
-        super(props);
-    }
 
     render(){
         return(

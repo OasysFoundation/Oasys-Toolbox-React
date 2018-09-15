@@ -1,10 +1,6 @@
-import React, {Component} from 'react';
+import React from 'react';
 
-class ElementLogic extends Component {
-
-    constructor(props) {
-        super(props);
-    }
+class ElementLogic extends React.Component {
 
     render() {
         const {data, isEditMode, shouldFoldInView, handleFoldInView, handleReady} = this.props;

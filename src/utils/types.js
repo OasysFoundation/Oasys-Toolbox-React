@@ -1,7 +1,7 @@
 //import {superstruct} from 'superstruct'
-import isEmail from 'is-email'
-import isUuid from 'is-uuid'
-import isUrl from 'is-url'
+//import isEmail from 'is-email'
+//import isUuid from 'is-uuid'
+//import isUrl from 'is-url'
 
 import uuidv4 from 'uuid/v4';
 import globals from "./globals";

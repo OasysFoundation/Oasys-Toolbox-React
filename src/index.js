@@ -3,10 +3,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 //import registerServiceWorker from './utils/registerServiceWorker';
 import { Router, Route, Switch } from 'react-router-dom';
-import {connect} from 'redux-zero/react';
 import { Provider } from 'redux-zero/react';
 
-import actions from './store/actions';
 import store from "./store/store";
 
 import {withRouter} from 'react-router'
