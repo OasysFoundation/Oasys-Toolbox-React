@@ -58,7 +58,6 @@ const actions = function (store) { //store for async stuff
         },
 
         restoreStateFromSession(state) {
-
             return {...state, ...restoreFromSession()}
         },
 
@@ -203,6 +202,7 @@ const actions = function (store) { //store for async stuff
         },
 
         onChangeActiveChapter(state, id) {
+            console.log(id)
             const index = state.chapters.findIndex(chapter => chapter.id.toString() === id.toString());
             return update(state, {activeChapterIndex: {$set: index}})
         },
@@ -297,8 +297,7 @@ const actions = function (store) { //store for async stuff
         },
 
         onAddElement(state, typeSelected, atIdx) {
-
-            console.log('creating element : ', typeSelected)
+            console.log(state.activeChapterIndex)
             const clone = JSON.parse(JSON.stringify(state));
             let elements = clone.chapters[state.activeChapterIndex].elements;
             const newElem = {

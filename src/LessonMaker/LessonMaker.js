@@ -59,7 +59,6 @@ class LessonMaker extends Component {
         const oldIndex = activeChapterIndex;
         let index = activeChapterIndex === chapters.length - 1 ? chapters.length - 2 : activeChapterIndex;
         // const currIdx = activeChapterIndex;
-        console.log(this.props.activeChapterIndex, index)
 
         if (chapters.length === 1) {
             index = 0;
