@@ -27,7 +27,8 @@ import Iframe from './Iframe/Iframe';
 // Define which element types to use here (definitions in globals should not have to be used any more). 
 // For now, we have to manually import ElementView and ElementEdit for each of the elements.
 // We also need to make a somewhat awkward mapping in elementTypes because React.CreateElement does not 
-// accept components as strings in its first argument (see typeToComponent)... not clear if there is a better way to do this?!
+// accept components as strings in its first argument (see function typeToComponent)... 
+// it is unclear if there is a better way to do this?!
 let elementTypes = {};
 elementTypes['TextView'] = TextView;
 elementTypes['TextEdit'] = TextEdit;
@@ -65,7 +66,6 @@ class Element extends Component {
         // define event handlers that elements can use as hooks
         this.handlers = [
             'handleAction',
-            'handleFoldInView',
             'handleChangeVisibility',
         ];
         this.handlers.forEach(h => this[h] = this[h].bind(this));
@@ -102,7 +102,6 @@ class Element extends Component {
         this.state = {
             content: this.props.data.content || getContentFromSessionStorage(this.props.data.id),
             timestamp: Date.now(),
-            shouldFoldInView: false,
         };
     }
 
@@ -136,13 +135,8 @@ class Element extends Component {
         this.props.onChangeVisibility(elemAnalytics);
     }
 
-    handleFoldInView(value) {
-        this.setState({shouldFoldInView: value});
-    }   
-
     componentWillUnmount() {
         this.handleAction({type: 'save', value: undefined});
-        this.setState({shouldFoldInView: true});
     }
 
     componentWillReceiveProps(nextprops) {
@@ -180,8 +174,6 @@ class Element extends Component {
     render() {
         const props = {
             data: this.props.data,
-            shouldFoldInView: this.state.shouldFoldInView,
-            handleFoldInView: this.handleFoldInView,
             handleReady: this.props.handleReady,
         }
         return (

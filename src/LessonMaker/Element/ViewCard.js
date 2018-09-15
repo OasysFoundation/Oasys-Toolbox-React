@@ -17,14 +17,7 @@ class ViewCard extends Component {
                     {!this.props.isPreview && <VisibilitySensor ref={this.sensorRef} onChange={this.onChangeVisibility}/>}
                     
                     <div>
-                    {this.props.shouldFoldInView
-                        ? <Button color="primary"
-                                  onClick={() => this.props.handleFoldInView(false)}>
-                            Check again
-                        </Button>
-
-                        : this.props.children
-                    }
+                    {this.props.children}
                     </div>
                 </CardBody>
             </Card>
