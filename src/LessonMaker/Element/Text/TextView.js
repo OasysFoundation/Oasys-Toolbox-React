@@ -105,7 +105,7 @@ class TextView extends Component {
         window.katex = katex;
         window.d3 = require('d3');
         this.mounted = true;
-        this.props.handleReady();
+        this.props.handleReady(true);
 
         // for enabling graphing in quill, uncomment the following
         /*

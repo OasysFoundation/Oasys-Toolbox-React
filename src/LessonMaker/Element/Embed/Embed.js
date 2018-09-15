@@ -137,7 +137,7 @@ class Embed extends Component {
                         position="relative"
                         allowFullScreen
                         styles={customIframeStyles}
-                        onLoad={this.props.handleReady}
+                        onLoad={()=>this.props.handleReady(true)}
                     />
                    </div>
                 : null

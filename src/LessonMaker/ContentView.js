@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Element from './Element/Element';
+import ShowChildrenWhenReady from './ShowChildrenWhenReady';
 import ScrollView, {ScrollElement} from "../utils/scroller";
 import {ICON, flatten, isEmpty} from '../utils/trickBox'
 import {Container} from "reactstrap"
@@ -270,16 +271,17 @@ class ContentView extends Component {
                                                         <div className="item">
                                                             {!isElementEmpty(el)
                                                             &&
-                                                            <Element
-                                                                data={el}
-                                                                id={el.id}
-                                                                isPreview={this.props.isPreview}
-                                                                isEditMode={false}
-                                                                handleChapterChange={this.goToChapter}
-                                                                onChangeVisibility={this.handleChangeElementVisibility}
-                                                                handleQuizAnswer={this.handleQuizAnswer}
-                                                            >
-                                                            </Element>
+                                                            <ShowChildrenWhenReady>
+                                                                <Element
+                                                                    data={el}
+                                                                    id={el.id}
+                                                                    isPreview={this.props.isPreview}
+                                                                    isEditMode={false}
+                                                                    handleChapterChange={this.goToChapter}
+                                                                    onChangeVisibility={this.handleChangeElementVisibility}
+                                                                    handleQuizAnswer={this.handleQuizAnswer}
+                                                                />
+                                                            </ShowChildrenWhenReady>
                                                             }
                                                         </div>
                                             ))

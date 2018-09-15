@@ -13,7 +13,6 @@ import { capitalize } from '../../utils/tools';
 import ViewCard from './ViewCard';
 import EditCard from './EditCard';
 import ElementLogic from './ElementLogic';
-import Loader from './Loader';
 
 // import element types to use
 import EndOfChapterView from '../EndOfChapterView';
@@ -69,7 +68,6 @@ class Element extends Component {
 
         // define event handlers that elements can use as hooks
         this.handlers = [
-            'handleReady',
             'handleAction',
             'handleFoldInView',
             'handleChangeVisibility',
@@ -109,7 +107,6 @@ class Element extends Component {
             content: this.props.data.content || getContentFromSessionStorage(this.props.data.id),
             timestamp: Date.now(),
             shouldFoldInView: false,
-            isReady: false
         };
     }
 
@@ -129,10 +126,6 @@ class Element extends Component {
             return;
         }
         this.actionDict[action.type](action.value);
-    }
-
-    handleReady() {
-        this.setState({ isReady: true });
     }
 
     // other handlers - still need to refactor below
@@ -171,7 +164,7 @@ class Element extends Component {
             isEditMode: this.props.isEditMode,
             chapters: this.props.chapters.map(c => ({title: c.title, id: c.id})),
             activeChapterIndex: this.props.activeChapterIndex,
-            handleReady: this.handleReady,
+            handleReady: this.props.handleReady,
 
         }
         // add event handlers that elements can use as hooks
@@ -189,25 +182,24 @@ class Element extends Component {
     }
 
     render() {
+        console.log(this.props.handleReady)
         const props = {
             data: this.props.data,
             isEditMode: this.props.isEditMode,
             shouldFoldInView: this.state.shouldFoldInView,
             handleFoldInView: this.handleFoldInView,
-            handleReady: this.handleReady,
+            handleReady: this.props.handleReady,
         }
         return (
             <center>
                 <div className='main-width'>
                      <ElementLogic 
                         {...props} 
-                        style={this.state.isReady?{display:'inline'}:{display:'none'}} 
                         render={(logicProps) => (
                             this.props.isEditMode 
                             ? <EditCard {...logicProps}> {this.typeToComponent(this.props.data.type, 'edit')} </EditCard>
                             : <ViewCard {...logicProps}> {this.typeToComponent(this.props.data.type, 'view')} </ViewCard>
                     )}/>
-                    <Loader isReady={this.state.isReady} />
                 </div>
             </center>
         );

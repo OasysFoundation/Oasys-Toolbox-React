@@ -120,7 +120,7 @@ class EndOfChapterEdit extends Component {
     }
     
     componentDidMount() {
-        this.props.handleReady();
+        this.props.handleReady(true);
     }
 
     render() {

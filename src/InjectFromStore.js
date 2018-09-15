@@ -9,10 +9,9 @@ This component connects to the store and provides selected state and dispatch to
 */
 const InjectFromStore = ({ children, state, dispatch }) => children(state, dispatch);
 
-const defaultSelector = (state) => state; // pass the whole state by default
+const defaultSelector = (state) => state; // pass the whole state íf no selector is given
 
 export default connect(
-  // the second parameter of this mapStateToProps is the component's props. 
   (state, { select = defaultSelector }) => ({ state: select(state) }),
   dispatch => ({ dispatch }),
 )(InjectFromStore);
