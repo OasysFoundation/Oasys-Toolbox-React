@@ -136,7 +136,8 @@ class TextEdit extends Component {
             //  modules: [ 'Resize', 'DisplaySize', 'Toolbar' ]
             //}
         }
-
+        console.log(this.props.id)
+        console.log(this.props.data);
         return (
             <div id={'quill-container-' + this.props.id}>
                 {ToolbarQuill(this.props.id, false)}

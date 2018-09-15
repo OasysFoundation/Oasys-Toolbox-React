@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import {connect} from 'redux-zero/react';
 
+import {getContentFromSessionStorage} from '../../utils/trickBox';
 import actions from '../../store/actions';
 import { isValidAction } from '../../utils/tools';
 
 // Save at most every SAVE_INTERVAL ms. 
-const SAVE_INTERVAL = 0;
+const SAVE_INTERVAL = 100;
 
 // TODO: Refactor FadeableCard into this component
 class EditLogic extends Component {
@@ -13,6 +14,11 @@ class EditLogic extends Component {
     constructor(props) {
         super(props);        
         this.timeLastSaved = Date.now();
+
+        this.state = {
+            content: this.props.data.content || getContentFromSessionStorage(this.props.data.id),
+            timestamp: Date.now(),
+        };
 
         // actionDict defines the set of possible actions that each individual edit/view component has access to.
         // an action can be executed by calling this.props.handleAction(action) from the edit/view component.
@@ -29,7 +35,7 @@ class EditLogic extends Component {
                             this.props.onChangeContent(
                                 this.props.data.id,
                                 this.state.content,
-                                this.props.data.parentChapterID
+                                this.props.data.parentChapterID,
                             );
                         }
                 });
@@ -54,6 +60,7 @@ class EditLogic extends Component {
     render(){
         const logicProps = {
             handleAction: this.handleAction,
+            data: this.props.data.content || getContentFromSessionStorage(this.props.data.id),
         };
         return(
             this.props.render(logicProps)
@@ -61,9 +68,8 @@ class EditLogic extends Component {
     }
 }
 
-const mapStoreToProps = ({}) => ({});
 const neededActions = (store) => {
     const {onChangeContent} = actions();
     return {onChangeContent}
 };
-export default connect(mapStoreToProps, neededActions)(EditLogic);
+export default connect({}, neededActions)(EditLogic);

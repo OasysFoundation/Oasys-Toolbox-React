@@ -68,12 +68,6 @@ class Element extends Component {
 
     constructor(props) {
         super(props);
-
-        this.state = {
-            content: this.props.data.content || getContentFromSessionStorage(this.props.data.id),
-            timestamp: Date.now(),
-        };
-
         this.handleChangeVisibility = this.handleChangeVisibility.bind(this);
     }
 
@@ -90,7 +84,6 @@ class Element extends Component {
             key: this.props.data.id,
             type: elemType,
             id: this.props.data.id,
-            data: this.state.content,
             chapters: this.props.chapters.map(c => ({title: c.title, id: c.id})),
             activeChapterIndex: this.props.activeChapterIndex,
             handleReady: this.props.handleReady,
@@ -121,7 +114,7 @@ class Element extends Component {
         const props = {
             data: this.props.data,
             handleReady: this.props.handleReady,
-        }
+            handleChapterChange: this.props.handleChapterChange,        }
         return (
             <center>
                 <div className='main-width'>

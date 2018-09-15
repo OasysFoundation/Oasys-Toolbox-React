@@ -150,7 +150,7 @@ class SidebarToc extends Component {
                 <svg
                     className="svgTocWrap"
                     xmlns="http://www.w3.org/2000/svg"
-                    totalWidthh={this.state.width}
+                    totalWidth={this.state.width}
                     height={this.state.height}
                     viewBox={"0 0 " + this.state.width + " " + this.state.height}
                 >

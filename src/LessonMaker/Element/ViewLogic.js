@@ -3,6 +3,7 @@ import {connect} from 'redux-zero/react';
 
 import actions from '../../store/actions';
 import { isValidAction } from '../../utils/tools';
+import {getContentFromSessionStorage} from '../../utils/trickBox';
 
 class ViewLogic extends Component {
 
@@ -33,6 +34,7 @@ class ViewLogic extends Component {
     render(){
         const logicProps = {
             handleAction: this.handleAction,
+            data: this.props.data.content || getContentFromSessionStorage(this.props.data.id),
         };
         return(
             this.props.render(logicProps)
