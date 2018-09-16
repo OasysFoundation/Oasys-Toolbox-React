@@ -2,11 +2,8 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'redux-zero/react';
 import VisibilitySensor from 'react-visibility-sensor';
-import {
-    Card,
-    CardBody,
-    Button
-} from 'reactstrap';
+import { Card, CardBody, Button } from 'reactstrap';
+import Loadable from 'react-loadable';
 
 import {getContentFromSessionStorage} from '../../utils/trickBox';
 import globals from '../../utils/globals';
@@ -17,38 +14,8 @@ import FadeableCard from '../FadeableCard';
 import ViewLogic from './ViewLogic';
 import EditLogic from './EditLogic';
 import UnknownElement from './UnknownElement';
-
-// import element types to use
 import EndOfChapterView from '../EndOfChapterView';
 import EndOfChapterEdit from '../EndOfChapterEdit';
-import TextView from './Text/TextView';
-import TextEdit from './Text/TextEdit';
-/*<
-import Image from './Image/Image';
-import Formula from './Formula/Formula';
-import Quiz from './Quiz/Quiz';
-import Video from './Video/Video';
-import Embed from './Embed/Embed';
-import Iframe from './Iframe/Iframe';
-*/
-
-// Define which element types to use here (definitions in globals should not have to be used any more). 
-// For now, we have to manually import ElementView and ElementEdit for each of the elements.
-// We also need to make a somewhat awkward mapping in elementTypes because React.CreateElement does not 
-// accept components as strings in its first argument (see function typeToComponent)... 
-// it is unclear if there is a better way to do this?!
-let elementTypes = {};
-elementTypes['TextView'] = TextView;
-elementTypes['TextEdit'] = TextEdit;
-elementTypes['EndOfChapterView'] = EndOfChapterView;
-elementTypes['EndOfChapterEdit'] = EndOfChapterEdit;
-/* elementTypes['Image'] = Image;
-elementTypes['Formula'] = Formula;
-elementTypes['Quiz'] = Quiz;
-elementTypes['Video'] = Video;
-elementTypes['Embed'] = Embed;
-elementTypes['Iframe'] = Iframe;
-*/
 
 // need this map for now (for backwards compatibility)
 // to get rid of the map, we need to store the map's values in the db instead of the map's keys
@@ -62,6 +29,29 @@ elemMap[globals.EDIT_EMBED] = 'Embed';
 elemMap[globals.EDIT_IFRAME] = 'Iframe';
 elemMap[globals.EDIT_CONTINUE_ELEMENT] = 'EndOfChapter';
 
+// Default elements that are always used
+let elementTypes = {
+    EndOfChapterView: EndOfChapterView,
+    EndOfChapterEdit: EndOfChapterEdit,
+};
+// Define which custom element types to use here.
+// This is the ONLY place where this needs to be defined now!
+// (definitions in globals should not have to be used any more, but right now they are used for compatibility reasons) 
+const elements = [
+    'Text'
+];
+
+// dynamically import all necessary element files. Each element type needs to expose two components, one for
+// viewing and one for editing. Their names must match the element's name. Example:
+// The 'Text' element should live in the 'Text' subfolder, which must contain 'TextView.js' and 'TextEdit.js'.
+elements.forEach(elem => {
+    ['View', 'Edit'].forEach(variant => {
+        elementTypes[elem+variant] = Loadable({
+          loader: () => import(`./${elem}/${elem}${variant}`),
+          loading() { return null },
+        });
+    });
+});
 
 
 class Element extends Component {

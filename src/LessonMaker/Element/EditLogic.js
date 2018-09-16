@@ -62,7 +62,7 @@ class EditLogic extends Component {
             handleAction: this.handleAction,
             data: this.props.data.content || getContentFromSessionStorage(this.props.data.id),
         };
-        return(
+        return (
             this.props.render(logicProps)
         )
     }
