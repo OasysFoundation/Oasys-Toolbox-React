@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Loadable from 'react-loadable';
 import VisibilitySensor from 'react-visibility-sensor';
 import { connect } from 'redux-zero/react';
-import { Card, CardBody, Button } from 'reactstrap';
+import { Card } from 'reactstrap';
 
 import ViewApi from './ViewApi';
 import EditApi from './EditApi';
@@ -13,7 +13,6 @@ import EndOfChapterView from '../EndOfChapterView';
 import EndOfChapterEdit from '../EndOfChapterEdit';
 import FadeableCard from '../FadeableCard';
 
-import { getContentFromSessionStorage } from '../../utils/trickBox';
 import globals from '../../utils/globals';
 import actions from '../../store/actions';
 import { capitalize } from '../../utils/tools';
@@ -105,25 +104,21 @@ class Element extends React.Component {
     }
 
     render() {
+        const {id, type} = this.props.data;
         return (
             <center>
                 <div className='main-width'>
                     {this.props.isEditMode 
                     ? <EditApi data={this.props.data} render={(logicProps)=>(
-                        <FadeableCard
-                            id={this.props.data.id}
-                            type={this.props.data.type}
-                            isEditMode={this.props.isEditMode}
-                        >
+                        <FadeableCard id={id} type={type} isEditMode={this.props.isEditMode}>
                             {this.typeToComponent(this.props.data.type, logicProps, 'edit')}
                         </FadeableCard>
                       )}/>
                     : <ViewApi data={this.props.data} handleReady={this.props.handleReady} render={(logicProps)=>(
                         <Card className='card-fancy has-shadow card content-view'>
-                            <CardBody>
-                                {!this.props.isPreview && <VisibilitySensor ref={this.sensorRef} onChange={this.handleChangeVisibility}/>}
-                                {this.typeToComponent(this.props.data.type, logicProps, 'view')}
-                            </CardBody>
+                            {!this.props.isPreview && 
+                                <VisibilitySensor ref={this.sensorRef} onChange={this.handleChangeVisibility}/>}
+                            {this.typeToComponent(this.props.data.type, logicProps, 'view')}
                         </Card>
                       )}/>
                     }
@@ -142,7 +137,12 @@ Element.propTypes = {
 };
 
 
-const mapStoreToProps = ({chapters, shouldInstantUpdate, isEditMode, activeChapterIndex}) => ({chapters, shouldInstantUpdate, isEditMode, activeChapterIndex});
+const mapStoreToProps = (store) => ({
+    chapters: store.chapters, 
+    shouldInstantUpdate: store.shouldInstantUpdate, 
+    isEditMode: store.isEditMode,
+    activeChapterIndex: store.activeChapterIndex
+});
 
 const neededActions = (store) => {
     const {instantUpdateElements} = actions();

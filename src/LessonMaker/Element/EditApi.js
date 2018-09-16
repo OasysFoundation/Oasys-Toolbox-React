@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {connect} from 'redux-zero/react';
 
 import {getContentFromSessionStorage} from '../../utils/trickBox';
@@ -8,7 +8,7 @@ import { isValidAction } from '../../utils/tools';
 // Save at most every SAVE_INTERVAL ms. 
 const SAVE_INTERVAL = 1000;
 
-class EditApi extends Component {
+class EditApi extends React.Component {
 
     constructor(props) {
         super(props);        

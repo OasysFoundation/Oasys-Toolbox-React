@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import ReactQuill from 'react-quill';
-import Quill from 'quill';
-import PropTypes from 'prop-types';
-import ToolbarQuill from './ToolbarQuill'
+import ToolbarQuill from './ToolbarQuill';
 
 import 'react-quill/dist/quill.snow.css';
 

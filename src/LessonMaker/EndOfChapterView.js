@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import SelectionDropdown from './SelectionDropdown';
 import uuidv4 from 'uuid/v4';
 //import { Button } from 'reactstrap';
 import CreateNewChapterModal from './CreateNewChapterModal';

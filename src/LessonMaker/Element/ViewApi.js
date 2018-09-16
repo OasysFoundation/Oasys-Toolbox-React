@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {connect} from 'redux-zero/react';
 
 import actions from '../../store/actions';
 import { isValidAction } from '../../utils/tools';
 import {getContentFromSessionStorage} from '../../utils/trickBox';
 
-class ViewApi extends Component {
+class ViewApi extends React.Component {
 
     constructor(props) {
         super(props);

@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
 import ReactQuill from 'react-quill';
-import Quill from 'quill';
-import ToolbarQuill from './ToolbarQuill'
 
 import 'react-quill/dist/quill.snow.css';
 

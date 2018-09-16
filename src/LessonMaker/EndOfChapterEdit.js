@@ -3,10 +3,7 @@ import SelectionDropdown from './SelectionDropdown';
 import uuidv4 from 'uuid/v4';
 //import { Button } from 'reactstrap';
 import CreateNewChapterModal from './CreateNewChapterModal';
-import {ICON} from '../utils/trickBox';
 
-// This component is weird: It implements continue in ContentView, and AddNewChappter in EditView
-// ----> REFACTOR
 class EndOfChapterEdit extends Component {
     
     state = {
@@ -125,7 +122,6 @@ class EndOfChapterEdit extends Component {
 
     render() {
         const action = this.props.data? this.props.data.action : null;
-        const that = this;
         return (
             <div className='next-chapter'>
                 <center>
