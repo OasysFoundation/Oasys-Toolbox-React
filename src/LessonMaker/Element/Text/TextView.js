@@ -36,6 +36,7 @@ class TextView extends Component {
 
     componentDidMount() {
         this.props.handleReady(true);
+        this.props.handleAction({type: 'notify', value: 'Text loaded (ID: '+this.props.id+')'});
     }
 
     render() {

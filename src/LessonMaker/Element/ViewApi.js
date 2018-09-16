@@ -5,7 +5,7 @@ import actions from '../../store/actions';
 import { isValidAction } from '../../utils/tools';
 import {getContentFromSessionStorage} from '../../utils/trickBox';
 
-class ViewLogic extends Component {
+class ViewApi extends Component {
 
     constructor(props) {
         super(props);
@@ -27,7 +27,6 @@ class ViewLogic extends Component {
     }
 
     handleAction(action) {
-        console.log(action)
         isValidAction(action) ? this.actionDict[action.type](action.value) : null;
     }
 
@@ -42,5 +41,11 @@ class ViewLogic extends Component {
     }
 }
 
-
-export default ViewLogic;
+const neededActions = (store) => {
+    const {sendSnackbarMessage, handleChapterChange} = actions();
+    return {sendSnackbarMessage, handleChapterChange}
+};
+export default connect(
+    null, 
+    neededActions
+)(ViewApi);
