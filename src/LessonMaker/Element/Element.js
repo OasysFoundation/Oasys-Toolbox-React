@@ -5,8 +5,8 @@ import VisibilitySensor from 'react-visibility-sensor';
 import { connect } from 'redux-zero/react';
 import { Card, CardBody, Button } from 'reactstrap';
 
-import ViewLogic from './ViewLogic';
-import EditLogic from './EditLogic';
+import ViewApi from './ViewApi';
+import EditApi from './EditApi';
 import UnknownElement from './UnknownElement';
 
 import EndOfChapterView from '../EndOfChapterView';
@@ -109,7 +109,7 @@ class Element extends React.Component {
             <center>
                 <div className='main-width'>
                     {this.props.isEditMode 
-                    ? <EditLogic data={this.props.data} render={(logicProps)=>(
+                    ? <EditApi data={this.props.data} render={(logicProps)=>(
                         <FadeableCard
                             id={this.props.data.id}
                             type={this.props.data.type}
@@ -118,7 +118,7 @@ class Element extends React.Component {
                             {this.typeToComponent(this.props.data.type, logicProps, 'edit')}
                         </FadeableCard>
                       )}/>
-                    : <ViewLogic data={this.props.data} handleReady={this.props.handleReady} render={(logicProps)=>(
+                    : <ViewApi data={this.props.data} handleReady={this.props.handleReady} render={(logicProps)=>(
                         <Card className='card-fancy has-shadow card content-view'>
                             <CardBody>
                                 {!this.props.isPreview && <VisibilitySensor ref={this.sensorRef} onChange={this.handleChangeVisibility}/>}

@@ -6,7 +6,7 @@ import actions from '../../store/actions';
 import { isValidAction } from '../../utils/tools';
 
 // Save at most every SAVE_INTERVAL ms. 
-const SAVE_INTERVAL = 100;
+const SAVE_INTERVAL = 1000;
 
 // TODO: Refactor FadeableCard into this component
 class EditLogic extends Component {
@@ -46,11 +46,12 @@ class EditLogic extends Component {
     }
 
     handleAction(action) {
+        console.log(action)
         isValidAction(action) ? this.actionDict[action.type](action.value) : null;
     }
 
     componentWillReceiveProps(nextprops) {
-        this.handleAction({type: 'save', value: undefined});
+        //this.handleAction({type: 'save', value: undefined});
     }
 
     componentWillUnmount() {
@@ -68,8 +69,12 @@ class EditLogic extends Component {
     }
 }
 
+
 const neededActions = (store) => {
     const {onChangeContent} = actions();
     return {onChangeContent}
 };
-export default connect({}, neededActions)(EditLogic);
+export default connect(
+    null, 
+    neededActions
+)(EditLogic);
