@@ -27,20 +27,10 @@ class ContentView extends Component {
 
         this.goToChapter = this.goToChapter.bind(this);
         this.produceState = this.produceState.bind(this);
-        this.handleChangeElementVisibility = this.handleChangeElementVisibility.bind(this);
         this.handleQuizAnswer = this.handleQuizAnswer.bind(this);
         this.isLastChapter = this.isLastChapter.bind(this);
         this.goToCompletionScreen = this.goToCompletionScreen.bind(this);
 
-        this.maxUpdateAttempts = 5;
-        this.numScheduledUpdates = 0;
-        this.analytics = { // credentials are set in componentDidMount
-            accessTimes: [],
-            startTime: new Date(),
-            endTime: null,
-            contentId: null,
-            quizzes: [],
-        };
     }
 
     componentDidMount() {
@@ -64,15 +54,6 @@ class ContentView extends Component {
                     const project = results[0]
                     //console.log(project);
                     const {contentId, uid: author} = project;
-                    that.analytics.contentId = contentId;
-                    that.analytics.contentUserId = author;
-                    if (that.props.user.uid) {
-                        that.analytics.accessUserId = that.props.user.uid;
-                    }
-                    //else wait for componentWillReceiveProps
-                    //console.log(that.analytics, "analytics @ mount")
-
-                    console.log(project, "contentview data")
 
                     that.setState(() => that.produceState(project.data.chapters, chapterIndex))
                 })
@@ -81,19 +62,12 @@ class ContentView extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        // console.log('props @ ', Date.now(), nextProps.user);
-
-        //firebase auth takes longer if loading the link directly per URL
-        this.analytics.accessUserId = nextProps.user.uid;
-
-        console.log(nextProps, 'contentview')
         if (nextProps.activeChapterIndex != null && this.props.isPreview) {
             this.setState({
                 activeChapterIndex: nextProps.activeChapterIndex,
                 activeChapterID: nextProps.chapters[nextProps.activeChapterIndex].id
             })
         }
-        //console.log(this.analytics, "analytics")
     }
 
     produceState(chapterData, chapterIndex = this.props.activeChapterIndex || 0) {
@@ -112,9 +86,6 @@ class ContentView extends Component {
         this.setState({
             showsContentCompletion: true
         });
-        this.analytics.endTime = new Date();
-        this.numScheduledUpdates += 1;
-        this.postAnalytics(this.maxUpdateAttempts);
     }
 
     goToNextChapter = () => {
@@ -139,7 +110,7 @@ class ContentView extends Component {
     }
 
     isLastChapter() {
-        //return (this.state.activeChapterIndex === this.state.chapters.length - 1);
+        return (this.state.activeChapterIndex === this.state.chapters.length - 1);
     }
 
     goToElementinChapter(nextElementIndex) {
@@ -187,42 +158,6 @@ class ContentView extends Component {
         const {username, title, uid, contentId} = this.props.match.params;
         history.push(`/view/${username}/${title}/${uid}/${contentId}/${chapterIndex}`)
 
-    }
-
-    postAnalytics = async function (n) {
-        try {
-            if (!this.analytics.contentId || !this.analytics.accessUserId) {
-                console.error('content ID is not set');
-                return;
-            }
-            let response = await api.postUserContentAccess(this.analytics);
-            this.numScheduledUpdates -= 1;
-            return response;
-        } catch (err) {
-            if (n === 1) {
-                console.log(err);
-            }
-            if (this.numScheduledUpdates > 1) {
-                this.numScheduledUpdates -= 1;
-                return;
-            } else {
-                return await setTimeout(() => this.postAnalytics(n - 1), Math.trunc(30000 / (n - 1)));
-            }
-        }
-    }
-
-    handleQuizAnswer(obj) {
-        this.analytics.quizzes.push(obj);
-        //console.log('handleQuizAnswer: ' + JSON.stringify(this.analytics));
-        this.numScheduledUpdates += 1;
-        this.postAnalytics(this.maxUpdateAttempts);
-    }
-
-    handleChangeElementVisibility(obj) {
-        this.analytics.accessTimes.push(obj);
-        //console.log('handleChangeElementVisibility: ' + JSON.stringify(this.analytics));
-        this.numScheduledUpdates += 1;
-        this.postAnalytics(this.maxUpdateAttempts);
     }
 
     showConcludingContentPage() {
@@ -275,7 +210,6 @@ class ContentView extends Component {
                                                                     isPreview={this.props.isPreview}
                                                                     isEditMode={false}
                                                                     handleChapterChange={this.goToChapter}
-                                                                    onChangeVisibility={this.handleChangeElementVisibility}
                                                                     handleQuizAnswer={this.handleQuizAnswer}
                                                                 />
                                                             </ShowChildrenWhenReady>

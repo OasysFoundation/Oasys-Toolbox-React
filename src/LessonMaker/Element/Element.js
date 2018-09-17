@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Loadable from 'react-loadable';
-import VisibilitySensor from 'react-visibility-sensor';
 import { connect } from 'redux-zero/react';
 import { Card } from 'reactstrap';
 
@@ -60,11 +59,6 @@ customElementTypes.forEach(elem => {
 
 class Element extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.handleChangeVisibility = this.handleChangeVisibility.bind(this); // analytics. need to refactor.
-    }
-
     componentWillReceiveProps(nextprops) {
         // do we really this still?
         if (nextprops.shouldInstantUpdate) {
@@ -92,17 +86,6 @@ class Element extends React.Component {
         return React.createElement(UnknownElement, props, null);
     }
 
-    handleChangeVisibility(isVisible) { // analytics. need to refactor into its own component
-        let elemAnalytics = {
-            id: this.props.data.id, 
-            type: this.props.data.type, 
-            visible: isVisible,
-            time: new Date(),
-        }
-        console.log(elemAnalytics)
-        this.props.onChangeVisibility(elemAnalytics);
-    }
-
     render() {
         const {id, type} = this.props.data;
         return (
@@ -116,8 +99,7 @@ class Element extends React.Component {
                       )}/>
                     : <ViewApi data={this.props.data} handleReady={this.props.handleReady} render={(logicProps)=>(
                         <Card className='card-fancy has-shadow card content-view'>
-                            {!this.props.isPreview && 
-                                <VisibilitySensor ref={this.sensorRef} onChange={this.handleChangeVisibility}/>}
+                            {!this.props.isPreview && <UsageTracker />}
                             {this.typeToComponent(this.props.data.type, logicProps, 'view')}
                         </Card>
                       )}/>
@@ -135,7 +117,6 @@ Element.defaultProps = {
 Element.propTypes = {
     data: PropTypes.object.isRequired,
 };
-
 
 const mapStoreToProps = (store) => ({
     chapters: store.chapters, 
