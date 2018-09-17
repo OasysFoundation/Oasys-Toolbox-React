@@ -7,6 +7,7 @@ import { Card } from 'reactstrap';
 import ViewApi from './ViewApi';
 import EditApi from './EditApi';
 import UnknownElement from './UnknownElement';
+import UsageTracker from './UsageTracker';
 
 import EndOfChapterView from '../EndOfChapterView';
 import EndOfChapterEdit from '../EndOfChapterEdit';
@@ -99,7 +100,7 @@ class Element extends React.Component {
                       )}/>
                     : <ViewApi data={this.props.data} handleReady={this.props.handleReady} render={(logicProps)=>(
                         <Card className='card-fancy has-shadow card content-view'>
-                            {!this.props.isPreview && <UsageTracker />}
+                            {!this.props.isPreview && <UsageTracker id={id} type={type} />}
                             {this.typeToComponent(this.props.data.type, logicProps, 'view')}
                         </Card>
                       )}/>

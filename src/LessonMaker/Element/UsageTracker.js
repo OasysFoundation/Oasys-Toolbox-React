@@ -1,5 +1,9 @@
 import React from 'react';
 import VisibilitySensor from 'react-visibility-sensor';
+import { connect } from 'redux-zero/react';
+
+import actions from '../../store/actions';
+import api from '../../utils/api';
 
 class UsageTracker extends React.Component {
 
@@ -12,20 +16,20 @@ class UsageTracker extends React.Component {
             accessTimes: [],
             startTime: new Date(),
             endTime: null,
-            contentId: null,
             quizzes: [],
-            accessUserId: null, // TODO: how to get this?!
-            contentId: null, // TODO: how to get this?!
-            contentUserId: null, // TODO: how to get this?!
+            accessUserId: null, // this is being set in componentWillReceiveProps
+            contentId: null, // TODO: how to get this best ?!
+            contentUserId: null, // TODO: how to get this best?!
         };
 
-        this.handleChangeVisibility = this.handleChangeVisibility.bind(this); // analytics. need to refactor.
+        this.handleChangeVisibility = this.handleChangeVisibility.bind(this);
+        this.handleQuizAnswer = this.handleQuizAnswer.bind(this);
     }
 
     handleChangeVisibility(isVisible) { 
         let elemAnalytics = {
-            id: this.props.data.id, 
-            type: this.props.data.type, 
+            id: this.props.id, 
+            type: this.props.type, 
             visible: isVisible,
             time: new Date(),
         }
@@ -36,7 +40,7 @@ class UsageTracker extends React.Component {
     }
 
     isLastChapter() {
-        return (this.state.activeChapterIndex === this.state.chapters.length - 1);
+        return (this.props.activeChapterIndex === this.props.chapters.length - 1);
     }
 
 	componentWillReceiveProps(nextProps) {
@@ -86,4 +90,9 @@ class UsageTracker extends React.Component {
 	}
 }
 
-export default UsageTracker;
+const mapStoreToProps = ({chapters, user, activeChapterIndex}) => ({chapters, user, activeChapterIndex})
+const neededActions = (store) => {
+    const {} = actions();
+    return {}
+};
+export default connect(mapStoreToProps, neededActions)(UsageTracker);

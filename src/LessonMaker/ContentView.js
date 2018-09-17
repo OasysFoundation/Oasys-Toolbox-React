@@ -27,7 +27,6 @@ class ContentView extends Component {
 
         this.goToChapter = this.goToChapter.bind(this);
         this.produceState = this.produceState.bind(this);
-        this.handleQuizAnswer = this.handleQuizAnswer.bind(this);
         this.isLastChapter = this.isLastChapter.bind(this);
         this.goToCompletionScreen = this.goToCompletionScreen.bind(this);
 
@@ -52,9 +51,6 @@ class ContentView extends Component {
             api.getContent(uid, contentId)
                 .then(results => {
                     const project = results[0]
-                    //console.log(project);
-                    const {contentId, uid: author} = project;
-
                     that.setState(() => that.produceState(project.data.chapters, chapterIndex))
                 })
                 .catch(err => console.log('error at contentview fetch ', err))
