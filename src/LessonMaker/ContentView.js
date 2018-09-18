@@ -50,7 +50,10 @@ class ContentView extends Component {
 
             api.getContent(uid, contentId)
                 .then(results => {
-                    const project = results[0]
+                    const project = results[0];
+                    this.contentId = project.contentId;
+                    this.authorId = project.uid;
+
                     that.setState(() => that.produceState(project.data.chapters, chapterIndex))
                 })
                 .catch(err => console.log('error at contentview fetch ', err))
@@ -70,6 +73,10 @@ class ContentView extends Component {
         console.log(chapterData, 'chapterData')
         const chapters = JSON.parse(JSON.stringify(chapterData))
         const allElements = flatten(chapters.map(chapter => chapter.elements));
+        allElements.forEach(elem=>{
+            elem.contentId = this.contentId;
+            elem.authorId = this.authorId;
+        });
         return {
             chapters: chapters,
             allElementsinProject: allElements,

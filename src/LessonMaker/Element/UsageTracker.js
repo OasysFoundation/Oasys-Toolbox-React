@@ -12,14 +12,14 @@ class UsageTracker extends React.Component {
 
         this.maxUpdateAttempts = 5;
         this.numScheduledUpdates = 0;
-        this.analytics = { // credentials are set in componentDidMount
+        this.analytics = { 
             accessTimes: [],
             startTime: new Date(),
             endTime: null,
             quizzes: [],
-            accessUserId: null, // this is being set in componentWillReceiveProps
-            contentId: null, // TODO: how to get this best ?!
-            contentUserId: null, // TODO: how to get this best?!
+            accessUserId: null, 
+            contentId: this.props.data.contentId,
+            contentUserId: this.props.data.authorId, 
         };
 
         this.handleChangeVisibility = this.handleChangeVisibility.bind(this);
@@ -28,12 +28,11 @@ class UsageTracker extends React.Component {
 
     handleChangeVisibility(isVisible) { 
         let elemAnalytics = {
-            id: this.props.id, 
-            type: this.props.type, 
+            id: this.props.data.id, 
+            type: this.props.data.type, 
             visible: isVisible,
             time: new Date(),
         }
-        console.log(elemAnalytics)
         this.analytics.accessTimes.push(elemAnalytics);
         this.numScheduledUpdates += 1;
         this.postAnalytics(this.maxUpdateAttempts);
@@ -45,6 +44,7 @@ class UsageTracker extends React.Component {
 
 	componentWillReceiveProps(nextProps) {
         this.analytics.accessUserId = nextProps.user.uid;
+        console.log(this.analytics)
 	}
 
     goToCompletionScreen() {
@@ -72,12 +72,13 @@ class UsageTracker extends React.Component {
         } catch (err) {
             if (n === 1) {
                 console.log(err);
+                return;
             }
             if (this.numScheduledUpdates > 1) {
                 this.numScheduledUpdates -= 1;
                 return;
             } else {
-                return await setTimeout(() => this.postAnalytics(n - 1), Math.trunc(30000 / (n - 1)));
+                return await setTimeout(() => this.postAnalytics(n - 1), Math.trunc(60000 / (n - 1)));
             }
         }
     }
